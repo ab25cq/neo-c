@@ -410,6 +410,495 @@ test: *.nc
 	grep -qi "invalid #if expression" c_test_compat108.out; \
 	test ! -e c_test_compat108; \
 	rm -f c_test_compat108.out
+	@set -eu; \
+	echo "neo-c c_test_compat109.nc (expect diagnostic)"; \
+	rm -f c_test_compat109; \
+	neo-c c_test_compat109.nc > c_test_compat109.out 2>&1 || true; \
+	grep -qi "#else without matching #if" c_test_compat109.out; \
+	test ! -e c_test_compat109; \
+	rm -f c_test_compat109.out
+	@set -eu; \
+	echo "neo-c c_test_compat110.nc (expect diagnostic)"; \
+	rm -f c_test_compat110; \
+	neo-c c_test_compat110.nc > c_test_compat110.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat110.out; \
+	test ! -e c_test_compat110; \
+	rm -f c_test_compat110.out
+	@set -eu; \
+	echo "neo-c c_test_compat111.nc (expect diagnostic)"; \
+	rm -f c_test_compat111; \
+	neo-c c_test_compat111.nc > c_test_compat111.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat111.out; \
+	test ! -e c_test_compat111; \
+	rm -f c_test_compat111.out
+	@set -eu; \
+	echo "neo-c c_test_compat112.nc (expect diagnostic)"; \
+	rm -f c_test_compat112; \
+	neo-c c_test_compat112.nc > c_test_compat112.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat112.out; \
+	test ! -e c_test_compat112; \
+	rm -f c_test_compat112.out
+	@set -eu; \
+	echo "neo-c c_test_compat113.nc (expect diagnostic)"; \
+	rm -f c_test_compat113; \
+	neo-c c_test_compat113.nc > c_test_compat113.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat113.out; \
+	test ! -e c_test_compat113; \
+	rm -f c_test_compat113.out
+	@set -eu; \
+	echo "neo-c c_test_compat114.nc (expect diagnostic)"; \
+	rm -f c_test_compat114; \
+	neo-c c_test_compat114.nc > c_test_compat114.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat114.out; \
+	test ! -e c_test_compat114; \
+	rm -f c_test_compat114.out
+	@set -eu; \
+	echo "neo-c c_test_compat115.nc (expect diagnostic)"; \
+	rm -f c_test_compat115; \
+	neo-c c_test_compat115.nc > c_test_compat115.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat115.out; \
+	test ! -e c_test_compat115; \
+	rm -f c_test_compat115.out
+	@set -eu; \
+	echo "neo-c c_test_compat116.nc (expect diagnostic)"; \
+	rm -f c_test_compat116; \
+	neo-c c_test_compat116.nc > c_test_compat116.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat116.out; \
+	test ! -e c_test_compat116; \
+	rm -f c_test_compat116.out
+	@set -eu; \
+	echo "neo-c c_test_compat117.nc (expect diagnostic)"; \
+	rm -f c_test_compat117; \
+	neo-c c_test_compat117.nc > c_test_compat117.out 2>&1 || true; \
+	grep -qi "invalid #line directive" c_test_compat117.out; \
+	test ! -e c_test_compat117; \
+	rm -f c_test_compat117.out
+	@set -eu; \
+	echo "neo-c c_test_compat118.nc (expect diagnostic)"; \
+	rm -f c_test_compat118; \
+	neo-c c_test_compat118.nc > c_test_compat118.out 2>&1 || true; \
+	grep -qi "invalid #line directive" c_test_compat118.out; \
+	test ! -e c_test_compat118; \
+	rm -f c_test_compat118.out
+	@set -eu; \
+	echo "neo-c c_test_compat119.nc (expect diagnostic)"; \
+	rm -f c_test_compat119; \
+	neo-c c_test_compat119.nc > c_test_compat119.out 2>&1 || true; \
+	grep -qi "invalid #line directive" c_test_compat119.out; \
+	test ! -e c_test_compat119; \
+	rm -f c_test_compat119.out
+	@set -eu; \
+	echo "neo-c c_test_compat120.nc (expect diagnostic)"; \
+	rm -f c_test_compat120; \
+	neo-c c_test_compat120.nc > c_test_compat120.out 2>&1 || true; \
+	grep -qi "invalid #line directive" c_test_compat120.out; \
+	test ! -e c_test_compat120; \
+	rm -f c_test_compat120.out
+	@set -eu; \
+	echo "neo-c c_test_compat121.nc (expect diagnostic)"; \
+	rm -f c_test_compat121; \
+	neo-c c_test_compat121.nc > c_test_compat121.out 2>&1 || true; \
+	grep -qi "invalid #ifdef directive" c_test_compat121.out; \
+	test ! -e c_test_compat121; \
+	rm -f c_test_compat121.out
+	@set -eu; \
+	echo "neo-c c_test_compat122.nc (expect diagnostic)"; \
+	rm -f c_test_compat122; \
+	neo-c c_test_compat122.nc > c_test_compat122.out 2>&1 || true; \
+	grep -qi "invalid #ifndef directive" c_test_compat122.out; \
+	test ! -e c_test_compat122; \
+	rm -f c_test_compat122.out
+	@set -eu; \
+	echo "neo-c c_test_compat123.nc (expect diagnostic)"; \
+	rm -f c_test_compat123; \
+	neo-c c_test_compat123.nc > c_test_compat123.out 2>&1 || true; \
+	grep -qi "invalid #undef directive" c_test_compat123.out; \
+	test ! -e c_test_compat123; \
+	rm -f c_test_compat123.out
+	@set -eu; \
+	echo "neo-c c_test_compat124.nc (expect diagnostic)"; \
+	rm -f c_test_compat124; \
+	neo-c c_test_compat124.nc > c_test_compat124.out 2>&1 || true; \
+	grep -qi "invalid pointer base type" c_test_compat124.out; \
+	test ! -e c_test_compat124; \
+	rm -f c_test_compat124.out
+	@set -eu; \
+	echo "neo-c c_test_compat125.nc (expect diagnostic)"; \
+	rm -f c_test_compat125; \
+	neo-c c_test_compat125.nc > c_test_compat125.out 2>&1 || true; \
+	grep -qi "invalid stack value" c_test_compat125.out; \
+	test ! -e c_test_compat125; \
+	rm -f c_test_compat125.out
+	@set -eu; \
+	echo "neo-c c_test_compat126.nc (expect diagnostic)"; \
+	rm -f c_test_compat126; \
+	neo-c c_test_compat126.nc > c_test_compat126.out 2>&1 || true; \
+	grep -qi "illegal storage class on file-scoped variable" c_test_compat126.out; \
+	test ! -e c_test_compat126; \
+	rm -f c_test_compat126.out
+	@set -eu; \
+	echo "neo-c c_test_compat127.nc (expect diagnostic)"; \
+	rm -f c_test_compat127; \
+	neo-c c_test_compat127.nc > c_test_compat127.out 2>&1 || true; \
+	grep -qi "bit-field" c_test_compat127.out; \
+	test ! -e c_test_compat127; \
+	rm -f c_test_compat127.out
+	@set -eu; \
+	echo "neo-c c_test_compat128.nc (expect diagnostic)"; \
+	rm -f c_test_compat128; \
+	neo-c c_test_compat128.nc > c_test_compat128.out 2>&1 || true; \
+	grep -qi "flexible array member" c_test_compat128.out; \
+	test ! -e c_test_compat128; \
+	rm -f c_test_compat128.out
+	@set -eu; \
+	echo "neo-c c_test_compat129.nc (expect diagnostic)"; \
+	rm -f c_test_compat129; \
+	neo-c c_test_compat129.nc > c_test_compat129.out 2>&1 || true; \
+	grep -qi "array has incomplete element type" c_test_compat129.out; \
+	test ! -e c_test_compat129; \
+	rm -f c_test_compat129.out
+	@set -eu; \
+	echo "neo-c c_test_compat130.nc (expect diagnostic)"; \
+	rm -f c_test_compat130; \
+	neo-c c_test_compat130.nc > c_test_compat130.out 2>&1 || true; \
+	grep -qi "field designator" c_test_compat130.out; \
+	test ! -e c_test_compat130; \
+	rm -f c_test_compat130.out
+	@set -eu; \
+	echo "neo-c c_test_compat131.nc (expect diagnostic)"; \
+	rm -f c_test_compat131; \
+	neo-c c_test_compat131.nc > c_test_compat131.out 2>&1 || true; \
+	grep -qi "redefinition of enumerator" c_test_compat131.out; \
+	test ! -e c_test_compat131; \
+	rm -f c_test_compat131.out
+	@set -eu; \
+	echo "neo-c c_test_compat132.nc (expect diagnostic)"; \
+	rm -f c_test_compat132; \
+	neo-c c_test_compat132.nc > c_test_compat132.out 2>&1 || true; \
+	grep -qi "zero width" c_test_compat132.out; \
+	test ! -e c_test_compat132; \
+	rm -f c_test_compat132.out
+	@set -eu; \
+	echo "neo-c c_test_compat133.nc (expect diagnostic)"; \
+	rm -f c_test_compat133; \
+	neo-c c_test_compat133.nc > c_test_compat133.out 2>&1 || true; \
+	grep -qi "incomplete type" c_test_compat133.out; \
+	test ! -e c_test_compat133; \
+	rm -f c_test_compat133.out
+	@set -eu; \
+	echo "neo-c c_test_compat134.nc (expect diagnostic)"; \
+	rm -f c_test_compat134; \
+	neo-c c_test_compat134.nc > c_test_compat134.out 2>&1 || true; \
+	grep -qi "invalid #include directive" c_test_compat134.out; \
+	test ! -e c_test_compat134; \
+	rm -f c_test_compat134.out
+	@set -eu; \
+	echo "neo-c c_test_compat135.nc (expect diagnostic)"; \
+	rm -f c_test_compat135; \
+	neo-c c_test_compat135.nc > c_test_compat135.out 2>&1 || true; \
+	grep -qi "invalid #include directive" c_test_compat135.out; \
+	test ! -e c_test_compat135; \
+	rm -f c_test_compat135.out
+	@set -eu; \
+	echo "neo-c c_test_compat136.nc (expect diagnostic)"; \
+	rm -f c_test_compat136; \
+	neo-c c_test_compat136.nc > c_test_compat136.out 2>&1 || true; \
+	grep -qi "invalid #include directive" c_test_compat136.out; \
+	test ! -e c_test_compat136; \
+	rm -f c_test_compat136.out
+	@set -eu; \
+	echo "neo-c c_test_compat137.nc (expect diagnostic)"; \
+	rm -f c_test_compat137; \
+	neo-c c_test_compat137.nc > c_test_compat137.out 2>&1 || true; \
+	grep -qi "include file not found" c_test_compat137.out; \
+	test ! -e c_test_compat137; \
+	rm -f c_test_compat137.out
+	@set -eu; \
+	echo "neo-c c_test_compat138.nc (expect diagnostic)"; \
+	rm -f c_test_compat138; \
+	neo-c c_test_compat138.nc > c_test_compat138.out 2>&1 || true; \
+	grep -qi "invalid #include directive" c_test_compat138.out; \
+	test ! -e c_test_compat138; \
+	rm -f c_test_compat138.out
+	@set -eu; \
+	echo "neo-c c_test_compat139.nc (expect diagnostic)"; \
+	rm -f c_test_compat139; \
+	neo-c c_test_compat139.nc > c_test_compat139.out 2>&1 || true; \
+	grep -qi "include file not found" c_test_compat139.out; \
+	test ! -e c_test_compat139; \
+	rm -f c_test_compat139.out
+	neo-c c_test_compat140.nc
+	./c_test_compat140
+	neo-c c_test_compat141.nc
+	./c_test_compat141
+	@set -eu; \
+	echo "neo-c c_test_compat142.nc (expect diagnostic)"; \
+	rm -f c_test_compat142; \
+	neo-c c_test_compat142.nc > c_test_compat142.out 2>&1 || true; \
+	grep -qi "^error:" c_test_compat142.out; \
+	test ! -e c_test_compat142; \
+	rm -f c_test_compat142.out
+	neo-c c_test_compat143.nc
+	./c_test_compat143
+	neo-c c_test_compat144.nc
+	./c_test_compat144
+	@set -eu; \
+	echo "neo-c c_test_compat145.nc (expect diagnostic)"; \
+	rm -f c_test_compat145; \
+	neo-c c_test_compat145.nc > c_test_compat145.out 2>&1 || true; \
+	grep -qi "invalid #include directive" c_test_compat145.out; \
+	test ! -e c_test_compat145; \
+	rm -f c_test_compat145.out
+	neo-c -Icompat146/inc1 -Icompat146/inc2 c_test_compat146.nc
+	./c_test_compat146
+	@set -eu; \
+	echo "neo-c c_test_compat147.nc (expect diagnostic)"; \
+	rm -f c_test_compat147; \
+	neo-c c_test_compat147.nc > c_test_compat147.out 2>&1 || true; \
+	grep -qi "invalid #include directive" c_test_compat147.out; \
+	test ! -e c_test_compat147; \
+	rm -f c_test_compat147.out
+	neo-c c_test_compat148.nc
+	./c_test_compat148
+	neo-c c_test_compat149.nc
+	./c_test_compat149
+	neo-c c_test_compat150.nc
+	./c_test_compat150
+	neo-c c_test_compat151.nc
+	./c_test_compat151
+	@set -eu; \
+	echo "neo-c c_test_compat152.nc (expect diagnostic)"; \
+	rm -f c_test_compat152; \
+	neo-c c_test_compat152.nc > c_test_compat152.out 2>&1 || true; \
+	grep -qi "invalid #line directive" c_test_compat152.out; \
+	test ! -e c_test_compat152; \
+	rm -f c_test_compat152.out
+	neo-c c_test_compat153.nc
+	./c_test_compat153
+	neo-c c_test_compat154.nc
+	./c_test_compat154
+	neo-c c_test_compat155.nc
+	./c_test_compat155
+	neo-c c_test_compat156.nc
+	./c_test_compat156
+	@set -eu; \
+	echo "neo-c c_test_compat157.nc (expect diagnostic)"; \
+	rm -f c_test_compat157; \
+	neo-c c_test_compat157.nc > c_test_compat157.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat157.out; \
+	test ! -e c_test_compat157; \
+	rm -f c_test_compat157.out
+	neo-c -Icompat158/inc1 -Icompat158/inc2 c_test_compat158.nc
+	./c_test_compat158
+	neo-c c_test_compat159.nc
+	./c_test_compat159
+	neo-c -Icompat160/inc1 -Icompat160/inc2 c_test_compat160.nc
+	./c_test_compat160
+	@set -eu; \
+	echo "neo-c c_test_compat161.nc (expect diagnostic)"; \
+	rm -f c_test_compat161; \
+	neo-c c_test_compat161.nc > c_test_compat161.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat161.out; \
+	test ! -e c_test_compat161; \
+	rm -f c_test_compat161.out
+	@set -eu; \
+	echo "neo-c c_test_compat162.nc (expect diagnostic)"; \
+	rm -f c_test_compat162; \
+	neo-c c_test_compat162.nc > c_test_compat162.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat162.out; \
+	test ! -e c_test_compat162; \
+	rm -f c_test_compat162.out
+	@set -eu; \
+	echo "neo-c c_test_compat163.nc (expect diagnostic)"; \
+	rm -f c_test_compat163; \
+	neo-c c_test_compat163.nc > c_test_compat163.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat163.out; \
+	test ! -e c_test_compat163; \
+	rm -f c_test_compat163.out
+	@set -eu; \
+	echo "neo-c c_test_compat164.nc (expect diagnostic)"; \
+	rm -f c_test_compat164; \
+	neo-c c_test_compat164.nc > c_test_compat164.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat164.out; \
+	test ! -e c_test_compat164; \
+	rm -f c_test_compat164.out
+	@set -eu; \
+	echo "neo-c c_test_compat165.nc (expect diagnostic)"; \
+	rm -f c_test_compat165; \
+	neo-c c_test_compat165.nc > c_test_compat165.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat165.out; \
+	test ! -e c_test_compat165; \
+	rm -f c_test_compat165.out
+	@set -eu; \
+	echo "neo-c c_test_compat166.nc (expect diagnostic)"; \
+	rm -f c_test_compat166; \
+	neo-c c_test_compat166.nc > c_test_compat166.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat166.out; \
+	test ! -e c_test_compat166; \
+	rm -f c_test_compat166.out
+	@set -eu; \
+	echo "neo-c c_test_compat167.nc (expect diagnostic)"; \
+	rm -f c_test_compat167; \
+	neo-c c_test_compat167.nc > c_test_compat167.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat167.out; \
+	test ! -e c_test_compat167; \
+	rm -f c_test_compat167.out
+	@set -eu; \
+	echo "neo-c c_test_compat168.nc (expect diagnostic)"; \
+	rm -f c_test_compat168; \
+	neo-c c_test_compat168.nc > c_test_compat168.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat168.out; \
+	test ! -e c_test_compat168; \
+	rm -f c_test_compat168.out
+	@set -eu; \
+	echo "neo-c c_test_compat169.nc (expect diagnostic)"; \
+	rm -f c_test_compat169; \
+	neo-c c_test_compat169.nc > c_test_compat169.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat169.out; \
+	test ! -e c_test_compat169; \
+	rm -f c_test_compat169.out
+	@set -eu; \
+	echo "neo-c c_test_compat170.nc (expect diagnostic)"; \
+	rm -f c_test_compat170; \
+	neo-c c_test_compat170.nc > c_test_compat170.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat170.out; \
+	test ! -e c_test_compat170; \
+	rm -f c_test_compat170.out
+	@set -eu; \
+	echo "neo-c c_test_compat171.nc (expect diagnostic)"; \
+	rm -f c_test_compat171; \
+	neo-c c_test_compat171.nc > c_test_compat171.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat171.out; \
+	test ! -e c_test_compat171; \
+	rm -f c_test_compat171.out
+	@set -eu; \
+	echo "neo-c c_test_compat172.nc (expect diagnostic)"; \
+	rm -f c_test_compat172; \
+	neo-c c_test_compat172.nc > c_test_compat172.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat172.out; \
+	test ! -e c_test_compat172; \
+	rm -f c_test_compat172.out
+	@set -eu; \
+	echo "neo-c c_test_compat173.nc (expect diagnostic)"; \
+	rm -f c_test_compat173; \
+	neo-c c_test_compat173.nc > c_test_compat173.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat173.out; \
+	test ! -e c_test_compat173; \
+	rm -f c_test_compat173.out
+	@set -eu; \
+	echo "neo-c c_test_compat174.nc (expect diagnostic)"; \
+	rm -f c_test_compat174; \
+	neo-c c_test_compat174.nc > c_test_compat174.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat174.out; \
+	test ! -e c_test_compat174; \
+	rm -f c_test_compat174.out
+	@set -eu; \
+	echo "neo-c c_test_compat175.nc (expect diagnostic)"; \
+	rm -f c_test_compat175; \
+	neo-c c_test_compat175.nc > c_test_compat175.out 2>&1 || true; \
+	grep -qi "\\[error\\]" c_test_compat175.out; \
+	test ! -e c_test_compat175; \
+	rm -f c_test_compat175.out
+	@set -eu; \
+	echo "neo-c c_test_compat176.nc (expect diagnostic)"; \
+	rm -f c_test_compat176; \
+	neo-c c_test_compat176.nc > c_test_compat176.out 2>&1 || true; \
+	grep -qi "\\[error\\]" c_test_compat176.out; \
+	test ! -e c_test_compat176; \
+	rm -f c_test_compat176.out
+	@set -eu; \
+	echo "neo-c c_test_compat177.nc (expect diagnostic)"; \
+	rm -f c_test_compat177; \
+	neo-c c_test_compat177.nc > c_test_compat177.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat177.out; \
+	test ! -e c_test_compat177; \
+	rm -f c_test_compat177.out
+	@set -eu; \
+	echo "neo-c c_test_compat178.nc (expect diagnostic)"; \
+	rm -f c_test_compat178; \
+	neo-c c_test_compat178.nc > c_test_compat178.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat178.out; \
+	test ! -e c_test_compat178; \
+	rm -f c_test_compat178.out
+	@set -eu; \
+	echo "neo-c c_test_compat179.nc (expect diagnostic)"; \
+	rm -f c_test_compat179; \
+	neo-c c_test_compat179.nc > c_test_compat179.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat179.out; \
+	test ! -e c_test_compat179; \
+	rm -f c_test_compat179.out
+	neo-c c_test_compat180.nc
+	./c_test_compat180
+	@set -eu; \
+	echo "neo-c c_test_compat181.nc (expect diagnostic)"; \
+	rm -f c_test_compat181; \
+	neo-c c_test_compat181.nc > c_test_compat181.out 2>&1 || true; \
+	grep -qi "invalid #if expression" c_test_compat181.out; \
+	test ! -e c_test_compat181; \
+	rm -f c_test_compat181.out
+	neo-c c_test_compat182.nc
+	./c_test_compat182
+	neo-c c_test_compat183.nc
+	./c_test_compat183
+	neo-c c_test_compat184.nc
+	./c_test_compat184
+	neo-c c_test_compat185.nc
+	./c_test_compat185
+	neo-c c_test_compat186.nc
+	./c_test_compat186
+	neo-c c_test_compat187.nc
+	./c_test_compat187
+	neo-c c_test_compat188.nc
+	./c_test_compat188
+	neo-c c_test_compat189.nc
+	./c_test_compat189
+	neo-c c_test_compat190.nc
+	./c_test_compat190
+	neo-c c_test_compat191.nc
+	./c_test_compat191
+	neo-c c_test_compat192.nc
+	./c_test_compat192
+	neo-c c_test_compat193.nc
+	./c_test_compat193
+	neo-c c_test_compat194.nc
+	./c_test_compat194
+	neo-c c_test_compat195.nc
+	./c_test_compat195
+	neo-c c_test_compat196.nc
+	./c_test_compat196
+	@set -eu; \
+	echo "neo-c c_test_compat197.nc (expect diagnostic)"; \
+	rm -f c_test_compat197; \
+	neo-c c_test_compat197.nc > c_test_compat197.out 2>&1 || true; \
+	grep -qi "invalid #line directive" c_test_compat197.out; \
+	test ! -e c_test_compat197; \
+	rm -f c_test_compat197.out
+	neo-c c_test_compat198.nc
+	./c_test_compat198
+	neo-c c_test_compat199.nc
+	./c_test_compat199
+	neo-c c_test_compat200.nc
+	./c_test_compat200
+	neo-c c_test_compat201.nc
+	./c_test_compat201
+	neo-c c_test_compat202.nc
+	./c_test_compat202
+	neo-c c_test_compat203.nc
+	./c_test_compat203
+	neo-c c_test_compat204.nc
+	./c_test_compat204
+	neo-c c_test_compat205.nc
+	./c_test_compat205
+	neo-c c_test_compat206.nc
+	./c_test_compat206
+	neo-c c_test_compat207.nc
+	./c_test_compat207
+	neo-c c_test_compat208.nc
+	./c_test_compat208
+	neo-c c_test_compat209.nc
+	./c_test_compat209
+	neo-c c_test_compat210.nc
+	./c_test_compat210
 	neo-c test_control_flow.nc
 	./test_control_flow
 	neo-c test_control.nc
@@ -442,5 +931,5 @@ test: *.nc
 clean:
 	rm -rf test_array_features test_array_pointer_advanced test_typedefs test_array_pointer_matrix test_array_views test_pointer_qualifiers test_comelang test_comelang2 test_comelang3 test_nums inline_asm c_test_compat39 c_test_compat40 c_test_compat41 c_test_compat42 c_test_compat43 c_test_compat44 c_test_compat45 c_test_compat46 c_test_compat47 c_test_compat48 c_test_compat49 c_test_compat50 c_test_compat51 c_test_compat52 c_test_compat53 c_test_compat54 c_test_compat55
 	rm -rf *.c .*.bin runner .valid_bin .invalid_bin .test_out *.nc.nc *.nc.o ./attrs ./codex ./neo-c ./neo-c10 ./neo-c11 ./neo-c12 ./neo-c13 ./neo-c14 ./neo-c2 ./neo-c3 ./neo-c4 ./neo-c5 ./neo-c6 ./neo-c7 ./neo-c8 ./neo-c9 ./labels_as_values ./nested_functions ./statement_expr ./test_arith ./test_array_ptr ./test_c_compat ./test_c_compat2 ./test_c_compat3 ./test_c_compat4 ./test_c_compat5 ./test_c_compat6 ./test_c_compat7 ./c_test_compat8 ./c_test_compat9 ./c_test_compat38 ./c_test_compat39 ./c_test_compat40 ./c_test_compat41 ./c_test_compat42 ./c_test_compat43 ./c_test_compat44 ./c_test_compat45 ./c_test_compat46 ./c_test_compat47 ./c_test_compat48 ./c_test_compat49 ./c_test_compat50 ./c_test_compat51 ./c_test_compat52 ./c_test_compat53 ./c_test_compat54 ./c_test_compat55 ./c_test_compat10 ./c_test_compat11 ./c_test_compat12 ./c_test_compat13 ./c_test_compat14 ./c_test_compat15 ./c_test_compat16 ./c_test_compat17 ./c_test_compat18 ./c_test_compat19 ./c_test_compat20 ./c_test_compat21 ./c_test_compat22 ./c_test_compat23 ./c_test_compat24 ./c_test_compat25 ./c_test_compat26 ./c_test_compat27 ./c_test_compat28 ./c_test_compat29 ./c_test_compat30 ./c_test_compat31 ./c_test_compat32 ./c_test_compat33 ./c_test_compat34 ./c_test_compat35 ./c_test_compat36 ./c_test_compat37 ./test_control_flow ./test_control ./test_functions ./test_invalid_0888 ./test_ops ./test_pointers_arrays ./test_string_cast ./test_struct_enum ./test_struct_union_enum ./test_switch_ternary ./test_valid *.i* *.nc.nc* ./attrs ./builtins ./codex ./comelang ./comelang10 ./comelang11 ./comelang12 ./comelang13 ./comelang14 ./comelang2 ./comelang3 ./comelang4 ./comelang5 ./comelang6 ./comelang7 ./comelang8 ./comelang9 ./labels_as_values ./nested_functions ./runner ./statement_expr ./test_arith ./test_array_ptr ./test_c_compat ./test_c_compat2 ./test_c_compat3 ./test_c_compat4 ./test_c_compat5 ./test_c_compat6 ./test_c_compat7 ./c_test_compat8 ./c_test_compat9 ./c_test_compat10 ./c_test_compat11 ./c_test_compat12 ./c_test_compat13 ./c_test_compat14 ./c_test_compat15 ./c_test_compat16 ./c_test_compat17 ./c_test_compat18 ./c_test_compat19 ./c_test_compat20 ./c_test_compat21 ./c_test_compat22 ./c_test_compat23 ./c_test_compat24 ./c_test_compat25 ./c_test_compat26 ./c_test_compat27 ./c_test_compat28 ./c_test_compat29 ./c_test_compat30 ./c_test_compat31 ./c_test_compat32 ./c_test_compat33 ./c_test_compat34 ./c_test_compat35 ./c_test_compat36 ./c_test_compat37 ./c_test_compat39 ./c_test_compat40 ./c_test_compat41 ./c_test_compat42 ./c_test_compat43 ./c_test_compat44 ./c_test_compat45 ./c_test_compat46 ./c_test_compat47 ./c_test_compat48 ./c_test_compat49 ./c_test_compat50 ./c_test_compat51 ./c_test_compat52 ./c_test_compat53 ./c_test_compat54 ./c_test_compat55 ./test_control_flow ./test_control ./test_functions ./test_invalid_0888 ./test_ops ./test_pointers_arrays ./test_string_cast ./test_struct_enum ./test_struct_union_enum ./test_switch_ternary ./test_valid ./typeof_auto ./user ./vector_types test_c_compat_host test_c_compat2_host test_c_compat3_host test_c_compat4_host test_c_compat5_host test_c_compat6_host test_c_compat7_host c_test_compat8_host c_test_compat9_host c_test_compat10_host c_test_compat11_host c_test_compat12_host c_test_compat13_host c_test_compat14_host c_test_compat15_host c_test_compat16_host c_test_compat17_host c_test_compat18_host c_test_compat19_host c_test_compat20_host c_test_compat21_host c_test_compat22_host c_test_compat23_host c_test_compat24_host c_test_compat25_host c_test_compat26_host c_test_compat27_host c_test_compat28_host c_test_compat29_host c_test_compat30_host c_test_compat31_host c_test_compat32_host c_test_compat33_host c_test_compat34_host c_test_compat35_host c_test_compat36_host c_test_compat37_host c_test_compat42_host c_test_compat43_host c_test_compat44_host c_test_compat45_host c_test_compat46_host c_test_compat47_host c_test_compat48_host c_test_compat49_host c_test_compat50_host c_test_compat51_host c_test_compat52_host c_test_compat53_host c_test_compat54_host c_test_compat55_host
-	rm -rf ./c_test_compat56 ./c_test_compat57 ./c_test_compat58 ./c_test_compat59 ./c_test_compat60 ./c_test_compat61 ./c_test_compat62 ./c_test_compat63 ./c_test_compat64 ./c_test_compat65 ./c_test_compat66 ./c_test_compat67 ./c_test_compat68 ./c_test_compat69 ./c_test_compat70 ./c_test_compat71 ./c_test_compat72 ./c_test_compat73 ./c_test_compat74 ./c_test_compat75 ./c_test_compat76 ./c_test_compat77 ./c_test_compat78 ./c_test_compat79 ./c_test_compat80 ./c_test_compat81 ./c_test_compat82 ./c_test_compat83 ./c_test_compat84 ./c_test_compat85 ./c_test_compat86 ./c_test_compat87 ./c_test_compat88 ./c_test_compat89 ./c_test_compat90 ./c_test_compat91 ./c_test_compat92 ./c_test_compat93 ./c_test_compat94 ./c_test_compat95 ./c_test_compat96 ./c_test_compat97 ./c_test_compat98 ./c_test_compat99 ./c_test_compat100 ./c_test_compat101 ./c_test_compat102 ./c_test_compat103 ./c_test_compat104 ./c_test_compat105 ./c_test_compat106 ./c_test_compat107 ./c_test_compat108
+	rm -rf ./c_test_compat56 ./c_test_compat57 ./c_test_compat58 ./c_test_compat59 ./c_test_compat60 ./c_test_compat61 ./c_test_compat62 ./c_test_compat63 ./c_test_compat64 ./c_test_compat65 ./c_test_compat66 ./c_test_compat67 ./c_test_compat68 ./c_test_compat69 ./c_test_compat70 ./c_test_compat71 ./c_test_compat72 ./c_test_compat73 ./c_test_compat74 ./c_test_compat75 ./c_test_compat76 ./c_test_compat77 ./c_test_compat78 ./c_test_compat79 ./c_test_compat80 ./c_test_compat81 ./c_test_compat82 ./c_test_compat83 ./c_test_compat84 ./c_test_compat85 ./c_test_compat86 ./c_test_compat87 ./c_test_compat88 ./c_test_compat89 ./c_test_compat90 ./c_test_compat91 ./c_test_compat92 ./c_test_compat93 ./c_test_compat94 ./c_test_compat95 ./c_test_compat96 ./c_test_compat97 ./c_test_compat98 ./c_test_compat99 ./c_test_compat100 ./c_test_compat101 ./c_test_compat102 ./c_test_compat103 ./c_test_compat104 ./c_test_compat105 ./c_test_compat106 ./c_test_compat107 ./c_test_compat108 ./c_test_compat109 ./c_test_compat110 ./c_test_compat111 ./c_test_compat112 ./c_test_compat113 ./c_test_compat114 ./c_test_compat115 ./c_test_compat116 ./c_test_compat117 ./c_test_compat118 ./c_test_compat119 ./c_test_compat120 ./c_test_compat121 ./c_test_compat122 ./c_test_compat123 ./c_test_compat124 ./c_test_compat125 ./c_test_compat126 ./c_test_compat127 ./c_test_compat128 ./c_test_compat129 ./c_test_compat130 ./c_test_compat131 ./c_test_compat132 ./c_test_compat133 ./c_test_compat134 ./c_test_compat135 ./c_test_compat136 ./c_test_compat137 ./c_test_compat138 ./c_test_compat139 ./c_test_compat140 ./c_test_compat141 ./c_test_compat142 ./c_test_compat143 ./c_test_compat144 ./c_test_compat145 ./c_test_compat146 ./c_test_compat147 ./c_test_compat148 ./c_test_compat149 ./c_test_compat150 ./c_test_compat151 ./c_test_compat152 ./c_test_compat153 ./c_test_compat154 ./c_test_compat155 ./c_test_compat156 ./c_test_compat157 ./c_test_compat158 ./c_test_compat159 ./c_test_compat160 ./c_test_compat161 ./c_test_compat162 ./c_test_compat163 ./c_test_compat164 ./c_test_compat165 ./c_test_compat166 ./c_test_compat167 ./c_test_compat168 ./c_test_compat169 ./c_test_compat170 ./c_test_compat171 ./c_test_compat172 ./c_test_compat173 ./c_test_compat174 ./c_test_compat175 ./c_test_compat176 ./c_test_compat177 ./c_test_compat178 ./c_test_compat179 ./c_test_compat180 ./c_test_compat181 ./c_test_compat182 ./c_test_compat183 ./c_test_compat184 ./c_test_compat185 ./c_test_compat186 ./c_test_compat187 ./c_test_compat188 ./c_test_compat189 ./c_test_compat190 ./c_test_compat191 ./c_test_compat192 ./c_test_compat193 ./c_test_compat194 ./c_test_compat195 ./c_test_compat196 ./c_test_compat197 ./c_test_compat198 ./c_test_compat199 ./c_test_compat200 ./c_test_compat201 ./c_test_compat202 ./c_test_compat203 ./c_test_compat204 ./c_test_compat205 ./c_test_compat206 ./c_test_compat207 ./c_test_compat208 ./c_test_compat209 ./c_test_compat210
 	rm -rf ./reports/external_corpus

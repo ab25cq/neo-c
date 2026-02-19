@@ -1,0 +1,7 @@
+c_test_compat131.c:12:1: error: redefinition of enumerator 'A'
+   12 | A=(2)
+      | ^
+c_test_compat131.c:11:11: note: previous definition is here
+   11 | enum  E { A=(1),
+      |           ^
+1 error generated.

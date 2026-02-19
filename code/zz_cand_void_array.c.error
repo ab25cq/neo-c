@@ -1,0 +1,4 @@
+zz_cand_void_array.c:12:7: error: array has incomplete element type 'void'
+   12 | void a[2];
+      |       ^
+1 error generated.

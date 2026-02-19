@@ -1,0 +1,6 @@
+#ifndef COMPAT146_DUP_INC2_H
+#define COMPAT146_DUP_INC2_H
+
+#define COMPAT146_LAYER_2 36
+
+#endif

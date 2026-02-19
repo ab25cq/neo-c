@@ -1,0 +1,6 @@
+#ifndef COMPAT199_TRI_HEADER_H
+#define COMPAT199_TRI_HEADER_H
+
+#define TRI_HEADER_VALUE 321
+
+#endif

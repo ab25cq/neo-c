@@ -1,0 +1,6 @@
+#ifndef COMPAT209_TRI_INCLUDE_HEADER_H
+#define COMPAT209_TRI_INCLUDE_HEADER_H
+
+#define TRI_INC_OK 1
+
+#endif

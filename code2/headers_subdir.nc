@@ -217,6 +217,7 @@ using C
 #include <regulator/regulator.h>
 #endif
 
+#if __has_include(<xen/interface/xen.h>)
 #if __has_include(<xen/evtchn.h>)
 #include <xen/evtchn.h>
 #endif
@@ -225,6 +226,7 @@ using C
 #endif
 #if __has_include(<xen/privcmd.h>)
 #include <xen/privcmd.h>
+#endif
 #endif
 
 #if __has_include(<cxl/features.h>)

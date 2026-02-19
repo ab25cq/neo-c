@@ -1,0 +1,6 @@
+#ifndef COMPAT159_HEADER_H
+#define COMPAT159_HEADER_H
+
+#define COMPAT159_HEADER_VALUE 159
+
+#endif

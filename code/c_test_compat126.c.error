@@ -1,0 +1,4 @@
+c_test_compat126.c:12:14: error: illegal storage class on file-scoped variable
+   12 | register int g;
+      |              ^
+1 error generated.

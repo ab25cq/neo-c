@@ -1,0 +1,2 @@
+zz_cand_enum_dup.c:12:1: error: redefinition of enumerator 'A'
+1 error generated.

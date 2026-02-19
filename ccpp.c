@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 typedef struct {
     char *name;
@@ -361,6 +362,31 @@ static void set_host_macros(MacroTable *t) {
     }
 }
 
+static void set_datetime_macros(MacroTable *t) {
+    char datebuf[32];
+    char timebuf[16];
+    time_t now = time(NULL);
+    struct tm *tm_now = localtime(&now);
+    static const char *months[] = {
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    };
+
+    if (tm_now && tm_now->tm_mon >= 0 && tm_now->tm_mon < 12) {
+        snprintf(datebuf, sizeof(datebuf), "\"%s %2d %04d\"",
+            months[tm_now->tm_mon], tm_now->tm_mday, tm_now->tm_year + 1900);
+        snprintf(timebuf, sizeof(timebuf), "\"%02d:%02d:%02d\"",
+            tm_now->tm_hour, tm_now->tm_min, tm_now->tm_sec);
+    }
+    else {
+        snprintf(datebuf, sizeof(datebuf), "\"??? ?? ????\"");
+        snprintf(timebuf, sizeof(timebuf), "\"??:??:??\"");
+    }
+
+    mtable_set_obj(t, "__DATE__", datebuf);
+    mtable_set_obj(t, "__TIME__", timebuf);
+}
+
 struct PPOpts {
     const char **incdirs;
     size_t nincdirs;
@@ -388,6 +414,7 @@ static void apply_predefined_macros(MacroTable *t, const PPOpts *opts) {
     mtable_set_obj(t, "__STDC_VERSION__", "201112L");
     mtable_set_obj(t, "__STDC_NO_VLA__", "1");
     mtable_set_obj(t, "__STDC_HOSTED__", "1");
+    set_datetime_macros(t);
 //    if (!mtable_get(t, "true")) mtable_set_obj(t, "true", "1");
 //    if (!mtable_get(t, "false")) mtable_set_obj(t, "false", "0");
     if (!mtable_get(t, "__bool_true_false_are_defined")) mtable_set_obj(t, "__bool_true_false_are_defined", "1");
@@ -585,6 +612,96 @@ static void scan_comment_depth(const char *s, int *depth) {
             if (c == '*' && s[i+1] == '/') { (*depth)--; i++; if (*depth <= 0) { *depth = 0; st = SD_CODE; } continue; }
         }
     }
+}
+
+static bool only_trailing_space_or_comments(const char *p) {
+    const char *q = p ? p : "";
+    while (1) {
+        while (*q && isspace((unsigned char)*q)) q++;
+        if (*q == '\0') return true;
+        if (q[0] == '/' && q[1] == '/') return true;
+        if (q[0] == '/' && q[1] == '*') {
+            q += 2;
+            while (*q && !(q[0] == '*' && q[1] == '/')) q++;
+            if (*q == '\0') return true;
+            q += 2;
+            continue;
+        }
+        return false;
+    }
+}
+
+static void pp_directive_error(const char *path, long line, const char *msg);
+
+static void parse_line_control_payload(const char *payload, bool allow_linemarker_flags,
+                                       const char *path, long err_line,
+                                       long *logical_line_out, bool *has_fname_out, char **fname_out) {
+    const char *lp = payload ? payload : "";
+    while (*lp && isspace((unsigned char)*lp)) lp++;
+    if (!isdigit((unsigned char)*lp)) {
+        pp_directive_error(path, err_line, "invalid #line directive");
+    }
+
+    errno = 0;
+    char *endp = NULL;
+    long logical_line = strtol(lp, &endp, 10);
+    if (endp == lp || errno == ERANGE || logical_line <= 0) {
+        pp_directive_error(path, err_line, "invalid #line directive");
+    }
+
+    bool has_fname = false;
+    char *parsed_fname = NULL;
+    lp = endp;
+    while (*lp && isspace((unsigned char)*lp)) lp++;
+    if (*lp == '"') {
+        const char *scan = lp + 1;
+        size_t fname_len = 0;
+        while (*scan && *scan != '"') {
+            if (*scan == '\\' && scan[1] != '\0') scan++;
+            fname_len++;
+            scan++;
+        }
+        if (*scan != '"') {
+            pp_directive_error(path, err_line, "invalid #line directive");
+        }
+        parsed_fname = (char*)xrealloc(NULL, fname_len + 1);
+        size_t wi = 0;
+        lp++;
+        while (*lp && *lp != '"') {
+            if (*lp == '\\' && lp[1] != '\0') lp++;
+            parsed_fname[wi++] = *lp;
+            lp++;
+        }
+        parsed_fname[wi] = '\0';
+        if (*lp != '"') {
+            pp_directive_error(path, err_line, "invalid #line directive");
+        }
+        lp++;
+        if (allow_linemarker_flags) {
+            while (1) {
+                while (*lp && isspace((unsigned char)*lp)) lp++;
+                if (*lp == '\0') break;
+                if (lp[0] == '/' && lp[1] == '/') break;
+                if (lp[0] == '/' && lp[1] == '*') {
+                    if (only_trailing_space_or_comments(lp)) break;
+                    pp_directive_error(path, err_line, "invalid #line directive");
+                }
+                if (!isdigit((unsigned char)*lp)) {
+                    pp_directive_error(path, err_line, "invalid #line directive");
+                }
+                while (isdigit((unsigned char)*lp)) lp++;
+            }
+        } else if (!only_trailing_space_or_comments(lp)) {
+            pp_directive_error(path, err_line, "invalid #line directive");
+        }
+        has_fname = true;
+    } else if (!only_trailing_space_or_comments(lp)) {
+        pp_directive_error(path, err_line, "invalid #line directive");
+    }
+
+    *logical_line_out = logical_line;
+    *has_fname_out = has_fname;
+    *fname_out = parsed_fname;
 }
 
 static long g_cur_line = 0;
@@ -926,6 +1043,42 @@ static void normalize_digraph_tokens_inplace(Str *line) {
     *line = out;
 }
 
+static void normalize_trigraphs_inplace(Str *line) {
+    if (!line || !line->buf || !*line->buf) return;
+
+    const char *s = line->buf;
+    Str out;
+    sb_init(&out);
+
+    for (size_t i = 0; s[i]; ) {
+        if (s[i] == '?' && s[i+1] == '?') {
+            char repl = '\0';
+            switch (s[i+2]) {
+                case '=': repl = '#'; break;
+                case '(': repl = '['; break;
+                case '/': repl = '\\'; break;
+                case ')': repl = ']'; break;
+                case '\'': repl = '^'; break;
+                case '<': repl = '{'; break;
+                case '!': repl = '|'; break;
+                case '>': repl = '}'; break;
+                case '-': repl = '~'; break;
+                default: break;
+            }
+            if (repl != '\0') {
+                sb_putc(&out, repl);
+                i += 3;
+                continue;
+            }
+        }
+        sb_putc(&out, s[i]);
+        i++;
+    }
+
+    sb_free(line);
+    *line = out;
+}
+
 static void sb_put_escaped_cstr(Str *s, const char *t) {
     sb_putc(s, '"');
     if (t) {
@@ -966,6 +1119,7 @@ static Str g_macro_call_out = {0};
 static const PPOpts *g_ifexpr_opts = NULL;
 static const char *g_ifexpr_curdir = NULL;
 static const char *g_ifexpr_this_path = NULL;
+static bool g_ifexpr_builtin_error = false;
 
 static void update_hidden_comment_depth(int before, int after) {
     if (after > before) {
@@ -993,40 +1147,117 @@ static int eval_has_include_name(const char *name, bool quoted, bool next) {
     return f ? 1 : 0;
 }
 
-static bool eval_has_include_call(const char *line, size_t start, bool next, size_t *end, int *value) {
-    size_t p = start;
-    while (line[p] && isspace((unsigned char)line[p])) p++;
-    if (line[p] != '(') return false;
-    p++;
-    while (line[p] && isspace((unsigned char)line[p])) p++;
+static const char *skip_pp_space(const char *p) {
+    while (*p && isspace((unsigned char)*p)) p++;
+    return p;
+}
 
-    bool quoted = false;
-    char name[512]; size_t ni = 0;
-    if (line[p] == '"') {
-        quoted = true;
+static bool parse_header_name_operand(const char *text, bool *quoted, char *name, size_t name_sz) {
+    const char *p = skip_pp_space(text ? text : "");
+    bool is_quoted = false;
+    size_t ni = 0;
+
+    if (*p == '"') {
+        is_quoted = true;
         p++;
-        while (line[p] && line[p] != '"') {
-            if (ni + 1 < sizeof name) name[ni++] = line[p];
+        while (*p && *p != '"') {
+            if (*p == '\\' && p[1] != '\0') p++;
+            if (ni + 1 < name_sz) name[ni++] = *p;
             p++;
         }
-        if (line[p] != '"') return false;
+        if (*p != '"') return false;
         p++;
-    } else if (line[p] == '<') {
-        quoted = false;
+    } else if (*p == '<') {
+        is_quoted = false;
         p++;
-        while (line[p] && line[p] != '>') {
-            if (ni + 1 < sizeof name) name[ni++] = line[p];
+        while (*p && *p != '>') {
+            if (ni + 1 < name_sz) name[ni++] = *p;
             p++;
         }
-        if (line[p] != '>') return false;
+        if (*p != '>') return false;
         p++;
     } else {
         return false;
     }
-    name[ni] = '\0';
 
+    p = skip_pp_space(p);
+    if (*p != '\0' || ni == 0) return false;
+    name[ni] = '\0';
+    if (quoted) *quoted = is_quoted;
+    return true;
+}
+
+static bool resolve_has_include_operand(const MacroTable *t, const char *operand,
+                                        bool *quoted, char *name, size_t name_sz) {
+    char cur[1024];
+    const char *s = skip_pp_space(operand ? operand : "");
+    size_t n = strlen(s);
+    while (n > 0 && isspace((unsigned char)s[n - 1])) n--;
+    if (n == 0 || n >= sizeof(cur)) return false;
+    memcpy(cur, s, n);
+    cur[n] = '\0';
+
+    for (int pass = 0; pass < 50; ++pass) {
+        if (parse_header_name_operand(cur, quoted, name, name_sz)) {
+            return true;
+        }
+
+        const char *p = skip_pp_space(cur);
+        if (!(isalpha((unsigned char)*p) || *p == '_')) return false;
+        const char *q = p + 1;
+        while (*q && (isalnum((unsigned char)*q) || *q == '_')) q++;
+        const char *trail = skip_pp_space(q);
+        if (*trail != '\0') return false;
+
+        size_t ilen = (size_t)(q - p);
+        if (ilen == 0 || ilen >= 256) return false;
+        char ident[256];
+        memcpy(ident, p, ilen);
+        ident[ilen] = '\0';
+
+        const char *mv = t ? mtable_get((MacroTable*)t, ident) : NULL;
+        if (!mv) return false;
+
+        const char *m = skip_pp_space(mv);
+        size_t mlen = strlen(m);
+        while (mlen > 0 && isspace((unsigned char)m[mlen - 1])) mlen--;
+        if (mlen == 0 || mlen >= sizeof(cur)) return false;
+        memcpy(cur, m, mlen);
+        cur[mlen] = '\0';
+    }
+    return false;
+}
+
+static bool eval_has_include_call(const MacroTable *t, const char *line, size_t start, bool next, size_t *end, int *value) {
+    size_t p = start;
     while (line[p] && isspace((unsigned char)line[p])) p++;
-    if (line[p] != ')') return false;
+    if (line[p] != '(') return false;
+    p++;
+    size_t arg_start = p;
+    int depth = 1;
+    while (line[p]) {
+        if (line[p] == '(') {
+            depth++;
+        } else if (line[p] == ')') {
+            depth--;
+            if (depth == 0) break;
+        }
+        p++;
+    }
+    if (depth != 0 || line[p] != ')') return false;
+
+    size_t arg_len = p - arg_start;
+    char *arg = (char*)malloc(arg_len + 1);
+    if (!arg) die("malloc");
+    memcpy(arg, line + arg_start, arg_len);
+    arg[arg_len] = '\0';
+
+    bool quoted = false;
+    char name[512];
+    bool ok = resolve_has_include_operand(t, arg, &quoted, name, sizeof(name));
+    free(arg);
+    if (!ok) return false;
+
     p++;
     if (end) *end = p;
     if (value) *value = eval_has_include_name(name, quoted, next);
@@ -1050,6 +1281,8 @@ static bool eval_has_attribute_call(const char *line, size_t start, size_t *end,
     if (value) *value = 0;
     return true;
 }
+
+static void sb_put_stringized_argument(Str *out, const char *raw);
 
 static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out, bool protect_defined) {
     enum { CODE, STR_DQ, STR_SQ, SL_COMMENT, BL_COMMENT } state = CODE;
@@ -1134,9 +1367,36 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     size_t endp = 0;
                     int val = 0;
                     bool next = (strcmp(ident, "__has_include_next") == 0);
-                    if (eval_has_include_call(line, j, next, &endp, &val)) {
+                    size_t p2 = j;
+                    while (line[p2] && isspace((unsigned char)line[p2])) p2++;
+                    if (line[p2] != '(') {
+                        g_ifexpr_builtin_error = true;
+                        sb_puts(out, "0");
+                        i = j;
+                        continue;
+                    }
+                    if (eval_has_include_call(t, line, j, next, &endp, &val)) {
                         sb_puts(out, val ? "1" : "0");
                         i = endp;
+                        continue;
+                    }
+                    // __has_include / __has_include_next used with call syntax
+                    // but malformed operand should be diagnosed as invalid #if.
+                    if (line[p2] == '(') {
+                        g_ifexpr_builtin_error = true;
+                        int depth = 0;
+                        size_t q = p2;
+                        while (line[q]) {
+                            if (line[q] == '(') depth++;
+                            else if (line[q] == ')') {
+                                depth--;
+                                if (depth == 0) { q++; break; }
+                            }
+                            q++;
+                        }
+                        if (depth != 0) q = strlen(line);
+                        sb_puts(out, "0");
+                        i = q;
                         continue;
                     }
                 }
@@ -1195,7 +1455,9 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     enum {AC_CODE, AC_DQ, AC_SQ, AC_SL, AC_BL} ast = AC_CODE;
                     int ac_bl_depth = 0;
                     Str cur; sb_init(&cur);
-                    char **args_raw = NULL; size_t argc=0, acc=0;
+                    char **args_raw = NULL;
+                    char **args_raw_full = NULL;
+                    size_t argc=0, acc=0;
                     while (line[p] != '\0' && (depthP > 0 || depthB > 0 || depthC > 0)) {
                         char ch = line[p];
                         if (ast == AC_CODE) {
@@ -1217,12 +1479,19 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                             if (ch == '(') { depthP++; sb_putc(&cur,ch); p++; continue; }
                             if (ch == ')') {
                                 depthP--; if (depthP==0 && depthB==0 && depthC==0) { // finish last arg
+                                    char *astr_full = xstrdup(cur.buf ? cur.buf : "");
                                     // trim cur
                                     while (cur.len>0 && isspace((unsigned char)cur.buf[cur.len-1])) cur.buf[--cur.len]='\0';
                                     size_t lead=0; while (lead<cur.len && isspace((unsigned char)cur.buf[lead])) lead++;
                                     char *astr = xstrdup(cur.buf?cur.buf+lead:"");
-                                    if (argc==acc) { acc=acc?acc*2:4; args_raw = xrealloc(args_raw, acc*sizeof(char*)); }
-                                    args_raw[argc++] = astr;
+                                    if (argc==acc) {
+                                        acc=acc?acc*2:4;
+                                        args_raw = xrealloc(args_raw, acc*sizeof(char*));
+                                        args_raw_full = xrealloc(args_raw_full, acc*sizeof(char*));
+                                    }
+                                    args_raw[argc] = astr;
+                                    args_raw_full[argc] = astr_full;
+                                    argc++;
                                     p++; break;
                                 } else { sb_putc(&cur,ch); p++; continue; }
                             }
@@ -1232,11 +1501,18 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                             if (ch == '}') { if (depthC>0) depthC--; sb_putc(&cur,ch); p++; continue; }
                             if (ch == ',' && depthP==1 && depthB==0 && depthC==0) {
                                 // split arg
+                                char *astr_full = xstrdup(cur.buf ? cur.buf : "");
                                 while (cur.len>0 && isspace((unsigned char)cur.buf[cur.len-1])) cur.buf[--cur.len]='\0';
                                 size_t lead=0; while (lead<cur.len && isspace((unsigned char)cur.buf[lead])) lead++;
                                 char *astr = xstrdup(cur.buf?cur.buf+lead:"");
-                                if (argc==acc) { acc=acc?acc*2:4; args_raw = xrealloc(args_raw, acc*sizeof(char*)); }
-                                args_raw[argc++] = astr;
+                                if (argc==acc) {
+                                    acc=acc?acc*2:4;
+                                    args_raw = xrealloc(args_raw, acc*sizeof(char*));
+                                    args_raw_full = xrealloc(args_raw_full, acc*sizeof(char*));
+                                }
+                                args_raw[argc] = astr;
+                                args_raw_full[argc] = astr_full;
+                                argc++;
                                 cur.len = 0; if (cur.buf) cur.buf[0]='\0';
                                 p++; continue;
                             }
@@ -1303,8 +1579,8 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     Str join_exp; sb_init(&join_exp);
                     if (fm->is_variadic && argc > var_start) {
                         for (size_t vi=var_start; vi<argc; ++vi) {
-                            if (vi>var_start) { sb_puts(&join_raw, ", "); sb_puts(&join_exp, ", "); }
-                            sb_puts(&join_raw, args_raw[vi] ? args_raw[vi] : "");
+                            if (vi>var_start) { sb_puts(&join_raw, ","); sb_puts(&join_exp, ","); }
+                            sb_puts(&join_raw, args_raw_full[vi] ? args_raw_full[vi] : "");
                             sb_puts(&join_exp, args[vi] ? args[vi] : "");
                         }
                     }
@@ -1377,30 +1653,11 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                                         for (size_t pi=0; pi<fm->nparams; ++pi) { if (strcmp(fm->params[pi], tok)==0) { pi_idx = pi; break; } }
                                         if (macro_is_vararg_token(fm, tok)) {
                                             // stringize joined raw varargs
-                                            sb_putc(out, '"');
-                                            const char *s = joined_raw;
-                                            bool in_ws=false; for (; *s; ++s) {
-                                                unsigned char ch2 = (unsigned char)*s;
-                                                if (isspace(ch2)) { in_ws = true; continue; }
-                                                if (in_ws) { sb_putc(out, ' '); in_ws = false; }
-                                                if (ch2 == '\\' || ch2 == '"') { sb_putc(out, '\\'); sb_putc(out, (char)ch2); }
-                                                else { sb_putc(out, (char)ch2); }
-                                            }
-                                            sb_putc(out, '"');
+                                            sb_put_stringized_argument(out, joined_raw);
                                             bi = bj; continue;
                                         } else if (pi_idx != (size_t)-1 && pi_idx < argc) {
                                             // stringize raw args
-                                            sb_putc(out, '"');
-                                            const char *s = args_raw[pi_idx];
-                                            // compress whitespace and escape backslash/quote
-                                            bool in_ws=false; for (; *s; ++s) {
-                                                unsigned char ch2 = (unsigned char)*s;
-                                                if (isspace(ch2)) { in_ws = true; continue; }
-                                                if (in_ws) { sb_putc(out, ' '); in_ws = false; }
-                                                if (ch2 == '\\' || ch2 == '"') { sb_putc(out, '\\'); sb_putc(out, (char)ch2); }
-                                                else { sb_putc(out, (char)ch2); }
-                                            }
-                                            sb_putc(out, '"');
+                                            sb_put_stringized_argument(out, args_raw_full[pi_idx]);
                                             bi = bj; continue;
                                         }
                                         // not a param; output as literal
@@ -1421,6 +1678,11 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                                 char idb[256]; size_t kk=0; size_t bj=bi;
                                 while (body[bj] && (isalnum((unsigned char)body[bj]) || body[bj]=='_')) { if (kk+1<sizeof idb) idb[kk++]=body[bj]; bj++; }
                                 idb[kk]='\0';
+                                // If this token is immediately followed by ## (ignoring spaces),
+                                // it participates in token pasting and must use raw macro args.
+                                size_t look = bj;
+                                while (body[look] && isspace((unsigned char)body[look])) look++;
+                                bool paste_right = (body[look] == '#' && body[look + 1] == '#');
                                 // Handle _Pragma("...") inside macro bodies: consume and drop
                                 if (strcmp(idb, "_Pragma") == 0) {
                                     size_t j2 = bj; while (body[j2] && isspace((unsigned char)body[j2])) j2++;
@@ -1443,9 +1705,9 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                                 size_t pi_idx = (size_t)-1;
                                 for (size_t pi=0; pi<fm->nparams; ++pi) { if (strcmp(fm->params[pi], idb)==0) { pi_idx = pi; break; } }
                                 if (macro_is_vararg_token(fm, idb)) {
-                                    sb_puts(out, joined_exp);
+                                    sb_puts(out, paste_right ? joined_raw : joined_exp);
                                 } else if (pi_idx != (size_t)-1 && pi_idx < argc) {
-                                    sb_puts(out, args[pi_idx]);
+                                    sb_puts(out, paste_right ? args_raw[pi_idx] : args[pi_idx]);
                                 } else {
                                     for (size_t qq=bi; qq<bj; ++qq) sb_putc(out, body[qq]);
                                 }
@@ -1466,8 +1728,8 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                         }
                     }
                     // cleanup args
-                    for (size_t ai=0; ai<argc; ++ai) { free(args[ai]); free(args_raw[ai]); }
-                    free(args); free(args_raw);
+                    for (size_t ai=0; ai<argc; ++ai) { free(args[ai]); free(args_raw[ai]); free(args_raw_full[ai]); }
+                    free(args); free(args_raw); free(args_raw_full);
                     sb_free(&join_raw); sb_free(&join_exp);
                     i = p; // advance past arguments
                     continue;
@@ -1522,6 +1784,91 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
     // persist block comment depth across lines
     g_block_comment_depth = bl_depth;
     g_hidden_block_comment_depth = hidden_bl_depth;
+}
+
+static void sb_put_stringized_argument(Str *out, const char *raw) {
+    const char *s = raw ? raw : "";
+    enum { SG_CODE, SG_DQ, SG_SQ, SG_SL, SG_BL } st = SG_CODE;
+    bool pending_space = false;
+    bool emitted = false;
+    int bl_depth = 0;
+
+    sb_putc(out, '"');
+    for (size_t i = 0; s[i] != '\0';) {
+        unsigned char ch = (unsigned char)s[i];
+        if (st == SG_CODE) {
+            if (s[i] == '/' && s[i+1] == '/') {
+                if (emitted) pending_space = true;
+                st = SG_SL;
+                i += 2;
+                continue;
+            }
+            if (s[i] == '/' && s[i+1] == '*') {
+                if (emitted) pending_space = true;
+                st = SG_BL;
+                bl_depth = 1;
+                i += 2;
+                continue;
+            }
+            if (isspace(ch)) {
+                if (emitted) pending_space = true;
+                i++;
+                continue;
+            }
+            if (pending_space) {
+                sb_putc(out, ' ');
+                pending_space = false;
+                emitted = true;
+            }
+            if (s[i] == '\\' || s[i] == '"') sb_putc(out, '\\');
+            sb_putc(out, s[i]);
+            emitted = true;
+            if (s[i] == '"') st = SG_DQ;
+            else if (s[i] == '\'') st = SG_SQ;
+            i++;
+            continue;
+        }
+        if (st == SG_DQ) {
+            if (s[i] == '\\' || s[i] == '"') sb_putc(out, '\\');
+            sb_putc(out, s[i]);
+            emitted = true;
+            if (s[i] == '"' && !is_escaped(s, i)) st = SG_CODE;
+            i++;
+            continue;
+        }
+        if (st == SG_SQ) {
+            if (s[i] == '\\' || s[i] == '"') sb_putc(out, '\\');
+            sb_putc(out, s[i]);
+            emitted = true;
+            if (s[i] == '\'' && !is_escaped(s, i)) st = SG_CODE;
+            i++;
+            continue;
+        }
+        if (st == SG_SL) {
+            if (s[i] == '\n' || s[i] == '\r') st = SG_CODE;
+            i++;
+            continue;
+        }
+        if (st == SG_BL) {
+            if (s[i] == '/' && s[i+1] == '*') {
+                bl_depth++;
+                i += 2;
+                continue;
+            }
+            if (s[i] == '*' && s[i+1] == '/') {
+                bl_depth--;
+                i += 2;
+                if (bl_depth <= 0) {
+                    bl_depth = 0;
+                    st = SG_CODE;
+                }
+                continue;
+            }
+            i++;
+            continue;
+        }
+    }
+    sb_putc(out, '"');
 }
 
 static void expand_into_str(const MacroTable *t, const char *line, Str *out) {
@@ -2082,15 +2429,185 @@ static const char *ex_skip(const char *s) {
     }
     return s;
 }
-static long ex_parse_expr(const MacroTable *t, Expr *e);
+typedef enum {
+    EX_RANK_INT = 1,
+    EX_RANK_LONG = 2,
+    EX_RANK_LLONG = 3
+} ExRank;
 
-static long parse_int_literal(const char *s, const char **out_end) {
-    char *end = NULL;
-    long v = strtol(s, &end, 0);
-    const char *p = end ? end : s;
-    while (*p && (*p == 'u' || *p == 'U' || *p == 'l' || *p == 'L')) p++;
+typedef struct {
+    unsigned long long u;
+    bool is_unsigned;
+    ExRank rank;
+} ExValue;
+
+static ExValue ex_parse_expr(const MacroTable *t, Expr *e);
+static void ex_usual_arith(ExValue *a, ExValue *b);
+
+static ExValue ex_make_signed_rank(long long v, ExRank rank) {
+    ExValue r;
+    r.u = (unsigned long long)v;
+    r.is_unsigned = false;
+    r.rank = rank;
+    return r;
+}
+
+static ExValue ex_make_unsigned_rank(unsigned long long v, ExRank rank) {
+    ExValue r;
+    r.u = v;
+    r.is_unsigned = true;
+    r.rank = rank;
+    return r;
+}
+
+static ExValue ex_make_signed(long long v) {
+    return ex_make_signed_rank(v, EX_RANK_INT);
+}
+
+static ExValue ex_make_unsigned(unsigned long long v) {
+    return ex_make_unsigned_rank(v, EX_RANK_INT);
+}
+
+static long long ex_as_signed(ExValue v) {
+    return (long long)v.u;
+}
+
+static bool ex_truthy(ExValue v) {
+    return v.u != 0ULL;
+}
+
+static ExValue ex_cast_value(ExValue v, bool as_unsigned, ExRank rank) {
+    if (as_unsigned) return ex_make_unsigned_rank(v.u, rank);
+    return ex_make_signed_rank((long long)v.u, rank);
+}
+
+static void ex_usual_arith(ExValue *a, ExValue *b) {
+    if (!a || !b) return;
+    bool as_unsigned = a->is_unsigned || b->is_unsigned;
+    ExRank rank = EX_RANK_LLONG;
+    *a = ex_cast_value(*a, as_unsigned, rank);
+    *b = ex_cast_value(*b, as_unsigned, rank);
+}
+
+static ExValue ex_select_cond_value(bool cond, ExValue vt, ExValue vf) {
+    ex_usual_arith(&vt, &vf);
+    return cond ? vt : vf;
+}
+
+static bool parse_int_suffix(const char *p, const char **out_end, bool *out_unsigned, int *out_lcount) {
+    const char *q = p ? p : "";
+    if (!(*q == 'u' || *q == 'U' || *q == 'l' || *q == 'L')) {
+        if (out_end) *out_end = q;
+        if (out_unsigned) *out_unsigned = false;
+        if (out_lcount) *out_lcount = 0;
+        return true;
+    }
+
+    bool got_u = false;
+    int got_l = 0; // 0:none, 1:l/L, 2:ll/LL
+    for (int i = 0; i < 2; ++i) {
+        if (!got_u && (*q == 'u' || *q == 'U')) {
+            got_u = true;
+            q++;
+            continue;
+        }
+        if (got_l == 0 && (*q == 'l' || *q == 'L')) {
+            char c = *q;
+            if (q[1] == c) {
+                got_l = 2;
+                q += 2;
+            } else if (q[1] == 'l' || q[1] == 'L') {
+                return false; // mixed-case long-long suffix is invalid
+            } else {
+                got_l = 1;
+                q++;
+            }
+            continue;
+        }
+        break;
+    }
+
+    if (*q == 'u' || *q == 'U' || *q == 'l' || *q == 'L') {
+        return false;
+    }
+    if (out_end) *out_end = q;
+    if (out_unsigned) *out_unsigned = got_u;
+    if (out_lcount) *out_lcount = got_l;
+    return true;
+}
+
+static bool ex_is_decimal_literal(const char *s) {
+    if (!s || !*s) return false;
+    if (s[0] == '0') {
+        if (s[1] == 'x' || s[1] == 'X' || s[1] == 'b' || s[1] == 'B') return false;
+        if (s[1] >= '0' && s[1] <= '9') return false;
+    }
+    return true;
+}
+
+static ExValue parse_int_literal(const char *s, const char **out_end) {
+    char *digits_end = NULL;
+    errno = 0;
+    unsigned long long u = strtoull(s, &digits_end, 0);
+    bool overflow = (errno == ERANGE);
+    const char *p = digits_end ? digits_end : s;
+    const char *suffix_end = p;
+    bool suffix_unsigned = false;
+    int lcount = 0;
+    if (parse_int_suffix(p, &suffix_end, &suffix_unsigned, &lcount)) {
+        p = suffix_end;
+    }
     if (out_end) *out_end = p;
-    return v;
+
+    bool is_decimal = ex_is_decimal_literal(s);
+    ExRank rank = EX_RANK_LLONG;
+    bool is_unsigned = suffix_unsigned;
+
+    if (suffix_unsigned) {
+        if (lcount == 2) {
+            rank = EX_RANK_LLONG;
+        } else if (lcount == 1) {
+            rank = (overflow || u > (unsigned long long)ULONG_MAX) ? EX_RANK_LLONG : EX_RANK_LONG;
+        } else {
+            if (!overflow && u <= (unsigned long long)UINT_MAX) rank = EX_RANK_INT;
+            else if (!overflow && u <= (unsigned long long)ULONG_MAX) rank = EX_RANK_LONG;
+            else rank = EX_RANK_LLONG;
+        }
+    } else if (is_decimal) {
+        if (lcount == 2) {
+            rank = EX_RANK_LLONG;
+            if (overflow || u > (unsigned long long)LLONG_MAX) is_unsigned = true;
+        } else if (lcount == 1) {
+            if (!overflow && u <= (unsigned long long)LONG_MAX) rank = EX_RANK_LONG;
+            else if (!overflow && u <= (unsigned long long)LLONG_MAX) rank = EX_RANK_LLONG;
+            else { rank = EX_RANK_LLONG; is_unsigned = true; }
+        } else {
+            if (!overflow && u <= (unsigned long long)INT_MAX) rank = EX_RANK_INT;
+            else if (!overflow && u <= (unsigned long long)LONG_MAX) rank = EX_RANK_LONG;
+            else if (!overflow && u <= (unsigned long long)LLONG_MAX) rank = EX_RANK_LLONG;
+            else { rank = EX_RANK_LLONG; is_unsigned = true; }
+        }
+    } else {
+        // Octal/hex/bin constants include unsigned candidates in selection.
+        if (lcount == 2) {
+            rank = EX_RANK_LLONG;
+            if (overflow || u > (unsigned long long)LLONG_MAX) is_unsigned = true;
+        } else if (lcount == 1) {
+            if (!overflow && u <= (unsigned long long)LONG_MAX) { rank = EX_RANK_LONG; is_unsigned = false; }
+            else if (!overflow && u <= (unsigned long long)ULONG_MAX) { rank = EX_RANK_LONG; is_unsigned = true; }
+            else if (!overflow && u <= (unsigned long long)LLONG_MAX) { rank = EX_RANK_LLONG; is_unsigned = false; }
+            else { rank = EX_RANK_LLONG; is_unsigned = true; }
+        } else {
+            if (!overflow && u <= (unsigned long long)INT_MAX) { rank = EX_RANK_INT; is_unsigned = false; }
+            else if (!overflow && u <= (unsigned long long)UINT_MAX) { rank = EX_RANK_INT; is_unsigned = true; }
+            else if (!overflow && u <= (unsigned long long)LONG_MAX) { rank = EX_RANK_LONG; is_unsigned = false; }
+            else if (!overflow && u <= (unsigned long long)ULONG_MAX) { rank = EX_RANK_LONG; is_unsigned = true; }
+            else if (!overflow && u <= (unsigned long long)LLONG_MAX) { rank = EX_RANK_LLONG; is_unsigned = false; }
+            else { rank = EX_RANK_LLONG; is_unsigned = true; }
+        }
+    }
+
+    return is_unsigned ? ex_make_unsigned_rank(u, rank) : ex_make_signed_rank((long long)u, rank);
 }
 
 static int ex_hex_digit(char c) {
@@ -2178,22 +2695,30 @@ static bool ex_parse_char_literal(const char *s, const char **out_end, long *out
     return true;
 }
 
-static long ex_value_of_ident(const MacroTable *t, const char *ident) {
-    if (strcmp(ident, "true") == 0) return 1;
-    if (strcmp(ident, "false") == 0) return 0;
+static ExValue ex_value_of_ident(const MacroTable *t, const char *ident) {
+    if (strcmp(ident, "true") == 0) return ex_make_signed(1);
+    if (strcmp(ident, "false") == 0) return ex_make_signed(0);
     const char *v = mtable_get(t, ident);
-    if (!v) return 0;
+    if (!v) return ex_make_signed(0);
     const char *end = NULL;
-    long n = parse_int_literal(v, &end);
+    ExValue n = parse_int_literal(v, &end);
     if (end && *end == '\0') return n;
-    return 0;
+    return ex_make_signed(0);
 }
 
-static long ex_parse_primary(const MacroTable *t, Expr *e) {
+static bool ex_is_builtin_like_ident(const char *ident) {
+    if (!ident) return false;
+    if (starts_with(ident, "__has_")) return true;
+    if (starts_with(ident, "__is_")) return true;
+    if (starts_with(ident, "__building_")) return true;
+    return false;
+}
+
+static ExValue ex_parse_primary(const MacroTable *t, Expr *e) {
     e->s = ex_skip(e->s);
     if (*e->s == '(') {
         e->s++;
-        long v = ex_parse_expr(t, e);
+        ExValue v = ex_parse_expr(t, e);
         e->s = ex_skip(e->s);
         if (*e->s == ')') {
             e->s++;
@@ -2202,70 +2727,50 @@ static long ex_parse_primary(const MacroTable *t, Expr *e) {
         }
         return v;
     }
-    if (starts_with(e->s, "defined")) {
-        const char *p = e->s + 7; p = ex_skip(p);
-        long v = 0;
-        if (*p == '(') {
-            bool has_close = false;
-            p++; p = ex_skip(p);
-            char id[256]; size_t a=0;
-            if (parse_ident(p, &a, id, sizeof id)) {
-                p += a;
-                p = ex_skip(p);
-                if (*p == ')') { p++; has_close = true; }
-                v = mtable_get(t, id) ? 1 : 0;
-            }
-            if (!has_close) ex_mark_error(e);
-        } else {
-            char id[256]; size_t a=0;
-            if (parse_ident(p, &a, id, sizeof id)) {
-                p += a;
-                v = mtable_get(t, id) ? 1 : 0;
-            } else {
-                ex_mark_error(e);
-            }
-        }
-        e->s = p;
-        return v;
-    }
     if (isdigit((unsigned char)*e->s)) {
         const char *end = NULL;
-        long v = parse_int_literal(e->s, &end);
-        if (end && (*end == '.' || *end == 'e' || *end == 'E' || *end == 'p' || *end == 'P')) {
-            char *endf = NULL;
-            long double f = strtold(e->s, &endf);
-            if (endf && endf != e->s) {
-                const char *fend = endf;
-                while (*fend && (*fend == 'f' || *fend == 'F' || *fend == 'l' || *fend == 'L')) fend++;
-                e->s = fend;
-                return (long)f;
-            }
-        }
+        ExValue v = parse_int_literal(e->s, &end);
         e->s = end ? end : e->s;
         return v;
-    }
-    if (*e->s == '.' && isdigit((unsigned char)e->s[1])) {
-        char *endf = NULL;
-        long double f = strtold(e->s, &endf);
-        if (endf && endf != e->s) {
-            const char *fend = endf;
-            while (*fend && (*fend == 'f' || *fend == 'F' || *fend == 'l' || *fend == 'L')) fend++;
-            e->s = fend;
-            return (long)f;
-        }
     }
     {
         const char *end = NULL;
         long v = 0;
         if (ex_parse_char_literal(e->s, &end, &v)) {
             e->s = end ? end : e->s;
-            return v;
+            return ex_make_signed(v);
         }
     }
     char id[256]; size_t a=0;
     if (parse_ident(e->s, &a, id, sizeof id)) {
         e->s += a;
-        long v = ex_value_of_ident(t, id);
+        if (strcmp(id, "defined") == 0) {
+            const char *p = ex_skip(e->s);
+            long v = 0;
+            if (*p == '(') {
+                bool has_close = false;
+                p++; p = ex_skip(p);
+                char did[256]; size_t da = 0;
+                if (parse_ident(p, &da, did, sizeof did)) {
+                    p += da;
+                    p = ex_skip(p);
+                    if (*p == ')') { p++; has_close = true; }
+                    v = mtable_get(t, did) ? 1 : 0;
+                }
+                if (!has_close) ex_mark_error(e);
+            } else {
+                char did[256]; size_t da = 0;
+                if (parse_ident(p, &da, did, sizeof did)) {
+                    p += da;
+                    v = mtable_get(t, did) ? 1 : 0;
+                } else {
+                    ex_mark_error(e);
+                }
+            }
+            e->s = p;
+            return ex_make_signed(v);
+        }
+        ExValue v = ex_value_of_ident(t, id);
         const char *p = ex_skip(e->s);
         if (*p == '(') {
             int depth = 0;
@@ -2284,102 +2789,372 @@ static long ex_parse_primary(const MacroTable *t, Expr *e) {
             if (depth != 0) {
                 ex_mark_error(e);
                 e->s = q;
-            } else {
+            } else if (ex_is_builtin_like_ident(id)) {
+                // Accept compiler builtin-like predicates used in system
+                // headers as 0 for compatibility when not explicitly handled.
                 e->s = q;
+                v = ex_make_signed(0);
+            } else {
+                // In #if expressions, generic identifier(...) token
+                // sequences are invalid after macro expansion.
+                ex_mark_error(e);
+                e->s = p;
             }
         }
         return v;
     }
     ex_mark_error(e);
-    return 0;
+    return ex_make_signed(0);
 }
 
-static long ex_parse_unary(const MacroTable *t, Expr *e) {
+static ExValue ex_parse_unary(const MacroTable *t, Expr *e) {
     e->s = ex_skip(e->s);
-    if (*e->s == '!') { e->s++; long v = ex_parse_unary(t, e); return !v; }
-    if (*e->s == '~') { e->s++; long v = ex_parse_unary(t, e); return ~v; }
-    if (*e->s == '+') { e->s++; return +ex_parse_unary(t, e); }
-    if (*e->s == '-') { e->s++; return -ex_parse_unary(t, e); }
+    if (*e->s == '!') {
+        e->s++;
+        ExValue v = ex_parse_unary(t, e);
+        return ex_make_signed(ex_truthy(v) ? 0 : 1);
+    }
+    if (*e->s == '~') {
+        e->s++;
+        ExValue v = ex_parse_unary(t, e);
+        if (v.is_unsigned) return ex_make_unsigned_rank(~v.u, v.rank);
+        return ex_make_signed_rank(~ex_as_signed(v), v.rank);
+    }
+    if (*e->s == '+') {
+        e->s++;
+        return ex_parse_unary(t, e);
+    }
+    if (*e->s == '-') {
+        e->s++;
+        ExValue v = ex_parse_unary(t, e);
+        if (v.is_unsigned) return ex_make_unsigned_rank(0ULL - v.u, v.rank);
+        return ex_make_signed_rank(-ex_as_signed(v), v.rank);
+    }
     return ex_parse_primary(t, e);
 }
 
-static long ex_parse_mul(const MacroTable *t, Expr *e) {
-    long v = ex_parse_unary(t, e);
+static ExValue ex_parse_mul(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_unary(t, e);
     while (1) {
         const char *s = ex_skip(e->s);
-        if (*s == '*') { e->s = s+1; long r = ex_parse_unary(t, e); v = v * r; continue; }
-        if (*s == '/') { e->s = s+1; long r = ex_parse_unary(t, e); if (r != 0) v = v / r; else v = 0; continue; }
-        if (*s == '%') { e->s = s+1; long r = ex_parse_unary(t, e); if (r != 0) v = v % r; else v = 0; continue; }
+        if (*s == '*') {
+            e->s = s + 1;
+            ExValue r = ex_parse_unary(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            if (l.is_unsigned) v = ex_make_unsigned_rank(l.u * r.u, l.rank);
+            else v = ex_make_signed_rank(ex_as_signed(l) * ex_as_signed(r), l.rank);
+            continue;
+        }
+        if (*s == '/') {
+            e->s = s + 1;
+            ExValue r = ex_parse_unary(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            if (r.u == 0ULL) v = l;
+            else if (l.is_unsigned) v = ex_make_unsigned_rank(l.u / r.u, l.rank);
+            else v = ex_make_signed_rank(ex_as_signed(l) / ex_as_signed(r), l.rank);
+            continue;
+        }
+        if (*s == '%') {
+            e->s = s + 1;
+            ExValue r = ex_parse_unary(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            if (r.u == 0ULL) v = l;
+            else if (l.is_unsigned) v = ex_make_unsigned_rank(l.u % r.u, l.rank);
+            else v = ex_make_signed_rank(ex_as_signed(l) % ex_as_signed(r), l.rank);
+            continue;
+        }
         e->s = s; break;
     }
     return v;
 }
 
-static long ex_parse_add(const MacroTable *t, Expr *e) {
-    long v = ex_parse_mul(t, e);
+static ExValue ex_parse_add(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_mul(t, e);
     while (1) {
         const char *s = ex_skip(e->s);
-        if (*s == '+') { e->s = s+1; long r = ex_parse_mul(t, e); v = v + r; continue; }
-        if (*s == '-') { e->s = s+1; long r = ex_parse_mul(t, e); v = v - r; continue; }
+        if (*s == '+') {
+            e->s = s + 1;
+            ExValue r = ex_parse_mul(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            if (l.is_unsigned) v = ex_make_unsigned_rank(l.u + r.u, l.rank);
+            else v = ex_make_signed_rank(ex_as_signed(l) + ex_as_signed(r), l.rank);
+            continue;
+        }
+        if (*s == '-') {
+            e->s = s + 1;
+            ExValue r = ex_parse_mul(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            if (l.is_unsigned) v = ex_make_unsigned_rank(l.u - r.u, l.rank);
+            else v = ex_make_signed_rank(ex_as_signed(l) - ex_as_signed(r), l.rank);
+            continue;
+        }
         e->s = s; break;
     }
     return v;
 }
 
-static long ex_parse_shift(const MacroTable *t, Expr *e) {
-    long v = ex_parse_add(t, e);
+static ExValue ex_parse_shift(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_add(t, e);
+    const unsigned long long SHIFT_WIDTH = 64ULL;
     while (1) {
         const char *s = ex_skip(e->s);
-        if (s[0]=='<' && s[1]=='<') { e->s = s+2; long r = ex_parse_add(t, e); v = v << r; continue; }
-        if (s[0]=='>' && s[1]=='>' ) { e->s = s+2; long r = ex_parse_add(t, e); v = v >> r; continue; }
+        if (s[0] == '<' && s[1] == '<') {
+            e->s = s + 2;
+            ExValue r = ex_parse_add(t, e);
+            ExValue l = v;
+            bool zero_result = false;
+            bool use_right = false;
+            unsigned int sh = 0;
+            if (r.is_unsigned) {
+                if (r.u >= SHIFT_WIDTH) zero_result = true;
+                else sh = (unsigned int)r.u;
+            } else {
+                long long sr = ex_as_signed(r);
+                if (sr < 0) {
+                    unsigned long long mag = (unsigned long long)(-(sr + 1LL)) + 1ULL;
+                    if (mag >= SHIFT_WIDTH) zero_result = true;
+                    else { sh = (unsigned int)mag; use_right = true; }
+                } else if ((unsigned long long)sr >= SHIFT_WIDTH) {
+                    zero_result = true;
+                } else {
+                    sh = (unsigned int)sr;
+                }
+            }
+            if (zero_result) {
+                v = l.is_unsigned ? ex_make_unsigned_rank(0ULL, l.rank) : ex_make_signed_rank(0LL, l.rank);
+            } else if (use_right) {
+                if (l.is_unsigned) v = ex_make_unsigned_rank(l.u >> sh, l.rank);
+                else v = ex_make_signed_rank(ex_as_signed(l) >> sh, l.rank);
+            } else if (l.is_unsigned) {
+                v = ex_make_unsigned_rank(l.u << sh, l.rank);
+            } else {
+                v = ex_make_signed_rank(ex_as_signed(l) << sh, l.rank);
+            }
+            continue;
+        }
+        if (s[0] == '>' && s[1] == '>') {
+            e->s = s + 2;
+            ExValue r = ex_parse_add(t, e);
+            ExValue l = v;
+            bool zero_result = false;
+            bool use_left = false;
+            unsigned int sh = 0;
+            if (r.is_unsigned) {
+                if (r.u >= SHIFT_WIDTH) zero_result = true;
+                else sh = (unsigned int)r.u;
+            } else {
+                long long sr = ex_as_signed(r);
+                if (sr < 0) {
+                    unsigned long long mag = (unsigned long long)(-(sr + 1LL)) + 1ULL;
+                    if (mag >= SHIFT_WIDTH) zero_result = true;
+                    else { sh = (unsigned int)mag; use_left = true; }
+                } else if ((unsigned long long)sr >= SHIFT_WIDTH) {
+                    zero_result = true;
+                } else {
+                    sh = (unsigned int)sr;
+                }
+            }
+            if (zero_result) {
+                v = l.is_unsigned ? ex_make_unsigned_rank(0ULL, l.rank) : ex_make_signed_rank(0LL, l.rank);
+            } else if (use_left) {
+                if (l.is_unsigned) v = ex_make_unsigned_rank(l.u << sh, l.rank);
+                else v = ex_make_signed_rank(ex_as_signed(l) << sh, l.rank);
+            } else if (l.is_unsigned) {
+                v = ex_make_unsigned_rank(l.u >> sh, l.rank);
+            } else {
+                v = ex_make_signed_rank(ex_as_signed(l) >> sh, l.rank);
+            }
+            continue;
+        }
         e->s = s; break;
     }
     return v;
 }
 
-static long ex_parse_rel(const MacroTable *t, Expr *e) {
-    long v = ex_parse_shift(t, e);
+static ExValue ex_parse_rel(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_shift(t, e);
     while (1) {
         const char *s = ex_skip(e->s);
-        if (s[0]=='<' && s[1]=='=') { e->s = s+2; long r = ex_parse_shift(t, e); v = (v <= r) ? 1 : 0; continue; }
-        if (s[0]=='>' && s[1]=='=') { e->s = s+2; long r = ex_parse_shift(t, e); v = (v >= r) ? 1 : 0; continue; }
-        if (s[0]=='<') { e->s = s+1; long r = ex_parse_shift(t, e); v = (v < r) ? 1 : 0; continue; }
-        if (s[0]=='>') { e->s = s+1; long r = ex_parse_shift(t, e); v = (v > r) ? 1 : 0; continue; }
+        if (s[0] == '<' && s[1] == '=') {
+            e->s = s + 2;
+            ExValue r = ex_parse_shift(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            bool ok = l.is_unsigned ? (l.u <= r.u) : (ex_as_signed(l) <= ex_as_signed(r));
+            v = ex_make_signed(ok ? 1 : 0);
+            continue;
+        }
+        if (s[0] == '>' && s[1] == '=') {
+            e->s = s + 2;
+            ExValue r = ex_parse_shift(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            bool ok = l.is_unsigned ? (l.u >= r.u) : (ex_as_signed(l) >= ex_as_signed(r));
+            v = ex_make_signed(ok ? 1 : 0);
+            continue;
+        }
+        if (s[0] == '<') {
+            e->s = s + 1;
+            ExValue r = ex_parse_shift(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            bool ok = l.is_unsigned ? (l.u < r.u) : (ex_as_signed(l) < ex_as_signed(r));
+            v = ex_make_signed(ok ? 1 : 0);
+            continue;
+        }
+        if (s[0] == '>') {
+            e->s = s + 1;
+            ExValue r = ex_parse_shift(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            bool ok = l.is_unsigned ? (l.u > r.u) : (ex_as_signed(l) > ex_as_signed(r));
+            v = ex_make_signed(ok ? 1 : 0);
+            continue;
+        }
         e->s = s; break;
     }
     return v;
 }
 
-static long ex_parse_eq(const MacroTable *t, Expr *e) {
-    long v = ex_parse_rel(t, e);
+static ExValue ex_parse_eq(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_rel(t, e);
     while (1) {
         const char *s = ex_skip(e->s);
-        if (s[0]=='=' && s[1]=='=') { e->s = s+2; long r = ex_parse_rel(t, e); v = (v == r) ? 1 : 0; continue; }
-        if (s[0]=='!' && s[1]=='=') { e->s = s+2; long r = ex_parse_rel(t, e); v = (v != r) ? 1 : 0; continue; }
+        if (s[0] == '=' && s[1] == '=') {
+            e->s = s + 2;
+            ExValue r = ex_parse_rel(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            bool ok = l.is_unsigned ? (l.u == r.u) : (ex_as_signed(l) == ex_as_signed(r));
+            v = ex_make_signed(ok ? 1 : 0);
+            continue;
+        }
+        if (s[0] == '!' && s[1] == '=') {
+            e->s = s + 2;
+            ExValue r = ex_parse_rel(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            bool ok = l.is_unsigned ? (l.u != r.u) : (ex_as_signed(l) != ex_as_signed(r));
+            v = ex_make_signed(ok ? 1 : 0);
+            continue;
+        }
         e->s = s; break;
     }
     return v;
 }
 
-static long ex_parse_band(const MacroTable *t, Expr *e) { long v = ex_parse_eq(t, e); while (1){ const char *s=ex_skip(e->s); if (*s=='&' && s[1] != '&'){ e->s=s+1; long r=ex_parse_eq(t,e); v = v & r; continue;} e->s=s; break;} return v; }
-static long ex_parse_bxor(const MacroTable *t, Expr *e) { long v = ex_parse_band(t,e); while (1){ const char *s=ex_skip(e->s); if (*s=='^'){ e->s=s+1; long r=ex_parse_band(t,e); v = v ^ r; continue;} e->s=s; break;} return v; }
-static long ex_parse_bor (const MacroTable *t, Expr *e) { long v = ex_parse_bxor(t,e); while (1){ const char *s=ex_skip(e->s); if (*s=='|' && s[1] != '|'){ e->s=s+1; long r=ex_parse_bxor(t,e); v = v | r; continue;} e->s=s; break;} return v; }
-static long ex_parse_land(const MacroTable *t, Expr *e) { long v = ex_parse_bor(t,e); while (1){ const char *s=ex_skip(e->s); if (s[0]=='&'&&s[1]=='&'){ e->s=s+2; long r=ex_parse_bor(t,e); v = (v&&r)?1:0; continue;} e->s=s; break;} return v; }
-static long ex_parse_lor (const MacroTable *t, Expr *e) { long v = ex_parse_land(t,e); while (1){ const char *s=ex_skip(e->s); if (s[0]=='|'&&s[1]=='|'){ e->s=s+2; long r=ex_parse_land(t,e); v = (v||r)?1:0; continue;} e->s=s; break;} return v; }
-static long ex_parse_cond(const MacroTable *t, Expr *e) {
-    long v = ex_parse_lor(t, e);
+static ExValue ex_parse_band(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_eq(t, e);
+    while (1) {
+        const char *s = ex_skip(e->s);
+        if (*s == '&' && s[1] != '&') {
+            e->s = s + 1;
+            ExValue r = ex_parse_eq(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            if (l.is_unsigned) v = ex_make_unsigned_rank(l.u & r.u, l.rank);
+            else v = ex_make_signed_rank(ex_as_signed(l) & ex_as_signed(r), l.rank);
+            continue;
+        }
+        e->s = s;
+        break;
+    }
+    return v;
+}
+
+static ExValue ex_parse_bxor(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_band(t, e);
+    while (1) {
+        const char *s = ex_skip(e->s);
+        if (*s == '^') {
+            e->s = s + 1;
+            ExValue r = ex_parse_band(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            if (l.is_unsigned) v = ex_make_unsigned_rank(l.u ^ r.u, l.rank);
+            else v = ex_make_signed_rank(ex_as_signed(l) ^ ex_as_signed(r), l.rank);
+            continue;
+        }
+        e->s = s;
+        break;
+    }
+    return v;
+}
+
+static ExValue ex_parse_bor(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_bxor(t, e);
+    while (1) {
+        const char *s = ex_skip(e->s);
+        if (*s == '|' && s[1] != '|') {
+            e->s = s + 1;
+            ExValue r = ex_parse_bxor(t, e);
+            ExValue l = v;
+            ex_usual_arith(&l, &r);
+            if (l.is_unsigned) v = ex_make_unsigned_rank(l.u | r.u, l.rank);
+            else v = ex_make_signed_rank(ex_as_signed(l) | ex_as_signed(r), l.rank);
+            continue;
+        }
+        e->s = s;
+        break;
+    }
+    return v;
+}
+
+static ExValue ex_parse_land(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_bor(t, e);
+    while (1) {
+        const char *s = ex_skip(e->s);
+        if (s[0] == '&' && s[1] == '&') {
+            e->s = s + 2;
+            ExValue r = ex_parse_bor(t, e);
+            v = ex_make_signed((ex_truthy(v) && ex_truthy(r)) ? 1 : 0);
+            continue;
+        }
+        e->s = s;
+        break;
+    }
+    return v;
+}
+
+static ExValue ex_parse_lor(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_land(t, e);
+    while (1) {
+        const char *s = ex_skip(e->s);
+        if (s[0] == '|' && s[1] == '|') {
+            e->s = s + 2;
+            ExValue r = ex_parse_land(t, e);
+            v = ex_make_signed((ex_truthy(v) || ex_truthy(r)) ? 1 : 0);
+            continue;
+        }
+        e->s = s;
+        break;
+    }
+    return v;
+}
+
+static ExValue ex_parse_cond(const MacroTable *t, Expr *e) {
+    ExValue v = ex_parse_lor(t, e);
     const char *s = ex_skip(e->s);
     if (*s == '?') {
         e->s = s + 1;
-        long vt = ex_parse_cond(t, e);
+        ExValue vt = ex_parse_cond(t, e);
         s = ex_skip(e->s);
-        if (*s == ':') { e->s = s + 1; long vf = ex_parse_cond(t, e); v = v ? vt : vf; }
+        if (*s == ':') {
+            e->s = s + 1;
+            ExValue vf = ex_parse_cond(t, e);
+            v = ex_select_cond_value(ex_truthy(v), vt, vf);
+        }
         else ex_mark_error(e);
     }
     return v;
 }
 
-static long ex_parse_expr(const MacroTable *t, Expr *e) { return ex_parse_cond(t, e); }
+static ExValue ex_parse_expr(const MacroTable *t, Expr *e) { return ex_parse_cond(t, e); }
 
 typedef struct { bool parent_active; bool current_active; bool taken; bool saw_else; } IfCtx;
 
@@ -2476,6 +3251,33 @@ static FILE *open_in_search_next(const char *name,
 }
 
 // Read one logical line (without trailing \n). Returns true if a line was read.
+static bool has_line_splice_suffix(const Str *line) {
+    if (!line || !line->buf || line->len == 0) return false;
+    if (line->buf[line->len - 1] == '\\') return true;
+    if (line->len >= 3 &&
+        line->buf[line->len - 3] == '?' &&
+        line->buf[line->len - 2] == '?' &&
+        line->buf[line->len - 1] == '/') {
+        return true;
+    }
+    return false;
+}
+
+static void remove_line_splice_suffix(Str *line) {
+    if (!line || !line->buf || line->len == 0) return;
+    if (line->buf[line->len - 1] == '\\') {
+        line->buf[--line->len] = '\0';
+        return;
+    }
+    if (line->len >= 3 &&
+        line->buf[line->len - 3] == '?' &&
+        line->buf[line->len - 2] == '?' &&
+        line->buf[line->len - 1] == '/') {
+        line->len -= 3;
+        line->buf[line->len] = '\0';
+    }
+}
+
 static bool read_line(FILE *in, Str *line) {
     sb_init(line);
     int ch;
@@ -2490,11 +3292,11 @@ static bool read_line(FILE *in, Str *line) {
             int ch2 = fgetc(in);
             if (ch2 != '\n' && ch2 != EOF) ungetc(ch2, in);
             // handle line splicing if trailing backslash present
-            if (line->len > 0 && line->buf[line->len-1] == '\\') { line->buf[--line->len] = '\0'; continue; }
+            if (has_line_splice_suffix(line)) { remove_line_splice_suffix(line); continue; }
             break;
         }
         if (ch == '\n') {
-            if (line->len > 0 && line->buf[line->len-1] == '\\') { line->buf[--line->len] = '\0'; continue; }
+            if (has_line_splice_suffix(line)) { remove_line_splice_suffix(line); continue; }
             break;
         }
         sb_putc(line, (char)ch);
@@ -2778,6 +3580,8 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
             }
         }
         raw = line.buf ? line.buf : "";
+        normalize_trigraphs_inplace(&line);
+        raw = line.buf ? line.buf : "";
         normalize_digraph_tokens_inplace(&line);
         raw = line.buf ? line.buf : "";
         bool need_line_directive_after = false;
@@ -2808,28 +3612,67 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
         bool is_directive_line = (!in_block_comment && *p == '#');
         if (is_directive_line) {
             p++; p = lskip(p);
+            char *directive_body = p;
             char kw[32]; size_t adv = 0; parse_ident(p, &adv, kw, sizeof kw); p += adv; p = lskip(p);
             bool emit_directive_line = false;
             bool emitted_line_marker = false;
             bool comment_depth_handled = false;
             int directive_bl_start = g_block_comment_depth;
-            if (strcmp(kw, "define") == 0) {
+            if (adv == 0 && isdigit((unsigned char)*directive_body)) {
+                if (active) {
+                    long logical_line = 0;
+                    bool has_fname = false;
+                    char *parsed_fname = NULL;
+                    long physical_line_no = line_no;
+                    parse_line_control_payload(directive_body, true, this_path, physical_line_no,
+                                               &logical_line, &has_fname, &parsed_fname);
+
+                    if (has_fname) {
+                        free(line_file_override);
+                        line_file_override = xstrdup(parsed_fname ? parsed_fname : "");
+                        g_cur_file = line_file_override;
+                    }
+
+                    // The next source line is numbered as logical_line.
+                    line_no = logical_line - 1;
+                    g_cur_line = line_no;
+
+                    if (has_prev) {
+                        if (prev.buf) fputs(prev.buf, out);
+                        fputc('\n', out);
+                        sb_free(&prev); sb_init(&prev); has_prev = false;
+                    }
+                    fprintf(out, "#line %ld", logical_line);
+                    if (has_fname) {
+                        Str q; sb_init(&q);
+                        sb_putc(&q, ' ');
+                        sb_put_escaped_cstr(&q, parsed_fname ? parsed_fname : "");
+                        if (q.buf) fputs(q.buf, out);
+                        sb_free(&q);
+                    }
+                    fputc('\n', out);
+                    if (parsed_fname) free(parsed_fname);
+                    emit_directive_line = true;
+                    emitted_line_marker = true;
+                }
+            } else if (strcmp(kw, "define") == 0) {
                 if (active) process_define(tbl, raw);
             } else if (strcmp(kw, "undef") == 0) {
                 if (active) {
                     char id[256]; size_t a=0; parse_ident(p, &a, id, sizeof id);
-                    if (a>0) {
-                        bool is_darwin = mtable_get(tbl, "__APPLE__") != NULL;
-                        if (is_darwin && (
-                                strcmp(id, "__DARWIN_NFDBITS") == 0 ||
-                                strcmp(id, "__DARWIN_NBBY") == 0 ||
-                                strcmp(id, "_DARWIN_C_SOURCE") == 0 ||
-                                strcmp(id, "_POSIX_C_SOURCE") == 0 ||
-                                strcmp(id, "_CACHED_RUNES") == 0)) {
-                            // keep predefined Darwin compatibility macros
-                        } else {
-                            mtable_unset(tbl, id);
-                        }
+                    if (a == 0 || !only_trailing_space_or_comments(p + a)) {
+                        pp_directive_error(this_path, line_no, "invalid #undef directive");
+                    }
+                    bool is_darwin = mtable_get(tbl, "__APPLE__") != NULL;
+                    if (is_darwin && (
+                            strcmp(id, "__DARWIN_NFDBITS") == 0 ||
+                            strcmp(id, "__DARWIN_NBBY") == 0 ||
+                            strcmp(id, "_DARWIN_C_SOURCE") == 0 ||
+                            strcmp(id, "_POSIX_C_SOURCE") == 0 ||
+                            strcmp(id, "_CACHED_RUNES") == 0)) {
+                        // keep predefined Darwin compatibility macros
+                    } else {
+                        mtable_unset(tbl, id);
                     }
                 }
             } else if (strcmp(kw, "module") == 0) {
@@ -2898,11 +3741,59 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                         fputc('\n', out);
                         sb_free(&prev); sb_init(&prev); has_prev = false;
                     }
-                    // Parse header name
-                    bool quoted=false; char header[512]; size_t hi=0;
-                    if (*p == '"') { quoted = true; p++; while (*p && *p!='"' && hi+1<sizeof header) header[hi++]=*p++; if (*p=='"') p++; }
-                    else if (*p == '<') { p++; while (*p && *p!='>' && hi+1<sizeof header) header[hi++]=*p++; if (*p=='>') p++; }
+                    // Parse header name and validate directive form.
+                    // For #include MACRO form, macro-expand first and then parse
+                    // as header-name.
+                    const char *hp = p;
+                    while (*hp && isspace((unsigned char)*hp)) hp++;
+                    Str include_expanded;
+                    bool use_include_expanded = false;
+                    if (*hp != '"' && *hp != '<') {
+                        use_include_expanded = true;
+                        sb_init(&include_expanded);
+                        expand_into_str(tbl, hp, &include_expanded);
+                        for (int pass = 0; pass < 50; ++pass) {
+                            Str next;
+                            sb_init(&next);
+                            expand_into_str(tbl, include_expanded.buf ? include_expanded.buf : "", &next);
+                            bool same = ((include_expanded.buf == NULL && next.buf == NULL) ||
+                                         (include_expanded.buf && next.buf && strcmp(include_expanded.buf, next.buf) == 0));
+                            sb_free(&include_expanded);
+                            include_expanded = next;
+                            if (same) break;
+                        }
+                        hp = include_expanded.buf ? include_expanded.buf : "";
+                        while (*hp && isspace((unsigned char)*hp)) hp++;
+                    }
+                    bool quoted = false;
+                    bool include_form_ok = false;
+                    char header[512];
+                    size_t hi = 0;
+                    if (*hp == '"') {
+                        quoted = true;
+                        include_form_ok = true;
+                        hp++;
+                        while (*hp && *hp != '"') {
+                            if (hi + 1 < sizeof header) header[hi++] = *hp;
+                            hp++;
+                        }
+                        if (*hp != '"') include_form_ok = false;
+                        else hp++;
+                    } else if (*hp == '<') {
+                        include_form_ok = true;
+                        hp++;
+                        while (*hp && *hp != '>') {
+                            if (hi + 1 < sizeof header) header[hi++] = *hp;
+                            hp++;
+                        }
+                        if (*hp != '>') include_form_ok = false;
+                        else hp++;
+                    }
                     header[hi]='\0';
+                    if (!include_form_ok || hi == 0 || !only_trailing_space_or_comments(hp)) {
+                        if (use_include_expanded) sb_free(&include_expanded);
+                        pp_directive_error(this_path, line_no, "invalid #include directive");
+                    }
                     char *opened_path=NULL;
                     FILE *f = NULL;
                     if (strcmp(kw, "include") == 0) {
@@ -2933,40 +3824,61 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                             }
                         }
                         free(opened_path);
+                    } else {
+                        if (use_include_expanded) sb_free(&include_expanded);
+                        pp_directive_error(this_path, line_no, "include file not found");
                     }
+                    if (use_include_expanded) sb_free(&include_expanded);
                 }
             } else if (strcmp(kw, "line") == 0) {
                 if (active) {
-                    const char *lp = p;
-                    while (*lp && isspace((unsigned char)*lp)) lp++;
-                    char *endp = NULL;
-                    long logical_line = strtol(lp, &endp, 10);
-                    if (endp != lp && logical_line > 0) {
-                        // The next source line is numbered as logical_line.
-                        line_no = logical_line - 1;
-                        g_cur_line = line_no;
+                    long physical_line_no = line_no;
+                    Str line_expanded; sb_init(&line_expanded);
+                    expand_into_str(tbl, p, &line_expanded);
+                    for (int pass = 0; pass < 50; ++pass) {
+                        Str next;
+                        sb_init(&next);
+                        expand_into_str(tbl, line_expanded.buf ? line_expanded.buf : "", &next);
+                        bool same = ((line_expanded.buf == NULL && next.buf == NULL) ||
+                                     (line_expanded.buf && next.buf && strcmp(line_expanded.buf, next.buf) == 0));
+                        sb_free(&line_expanded);
+                        line_expanded = next;
+                        if (same) break;
                     }
-                    lp = (endp != lp) ? endp : lp;
-                    while (*lp && isspace((unsigned char)*lp)) lp++;
-                    if (*lp == '"') {
-                        lp++;
-                        Str fname; sb_init(&fname);
-                        while (*lp && *lp != '"') {
-                            if (*lp == '\\' && lp[1] != '\0') lp++;
-                            sb_putc(&fname, *lp);
-                            lp++;
-                        }
+
+                    long logical_line = 0;
+                    bool has_fname = false;
+                    char *parsed_fname = NULL;
+                    parse_line_control_payload(line_expanded.buf ? line_expanded.buf : "",
+                                               false, this_path, physical_line_no,
+                                               &logical_line, &has_fname, &parsed_fname);
+                    sb_free(&line_expanded);
+
+                    if (has_fname) {
                         free(line_file_override);
-                        line_file_override = xstrdup(fname.buf ? fname.buf : "");
-                        sb_free(&fname);
+                        line_file_override = xstrdup(parsed_fname ? parsed_fname : "");
                         g_cur_file = line_file_override;
                     }
+
+                    // The next source line is numbered as logical_line.
+                    line_no = logical_line - 1;
+                    g_cur_line = line_no;
+
                     if (has_prev) {
                         if (prev.buf) fputs(prev.buf, out);
                         fputc('\n', out);
                         sb_free(&prev); sb_init(&prev); has_prev = false;
                     }
-                    fputs(raw, out); fputc('\n', out);
+                    fprintf(out, "#line %ld", logical_line);
+                    if (has_fname) {
+                        Str q; sb_init(&q);
+                        sb_putc(&q, ' ');
+                        sb_put_escaped_cstr(&q, parsed_fname ? parsed_fname : "");
+                        if (q.buf) fputs(q.buf, out);
+                        sb_free(&q);
+                    }
+                    fputc('\n', out);
+                    if (parsed_fname) free(parsed_fname);
                     emit_directive_line = true;
                     emitted_line_marker = true;
                 }
@@ -3005,6 +3917,9 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 }
             } else if (strcmp(kw, "ifdef") == 0) {
                 char id[256]; size_t a=0; parse_ident(p, &a, id, sizeof id);
+                if (a == 0 || !only_trailing_space_or_comments(p + a)) {
+                    pp_directive_error(this_path, line_no, "invalid #ifdef directive");
+                }
                 bool cond = mtable_get(tbl, id) != NULL;
                 if (ilen == icap) { icap = icap? icap*2:8; istk = xrealloc(istk, icap*sizeof(IfCtx)); }
                 bool parent = active;
@@ -3012,6 +3927,9 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 istk[ilen++] = (IfCtx){ parent, curr, curr, false };
             } else if (strcmp(kw, "ifndef") == 0) {
                 char id[256]; size_t a=0; parse_ident(p, &a, id, sizeof id);
+                if (a == 0 || !only_trailing_space_or_comments(p + a)) {
+                    pp_directive_error(this_path, line_no, "invalid #ifndef directive");
+                }
                 bool cond = mtable_get(tbl, id) == NULL;
                 if (ilen == icap) { icap = icap? icap*2:8; istk = xrealloc(istk, icap*sizeof(IfCtx)); }
                 bool parent = active;
@@ -3021,6 +3939,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 long base_line = g_cur_line;
                 Str exln; sb_init(&exln);
                 int if_bl_start = g_block_comment_depth;
+                g_ifexpr_builtin_error = false;
                 g_cur_line = base_line;
                 g_expand_pass = 0;
                 g_block_comment_depth = if_bl_start;
@@ -3039,9 +3958,9 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     if (same) break;
                 }
                 Expr ex = { .s = exln.buf ? exln.buf : "", .err = false };
-                long v = ex_parse_expr(tbl, &ex);
+                ExValue v = ex_parse_expr(tbl, &ex);
                 ex.s = ex_skip(ex.s);
-                bool invalid_if_expr = ex.err || (ex.s && *ex.s != '\0');
+                bool invalid_if_expr = g_ifexpr_builtin_error || ex.err || (ex.s && *ex.s != '\0');
                 if (invalid_if_expr) {
                     const char *dbg = getenv("CCPP_DEBUG_IFEXPR");
                     if (dbg && *dbg) {
@@ -3052,7 +3971,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 if (invalid_if_expr) {
                     pp_directive_error(this_path, line_no, "invalid #if expression");
                 }
-                bool cond = v != 0;
+                bool cond = ex_truthy(v);
                 if (ilen == icap) { icap = icap? icap*2:8; istk = xrealloc(istk, icap*sizeof(IfCtx)); }
                 bool parent = active;
                 bool curr = parent && cond;
@@ -3077,6 +3996,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     long base_line = g_cur_line;
                     Str exln; sb_init(&exln);
                     int if_bl_start = g_block_comment_depth;
+                    g_ifexpr_builtin_error = false;
                     g_cur_line = base_line;
                     g_expand_pass = 0;
                     g_block_comment_depth = if_bl_start;
@@ -3095,9 +4015,9 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                         if (same) break;
                     }
                     Expr ex = { .s = exln.buf ? exln.buf : "", .err = false };
-                    long v = ex_parse_expr(tbl, &ex);
+                    ExValue v = ex_parse_expr(tbl, &ex);
                     ex.s = ex_skip(ex.s);
-                    bool invalid_if_expr = ex.err || (ex.s && *ex.s != '\0');
+                    bool invalid_if_expr = g_ifexpr_builtin_error || ex.err || (ex.s && *ex.s != '\0');
                     if (invalid_if_expr) {
                         const char *dbg = getenv("CCPP_DEBUG_IFEXPR");
                         if (dbg && *dbg) {
@@ -3108,7 +4028,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     if (invalid_if_expr) {
                         pp_directive_error(this_path, line_no, "invalid #if expression");
                     }
-                    bool cond = v != 0;
+                    bool cond = ex_truthy(v);
                     c->current_active = c->parent_active && cond;
                     if (c->current_active) c->taken = true;
                     // Keep block-comment depth in sync from the raw directive line.

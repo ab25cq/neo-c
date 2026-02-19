@@ -1,0 +1,2 @@
+zz_decl_register_file.c:12:14: error: illegal storage class on file-scoped variable
+1 error generated.

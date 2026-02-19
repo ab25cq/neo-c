@@ -1,0 +1,2 @@
+zz_decl_bitfield_float.c:13:11: error: bit-field 'x' has non-integral type 'float'
+1 error generated.

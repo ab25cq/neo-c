@@ -2,22 +2,18 @@
 
 struct sData
 {
-    vector<int>& n;
+    int a;
+    int b;
 };
-
-vector<int>& fun()
-{
-    sData data;
-    
-    data.n = ref v[1,2,3,4,5];
-    return data.n;
-}
 
 int main(int argc, char** argv)
 {
-    vector<int>& a = fun();
+    struct sData b;
+    struct sData* a = &b;
     
-    a[0..2].to_string().puts();
+    *a = (struct sData) {
+        1, 2
+    };
     
     return 0;
 }

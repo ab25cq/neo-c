@@ -1,0 +1,4 @@
+zz_decl_void_object.c:12:6: error: variable has incomplete type 'void'
+   12 | void x;
+      |      ^
+1 error generated.

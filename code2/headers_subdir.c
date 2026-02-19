@@ -2254,12 +2254,6 @@ typedef struct nand_oobinfo  nand_oobinfo_t  ;
 
 typedef struct nand_ecclayout_user  nand_ecclayout_t  ;
 
-typedef unsigned short int domid_t;
-
-typedef unsigned int grant_ref_t;
-
-typedef unsigned long  int xen_pfn_t;
-
 /// previous struct definition ///
 struct cmsghdr;
 
@@ -11785,266 +11779,6 @@ enum { REG_GENL_CMD_UNSPEC
 ,__REG_GENL_CMD_MAX 
 };
 
-struct ioctl_evtchn_bind_virq
-{
-    unsigned int virq;
-};
-
-struct ioctl_evtchn_bind_interdomain
-{
-    unsigned int remote_domain;
-    unsigned int remote_port;
-};
-
-struct ioctl_evtchn_bind_unbound_port
-{
-    unsigned int remote_domain;
-};
-
-struct ioctl_evtchn_unbind
-{
-    unsigned int port;
-};
-
-struct ioctl_evtchn_notify
-{
-    unsigned int port;
-};
-
-struct ioctl_evtchn_restrict_domid
-{
-    unsigned short int  domid  ;
-};
-
-struct ioctl_evtchn_bind
-{
-    unsigned int port;
-};
-
-struct ioctl_gntdev_grant_ref
-{
-    unsigned int  domid  ;
-    unsigned int  ref  ;
-};
-
-struct ioctl_gntdev_map_grant_ref
-{
-    unsigned int  count  ;
-    unsigned int  pad  ;
-    unsigned long  long  index  ;
-    struct ioctl_gntdev_grant_ref  refs[1]  ;
-};
-
-struct ioctl_gntdev_unmap_grant_ref
-{
-    unsigned long  long  index  ;
-    unsigned int  count  ;
-    unsigned int  pad  ;
-};
-
-struct ioctl_gntdev_get_offset_for_vaddr
-{
-    unsigned long  long  vaddr  ;
-    unsigned long  long  offset  ;
-    unsigned int  count  ;
-    unsigned int  pad  ;
-};
-
-struct ioctl_gntdev_set_max_grants
-{
-    unsigned int  count  ;
-};
-
-struct ioctl_gntdev_unmap_notify
-{
-    unsigned long  long  index  ;
-    unsigned int  action  ;
-    unsigned int  event_channel_port  ;
-};
-
-struct anonymous_typeX228
-{
-    unsigned int  ref  ;
-    unsigned short int  offset  ;
-    unsigned short int  domid  ;
-};
-
-union anonymous_typeZ227
-{
-void* virt;
-    struct {
-        unsigned int  ref  ;
-        unsigned short int  offset  ;
-        unsigned short int  domid  ;
-    } foreign;
-};
-
-struct anonymous_typeX230
-{
-    unsigned int  ref  ;
-    unsigned short int  offset  ;
-    unsigned short int  domid  ;
-};
-
-union anonymous_typeZ229
-{
-void* virt;
-    struct {
-        unsigned int  ref  ;
-        unsigned short int  offset  ;
-        unsigned short int  domid  ;
-    } foreign;
-};
-
-struct gntdev_grant_copy_segment
-{
-    union {
-        void* virt;
-        struct {
-            unsigned int  ref  ;
-            unsigned short int  offset  ;
-            unsigned short int  domid  ;
-        } foreign;
-    } source;
-    union {
-        void* virt;
-        struct {
-            unsigned int  ref  ;
-            unsigned short int  offset  ;
-            unsigned short int  domid  ;
-        } foreign;
-    } dest;
-    unsigned short int  len  ;
-    unsigned short int  flags  ;
-    short  status  ;
-};
-
-struct ioctl_gntdev_grant_copy
-{
-    unsigned int count;
-    struct gntdev_grant_copy_segment*  segments  ;
-};
-
-struct ioctl_gntdev_dmabuf_exp_from_refs
-{
-    unsigned int  flags  ;
-    unsigned int  count  ;
-    unsigned int  fd  ;
-    unsigned int  domid  ;
-    unsigned int  refs[1]  ;
-};
-
-struct ioctl_gntdev_dmabuf_exp_wait_released
-{
-    unsigned int  fd  ;
-    unsigned int  wait_to_ms  ;
-};
-
-struct ioctl_gntdev_dmabuf_imp_to_refs
-{
-    unsigned int  fd  ;
-    unsigned int  count  ;
-    unsigned int  domid  ;
-    unsigned int  reserved  ;
-    unsigned int  refs[1]  ;
-};
-
-struct ioctl_gntdev_dmabuf_imp_release
-{
-    unsigned int  fd  ;
-    unsigned int  reserved  ;
-};
-
-struct privcmd_hypercall
-{
-    unsigned long  long  op  ;
-    unsigned long  long  arg[5]  ;
-};
-
-struct privcmd_mmap_entry
-{
-    unsigned long  long  va  ;
-    unsigned long  long  mfn  ;
-    unsigned long  long  npages  ;
-};
-
-struct privcmd_mmap
-{
-    int num;
-    unsigned short int  dom  ;
-    struct privcmd_mmap_entry*  entry  ;
-};
-
-struct privcmd_mmapbatch
-{
-    int num;
-    unsigned short int  dom  ;
-    unsigned long  long  addr  ;
-    unsigned long  int*  arr  ;
-};
-
-struct privcmd_mmapbatch_v2
-{
-    unsigned int num;
-    unsigned short int  dom  ;
-    unsigned long  long  addr  ;
-    const unsigned long  int*  arr  ;
-    int* err;
-};
-
-struct privcmd_dm_op_buf
-{
-    void* uptr;
-    unsigned long  size  ;
-};
-
-struct privcmd_dm_op
-{
-    unsigned short int  dom  ;
-    unsigned short int  num  ;
-    const struct privcmd_dm_op_buf*  ubufs  ;
-};
-
-struct privcmd_mmap_resource
-{
-    unsigned short int  dom  ;
-    unsigned int  type  ;
-    unsigned int  id  ;
-    unsigned int  idx  ;
-    unsigned long  long  num  ;
-    unsigned long  long  addr  ;
-};
-
-struct privcmd_irqfd
-{
-    unsigned long  long  dm_op  ;
-    unsigned int  size  ;
-    unsigned int  fd  ;
-    unsigned int  flags  ;
-    unsigned short int  dom  ;
-    unsigned char  pad[2]  ;
-};
-
-struct privcmd_ioeventfd
-{
-    unsigned long  long  ioreq  ;
-    unsigned long  long  ports  ;
-    unsigned long  long  addr  ;
-    unsigned int  addr_len  ;
-    unsigned int  event_fd  ;
-    unsigned int  vcpus  ;
-    unsigned int  vq  ;
-    unsigned int  flags  ;
-    unsigned short int  dom  ;
-    unsigned char  pad[2]  ;
-};
-
-struct privcmd_pcidev_get_gsi
-{
-    unsigned int  sbdf  ;
-    unsigned int  gsi  ;
-};
-
 typedef unsigned char __uapi_uuid_t[16];
 
 struct cxl_mbox_get_sup_feats_in
@@ -12067,14 +11801,14 @@ struct cxl_feat_entry
     unsigned char  reserved[18]  ;
 } __attribute__ ((__packed__));
 
-struct anonymous_typeX232
+struct anonymous_typeX228
 {
     unsigned short int  num_entries  ;
     unsigned short int  supported_feats  ;
     unsigned char  reserved[4]  ;
 };
 
-struct anonymous_typeX234
+struct anonymous_typeX230
 {
     unsigned short int  num_entries  ;
     unsigned short int  supported_feats  ;
@@ -12115,7 +11849,7 @@ enum  cxl_get_feat_selection { CXL_GET_FEAT_SEL_CURRENT_VALUE
 ,CXL_GET_FEAT_SEL_MAX 
 };
 
-struct anonymous_typeX236
+struct anonymous_typeX232
 {
     unsigned char  uuid[16]  ;
     unsigned int  flags  ;
@@ -12124,7 +11858,7 @@ struct anonymous_typeX236
     unsigned char  rsvd[9]  ;
 };
 
-struct anonymous_typeX238
+struct anonymous_typeX234
 {
     unsigned char  uuid[16]  ;
     unsigned int  flags  ;

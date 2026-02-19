@@ -1,0 +1,2 @@
+zz_cand_flex_not_last.c:13:9: error: flexible array member 'a' with type 'int[]' is not at the end of struct
+1 error generated.

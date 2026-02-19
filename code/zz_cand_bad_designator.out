@@ -1,0 +1,2 @@
+zz_cand_bad_designator.c:27:22: error: field designator 'b' does not refer to any field in type 'struct S'
+1 error generated.

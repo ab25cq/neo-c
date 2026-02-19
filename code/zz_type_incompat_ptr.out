@@ -1,0 +1,5 @@
+zz_type_incompat_ptr.nc 1(1): [error] invalid pointer base type. q is assigning to (2) in fun (main)
+
+double*
+int*
+transpile error number 1
