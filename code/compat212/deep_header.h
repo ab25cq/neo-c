@@ -1,0 +1,6 @@
+#ifndef COMPAT212_DEEP_HEADER_H
+#define COMPAT212_DEEP_HEADER_H
+
+#define COMPAT212_VALUE 212
+
+#endif

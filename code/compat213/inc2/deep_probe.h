@@ -1,0 +1,82 @@
+#ifndef COMPAT213_INC2_DEEP_PROBE_H
+#define COMPAT213_INC2_DEEP_PROBE_H
+
+#define C213_H00 C213_H01
+#define C213_H01 C213_H02
+#define C213_H02 C213_H03
+#define C213_H03 C213_H04
+#define C213_H04 C213_H05
+#define C213_H05 C213_H06
+#define C213_H06 C213_H07
+#define C213_H07 C213_H08
+#define C213_H08 C213_H09
+#define C213_H09 C213_H10
+#define C213_H10 C213_H11
+#define C213_H11 C213_H12
+#define C213_H12 C213_H13
+#define C213_H13 C213_H14
+#define C213_H14 C213_H15
+#define C213_H15 C213_H16
+#define C213_H16 C213_H17
+#define C213_H17 C213_H18
+#define C213_H18 C213_H19
+#define C213_H19 C213_H20
+#define C213_H20 C213_H21
+#define C213_H21 C213_H22
+#define C213_H22 C213_H23
+#define C213_H23 C213_H24
+#define C213_H24 C213_H25
+#define C213_H25 C213_H26
+#define C213_H26 C213_H27
+#define C213_H27 C213_H28
+#define C213_H28 C213_H29
+#define C213_H29 C213_H30
+#define C213_H30 C213_H31
+#define C213_H31 C213_H32
+#define C213_H32 C213_H33
+#define C213_H33 C213_H34
+#define C213_H34 C213_H35
+#define C213_H35 C213_H36
+#define C213_H36 C213_H37
+#define C213_H37 C213_H38
+#define C213_H38 C213_H39
+#define C213_H39 C213_H40
+#define C213_H40 C213_H41
+#define C213_H41 C213_H42
+#define C213_H42 C213_H43
+#define C213_H43 C213_H44
+#define C213_H44 C213_H45
+#define C213_H45 C213_H46
+#define C213_H46 C213_H47
+#define C213_H47 C213_H48
+#define C213_H48 C213_H49
+#define C213_H49 C213_H50
+#define C213_H50 C213_H51
+#define C213_H51 C213_H52
+#define C213_H52 C213_H53
+#define C213_H53 C213_H54
+#define C213_H54 C213_H55
+#define C213_H55 C213_H56
+#define C213_H56 C213_H57
+#define C213_H57 C213_H58
+#define C213_H58 C213_H59
+#define C213_H59 C213_H60
+#define C213_H60 C213_H61
+#define C213_H61 C213_H62
+#define C213_H62 C213_H63
+#define C213_H63 C213_H64
+#define C213_H64 C213_H65
+#define C213_H65 C213_H66
+#define C213_H66 C213_H67
+#define C213_H67 C213_H68
+#define C213_H68 C213_H69
+#define C213_H69 C213_H70
+#define C213_H70 <deep_probe.h>
+
+#if __has_include_next(C213_H00)
+#error "compat213: __has_include_next should be false at last layer"
+#endif
+
+#define COMPAT213_STAGE2 200
+
+#endif

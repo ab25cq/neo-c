@@ -7,6 +7,8 @@
 #include <string.h>
 #include <time.h>
 
+#define PP_RESCAN_MAX 1024
+
 typedef struct {
     char *name;
     char *value; // replacement text for both object/function macros
@@ -406,7 +408,10 @@ struct PPOpts {
 };
 
 typedef struct PPOpts PPOpts;
-static void process_define(MacroTable *t, char *line);
+static bool process_define(MacroTable *t, char *line);
+static bool parse_ident(const char *p, size_t *adv, char *buf, size_t bufsz);
+static void mtable_set_func(MacroTable *t, const char *name, char **params, size_t nparams,
+                            bool variadic, char *var_param, const char *value);
 
 static void apply_predefined_macros(MacroTable *t, const PPOpts *opts) {
     // Baseline C macros
@@ -486,6 +491,29 @@ static void apply_predefined_macros(MacroTable *t, const PPOpts *opts) {
 static bool starts_with(const char *s, const char *prefix) {
     size_t a = strlen(s), b = strlen(prefix);
     return a >= b && memcmp(s, prefix, b) == 0;
+}
+
+static bool is_system_header_path(const char *path) {
+    if (!path || !*path) return false;
+    return strstr(path, "/usr/include") != NULL ||
+           strstr(path, "/usr/local/include") != NULL ||
+           strstr(path, "/opt/homebrew/include") != NULL ||
+           strstr(path, "/usr/lib/clang") != NULL ||
+           strstr(path, "MacOSX.sdk/usr/include") != NULL;
+}
+
+static bool parse_define_name(const char *line, char *namebuf, size_t namebuf_sz) {
+    if (!line || !namebuf || namebuf_sz == 0) return false;
+    const char *p = line;
+    while (*p && isspace((unsigned char)*p)) p++;
+    if (*p == '#') {
+        p++;
+        while (*p && isspace((unsigned char)*p)) p++;
+    }
+    if (starts_with(p, "define")) p += 6;
+    while (*p && isspace((unsigned char)*p)) p++;
+    size_t adv = 0;
+    return parse_ident(p, &adv, namebuf, namebuf_sz);
 }
 
 static char *path_join(const char *a, const char *b);
@@ -802,104 +830,263 @@ static void strip_comments_multiline_inplace(char *s) {
     s[w] = '\0';
 }
 
-static void process_define(MacroTable *t, char *line) {
+static void free_macro_params(char **params, size_t nparams) {
+    if (!params) return;
+    for (size_t i = 0; i < nparams; ++i) free(params[i]);
+    free(params);
+}
+
+static void skip_pp_space_and_comments(const char *s, size_t *i) {
+    while (1) {
+        while (s[*i] && isspace((unsigned char)s[*i])) (*i)++;
+        if (s[*i] == '/' && s[*i + 1] == '/') {
+            *i += 2;
+            while (s[*i] && s[*i] != '\n' && s[*i] != '\r') (*i)++;
+            continue;
+        }
+        if (s[*i] == '/' && s[*i + 1] == '*') {
+            *i += 2;
+            while (s[*i] && !(s[*i] == '*' && s[*i + 1] == '/')) (*i)++;
+            if (s[*i]) *i += 2;
+            continue;
+        }
+        break;
+    }
+}
+
+static size_t match_pp_punctuator_len(const char *s) {
+    static const char *puncts[] = {
+        "%:%:", "<<=", ">>=", "...", "->", "++", "--", "<<", ">>",
+        "<=", ">=", "==", "!=", "&&", "||", "*=", "/=", "%=", "+=",
+        "-=", "&=", "^=", "|=", "##", "<:", ":>", "<%", "%>", "%:"
+    };
+    for (size_t i = 0; i < sizeof(puncts) / sizeof(puncts[0]); ++i) {
+        size_t n = strlen(puncts[i]);
+        if (strncmp(s, puncts[i], n) == 0) return n;
+    }
+    return 1;
+}
+
+static bool next_pp_token_span(const char *s, size_t *idx, size_t *beg, size_t *end) {
+    size_t i = *idx;
+    skip_pp_space_and_comments(s, &i);
+    if (!s[i]) {
+        *idx = i;
+        return false;
+    }
+
+    size_t b = i;
+    char c = s[i];
+    if (isalpha((unsigned char)c) || c == '_') {
+        i++;
+        while (s[i] && (isalnum((unsigned char)s[i]) || s[i] == '_')) i++;
+    }
+    else if (isdigit((unsigned char)c) || (c == '.' && isdigit((unsigned char)s[i + 1]))) {
+        i++;
+        while (s[i]) {
+            char d = s[i];
+            if (isalnum((unsigned char)d) || d == '_' || d == '.') {
+                i++;
+                continue;
+            }
+            if ((d == '+' || d == '-') &&
+                (s[i - 1] == 'e' || s[i - 1] == 'E' || s[i - 1] == 'p' || s[i - 1] == 'P')) {
+                i++;
+                continue;
+            }
+            break;
+        }
+    }
+    else if (c == '"' || c == '\'') {
+        char q = c;
+        i++;
+        while (s[i]) {
+            if (s[i] == '\\' && s[i + 1]) { i += 2; continue; }
+            if (s[i] == q) { i++; break; }
+            i++;
+        }
+    }
+    else {
+        i += match_pp_punctuator_len(s + i);
+    }
+
+    *beg = b;
+    *end = i;
+    *idx = i;
+    return true;
+}
+
+static bool macro_replacement_tokens_equal(const char *a, const char *b) {
+    size_t ia = 0;
+    size_t ib = 0;
+    const char *sa = a ? a : "";
+    const char *sb = b ? b : "";
+
+    while (1) {
+        size_t ba = 0, ea = 0, bb = 0, eb = 0;
+        bool ha = next_pp_token_span(sa, &ia, &ba, &ea);
+        bool hb = next_pp_token_span(sb, &ib, &bb, &eb);
+        if (!ha || !hb) return ha == hb;
+        if ((ea - ba) != (eb - bb)) return false;
+        if (strncmp(sa + ba, sb + bb, ea - ba) != 0) return false;
+    }
+}
+
+static bool macro_var_param_equal(const char *a, const char *b) {
+    if (!a && !b) return true;
+    if (!a || !b) return false;
+    return strcmp(a, b) == 0;
+}
+
+static bool macro_def_compatible(const Macro *m, bool is_func, char **params, size_t nparams,
+                                 bool variadic, const char *var_param, const char *value) {
+    if (!m) return true;
+    if (m->is_func != is_func) return false;
+    if (is_func) {
+        if (m->nparams != nparams) return false;
+        if (m->is_variadic != variadic) return false;
+        for (size_t i = 0; i < nparams; ++i) {
+            if (!m->params || !m->params[i] || !params || !params[i]) return false;
+            if (strcmp(m->params[i], params[i]) != 0) return false;
+        }
+        if (!macro_var_param_equal(m->var_param, var_param)) return false;
+    }
+    return macro_replacement_tokens_equal(m->value ? m->value : "", value ? value : "");
+}
+
+static bool process_define(MacroTable *t, char *line) {
     // Parse: (optional) '#' + spaces + 'define' + spaces + NAME[(params)] [VALUE...]
     // Accept both "#define ..." and "#   define ..." and even just "define ..." (internal use).
     char *p = line;
-    // skip leading spaces
     while (*p && isspace((unsigned char)*p)) p++;
     if (*p == '#') {
-        p++; // skip '#'
+        p++;
         while (*p && isspace((unsigned char)*p)) p++;
     }
-    // expect 'define' keyword
-    if (starts_with(p, "define")) {
-        p += 6; // skip 'define'
-    }
-    // skip spaces before name
+    if (starts_with(p, "define")) p += 6;
     while (*p && isspace((unsigned char)*p)) p++;
-    while (*p && isspace((unsigned char)*p)) p++;
-    // Parse name (identifier)
+
     char namebuf[256];
     size_t ni = 0;
-    if (!(isalpha((unsigned char)*p) || *p == '_')) return; // invalid; ignore
+    if (!(isalpha((unsigned char)*p) || *p == '_')) return false;
     while (*p && (isalnum((unsigned char)*p) || *p == '_')) {
-        if (ni + 1 < sizeof namebuf) namebuf[ni++] = *p;
+        if (ni + 1 < sizeof(namebuf)) namebuf[ni++] = *p;
         p++;
     }
     namebuf[ni] = '\0';
-    if (strcmp(namebuf, "_Static_assert") == 0) return;
-    if (strcmp(namebuf, "__SIMD_DECL") == 0 && mtable_find(t, "__SIMD_DECL")) return;
-    // If immediately followed by '(', parse params (function-like macros require no space)
+    if (strcmp(namebuf, "_Static_assert") == 0) return true;
+    if (strcmp(namebuf, "__SIMD_DECL") == 0 && mtable_find(t, "__SIMD_DECL")) return true;
+
     char *after_name = p;
     if (*after_name == '(') {
-        // function-like
         p = after_name + 1;
-        // parse parameters until ')'
-        char **params = NULL; size_t np=0, pc=0; bool variadic=false;
+        char **params = NULL;
+        size_t np = 0, pc = 0;
+        bool variadic = false;
         char *var_param = NULL;
+        bool parse_ok = true;
+        bool done = false;
+
         while (1) {
             while (*p && isspace((unsigned char)*p)) p++;
-            if (*p == ')') { p++; break; }
-            // read identifier
-            if (p[0]=='.' && p[1]=='.' && p[2]=='.') { variadic = true; p+=3; while (*p && isspace((unsigned char)*p)) p++; if (*p==')') { p++; } break; }
-            char id[256]; size_t j=0;
-            if (!(isalpha((unsigned char)*p) || *p=='_')) break;
-            while (*p && (isalnum((unsigned char)*p) || *p=='_')) { if (j+1<sizeof id) id[j++]=*p; p++; }
-            id[j]='\0';
-            const char *p2 = p;
-            while (*p2 && isspace((unsigned char)*p2)) p2++;
-            if (p2[0]=='.' && p2[1]=='.' && p2[2]=='.') {
-                variadic = true;
-                if (var_param) free(var_param);
-                var_param = xstrdup(id);
-                p = (char*)p2 + 3;
-                while (*p && isspace((unsigned char)*p)) p++;
-                if (*p == ')') { p++; }
+            if (*p == ')') {
+                p++;
+                done = true;
                 break;
             }
-            if (np==pc) { pc = pc? pc*2:4; params = xrealloc(params, pc*sizeof(char*)); }
+
+            if (p[0] == '.' && p[1] == '.' && p[2] == '.') {
+                variadic = true;
+                p += 3;
+                while (*p && isspace((unsigned char)*p)) p++;
+                if (*p != ')') { parse_ok = false; break; }
+                p++;
+                done = true;
+                break;
+            }
+
+            char id[256];
+            size_t j = 0;
+            if (!(isalpha((unsigned char)*p) || *p == '_')) { parse_ok = false; break; }
+            while (*p && (isalnum((unsigned char)*p) || *p == '_')) {
+                if (j + 1 < sizeof(id)) id[j++] = *p;
+                p++;
+            }
+            id[j] = '\0';
+
+            const char *p2 = p;
+            while (*p2 && isspace((unsigned char)*p2)) p2++;
+            if (p2[0] == '.' && p2[1] == '.' && p2[2] == '.') {
+                variadic = true;
+                free(var_param);
+                var_param = xstrdup(id);
+                p = (char *)p2 + 3;
+                while (*p && isspace((unsigned char)*p)) p++;
+                if (*p != ')') { parse_ok = false; break; }
+                p++;
+                done = true;
+                break;
+            }
+
+            if (np == pc) {
+                pc = pc ? pc * 2 : 4;
+                params = (char **)xrealloc(params, pc * sizeof(char *));
+            }
             params[np++] = xstrdup(id);
-            p = (char*)p2;
+            p = (char *)p2;
             if (*p == ',') { p++; continue; }
-            if (*p == ')') { p++; break; }
-            // malformed -> break
+            if (*p == ')') {
+                p++;
+                done = true;
+                break;
+            }
+            parse_ok = false;
             break;
         }
-        while (*p && isspace((unsigned char)*p)) p++;
-        char *val = p;
-        char *valbuf = xstrdup(val);
-        strip_comments_inplace(valbuf);
-        size_t L = strlen(valbuf); while (L && isspace((unsigned char)valbuf[L-1])) valbuf[--L]='\0';
-        // set function-like macro
-        Macro *m = mtable_find(t, namebuf);
-        if (!m) {
-            if (t->len == t->cap) { size_t ncap = t->cap? t->cap*2:8; t->items = xrealloc(t->items, ncap*sizeof(Macro)); t->cap = ncap; }
-            m = &t->items[t->len++];
-            m->name = xstrdup(namebuf);
-        } else {
-            free(m->value);
-            if (m->params) { for (size_t j=0;j<m->nparams;++j) free(m->params[j]); free(m->params); }
-            if (m->var_param) { free(m->var_param); }
+
+        if (!parse_ok || !done) {
+            free_macro_params(params, np);
+            free(var_param);
+            return false;
         }
-        m->is_func = true;
-        m->value = xstrdup(valbuf);
-        m->params = params;
-        m->nparams = np;
-        m->var_param = var_param;
-        m->is_variadic = variadic;
-        m->self_ref = macro_value_contains_ident(m->value, namebuf);
-        free(valbuf);
-    } else {
-        p = after_name;
+
         while (*p && isspace((unsigned char)*p)) p++;
-        char *val = p;
-        char *valbuf = xstrdup(val);
+        char *valbuf = xstrdup(p);
         strip_comments_inplace(valbuf);
-        size_t L = strlen(valbuf); while (L && isspace((unsigned char)valbuf[L-1])) valbuf[--L]='\0';
-        mtable_set_obj(t, namebuf, valbuf);
+        size_t L = strlen(valbuf);
+        while (L && isspace((unsigned char)valbuf[L - 1])) valbuf[--L] = '\0';
+
+        Macro *m = mtable_find(t, namebuf);
+        if (m) {
+            bool ok = macro_def_compatible(m, true, params, np, variadic, var_param, valbuf);
+            free_macro_params(params, np);
+            free(var_param);
+            free(valbuf);
+            return ok;
+        }
+
+        mtable_set_func(t, namebuf, params, np, variadic, var_param, valbuf);
         free(valbuf);
+        return true;
     }
+
+    p = after_name;
+    while (*p && isspace((unsigned char)*p)) p++;
+    char *valbuf = xstrdup(p);
+    strip_comments_inplace(valbuf);
+    size_t L = strlen(valbuf);
+    while (L && isspace((unsigned char)valbuf[L - 1])) valbuf[--L] = '\0';
+
+    Macro *m = mtable_find(t, namebuf);
+    if (m) {
+        bool ok = macro_def_compatible(m, false, NULL, 0, false, NULL, valbuf);
+        free(valbuf);
+        return ok;
+    }
+
+    mtable_set_obj(t, namebuf, valbuf);
+    free(valbuf);
+    return true;
 }
 
 static void mtable_set_func(MacroTable *t, const char *name, char **params, size_t nparams,
@@ -1197,7 +1384,7 @@ static bool resolve_has_include_operand(const MacroTable *t, const char *operand
     memcpy(cur, s, n);
     cur[n] = '\0';
 
-    for (int pass = 0; pass < 50; ++pass) {
+    for (int pass = 0; pass < PP_RESCAN_MAX; ++pass) {
         if (parse_header_name_operand(cur, quoted, name, name_sz)) {
             return true;
         }
@@ -1554,7 +1741,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                         expand_into_str_mode(t, args_raw[ai], &ex, protect_defined);
                         int arg_bl_depth = g_block_comment_depth;
                         // Rescan to fully expand nested macros inside arguments.
-                        for (int pass = 0; pass < 50; ++pass) {
+                        for (int pass = 0; pass < PP_RESCAN_MAX; ++pass) {
                             Str next; sb_init(&next);
                             g_cur_line = saved_line;
                             g_expand_pass = saved_pass + pass + 1;
@@ -2290,6 +2477,270 @@ static bool parse_ident(const char *p, size_t *adv, char *buf, size_t bufsz) {
     buf[j] = '\0';
     if (adv) *adv = i;
     return true;
+}
+
+typedef enum {
+    DEF_TOK_HASH,
+    DEF_TOK_HASHHASH,
+    DEF_TOK_IDENT,
+    DEF_TOK_OTHER
+} DefineTokKind;
+
+typedef struct {
+    DefineTokKind kind;
+    char ident[256];
+} DefineTok;
+
+static void define_tok_push(DefineTok **items, size_t *len, size_t *cap,
+                            DefineTokKind kind, const char *ident) {
+    if (*len == *cap) {
+        size_t ncap = *cap ? (*cap * 2) : 16;
+        *items = (DefineTok*)xrealloc(*items, ncap * sizeof(DefineTok));
+        *cap = ncap;
+    }
+    (*items)[*len].kind = kind;
+    (*items)[*len].ident[0] = '\0';
+    if (ident) {
+        strncpy((*items)[*len].ident, ident, sizeof((*items)[*len].ident) - 1);
+        (*items)[*len].ident[sizeof((*items)[*len].ident) - 1] = '\0';
+    }
+    (*len)++;
+}
+
+static bool define_param_name_match(const char *ident, char **params, size_t nparams,
+                                    bool variadic, const char *var_param) {
+    if (!ident || !*ident) return false;
+    for (size_t i = 0; i < nparams; ++i) {
+        if (params[i] && strcmp(params[i], ident) == 0) return true;
+    }
+    if (variadic) {
+        if (var_param && strcmp(var_param, ident) == 0) return true;
+        if (strcmp(ident, "__VA_ARGS__") == 0) return true;
+    }
+    return false;
+}
+
+static bool parse_define_signature(const char *p, bool *is_func,
+                                   char ***params, size_t *nparams,
+                                   bool *variadic, char **var_param,
+                                   const char **repl_start) {
+    if (is_func) *is_func = false;
+    if (params) *params = NULL;
+    if (nparams) *nparams = 0;
+    if (variadic) *variadic = false;
+    if (var_param) *var_param = NULL;
+    if (repl_start) *repl_start = p;
+
+    const char *q = clskip(p ? p : "");
+    size_t adv = 0;
+    char namebuf[256];
+    if (!parse_ident(q, &adv, namebuf, sizeof(namebuf))) {
+        return false;
+    }
+    q += adv;
+
+    if (*q == '(') {
+        if (is_func) *is_func = true;
+        q++;
+        char **pp = NULL;
+        size_t np = 0;
+        size_t pc = 0;
+        bool var = false;
+        char *vname = NULL;
+        while (1) {
+            while (*q && isspace((unsigned char)*q)) q++;
+            if (*q == ')') {
+                q++;
+                break;
+            }
+            if (q[0] == '.' && q[1] == '.' && q[2] == '.') {
+                var = true;
+                q += 3;
+                while (*q && isspace((unsigned char)*q)) q++;
+                if (*q == ')') q++;
+                break;
+            }
+            char id[256];
+            size_t j = 0;
+            if (!(isalpha((unsigned char)*q) || *q == '_')) {
+                if (pp) { for (size_t i = 0; i < np; ++i) free(pp[i]); free(pp); }
+                if (vname) free(vname);
+                return false;
+            }
+            while (*q && (isalnum((unsigned char)*q) || *q == '_')) {
+                if (j + 1 < sizeof(id)) id[j++] = *q;
+                q++;
+            }
+            id[j] = '\0';
+
+            const char *q2 = q;
+            while (*q2 && isspace((unsigned char)*q2)) q2++;
+            if (q2[0] == '.' && q2[1] == '.' && q2[2] == '.') {
+                var = true;
+                if (vname) free(vname);
+                vname = xstrdup(id);
+                q = q2 + 3;
+                while (*q && isspace((unsigned char)*q)) q++;
+                if (*q == ')') q++;
+                break;
+            }
+
+            if (np == pc) {
+                pc = pc ? pc * 2 : 4;
+                pp = (char**)xrealloc(pp, pc * sizeof(char*));
+            }
+            pp[np++] = xstrdup(id);
+            q = q2;
+            if (*q == ',') {
+                q++;
+                continue;
+            }
+            if (*q == ')') {
+                q++;
+                break;
+            }
+            if (pp) { for (size_t i = 0; i < np; ++i) free(pp[i]); free(pp); }
+            if (vname) free(vname);
+            return false;
+        }
+
+        if (params) *params = pp;
+        else if (pp) { for (size_t i = 0; i < np; ++i) free(pp[i]); free(pp); }
+        if (nparams) *nparams = np;
+        if (variadic) *variadic = var;
+        if (var_param) *var_param = vname;
+        else if (vname) free(vname);
+    }
+
+    while (*q && isspace((unsigned char)*q)) q++;
+    if (repl_start) *repl_start = q;
+    return true;
+}
+
+static bool validate_define_replacement_list(const char *repl, bool is_func,
+                                             char **params, size_t nparams,
+                                             bool variadic, const char *var_param) {
+    const char *s = repl ? repl : "";
+    DefineTok *toks = NULL;
+    size_t ntoks = 0;
+    size_t cap = 0;
+
+    for (size_t i = 0; s[i]; ) {
+        char c = s[i];
+        if (isspace((unsigned char)c)) {
+            i++;
+            continue;
+        }
+        if (c == '/' && s[i + 1] == '/') {
+            break;
+        }
+        if (c == '/' && s[i + 1] == '*') {
+            i += 2;
+            while (s[i] && !(s[i] == '*' && s[i + 1] == '/')) i++;
+            if (s[i]) i += 2;
+            continue;
+        }
+        if (c == '"') {
+            i++;
+            while (s[i]) {
+                if (s[i] == '\\' && s[i + 1]) { i += 2; continue; }
+                if (s[i] == '"') { i++; break; }
+                i++;
+            }
+            define_tok_push(&toks, &ntoks, &cap, DEF_TOK_OTHER, NULL);
+            continue;
+        }
+        if (c == '\'') {
+            i++;
+            while (s[i]) {
+                if (s[i] == '\\' && s[i + 1]) { i += 2; continue; }
+                if (s[i] == '\'') { i++; break; }
+                i++;
+            }
+            define_tok_push(&toks, &ntoks, &cap, DEF_TOK_OTHER, NULL);
+            continue;
+        }
+        if (c == '#') {
+            if (s[i + 1] == '#') {
+                define_tok_push(&toks, &ntoks, &cap, DEF_TOK_HASHHASH, NULL);
+                i += 2;
+            } else {
+                define_tok_push(&toks, &ntoks, &cap, DEF_TOK_HASH, NULL);
+                i++;
+            }
+            continue;
+        }
+        if (isalpha((unsigned char)c) || c == '_') {
+            char id[256];
+            size_t j = 0;
+            size_t k = i;
+            while (s[k] && (isalnum((unsigned char)s[k]) || s[k] == '_')) {
+                if (j + 1 < sizeof(id)) id[j++] = s[k];
+                k++;
+            }
+            id[j] = '\0';
+            define_tok_push(&toks, &ntoks, &cap, DEF_TOK_IDENT, id);
+            i = k;
+            continue;
+        }
+
+        define_tok_push(&toks, &ntoks, &cap, DEF_TOK_OTHER, NULL);
+        i++;
+    }
+
+    bool ok = true;
+    for (size_t i = 0; i < ntoks; ++i) {
+        if (toks[i].kind == DEF_TOK_HASHHASH) {
+            if (i == 0 || i + 1 >= ntoks) {
+                ok = false;
+                break;
+            }
+            if (toks[i - 1].kind == DEF_TOK_HASH || toks[i - 1].kind == DEF_TOK_HASHHASH) {
+                ok = false;
+                break;
+            }
+            if (toks[i + 1].kind == DEF_TOK_HASH || toks[i + 1].kind == DEF_TOK_HASHHASH) {
+                ok = false;
+                break;
+            }
+        }
+        if (is_func && toks[i].kind == DEF_TOK_HASH) {
+            if (i + 1 >= ntoks || toks[i + 1].kind != DEF_TOK_IDENT) {
+                ok = false;
+                break;
+            }
+            if (!define_param_name_match(toks[i + 1].ident, params, nparams, variadic, var_param)) {
+                ok = false;
+                break;
+            }
+        }
+    }
+
+    free(toks);
+    return ok;
+}
+
+static bool validate_define_directive(const char *p) {
+    bool is_func = false;
+    char **params = NULL;
+    size_t nparams = 0;
+    bool variadic = false;
+    char *var_param = NULL;
+    const char *repl_start = NULL;
+
+    bool sig_ok = parse_define_signature(p, &is_func, &params, &nparams,
+                                         &variadic, &var_param, &repl_start);
+    if (!sig_ok) {
+        if (params) { for (size_t i = 0; i < nparams; ++i) free(params[i]); free(params); }
+        if (var_param) free(var_param);
+        return false;
+    }
+
+    bool valid = validate_define_replacement_list(repl_start, is_func, params, nparams,
+                                                  variadic, var_param);
+    if (params) { for (size_t i = 0; i < nparams; ++i) free(params[i]); free(params); }
+    if (var_param) free(var_param);
+    return valid;
 }
 
 static bool parse_module_signature(const char *p, char *namebuf, size_t namebuf_sz,
@@ -3656,7 +4107,23 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     emitted_line_marker = true;
                 }
             } else if (strcmp(kw, "define") == 0) {
-                if (active) process_define(tbl, raw);
+                if (active) {
+                    if (!validate_define_directive(p)) {
+                        pp_directive_error(this_path, line_no, "invalid #define directive");
+                    }
+                    if (!process_define(tbl, raw)) {
+                        if (is_system_header_path(this_path)) {
+                            char namebuf[256];
+                            if (parse_define_name(raw, namebuf, sizeof(namebuf))) {
+                                mtable_unset(tbl, namebuf);
+                                (void)process_define(tbl, raw);
+                            }
+                        }
+                        else {
+                            pp_directive_error(this_path, line_no, "incompatible macro redefinition");
+                        }
+                    }
+                }
             } else if (strcmp(kw, "undef") == 0) {
                 if (active) {
                     char id[256]; size_t a=0; parse_ident(p, &a, id, sizeof id);
@@ -3752,7 +4219,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                         use_include_expanded = true;
                         sb_init(&include_expanded);
                         expand_into_str(tbl, hp, &include_expanded);
-                        for (int pass = 0; pass < 50; ++pass) {
+                        for (int pass = 0; pass < PP_RESCAN_MAX; ++pass) {
                             Str next;
                             sb_init(&next);
                             expand_into_str(tbl, include_expanded.buf ? include_expanded.buf : "", &next);
@@ -3835,7 +4302,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     long physical_line_no = line_no;
                     Str line_expanded; sb_init(&line_expanded);
                     expand_into_str(tbl, p, &line_expanded);
-                    for (int pass = 0; pass < 50; ++pass) {
+                    for (int pass = 0; pass < PP_RESCAN_MAX; ++pass) {
                         Str next;
                         sb_init(&next);
                         expand_into_str(tbl, line_expanded.buf ? line_expanded.buf : "", &next);
@@ -3945,7 +4412,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 g_block_comment_depth = if_bl_start;
                 expand_into_str_ifexpr(tbl, p, &exln);
                 int if_bl_depth = g_block_comment_depth;
-                for (int pass = 0; pass < 50; ++pass) {
+                for (int pass = 0; pass < PP_RESCAN_MAX; ++pass) {
                     Str next; sb_init(&next);
                     g_cur_line = base_line;
                     g_expand_pass = pass + 1;
@@ -4002,7 +4469,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     g_block_comment_depth = if_bl_start;
                     expand_into_str_ifexpr(tbl, p, &exln);
                     int if_bl_depth = g_block_comment_depth;
-                    for (int pass = 0; pass < 50; ++pass) {
+                    for (int pass = 0; pass < PP_RESCAN_MAX; ++pass) {
                         Str next; sb_init(&next);
                         g_cur_line = base_line;
                         g_expand_pass = pass + 1;
@@ -4144,7 +4611,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
         expand_into_str(tbl, raw, &outln);
         int line_bl_depth = g_block_comment_depth;
         // Rescan to expand nested macros (with iteration cap to avoid oscillation)
-        for (int pass = 0; pass < 50; ++pass) {
+        for (int pass = 0; pass < PP_RESCAN_MAX; ++pass) {
             Str next; sb_init(&next);
             g_cur_line = base_line;
             g_expand_pass = pass + 1;
