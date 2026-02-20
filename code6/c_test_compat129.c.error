@@ -1,0 +1,4 @@
+c_test_compat129.c:12:7: error: array has incomplete element type 'void'
+   12 | void a[2];
+      |       ^
+1 error generated.

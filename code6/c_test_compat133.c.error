@@ -1,0 +1,7 @@
+c_test_compat133.c:15:15: error: field has incomplete type 'struct A'
+   15 |     struct A  m  ;
+      |               ^
+c_test_compat133.c:10:8: note: forward declaration of 'struct A'
+   10 | struct A;
+      |        ^
+1 error generated.

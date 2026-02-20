@@ -1,0 +1,4 @@
+c_test_compat132.c:13:9: error: named bit-field 'b' has zero width
+   13 |     int b:0;
+      |         ^ ~
+1 error generated.

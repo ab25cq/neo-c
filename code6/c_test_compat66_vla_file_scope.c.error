@@ -1,0 +1,4 @@
+c_test_compat66_vla_file_scope.c:13:5: error: variable length array declaration not allowed at file scope
+   13 | int g_bad[n];
+      |     ^     ~
+1 error generated.

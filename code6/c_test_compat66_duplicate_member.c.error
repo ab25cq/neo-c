@@ -1,0 +1,7 @@
+c_test_compat66_duplicate_member.c:14:9: error: duplicate member 'x'
+   14 |     int x;
+      |         ^
+c_test_compat66_duplicate_member.c:13:9: note: previous declaration is here
+   13 |     int x;
+      |         ^
+1 error generated.

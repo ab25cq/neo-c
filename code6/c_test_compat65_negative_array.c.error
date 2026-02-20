@@ -1,0 +1,4 @@
+c_test_compat65_negative_array.c:12:11: error: 'g_bad' declared as an array with a negative size
+   12 | int g_bad[-1];
+      |           ^~
+1 error generated.
