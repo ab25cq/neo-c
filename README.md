@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.0.7
+version 0.9.0.8
 
 ``` C
 #include <neo-c.h>
@@ -94,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.0.8 ISO C11 compatibilities 90%. Cycle owned heap output warning. If you remove the waring you use _weak attribute.
 0.9.0.7 more compatibilities C11. opt, ref, span is implemented and test.
 0.9.0.6 testing opt, ref, span. Some content it's working.
 0.9.0.5 testing opt, ref. Some content it's working.

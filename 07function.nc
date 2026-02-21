@@ -2745,6 +2745,10 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
 
 bool is_owned(sType*% type, sClass* klass, sType*% field_type, sType*% owner, sInfo* info=info)
 {
+    if(field_type->mWeak) {
+        return false;
+    }
+
     bool result = false;
     sType*% field_type2;
     if(field_type->mNoSolvedGenericsType) {
@@ -2873,7 +2877,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                     }
                 }
                 
-                if(!flag1) {
+                if(!field_type->mWeak && !flag1) {
                     foreach(it2, field_type->mClass->mFields) {
                         var name2, field_type2 = it2;
                         
@@ -2888,12 +2892,12 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
 */
                     }
                 }
-                else {
+                else if(!field_type->mWeak) {
                     flag2 = true;
                 }
                 
                 if(flag2) {
-                    warning_msg(info, "Cyclic ownership detected involving %s. Don't use heap to break cycle, but sometimes it works", field_type->mClass->mName);
+                    warning_msg(info, "Cyclic ownership detected involving %s. Don't use heap to break cycle, but sometimes it works. If you need no check this to use _weak attribute to the fields.", field_type->mClass->mName);
                 }
                 
                 if(field_type->mHeap) {

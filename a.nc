@@ -1,19 +1,22 @@
 #include <neo-c.h>
 
+struct sData;
+struct sData2;
+
 struct sData
 {
-    int a;
-    int b;
+    sData2*% data2;
 };
+
+struct sData2
+{
+    _weak sData*% data;
+};
+
 
 int main(int argc, char** argv)
 {
-    struct sData b;
-    struct sData* a = &b;
-    
-    *a = (struct sData) {
-        1, 2
-    };
+    sData2*% data = new sData2;
     
     return 0;
 }

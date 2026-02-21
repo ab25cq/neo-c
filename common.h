@@ -88,11 +88,11 @@ uniq class sType
 {
     sClass* mClass;
     
-    sType*% mOriginalLoadVarType;
-    sType*% mChannelType;
+    _weak sType*% mOriginalLoadVarType;
+    _weak sType*% mChannelType;
     
     list<sType*%>*% mGenericsTypes;
-    sType*% mNoSolvedGenericsType;
+    _weak sType*% mNoSolvedGenericsType;
     
     sNode*% mSizeNum;
     sNode*% mAlignas;
@@ -160,7 +160,7 @@ uniq class sType
     bool mPointerParen;
     bool mMinusPointerNum;
     
-    sType*% mTypedefOriginalType;
+    _weak sType*% mTypedefOriginalType;
     string mOriginalTypeName;
     int mOriginalTypePointerNum;
     int mOriginalTypePointerHeap;
@@ -170,7 +170,7 @@ uniq class sType
     //// lambda ///
     list<sType*%>*% mParamTypes;
     list<string>*% mParamNames;
-    sType*% mResultType;
+    _weak sType*% mResultType;
     bool mVarArgs;
     
     sNode*% mTypeOfNode;
