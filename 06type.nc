@@ -53,6 +53,7 @@ bool is_type_name(char* buf, sInfo* info=info)
         || buf === "_Atomic"
         || buf === "restrict"
         || buf === "__type__"
+        || buf === "_weak"
         || buf === "__attribute__" && (*info->p == '(' || (*info->p == '[' && *(info->p+1) == '['))
         || buf === "__declspec" && *info->p == '('
         || (buf === "tup" && (*info->p == ':' || *info->p == '('))
@@ -1777,7 +1778,9 @@ void apply_type_qualifiers(
     bool long_long,
     bool long_,
     bool short_,
-    bool norecord)
+    bool norecord,
+    bool weak_
+    )
 {
     type->mConstant = type->mConstant || constant;
     type->mComplex = type->mComplex || complex_;
@@ -1798,6 +1801,7 @@ void apply_type_qualifiers(
     type->mLong = type->mLong || long_;
     type->mShort = type->mShort || short_;
     type->mNorecord = type->mNorecord || norecord;
+    type->mWeak = type->mWeak || weak_;
 }
 
 void merge_pointer_attribute_to_type(sType* type, string pointer_attribute)
@@ -1896,6 +1900,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool complex_ = false;
     bool type_name_ = false;
     bool noreturn_ = false;
+    bool weak_ = false;
     
     sNode*% alignas_ = null;
     bool alignas_double = false;
@@ -1938,6 +1943,10 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         else if(type_name === "_norecord") {
             type_name = parse_word();
             norecord = true;
+        }
+        else if(type_name === "_weak") {
+            type_name = parse_word();
+            weak_ = true;
         }
         else if(type_name === "__thread") {
             type_name = parse_word();
@@ -2969,7 +2978,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
         }
         
-        apply_type_qualifiers(result_type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord);
+        apply_type_qualifiers(result_type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord, weak_);
         result_type->mAlignas = alignas_;
         result_type->mPointerNum = pointer_num;
         result_type->mHeap = result_type->mHeap || heap;
@@ -3019,7 +3028,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type = new sType(string(type_name));
         }
         
-        apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord);
+        apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord, weak_);
         type->mAlignas = alignas_;
         type->mPointerNum += pointer_num;
         type->mHeap = type->mHeap || heap;
@@ -3150,7 +3159,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
         }
         
-        apply_type_qualifiers(result_type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord);
+        apply_type_qualifiers(result_type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord, weak_);
         result_type->mAlignas = alignas_;
         result_type->mPointerNum += pointer_num;
         result_type->mHeap = result_type->mHeap || heap;
@@ -3258,7 +3267,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             type->mAttribute = s"";
             type->mVarAttribute = s"";
             
-            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord);
+            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord, weak_);
             type->mAlignas = alignas_;
             if(type.mClass.mName === "lambda" || type.mArrayNum.length() > 0) {
                 type->mArrayPointerNum += pointer_num;
@@ -3280,7 +3289,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
             }
             
-            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord);
+            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord, weak_);
             type->mAlignas = alignas_;
             type->mPointerNum += pointer_num;
             type->mHeap = type->mHeap || heap;
@@ -3297,7 +3306,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
             }
             
-            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord);
+            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord, weak_);
             type->mAlignas = alignas_;
             type->mPointerNum += pointer_num;
             type->mHeap = type->mHeap || heap;
@@ -3361,7 +3370,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
             }
             
-            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord);
+            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord, weak_);
             type->mAlignas = alignas_;
             type->mPointerNum += pointer_num;
             type->mHeap = type->mHeap || heap;
@@ -3397,7 +3406,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 type = new sType(string(type_name));
             }
             
-            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord);
+            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord, weak_);
             type->mAlignas = alignas_;
             type->mPointerNum += pointer_num;
             type->mHeap = type->mHeap || heap;

@@ -121,6 +121,7 @@ uniq class sType
     bool mVolatile;
     bool mNoreturn;
     bool mStatic;
+    bool mWeak;
     bool mUniq;
     bool mExtern;
     bool mRestrict;
@@ -392,7 +393,7 @@ uniq class sGenericsFun
 uniq class CVALUE 
 {
     string c_value;
-    sType*% type;
+    _weak sType*% type;
     sVar* var;
     sRightValueObject* right_value_objects;
     string c_value_without_right_value_objects;
@@ -454,7 +455,7 @@ uniq class sBlock
 
 struct sRightValueObject 
 {
-    sType*% mType;
+    _weak sType*% mType;
     string mVarName;
     string mFunName;
     bool mFreed;
@@ -463,9 +464,9 @@ struct sRightValueObject
     bool mStored;
     bool mDecrementRefCount;
     
-    sType*% mObjType;
+    _weak sType*% mObjType;
     string mObjValue;
-    sVar* mObjVar;
+    _weak sVar* mObjVar;
     bool mNoFree;
 };
 

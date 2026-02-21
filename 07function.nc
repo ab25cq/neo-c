@@ -2756,15 +2756,15 @@ bool is_owned(sType*% type, sClass* klass, sType*% field_type, sType*% owner, sI
     foreach(it, field_type2->mGenericsTypes) {
         sType* type2 = it;
         sClass* klass2 = type2->mClass;
-        if(owner->mClass->mName !== type->mClass->mName && is_owned(type2, klass2, type, owner, info)) {
+        if(owner->mClass->mName !== type->mClass->mName && !type2->mWeak && is_owned(type2, klass2, type, owner, info)) {
             result = true;
         }
     }
         
-    if(field_type->mClass->mName === owner->mClass->mName) {
+    if(field_type->mClass->mName === owner->mClass->mName && field_type->mHeap && !field_type->mWeak) {
         result = true;
     }
-    if(klass->mName === field_type->mClass->mName && field_type->mHeap) {
+    if(klass->mName === field_type->mClass->mName && field_type->mHeap && !field_type->mWeak) {
         result = true;
     }
     
@@ -2865,11 +2865,10 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             foreach(it, klass->mFields) {
                 var name, field_type = it;
                 
-/*
                 bool flag1 = false;
                 bool flag2 = false;
                 if(field_type->mHeap) {
-                    if(is_owned(clone type_, klass, field_type, clone type_)) {
+                    if(is_owned(clone type_, klass, clone field_type, clone type_)) {
                         flag1 = true;
                     }
                 }
@@ -2878,9 +2877,15 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                     foreach(it2, field_type->mClass->mFields) {
                         var name2, field_type2 = it2;
                         
-                        if(is_owned(field_type2, field_type2->mClass, clone type_, clone type_)) {
+                        if(field_type2->mClass->mName === type2->mClass->mName && field_type2->mHeap && !field_type2->mWeak) {
                             flag2 = true;
                         }
+                        
+/*
+                        if(is_owned(clone field_type2, field_type2->mClass, clone type2, clone type2, info)) {
+                            flag2 = true;
+                        }
+*/
                     }
                 }
                 else {
@@ -2888,9 +2893,8 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                 }
                 
                 if(flag2) {
-                    warning_msg(info, "Cyclic ownership detected involving %s. Don't use %% to break cycle, but sometimes it works", field_type->mClass->mName);
+                    warning_msg(info, "Cyclic ownership detected involving %s. Don't use heap to break cycle, but sometimes it works", field_type->mClass->mName);
                 }
-*/
                 
                 if(field_type->mHeap) {
                     char source2[1024];

@@ -1081,6 +1081,7 @@ struct sType
     _Bool mVolatile;
     _Bool mNoreturn;
     _Bool mStatic;
+    _Bool mWeak;
     _Bool mUniq;
     _Bool mExtern;
     _Bool mRestrict;
