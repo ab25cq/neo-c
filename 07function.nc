@@ -2743,6 +2743,33 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     return true;
 }
 
+bool is_owned(sType*% type, sClass* klass, sType*% field_type, sType*% owner, sInfo* info=info)
+{
+    bool result = false;
+    sType*% field_type2;
+    if(field_type->mNoSolvedGenericsType) {
+        field_type2 = field_type->mNoSolvedGenericsType;
+    }
+    else {
+        field_type2 = field_type;
+    }
+    foreach(it, field_type2->mGenericsTypes) {
+        sType* type2 = it;
+        sClass* klass2 = type2->mClass;
+        if(owner->mClass->mName !== type->mClass->mName && is_owned(type2, klass2, type, owner, info)) {
+            result = true;
+        }
+    }
+        
+    if(field_type->mClass->mName === owner->mClass->mName) {
+        result = true;
+    }
+    if(klass->mName === field_type->mClass->mName && field_type->mHeap) {
+        result = true;
+    }
+    
+    return result;
+}
 
 sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, sInfo* info)
 {
@@ -2837,6 +2864,33 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
+                
+/*
+                bool flag1 = false;
+                bool flag2 = false;
+                if(field_type->mHeap) {
+                    if(is_owned(clone type_, klass, field_type, clone type_)) {
+                        flag1 = true;
+                    }
+                }
+                
+                if(!flag1) {
+                    foreach(it2, field_type->mClass->mFields) {
+                        var name2, field_type2 = it2;
+                        
+                        if(is_owned(field_type2, field_type2->mClass, clone type_, clone type_)) {
+                            flag2 = true;
+                        }
+                    }
+                }
+                else {
+                    flag2 = true;
+                }
+                
+                if(flag2) {
+                    warning_msg(info, "Cyclic ownership detected involving %s. Don't use %% to break cycle, but sometimes it works", field_type->mClass->mName);
+                }
+*/
                 
                 if(field_type->mHeap) {
                     char source2[1024];
