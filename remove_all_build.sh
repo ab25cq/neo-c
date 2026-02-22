@@ -42,6 +42,11 @@ echo aaa
 (cd webweb/cgi-bin; make clean)
 (cd xv6-riscv; make clean)
 (cd cinatora; make clean)
+(make -C code clean)
+(make -C code2 clean)
+(make -C code3 clean)
+(make -C code4 clean)
+(make -C code5 clean)
 
 if [ -e viw/Makefile ]
 then

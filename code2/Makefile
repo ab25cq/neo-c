@@ -25,3 +25,5 @@ clean:
 	rm -f all
 	rm -f *.out
 	rm -f *.
+	rm -r *.i
+

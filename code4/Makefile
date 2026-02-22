@@ -99,6 +99,7 @@ test: $(NCC) attrs_split.nc struct_attrs.nc enum_attrs.nc function_attrs.nc libc
 	@echo "OK: attribute placement verified"
 
 clean:
+	rm -f *.i
 	rm -f attrs_split.c attrs_split.o attrs_split.nc.i attrs_split.c.error
 	rm -f struct_attrs.c struct_attrs.o struct_attrs.nc.i struct_attrs.c.error
 	rm -f enum_attrs.c enum_attrs.o enum_attrs.nc.i enum_attrs.c.error
