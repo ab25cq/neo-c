@@ -387,6 +387,21 @@ uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sl
     return mem + sizeof(size_t) + sizeof(size_t);
 }
 
+uniq bool come_is_alive(void* mem)
+{
+    sMemHeader* object_top = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
+    
+    sMemHeader* it = gAllocMem;
+    while(it) {
+        if(object_top == it) {
+            return true;
+        }
+        it = it->next;
+    }
+    
+    return false;
+}
+
 uniq void come_free(void* mem)
 {
     using unsafe; 
@@ -625,6 +640,7 @@ struct ref<T>
     bool local;
     
     void* stacktop;
+    void* heaptop;
 };
 
 impl ref<T>
@@ -640,6 +656,7 @@ impl ref<T>
         self.heap = heap_;
         self.local = local_;
         self.stacktop = stacktop;
+        self.heaptop = p;
         return self;
     }
     
@@ -653,7 +670,14 @@ impl ref<T>
         }
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
+                puts("refferenced stack object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.heaptop)) {
+                puts("refferenced heap object is vanished");
                 stackframe();
                 exit(127);
             }
@@ -672,7 +696,14 @@ impl ref<T>
         
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
+                puts("refferenced stack object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.heaptop)) {
+                puts("refferenced heap object is vanished");
                 stackframe();
                 exit(127);
             }
@@ -693,6 +724,7 @@ struct optional<T>
     bool local;
     
     void* stacktop;
+    void* heaptop;
 };
 
 impl optional<T>
@@ -703,6 +735,7 @@ impl optional<T>
         self.heap = heap_;
         self.local = local_;
         self.stacktop = stacktop;
+        self.heaptop = p;
         return self;
     }
     
@@ -716,7 +749,14 @@ impl optional<T>
         }
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
+                puts("refferenced stack object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.heaptop)) {
+                puts("refferenced heap object is vanished");
                 stackframe();
                 exit(127);
             }
@@ -740,7 +780,14 @@ impl optional<T>
         
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
+                puts("refferenced stack object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.heaptop)) {
+                puts("refferenced heap object is vanished");
                 stackframe();
                 exit(127);
             }
@@ -773,12 +820,13 @@ struct span<T> {
     T^ p;
     size_t len;
     bool local;
+    bool heap;
     void* stacktop;
 };
 
 impl span<T>
 {
-    span<T>*% initialize(span<T>*% self, void*& refference, void* head, size_t len) {
+    span<T>*% initialize(span<T>*% self, void* head, size_t len, bool local, bool heap, void* stacktop) {
         using unsafe; 
         
         if(!ispointer(T)) {
@@ -790,8 +838,8 @@ impl span<T>
         
         self.p = (T^)head;
         self.len = len;
-        self.local = refference\.local;
-        self.stacktop = refference\.stacktop;
+        self.local = local;
+        self.stacktop = stacktop;
         
         return self;
     }
@@ -804,7 +852,14 @@ impl span<T>
         }
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
+                puts("refferenced stack object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.memory)) {
+                puts("refferenced heap object is vanished");
                 stackframe();
                 exit(127);
             }
@@ -922,7 +977,7 @@ impl span<T>
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
+                puts("refferenced stack object is vanished");
                 stackframe();
                 exit(127);
             }
@@ -959,7 +1014,14 @@ impl span<T>
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
+                puts("refferenced stack object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.memory)) {
+                puts("refferenced heap object is vanished");
                 stackframe();
                 exit(127);
             }
@@ -995,7 +1057,14 @@ impl span<T>
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
+                puts("refferenced stack object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.memory)) {
+                puts("refferenced heap object is vanished");
                 stackframe();
                 exit(127);
             }
@@ -1052,7 +1121,14 @@ impl span<T>
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
-                puts("refferenced object is vanished");
+                puts("refferenced stack object is vanished");
+                stackframe();
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.memory)) {
+                puts("refferenced heap object is vanished");
                 stackframe();
                 exit(127);
             }

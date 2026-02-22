@@ -1,34 +1,37 @@
 #include <neo-c.h>
 
-struct sData;
-struct sData2;
-
 struct sData
 {
-    sData2*% data2;
+    int& m;
 };
 
 struct sData2
 {
-    _weak sData*% data;
-    int n;
-    int m
+    int*% n;
 };
 
+sData*% fun()
+{
+    sData2*% data2 = new sData2;
+    
+    data2->n = new int(777);
+    
+    sData*% data = new sData;
+    
+    data.m = ref borrow data2.n;
+    
+    return data;
+}
 
 int main(int argc, char** argv)
 {
-    sData2*% data = new sData2;
+    var data = fun();
     
-    sData2 data2;
+    printf("%d\n", *data.m);
     
-    sData2& data = ref &data2;
-    
-    data.n = 111;
-    data.m = 222;
-    
-    printf("n %d m %d\n", data.n, data.m);
-    
+    come_is_alive(data.m!).to_string().puts();
+
+
     return 0;
 }
 

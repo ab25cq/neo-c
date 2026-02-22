@@ -1570,109 +1570,6 @@ class sGCDecNoFreeNode extends sNodeBase
     }
 };
 
-class sOptionalNode extends sNodeBase
-{
-    new(sNode*% node, sInfo* info)
-    {
-        self.super();
-        
-        sNode*% self.node = node;
-    }
-    
-    string kind()
-    {
-        return string("sOptionalNode");
-    }
-    
-    bool compile(sInfo* info)
-    {
-        sNode*% node = self.node;
-        
-        node_compile(node).elif {
-            return false;
-        }
-        
-        CVALUE*% come_value = get_value_from_stack(-1, info);
-        
-        if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
-        }
-        else {
-            err_msg(info, "require pointer for opt");
-            return true;
-        }
-        
-        bool global_;
-        bool heap_;
-        bool local_;
-        
-        sType*% origin = come_value.type.mNoSolvedGenericsType;
-        
-        if(come_value.type.mHeap || (origin && origin->mHeap)) {
-            err_msg(info, "require borrow and do not owned for opt");
-            return true;
-        }
-        else if(come_value.var == null) {
-            if(come_value.mNullValue) {
-                global_ = false;
-                heap_ = false;
-                local_ = false;
-            }
-            else {
-                err_msg(info, "require variable address for opt");
-                return true;
-            }
-        }
-        else if(come_value.var) {
-            global_ = come_value.var->mGlobal;
-            heap_ = come_value.type.mHeap;
-            local_ = !come_value.var->mGlobal;
-        }
-        else {
-            global_ = false;
-            heap_ = false;
-            local_ = false;
-        }
-        
-        if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
-        }
-        else {
-            err_msg(info, "require pointer for opt");
-            return true;
-        }
-        
-        sType*% type_ = clone come_value.type;
-        
-        sType*% generics_type = new sType(s"optional");
-        generics_type->mGenericsTypes.add(type_);
-        
-        sType*% type = new sType(s"optional");
-        type->mGenericsTypes.add(new sType(s"__generics_type0"));
-        
-        sType*% type2 = solve_generics(type, generics_type, info);
-        
-        sNode*% obj = create_new_object(type2);
-        
-        list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
-        
-        sNode*% node2 = create_load_var("neo_current_frame");
-        sNode*% node3 = load_field(node2, s"stacktop");
-        
-        params.add(t((string)null, obj));
-        params.add(t((string)null, node));
-        params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
-        params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
-        params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
-        params.add(t((string)null, node3));
-        
-        sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
-        
-        node_compile(method_node).elif {
-            return false;
-        }
-        
-        return true;
-    }
-};
 
 
 
@@ -1700,44 +1597,30 @@ class sRefNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        sType*% origin = come_value.type.mNoSolvedGenericsType;
-        
-        if(come_value.type.mHeap || (origin && origin->mHeap)) {
-            err_msg(info, "require borrow and do not owned for ref");
-            return true;
-        }
-        else if(come_value.var == null) {
-            err_msg(info, "require variable name for ref");
-            return true;
-        }
-        
-        if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
-        }
-        else {
-            err_msg(info, "require pointer for ref");
-            return true;
-        }
-        
         bool global_;
         bool heap_;
         bool local_;
         
-        sType*% origin = come_value.type.mNoSolvedGenericsType;
-        
-        if(come_value.type.mHeap || (origin && origin->mHeap)) {
-            global_ = false;
-            heap_ = true;
-            local_ = false;
+        if(come_value.type->mPointerNum != 1 && come_value.type->mArrayPointerNum != 1) {
+            err_msg(info, "require pointer for ref");
+            return true;
         }
         else if(come_value.var) {
+            if(come_value.type.mHeap) {
+                err_msg(info, "require borrow and do not owned for ref");
+                return true;
+            }
             global_ = come_value.var->mGlobal;
-            heap_ = come_value.type.mHeap;
-            local_ = !come_value.var->mGlobal;
+            heap_ = come_value.var.mType.mHeap;
+            local_ = !global_ & !heap_;
+        }
+        else if(come_value.mNullValue) {
+            err_msg(info, "no assign to null for ref");
+            return true;
         }
         else {
-            global_ = false;
-            heap_ = false;
-            local_ = false;
+            err_msg(info, "require variable name for ref");
+            return true;
         }
         
         sType*% type_ = clone come_value.type;
@@ -1755,14 +1638,99 @@ class sRefNode extends sNodeBase
         list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         sNode*% node2 = create_load_var("neo_current_frame");
-        sNode*% node3 = load_field(node2, s"stacktop");
+        sNode*% stacktop = load_field(node2, s"stacktop");
         
         params.add(t((string)null, obj));
         params.add(t((string)null, node));
         params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
-        params.add(t((string)null, node3));
+        params.add(t((string)null, stacktop));
+        
+        sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+        
+        node_compile(method_node).elif {
+            return false;
+        }
+        
+        return true;
+    }
+};
+
+class sOptionalNode extends sNodeBase
+{
+    new(sNode*% node, sInfo* info)
+    {
+        self.super();
+        
+        sNode*% self.node = node;
+    }
+    
+    string kind()
+    {
+        return string("sOptionalNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% node = self.node;
+        
+        node_compile(node).elif {
+            return false;
+        }
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        bool global_;
+        bool heap_;
+        bool local_;
+        
+        if(come_value.type->mPointerNum != 1 && come_value.type->mArrayPointerNum != 1) {
+            err_msg(info, "require pointer for opt");
+            return true;
+        }
+        else if(come_value.var) {
+            if(come_value.type.mHeap) {
+                err_msg(info, "require borrow and do not owned for opt");
+                return true;
+            }
+            global_ = come_value.var->mGlobal;
+            heap_ = come_value.var.mType.mHeap;
+            local_ = !global_ && !heap_;
+        }
+        else if(come_value.mNullValue) {
+            global_ = false;
+            heap_ = false;
+            local_ = false;
+        }
+        else {
+            err_msg(info, "require variable name for opt");
+            return true;
+        }
+        
+        sType*% type_ = clone come_value.type;
+        
+        sType*% generics_type = new sType(s"optional");
+        generics_type->mGenericsTypes.add(type_);
+        
+        sType*% type = new sType(s"optional");
+        type->mGenericsTypes.add(new sType(s"__generics_type0"));
+        
+        sType*% type2 = solve_generics(type, generics_type, info);
+        
+        sNode*% obj = create_new_object(type2);
+        
+        list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
+        
+        sNode*% node2 = create_load_var("neo_current_frame");
+        sNode*% stacktop = load_field(node2, s"stacktop");
+        
+        params.add(t((string)null, obj));
+        params.add(t((string)null, node));
+        params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, stacktop));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         
@@ -1867,9 +1835,6 @@ class sSpanNode extends sNodeBase
     {
         sNode*% node = self.node;
         
-        sNode*% span_value_node;
-        CVALUE*% come_value;
-        
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
@@ -1877,47 +1842,30 @@ class sSpanNode extends sNodeBase
             return false;
         }
         
-        info.no_output_come_code = no_output_come_code;
-        
-        CVALUE*% checked_come_value = get_value_from_stack(-1, info);
-        if(checked_come_value.var == null) {
-            static int n = 0;
-            ++n;
-            
-            sNode*% node2 = store_var(s"__span_value\{n}", multiple_assign:null, multiple_declare:null, type:null, alloc:true, node, info);
-            
-            node_compile(node2).elif {
-                return false;
-            }
-            
-            CVALUE*% come_value2 = get_value_from_stack(-1, info);
-            
-            add_come_code(info, come_value2.c_value + ";\n");
-            
-            span_value_node = create_load_var(s"__span_value\{n}", info);
-            
-            node_compile(span_value_node).elif {
-                return false;
-            }
-            
-            come_value = get_value_from_stack(-1, info);
-        }
-        else {
-            span_value_node = clone node;
-            come_value = checked_come_value;
-        }
-        
-        if(come_value.type->mHeap) {
-        }
-        else if(come_value.var == null) {
-            err_msg(info, "require variable name for span");
-            return true;
-        }
+        CVALUE*% come_value = get_value_from_stack(-1, info);
         
         if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
         }
         else {
             err_msg(info, "require pointer for span");
+            return true;
+        }
+        
+        bool global_;
+        bool heap_;
+        bool local_;
+        
+        if(come_value.var) {
+            if(come_value.type.mHeap) {
+                err_msg(info, "require borrow and do not owned for span");
+                return true;
+            }
+            global_ = come_value.var->mGlobal;
+            heap_ = come_value.var.mType.mHeap;
+            local_ = !come_value.var->mGlobal;
+        }
+        else {
+            err_msg(info, "require variable name for span");
             return true;
         }
         
@@ -1935,14 +1883,17 @@ class sSpanNode extends sNodeBase
         
         list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
-        sNode*% ref_ = new sRefNode(span_value_node, info) implements sNode;
+        var head, len = get_head_and_len(node, come_value);
         
-        var head, len = get_head_and_len(span_value_node, come_value);
+        sNode*% node2 = create_load_var("neo_current_frame");
+        sNode*% stacktop = load_field(node2, s"stacktop");
         
         params.add(t((string)null, obj));
-        params.add(t((string)null, ref_));
         params.add(t((string)null, head));
         params.add(t((string)null, len));
+        params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, stacktop));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         
@@ -1954,7 +1905,7 @@ class sSpanNode extends sNodeBase
     }
 };
 
-sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 21
+ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 21
 {
     if(!gComeC && buf === "new") {
         var type, name, err = parse_type();

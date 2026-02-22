@@ -1034,15 +1034,6 @@ struct sMemHeader
     const char* class_name;
 };
 
-struct ref$1void$p
-{
-    void* p;
-    _Bool global;
-    _Bool heap;
-    _Bool local;
-    void* stacktop;
-};
-
 struct list_item$1char$
 {
     char item;
@@ -2341,6 +2332,7 @@ void* come_alloc_mem_from_heap_pool(unsigned long  int  compiletime_size  , unsi
 char* come_dynamic_typeof(void* mem);
 unsigned long  int  dynamic_sizeof(void* mem);
 void* come_calloc(unsigned long  int  count  , unsigned long  int  size  , const char* sname, int sline, const char* class_name);
+_Bool come_is_alive(void* mem);
 void come_free(void* mem);
 void* come_memdup(void* block, const char* sname, int sline, const char* class_name);
 void* come_increment_ref_count(void* mem);
