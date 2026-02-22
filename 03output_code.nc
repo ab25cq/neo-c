@@ -78,7 +78,9 @@ bool should_strip_portable_asm_alias(const char* source, int* consumed)
     memcpy(token, source, len);
     token[len] = '\0';
 
-    if(string(token).index("$", -1) < 0) {
+    bool has_darwin_suffix = string(token).index("$", -1) >= 0;
+    bool has_underscore_alias = string(token).index("\"_", -1) >= 0;
+    if(!has_darwin_suffix && !has_underscore_alias) {
         return false;
     }
 
