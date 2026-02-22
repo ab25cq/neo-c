@@ -95,7 +95,7 @@ int expected_next_character(char c, sInfo* info=info)
     if(*info->p != c) {
         if(!info.no_output_come_code) {
             err_msg(info, "expected next charaster is %c, but %c, caller %s %d", c, *info->p, info->caller_sname, info->caller_line);
-            stackframe();
+            //stackframe();
             exit(1);
         }
     }

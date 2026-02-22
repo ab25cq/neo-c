@@ -34,18 +34,11 @@ TEST_FAIL_REF_INIT := ref_null
 
 TEST_FAIL_VANISHED := \
 	ref_vanished \
+	ref_heap_vanished \
 	opt_vanished \
-	span_vanished \
-	span_plus_plus_vanished \
-	span_minus_minus_vanished \
-	span_plus_equal_vanished \
-	span_minus_equal_vanished
+	opt_heap_vanished
 
-TEST_FAIL_SPAN_RANGE := \
-	span_oob_load \
-	span_oob_store \
-	span_plus_equal_oob \
-	span_minus_equal_oob
+TEST_FAIL_SPAN_RANGE :=
 
 .PHONY: all test clean
 
@@ -89,7 +82,7 @@ test:
 			echo "$$t should fail but succeeded"; \
 			exit 1; \
 		fi; \
-		grep -q "refferenced object is vanished" $$t.out; \
+		grep -Eq "refferenced (stack|heap) object is vanished" $$t.out; \
 		rm -f $$t.out; \
 	done; \
 	for t in $(TEST_FAIL_SPAN_RANGE); do \

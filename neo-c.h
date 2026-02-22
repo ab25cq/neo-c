@@ -182,6 +182,21 @@ uniq void stackframe()
     }
 }
 
+uniq void stackframe2(void* mem)
+{
+    sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
+    
+    printf("allocated at %s %d\n", it->sname, it->sline);
+    
+    neo_frame *f = neo_current_frame;
+    while(f) {
+        char* fun_name = f->fun_name;
+        
+        printf("%s\n", fun_name);
+        f = f->prev;
+    }
+}
+
 uniq bool die(const char* msg)
 {
     puts(msg);
@@ -206,6 +221,9 @@ struct sMemHeader
     char* fun_name[COME_STACKFRAME_MAX];
     
     const char* class_name;
+    
+    const char* sname;
+    int sline;
 };
 
 using unsafe {
@@ -224,7 +242,7 @@ uniq void come_heap_final()
         bool flag = false;
         printf("#%d ", n);
         if(it->class_name) {
-            printf("%p (%s): ", (char*)it + sizeof(sMemHeader) + sizeof(size_t) + sizeof(size_t), it->class_name);
+            printf("%p (%s) %s %d: ", (char*)it + sizeof(sMemHeader) + sizeof(size_t) + sizeof(size_t), it->class_name, it->sname, it->sline);
         }
         for(int i=0; i<COME_STACKFRAME_MAX; i++) {
             if(it->fun_name[i]) {
@@ -322,6 +340,8 @@ uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, c
     it->prev = null;
     
     it->class_name = class_name; 
+    it->sname = sname;
+    it->sline = sline;
     
     if(gAllocMem) {
         gAllocMem->prev = it;
@@ -342,7 +362,7 @@ uniq char* come_dynamic_typeof(void* mem)
     
     if(it->allocated != ALLOCATED_MAGIC_NUM) {
         printf("invalid heap object(%p)(1)\n", it);
-        stackframe();
+        stackframe2(mem);
         exit(2);
     }
     
@@ -357,7 +377,7 @@ uniq size_t dynamic_sizeof(void* mem)
     
     if(it->allocated != ALLOCATED_MAGIC_NUM) {
         printf("invalid heap object(%p)(1)\n", it);
-        stackframe();
+        stackframe2(mem);
         exit(2);
     }
     size_t size = it->compiletime_size;
@@ -648,7 +668,7 @@ impl ref<T>
     ref<T>*% initialize(ref<T>*% self, T^ p, bool global_, bool heap_, bool local_, void* stacktop) {
         if(!ispointer(T) || p == null) {
             puts(s"ref is pointer and not null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         self.p = p;
@@ -665,20 +685,20 @@ impl ref<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
                 puts("refferenced stack object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(self.heap) {
             if(!come_is_alive(self.heaptop)) {
                 puts("refferenced heap object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
@@ -690,21 +710,21 @@ impl ref<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
                 puts("refferenced stack object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(self.heap) {
             if(!come_is_alive(self.heaptop)) {
                 puts("refferenced heap object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
@@ -744,26 +764,26 @@ impl optional<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
                 puts("refferenced stack object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(self.heap) {
             if(!come_is_alive(self.heaptop)) {
                 puts("refferenced heap object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(ispointer(T) && self.p == (void*)0) {
             puts("null pointer exception");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         return self.p;
@@ -774,27 +794,27 @@ impl optional<T>
         
         if(self == null) {
             puts("null pointer exception");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
         if(self.local) {
             if(self.stacktop < neo_current_frame.stacktop) {
                 puts("refferenced stack object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(self.heap) {
             if(!come_is_alive(self.heaptop)) {
                 puts("refferenced heap object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(ispointer(T) && self.p == (void*)0) {
             puts("null pointer exception");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
@@ -831,7 +851,7 @@ impl span<T>
         
         if(!ispointer(T)) {
             puts("invalid span");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         self.memory = (char*)head;
@@ -847,36 +867,36 @@ impl span<T>
         using unsafe; 
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced stack object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(self.heap) {
             if(!come_is_alive(self.memory)) {
                 puts("refferenced heap object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(sizeof(T]) > self.len) {
             puts("invalid span. len is few");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         if(self.p >= (char*)self.memory + self.len) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         if(self.p < (char*)self.memory) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         
@@ -888,7 +908,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
@@ -901,7 +921,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
@@ -915,7 +935,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
@@ -929,7 +949,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
@@ -943,7 +963,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
@@ -957,7 +977,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
@@ -971,14 +991,14 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced stack object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
@@ -987,17 +1007,17 @@ impl span<T>
         
         if(sizeof(T]) > self.len) {
             puts("invalid span. len is few");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         if(self.p >= (char*)self.memory + self.len) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         if(self.p < (char*)self.memory) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         
@@ -1008,37 +1028,37 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced stack object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(self.heap) {
             if(!come_is_alive(self.memory)) {
                 puts("refferenced heap object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(sizeof(T]) > self.len) {
             puts("invalid span. len is few");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         if(self.p + position >= (char*)self.memory + self.len) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         if(self.p + position < (char*)self.memory) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         
@@ -1051,37 +1071,37 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced stack object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(self.heap) {
             if(!come_is_alive(self.memory)) {
                 puts("refferenced heap object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(sizeof(T]) > self.len) {
             puts("invalid span. len is few");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         if(self.p + position >= (char*)self.memory + self.len) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         if(self.p + position < (char*)self.memory) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         
@@ -1095,7 +1115,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
@@ -1105,7 +1125,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         return self.len;
@@ -1115,42 +1135,42 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         
         if(self->local) {
             if(self->stacktop < neo_current_frame.stacktop) {
                 puts("refferenced stack object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(self.heap) {
             if(!come_is_alive(self.memory)) {
                 puts("refferenced heap object is vanished");
-                stackframe();
+                stackframe2(self);
                 exit(127);
             }
         }
         if(sizeof(T]) > self.len) {
             puts("invalid span. len is few");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         if((char*)self.p >= (char*)self.memory + self.len) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         if((char*)self.p + len >= (char*)self.memory + self.len) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         if(self.p < (char*)self.memory) {
             puts("out of range of span");
-            stackframe();
+            stackframe2(self);
             exit(1);
         }
         
@@ -3041,7 +3061,7 @@ impl map <T, T2>
                     }
                     else if(n == hash) {
                         printf("unexpected error in map.rehash(1)\n");
-                        stackframe();
+                        stackframe2(self);
                         exit(2);
                     }
                 }
@@ -3134,7 +3154,7 @@ impl map <T, T2>
                 }
                 else if(it == hash) {
                     printf("unexpected error in map.insert\n");
-                    stackframe();
+                    stackframe2(self);
                     exit(2);
                 }
             }
@@ -3216,7 +3236,7 @@ impl map <T, T2>
                 }
                 else if(it == hash) {
                     printf("unexpected error in map.insert\n");
-                    stackframe();
+                    stackframe2(self);
                     exit(2);
                 }
             }
@@ -3683,7 +3703,7 @@ impl tuple2 <T, T2>
     T unwrap(tuple2<T,T2>* self) {
         if(self.v2 == true) {
             puts("exception");
-            stackframe();
+            stackframe2(self);
             exit(2);
         }
         

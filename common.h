@@ -827,7 +827,7 @@ sType*% get_no_solved_type(sType* type);
 sType*% get_no_solved_type2(sType* type);
 string header_function(sFun* fun, sInfo* info);
 bool output_source_file(sInfo* info);
-void show_type(sType* type, sInfo* info);
+void show_type(sType* type, sInfo* info=info);
 string create_generics_name(sType* generics_type, sInfo* info);
 void add_last_code_to_source(sInfo* info);
 void add_come_code_at_function_head(sInfo* info, const char* code, ...);

@@ -71,10 +71,10 @@ class sNewNode extends sNodeBase
             
             string obj;
             if(info.funcs[s"come_calloc_v2"]) {
-                obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), (void*)0, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sline, type_name3);
+                obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
             }
             else {
-                obj = xsprintf("%s = (%s*)come_calloc(1, sizeof(%s)*(%s), (void*)0, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sline, type_name3);
+                obj = xsprintf("%s = (%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
             }
             
             buf.append_str(obj);
@@ -136,10 +136,10 @@ class sNewNode extends sNodeBase
             
             string obj;
             if(info.funcs[s"come_calloc_v2"]) {
-                obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), (void*)0, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sline, type_name3);
+                obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
             }
             else {
-                obj = xsprintf("%s = (%s*)come_calloc(1, sizeof(%s)*(%s), (void*)0, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sline, type_name3);
+                obj = xsprintf("%s = (%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
             }
             
             buf.append_str(obj);
@@ -226,10 +226,10 @@ class sNewNode extends sNodeBase
             string type_name3 = make_type_name_string(type3);
             
             if(info.funcs[s"come_calloc_v2"]) {
-                come_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), (void*)0, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sline, type_name3);
+                come_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
             }
             else {
-                come_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), (void*)0, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sline, type_name3);
+                come_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
             }
             
             type2->mHeap = true;
@@ -338,10 +338,10 @@ class sImplementsNode extends sNodeBase
         add_come_code_at_function_head(info, buf2);
         
         if(info.funcs[s"come_calloc_v2"]) {
-            add_come_code(info, "_inf_value%d=(%s*)come_calloc_v2(1, sizeof(%s), (void*)0, %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sline, type_name);
+            add_come_code(info, "_inf_value%d=(%s*)come_calloc_v2(1, sizeof(%s), \"%s\", %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sname, info.sline, type_name);
         }
         else {
-            add_come_code(info, "_inf_value%d=(%s*)come_calloc(1, sizeof(%s), (void*)0, %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sline, type_name);
+            add_come_code(info, "_inf_value%d=(%s*)come_calloc(1, sizeof(%s), \"%s\", %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sname, info.sline, type_name);
         }
         
         string c_value = increment_ref_count_object(come_value.type, come_value.c_value, info);
@@ -1601,18 +1601,40 @@ class sRefNode extends sNodeBase
         bool heap_;
         bool local_;
         
-        if(come_value.type->mPointerNum != 1 && come_value.type->mArrayPointerNum != 1) {
+        sType*% origin = come_value.type.mTypedefOriginalType;
+        
+        if(come_value.type->mPointerNum != 1 && come_value.type->mArrayPointerNum != 1 && origin.mPointerNum != 1) {
             err_msg(info, "require pointer for ref");
+            show_type(come_value.type);
             return true;
         }
         else if(come_value.var) {
             if(come_value.type.mHeap) {
                 err_msg(info, "require borrow and do not owned for ref");
+                show_type(come_value.type);
                 return true;
             }
+            /*
+            global_ = come_value.var->mGlobal;
+            int value_ptr_num = come_value.type->mPointerNum
+                + come_value.type->mArrayPointerNum
+                + (come_value.type->mArrayPointerType ? 1 : 0);
+            int var_ptr_num = come_value.var.mType->mPointerNum
+                + come_value.var.mType->mArrayPointerNum
+                + (come_value.var.mType->mArrayPointerType ? 1 : 0);
+            bool points_variable_address = value_ptr_num > var_ptr_num;
+            if(points_variable_address) {
+                heap_ = false;
+                local_ = !global_;
+            }
+            else {
+                heap_ = come_value.var.mType.mHeap;
+                local_ = !global_ && !heap_;
+            }
+            */
             global_ = come_value.var->mGlobal;
             heap_ = come_value.var.mType.mHeap;
-            local_ = !global_ & !heap_;
+            local_ = !global_ && !heap_;
         }
         else if(come_value.mNullValue) {
             err_msg(info, "no assign to null for ref");
@@ -1685,13 +1707,17 @@ class sOptionalNode extends sNodeBase
         bool heap_;
         bool local_;
         
-        if(come_value.type->mPointerNum != 1 && come_value.type->mArrayPointerNum != 1) {
+        sType*% origin = come_value.type.mTypedefOriginalType;
+        
+        if(come_value.type->mPointerNum != 1 && come_value.type->mArrayPointerNum != 1 && origin.mPointerNum != 1) {
             err_msg(info, "require pointer for opt");
+            show_type(come_value.type);
             return true;
         }
         else if(come_value.var) {
             if(come_value.type.mHeap) {
                 err_msg(info, "require borrow and do not owned for opt");
+                show_type(come_value.type);
                 return true;
             }
             global_ = come_value.var->mGlobal;
@@ -1816,7 +1842,6 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
     return t(head,len);
 }
 
-
 class sSpanNode extends sNodeBase
 {
     new(sNode*% node, sInfo* info)
@@ -1835,19 +1860,17 @@ class sSpanNode extends sNodeBase
     {
         sNode*% node = self.node;
         
-        bool no_output_come_code = info.no_output_come_code;
-        info.no_output_come_code = true;
-        
         node_compile(node).elif {
             return false;
         }
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
-        }
-        else {
+        sType*% origin = come_value.type.mTypedefOriginalType;
+        
+        if(come_value.type->mPointerNum != 1 && come_value.type->mArrayPointerNum != 1 && origin.mPointerNum != 1) {
             err_msg(info, "require pointer for span");
+            show_type(come_value.type);
             return true;
         }
         
@@ -1858,11 +1881,27 @@ class sSpanNode extends sNodeBase
         if(come_value.var) {
             if(come_value.type.mHeap) {
                 err_msg(info, "require borrow and do not owned for span");
+                show_type(come_value.type);
                 return true;
             }
             global_ = come_value.var->mGlobal;
-            heap_ = come_value.var.mType.mHeap;
-            local_ = !come_value.var->mGlobal;
+/*
+            int value_ptr_num = come_value.type->mPointerNum
+                + come_value.type->mArrayPointerNum
+                + (come_value.type->mArrayPointerType ? 1 : 0);
+            int var_ptr_num = come_value.var.mType->mPointerNum
+                + come_value.var.mType->mArrayPointerNum
+                + (come_value.var.mType->mArrayPointerType ? 1 : 0);
+            bool points_variable_address = value_ptr_num > var_ptr_num;
+            if(points_variable_address) {
+                heap_ = false;
+                local_ = !global_;
+            }
+            else {
+*/
+                heap_ = come_value.var.mType.mHeap;
+                local_ = !global_ && !heap_;
+//            }
         }
         else {
             err_msg(info, "require variable name for span");
@@ -1904,6 +1943,7 @@ class sSpanNode extends sNodeBase
         return true;
     }
 };
+
 
  sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 21
 {

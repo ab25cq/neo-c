@@ -6,10 +6,10 @@ int main(int argc, char** argv)
 {
     string s = string("ABC");
 
-    string& rs = ref s;
-    char*%& rc = rs;
+    char*& rs = ref borrow &s;
+    char*& rc = rs;
 
-    printf("%s %s\n", rs.unwrap(), rc.unwrap());
+    printf("%s %s\n", *rs, *rc);
 
     return 0;
 }

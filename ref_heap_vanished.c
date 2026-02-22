@@ -1,5 +1,7 @@
 /// c_include definition ///
 /// typedef definition ///
+typedef char* string;
+
 typedef char __int8_t;
 
 typedef unsigned char __uint8_t;
@@ -293,8 +295,6 @@ typedef struct anonymous_typeX19 _RuneCharClass;
 typedef struct anonymous_typeX20 _RuneLocale;
 
 typedef int*  wstring  ;
-
-typedef char* string;
 
 /// previous struct definition ///
 struct __sFILEX;
@@ -1345,9 +1345,9 @@ struct anonymous_typeX20
     } __charclasses;
 };
 
-struct ref$1char$pp
+struct ref$1int$p
 {
-    char** p;
+    int* p;
     _Bool global;
     _Bool heap;
     _Bool local;
@@ -1778,10 +1778,10 @@ char* dirname(char* );
 char* basename_r(const char* , char* );
 char* dirname_r(const char* , char* );
 int main(int argc, char** argv);
-static struct ref$1char$pp* ref$1char$pp_initialize(struct ref$1char$pp* self, char**  p  , _Bool global_, _Bool heap_, _Bool local_, void* stacktop);
-static void ref$1char$pp$p_finalize(struct ref$1char$pp* self);
-static char* ref$1char$pp$p_operator_derefference(struct ref$1char$pp* self);
-static char* ref$1char$pp_operator_derefference(struct ref$1char$pp* self);
+static struct ref$1int$p* ref$1int$p_initialize(struct ref$1int$p* self, int* p, _Bool global_, _Bool heap_, _Bool local_, void* stacktop);
+static void ref$1int$p$p_finalize(struct ref$1int$p* self);
+static int ref$1int$p$p_operator_derefference(struct ref$1int$p* self);
+static int ref$1int$p_operator_derefference(struct ref$1int$p* self);
 void stackframe();
 void stackframe2(void* mem);
 _Bool die(const char* msg);
@@ -2444,29 +2444,28 @@ int main(int argc, char** argv)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "main"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
-    char*  s  ;
+    int* hp;
     void* __right_value1 = (void*)0;
-    struct ref$1char$pp* rs;
-    struct ref$1char$pp* rc;
+    struct ref$1int$p* r;
     int __result_obj__0;
-    s=(char* )come_increment_ref_count(__builtin_string("ABC"));
-    rs=(struct ref$1char$pp*)come_increment_ref_count(ref$1char$pp_initialize((struct ref$1char$pp*)come_increment_ref_count((struct ref$1char$pp*)come_calloc(1, sizeof(struct ref$1char$pp)*(1), "code5/ref_string_assign.nc", 9, "struct ref$1char$pp*")),&s,(_Bool)0,(_Bool)0,(_Bool)1,neo_current_frame->stacktop));
-    rc=(struct ref$1char$pp*)come_increment_ref_count(rs);
-    printf("%s %s\n",ref$1char$pp_operator_derefference(rs),ref$1char$pp_operator_derefference(rc));
+    hp=(int*)come_increment_ref_count((int*)come_calloc(1, sizeof(int)*(1), "code5/ref_heap_vanished.nc", 5, "int*"));
+    *hp=123;
+    r=(struct ref$1int$p*)come_increment_ref_count(ref$1int$p_initialize((struct ref$1int$p*)come_increment_ref_count((struct ref$1int$p*)come_calloc(1, sizeof(struct ref$1int$p)*(1), "code5/ref_heap_vanished.nc", 8, "struct ref$1int$p*")),hp,(_Bool)0,(_Bool)1,(_Bool)0,neo_current_frame->stacktop));
+    (hp = come_decrement_ref_count(hp, (void*)0, (void*)0, 0, 0, (void*)0));
+    printf("%d\n",ref$1int$p_operator_derefference(r));
         __result_obj__0 = 0;
-    (s = come_decrement_ref_count(s, (void*)0, (void*)0, 0, 0, (void*)0));
-    come_call_finalizer(ref$1char$pp$p_finalize, rs, (void*)0, (void*)0, 0, 0, 0, (void*)0);
-    come_call_finalizer(ref$1char$pp$p_finalize, rc, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    (hp = come_decrement_ref_count(hp, (void*)0, (void*)0, 0, 0, (void*)0));
+    come_call_finalizer(ref$1int$p$p_finalize, r, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     come_heap_final();
     return __result_obj__0;
 }
 
-static struct ref$1char$pp* ref$1char$pp_initialize(struct ref$1char$pp* self, char**  p  , _Bool global_, _Bool heap_, _Bool local_, void* stacktop)
+static struct ref$1int$p* ref$1int$p_initialize(struct ref$1int$p* self, int* p, _Bool global_, _Bool heap_, _Bool local_, void* stacktop)
 {
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ref$1char$pp_initialize"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ref$1int$p_initialize"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
-    struct ref$1char$pp* __result_obj__0;
+    struct ref$1int$p* __result_obj__0;
     if(!1||p==((void*)0)) {
         puts(((char*)(__right_value0=xsprintf("ref is pointer and not null"))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -2479,22 +2478,21 @@ static struct ref$1char$pp* ref$1char$pp_initialize(struct ref$1char$pp* self, c
     self->local=local_;
     self->stacktop=stacktop;
     self->heaptop=p;
-        __result_obj__0 = (struct ref$1char$pp*)come_increment_ref_count(self);
-    come_call_finalizer(ref$1char$pp$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        __result_obj__0 = (struct ref$1int$p*)come_increment_ref_count(self);
+    come_call_finalizer(ref$1int$p$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
-    come_call_finalizer(ref$1char$pp$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    come_call_finalizer(ref$1int$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
 }
 
-static void ref$1char$pp$p_finalize(struct ref$1char$pp* self)
+static void ref$1int$p$p_finalize(struct ref$1int$p* self)
 {
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ref$1char$pp$p_finalize"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ref$1int$p$p_finalize"; neo_current_frame = &fr;
         neo_current_frame = fr.prev;
 }
 
-static char* ref$1char$pp$p_operator_derefference(struct ref$1char$pp* self)
+static int ref$1int$p$p_operator_derefference(struct ref$1int$p* self)
 {
-    char* __result_obj__0;
     if(self==((void*)0)) {
         puts("null pointer exception. self is null");
         stackframe2(self);
@@ -2514,13 +2512,11 @@ static char* ref$1char$pp$p_operator_derefference(struct ref$1char$pp* self)
             exit(127);
         }
     }
-        __result_obj__0 = *self->p;
-    return __result_obj__0;
+        return *self->p;
 }
 
-static char* ref$1char$pp_operator_derefference(struct ref$1char$pp* self)
+static int ref$1int$p_operator_derefference(struct ref$1int$p* self)
 {
-    char* __result_obj__0;
     if(self==((void*)0)) {
         puts("null pointer exception. self is null");
         stackframe2(self);
@@ -2540,8 +2536,7 @@ static char* ref$1char$pp_operator_derefference(struct ref$1char$pp* self)
             exit(127);
         }
     }
-        __result_obj__0 = *self->p;
-    return __result_obj__0;
+        return *self->p;
 }
 
 void stackframe()

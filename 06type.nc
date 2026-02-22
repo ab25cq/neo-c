@@ -86,6 +86,31 @@ bool is_contained_generics_class(sType* type, sInfo* info)
     return false;
 }
 
+bool is_contained_generics_placeholder(sType* type, sInfo* info)
+{
+    sType*% type2;
+    if(type->mNoSolvedGenericsType) {
+        type2 = clone type->mNoSolvedGenericsType;
+    }
+    else {
+        type2 = clone type;
+    }
+
+    foreach(it, type2->mGenericsTypes) {
+        if(is_contained_generics_placeholder(it, info)) {
+            return true;
+        }
+    }
+
+    if(type2->mClass == null || type2->mClass->mName == null) {
+        return false;
+    }
+
+    string class_name = string(type2->mClass->mName);
+    return class_name.index("__generics_type", -1) >= 0
+        || class_name.index("__mgenerics_type", -1) >= 0;
+}
+
 tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sInfo* info, bool in_constructor_=false)
 {
     var param_types = new list<sType*%>();
@@ -1569,13 +1594,22 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             info->p++;
             skip_spaces_and_lf();
           
-            type->mPointerNum = 1;
+            // `T&` wraps an addressable view of `T`.
+            // Keep one more pointer level and drop ownership on the wrapped side.
+            type->mPointerNum++;
+            type->mHeap = false;
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mPointerNum++;
+                type->mNoSolvedGenericsType.mHeap = false;
+            }
             
             sType*% generics_type = new sType(s"ref");
             generics_type->mGenericsTypes.add(clone type);
+            bool contained_placeholder = is_contained_generics_placeholder(type, info);
             
-            if(is_contained_generics_class(generics_type, info)) {
+            if(contained_placeholder) {
                 type->mRefference = true;
+                type->mHeap = true;
             }
             else {
                 sType*% type = new sType(s"ref");
@@ -1588,7 +1622,6 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 type2->mPointerNum = 1;
                 type2->mHeap = true;
                 type2->mRefference = true;
-                
                 tmp_ = clone type2;
             }
         }
@@ -1607,8 +1640,9 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             sType*% generics_type = new sType(s"optional");
             generics_type->mGenericsTypes.add(clone type);
             
-            if(is_contained_generics_class(generics_type, info)) {
+            if(is_contained_generics_placeholder(type, info)) {
                 type->mOptional = true;
+                type->mHeap = true;
             }
             else {
                 sType*% type = new sType(s"optional");
@@ -1640,8 +1674,9 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             sType*% generics_type = new sType(s"span");
             generics_type->mGenericsTypes.add(clone type);
             
-            if(is_contained_generics_class(generics_type, info)) {
+            if(is_contained_generics_placeholder(type, info)) {
                 type->mOptional = true;
+                type->mHeap = true;
             }
             else {
                 sType*% type = new sType(s"span");
@@ -3767,6 +3802,11 @@ sType*% expand_typedef_for_assign(sType* type, sInfo* info=info)
         orig->mLongLong = result->mLongLong;
         orig->mComplex = result->mComplex;
         orig->mAtomic = result->mAtomic;
+        orig->mHeap = result->mHeap;
+        orig->mNoHeap = result->mNoHeap;
+        orig->mRefference = result->mRefference;
+        orig->mOptional = result->mOptional;
+        orig->mDefferRightValue = result->mDefferRightValue;
         
         orig->mPointerAttribute = result->mPointerAttribute;
         orig->mAttribute = result->mAttribute;

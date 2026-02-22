@@ -675,7 +675,7 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
     }
     else {
         err_msg(info, "Require block. This is %c", *info->p);
-        stackframe();
+        //stackframe();
         exit(1);
     }
     

@@ -2,33 +2,20 @@
 
 struct sData
 {
-    int& m;
+    int a;
+    int b;
+    int c;
 };
 
-struct sData2
-{
-    int*% n;
-};
-
-sData*% fun()
-{
-    sData2*% data2 = new sData2;
-    
-    data2->n = new int(777);
-    
-    sData*% data = new sData;
-    
-    data.m = ref borrow data2.n;
-    
-    return data;
-}
 
 int main(int argc, char** argv)
 {
-    var data = fun();
+    int x[3] = { 1, 2, 3 };
     
-    printf("%d\n", *data.m);
+    string y = s"ABC";
+    string& p = ref borrow &y;
+    
+    printf("%s\n", *p);
     
     return 0;
 }
-

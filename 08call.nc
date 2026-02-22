@@ -2239,7 +2239,7 @@ sNode*% expression_node(sInfo* info=info) version 1
     skip_spaces_and_lf();
     
     err_msg(info, "invalid character(1)(%d)(%c)", *info->p, *info->p);
-    stackframe();
+    //stackframe();
     exit(3);
     return (sNode*%)null;
 }
