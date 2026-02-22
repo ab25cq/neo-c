@@ -4,6 +4,7 @@ CC=clang
 
 files=()
 opts=()
+ncc_opts=()
 libs=()
 obj_files=()
 target=""
@@ -14,6 +15,7 @@ compile_only=false
 all_object_file=true
 m5stack=false
 pico=false
+portable_c_disabled=false
 
 for arg in "$@"; do
   if [ "$expect_target" = true ]; then
@@ -43,13 +45,17 @@ for arg in "$@"; do
     -cpp)
       CC=clang++
       ;;
+    -portable-c)
+      ncc_opts+=("-portable-c")
+      ;;
+    -no-portable-c)
+      portable_c_disabled=true
+      ;;
     -o)
-      #opts+=("$arg")
       expect_target=true
       ;;
     -c)
       compile_only=true
-      #opts+=("$arg")
       ;;
     -l*)
       libs+=("$arg")
@@ -57,7 +63,7 @@ for arg in "$@"; do
     -*)
       opts+=("$arg")
       ;;
-    *.o) 
+    *.o)
       obj_files+=("$arg")
       ;;
     *.nc)
@@ -71,31 +77,47 @@ for arg in "$@"; do
   esac
 done
 
+if [ "$(uname -s 2>/dev/null)" = "Darwin" ] \
+  && [ "$portable_c_disabled" = false ] \
+  && [ "$all_object_file" = false ]; then
+  has_portable=false
+  for opt in "${ncc_opts[@]}"; do
+    if [ "$opt" = "-portable-c" ]; then
+      has_portable=true
+      break
+    fi
+  done
+
+  if [ "$has_portable" = false ]; then
+    ncc_opts+=("-portable-c")
+  fi
+fi
+
 # base for output/error path (keeps source directory)
 base="${files[0]%.nc}"
 # ncc writes transpiled C into current directory using basename
 cbase="$(basename "${base}")"
 
-if [ "$CC" == clang++ ]
+if [ "$CC" = clang++ ]
 then
-    ncc ${opts[@]} -cpp ${files[0]}
+    ncc "${opts[@]}" "${ncc_opts[@]}" -cpp "${files[0]}"
 else
-    ncc ${opts[@]} ${files[0]}
+    ncc "${opts[@]}" "${ncc_opts[@]}" "${files[0]}"
 fi
 
 transpile_ok=$?
 
-if [ "$pico" == true ]
+if [ "$pico" = true ]
 then
     echo pico
     exit 0
-elif [ "$m5stack" == true ]
+elif [ "$m5stack" = true ]
 then
     echo m5stack
     exit 0
-elif [ "$all_object_file" == true ]
+elif [ "$all_object_file" = true ]
 then
-    $CC ${opts[@]} -o ${target} ${files[@]} -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib ${obj_files[@]} ${libs[@]}
+    $CC "${opts[@]}" -o "${target}" "${files[@]}" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${obj_files[@]}" "${libs[@]}"
 elif test $transpile_ok = 0
 then
     if test $compile_only = true
@@ -104,34 +126,32 @@ then
         then
             target=${base}.o
         fi
-        
-        #echo $CC -c ${opts[@]} -o ${target} ${cbase}.c 2> ${base}.c.error 
-        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c ${opts[@]} -o ${target} ${cbase}.c ${libs[@]} 2> ${base}.c.error
+
+        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -o "${target}" "${cbase}.c" "${libs[@]}" 2> "${base}.c.error"
         then
-            rm -f ${base}.c.error
+            rm -f "${base}.c.error"
             if test $no_rm_pp = true
             then
-                rm -f ${base}.nc.i
+                rm -f "${base}.nc.i"
             fi
         else
-            cat ${base}.c.error | grep error; exit 3
+            cat "${base}.c.error" | grep error; exit 3
         fi
-    else 
+    else
         if test -z "$target"
         then
             target=${base}
         fi
-        
-        #echo $CC ${opts[@]} -o ${target} ${cbase}.c 2> ${base}.c.error 
-        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include ${opts[@]} -L/opt/homebrew/opt/ncurses/lib -o ${target} ${cbase}.c ${obj_files[@]} ${libs[@]} 2> ${base}.c.error
+
+        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -L/opt/homebrew/opt/ncurses/lib -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" 2> "${base}.c.error"
         then
-            rm -f ${base}.c.error
+            rm -f "${base}.c.error"
             if test $no_rm_pp = true
             then
-                rm -f ${base}.nc.i
+                rm -f "${base}.nc.i"
             fi
         else
-            cat ${base}.c.error | grep error; exit 3
+            cat "${base}.c.error" | grep error; exit 3
         fi
     fi
-fi    
+fi

@@ -1656,6 +1656,7 @@ extern _Bool gComeBareMetal;
 extern _Bool gComeCPlusPlus;
 extern _Bool gComelang;
 extern _Bool gComeSafe;
+extern _Bool gPortableC;
 // source head
 
 // header function

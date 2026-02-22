@@ -1,5 +1,93 @@
 #include "common.h"
 
+
+bool is_portable_libc_symbol(const char* sym)
+{
+    return string(sym) === "fopen"
+        || string(sym) === "freopen"
+        || string(sym) === "fclose"
+        || string(sym) === "fread"
+        || string(sym) === "fwrite"
+        || string(sym) === "fflush"
+        || string(sym) === "fprintf"
+        || string(sym) === "printf"
+        || string(sym) === "snprintf"
+        || string(sym) === "vsnprintf"
+        || string(sym) === "vfprintf"
+        || string(sym) === "puts"
+        || string(sym) === "fputs"
+        || string(sym) === "system"
+        || string(sym) === "realpath"
+        || string(sym) === "popen"
+        || string(sym) === "pclose"
+        || string(sym) === "remove"
+        || string(sym) === "rename"
+        || string(sym) === "unlink"
+        || string(sym) === "access"
+        || string(sym) === "stat"
+        || string(sym) === "lstat"
+        || string(sym) === "fstat"
+        || string(sym) === "open"
+        || string(sym) === "close"
+        || string(sym) === "read"
+        || string(sym) === "write"
+        || string(sym) === "lseek"
+        || string(sym) === "mkdir"
+        || string(sym) === "rmdir"
+        || string(sym) === "opendir"
+        || string(sym) === "readdir"
+        || string(sym) === "closedir"
+        || string(sym) === "getcwd"
+        || string(sym) === "chdir";
+}
+
+string normalize_portable_c_source(char* source)
+{
+    if(source == null) {
+        return string("");
+    }
+    if(!gPortableC) {
+        return string(source);
+    }
+
+    buffer*% result = new buffer();
+
+    const char* p = source;
+    while(*p) {
+        if(xisalpha(*p) || *p == '_' || *p == '$') {
+            const char* head = p;
+            while(xisalnum(*p) || *p == '_' || *p == '$') {
+                p++;
+            }
+
+            int len = p - head;
+            char token[len+1];
+            memcpy(token, head, len);
+            token[len] = '\0';
+
+            char* out = token;
+            int pos = string(token).index("$DARWIN_EXTSN", -1);
+            if(pos >= 0) {
+                token[pos] = '\0';
+
+                if(token[0] == '_' && token[1] != '_' && token[1] != '\0') {
+                    out = token + 1;
+                }
+            }
+            else if(token[0] == '_' && token[1] != '_' && token[1] != '\0' && is_portable_libc_symbol(token+1)) {
+                out = token + 1;
+            }
+
+            result.append_str(out);
+        }
+        else {
+            result.append_char(*p);
+            p++;
+        }
+    }
+
+    return result.to_string();
+}
 string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=false, bool cast_type=false, bool typedef_extended=false, bool nullchecker=false)
 {
     var buf = new buffer();
@@ -1824,7 +1912,18 @@ bool output_source_file(sInfo* info)
     }
     
     fclose(f);
-    
+
+    if(gPortableC) {
+        buffer*% portable_source = output_file_name.read();
+        string normalized = normalize_portable_c_source(portable_source.to_string());
+
+        FILE* f2 = fopen(output_file_name, "w");
+        if(f2 == null) { die("fopen"); }
+
+        fwrite(normalized, 1, normalized.length(), f2);
+        fclose(f2);
+    }
+
     return true;
 }
 

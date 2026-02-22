@@ -9,6 +9,7 @@ bool gComeBareMetal = false;
 bool gComeCPlusPlus = false;
 bool gComelang = false;
 bool gComeSafe = false;
+bool gPortableC = false;
 
 static void write_source_file_position_to_source(sInfo* info=info)
 {
@@ -290,6 +291,9 @@ static void init_classes(sInfo* info)
         }
         else if(argv[i] === "-cpp") {
             gComeCPlusPlus = true;
+        }
+        else if(argv[i] === "-portable-c") {
+            gPortableC = true;
         }
         else if(ext_name === "nc") {
             files.push_back(string(argv[i]));

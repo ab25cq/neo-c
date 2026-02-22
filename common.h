@@ -17,6 +17,7 @@ extern bool gComeBareMetal;
 extern bool gComeCPlusPlus;
 extern bool gComelang;
 extern bool gComeSafe;
+extern bool gPortableC;
 
 struct sType;
 struct sClass;
