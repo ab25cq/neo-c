@@ -29,9 +29,6 @@ int main(int argc, char** argv)
     
     printf("%d\n", *data.m);
     
-    come_is_alive(data.m!).to_string().puts();
-
-
     return 0;
 }
 
