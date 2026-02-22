@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.1.0
+version 0.9.1.1
 
 ``` C
 #include <neo-c.h>
@@ -94,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.1.1 INTEL OK
 0.9.1.0 INTEL OK
 0.9.0.9 Mac OS test and all OK.
 0.9.0.8 ISO C11 compatibilities 90%. Cycle owned heap output warning. If you remove the waring you use _weak attribute.
