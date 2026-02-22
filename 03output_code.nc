@@ -41,6 +41,51 @@ bool is_portable_libc_symbol(const char* sym)
         || string(sym) === "chdir";
 }
 
+bool should_strip_portable_asm_alias(const char* source, int* consumed)
+{
+    if(source == null || consumed == null) {
+        return false;
+    }
+    if(strncmp(source, "__asm", 5) != 0) {
+        return false;
+    }
+
+    const char* p = source + 5;
+    while(*p == ' ' || *p == '\t' || *p == '\r' || *p == '\n') {
+        p++;
+    }
+    if(*p != '(') {
+        return false;
+    }
+
+    int nest = 1;
+    p++;
+    while(*p && nest > 0) {
+        if(*p == '(') {
+            nest++;
+        }
+        else if(*p == ')') {
+            nest--;
+        }
+        p++;
+    }
+    if(nest != 0) {
+        return false;
+    }
+
+    int len = p - source;
+    char token[len+1];
+    memcpy(token, source, len);
+    token[len] = '\0';
+
+    if(string(token).index("$", -1) < 0) {
+        return false;
+    }
+
+    *consumed = len;
+    return true;
+}
+
 string normalize_portable_c_source(char* source)
 {
     if(source == null) {
@@ -54,6 +99,12 @@ string normalize_portable_c_source(char* source)
 
     const char* p = source;
     while(*p) {
+        int asm_len = 0;
+        if(should_strip_portable_asm_alias(p, &asm_len)) {
+            p += asm_len;
+            continue;
+        }
+
         if(xisalpha(*p) || *p == '_' || *p == '$') {
             const char* head = p;
             while(xisalnum(*p) || *p == '_' || *p == '$') {
