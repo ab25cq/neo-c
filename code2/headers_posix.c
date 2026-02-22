@@ -1,5 +1,9 @@
 /// c_include definition ///
 /// typedef definition ///
+typedef unsigned long size_t;
+
+typedef int wchar_t;
+
 typedef __builtin_va_list __gnuc_va_list;
 
 typedef unsigned char __u_char;
@@ -10,410 +14,354 @@ typedef unsigned int __u_int;
 
 typedef unsigned long  int __u_long;
 
-typedef unsigned short int __uint16_t;
-
-typedef long long int __int64_t;
-
-typedef unsigned long long int __uint64_t;
-
-typedef long long int __quad_t;
-
-typedef unsigned long long int __u_quad_t;
-
-typedef unsigned long  int __ino_t;
-
-typedef unsigned long long int  __ino64_t  ;
-
-typedef long long int  __off64_t  ;
-
-typedef long long int  __loff_t  ;
-
-typedef struct __fsid_t  __fsid_t  ;
-
 typedef char __int8_t;
 
 typedef unsigned char __uint8_t;
 
-typedef short __int16_t;
+typedef short int __int16_t;
 
-typedef unsigned short int    ;
+typedef unsigned short int __uint16_t;
 
 typedef int __int32_t;
 
 typedef unsigned int __uint32_t;
 
-typedef long long int    ;
+typedef long  int __int64_t;
 
-typedef unsigned long long int    ;
+typedef unsigned long  int __uint64_t;
 
-typedef long __darwin_intptr_t;
+typedef char  __int_least8_t  ;
 
-typedef unsigned int __darwin_natural_t;
+typedef unsigned char  __uint_least8_t  ;
 
-typedef int __darwin_ct_rune_t;
+typedef short int  __int_least16_t  ;
 
-typedef union anonymous_typeZ1 __mbstate_t;
+typedef unsigned short int  __uint_least16_t  ;
 
-typedef union anonymous_typeZ1  __darwin_mbstate_t  ;
+typedef int  __int_least32_t  ;
 
-typedef long __darwin_ptrdiff_t;
+typedef unsigned int  __uint_least32_t  ;
 
-typedef unsigned long  int __darwin_size_t;
+typedef long  int  __int_least64_t  ;
 
-typedef __builtin_va_list __darwin_va_list;
+typedef unsigned long  int  __uint_least64_t  ;
 
-typedef int __darwin_wchar_t;
+typedef long  int __quad_t;
 
-typedef int  __darwin_rune_t  ;
+typedef unsigned long  int __u_quad_t;
 
-typedef unsigned int __darwin_wint_t;
+typedef long  int __intmax_t;
 
-typedef unsigned long  int __darwin_clock_t;
+typedef unsigned long  int __uintmax_t;
 
-typedef unsigned int  __darwin_socklen_t  ;
+typedef unsigned long  int __dev_t;
 
-typedef long __darwin_ssize_t;
+typedef unsigned int __uid_t;
 
-typedef long __darwin_time_t;
+typedef unsigned int __gid_t;
 
-typedef long long int  __darwin_blkcnt_t  ;
+typedef unsigned long  int __ino_t;
 
-typedef int  __darwin_blksize_t  ;
+typedef unsigned long  int __ino64_t;
 
-typedef int  __darwin_dev_t  ;
+typedef unsigned int __mode_t;
 
-typedef unsigned int __darwin_fsblkcnt_t;
+typedef unsigned long  int __nlink_t;
 
-typedef unsigned int __darwin_fsfilcnt_t;
+typedef long  int __off_t;
 
-typedef unsigned int  __darwin_gid_t  ;
+typedef long  int __off64_t;
 
-typedef unsigned int  __darwin_id_t  ;
+typedef int __pid_t;
 
-typedef unsigned long long int  __darwin_ino64_t  ;
+typedef struct __fsid_t  __fsid_t  ;
 
-typedef unsigned long long int  __darwin_ino_t  ;
+typedef long  int __clock_t;
 
-typedef unsigned int  __darwin_mach_port_name_t  ;
+typedef unsigned long  int __rlim_t;
 
-typedef unsigned int  __darwin_mach_port_t  ;
+typedef unsigned long  int __rlim64_t;
 
-typedef unsigned short int  __darwin_mode_t  ;
+typedef unsigned int __id_t;
 
-typedef long long int  __darwin_off_t  ;
+typedef long  int __time_t;
 
-typedef int  __darwin_pid_t  ;
+typedef unsigned int __useconds_t;
 
-typedef unsigned int  __darwin_sigset_t  ;
+typedef long  int __suseconds_t;
 
-typedef int  __darwin_suseconds_t  ;
+typedef long  int __suseconds64_t;
 
-typedef unsigned int  __darwin_uid_t  ;
+typedef int __daddr_t;
 
-typedef unsigned int  __darwin_useconds_t  ;
+typedef int __key_t;
 
-typedef struct _opaque_pthread_attr_t  __darwin_pthread_attr_t  ;
+typedef int __clockid_t;
 
-typedef struct _opaque_pthread_cond_t  __darwin_pthread_cond_t  ;
+typedef void* __timer_t;
 
-typedef struct _opaque_pthread_condattr_t  __darwin_pthread_condattr_t  ;
+typedef long  int __blksize_t;
 
-typedef unsigned long  int __darwin_pthread_key_t;
+typedef long  int __blkcnt_t;
 
-typedef struct _opaque_pthread_mutex_t  __darwin_pthread_mutex_t  ;
+typedef long  int __blkcnt64_t;
 
-typedef struct _opaque_pthread_mutexattr_t  __darwin_pthread_mutexattr_t  ;
+typedef unsigned long  int __fsblkcnt_t;
 
-typedef struct _opaque_pthread_once_t  __darwin_pthread_once_t  ;
+typedef unsigned long  int __fsblkcnt64_t;
 
-typedef struct _opaque_pthread_rwlock_t  __darwin_pthread_rwlock_t  ;
+typedef unsigned long  int __fsfilcnt_t;
 
-typedef struct _opaque_pthread_rwlockattr_t  __darwin_pthread_rwlockattr_t  ;
+typedef unsigned long  int __fsfilcnt64_t;
 
-typedef struct _opaque_pthread_t*  __darwin_pthread_t  ;
+typedef long  int __fsword_t;
 
-typedef int __darwin_nl_item;
+typedef long  int __ssize_t;
 
-typedef int __darwin_wctrans_t;
+typedef long  int __syscall_slong_t;
 
-typedef unsigned int  __darwin_wctype_t  ;
+typedef unsigned long  int __syscall_ulong_t;
 
-typedef unsigned long long int  ino_t  ;
+typedef long  int  __loff_t  ;
 
-typedef struct anonymous_typeX2 DIR;
+typedef char* __caddr_t;
 
-typedef int errno_t;
+typedef long  int __intptr_t;
 
-typedef unsigned long  int  size_t  ;
+typedef unsigned int __socklen_t;
 
-typedef unsigned short int  mode_t  ;
+typedef int __sig_atomic_t;
 
-typedef long long int  off_t  ;
+typedef unsigned long  int  ino_t  ;
+
+typedef unsigned long  int  ino64_t  ;
+
+typedef struct __dirstream DIR;
+
+typedef unsigned long  long    ;
+
+typedef int error_t;
+
+typedef unsigned int  mode_t  ;
+
+typedef long  int  off_t  ;
+
+typedef long  int  off64_t  ;
 
 typedef int  pid_t  ;
 
-typedef char int8_t;
-
-typedef short int16_t;
-
-typedef int int32_t;
-
-typedef long long int64_t;
-
-typedef unsigned char u_int8_t;
-
-typedef unsigned short int u_int16_t;
-
-typedef unsigned int u_int32_t;
-
-typedef unsigned long  long u_int64_t;
-
-typedef long long  register_t  ;
-
-typedef long  intptr_t  ;
-
-typedef unsigned long  int uintptr_t;
-
-typedef unsigned long  long  user_addr_t  ;
-
-typedef unsigned long  long  user_size_t  ;
-
-typedef long long  user_ssize_t  ;
-
-typedef long long  user_long_t  ;
-
-typedef unsigned long  long  user_ulong_t  ;
-
-typedef long long  user_time_t  ;
-
-typedef long long  user_off_t  ;
-
-typedef unsigned long  long  syscall_arg_t  ;
-
-typedef struct fsignatures  fsignatures_t  ;
-
-typedef struct fsupplement  fsupplement_t  ;
-
-typedef struct fchecklv  fchecklv_t  ;
-
-typedef struct fgetsigsinfo  fgetsigsinfo_t  ;
-
-typedef struct fstore  fstore_t  ;
-
-typedef struct fpunchhole  fpunchhole_t  ;
-
-typedef struct ftrimactivefile  ftrimactivefile_t  ;
-
-typedef struct fspecread  fspecread_t  ;
-
-typedef struct fattributiontag  fattributiontag_t  ;
-
-typedef struct _filesec*  filesec_t  ;
-
-typedef enum anonymous_typeY2 filesec_property_t;
+typedef long  int  time_t  ;
 
 typedef unsigned int  gid_t  ;
 
-typedef unsigned int nfds_t;
+typedef struct _IO_FILE  FILE  ;
+
+typedef struct anonymous_typeX1 __sigset_t;
+
+typedef unsigned long  int nfds_t;
 
 typedef unsigned int  uid_t  ;
 
-typedef int  wchar_t  ;
+typedef unsigned char  u_char  ;
 
-typedef long long int  regoff_t  ;
+typedef unsigned short int  u_short  ;
 
-typedef struct anonymous_typeX3 regex_t;
+typedef unsigned int  u_int  ;
 
-typedef struct anonymous_typeX4 regmatch_t;
+typedef unsigned long  int  u_long  ;
 
-typedef unsigned char u_char;
+typedef long  int  quad_t  ;
 
-typedef unsigned short int u_short;
+typedef unsigned long  int  u_quad_t  ;
 
-typedef unsigned int u_int;
+typedef struct __fsid_t  fsid_t  ;
 
-typedef unsigned long  int u_long;
+typedef long  int  loff_t  ;
+
+typedef unsigned long  int  dev_t  ;
+
+typedef unsigned long  int  nlink_t  ;
+
+typedef unsigned int  id_t  ;
+
+typedef long  int  ssize_t  ;
+
+typedef int  daddr_t  ;
+
+typedef char*  caddr_t  ;
+
+typedef int  key_t  ;
+
+typedef long  int  clock_t  ;
+
+typedef int  clockid_t  ;
+
+typedef void*  timer_t  ;
+
+typedef unsigned int  useconds_t  ;
+
+typedef long  int  suseconds_t  ;
+
+typedef unsigned long  int ulong;
 
 typedef unsigned short int ushort;
 
 typedef unsigned int uint;
 
-typedef unsigned long  long  u_quad_t  ;
+typedef char  int8_t  ;
 
-typedef long long  quad_t  ;
+typedef short int  int16_t  ;
 
-typedef long long*  qaddr_t  ;
+typedef int  int32_t  ;
 
-typedef char* caddr_t;
+typedef long  int  int64_t  ;
 
-typedef int  daddr_t  ;
+typedef unsigned char  u_int8_t  ;
 
-typedef int  dev_t  ;
+typedef unsigned short int  u_int16_t  ;
 
-typedef unsigned int  fixpt_t  ;
+typedef unsigned int  u_int32_t  ;
 
-typedef long long int  blkcnt_t  ;
+typedef unsigned long  int  u_int64_t  ;
 
-typedef int  blksize_t  ;
+typedef int __attribute__ ((__mode__ (__word__))) register_t __attribute__ ((__mode__ (__word__)));
 
-typedef unsigned int  in_addr_t  ;
+typedef struct anonymous_typeX1  sigset_t  ;
 
-typedef unsigned short int  in_port_t  ;
+typedef long  int __fd_mask;
 
-typedef unsigned long long int  ino64_t  ;
+typedef struct anonymous_typeX2 fd_set;
 
-typedef int  key_t  ;
+typedef long  int  fd_mask  ;
 
-typedef unsigned short int  nlink_t  ;
+typedef long  int  blksize_t  ;
 
-typedef unsigned int  id_t  ;
+typedef long  int  blkcnt_t  ;
 
-typedef int  segsz_t  ;
+typedef unsigned long  int  fsblkcnt_t  ;
 
-typedef int  swblk_t  ;
+typedef unsigned long  int  fsfilcnt_t  ;
 
-typedef unsigned long  int  clock_t  ;
+typedef long  int  blkcnt64_t  ;
 
-typedef long  ssize_t  ;
+typedef unsigned long  int  fsblkcnt64_t  ;
 
-typedef long  time_t  ;
+typedef unsigned long  int  fsfilcnt64_t  ;
 
-typedef unsigned int  useconds_t  ;
+typedef union anonymous_typeZ3 __atomic_wide_counter;
 
-typedef int  suseconds_t  ;
+typedef struct __pthread_internal_list  __pthread_list_t  ;
 
-typedef unsigned long  int  rsize_t  ;
+typedef struct __pthread_internal_slist  __pthread_slist_t  ;
 
-typedef struct fd_set  fd_set  ;
+typedef unsigned int __tss_t;
 
-typedef int  fd_mask  ;
+typedef unsigned long  int __thrd_t;
 
-typedef struct _opaque_pthread_attr_t  pthread_attr_t  ;
+typedef struct anonymous_typeX5 __once_flag;
 
-typedef struct _opaque_pthread_cond_t  pthread_cond_t  ;
+typedef unsigned long  int pthread_t;
 
-typedef struct _opaque_pthread_condattr_t  pthread_condattr_t  ;
+typedef union anonymous_typeZ6 pthread_mutexattr_t;
 
-typedef struct _opaque_pthread_mutex_t  pthread_mutex_t  ;
+typedef union anonymous_typeZ7 pthread_condattr_t;
 
-typedef struct _opaque_pthread_mutexattr_t  pthread_mutexattr_t  ;
+typedef unsigned int pthread_key_t;
 
-typedef struct _opaque_pthread_once_t  pthread_once_t  ;
+typedef int pthread_once_t;
 
-typedef struct _opaque_pthread_rwlock_t  pthread_rwlock_t  ;
+typedef union pthread_attr_t  pthread_attr_t  ;
 
-typedef struct _opaque_pthread_rwlockattr_t  pthread_rwlockattr_t  ;
+typedef union anonymous_typeZ8 pthread_mutex_t;
 
-typedef struct _opaque_pthread_t*  pthread_t  ;
+typedef union anonymous_typeZ9 pthread_cond_t;
 
-typedef unsigned long  int  pthread_key_t  ;
+typedef union anonymous_typeZ10 pthread_rwlock_t;
 
-typedef unsigned int  fsblkcnt_t  ;
+typedef union anonymous_typeZ11 pthread_rwlockattr_t;
 
-typedef unsigned int  fsfilcnt_t  ;
+typedef volatile int pthread_spinlock_t;
 
-typedef unsigned long  long uint64_t;
+typedef union anonymous_typeZ12 pthread_barrier_t;
 
-typedef unsigned int uint32_t;
+typedef union anonymous_typeZ13 pthread_barrierattr_t;
 
-typedef struct ucred*  kauth_cred_t  ;
+typedef unsigned int __re_size_t;
 
-typedef struct posix_cred*  posix_cred_t  ;
+typedef unsigned long  int __re_long_size_t;
 
-typedef unsigned char uint8_t;
+typedef long  int s_reg_t;
 
-typedef unsigned short int uint16_t;
+typedef unsigned long  int active_reg_t;
 
-typedef char  int_least8_t  ;
+typedef unsigned long  int reg_syntax_t;
 
-typedef short  int_least16_t  ;
+typedef enum anonymous_typeY13 reg_errcode_t;
 
-typedef int  int_least32_t  ;
+typedef struct re_pattern_buffer  regex_t  ;
 
-typedef long long  int_least64_t  ;
+typedef int regoff_t;
 
-typedef unsigned char  uint_least8_t  ;
+typedef struct anonymous_typeX14 regmatch_t;
 
-typedef unsigned short int  uint_least16_t  ;
+typedef unsigned long  int  rlim_t  ;
 
-typedef unsigned int  uint_least32_t  ;
+typedef unsigned long  int  rlim64_t  ;
 
-typedef unsigned long  long  uint_least64_t  ;
+typedef enum __rlimit_resource __rlimit_resource_t;
 
-typedef char  int_fast8_t  ;
+typedef enum __rusage_who __rusage_who_t;
 
-typedef short  int_fast16_t  ;
+typedef enum __priority_which __priority_which_t;
 
-typedef int  int_fast32_t  ;
+typedef enum __itimer_which __itimer_which_t;
 
-typedef long long  int_fast64_t  ;
+typedef int  sig_atomic_t  ;
 
-typedef unsigned char  uint_fast8_t  ;
+typedef union sigval  __sigval_t  ;
 
-typedef unsigned short int  uint_fast16_t  ;
+typedef struct anonymous_typeX43 siginfo_t;
 
-typedef unsigned int  uint_fast32_t  ;
+typedef union sigval  sigval_t  ;
 
-typedef unsigned long  long  uint_fast64_t  ;
+typedef struct sigevent  sigevent_t  ;
 
-typedef long  int intmax_t;
+typedef void (*__sighandler_t)(int);
 
-typedef unsigned long  int uintmax_t;
+typedef void (*sighandler_t)(int)  ;
 
-typedef enum anonymous_typeY8 clockid_t;
+typedef void (*sig_t)(int)  ;
 
-typedef unsigned char  sa_family_t  ;
+typedef struct anonymous_typeX76 stack_t;
+
+typedef long long int greg_t;
+
+typedef struct _libc_fpstate*  fpregset_t  ;
+
+typedef struct anonymous_typeX77 mcontext_t;
+
+typedef struct ucontext_t  ucontext_t  ;
+
+typedef long  int  intptr_t  ;
 
 typedef unsigned int  socklen_t  ;
 
-typedef unsigned int  sae_associd_t  ;
-
-typedef unsigned int  sae_connid_t  ;
-
-typedef struct sa_endpoints  sa_endpoints_t  ;
-
-typedef unsigned long long int  rlim_t  ;
-
-typedef void* rusage_info_t;
-
-typedef struct rusage_info_v6  rusage_info_current  ;
-
-typedef unsigned int  sigset_t  ;
-
-typedef enum anonymous_typeY14 idtype_t;
-
-typedef int sig_atomic_t;
-
-typedef struct __darwin_mcontext64*  mcontext_t  ;
-
-typedef struct __darwin_sigaltstack  stack_t  ;
-
-typedef struct __darwin_ucontext  ucontext_t  ;
-
-typedef struct __siginfo  siginfo_t  ;
-
-typedef void (*sig_t)(int);
-
-typedef unsigned long  int tcflag_t;
+typedef enum anonymous_typeY77 idtype_t;
 
 typedef unsigned char cc_t;
 
-typedef unsigned long  int speed_t;
+typedef unsigned int speed_t;
+
+typedef unsigned int tcflag_t;
+
+typedef unsigned int  baud_t  ;
 
 /// previous struct definition ///
-struct _telldir;
+struct _IO_FILE;
 
-struct _filesec;
+struct iovec;
 
-struct ucred;
-
-struct posix_cred;
-
-struct ifnet_interface_advisory;
-
-struct fssearchblock;
-
-struct searchstate;
+struct rusage;
 
 /// struct definition ///
 struct __fsid_t
@@ -421,233 +369,122 @@ struct __fsid_t
     int __val[2];
 };
 
-union anonymous_typeZ1
-{
-char __mbstate8[128];
-long long _mbstateL;
-};
-
-typedef unsigned char __darwin_uuid_t[16];
-
-typedef char __darwin_uuid_string_t[37];
-
-struct __darwin_pthread_handler_rec
-{
-    void (*__routine)(void*);
-    void* __arg;
-    struct __darwin_pthread_handler_rec*  __next  ;
-};
-
-struct _opaque_pthread_attr_t
-{
-    long __sig;
-    char __opaque[56];
-};
-
-struct _opaque_pthread_cond_t
-{
-    long __sig;
-    char __opaque[40];
-};
-
-struct _opaque_pthread_condattr_t
-{
-    long __sig;
-    char __opaque[8];
-};
-
-struct _opaque_pthread_mutex_t
-{
-    long __sig;
-    char __opaque[56];
-};
-
-struct _opaque_pthread_mutexattr_t
-{
-    long __sig;
-    char __opaque[8];
-};
-
-struct _opaque_pthread_once_t
-{
-    long __sig;
-    char __opaque[8];
-};
-
-struct _opaque_pthread_rwlock_t
-{
-    long __sig;
-    char __opaque[192];
-};
-
-struct _opaque_pthread_rwlockattr_t
-{
-    long __sig;
-    char __opaque[16];
-};
-
-struct _opaque_pthread_t
-{
-    long __sig;
-    struct __darwin_pthread_handler_rec*  __cleanup_stack  ;
-    char __opaque[8176];
-};
-
-#pragma pack(4)
 struct dirent
 {
-    unsigned long long int  d_ino  ;
-    unsigned long long int  d_seekoff  ;
-    unsigned short int  d_reclen  ;
-    unsigned short int  d_namlen  ;
-    unsigned char  d_type  ;
-    char d_name[1024];
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct anonymous_typeX2
-{
-    int __dd_fd;
-    long __dd_loc;
-    long __dd_size;
-    char* __dd_buf;
-    int __dd_len;
-    long __dd_seek;
-    long __attribute__((__unused__))  __padding __attribute__((__unused__)) ;
-    int __dd_flags;
-    struct _opaque_pthread_mutex_t  __dd_lock  ;
-    struct _telldir*  __dd_td  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct flock
-{
-    long long int  l_start  ;
-    long long int  l_len  ;
-    int  l_pid  ;
-    short l_type;
-    short l_whence;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct timespec
-{
-    long  tv_sec  ;
-    long tv_nsec;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct flocktimeout
-{
-    struct flock  fl  ;
-    struct timespec  timeout  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct radvisory
-{
-    long long int  ra_offset  ;
-    int ra_count;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct fsignatures
-{
-    long long int  fs_file_start  ;
-    void* fs_blob_start;
-    unsigned long  int  fs_blob_size  ;
-    unsigned long  int  fs_fsignatures_size  ;
-    char fs_cdhash[20];
-    int fs_hash_type;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct fsupplement
-{
-    long long int  fs_file_start  ;
-    long long int  fs_blob_start  ;
-    unsigned long  int  fs_blob_size  ;
-    int fs_orig_fd;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct fchecklv
-{
-    long long int  lv_file_start  ;
-    unsigned long  int  lv_error_message_size  ;
-    void* lv_error_message;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct fgetsigsinfo
-{
-    long long int  fg_file_start  ;
-    int fg_info_request;
-    int fg_sig_is_platform;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct fstore
-{
-    unsigned int fst_flags;
-    int fst_posmode;
-    long long int  fst_offset  ;
-    long long int  fst_length  ;
-    long long int  fst_bytesalloc  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct fpunchhole
-{
-    unsigned int fp_flags;
-    unsigned int reserved;
-    long long int  fp_offset  ;
-    long long int  fp_length  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ftrimactivefile
-{
-    long long int  fta_offset  ;
-    long long int  fta_length  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct fspecread
-{
-    unsigned int fsr_flags;
-    unsigned int reserved;
-    long long int  fsr_offset  ;
-    long long int  fsr_length  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct fattributiontag
-{
-    unsigned int ft_flags;
-    unsigned long  long ft_hash;
-    char ft_attribution_name[255];
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct log2phys
-{
-    unsigned int l2p_flags;
-    long long int  l2p_contigbytes  ;
-    long long int  l2p_devoffset  ;
-};
-#pragma pack(pop)
-enum  anonymous_typeY2 { FILESEC_OWNER=(1),
-FILESEC_GROUP=(2),
-FILESEC_UUID=(3),
-FILESEC_MODE=(4),
-FILESEC_ACL=(5),
-FILESEC_GRPUUID=(6),
-FILESEC_ACL_RAW=(100),
-FILESEC_ACL_ALLOCSIZE=(101)
+    unsigned long  int  d_ino  ;
+    long  int  d_off  ;
+    unsigned short int d_reclen;
+    unsigned char d_type;
+    char d_name[256];
 };
 
-#pragma pack(4)
+struct dirent64
+{
+    unsigned long  int  d_ino  ;
+    long  int  d_off  ;
+    unsigned short int d_reclen;
+    unsigned char d_type;
+    char d_name[256];
+};
+
+enum { DT_UNKNOWN=(0),
+DT_FIFO=(1),
+DT_CHR=(2),
+DT_DIR=(4),
+DT_BLK=(6),
+DT_REG=(8),
+DT_LNK=(10),
+DT_SOCK=(12),
+DT_WHT=(14)
+};
+
+struct flock
+{
+    short int l_type;
+    short int l_whence;
+    long  int  l_start  ;
+    long  int  l_len  ;
+    int  l_pid  ;
+};
+
+struct flock64
+{
+    short int l_type;
+    short int l_whence;
+    long  int  l_start  ;
+    long  int  l_len  ;
+    int  l_pid  ;
+};
+
+struct iovec
+{
+    void* iov_base;
+    unsigned long  iov_len  ;
+};
+
+enum  __pid_type { F_OWNER_TID=(0),
+F_OWNER_PID 
+,F_OWNER_PGRP 
+,F_OWNER_GID=((0+2))
+};
+
+struct f_owner_ex
+{
+    enum __pid_type type;
+    int  pid  ;
+};
+
+struct file_handle
+{
+    unsigned int handle_bytes;
+    int handle_type;
+    unsigned char f_handle[0];
+};
+
+struct timespec
+{
+    long  int  tv_sec  ;
+    long  int  tv_nsec  ;
+};
+
+struct stat
+{
+    unsigned long  int  st_dev  ;
+    unsigned long  int  st_ino  ;
+    unsigned long  int  st_nlink  ;
+    unsigned int  st_mode  ;
+    unsigned int  st_uid  ;
+    unsigned int  st_gid  ;
+    int __pad0;
+    unsigned long  int  st_rdev  ;
+    long  int  st_size  ;
+    long  int  st_blksize  ;
+    long  int  st_blocks  ;
+    struct timespec  st_atim  ;
+    struct timespec  st_mtim  ;
+    struct timespec  st_ctim  ;
+    long  int  __glibc_reserved[3]  ;
+};
+
+struct stat64
+{
+    unsigned long  int  st_dev  ;
+    unsigned long  int  st_ino  ;
+    unsigned long  int  st_nlink  ;
+    unsigned int  st_mode  ;
+    unsigned int  st_uid  ;
+    unsigned int  st_gid  ;
+    int __pad0;
+    unsigned long  int  st_rdev  ;
+    long  int  st_size  ;
+    long  int  st_blksize  ;
+    long  int  st_blocks  ;
+    struct timespec  st_atim  ;
+    struct timespec  st_mtim  ;
+    struct timespec  st_ctim  ;
+    long  int  __glibc_reserved[3]  ;
+};
+
 struct group
 {
     char* gr_name;
@@ -655,93 +492,232 @@ struct group
     unsigned int  gr_gid  ;
     char** gr_mem;
 };
-#pragma pack(pop)
-typedef unsigned char  uuid_t[16]  ;
 
-typedef char  uuid_string_t[37]  ;
+struct anonymous_typeX1
+{
+    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
+};
 
-#pragma pack(4)
 struct pollfd
 {
     int fd;
-    short events;
-    short revents;
+    short int events;
+    short int revents;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct passwd
 {
     char* pw_name;
     char* pw_passwd;
     unsigned int  pw_uid  ;
     unsigned int  pw_gid  ;
-    long  pw_change  ;
-    char* pw_class;
     char* pw_gecos;
     char* pw_dir;
     char* pw_shell;
-    long  pw_expire  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct anonymous_typeX3
+
+struct timeval
 {
-    int re_magic;
-    unsigned long  int  re_nsub  ;
-    const char* re_endp;
-    struct re_guts* re_g;
+    long  int  tv_sec  ;
+    long  int  tv_usec  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
+struct anonymous_typeX2
+{
+    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
+};
+
 struct anonymous_typeX4
 {
-    long long int  rm_so  ;
-    long long int  rm_eo  ;
+    unsigned int __low;
+    unsigned int __high;
 };
-#pragma pack(pop)
-#pragma pack(4)
-union anonymous_typeZ5
+
+union anonymous_typeZ3
 {
-unsigned long long int  _ull  ;
-unsigned int  _ul[2]  ;
+unsigned long long int __value64;
+    struct {
+        unsigned int __low;
+        unsigned int __high;
+    } __value32;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
+struct __pthread_internal_list
+{
+    struct __pthread_internal_list*  __prev  ;
+    struct __pthread_internal_list*  __next  ;
+};
+
+struct __pthread_internal_slist
+{
+    struct __pthread_internal_slist*  __next  ;
+};
+
+struct __pthread_mutex_s
+{
+    int __lock;
+    unsigned int __count;
+    int __owner;
+    unsigned int __nusers;
+    int __kind;
+    short __spins;
+    short __elision;
+    struct __pthread_internal_list  __list  ;
+};
+
+struct __pthread_rwlock_arch_t
+{
+    unsigned int __readers;
+    unsigned int __writers;
+    unsigned int __wrphase_futex;
+    unsigned int __writers_futex;
+    unsigned int __pad3;
+    unsigned int __pad4;
+    int __cur_writer;
+    int __shared;
+    char __rwelision;
+    unsigned char __pad1[7];
+    unsigned long  int __pad2;
+    unsigned int __flags;
+};
+
+struct __pthread_cond_s
+{
+    union {
+        unsigned long long int __value64;
+        struct {
+            unsigned int __low;
+            unsigned int __high;
+        } __value32;
+    } __wseq;
+    union {
+        unsigned long long int __value64;
+        struct {
+            unsigned int __low;
+            unsigned int __high;
+        } __value32;
+    } __g1_start;
+    unsigned int __g_size[2];
+    unsigned int __g1_orig_size;
+    unsigned int __wrefs;
+    unsigned int __g_signals[2];
+    unsigned int __unused_initialized_1;
+    unsigned int __unused_initialized_2;
+};
+
+struct anonymous_typeX5
+{
+    int __data;
+};
+
 union anonymous_typeZ6
 {
-unsigned long long int  _ull  ;
-unsigned int  _ul[2]  ;
+char __size[4];
+int __align;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ7
 {
-unsigned long long int  _ull  ;
-unsigned int  _ul[2]  ;
+char __size[4];
+int __align;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
+union pthread_attr_t
+{
+char __size[56];
+long  int __align;
+};
+
 union anonymous_typeZ8
 {
-unsigned long long int  _ull  ;
-unsigned int  _ul[2]  ;
+struct __pthread_mutex_s  __data  ;
+char __size[40];
+long  int __align;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct fd_set
+
+union anonymous_typeZ9
 {
-    int  fds_bits[((((((1024)%(32))==0))?(((1024)/(32))):((((1024)/(32))+1))))]  ;
+struct __pthread_cond_s  __data  ;
+char __size[48];
+long long int __align;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct accessx_descriptor
+
+union anonymous_typeZ10
 {
-    unsigned int ad_name_offset;
-    int ad_flags;
-    int ad_pad[2];
+struct __pthread_rwlock_arch_t  __data  ;
+char __size[56];
+long  int __align;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
+union anonymous_typeZ11
+{
+char __size[8];
+long  int __align;
+};
+
+union anonymous_typeZ12
+{
+char __size[32];
+long  int __align;
+};
+
+union anonymous_typeZ13
+{
+char __size[4];
+int __align;
+};
+
+enum  anonymous_typeY13 { _REG_ENOSYS=(-1),
+_REG_NOERROR=(0),
+_REG_NOMATCH 
+,_REG_BADPAT 
+,_REG_ECOLLATE 
+,_REG_ECTYPE 
+,_REG_EESCAPE 
+,_REG_ESUBREG 
+,_REG_EBRACK 
+,_REG_EPAREN 
+,_REG_EBRACE 
+,_REG_BADBR 
+,_REG_ERANGE 
+,_REG_ESPACE 
+,_REG_BADRPT 
+,_REG_EEND 
+,_REG_ESIZE 
+,_REG_ERPAREN 
+};
+
+struct re_pattern_buffer
+{
+    struct re_dfa_t* buffer;
+    unsigned long  int  allocated  ;
+    unsigned long  int  used  ;
+    unsigned long  int  syntax  ;
+    char* fastmap;
+    unsigned char* translate;
+    unsigned long  re_nsub  ;
+    unsigned int can_be_null:1;
+    unsigned int regs_allocated:2;
+    unsigned int fastmap_accurate:1;
+    unsigned int no_sub:1;
+    unsigned int not_bol:1;
+    unsigned int not_eol:1;
+    unsigned int newline_anchor:1;
+};
+
+struct re_registers
+{
+    unsigned int  num_regs  ;
+    int*  start  ;
+    int*  end  ;
+};
+
+struct anonymous_typeX14
+{
+    int  rm_so  ;
+    int  rm_eo  ;
+};
+
 struct winsize
 {
     unsigned short int ws_row;
@@ -749,1654 +725,1850 @@ struct winsize
     unsigned short int ws_xpixel;
     unsigned short int ws_ypixel;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct ttysize
-{
-    unsigned short int ts_lines;
-    unsigned short int ts_cols;
-    unsigned short int ts_xxx;
-    unsigned short int ts_yyy;
+
+enum  __rlimit_resource { RLIMIT_CPU=(0),
+RLIMIT_FSIZE=(1),
+RLIMIT_DATA=(2),
+RLIMIT_STACK=(3),
+RLIMIT_CORE=(4),
+__RLIMIT_RSS=(5),
+RLIMIT_NOFILE=(7),
+__RLIMIT_OFILE=((7)),
+RLIMIT_AS=(9),
+__RLIMIT_NPROC=(6),
+__RLIMIT_MEMLOCK=(8),
+__RLIMIT_LOCKS=(10),
+__RLIMIT_SIGPENDING=(11),
+__RLIMIT_MSGQUEUE=(12),
+__RLIMIT_NICE=(13),
+__RLIMIT_RTPRIO=(14),
+__RLIMIT_RTTIME=(15),
+__RLIMIT_NLIMITS=(16),
+__RLIM_NLIMITS=((16))
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct timeval
+
+struct rlimit
 {
-    long  tv_sec  ;
-    int  tv_usec  ;
+    unsigned long  int  rlim_cur  ;
+    unsigned long  int  rlim_max  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct timeval64
+
+struct rlimit64
 {
-    long long int  tv_sec  ;
-    long long int  tv_usec  ;
+    unsigned long  int  rlim_cur  ;
+    unsigned long  int  rlim_max  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct itimerval
+
+enum  __rusage_who { RUSAGE_SELF=(0),
+RUSAGE_CHILDREN=(-1),
+RUSAGE_THREAD=(1)
+};
+
+union anonymous_typeZ15
 {
-    struct timeval  it_interval  ;
-    struct timeval  it_value  ;
+long  int ru_maxrss;
+long  int  __ru_maxrss_word  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
+union anonymous_typeZ16
+{
+long  int ru_maxrss;
+long  int  __ru_maxrss_word  ;
+};
+
+union anonymous_typeZ17
+{
+long  int ru_ixrss;
+long  int  __ru_ixrss_word  ;
+};
+
+union anonymous_typeZ18
+{
+long  int ru_ixrss;
+long  int  __ru_ixrss_word  ;
+};
+
+union anonymous_typeZ19
+{
+long  int ru_idrss;
+long  int  __ru_idrss_word  ;
+};
+
+union anonymous_typeZ20
+{
+long  int ru_idrss;
+long  int  __ru_idrss_word  ;
+};
+
+union anonymous_typeZ21
+{
+long  int ru_isrss;
+long  int  __ru_isrss_word  ;
+};
+
+union anonymous_typeZ22
+{
+long  int ru_isrss;
+long  int  __ru_isrss_word  ;
+};
+
+union anonymous_typeZ23
+{
+long  int ru_minflt;
+long  int  __ru_minflt_word  ;
+};
+
+union anonymous_typeZ24
+{
+long  int ru_minflt;
+long  int  __ru_minflt_word  ;
+};
+
+union anonymous_typeZ25
+{
+long  int ru_majflt;
+long  int  __ru_majflt_word  ;
+};
+
+union anonymous_typeZ26
+{
+long  int ru_majflt;
+long  int  __ru_majflt_word  ;
+};
+
+union anonymous_typeZ27
+{
+long  int ru_nswap;
+long  int  __ru_nswap_word  ;
+};
+
+union anonymous_typeZ28
+{
+long  int ru_nswap;
+long  int  __ru_nswap_word  ;
+};
+
+union anonymous_typeZ29
+{
+long  int ru_inblock;
+long  int  __ru_inblock_word  ;
+};
+
+union anonymous_typeZ30
+{
+long  int ru_inblock;
+long  int  __ru_inblock_word  ;
+};
+
+union anonymous_typeZ31
+{
+long  int ru_oublock;
+long  int  __ru_oublock_word  ;
+};
+
+union anonymous_typeZ32
+{
+long  int ru_oublock;
+long  int  __ru_oublock_word  ;
+};
+
+union anonymous_typeZ33
+{
+long  int ru_msgsnd;
+long  int  __ru_msgsnd_word  ;
+};
+
+union anonymous_typeZ34
+{
+long  int ru_msgsnd;
+long  int  __ru_msgsnd_word  ;
+};
+
+union anonymous_typeZ35
+{
+long  int ru_msgrcv;
+long  int  __ru_msgrcv_word  ;
+};
+
+union anonymous_typeZ36
+{
+long  int ru_msgrcv;
+long  int  __ru_msgrcv_word  ;
+};
+
+union anonymous_typeZ37
+{
+long  int ru_nsignals;
+long  int  __ru_nsignals_word  ;
+};
+
+union anonymous_typeZ38
+{
+long  int ru_nsignals;
+long  int  __ru_nsignals_word  ;
+};
+
+union anonymous_typeZ39
+{
+long  int ru_nvcsw;
+long  int  __ru_nvcsw_word  ;
+};
+
+union anonymous_typeZ40
+{
+long  int ru_nvcsw;
+long  int  __ru_nvcsw_word  ;
+};
+
+union anonymous_typeZ41
+{
+long  int ru_nivcsw;
+long  int  __ru_nivcsw_word  ;
+};
+
+union anonymous_typeZ42
+{
+long  int ru_nivcsw;
+long  int  __ru_nivcsw_word  ;
+};
+
+struct rusage
+{
+    struct timeval  ru_utime  ;
+    struct timeval  ru_stime  ;
+    union {
+        long  int ru_maxrss;
+        long  int  __ru_maxrss_word  ;
+    };
+    union {
+        long  int ru_ixrss;
+        long  int  __ru_ixrss_word  ;
+    };
+    union {
+        long  int ru_idrss;
+        long  int  __ru_idrss_word  ;
+    };
+    union {
+        long  int ru_isrss;
+        long  int  __ru_isrss_word  ;
+    };
+    union {
+        long  int ru_minflt;
+        long  int  __ru_minflt_word  ;
+    };
+    union {
+        long  int ru_majflt;
+        long  int  __ru_majflt_word  ;
+    };
+    union {
+        long  int ru_nswap;
+        long  int  __ru_nswap_word  ;
+    };
+    union {
+        long  int ru_inblock;
+        long  int  __ru_inblock_word  ;
+    };
+    union {
+        long  int ru_oublock;
+        long  int  __ru_oublock_word  ;
+    };
+    union {
+        long  int ru_msgsnd;
+        long  int  __ru_msgsnd_word  ;
+    };
+    union {
+        long  int ru_msgrcv;
+        long  int  __ru_msgrcv_word  ;
+    };
+    union {
+        long  int ru_nsignals;
+        long  int  __ru_nsignals_word  ;
+    };
+    union {
+        long  int ru_nvcsw;
+        long  int  __ru_nvcsw_word  ;
+    };
+    union {
+        long  int ru_nivcsw;
+        long  int  __ru_nivcsw_word  ;
+    };
+};
+
+enum  __priority_which { PRIO_PROCESS=(0),
+PRIO_PGRP=(1),
+PRIO_USER=(2)
+};
+
+struct statx_timestamp
+{
+    long  int  tv_sec  ;
+    unsigned int  tv_nsec  ;
+    int  __statx_timestamp_pad1[1]  ;
+};
+
+struct statx
+{
+    unsigned int  stx_mask  ;
+    unsigned int  stx_blksize  ;
+    unsigned long  int  stx_attributes  ;
+    unsigned int  stx_nlink  ;
+    unsigned int  stx_uid  ;
+    unsigned int  stx_gid  ;
+    unsigned short int  stx_mode  ;
+    unsigned short int  __statx_pad1[1]  ;
+    unsigned long  int  stx_ino  ;
+    unsigned long  int  stx_size  ;
+    unsigned long  int  stx_blocks  ;
+    unsigned long  int  stx_attributes_mask  ;
+    struct statx_timestamp  stx_atime  ;
+    struct statx_timestamp  stx_btime  ;
+    struct statx_timestamp  stx_ctime  ;
+    struct statx_timestamp  stx_mtime  ;
+    unsigned int  stx_rdev_major  ;
+    unsigned int  stx_rdev_minor  ;
+    unsigned int  stx_dev_major  ;
+    unsigned int  stx_dev_minor  ;
+    unsigned long  int  __statx_pad2[14]  ;
+};
+
+struct statvfs
+{
+    unsigned long  int f_bsize;
+    unsigned long  int f_frsize;
+    unsigned long  int  f_blocks  ;
+    unsigned long  int  f_bfree  ;
+    unsigned long  int  f_bavail  ;
+    unsigned long  int  f_files  ;
+    unsigned long  int  f_ffree  ;
+    unsigned long  int  f_favail  ;
+    unsigned long  int f_fsid;
+    unsigned long  int f_flag;
+    unsigned long  int f_namemax;
+    unsigned int f_type;
+    int __f_spare[5];
+};
+
+struct statvfs64
+{
+    unsigned long  int f_bsize;
+    unsigned long  int f_frsize;
+    unsigned long  int  f_blocks  ;
+    unsigned long  int  f_bfree  ;
+    unsigned long  int  f_bavail  ;
+    unsigned long  int  f_files  ;
+    unsigned long  int  f_ffree  ;
+    unsigned long  int  f_favail  ;
+    unsigned long  int f_fsid;
+    unsigned long  int f_flag;
+    unsigned long  int f_namemax;
+    unsigned int f_type;
+    int __f_spare[5];
+};
+
+enum { ST_RDONLY=(1),
+ST_NOSUID=(2),
+ST_NODEV=(4),
+ST_NOEXEC=(8),
+ST_SYNCHRONOUS=(16),
+ST_MANDLOCK=(64),
+ST_WRITE=(128),
+ST_APPEND=(256),
+ST_IMMUTABLE=(512),
+ST_NOATIME=(1024),
+ST_NODIRATIME=(2048),
+ST_RELATIME=(4096),
+ST_NOSYMFOLLOW=(8192)
+};
+
 struct timezone
 {
     int tz_minuteswest;
     int tz_dsttime;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct clockinfo
-{
-    int hz;
-    int tick;
-    int tickadj;
-    int stathz;
-    int profhz;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct tm
-{
-    int tm_sec;
-    int tm_min;
-    int tm_hour;
-    int tm_mday;
-    int tm_mon;
-    int tm_year;
-    int tm_wday;
-    int tm_yday;
-    int tm_isdst;
-    long tm_gmtoff;
-    char* tm_zone;
-};
-#pragma pack(pop)
-enum  anonymous_typeY8 { _CLOCK_REALTIME=(0),
-_CLOCK_MONOTONIC=(6),
-_CLOCK_MONOTONIC_RAW=(4),
-_CLOCK_MONOTONIC_RAW_APPROX=(5),
-_CLOCK_UPTIME_RAW=(8),
-_CLOCK_UPTIME_RAW_APPROX=(9),
-_CLOCK_PROCESS_CPUTIME_ID=(12),
-_CLOCK_THREAD_CPUTIME_ID=(16)
+
+enum  __itimer_which { ITIMER_REAL=(0),
+ITIMER_VIRTUAL=(1),
+ITIMER_PROF=(2)
 };
 
-#pragma pack(4)
-struct net_event_data
+struct itimerval
 {
-    unsigned int  if_family  ;
-    unsigned int  if_unit  ;
-    char if_name[16];
+    struct timeval  it_interval  ;
+    struct timeval  it_value  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct timeval32
-{
-    int  tv_sec  ;
-    int  tv_usec  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct if_data
-{
-    unsigned char  ifi_type  ;
-    unsigned char  ifi_typelen  ;
-    unsigned char  ifi_physical  ;
-    unsigned char  ifi_addrlen  ;
-    unsigned char  ifi_hdrlen  ;
-    unsigned char  ifi_recvquota  ;
-    unsigned char  ifi_xmitquota  ;
-    unsigned char  ifi_unused1  ;
-    unsigned int  ifi_mtu  ;
-    unsigned int  ifi_metric  ;
-    unsigned int  ifi_baudrate  ;
-    unsigned int  ifi_ipackets  ;
-    unsigned int  ifi_ierrors  ;
-    unsigned int  ifi_opackets  ;
-    unsigned int  ifi_oerrors  ;
-    unsigned int  ifi_collisions  ;
-    unsigned int  ifi_ibytes  ;
-    unsigned int  ifi_obytes  ;
-    unsigned int  ifi_imcasts  ;
-    unsigned int  ifi_omcasts  ;
-    unsigned int  ifi_iqdrops  ;
-    unsigned int  ifi_noproto  ;
-    unsigned int  ifi_recvtiming  ;
-    unsigned int  ifi_xmittiming  ;
-    struct timeval32  ifi_lastchange  ;
-    unsigned int  ifi_unused2  ;
-    unsigned int  ifi_hwassist  ;
-    unsigned int  ifi_reserved1  ;
-    unsigned int  ifi_reserved2  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct if_data64
-{
-    unsigned char  ifi_type  ;
-    unsigned char  ifi_typelen  ;
-    unsigned char  ifi_physical  ;
-    unsigned char  ifi_addrlen  ;
-    unsigned char  ifi_hdrlen  ;
-    unsigned char  ifi_recvquota  ;
-    unsigned char  ifi_xmitquota  ;
-    unsigned char  ifi_unused1  ;
-    unsigned int  ifi_mtu  ;
-    unsigned int  ifi_metric  ;
-    unsigned long  long  ifi_baudrate  ;
-    unsigned long  long  ifi_ipackets  ;
-    unsigned long  long  ifi_ierrors  ;
-    unsigned long  long  ifi_opackets  ;
-    unsigned long  long  ifi_oerrors  ;
-    unsigned long  long  ifi_collisions  ;
-    unsigned long  long  ifi_ibytes  ;
-    unsigned long  long  ifi_obytes  ;
-    unsigned long  long  ifi_imcasts  ;
-    unsigned long  long  ifi_omcasts  ;
-    unsigned long  long  ifi_iqdrops  ;
-    unsigned long  long  ifi_noproto  ;
-    unsigned int  ifi_recvtiming  ;
-    unsigned int  ifi_xmittiming  ;
-    struct timeval32  ifi_lastchange  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifqueue
-{
-    void* ifq_head;
-    void* ifq_tail;
-    int ifq_len;
-    int ifq_maxlen;
-    int ifq_drops;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct iovec
-{
-    void* iov_base;
-    unsigned long  int  iov_len  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct sa_endpoints
-{
-    unsigned int sae_srcif;
-    const struct sockaddr* sae_srcaddr;
-    unsigned int  sae_srcaddrlen  ;
-    const struct sockaddr* sae_dstaddr;
-    unsigned int  sae_dstaddrlen  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct linger
-{
-    int l_onoff;
-    int l_linger;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct so_np_extensions
-{
-    unsigned int  npx_flags  ;
-    unsigned int  npx_mask  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct sockaddr
-{
-    unsigned char  sa_len  ;
-    unsigned char  sa_family  ;
-    char sa_data[14];
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __sockaddr_header
-{
-    unsigned char  sa_len  ;
-    unsigned char  sa_family  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct sockproto
-{
-    unsigned short int  sp_family  ;
-    unsigned short int  sp_protocol  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct sockaddr_storage
-{
-    unsigned char  ss_len  ;
-    unsigned char  ss_family  ;
-    char __ss_pad1[((sizeof(long long int ))-sizeof(unsigned char )-sizeof(unsigned char ))];
-    long long int  __ss_align  ;
-    char __ss_pad2[(128-sizeof(unsigned char )-sizeof(unsigned char )-((sizeof(long long int ))-sizeof(unsigned char )-sizeof(unsigned char ))-(sizeof(long long int )))];
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct msghdr
-{
-    void* msg_name;
-    unsigned int  msg_namelen  ;
-    struct iovec*  msg_iov  ;
-    int msg_iovlen;
-    void* msg_control;
-    unsigned int  msg_controllen  ;
-    int msg_flags;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct cmsghdr
-{
-    unsigned int  cmsg_len  ;
-    int cmsg_level;
-    int cmsg_type;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct sf_hdtr
-{
-    struct iovec*  headers  ;
-    int hdr_cnt;
-    struct iovec*  trailers  ;
-    int trl_cnt;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct if_clonereq
-{
-    int ifcr_total;
-    int ifcr_count;
-    char* ifcr_buffer;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct if_msghdr
-{
-    unsigned short int ifm_msglen;
-    unsigned char ifm_version;
-    unsigned char ifm_type;
-    int ifm_addrs;
-    int ifm_flags;
-    unsigned short int ifm_index;
-    struct if_data  ifm_data  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifa_msghdr
-{
-    unsigned short int ifam_msglen;
-    unsigned char ifam_version;
-    unsigned char ifam_type;
-    int ifam_addrs;
-    int ifam_flags;
-    unsigned short int ifam_index;
-    int ifam_metric;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifma_msghdr
-{
-    unsigned short int ifmam_msglen;
-    unsigned char ifmam_version;
-    unsigned char ifmam_type;
-    int ifmam_addrs;
-    int ifmam_flags;
-    unsigned short int ifmam_index;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct if_msghdr2
-{
-    unsigned short int  ifm_msglen  ;
-    unsigned char  ifm_version  ;
-    unsigned char  ifm_type  ;
-    int ifm_addrs;
-    int ifm_flags;
-    unsigned short int  ifm_index  ;
-    int ifm_snd_len;
-    int ifm_snd_maxlen;
-    int ifm_snd_drops;
-    int ifm_timer;
-    struct if_data64  ifm_data  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifma_msghdr2
-{
-    unsigned short int  ifmam_msglen  ;
-    unsigned char  ifmam_version  ;
-    unsigned char  ifmam_type  ;
-    int ifmam_addrs;
-    int ifmam_flags;
-    unsigned short int  ifmam_index  ;
-    int  ifmam_refcount  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifdevmtu
-{
-    int ifdm_current;
-    int ifdm_min;
-    int ifdm_max;
-};
-#pragma pack(pop)
-#pragma pack(4)
-union anonymous_typeZ9
-{
-void* ifk_ptr;
-int ifk_value;
-};
-#pragma pack(pop)
-#pragma pack(4)
-union anonymous_typeZ10
-{
-void* ifk_ptr;
-int ifk_value;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifkpi
-{
-    unsigned int ifk_module_id;
-    unsigned int ifk_type;
-    union {
-        void* ifk_ptr;
-        int ifk_value;
-    } ifk_data;
-};
-#pragma pack(pop)
-#pragma pack(4)
-union anonymous_typeZ11
-{
-struct sockaddr  ifru_addr  ;
-struct sockaddr  ifru_dstaddr  ;
-struct sockaddr  ifru_broadaddr  ;
-short ifru_flags;
-int ifru_metric;
-int ifru_mtu;
-int ifru_phys;
-int ifru_media;
-int ifru_intval;
-char*  ifru_data  ;
-struct ifdevmtu  ifru_devmtu  ;
-struct ifkpi  ifru_kpi  ;
-unsigned int  ifru_wake_flags  ;
-unsigned int  ifru_route_refcnt  ;
-int ifru_cap[2];
-unsigned int  ifru_functional_type  ;
-unsigned int  ifru_peer_egress_functional_type  ;
-unsigned char  ifru_is_directlink  ;
-unsigned char  ifru_is_vpn  ;
-unsigned char  ifru_is_companionlink  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-union anonymous_typeZ12
-{
-struct sockaddr  ifru_addr  ;
-struct sockaddr  ifru_dstaddr  ;
-struct sockaddr  ifru_broadaddr  ;
-short ifru_flags;
-int ifru_metric;
-int ifru_mtu;
-int ifru_phys;
-int ifru_media;
-int ifru_intval;
-char*  ifru_data  ;
-struct ifdevmtu  ifru_devmtu  ;
-struct ifkpi  ifru_kpi  ;
-unsigned int  ifru_wake_flags  ;
-unsigned int  ifru_route_refcnt  ;
-int ifru_cap[2];
-unsigned int  ifru_functional_type  ;
-unsigned int  ifru_peer_egress_functional_type  ;
-unsigned char  ifru_is_directlink  ;
-unsigned char  ifru_is_vpn  ;
-unsigned char  ifru_is_companionlink  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifreq
-{
-    char ifr_name[16];
-    union {
-        struct sockaddr  ifru_addr  ;
-        struct sockaddr  ifru_dstaddr  ;
-        struct sockaddr  ifru_broadaddr  ;
-        short ifru_flags;
-        int ifru_metric;
-        int ifru_mtu;
-        int ifru_phys;
-        int ifru_media;
-        int ifru_intval;
-        char*  ifru_data  ;
-        struct ifdevmtu  ifru_devmtu  ;
-        struct ifkpi  ifru_kpi  ;
-        unsigned int  ifru_wake_flags  ;
-        unsigned int  ifru_route_refcnt  ;
-        int ifru_cap[2];
-        unsigned int  ifru_functional_type  ;
-        unsigned int  ifru_peer_egress_functional_type  ;
-        unsigned char  ifru_is_directlink  ;
-        unsigned char  ifru_is_vpn  ;
-        unsigned char  ifru_is_companionlink  ;
-    } ifr_ifru;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifaliasreq
-{
-    char ifra_name[16];
-    struct sockaddr  ifra_addr  ;
-    struct sockaddr  ifra_broadaddr  ;
-    struct sockaddr  ifra_mask  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rslvmulti_req
-{
-    struct sockaddr*  sa  ;
-    struct sockaddr**  llsa  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifmediareq
-{
-    char ifm_name[16];
-    int ifm_current;
-    int ifm_mask;
-    int ifm_status;
-    int ifm_active;
-    int ifm_count;
-    int* ifm_ulist;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifdrv
-{
-    char ifd_name[16];
-    unsigned long  int ifd_cmd;
-    unsigned long  int  ifd_len  ;
-    void* ifd_data;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifstat
-{
-    char ifs_name[16];
-    char ascii[800+1];
-};
-#pragma pack(pop)
-#pragma pack(4)
-union anonymous_typeZ13
-{
-char*  ifcu_buf  ;
-struct ifreq*  ifcu_req  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-union anonymous_typeZ14
-{
-char*  ifcu_buf  ;
-struct ifreq*  ifcu_req  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ifconf
-{
-    int ifc_len;
-    union {
-        char*  ifcu_buf  ;
-        struct ifreq*  ifcu_req  ;
-    } ifc_ifcu;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct kev_dl_proto_data
-{
-    struct net_event_data  link_data  ;
-    unsigned int  proto_family  ;
-    unsigned int  proto_remaining_count  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct if_nameindex
-{
-    unsigned int if_index;
-    char* if_name;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rusage
-{
-    struct timeval  ru_utime  ;
-    struct timeval  ru_stime  ;
-    long ru_maxrss;
-    long ru_ixrss;
-    long ru_idrss;
-    long ru_isrss;
-    long ru_minflt;
-    long ru_majflt;
-    long ru_nswap;
-    long ru_inblock;
-    long ru_oublock;
-    long ru_msgsnd;
-    long ru_msgrcv;
-    long ru_nsignals;
-    long ru_nvcsw;
-    long ru_nivcsw;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rusage_info_v0
-{
-    unsigned char  ri_uuid[16]  ;
-    unsigned long  long  ri_user_time  ;
-    unsigned long  long  ri_system_time  ;
-    unsigned long  long  ri_pkg_idle_wkups  ;
-    unsigned long  long  ri_interrupt_wkups  ;
-    unsigned long  long  ri_pageins  ;
-    unsigned long  long  ri_wired_size  ;
-    unsigned long  long  ri_resident_size  ;
-    unsigned long  long  ri_phys_footprint  ;
-    unsigned long  long  ri_proc_start_abstime  ;
-    unsigned long  long  ri_proc_exit_abstime  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rusage_info_v1
-{
-    unsigned char  ri_uuid[16]  ;
-    unsigned long  long  ri_user_time  ;
-    unsigned long  long  ri_system_time  ;
-    unsigned long  long  ri_pkg_idle_wkups  ;
-    unsigned long  long  ri_interrupt_wkups  ;
-    unsigned long  long  ri_pageins  ;
-    unsigned long  long  ri_wired_size  ;
-    unsigned long  long  ri_resident_size  ;
-    unsigned long  long  ri_phys_footprint  ;
-    unsigned long  long  ri_proc_start_abstime  ;
-    unsigned long  long  ri_proc_exit_abstime  ;
-    unsigned long  long  ri_child_user_time  ;
-    unsigned long  long  ri_child_system_time  ;
-    unsigned long  long  ri_child_pkg_idle_wkups  ;
-    unsigned long  long  ri_child_interrupt_wkups  ;
-    unsigned long  long  ri_child_pageins  ;
-    unsigned long  long  ri_child_elapsed_abstime  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rusage_info_v2
-{
-    unsigned char  ri_uuid[16]  ;
-    unsigned long  long  ri_user_time  ;
-    unsigned long  long  ri_system_time  ;
-    unsigned long  long  ri_pkg_idle_wkups  ;
-    unsigned long  long  ri_interrupt_wkups  ;
-    unsigned long  long  ri_pageins  ;
-    unsigned long  long  ri_wired_size  ;
-    unsigned long  long  ri_resident_size  ;
-    unsigned long  long  ri_phys_footprint  ;
-    unsigned long  long  ri_proc_start_abstime  ;
-    unsigned long  long  ri_proc_exit_abstime  ;
-    unsigned long  long  ri_child_user_time  ;
-    unsigned long  long  ri_child_system_time  ;
-    unsigned long  long  ri_child_pkg_idle_wkups  ;
-    unsigned long  long  ri_child_interrupt_wkups  ;
-    unsigned long  long  ri_child_pageins  ;
-    unsigned long  long  ri_child_elapsed_abstime  ;
-    unsigned long  long  ri_diskio_bytesread  ;
-    unsigned long  long  ri_diskio_byteswritten  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rusage_info_v3
-{
-    unsigned char  ri_uuid[16]  ;
-    unsigned long  long  ri_user_time  ;
-    unsigned long  long  ri_system_time  ;
-    unsigned long  long  ri_pkg_idle_wkups  ;
-    unsigned long  long  ri_interrupt_wkups  ;
-    unsigned long  long  ri_pageins  ;
-    unsigned long  long  ri_wired_size  ;
-    unsigned long  long  ri_resident_size  ;
-    unsigned long  long  ri_phys_footprint  ;
-    unsigned long  long  ri_proc_start_abstime  ;
-    unsigned long  long  ri_proc_exit_abstime  ;
-    unsigned long  long  ri_child_user_time  ;
-    unsigned long  long  ri_child_system_time  ;
-    unsigned long  long  ri_child_pkg_idle_wkups  ;
-    unsigned long  long  ri_child_interrupt_wkups  ;
-    unsigned long  long  ri_child_pageins  ;
-    unsigned long  long  ri_child_elapsed_abstime  ;
-    unsigned long  long  ri_diskio_bytesread  ;
-    unsigned long  long  ri_diskio_byteswritten  ;
-    unsigned long  long  ri_cpu_time_qos_default  ;
-    unsigned long  long  ri_cpu_time_qos_maintenance  ;
-    unsigned long  long  ri_cpu_time_qos_background  ;
-    unsigned long  long  ri_cpu_time_qos_utility  ;
-    unsigned long  long  ri_cpu_time_qos_legacy  ;
-    unsigned long  long  ri_cpu_time_qos_user_initiated  ;
-    unsigned long  long  ri_cpu_time_qos_user_interactive  ;
-    unsigned long  long  ri_billed_system_time  ;
-    unsigned long  long  ri_serviced_system_time  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rusage_info_v4
-{
-    unsigned char  ri_uuid[16]  ;
-    unsigned long  long  ri_user_time  ;
-    unsigned long  long  ri_system_time  ;
-    unsigned long  long  ri_pkg_idle_wkups  ;
-    unsigned long  long  ri_interrupt_wkups  ;
-    unsigned long  long  ri_pageins  ;
-    unsigned long  long  ri_wired_size  ;
-    unsigned long  long  ri_resident_size  ;
-    unsigned long  long  ri_phys_footprint  ;
-    unsigned long  long  ri_proc_start_abstime  ;
-    unsigned long  long  ri_proc_exit_abstime  ;
-    unsigned long  long  ri_child_user_time  ;
-    unsigned long  long  ri_child_system_time  ;
-    unsigned long  long  ri_child_pkg_idle_wkups  ;
-    unsigned long  long  ri_child_interrupt_wkups  ;
-    unsigned long  long  ri_child_pageins  ;
-    unsigned long  long  ri_child_elapsed_abstime  ;
-    unsigned long  long  ri_diskio_bytesread  ;
-    unsigned long  long  ri_diskio_byteswritten  ;
-    unsigned long  long  ri_cpu_time_qos_default  ;
-    unsigned long  long  ri_cpu_time_qos_maintenance  ;
-    unsigned long  long  ri_cpu_time_qos_background  ;
-    unsigned long  long  ri_cpu_time_qos_utility  ;
-    unsigned long  long  ri_cpu_time_qos_legacy  ;
-    unsigned long  long  ri_cpu_time_qos_user_initiated  ;
-    unsigned long  long  ri_cpu_time_qos_user_interactive  ;
-    unsigned long  long  ri_billed_system_time  ;
-    unsigned long  long  ri_serviced_system_time  ;
-    unsigned long  long  ri_logical_writes  ;
-    unsigned long  long  ri_lifetime_max_phys_footprint  ;
-    unsigned long  long  ri_instructions  ;
-    unsigned long  long  ri_cycles  ;
-    unsigned long  long  ri_billed_energy  ;
-    unsigned long  long  ri_serviced_energy  ;
-    unsigned long  long  ri_interval_max_phys_footprint  ;
-    unsigned long  long  ri_runnable_time  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rusage_info_v5
-{
-    unsigned char  ri_uuid[16]  ;
-    unsigned long  long  ri_user_time  ;
-    unsigned long  long  ri_system_time  ;
-    unsigned long  long  ri_pkg_idle_wkups  ;
-    unsigned long  long  ri_interrupt_wkups  ;
-    unsigned long  long  ri_pageins  ;
-    unsigned long  long  ri_wired_size  ;
-    unsigned long  long  ri_resident_size  ;
-    unsigned long  long  ri_phys_footprint  ;
-    unsigned long  long  ri_proc_start_abstime  ;
-    unsigned long  long  ri_proc_exit_abstime  ;
-    unsigned long  long  ri_child_user_time  ;
-    unsigned long  long  ri_child_system_time  ;
-    unsigned long  long  ri_child_pkg_idle_wkups  ;
-    unsigned long  long  ri_child_interrupt_wkups  ;
-    unsigned long  long  ri_child_pageins  ;
-    unsigned long  long  ri_child_elapsed_abstime  ;
-    unsigned long  long  ri_diskio_bytesread  ;
-    unsigned long  long  ri_diskio_byteswritten  ;
-    unsigned long  long  ri_cpu_time_qos_default  ;
-    unsigned long  long  ri_cpu_time_qos_maintenance  ;
-    unsigned long  long  ri_cpu_time_qos_background  ;
-    unsigned long  long  ri_cpu_time_qos_utility  ;
-    unsigned long  long  ri_cpu_time_qos_legacy  ;
-    unsigned long  long  ri_cpu_time_qos_user_initiated  ;
-    unsigned long  long  ri_cpu_time_qos_user_interactive  ;
-    unsigned long  long  ri_billed_system_time  ;
-    unsigned long  long  ri_serviced_system_time  ;
-    unsigned long  long  ri_logical_writes  ;
-    unsigned long  long  ri_lifetime_max_phys_footprint  ;
-    unsigned long  long  ri_instructions  ;
-    unsigned long  long  ri_cycles  ;
-    unsigned long  long  ri_billed_energy  ;
-    unsigned long  long  ri_serviced_energy  ;
-    unsigned long  long  ri_interval_max_phys_footprint  ;
-    unsigned long  long  ri_runnable_time  ;
-    unsigned long  long  ri_flags  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rusage_info_v6
-{
-    unsigned char  ri_uuid[16]  ;
-    unsigned long  long  ri_user_time  ;
-    unsigned long  long  ri_system_time  ;
-    unsigned long  long  ri_pkg_idle_wkups  ;
-    unsigned long  long  ri_interrupt_wkups  ;
-    unsigned long  long  ri_pageins  ;
-    unsigned long  long  ri_wired_size  ;
-    unsigned long  long  ri_resident_size  ;
-    unsigned long  long  ri_phys_footprint  ;
-    unsigned long  long  ri_proc_start_abstime  ;
-    unsigned long  long  ri_proc_exit_abstime  ;
-    unsigned long  long  ri_child_user_time  ;
-    unsigned long  long  ri_child_system_time  ;
-    unsigned long  long  ri_child_pkg_idle_wkups  ;
-    unsigned long  long  ri_child_interrupt_wkups  ;
-    unsigned long  long  ri_child_pageins  ;
-    unsigned long  long  ri_child_elapsed_abstime  ;
-    unsigned long  long  ri_diskio_bytesread  ;
-    unsigned long  long  ri_diskio_byteswritten  ;
-    unsigned long  long  ri_cpu_time_qos_default  ;
-    unsigned long  long  ri_cpu_time_qos_maintenance  ;
-    unsigned long  long  ri_cpu_time_qos_background  ;
-    unsigned long  long  ri_cpu_time_qos_utility  ;
-    unsigned long  long  ri_cpu_time_qos_legacy  ;
-    unsigned long  long  ri_cpu_time_qos_user_initiated  ;
-    unsigned long  long  ri_cpu_time_qos_user_interactive  ;
-    unsigned long  long  ri_billed_system_time  ;
-    unsigned long  long  ri_serviced_system_time  ;
-    unsigned long  long  ri_logical_writes  ;
-    unsigned long  long  ri_lifetime_max_phys_footprint  ;
-    unsigned long  long  ri_instructions  ;
-    unsigned long  long  ri_cycles  ;
-    unsigned long  long  ri_billed_energy  ;
-    unsigned long  long  ri_serviced_energy  ;
-    unsigned long  long  ri_interval_max_phys_footprint  ;
-    unsigned long  long  ri_runnable_time  ;
-    unsigned long  long  ri_flags  ;
-    unsigned long  long  ri_user_ptime  ;
-    unsigned long  long  ri_system_ptime  ;
-    unsigned long  long  ri_pinstructions  ;
-    unsigned long  long  ri_pcycles  ;
-    unsigned long  long  ri_energy_nj  ;
-    unsigned long  long  ri_penergy_nj  ;
-    unsigned long  long  ri_secure_time_in_system  ;
-    unsigned long  long  ri_secure_ptime_in_system  ;
-    unsigned long  long  ri_neural_footprint  ;
-    unsigned long  long  ri_lifetime_max_neural_footprint  ;
-    unsigned long  long  ri_interval_max_neural_footprint  ;
-    unsigned long  long  ri_reserved[9]  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct rlimit
-{
-    unsigned long long int  rlim_cur  ;
-    unsigned long long int  rlim_max  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct proc_rlimit_control_wakeupmon
-{
-    unsigned int  wm_flags  ;
-    int  wm_rate  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct ostat
-{
-    unsigned short int  st_dev  ;
-    unsigned long long int  st_ino  ;
-    unsigned short int  st_mode  ;
-    unsigned short int  st_nlink  ;
-    unsigned short int  st_uid  ;
-    unsigned short int  st_gid  ;
-    unsigned short int  st_rdev  ;
-    int  st_size  ;
-    struct timespec  st_atimespec  ;
-    struct timespec  st_mtimespec  ;
-    struct timespec  st_ctimespec  ;
-    int  st_blksize  ;
-    int  st_blocks  ;
-    unsigned int  st_flags  ;
-    unsigned int  st_gen  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct stat
-{
-    int  st_dev  ;
-    unsigned short int  st_mode  ;
-    unsigned short int  st_nlink  ;
-    unsigned long long int  st_ino  ;
-    unsigned int  st_uid  ;
-    unsigned int  st_gid  ;
-    int  st_rdev  ;
-    struct timespec  st_atimespec  ;
-    struct timespec  st_mtimespec  ;
-    struct timespec  st_ctimespec  ;
-    struct timespec  st_birthtimespec  ;
-    long long int  st_size  ;
-    long long int  st_blocks  ;
-    int  st_blksize  ;
-    unsigned int  st_flags  ;
-    unsigned int  st_gen  ;
-    int  st_lspare  ;
-    long long int  st_qspare[2]  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct statvfs
-{
-    unsigned long  int f_bsize;
-    unsigned long  int f_frsize;
-    unsigned int  f_blocks  ;
-    unsigned int  f_bfree  ;
-    unsigned int  f_bavail  ;
-    unsigned int  f_files  ;
-    unsigned int  f_ffree  ;
-    unsigned int  f_favail  ;
-    unsigned long  int f_fsid;
-    unsigned long  int f_flag;
-    unsigned long  int f_namemax;
-};
-#pragma pack(pop)
-#pragma pack(4)
+
 struct tms
 {
-    unsigned long  int  tms_utime  ;
-    unsigned long  int  tms_stime  ;
-    unsigned long  int  tms_cutime  ;
-    unsigned long  int  tms_cstime  ;
-};
-#pragma pack(pop)
-enum  uio_rw { UIO_READ 
-,UIO_WRITE 
+    long  int  tms_utime  ;
+    long  int  tms_stime  ;
+    long  int  tms_cutime  ;
+    long  int  tms_cstime  ;
 };
 
-#pragma pack(4)
 struct utsname
 {
-    char sysname[256];
-    char nodename[256];
-    char release[256];
-    char version[256];
-    char machine[256];
-};
-#pragma pack(pop)
-enum  anonymous_typeY14 { P_ALL 
-,P_PID 
-,P_PGID 
+    char sysname[65];
+    char nodename[65];
+    char release[65];
+    char version[65];
+    char machine[65];
+    char domainname[65];
 };
 
-#pragma pack(4)
-struct __darwin_arm_exception_state
-{
-    unsigned int  __exception  ;
-    unsigned int  __fsr  ;
-    unsigned int  __far  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_exception_state64
-{
-    unsigned long long int  __far  ;
-    unsigned int  __esr  ;
-    unsigned int  __exception  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_exception_state64_v2
-{
-    unsigned long long int  __far  ;
-    unsigned long long int  __esr  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_thread_state
-{
-    unsigned int  __r[13]  ;
-    unsigned int  __sp  ;
-    unsigned int  __lr  ;
-    unsigned int  __pc  ;
-    unsigned int  __cpsr  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_thread_state64
-{
-    unsigned long long int  __x[29]  ;
-    unsigned long long int  __fp  ;
-    unsigned long long int  __lr  ;
-    unsigned long long int  __sp  ;
-    unsigned long long int  __pc  ;
-    unsigned int  __cpsr  ;
-    unsigned int  __pad  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_vfp_state
-{
-    unsigned int  __r[64]  ;
-    unsigned int  __fpscr  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_neon_state64
-{
-    __uint128_t __v[32];
-    unsigned int  __fpsr  ;
-    unsigned int  __fpcr  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_neon_state
-{
-    __uint128_t __v[16];
-    unsigned int  __fpsr  ;
-    unsigned int  __fpcr  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __arm_pagein_state
-{
-    int __pagein_error;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_sme_state
-{
-    unsigned long long int  __svcr  ;
-    unsigned long long int  __tpidr2_el0  ;
-    unsigned short int  __svl_b  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_sve_z_state
-{
-    char __z[16][256];
-} __attribute__((aligned(4)));
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_sve_p_state
-{
-    char __p[16][256/8];
-} __attribute__((aligned(4)));
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_sme_za_state
-{
-    char __za[4096];
-} __attribute__((aligned(4)));
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_sme2_state
-{
-    char __zt0[64];
-} __attribute__((aligned(4)));
-#pragma pack(pop)
-#pragma pack(4)
-struct __arm_legacy_debug_state
-{
-    unsigned int  __bvr[16]  ;
-    unsigned int  __bcr[16]  ;
-    unsigned int  __wvr[16]  ;
-    unsigned int  __wcr[16]  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_debug_state32
-{
-    unsigned int  __bvr[16]  ;
-    unsigned int  __bcr[16]  ;
-    unsigned int  __wvr[16]  ;
-    unsigned int  __wcr[16]  ;
-    unsigned long long int  __mdscr_el1  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_debug_state64
-{
-    unsigned long long int  __bvr[16]  ;
-    unsigned long long int  __bcr[16]  ;
-    unsigned long long int  __wvr[16]  ;
-    unsigned long long int  __wcr[16]  ;
-    unsigned long long int  __mdscr_el1  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_arm_cpmu_state64
-{
-    unsigned long long int  __ctrs[16]  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_mcontext32
-{
-    struct __darwin_arm_exception_state  __es  ;
-    struct __darwin_arm_thread_state  __ss  ;
-    struct __darwin_arm_vfp_state  __fs  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_mcontext64
-{
-    struct __darwin_arm_exception_state64  __es  ;
-    struct __darwin_arm_thread_state64  __ss  ;
-    struct __darwin_arm_neon_state64  __ns  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_sigaltstack
-{
-    void* ss_sp;
-    unsigned long  int  ss_size  ;
-    int ss_flags;
-};
-#pragma pack(pop)
-#pragma pack(4)
-struct __darwin_ucontext
-{
-    int uc_onstack;
-    unsigned int  uc_sigmask  ;
-    struct __darwin_sigaltstack  uc_stack  ;
-    struct __darwin_ucontext*  uc_link  ;
-    unsigned long  int  uc_mcsize  ;
-    struct __darwin_mcontext64*  uc_mcontext  ;
-};
-#pragma pack(pop)
-#pragma pack(4)
 union sigval
 {
 int sival_int;
 void* sival_ptr;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct sigevent
+
+struct anonymous_typeX45
 {
-    int sigev_notify;
-    int sigev_signo;
-    union sigval  sigev_value  ;
-    void (*sigev_notify_function)(union sigval );
-    struct _opaque_pthread_attr_t*  sigev_notify_attributes  ;
+    int  si_pid  ;
+    unsigned int  si_uid  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct __siginfo
+
+struct anonymous_typeX46
+{
+    int si_tid;
+    int si_overrun;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX47
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX48
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    int si_status;
+    long  int  si_utime  ;
+    long  int  si_stime  ;
+};
+
+struct anonymous_typeX51
+{
+    void* _lower;
+    void* _upper;
+};
+
+union anonymous_typeZ50
+{
+    struct {
+        void* _lower;
+        void* _upper;
+    } _addr_bnd;
+unsigned int  _pkey  ;
+};
+
+struct anonymous_typeX53
+{
+    void* _lower;
+    void* _upper;
+};
+
+union anonymous_typeZ52
+{
+    struct {
+        void* _lower;
+        void* _upper;
+    } _addr_bnd;
+unsigned int  _pkey  ;
+};
+
+struct anonymous_typeX49
+{
+    void* si_addr;
+    short int si_addr_lsb;
+    union {
+        struct {
+            void* _lower;
+            void* _upper;
+        } _addr_bnd;
+        unsigned int  _pkey  ;
+    } _bounds;
+};
+
+struct anonymous_typeX54
+{
+    long  int si_band;
+    int si_fd;
+};
+
+struct anonymous_typeX55
+{
+    void* _call_addr;
+    int _syscall;
+    unsigned int _arch;
+};
+
+union anonymous_typeZ44
+{
+int _pad[((128/sizeof(int))-4)];
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+    } _kill;
+    struct {
+        int si_tid;
+        int si_overrun;
+        union sigval  si_sigval  ;
+    } _timer;
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        union sigval  si_sigval  ;
+    } _rt;
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        int si_status;
+        long  int  si_utime  ;
+        long  int  si_stime  ;
+    } _sigchld;
+    struct {
+        void* si_addr;
+        short int si_addr_lsb;
+        union {
+            struct {
+                void* _lower;
+                void* _upper;
+            } _addr_bnd;
+            unsigned int  _pkey  ;
+        } _bounds;
+    } _sigfault;
+    struct {
+        long  int si_band;
+        int si_fd;
+    } _sigpoll;
+    struct {
+        void* _call_addr;
+        int _syscall;
+        unsigned int _arch;
+    } _sigsys;
+};
+
+struct anonymous_typeX57
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+};
+
+struct anonymous_typeX58
+{
+    int si_tid;
+    int si_overrun;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX59
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX60
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    int si_status;
+    long  int  si_utime  ;
+    long  int  si_stime  ;
+};
+
+struct anonymous_typeX63
+{
+    void* _lower;
+    void* _upper;
+};
+
+union anonymous_typeZ62
+{
+    struct {
+        void* _lower;
+        void* _upper;
+    } _addr_bnd;
+unsigned int  _pkey  ;
+};
+
+struct anonymous_typeX65
+{
+    void* _lower;
+    void* _upper;
+};
+
+union anonymous_typeZ64
+{
+    struct {
+        void* _lower;
+        void* _upper;
+    } _addr_bnd;
+unsigned int  _pkey  ;
+};
+
+struct anonymous_typeX61
+{
+    void* si_addr;
+    short int si_addr_lsb;
+    union {
+        struct {
+            void* _lower;
+            void* _upper;
+        } _addr_bnd;
+        unsigned int  _pkey  ;
+    } _bounds;
+};
+
+struct anonymous_typeX66
+{
+    long  int si_band;
+    int si_fd;
+};
+
+struct anonymous_typeX67
+{
+    void* _call_addr;
+    int _syscall;
+    unsigned int _arch;
+};
+
+union anonymous_typeZ56
+{
+int _pad[((128/sizeof(int))-4)];
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+    } _kill;
+    struct {
+        int si_tid;
+        int si_overrun;
+        union sigval  si_sigval  ;
+    } _timer;
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        union sigval  si_sigval  ;
+    } _rt;
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        int si_status;
+        long  int  si_utime  ;
+        long  int  si_stime  ;
+    } _sigchld;
+    struct {
+        void* si_addr;
+        short int si_addr_lsb;
+        union {
+            struct {
+                void* _lower;
+                void* _upper;
+            } _addr_bnd;
+            unsigned int  _pkey  ;
+        } _bounds;
+    } _sigfault;
+    struct {
+        long  int si_band;
+        int si_fd;
+    } _sigpoll;
+    struct {
+        void* _call_addr;
+        int _syscall;
+        unsigned int _arch;
+    } _sigsys;
+};
+
+struct anonymous_typeX43
 {
     int si_signo;
     int si_errno;
     int si_code;
-    int  si_pid  ;
-    unsigned int  si_uid  ;
-    int si_status;
-    void* si_addr;
-    union sigval  si_value  ;
-    long si_band;
-    unsigned long  int __pad[7];
+    int __pad0;
+    union {
+        int _pad[((128/sizeof(int))-4)];
+        struct {
+            int  si_pid  ;
+            unsigned int  si_uid  ;
+        } _kill;
+        struct {
+            int si_tid;
+            int si_overrun;
+            union sigval  si_sigval  ;
+        } _timer;
+        struct {
+            int  si_pid  ;
+            unsigned int  si_uid  ;
+            union sigval  si_sigval  ;
+        } _rt;
+        struct {
+            int  si_pid  ;
+            unsigned int  si_uid  ;
+            int si_status;
+            long  int  si_utime  ;
+            long  int  si_stime  ;
+        } _sigchld;
+        struct {
+            void* si_addr;
+            short int si_addr_lsb;
+            union {
+                struct {
+                    void* _lower;
+                    void* _upper;
+                } _addr_bnd;
+                unsigned int  _pkey  ;
+            } _bounds;
+        } _sigfault;
+        struct {
+            long  int si_band;
+            int si_fd;
+        } _sigpoll;
+        struct {
+            void* _call_addr;
+            int _syscall;
+            unsigned int _arch;
+        } _sigsys;
+    } _sifields;
 };
-#pragma pack(pop)
-#pragma pack(4)
-union __sigaction_u
+
+enum { SI_ASYNCNL=(-60),
+SI_DETHREAD=(-7),
+SI_TKILL 
+,SI_SIGIO 
+,SI_ASYNCIO 
+,SI_MESGQ 
+,SI_TIMER 
+,SI_QUEUE 
+,SI_USER 
+,SI_KERNEL=(0x80)
+};
+
+enum { ILL_ILLOPC=(1),
+ILL_ILLOPN 
+,ILL_ILLADR 
+,ILL_ILLTRP 
+,ILL_PRVOPC 
+,ILL_PRVREG 
+,ILL_COPROC 
+,ILL_BADSTK 
+,ILL_BADIADDR 
+};
+
+enum { FPE_INTDIV=(1),
+FPE_INTOVF 
+,FPE_FLTDIV 
+,FPE_FLTOVF 
+,FPE_FLTUND 
+,FPE_FLTRES 
+,FPE_FLTINV 
+,FPE_FLTSUB 
+,FPE_FLTUNK=(14),
+FPE_CONDTRAP 
+};
+
+enum { SEGV_MAPERR=(1),
+SEGV_ACCERR 
+,SEGV_BNDERR 
+,SEGV_PKUERR 
+,SEGV_ACCADI 
+,SEGV_ADIDERR 
+,SEGV_ADIPERR 
+,SEGV_MTEAERR 
+,SEGV_MTESERR 
+,SEGV_CPERR 
+};
+
+enum { BUS_ADRALN=(1),
+BUS_ADRERR 
+,BUS_OBJERR 
+,BUS_MCEERR_AR 
+,BUS_MCEERR_AO 
+};
+
+enum { TRAP_BRKPT=(1),
+TRAP_TRACE 
+,TRAP_BRANCH 
+,TRAP_HWBKPT 
+,TRAP_UNK 
+};
+
+enum { CLD_EXITED=(1),
+CLD_KILLED 
+,CLD_DUMPED 
+,CLD_TRAPPED 
+,CLD_STOPPED 
+,CLD_CONTINUED 
+};
+
+enum { POLL_IN=(1),
+POLL_OUT 
+,POLL_MSG 
+,POLL_ERR 
+,POLL_PRI 
+,POLL_HUP 
+};
+
+struct anonymous_typeX69
 {
-void (*__sa_handler)(int);
-void (*__sa_sigaction)(int,struct __siginfo* ,void*);
+    void (*_function)(union sigval );
+    union pthread_attr_t*  _attribute  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct __sigaction
+
+union anonymous_typeZ68
 {
-    union __sigaction_u  __sigaction_u  ;
-    void (*sa_tramp)(void*,int,int,struct __siginfo* ,void*);
-    unsigned int  sa_mask  ;
-    int sa_flags;
+int _pad[((64/sizeof(int))-4)];
+int  _tid  ;
+    struct {
+        void (*_function)(union sigval );
+        union pthread_attr_t*  _attribute  ;
+    } _sigev_thread;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
+struct anonymous_typeX71
+{
+    void (*_function)(union sigval );
+    union pthread_attr_t*  _attribute  ;
+};
+
+union anonymous_typeZ70
+{
+int _pad[((64/sizeof(int))-4)];
+int  _tid  ;
+    struct {
+        void (*_function)(union sigval );
+        union pthread_attr_t*  _attribute  ;
+    } _sigev_thread;
+};
+
+struct sigevent
+{
+    union sigval  sigev_value  ;
+    int sigev_signo;
+    int sigev_notify;
+    union {
+        int _pad[((64/sizeof(int))-4)];
+        int  _tid  ;
+        struct {
+            void (*_function)(union sigval );
+            union pthread_attr_t*  _attribute  ;
+        } _sigev_thread;
+    } _sigev_un;
+};
+
+enum { SIGEV_SIGNAL=(0),
+SIGEV_NONE 
+,SIGEV_THREAD 
+,SIGEV_THREAD_ID=(4)
+};
+
+union anonymous_typeZ72
+{
+void (*sa_handler)(int)  ;
+void (*sa_sigaction)(int,struct anonymous_typeX43* ,void*);
+};
+
+union anonymous_typeZ73
+{
+void (*sa_handler)(int)  ;
+void (*sa_sigaction)(int,struct anonymous_typeX43* ,void*);
+};
+
 struct sigaction
 {
-    union __sigaction_u  __sigaction_u  ;
-    unsigned int  sa_mask  ;
+    union {
+        void (*sa_handler)(int)  ;
+        void (*sa_sigaction)(int,struct anonymous_typeX43* ,void*);
+    } __sigaction_handler;
+    struct {
+        unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
+    } sa_mask;
     int sa_flags;
+    void (*sa_restorer)();
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct sigvec
+
+struct _fpx_sw_bytes
 {
-    void (*sv_handler)(int);
-    int sv_mask;
-    int sv_flags;
+    unsigned int  magic1  ;
+    unsigned int  extended_size  ;
+    unsigned long  int  xstate_bv  ;
+    unsigned int  xstate_size  ;
+    unsigned int  __glibc_reserved1[7]  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
+struct _fpreg
+{
+    unsigned short int significand[4];
+    unsigned short int exponent;
+};
+
+struct _fpxreg
+{
+    unsigned short int significand[4];
+    unsigned short int exponent;
+    unsigned short int __glibc_reserved1[3];
+};
+
+struct _xmmreg
+{
+    unsigned int  element[4]  ;
+};
+
+struct _fpstate
+{
+    unsigned short int  cwd  ;
+    unsigned short int  swd  ;
+    unsigned short int  ftw  ;
+    unsigned short int  fop  ;
+    unsigned long  int  rip  ;
+    unsigned long  int  rdp  ;
+    unsigned int  mxcsr  ;
+    unsigned int  mxcr_mask  ;
+    struct _fpxreg  _st[8]  ;
+    struct _xmmreg  _xmm[16]  ;
+    unsigned int  __glibc_reserved1[24]  ;
+};
+
+union anonymous_typeZ74
+{
+struct _fpstate*  fpstate  ;
+unsigned long  int  __fpstate_word  ;
+};
+
+union anonymous_typeZ75
+{
+struct _fpstate*  fpstate  ;
+unsigned long  int  __fpstate_word  ;
+};
+
+struct sigcontext
+{
+    unsigned long  int  r8  ;
+    unsigned long  int  r9  ;
+    unsigned long  int  r10  ;
+    unsigned long  int  r11  ;
+    unsigned long  int  r12  ;
+    unsigned long  int  r13  ;
+    unsigned long  int  r14  ;
+    unsigned long  int  r15  ;
+    unsigned long  int  rdi  ;
+    unsigned long  int  rsi  ;
+    unsigned long  int  rbp  ;
+    unsigned long  int  rbx  ;
+    unsigned long  int  rdx  ;
+    unsigned long  int  rax  ;
+    unsigned long  int  rcx  ;
+    unsigned long  int  rsp  ;
+    unsigned long  int  rip  ;
+    unsigned long  int  eflags  ;
+    unsigned short int cs;
+    unsigned short int gs;
+    unsigned short int fs;
+    unsigned short int __pad0;
+    unsigned long  int  err  ;
+    unsigned long  int  trapno  ;
+    unsigned long  int  oldmask  ;
+    unsigned long  int  cr2  ;
+    union {
+        struct _fpstate*  fpstate  ;
+        unsigned long  int  __fpstate_word  ;
+    };
+    unsigned long  int  __reserved1[8]  ;
+};
+
+struct _xsave_hdr
+{
+    unsigned long  int  xstate_bv  ;
+    unsigned long  int  __glibc_reserved1[2]  ;
+    unsigned long  int  __glibc_reserved2[5]  ;
+};
+
+struct _ymmh_state
+{
+    unsigned int  ymmh_space[64]  ;
+};
+
+struct _xstate
+{
+    struct _fpstate  fpstate  ;
+    struct _xsave_hdr  xstate_hdr  ;
+    struct _ymmh_state  ymmh  ;
+};
+
+struct anonymous_typeX76
+{
+    void* ss_sp;
+    int ss_flags;
+    unsigned long  ss_size  ;
+};
+
+typedef long long int  gregset_t[23]  ;
+
+enum { REG_R8=(0),
+REG_R9 
+,REG_R10 
+,REG_R11 
+,REG_R12 
+,REG_R13 
+,REG_R14 
+,REG_R15 
+,REG_RDI 
+,REG_RSI 
+,REG_RBP 
+,REG_RBX 
+,REG_RDX 
+,REG_RAX 
+,REG_RCX 
+,REG_RSP 
+,REG_RIP 
+,REG_EFL 
+,REG_CSGSFS 
+,REG_ERR 
+,REG_TRAPNO 
+,REG_OLDMASK 
+,REG_CR2 
+};
+
+struct _libc_fpxreg
+{
+    unsigned short int significand[4];
+    unsigned short int exponent;
+    unsigned short int __glibc_reserved1[3];
+};
+
+struct _libc_xmmreg
+{
+    unsigned int  element[4]  ;
+};
+
+struct _libc_fpstate
+{
+    unsigned short int  cwd  ;
+    unsigned short int  swd  ;
+    unsigned short int  ftw  ;
+    unsigned short int  fop  ;
+    unsigned long  int  rip  ;
+    unsigned long  int  rdp  ;
+    unsigned int  mxcsr  ;
+    unsigned int  mxcr_mask  ;
+    struct _libc_fpxreg  _st[8]  ;
+    struct _libc_xmmreg  _xmm[16]  ;
+    unsigned int  __glibc_reserved1[24]  ;
+};
+
+struct anonymous_typeX77
+{
+    long long int  gregs[23]  ;
+    struct _libc_fpstate*  fpregs  ;
+    unsigned long  long __reserved1[8];
+};
+
+struct ucontext_t
+{
+    unsigned long  int uc_flags;
+    struct ucontext_t*  uc_link  ;
+    struct {
+        void* ss_sp;
+        int ss_flags;
+        unsigned long  ss_size  ;
+    } uc_stack;
+    struct {
+        long long int  gregs[23]  ;
+        struct _libc_fpstate*  fpregs  ;
+        unsigned long  long __reserved1[8];
+    } uc_mcontext;
+    struct {
+        unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
+    } uc_sigmask;
+    struct _libc_fpstate  __fpregs_mem  ;
+    unsigned long long int __ssp[4];
+};
+
+enum { _PC_LINK_MAX 
+,_PC_MAX_CANON 
+,_PC_MAX_INPUT 
+,_PC_NAME_MAX 
+,_PC_PATH_MAX 
+,_PC_PIPE_BUF 
+,_PC_CHOWN_RESTRICTED 
+,_PC_NO_TRUNC 
+,_PC_VDISABLE 
+,_PC_SYNC_IO 
+,_PC_ASYNC_IO 
+,_PC_PRIO_IO 
+,_PC_SOCK_MAXBUF 
+,_PC_FILESIZEBITS 
+,_PC_REC_INCR_XFER_SIZE 
+,_PC_REC_MAX_XFER_SIZE 
+,_PC_REC_MIN_XFER_SIZE 
+,_PC_REC_XFER_ALIGN 
+,_PC_ALLOC_SIZE_MIN 
+,_PC_SYMLINK_MAX 
+,_PC_2_SYMLINKS 
+};
+
+enum { _SC_ARG_MAX 
+,_SC_CHILD_MAX 
+,_SC_CLK_TCK 
+,_SC_NGROUPS_MAX 
+,_SC_OPEN_MAX 
+,_SC_STREAM_MAX 
+,_SC_TZNAME_MAX 
+,_SC_JOB_CONTROL 
+,_SC_SAVED_IDS 
+,_SC_REALTIME_SIGNALS 
+,_SC_PRIORITY_SCHEDULING 
+,_SC_TIMERS 
+,_SC_ASYNCHRONOUS_IO 
+,_SC_PRIORITIZED_IO 
+,_SC_SYNCHRONIZED_IO 
+,_SC_FSYNC 
+,_SC_MAPPED_FILES 
+,_SC_MEMLOCK 
+,_SC_MEMLOCK_RANGE 
+,_SC_MEMORY_PROTECTION 
+,_SC_MESSAGE_PASSING 
+,_SC_SEMAPHORES 
+,_SC_SHARED_MEMORY_OBJECTS 
+,_SC_AIO_LISTIO_MAX 
+,_SC_AIO_MAX 
+,_SC_AIO_PRIO_DELTA_MAX 
+,_SC_DELAYTIMER_MAX 
+,_SC_MQ_OPEN_MAX 
+,_SC_MQ_PRIO_MAX 
+,_SC_VERSION 
+,_SC_PAGESIZE 
+,_SC_RTSIG_MAX 
+,_SC_SEM_NSEMS_MAX 
+,_SC_SEM_VALUE_MAX 
+,_SC_SIGQUEUE_MAX 
+,_SC_TIMER_MAX 
+,_SC_BC_BASE_MAX 
+,_SC_BC_DIM_MAX 
+,_SC_BC_SCALE_MAX 
+,_SC_BC_STRING_MAX 
+,_SC_COLL_WEIGHTS_MAX 
+,_SC_EQUIV_CLASS_MAX 
+,_SC_EXPR_NEST_MAX 
+,_SC_LINE_MAX 
+,_SC_RE_DUP_MAX 
+,_SC_CHARCLASS_NAME_MAX 
+,_SC_2_VERSION 
+,_SC_2_C_BIND 
+,_SC_2_C_DEV 
+,_SC_2_FORT_DEV 
+,_SC_2_FORT_RUN 
+,_SC_2_SW_DEV 
+,_SC_2_LOCALEDEF 
+,_SC_PII 
+,_SC_PII_XTI 
+,_SC_PII_SOCKET 
+,_SC_PII_INTERNET 
+,_SC_PII_OSI 
+,_SC_POLL 
+,_SC_SELECT 
+,_SC_UIO_MAXIOV 
+,_SC_IOV_MAX=((60)),
+_SC_PII_INTERNET_STREAM 
+,_SC_PII_INTERNET_DGRAM 
+,_SC_PII_OSI_COTS 
+,_SC_PII_OSI_CLTS 
+,_SC_PII_OSI_M 
+,_SC_T_IOV_MAX 
+,_SC_THREADS 
+,_SC_THREAD_SAFE_FUNCTIONS 
+,_SC_GETGR_R_SIZE_MAX 
+,_SC_GETPW_R_SIZE_MAX 
+,_SC_LOGIN_NAME_MAX 
+,_SC_TTY_NAME_MAX 
+,_SC_THREAD_DESTRUCTOR_ITERATIONS 
+,_SC_THREAD_KEYS_MAX 
+,_SC_THREAD_STACK_MIN 
+,_SC_THREAD_THREADS_MAX 
+,_SC_THREAD_ATTR_STACKADDR 
+,_SC_THREAD_ATTR_STACKSIZE 
+,_SC_THREAD_PRIORITY_SCHEDULING 
+,_SC_THREAD_PRIO_INHERIT 
+,_SC_THREAD_PRIO_PROTECT 
+,_SC_THREAD_PROCESS_SHARED 
+,_SC_NPROCESSORS_CONF 
+,_SC_NPROCESSORS_ONLN 
+,_SC_PHYS_PAGES 
+,_SC_AVPHYS_PAGES 
+,_SC_ATEXIT_MAX 
+,_SC_PASS_MAX 
+,_SC_XOPEN_VERSION 
+,_SC_XOPEN_XCU_VERSION 
+,_SC_XOPEN_UNIX 
+,_SC_XOPEN_CRYPT 
+,_SC_XOPEN_ENH_I18N 
+,_SC_XOPEN_SHM 
+,_SC_2_CHAR_TERM 
+,_SC_2_C_VERSION 
+,_SC_2_UPE 
+,_SC_XOPEN_XPG2 
+,_SC_XOPEN_XPG3 
+,_SC_XOPEN_XPG4 
+,_SC_CHAR_BIT 
+,_SC_CHAR_MAX 
+,_SC_CHAR_MIN 
+,_SC_INT_MAX 
+,_SC_INT_MIN 
+,_SC_LONG_BIT 
+,_SC_WORD_BIT 
+,_SC_MB_LEN_MAX 
+,_SC_NZERO 
+,_SC_SSIZE_MAX 
+,_SC_SCHAR_MAX 
+,_SC_SCHAR_MIN 
+,_SC_SHRT_MAX 
+,_SC_SHRT_MIN 
+,_SC_UCHAR_MAX 
+,_SC_UINT_MAX 
+,_SC_ULONG_MAX 
+,_SC_USHRT_MAX 
+,_SC_NL_ARGMAX 
+,_SC_NL_LANGMAX 
+,_SC_NL_MSGMAX 
+,_SC_NL_NMAX 
+,_SC_NL_SETMAX 
+,_SC_NL_TEXTMAX 
+,_SC_XBS5_ILP32_OFF32 
+,_SC_XBS5_ILP32_OFFBIG 
+,_SC_XBS5_LP64_OFF64 
+,_SC_XBS5_LPBIG_OFFBIG 
+,_SC_XOPEN_LEGACY 
+,_SC_XOPEN_REALTIME 
+,_SC_XOPEN_REALTIME_THREADS 
+,_SC_ADVISORY_INFO 
+,_SC_BARRIERS 
+,_SC_BASE 
+,_SC_C_LANG_SUPPORT 
+,_SC_C_LANG_SUPPORT_R 
+,_SC_CLOCK_SELECTION 
+,_SC_CPUTIME 
+,_SC_THREAD_CPUTIME 
+,_SC_DEVICE_IO 
+,_SC_DEVICE_SPECIFIC 
+,_SC_DEVICE_SPECIFIC_R 
+,_SC_FD_MGMT 
+,_SC_FIFO 
+,_SC_PIPE 
+,_SC_FILE_ATTRIBUTES 
+,_SC_FILE_LOCKING 
+,_SC_FILE_SYSTEM 
+,_SC_MONOTONIC_CLOCK 
+,_SC_MULTI_PROCESS 
+,_SC_SINGLE_PROCESS 
+,_SC_NETWORKING 
+,_SC_READER_WRITER_LOCKS 
+,_SC_SPIN_LOCKS 
+,_SC_REGEXP 
+,_SC_REGEX_VERSION 
+,_SC_SHELL 
+,_SC_SIGNALS 
+,_SC_SPAWN 
+,_SC_SPORADIC_SERVER 
+,_SC_THREAD_SPORADIC_SERVER 
+,_SC_SYSTEM_DATABASE 
+,_SC_SYSTEM_DATABASE_R 
+,_SC_TIMEOUTS 
+,_SC_TYPED_MEMORY_OBJECTS 
+,_SC_USER_GROUPS 
+,_SC_USER_GROUPS_R 
+,_SC_2_PBS 
+,_SC_2_PBS_ACCOUNTING 
+,_SC_2_PBS_LOCATE 
+,_SC_2_PBS_MESSAGE 
+,_SC_2_PBS_TRACK 
+,_SC_SYMLOOP_MAX 
+,_SC_STREAMS 
+,_SC_2_PBS_CHECKPOINT 
+,_SC_V6_ILP32_OFF32 
+,_SC_V6_ILP32_OFFBIG 
+,_SC_V6_LP64_OFF64 
+,_SC_V6_LPBIG_OFFBIG 
+,_SC_HOST_NAME_MAX 
+,_SC_TRACE 
+,_SC_TRACE_EVENT_FILTER 
+,_SC_TRACE_INHERIT 
+,_SC_TRACE_LOG 
+,_SC_LEVEL1_ICACHE_SIZE 
+,_SC_LEVEL1_ICACHE_ASSOC 
+,_SC_LEVEL1_ICACHE_LINESIZE 
+,_SC_LEVEL1_DCACHE_SIZE 
+,_SC_LEVEL1_DCACHE_ASSOC 
+,_SC_LEVEL1_DCACHE_LINESIZE 
+,_SC_LEVEL2_CACHE_SIZE 
+,_SC_LEVEL2_CACHE_ASSOC 
+,_SC_LEVEL2_CACHE_LINESIZE 
+,_SC_LEVEL3_CACHE_SIZE 
+,_SC_LEVEL3_CACHE_ASSOC 
+,_SC_LEVEL3_CACHE_LINESIZE 
+,_SC_LEVEL4_CACHE_SIZE 
+,_SC_LEVEL4_CACHE_ASSOC 
+,_SC_LEVEL4_CACHE_LINESIZE 
+,_SC_IPV6=(((60)+125)+50),
+_SC_RAW_SOCKETS 
+,_SC_V7_ILP32_OFF32 
+,_SC_V7_ILP32_OFFBIG 
+,_SC_V7_LP64_OFF64 
+,_SC_V7_LPBIG_OFFBIG 
+,_SC_SS_REPL_MAX 
+,_SC_TRACE_EVENT_NAME_MAX 
+,_SC_TRACE_NAME_MAX 
+,_SC_TRACE_SYS_MAX 
+,_SC_TRACE_USER_EVENT_MAX 
+,_SC_XOPEN_STREAMS 
+,_SC_THREAD_ROBUST_PRIO_INHERIT 
+,_SC_THREAD_ROBUST_PRIO_PROTECT 
+,_SC_MINSIGSTKSZ 
+,_SC_SIGSTKSZ 
+};
+
+enum { _CS_PATH 
+,_CS_V6_WIDTH_RESTRICTED_ENVS 
+,_CS_GNU_LIBC_VERSION 
+,_CS_GNU_LIBPTHREAD_VERSION 
+,_CS_V5_WIDTH_RESTRICTED_ENVS 
+,_CS_V7_WIDTH_RESTRICTED_ENVS 
+,_CS_LFS_CFLAGS=(1000),
+_CS_LFS_LDFLAGS 
+,_CS_LFS_LIBS 
+,_CS_LFS_LINTFLAGS 
+,_CS_LFS64_CFLAGS 
+,_CS_LFS64_LDFLAGS 
+,_CS_LFS64_LIBS 
+,_CS_LFS64_LINTFLAGS 
+,_CS_XBS5_ILP32_OFF32_CFLAGS=(1100),
+_CS_XBS5_ILP32_OFF32_LDFLAGS 
+,_CS_XBS5_ILP32_OFF32_LIBS 
+,_CS_XBS5_ILP32_OFF32_LINTFLAGS 
+,_CS_XBS5_ILP32_OFFBIG_CFLAGS 
+,_CS_XBS5_ILP32_OFFBIG_LDFLAGS 
+,_CS_XBS5_ILP32_OFFBIG_LIBS 
+,_CS_XBS5_ILP32_OFFBIG_LINTFLAGS 
+,_CS_XBS5_LP64_OFF64_CFLAGS 
+,_CS_XBS5_LP64_OFF64_LDFLAGS 
+,_CS_XBS5_LP64_OFF64_LIBS 
+,_CS_XBS5_LP64_OFF64_LINTFLAGS 
+,_CS_XBS5_LPBIG_OFFBIG_CFLAGS 
+,_CS_XBS5_LPBIG_OFFBIG_LDFLAGS 
+,_CS_XBS5_LPBIG_OFFBIG_LIBS 
+,_CS_XBS5_LPBIG_OFFBIG_LINTFLAGS 
+,_CS_POSIX_V6_ILP32_OFF32_CFLAGS 
+,_CS_POSIX_V6_ILP32_OFF32_LDFLAGS 
+,_CS_POSIX_V6_ILP32_OFF32_LIBS 
+,_CS_POSIX_V6_ILP32_OFF32_LINTFLAGS 
+,_CS_POSIX_V6_ILP32_OFFBIG_CFLAGS 
+,_CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS 
+,_CS_POSIX_V6_ILP32_OFFBIG_LIBS 
+,_CS_POSIX_V6_ILP32_OFFBIG_LINTFLAGS 
+,_CS_POSIX_V6_LP64_OFF64_CFLAGS 
+,_CS_POSIX_V6_LP64_OFF64_LDFLAGS 
+,_CS_POSIX_V6_LP64_OFF64_LIBS 
+,_CS_POSIX_V6_LP64_OFF64_LINTFLAGS 
+,_CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS 
+,_CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS 
+,_CS_POSIX_V6_LPBIG_OFFBIG_LIBS 
+,_CS_POSIX_V6_LPBIG_OFFBIG_LINTFLAGS 
+,_CS_POSIX_V7_ILP32_OFF32_CFLAGS 
+,_CS_POSIX_V7_ILP32_OFF32_LDFLAGS 
+,_CS_POSIX_V7_ILP32_OFF32_LIBS 
+,_CS_POSIX_V7_ILP32_OFF32_LINTFLAGS 
+,_CS_POSIX_V7_ILP32_OFFBIG_CFLAGS 
+,_CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS 
+,_CS_POSIX_V7_ILP32_OFFBIG_LIBS 
+,_CS_POSIX_V7_ILP32_OFFBIG_LINTFLAGS 
+,_CS_POSIX_V7_LP64_OFF64_CFLAGS 
+,_CS_POSIX_V7_LP64_OFF64_LDFLAGS 
+,_CS_POSIX_V7_LP64_OFF64_LIBS 
+,_CS_POSIX_V7_LP64_OFF64_LINTFLAGS 
+,_CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS 
+,_CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS 
+,_CS_POSIX_V7_LPBIG_OFFBIG_LIBS 
+,_CS_POSIX_V7_LPBIG_OFFBIG_LINTFLAGS 
+,_CS_V6_ENV 
+,_CS_V7_ENV 
+};
+
+enum { SS_ONSTACK=(1),
+SS_DISABLE 
+};
+
 struct sigstack
 {
-    char* ss_sp;
+    void* ss_sp;
     int ss_onstack;
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct anonymous_typeX15
-{
-    unsigned int w_Termsig:7;
-    unsigned int w_Coredump:1;
-    unsigned int w_Retcode:8;
-    unsigned int w_Filler:16;
+
+enum  anonymous_typeY77 { P_ALL 
+,P_PID 
+,P_PGID 
+,P_PIDFD 
 };
-#pragma pack(pop)
-#pragma pack(4)
-struct anonymous_typeX16
+
+union anonymous_typeZ78
 {
-    unsigned int w_Stopval:8;
-    unsigned int w_Stopsig:8;
-    unsigned int w_Filler:16;
+unsigned int  __ispeed  ;
+unsigned int  c_ispeed  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
-union wait
+
+union anonymous_typeZ79
 {
-int w_status;
-    struct {
-        unsigned int w_Termsig:7;
-        unsigned int w_Coredump:1;
-        unsigned int w_Retcode:8;
-        unsigned int w_Filler:16;
-    } w_T;
-    struct {
-        unsigned int w_Stopval:8;
-        unsigned int w_Stopsig:8;
-        unsigned int w_Filler:16;
-    } w_S;
+unsigned int  __ispeed  ;
+unsigned int  c_ispeed  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
+union anonymous_typeZ80
+{
+unsigned int  __ospeed  ;
+unsigned int  c_ospeed  ;
+};
+
+union anonymous_typeZ81
+{
+unsigned int  __ospeed  ;
+unsigned int  c_ospeed  ;
+};
+
 struct termios
 {
-    unsigned long  int  c_iflag  ;
-    unsigned long  int  c_oflag  ;
-    unsigned long  int  c_cflag  ;
-    unsigned long  int  c_lflag  ;
-    unsigned char  c_cc[20]  ;
-    unsigned long  int  c_ispeed  ;
-    unsigned long  int  c_ospeed  ;
+    unsigned int  c_iflag  ;
+    unsigned int  c_oflag  ;
+    unsigned int  c_cflag  ;
+    unsigned int  c_lflag  ;
+    unsigned char  c_line  ;
+    unsigned char  c_cc[32]  ;
+    union {
+        unsigned int  __ispeed  ;
+        unsigned int  c_ispeed  ;
+    };
+    union {
+        unsigned int  __ospeed  ;
+        unsigned int  c_ospeed  ;
+    };
 };
-#pragma pack(pop)
+
 /// variable definition ///
-extern int*  __error(void);
-static const unsigned char  UUID_NULL[16]  __attribute__ ((unused)) ={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-extern char* tzname[];
-extern int getdate_err;
-extern long timezone;
-extern int daylight;
+extern char* program_invocation_name;
+extern char* program_invocation_short_name;
+extern unsigned long  int  re_syntax_options  ;
+extern char** __environ;
+extern char** environ;
 extern char* optarg;
 extern int optind;
 extern int opterr;
 extern int optopt;
-extern char* suboptarg;
-extern int optreset;
-extern const char* const sys_signame[32];
-extern const char* const sys_siglist[32];
 // source head
 
 // header function
 char* strdup(const char* );
-int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list    );
+int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list );
 int snprintf(char* , unsigned long  int , const char* , ...);
-int closedir(struct anonymous_typeX2*    ) __asm("_" "closedir" );
-struct anonymous_typeX2*  opendir(const char* ) __asm("_" "opendir"  );
-struct dirent*  readdir(struct anonymous_typeX2*    ) __asm("_" "readdir" );
-int readdir_r(struct anonymous_typeX2*    , struct dirent*    , struct dirent**    ) __asm("_" "readdir_r" );
-void rewinddir(struct anonymous_typeX2*    ) __asm("_" "rewinddir"  );
-void seekdir(struct anonymous_typeX2*    , long ) __asm("_" "seekdir"  );
-long telldir(struct anonymous_typeX2*    ) __asm("_" "telldir"  );
-struct anonymous_typeX2*  fdopendir(int ) __asm("_" "fdopendir"  );
-int alphasort(const struct dirent**    , const struct dirent**    ) __asm("_" "alphasort" );
-int dirfd(struct anonymous_typeX2*  dirp  );
-int scandir(const char* , struct dirent***    , int (*anonymous_lambda_var_nameZ1)(const struct dirent* ), int (*anonymous_lambda_var_nameZ2)(const struct dirent** ,const struct dirent** )) __asm("_" "scandir" );
-int getdirentries(int , char* , int __nbytes, long* ) __asm("_getdirentries_is_not_available_when_64_bit_inodes_are_in_effect")
-#line 177 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dirent.h"
-;
-struct anonymous_typeX2*  __opendir2(const char* , int ) __asm("_" "__opendir2"  );
-int open(const char* , int , ...) __asm("_" "open"  );
-int openat(int , const char* , int , ...) __asm("_" "openat" ) ;
-int creat(const char* , unsigned short int    ) __asm("_" "creat"  );
-int fcntl(int , int , ...) __asm("_" "fcntl"  );
-int openx_np(const char* , int , struct _filesec*    );
-int open_dprotected_np(const char* , int , int , int , ...);
-int openat_dprotected_np(int , const char* , int , int , int , ...);
-int openat_authenticated_np(int , const char* , int , int );
-int flock(int , int );
-struct _filesec*  filesec_init();
-struct _filesec*  filesec_dup(struct _filesec*    );
-void filesec_free(struct _filesec*    );
-int filesec_get_property(struct _filesec*    , enum anonymous_typeY2    , void* );
-int filesec_query_property(struct _filesec*    , enum anonymous_typeY2    , int* );
-int filesec_set_property(struct _filesec*    , enum anonymous_typeY2    , const void* );
-int filesec_unset_property(struct _filesec*    , enum anonymous_typeY2    );
-struct group*  getgrgid(unsigned int    );
-struct group*  getgrnam(const char* );
-int getgrgid_r(unsigned int    , struct group*    , char* , unsigned long  int    , struct group**    );
-int getgrnam_r(const char* , struct group*    , char* , unsigned long  int    , struct group**    );
-struct group*  getgrent();
+int closedir(struct __dirstream*  __dirp  );
+struct __dirstream*  opendir(const char* __name) __attribute__ ((__malloc__)) ;
+struct __dirstream*  fdopendir(int __fd) __attribute__ ((__malloc__)) ;
+struct dirent*  readdir(struct __dirstream*  __dirp  );
+struct dirent64*  readdir64(struct __dirstream*  __dirp  );
+int readdir_r(struct __dirstream* __restrict  __dirp  , struct dirent* __restrict  __entry  , struct dirent** __restrict  __result  ) __attribute__ ((__deprecated__));
+int readdir64_r(struct __dirstream* __restrict  __dirp  , struct dirent64* __restrict  __entry  , struct dirent64** __restrict  __result  ) __attribute__ ((__deprecated__));
+void rewinddir(struct __dirstream*  __dirp  );
+void seekdir(struct __dirstream*  __dirp  , long  int __pos);
+long  int telldir(struct __dirstream*  __dirp  );
+int dirfd(struct __dirstream*  __dirp  );
+long  int __sysconf(int __name);
+int scandir(const char* __restrict __dir, struct dirent*** __restrict  __namelist  , int (*__selector)(const struct dirent* ), int (*__cmp)(const struct dirent** ,const struct dirent** ));
+int scandir64(const char* __restrict __dir, struct dirent64*** __restrict  __namelist  , int (*__selector)(const struct dirent64* ), int (*__cmp)(const struct dirent64** ,const struct dirent64** ));
+int scandirat(int __dfd, const char* __restrict __dir, struct dirent*** __restrict  __namelist  , int (*__selector)(const struct dirent* ), int (*__cmp)(const struct dirent** ,const struct dirent** ));
+int scandirat64(int __dfd, const char* __restrict __dir, struct dirent64*** __restrict  __namelist  , int (*__selector)(const struct dirent64* ), int (*__cmp)(const struct dirent64** ,const struct dirent64** ));
+int alphasort(const struct dirent**  __e1  , const struct dirent**  __e2  ) __attribute__ ((__pure__)) ;
+int alphasort64(const struct dirent64**  __e1  , const struct dirent64**  __e2  ) __attribute__ ((__pure__)) ;
+long  int  getdirentries(int __fd, char* __restrict __buf, unsigned long  __nbytes  , long  int* __restrict  __basep  );
+long  int  getdirentries64(int __fd, char* __restrict __buf, unsigned long  __nbytes  , long  int* __restrict  __basep  );
+int versionsort(const struct dirent**  __e1  , const struct dirent**  __e2  ) __attribute__ ((__pure__)) ;
+int versionsort64(const struct dirent64**  __e1  , const struct dirent64**  __e2  ) __attribute__ ((__pure__)) ;
+long  int  getdents64(int __fd, void* __buffer, unsigned long  __length  );
+int* __errno_location() __attribute__ ((__const__));
+long  int  readahead(int __fd, long  int  __offset  , unsigned long  __count  );
+int sync_file_range(int __fd, long  int  __offset  , long  int  __count  , unsigned int __flags);
+long  int  vmsplice(int __fdout, const struct iovec*  __iov  , unsigned long  __count  , unsigned int __flags);
+long  int  splice(int __fdin, long  int*  __offin  , int __fdout, long  int*  __offout  , unsigned long  __len  , unsigned int __flags);
+long  int  tee(int __fdin, int __fdout, unsigned long  __len  , unsigned int __flags);
+int fallocate(int __fd, int __mode, long  int  __offset  , long  int  __len  );
+int fallocate64(int __fd, int __mode, long  int  __offset  , long  int  __len  );
+int name_to_handle_at(int __dfd, const char* __name, struct file_handle*  __handle  , int* __mnt_id, int __flags);
+int open_by_handle_at(int __mountdirfd, struct file_handle*  __handle  , int __flags);
+int fcntl(int __fd, int __cmd, ...);
+int fcntl64(int __fd, int __cmd, ...);
+int open(const char* __file, int __oflag, ...);
+int open64(const char* __file, int __oflag, ...);
+int openat(int __fd, const char* __file, int __oflag, ...);
+int openat64(int __fd, const char* __file, int __oflag, ...);
+int creat(const char* __file, unsigned int  __mode  );
+int creat64(const char* __file, unsigned int  __mode  );
+int lockf(int __fd, int __cmd, long  int  __len  );
+int lockf64(int __fd, int __cmd, long  int  __len  );
+int posix_fadvise(int __fd, long  int  __offset  , long  int  __len  , int __advise);
+int posix_fadvise64(int __fd, long  int  __offset  , long  int  __len  , int __advise);
+int posix_fallocate(int __fd, long  int  __offset  , long  int  __len  );
+int posix_fallocate64(int __fd, long  int  __offset  , long  int  __len  );
 void setgrent();
 void endgrent();
-void uuid_clear(unsigned char  uu[16]  );
-int uuid_compare(const unsigned char  uu1[16]  , const unsigned char  uu2[16]  );
-void uuid_copy(unsigned char  dst[16]  , const unsigned char  src[16]  );
-void uuid_generate(unsigned char  out[16]  );
-void uuid_generate_random(unsigned char  out[16]  );
-void uuid_generate_time(unsigned char  out[16]  );
-int uuid_is_null(const unsigned char  uu[16]  );
-int uuid_parse(const char  in[37]  , unsigned char  uu[16]  );
-void uuid_unparse(const unsigned char  uu[16]  , char  out[37]  );
-void uuid_unparse_lower(const unsigned char  uu[16]  , char  out[37]  );
-void uuid_unparse_upper(const unsigned char  uu[16]  , char  out[37]  );
-char* group_from_gid(unsigned int    , int );
-struct group*  getgruuid(unsigned char  [16]  );
-int getgruuid_r(unsigned char  [16]  , struct group*    , char* , unsigned long  int    , struct group**    );
-void setgrfile(const char* );
-int setgroupent(int );
-int poll(struct pollfd*    , unsigned int    , int ) __asm("_" "poll"  );
-struct passwd*  getpwuid(unsigned int    );
-struct passwd*  getpwnam(const char* );
-int getpwuid_r(unsigned int    , struct passwd*    , char* , unsigned long  int    , struct passwd**    );
-int getpwnam_r(const char* , struct passwd*    , char* , unsigned long  int    , struct passwd**    );
-struct passwd*  getpwent();
+struct group*  getgrent();
+struct group*  fgetgrent(struct _IO_FILE*  __stream  );
+int putgrent(const struct group* __restrict  __p  , struct _IO_FILE* __restrict  __f  );
+struct group*  getgrgid(unsigned int  __gid  );
+struct group*  getgrnam(const char* __name);
+int getgrent_r(struct group* __restrict  __resultbuf  , char* __restrict __buffer, unsigned long  __buflen  , struct group** __restrict  __result  );
+int getgrgid_r(unsigned int  __gid  , struct group* __restrict  __resultbuf  , char* __restrict __buffer, unsigned long  __buflen  , struct group** __restrict  __result  );
+int getgrnam_r(const char* __restrict __name, struct group* __restrict  __resultbuf  , char* __restrict __buffer, unsigned long  __buflen  , struct group** __restrict  __result  );
+int fgetgrent_r(struct _IO_FILE* __restrict  __stream  , struct group* __restrict  __resultbuf  , char* __restrict __buffer, unsigned long  __buflen  , struct group** __restrict  __result  );
+int setgroups(unsigned long  __n  , const unsigned int*  __groups  );
+int getgrouplist(const char* , unsigned int  __group  , unsigned int*  __groups  , int* __ngroups);
+int initgroups(const char* , unsigned int  __group  );
+int poll(struct pollfd*  __fds  , unsigned long  int  __nfds  , int __timeout);
+int ppoll(struct pollfd*  __fds  , unsigned long  int  __nfds  , const struct timespec*  __timeout  , const struct anonymous_typeX1*  __ss  );
 void setpwent();
 void endpwent();
-int setpassent(int );
-char* user_from_uid(unsigned int    , int );
-struct passwd*  getpwuuid(unsigned char  [16]  );
-int getpwuuid_r(unsigned char  [16]  , struct passwd*    , char* , unsigned long  int    , struct passwd**    );
-int regcomp(struct anonymous_typeX3* restrict    , const char* restrict , int ) __asm("_" "regcomp" );
-unsigned long  int  regerror(int , const struct anonymous_typeX3* restrict    , char* restrict , unsigned long  int  __errbuf_size  );
-int regexec(const struct anonymous_typeX3* restrict    , const char* restrict , unsigned long  int  __nmatch  , struct anonymous_typeX4  __pmatch[]  , int );
-void regfree(struct anonymous_typeX3*    );
-int regncomp(struct anonymous_typeX3* restrict    , const char* restrict , unsigned long  int  __len  , int );
-int regnexec(const struct anonymous_typeX3* restrict    , const char* restrict , unsigned long  int  __len  , unsigned long  int  __nmatch  , struct anonymous_typeX4  __pmatch[]  , int );
-int regwcomp(struct anonymous_typeX3* restrict    , const int* restrict    , int );
-int regwexec(const struct anonymous_typeX3* restrict    , const int* restrict    , unsigned long  int  __nmatch  , struct anonymous_typeX4  __pmatch[]  , int );
-int regwncomp(struct anonymous_typeX3* restrict    , const int* restrict    , unsigned long  int  __len  , int );
-int regwnexec(const struct anonymous_typeX3* restrict    , const int* restrict    , unsigned long  int  __len  , unsigned long  int  __nmatch  , struct anonymous_typeX4  __pmatch[]  , int );
-int __darwin_check_fd_set_overflow(int , const void* , int );
-int getattrlistbulk(int , void* , void* , unsigned long  int    , unsigned long  long    );
-int getattrlistat(int , const char* , void* , void* , unsigned long  int    , unsigned long  int );
-int setattrlistat(int , const char* , void* , void* , unsigned long  int    , unsigned int    );
-long  freadlink(int , char* restrict , unsigned long  int    );
-int faccessat(int , const char* , int , int );
-int fchownat(int , const char* , unsigned int    , unsigned int    , int );
-int linkat(int , const char* , int , const char* , int );
-long  readlinkat(int , const char* , char* , unsigned long  int    );
-int symlinkat(const char* , int , const char* );
-int unlinkat(int , const char* , int );
-char* asctime(const struct tm*    );
-unsigned long  int  clock() __asm("_" "clock" );
-char* ctime(const long*    );
-double difftime(long    , long    );
-struct tm*  getdate(const char* );
-struct tm*  gmtime(const long*    );
-struct tm*  localtime(const long*    );
-long  mktime(struct tm*    ) __asm("_" "mktime" );
-unsigned long  int  strftime(char* restrict , unsigned long  int  __maxsize  , const char* restrict , const struct tm* restrict    ) __asm("_" "strftime" );
-char* strptime(const char* restrict , const char* restrict , struct tm* restrict    ) __asm("_" "strptime" );
-long  time(long*    );
-void tzset();
-char* asctime_r(const struct tm* restrict    , char* restrict );
-char* ctime_r(const long*    , char* );
-struct tm*  gmtime_r(const long* restrict    , struct tm* restrict    );
-struct tm*  localtime_r(const long* restrict    , struct tm* restrict    );
-long  posix2time(long    );
-void tzsetwall();
-long  time2posix(long    );
-long  timelocal(struct tm* const    );
-long  timegm(struct tm* const    );
-int nanosleep(const struct timespec*  __rqtp  , struct timespec*  __rmtp  ) __asm("_" "nanosleep"  );
-int clock_getres(enum anonymous_typeY8  __clock_id  , struct timespec*  __res  );
-int clock_gettime(enum anonymous_typeY8  __clock_id  , struct timespec*  __tp  );
-unsigned long long int  clock_gettime_nsec_np(enum anonymous_typeY8  __clock_id  );
-int clock_settime(enum anonymous_typeY8  __clock_id  , const struct timespec*  __tp  );
-int timespec_get(struct timespec*  ts  , int base);
-int adjtime(const struct timeval*    , struct timeval*    );
-int futimes(int , const struct timeval*    );
-int lutimes(const char* , const struct timeval*    );
-int settimeofday(const struct timeval*    , const struct timezone*    );
-int getitimer(int , struct itimerval*    );
-int gettimeofday(struct timeval* restrict    , void* restrict );
-int select(int , struct fd_set* restrict    , struct fd_set* restrict    , struct fd_set* restrict    , struct timeval* restrict    ) __asm("_" "select" "$DARWIN_EXTSN" )
-#line 55 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_select.h"
-;
-int setitimer(int , const struct itimerval* restrict    , struct itimerval* restrict    );
-int utimes(const char* , const struct timeval*    );
-int accept(int , struct sockaddr* restrict    , unsigned int* restrict    ) __asm("_" "accept"  );
-int bind(int , const struct sockaddr*    , unsigned int    ) __asm("_" "bind" );
-int connect(int , const struct sockaddr*    , unsigned int    ) __asm("_" "connect"  );
-int getpeername(int , struct sockaddr* restrict    , unsigned int* restrict    ) __asm("_" "getpeername" );
-int getsockname(int , struct sockaddr* restrict    , unsigned int* restrict    ) __asm("_" "getsockname" );
-int getsockopt(int , int , int , void* restrict , unsigned int* restrict    );
-int listen(int , int ) __asm("_" "listen" );
-long  recv(int , void* , unsigned long  int    , int ) __asm("_" "recv"  );
-long  recvfrom(int , void* , unsigned long  int    , int , struct sockaddr* restrict    , unsigned int* restrict    ) __asm("_" "recvfrom"  );
-long  recvmsg(int , struct msghdr*    , int ) __asm("_" "recvmsg"  );
-long  send(int , const void* , unsigned long  int    , int ) __asm("_" "send"  );
-long  sendmsg(int , const struct msghdr*    , int ) __asm("_" "sendmsg"  );
-long  sendto(int , const void* , unsigned long  int    , int , const struct sockaddr*    , unsigned int    ) __asm("_" "sendto"  );
-int setsockopt(int , int , int , const void* , unsigned int    );
-int shutdown(int , int );
-int sockatmark(int );
-int socket(int , int , int );
-int socketpair(int , int , int , int* ) __asm("_" "socketpair" );
-void pfctlinput(int , struct sockaddr*    );
-int connectx(int , const struct sa_endpoints*    , unsigned int    , unsigned int , const struct iovec*    , unsigned int , unsigned long  int*    , unsigned int*    );
-int disconnectx(int , unsigned int    , unsigned int    );
-unsigned int if_nametoindex(const char* );
-char* if_indextoname(unsigned int , char* );
-struct if_nameindex*  if_nameindex();
-void if_freenameindex(struct if_nameindex*    );
-int ioctl(int , unsigned long  int , ...);
-int mlockall(int );
+struct passwd*  getpwent();
+struct passwd*  fgetpwent(struct _IO_FILE*  __stream  );
+int putpwent(const struct passwd* __restrict  __p  , struct _IO_FILE* __restrict  __f  );
+struct passwd*  getpwuid(unsigned int  __uid  );
+struct passwd*  getpwnam(const char* __name);
+int getpwent_r(struct passwd* __restrict  __resultbuf  , char* __restrict __buffer, unsigned long  __buflen  , struct passwd** __restrict  __result  );
+int getpwuid_r(unsigned int  __uid  , struct passwd* __restrict  __resultbuf  , char* __restrict __buffer, unsigned long  __buflen  , struct passwd** __restrict  __result  );
+int getpwnam_r(const char* __restrict __name, struct passwd* __restrict  __resultbuf  , char* __restrict __buffer, unsigned long  __buflen  , struct passwd** __restrict  __result  );
+int fgetpwent_r(struct _IO_FILE* __restrict  __stream  , struct passwd* __restrict  __resultbuf  , char* __restrict __buffer, unsigned long  __buflen  , struct passwd** __restrict  __result  );
+int getpw(unsigned int  __uid  , char* __buffer);
+int select(int __nfds, struct anonymous_typeX2* __restrict  __readfds  , struct anonymous_typeX2* __restrict  __writefds  , struct anonymous_typeX2* __restrict  __exceptfds  , struct timeval* __restrict  __timeout  );
+int pselect(int __nfds, struct anonymous_typeX2* __restrict  __readfds  , struct anonymous_typeX2* __restrict  __writefds  , struct anonymous_typeX2* __restrict  __exceptfds  , const struct timespec* __restrict  __timeout  , const struct anonymous_typeX1* __restrict  __sigmask  );
+unsigned long  int  re_set_syntax(unsigned long  int  __syntax  );
+const char* re_compile_pattern(const char* __pattern, unsigned long  __length  , struct re_pattern_buffer*  __buffer  );
+int re_compile_fastmap(struct re_pattern_buffer*  __buffer  );
+int  re_search(struct re_pattern_buffer*  __buffer  , const char* __String, int  __length  , int  __start  , int  __range  , struct re_registers*  __regs  );
+int  re_search_2(struct re_pattern_buffer*  __buffer  , const char* __string1, int  __length1  , const char* __string2, int  __length2  , int  __start  , int  __range  , struct re_registers*  __regs  , int  __stop  );
+int  re_match(struct re_pattern_buffer*  __buffer  , const char* __String, int  __length  , int  __start  , struct re_registers*  __regs  );
+int  re_match_2(struct re_pattern_buffer*  __buffer  , const char* __string1, int  __length1  , const char* __string2, int  __length2  , int  __start  , struct re_registers*  __regs  , int  __stop  );
+void re_set_registers(struct re_pattern_buffer*  __buffer  , struct re_registers*  __regs  , unsigned int  __num_regs  , int*  __starts  , int*  __ends  );
+int regcomp(struct re_pattern_buffer* __restrict  __preg  , const char* __restrict __pattern, int __cflags);
+int regexec(const struct re_pattern_buffer* __restrict  __preg  , const char* __restrict __String, unsigned long  __nmatch  , struct anonymous_typeX14  __pmatch[]  , int __eflags);
+unsigned long  regerror(int __errcode, const struct re_pattern_buffer* __restrict  __preg  , char* __restrict __errbuf, unsigned long  __errbuf_size  );
+void regfree(struct re_pattern_buffer*  __preg  );
+int flock(int __fd, int __operation);
+int ioctl(int __fd, unsigned long  int __request, ...);
+int memfd_create(const char* __name, unsigned int __flags);
+int mlock2(const void* __addr, unsigned long  __length  , unsigned int __flags);
+int pkey_alloc(unsigned int __flags, unsigned int __access_restrictions);
+int pkey_set(int __key, unsigned int __access_restrictions);
+int pkey_get(int __key);
+int pkey_free(int __key);
+int pkey_mprotect(void* __addr, unsigned long  __len  , int __prot, int __pkey);
+void* mmap(void* __addr, unsigned long  __len  , int __prot, int __flags, int __fd, long  int  __offset  );
+void* mmap64(void* __addr, unsigned long  __len  , int __prot, int __flags, int __fd, long  int  __offset  );
+int munmap(void* __addr, unsigned long  __len  );
+int mprotect(void* __addr, unsigned long  __len  , int __prot);
+int msync(void* __addr, unsigned long  __len  , int __flags);
+int madvise(void* __addr, unsigned long  __len  , int __advice);
+int posix_madvise(void* __addr, unsigned long  __len  , int __advice);
+int mlock(const void* __addr, unsigned long  __len  );
+int munlock(const void* __addr, unsigned long  __len  );
+int mlockall(int __flags);
 int munlockall();
-int mlock(const void* , unsigned long  int    );
-void* mmap(void* , unsigned long  int    , int , int , int , long long int    ) __asm("_" "mmap" );
-int mprotect(void* , unsigned long  int    , int ) __asm("_" "mprotect" );
-int msync(void* , unsigned long  int    , int ) __asm("_" "msync"  );
-int munlock(const void* , unsigned long  int    );
-int munmap(void* , unsigned long  int    ) __asm("_" "munmap" );
-int shm_open(const char* , int , ...);
-int shm_unlink(const char* );
-int posix_madvise(void* , unsigned long  int    , int );
-int madvise(void* , unsigned long  int    , int );
-int mincore(const void* , unsigned long  int    , char* );
-int minherit(void* , unsigned long  int    , int );
-int getpriority(int , unsigned int    );
-int getiopolicy_np(int , int );
-int getrlimit(int , struct rlimit*    ) __asm("_" "getrlimit" );
-int getrusage(int , struct rusage*    );
-int setpriority(int , unsigned int    , int );
-int setiopolicy_np(int , int , int );
-int setrlimit(int , const struct rlimit*    ) __asm("_" "setrlimit" );
-int pselect(int , struct fd_set* restrict    , struct fd_set* restrict    , struct fd_set* restrict    , const struct timespec* restrict    , const unsigned int* restrict    ) __asm("_" "pselect" "$DARWIN_EXTSN" )
-#line 126 "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/select.h"
-;
-int chmod(const char* , unsigned short int    ) __asm("_" "chmod" );
-int fchmod(int , unsigned short int    ) __asm("_" "fchmod" );
-int fstat(int , struct stat*    ) __asm("_" "fstat" );
-int lstat(const char* , struct stat*    ) __asm("_" "lstat" );
-int mkdir(const char* , unsigned short int    );
-int mkfifo(const char* , unsigned short int    );
-int stat(const char* , struct stat*    ) __asm("_" "stat" );
-unsigned short int  umask(unsigned short int    );
-int fchmodat(int , const char* , unsigned short int    , int );
-int fstatat(int , const char* , struct stat*    , int ) __asm("_" "fstatat" ) ;
-int mkdirat(int , const char* , unsigned short int    );
-int mkfifoat(int , const char* , unsigned short int    );
-int mknodat(int , const char* , unsigned short int    , int    );
+int mincore(void* __start, unsigned long  __len  , unsigned char* __vec);
+void* mremap(void* __addr, unsigned long  __old_len  , unsigned long  __new_len  , int __flags, ...);
+int remap_file_pages(void* __start, unsigned long  __size  , int __prot, unsigned long  __pgoff  , int __flags);
+int shm_open(const char* __name, int __oflag, unsigned int  __mode  );
+int shm_unlink(const char* __name);
+long  int  process_madvise(int __pid_fd, const struct iovec*  __iov  , unsigned long  __count  , int __advice, unsigned int __flags);
+int process_mrelease(int pidfd, unsigned int flags);
+int prlimit(int  __pid  , enum __rlimit_resource __resource, const struct rlimit*  __new_limit  , struct rlimit*  __old_limit  );
+int prlimit64(int  __pid  , enum __rlimit_resource __resource, const struct rlimit64*  __new_limit  , struct rlimit64*  __old_limit  );
+int getrlimit(enum __rlimit_resource  __resource  , struct rlimit*  __rlimits  );
+int getrlimit64(enum __rlimit_resource  __resource  , struct rlimit64*  __rlimits  );
+int setrlimit(enum __rlimit_resource  __resource  , const struct rlimit*  __rlimits  );
+int setrlimit64(enum __rlimit_resource  __resource  , const struct rlimit64*  __rlimits  );
+int getrusage(enum __rusage_who  __who  , struct rusage*  __usage  );
+int getpriority(enum __priority_which  __which  , unsigned int  __who  );
+int setpriority(enum __priority_which  __which  , unsigned int  __who  , int __prio);
+int stat(const char* __restrict __file, struct stat* __restrict  __buf  );
+int fstat(int __fd, struct stat*  __buf  );
+int stat64(const char* __restrict __file, struct stat64* __restrict  __buf  );
+int fstat64(int __fd, struct stat64*  __buf  );
+int fstatat(int __fd, const char* __restrict __file, struct stat* __restrict  __buf  , int __flag);
+int fstatat64(int __fd, const char* __restrict __file, struct stat64* __restrict  __buf  , int __flag);
+int lstat(const char* __restrict __file, struct stat* __restrict  __buf  );
+int lstat64(const char* __restrict __file, struct stat64* __restrict  __buf  );
+int chmod(const char* __file, unsigned int  __mode  );
+int lchmod(const char* __file, unsigned int  __mode  );
+int fchmod(int __fd, unsigned int  __mode  );
+int fchmodat(int __fd, const char* __file, unsigned int  __mode  , int __flag);
+unsigned int  umask(unsigned int  __mask  );
+unsigned int  getumask();
+int mkdir(const char* __path, unsigned int  __mode  );
+int mkdirat(int __fd, const char* __path, unsigned int  __mode  );
+int mknod(const char* __path, unsigned int  __mode  , unsigned long  int  __dev  );
+int mknodat(int __fd, const char* __path, unsigned int  __mode  , unsigned long  int  __dev  );
+int mkfifo(const char* __path, unsigned int  __mode  );
+int mkfifoat(int __fd, const char* __path, unsigned int  __mode  );
+int utimensat(int __fd, const char* __path, const struct timespec  __times[2]  , int __flags);
 int futimens(int __fd, const struct timespec  __times[2]  );
-int utimensat(int __fd, const char* __path, const struct timespec  __times[2]  , int __flag);
-int chflags(const char* , unsigned int    );
-int chmodx_np(const char* , struct _filesec*    );
-int fchflags(int , unsigned int    );
-int fchmodx_np(int , struct _filesec*    );
-int fstatx_np(int , struct stat*    , struct _filesec*    ) __asm("_" "fstatx_np" );
-int lchflags(const char* , unsigned int    );
-int lchmod(const char* , unsigned short int    );
-int lstatx_np(const char* , struct stat*    , struct _filesec*    ) __asm("_" "lstatx_np" );
-int mkdirx_np(const char* , struct _filesec*    );
-int mkfifox_np(const char* , struct _filesec*    );
-int statx_np(const char* , struct stat*    , struct _filesec*    ) __asm("_" "statx_np" );
-int umaskx_np(struct _filesec*    );
-int fstatvfs(int , struct statvfs*    );
-int statvfs(const char* restrict , struct statvfs* restrict    );
-unsigned long  int  times(struct tms*    );
-long  readv(int , const struct iovec*    , int ) __asm("_" "readv"  );
-long  writev(int , const struct iovec*    , int ) __asm("_" "writev"  );
-long  preadv(int , const struct iovec*    , int , long long int    ) __asm("_" "preadv" ) ;
-long  pwritev(int , const struct iovec*    , int , long long int    ) __asm("_" "pwritev" ) ;
-int uname(struct utsname*    );
-void (*signal(int _function_pointer_result_var_name_a1, void (*_function_pointer_result_var_name_a2)(int)))(int);
-int  wait(int* ) __asm("_" "wait"  );
-int  waitpid(int    , int* , int ) __asm("_" "waitpid"  );
-int waitid(enum anonymous_typeY14    , unsigned int    , struct __siginfo*    , int ) __asm("_" "waitid"  );
-int  wait3(int* , int , struct rusage*    );
-int  wait4(int    , int* , int , struct rusage*    );
-unsigned long  int  cfgetispeed(const struct termios*    );
-unsigned long  int  cfgetospeed(const struct termios*    );
-int cfsetispeed(struct termios*    , unsigned long  int    );
-int cfsetospeed(struct termios*    , unsigned long  int    );
-int tcgetattr(int , struct termios*    );
-int tcsetattr(int , int , const struct termios*    );
-int tcdrain(int ) __asm("_" "tcdrain"  );
-int tcflow(int , int );
-int tcflush(int , int );
-int tcsendbreak(int , int );
-void cfmakeraw(struct termios*    );
-int cfsetspeed(struct termios*    , unsigned long  int    );
-int  tcgetsid(int );
-void _exit(int ) __attribute__((__noreturn__));
-int access(const char* , int );
-unsigned int alarm(unsigned int );
-int chdir(const char* );
-int chown(const char* , unsigned int    , unsigned int    );
-int close(int ) __asm("_" "close"  );
-int dup(int );
-int dup2(int , int );
-int execl(const char* __path, const char* __arg0, ...);
-int execle(const char* __path, const char* __arg0, ...);
-int execlp(const char* __file, const char* __arg0, ...);
-int execv(const char* __path, char** const __argv);
-int execve(const char* __file, char** const __argv, char** const __envp);
-int execvp(const char* __file, char** const __argv);
-int  fork();
-long fpathconf(int , int );
-char* getcwd(char* , unsigned long  int  __size  );
-unsigned int  getegid();
-unsigned int  geteuid();
-unsigned int  getgid();
-int getgroups(int __gidsetsize, unsigned int  []  ) __asm("_" "getgroups" "$DARWIN_EXTSN");
-char* getlogin();
-int  getpgrp();
+int statx(int __dirfd, const char* __restrict __path, int __flags, unsigned int __mask, struct statx* __restrict  __buf  );
+int statvfs(const char* __restrict __file, struct statvfs* __restrict  __buf  );
+int statvfs64(const char* __restrict __file, struct statvfs64* __restrict  __buf  );
+int fstatvfs(int __fildes, struct statvfs*  __buf  );
+int fstatvfs64(int __fildes, struct statvfs64*  __buf  );
+int gettimeofday(struct timeval* __restrict  __tv  , void* __restrict __tz);
+int settimeofday(const struct timeval*  __tv  , const struct timezone*  __tz  );
+int adjtime(const struct timeval*  __delta  , struct timeval*  __olddelta  );
+int getitimer(enum __itimer_which  __which  , struct itimerval*  __value  );
+int setitimer(enum __itimer_which  __which  , const struct itimerval* __restrict  __new  , struct itimerval* __restrict  __old  );
+int utimes(const char* __file, const struct timeval  __tvp[2]  );
+int lutimes(const char* __file, const struct timeval  __tvp[2]  );
+int futimes(int __fd, const struct timeval  __tvp[2]  );
+int futimesat(int __fd, const char* __file, const struct timeval  __tvp[2]  );
+long  int  times(struct tms*  __buffer  );
+long  int  readv(int __fd, const struct iovec*  __iovec  , int __count);
+long  int  writev(int __fd, const struct iovec*  __iovec  , int __count);
+long  int  preadv(int __fd, const struct iovec*  __iovec  , int __count, long  int  __offset  );
+long  int  pwritev(int __fd, const struct iovec*  __iovec  , int __count, long  int  __offset  );
+long  int  preadv64(int __fd, const struct iovec*  __iovec  , int __count, long  int  __offset  );
+long  int  pwritev64(int __fd, const struct iovec*  __iovec  , int __count, long  int  __offset  );
+long  int  preadv2(int __fp, const struct iovec*  __iovec  , int __count, long  int  __offset  , int ___flags);
+long  int  pwritev2(int __fd, const struct iovec*  __iodev  , int __count, long  int  __offset  , int __flags);
+long  int  preadv64v2(int __fp, const struct iovec*  __iovec  , int __count, long  int  __offset  , int ___flags);
+long  int  pwritev64v2(int __fd, const struct iovec*  __iodev  , int __count, long  int  __offset  , int __flags);
+long  int  process_vm_readv(int  __pid  , const struct iovec*  __lvec  , unsigned long  int __liovcnt, const struct iovec*  __rvec  , unsigned long  int __riovcnt, unsigned long  int __flags);
+long  int  process_vm_writev(int  __pid  , const struct iovec*  __lvec  , unsigned long  int __liovcnt, const struct iovec*  __rvec  , unsigned long  int __riovcnt, unsigned long  int __flags);
+int uname(struct utsname*  __name  );
+void (*__sysv_signal(int __sig, void (*__handler)(int)  ))(int) ;
+void (*sysv_signal(int __sig, void (*__handler)(int)  ))(int) ;
+void (*signal(int __sig, void (*__handler)(int)  ))(int) ;
+int kill(int  __pid  , int __sig);
+int killpg(int  __pgrp  , int __sig);
+int raise(int __sig);
+void (*ssignal(int __sig, void (*__handler)(int)  ))(int) ;
+int gsignal(int __sig);
+void psignal(int __sig, const char* __s);
+void psiginfo(const struct anonymous_typeX43*  __pinfo  , const char* __s);
+int sigpause(int __sig) __asm__ ("__xpg_sigpause")
+  __attribute__ ((__deprecated__));
+int sigblock(int __mask) __attribute__ ((__deprecated__));
+int sigsetmask(int __mask) __attribute__ ((__deprecated__));
+int siggetmask() __attribute__ ((__deprecated__));
+int sigemptyset(struct anonymous_typeX1*  __set  );
+int sigfillset(struct anonymous_typeX1*  __set  );
+int sigaddset(struct anonymous_typeX1*  __set  , int __signo);
+int sigdelset(struct anonymous_typeX1*  __set  , int __signo);
+int sigismember(const struct anonymous_typeX1*  __set  , int __signo);
+int sigisemptyset(const struct anonymous_typeX1*  __set  );
+int sigandset(struct anonymous_typeX1*  __set  , const struct anonymous_typeX1*  __left  , const struct anonymous_typeX1*  __right  );
+int sigorset(struct anonymous_typeX1*  __set  , const struct anonymous_typeX1*  __left  , const struct anonymous_typeX1*  __right  );
+int sigprocmask(int __how, const struct anonymous_typeX1* __restrict  __set  , struct anonymous_typeX1* __restrict  __oset  );
+int sigsuspend(const struct anonymous_typeX1*  __set  );
+int sigaction(int __sig, const struct sigaction* __restrict  __act  , struct sigaction* __restrict  __oact  );
+int sigpending(struct anonymous_typeX1*  __set  );
+int sigwait(const struct anonymous_typeX1* __restrict  __set  , int* __restrict __sig);
+int sigwaitinfo(const struct anonymous_typeX1* __restrict  __set  , struct anonymous_typeX43* __restrict  __info  );
+int sigtimedwait(const struct anonymous_typeX1* __restrict  __set  , struct anonymous_typeX43* __restrict  __info  , const struct timespec* __restrict  __timeout  );
+int sigqueue(int  __pid  , int __sig, const union sigval  __val  );
+int sigreturn(struct sigcontext*  __scp  );
+int siginterrupt(int __sig, int __interrupt) __attribute__ ((__deprecated__));
+int access(const char* __name, int __type);
+int euidaccess(const char* __name, int __type);
+int eaccess(const char* __name, int __type);
+int execveat(int __fd, const char* __path, char* const __argv[], char* const __envp[], int __flags);
+int faccessat(int __fd, const char* __file, int __type, int __flag);
+long  int  lseek(int __fd, long  int  __offset  , int __whence);
+long  int  lseek64(int __fd, long  int  __offset  , int __whence);
+int close(int __fd);
+void closefrom(int __lowfd);
+long  int  read(int __fd, void* __buf, unsigned long  __nbytes  );
+long  int  write(int __fd, const void* __buf, unsigned long  __n  );
+long  int  pread(int __fd, void* __buf, unsigned long  __nbytes  , long  int  __offset  );
+long  int  pwrite(int __fd, const void* __buf, unsigned long  __n  , long  int  __offset  );
+long  int  pread64(int __fd, void* __buf, unsigned long  __nbytes  , long  int  __offset  );
+long  int  pwrite64(int __fd, const void* __buf, unsigned long  __n  , long  int  __offset  );
+int pipe(int __pipedes[2]);
+int pipe2(int __pipedes[2], int __flags);
+unsigned int alarm(unsigned int __seconds);
+unsigned int sleep(unsigned int __seconds);
+unsigned int  ualarm(unsigned int  __value  , unsigned int  __interval  );
+int usleep(unsigned int  __useconds  );
+int pause();
+int chown(const char* __file, unsigned int  __owner  , unsigned int  __group  );
+int fchown(int __fd, unsigned int  __owner  , unsigned int  __group  );
+int lchown(const char* __file, unsigned int  __owner  , unsigned int  __group  );
+int fchownat(int __fd, const char* __file, unsigned int  __owner  , unsigned int  __group  , int __flag);
+int chdir(const char* __path);
+int fchdir(int __fd);
+char* getcwd(char* __buf, unsigned long  __size  );
+char* get_current_dir_name();
+char* getwd(char* __buf) __attribute__ ((__deprecated__)) 
+    ;
+int dup(int __fd);
+int dup2(int __fd, int __fd2);
+int dup3(int __fd, int __fd2, int __flags);
+int execve(const char* __path, char* const __argv[], char* const __envp[]);
+int fexecve(int __fd, char* const __argv[], char* const __envp[]);
+int execv(const char* __path, char* const __argv[]);
+int execle(const char* __path, const char* __arg, ...);
+int execl(const char* __path, const char* __arg, ...);
+int execvp(const char* __file, char* const __argv[]);
+int execlp(const char* __file, const char* __arg, ...);
+int execvpe(const char* __file, char* const __argv[], char* const __envp[]);
+int nice(int __inc);
+void _exit(int __status) __attribute__ ((__noreturn__));
+long  int pathconf(const char* __path, int __name);
+long  int fpathconf(int __fd, int __name);
+long  int sysconf(int __name);
+unsigned long  confstr(int __name, char* __buf, unsigned long  __len  );
 int  getpid();
 int  getppid();
-unsigned int  getuid();
-int isatty(int );
-int link(const char* , const char* );
-long long int  lseek(int , long long int    , int );
-long pathconf(const char* , int );
-int pause() __asm("_" "pause"  );
-int pipe(int [2]);
-long  read(int , void* , unsigned long  int  __nbyte  ) __asm("_" "read"  );
-int rmdir(const char* );
-int setgid(unsigned int    );
-int setpgid(int    , int    );
+int  getpgrp();
+int  __getpgid(int  __pid  );
+int  getpgid(int  __pid  );
+int setpgid(int  __pid  , int  __pgid  );
+int setpgrp();
 int  setsid();
-int setuid(unsigned int    );
-unsigned int sleep(unsigned int ) __asm("_" "sleep"  );
-long sysconf(int );
-int  tcgetpgrp(int );
-int tcsetpgrp(int , int    );
-char* ttyname(int );
-int ttyname_r(int , char* , unsigned long  int  __len  ) __asm("_" "ttyname_r" );
-int unlink(const char* );
-long  write(int __fd, const void* __buf, unsigned long  int  __nbyte  ) __asm("_" "write"  );
-unsigned long  int  confstr(int , char* , unsigned long  int  __len  ) __asm("_" "confstr" );
-int getopt(int __argc, char* const [], const char* ) __asm("_" "getopt" );
-char* crypt(const char* , const char* );
-void encrypt(char* , int ) __asm("_" "encrypt" );
-int fchdir(int );
-long gethostid();
-int  getpgid(int    );
-int  getsid(int    );
-int lchown(const char* , unsigned int    , unsigned int    ) __asm("_" "lchown" );
-int lockf(int , int , long long int    ) __asm("_" "lockf"  );
-int nice(int ) __asm("_" "nice" );
-long  pread(int __fd, void* __buf, unsigned long  int  __nbyte  , long long int  __offset  ) __asm("_" "pread"  );
-long  pwrite(int __fd, const void* __buf, unsigned long  int  __nbyte  , long long int  __offset  ) __asm("_" "pwrite"  );
-int  setpgrp() __asm("_" "setpgrp" );
-int setregid(unsigned int    , unsigned int    ) __asm("_" "setregid" );
-int setreuid(unsigned int    , unsigned int    ) __asm("_" "setreuid" );
-void swab(const void* restrict , void* restrict , long  __nbytes  );
-void sync();
-int truncate(const char* , long long int    );
-unsigned int  ualarm(unsigned int    , unsigned int    );
-int usleep(unsigned int    ) __asm("_" "usleep"  );
+int  getsid(int  __pid  );
+unsigned int  getuid();
+unsigned int  geteuid();
+unsigned int  getgid();
+unsigned int  getegid();
+int getgroups(int __size, unsigned int  __list[]  );
+int group_member(unsigned int  __gid  );
+int setuid(unsigned int  __uid  );
+int setreuid(unsigned int  __ruid  , unsigned int  __euid  );
+int seteuid(unsigned int  __uid  );
+int setgid(unsigned int  __gid  );
+int setregid(unsigned int  __rgid  , unsigned int  __egid  );
+int setegid(unsigned int  __gid  );
+int getresuid(unsigned int*  __ruid  , unsigned int*  __euid  , unsigned int*  __suid  );
+int getresgid(unsigned int*  __rgid  , unsigned int*  __egid  , unsigned int*  __sgid  );
+int setresuid(unsigned int  __ruid  , unsigned int  __euid  , unsigned int  __suid  );
+int setresgid(unsigned int  __rgid  , unsigned int  __egid  , unsigned int  __sgid  );
+int  fork();
 int  vfork();
-int fsync(int ) __asm("_" "fsync"  );
-int ftruncate(int , long long int    );
-int getlogin_r(char* , unsigned long  int  __namelen  );
-int fchown(int , unsigned int    , unsigned int    );
-int gethostname(char* , unsigned long  int  __namelen  );
-long  readlink(const char* restrict , char* restrict , unsigned long  int  __bufsize  );
-int setegid(unsigned int    );
-int seteuid(unsigned int    );
-int symlink(const char* , const char* );
-void _Exit(int ) __attribute__((__noreturn__));
-int accessx_np(const struct accessx_descriptor*    , unsigned long  int  __sz  , int* , unsigned int    );
-int acct(const char* );
-int add_profil(char* , unsigned long  int  __bufsiz  , unsigned long  int , unsigned int );
-void endusershell();
-int execvP(const char* __file, const char* __searchpath, char** const __argv);
-char* fflagstostr(unsigned long  int );
-int getdomainname(char* , int __namelen);
-int getgrouplist(const char* , int , int* , int* __ngroups);
-int gethostuuid(unsigned char  [16]  , const struct timespec*    );
-unsigned short int  getmode(const void* , unsigned short int    );
-int getpeereid(int , unsigned int*    , unsigned int*    );
-int getsgroups_np(int* , unsigned char  [16]  );
-char* getusershell();
-int getwgroups_np(int* , unsigned char  [16]  );
-int initgroups(const char* , int );
-int issetugid();
-char* mkdtemp(char* );
-int mknod(const char* , unsigned short int    , int    );
-int mkpath_np(const char* path, unsigned short int  omode  );
-int mkpathat_np(int dfd, const char* path, unsigned short int  omode  );
-int mkstemp(char* );
-int mkstemps(char* , int );
-char* mktemp(char* );
-int mkostemp(char* path, int oflags);
-int mkostemps(char* path, int slen, int oflags);
-int mkstemp_dprotected_np(char* path, int dpclass, int dpflags);
-char* mkdtempat_np(int dfd, char* path);
-int mkstempsat_np(int dfd, char* path, int slen);
-int mkostempsat_np(int dfd, char* path, int slen, int oflags);
-int nfssvc(int , void* );
-int profil(char* , unsigned long  int  __bufsiz  , unsigned long  int , unsigned int );
-__attribute__((__deprecated__))
- int pthread_setugid_np(unsigned int    , unsigned int    );
-int pthread_getugid_np(unsigned int*    , unsigned int*    );
-int reboot(int );
-int revoke(const char* );
-__attribute__((__deprecated__))  int rcmd(char** , int , const char* , const char* , const char* , int* );
-__attribute__((__deprecated__))  int rcmd_af(char** , int , const char* , const char* , const char* , int* , int );
-__attribute__((__deprecated__))  int rresvport(int* );
-__attribute__((__deprecated__))  int rresvport_af(int* , int );
-__attribute__((__deprecated__))  int iruserok(unsigned long  int , int , const char* , const char* );
-__attribute__((__deprecated__))  int iruserok_sa(const void* , int , int , const char* , const char* );
-__attribute__((__deprecated__))  int ruserok(const char* , int , const char* , const char* );
-int setdomainname(const char* , int __namelen);
-int setgroups(int , const unsigned int*    );
-void sethostid(long );
-int sethostname(const char* , int __namelen);
-void setkey(const char* ) __asm("_" "setkey" );
-int setlogin(const char* );
-void* setmode(const char* ) __asm("_" "setmode" );
-int setrgid(unsigned int    );
-int setruid(unsigned int    );
-int setsgroups_np(int , const unsigned char  [16]  );
-void setusershell();
-int setwgroups_np(int , const unsigned char  [16]  );
-int strtofflags(char** , unsigned long  int* , unsigned long  int* );
-int swapon(const char* );
+int  _Fork();
+char* ttyname(int __fd);
+int ttyname_r(int __fd, char* __buf, unsigned long  __buflen  );
+int isatty(int __fd);
 int ttyslot();
-int undelete(const char* );
-int unwhiteout(const char* );
-void* valloc(unsigned long  int  __size  );
-int syscall(int , ...);
-int getsubopt(char** , char** const , char** );
-int fgetattrlist(int , void* , void* , unsigned long  int  __attrBufSize  , unsigned int );
-int fsetattrlist(int , void* , void* , unsigned long  int  __attrBufSize  , unsigned int );
-int getattrlist(const char* , void* , void* , unsigned long  int  __attrBufSize  , unsigned int ) __asm("_" "getattrlist" );
-int setattrlist(const char* , void* , void* , unsigned long  int  __attrBufSize  , unsigned int ) __asm("_" "setattrlist" );
-int exchangedata(const char* , const char* , unsigned int );
-int getdirentriesattr(int , void* , void* , unsigned long  int  __attrBufSize  , unsigned int* , unsigned int* , unsigned int* , unsigned int );
-int searchfs(const char* , struct fssearchblock*    , unsigned long  int* , unsigned int , unsigned int , struct searchstate*    );
-int fsctl(const char* , unsigned long  int , void* , unsigned int );
-int ffsctl(int , unsigned long  int , void* , unsigned int );
-int fsync_volume_np(int , int );
-int sync_volume_np(const char* , int );
-int raise(int );
-void (*bsd_signal(int _function_pointer_result_var_name_a3, void (*_function_pointer_result_var_name_a4)(int)))(int);
-int kill(int    , int ) __asm("_" "kill" );
-int killpg(int    , int ) __asm("_" "killpg" );
-int pthread_kill(struct _opaque_pthread_t*    , int );
-int pthread_sigmask(int , const unsigned int*    , unsigned int*    ) __asm("_" "pthread_sigmask" );
-int sigaction(int , const struct sigaction* restrict    , struct sigaction* restrict    );
-int sigaddset(unsigned int*    , int );
-int sigaltstack(const struct __darwin_sigaltstack* restrict    , struct __darwin_sigaltstack* restrict    ) __asm("_" "sigaltstack" )  ;
-int sigdelset(unsigned int*    , int );
-int sigemptyset(unsigned int*    );
-int sigfillset(unsigned int*    );
-int sighold(int );
-int sigignore(int );
-int siginterrupt(int , int );
-int sigismember(const unsigned int*    , int );
-int sigpause(int ) __asm("_" "sigpause"  );
-int sigpending(unsigned int*    );
-int sigprocmask(int , const unsigned int* restrict    , unsigned int* restrict    );
-int sigrelse(int );
-void (*sigset(int _function_pointer_result_var_name_a5, void (*_function_pointer_result_var_name_a6)(int)))(int);
-int sigsuspend(const unsigned int*    ) __asm("_" "sigsuspend"  );
-int sigwait(const unsigned int* restrict    , int* restrict ) __asm("_" "sigwait"  );
-void psignal(int , const char* );
-int sigblock(int );
-int sigsetmask(int );
-int sigvec(int , struct sigvec*    , struct sigvec*    );
+int link(const char* __from, const char* __to);
+int linkat(int __fromfd, const char* __from, int __tofd, const char* __to, int __flags);
+int symlink(const char* __from, const char* __to);
+long  int  readlink(const char* __restrict __path, char* __restrict __buf, unsigned long  __len  );
+int symlinkat(const char* __from, int __tofd, const char* __to);
+long  int  readlinkat(int __fd, const char* __restrict __path, char* __restrict __buf, unsigned long  __len  );
+int unlink(const char* __name);
+int unlinkat(int __fd, const char* __name, int __flag);
+int rmdir(const char* __path);
+int  tcgetpgrp(int __fd);
+int tcsetpgrp(int __fd, int  __pgrp_id  );
+char* getlogin();
+int getlogin_r(char* __name, unsigned long  __name_len  );
+int setlogin(const char* __name);
+int getopt(int ___argc, char** const ___argv, const char* __shortopts);
+int gethostname(char* __name, unsigned long  __len  );
+int sethostname(const char* __name, unsigned long  __len  );
+int sethostid(long  int __id);
+int getdomainname(char* __name, unsigned long  __len  );
+int setdomainname(const char* __name, unsigned long  __len  );
+int vhangup();
+int revoke(const char* __file);
+int profil(unsigned short int* __sample_buffer, unsigned long  __size  , unsigned long  __offset  , unsigned int __scale);
+int acct(const char* __name);
+char* getusershell();
+void endusershell();
+void setusershell();
+int daemon(int __nochdir, int __noclose);
+int chroot(const char* __path);
+char* getpass(const char* __prompt);
+int fsync(int __fd);
+int syncfs(int __fd);
+long  int gethostid();
+void sync();
+int getpagesize() __attribute__ ((__const__));
+int getdtablesize();
+int truncate(const char* __file, long  int  __length  );
+int truncate64(const char* __file, long  int  __length  );
+int ftruncate(int __fd, long  int  __length  );
+int ftruncate64(int __fd, long  int  __length  );
+int brk(void* __addr);
+void* sbrk(long  int  __delta  );
+long  int syscall(long  int __sysno, ...);
+long  int  copy_file_range(int __infd, long  int*  __pinoff  , int __outfd, long  int*  __poutoff  , unsigned long  __length  , unsigned int __flags);
+int fdatasync(int __fildes);
+char* crypt(const char* __key, const char* __salt);
+void swab(const void* __restrict __from, void* __restrict __to, long  int  __n  );
+int getentropy(void* __buffer, unsigned long  __length  );
+int close_range(unsigned int __fd, unsigned int __max_fd, int __flags);
+int  gettid();
+int sigaltstack(const struct anonymous_typeX76* __restrict  __ss  , struct anonymous_typeX76* __restrict  __oss  );
+int sigstack(struct sigstack*  __ss  , struct sigstack*  __oss  ) __attribute__ ((__deprecated__));
+int sighold(int __sig) __attribute__ ((__deprecated__));
+int sigrelse(int __sig) __attribute__ ((__deprecated__));
+int sigignore(int __sig) __attribute__ ((__deprecated__));
+void (*sigset(int __sig, void (*__disp)(int)  ))(int)  __attribute__ ((__deprecated__)) ;
+int pthread_sigmask(int __how, const struct anonymous_typeX1* __restrict  __newmask  , struct anonymous_typeX1* __restrict  __oldmask  );
+int pthread_kill(unsigned long  int  __threadid  , int __signo);
+int pthread_sigqueue(unsigned long  int  __threadid  , int __signo, const union sigval  __value  );
+int __libc_current_sigrtmin();
+int __libc_current_sigrtmax();
+int tgkill(int  __tgid  , int  __tid  , int __signal);
+int  wait(int* __stat_loc);
+int  waitpid(int  __pid  , int* __stat_loc, int __options);
+int waitid(enum anonymous_typeY77  __idtype  , unsigned int  __id  , struct anonymous_typeX43*  __infop  , int __options);
+int  wait3(int* __stat_loc, int __options, struct rusage*  __usage  );
+int  wait4(int  __pid  , int* __stat_loc, int __options, struct rusage*  __usage  );
+unsigned int  cfgetospeed(const struct termios*  __termios_p  );
+unsigned int  cfgetispeed(const struct termios*  __termios_p  );
+int cfsetospeed(struct termios*  __termios_p  , unsigned int  __speed  );
+int cfsetispeed(struct termios*  __termios_p  , unsigned int  __speed  );
+int cfsetspeed(struct termios*  __termios_p  , unsigned int  __speed  );
+unsigned int  cfgetobaud(const struct termios*  __termios_p  );
+unsigned int  cfgetibaud(const struct termios*  __termios_p  );
+int cfsetobaud(struct termios*  __termios_p  , unsigned int  __baud  );
+int cfsetibaud(struct termios*  __termios_p  , unsigned int  __baud  );
+int cfsetbaud(struct termios*  __termios_p  , unsigned int  __baud  );
+int tcgetattr(int __fd, struct termios*  __termios_p  );
+int tcsetattr(int __fd, int __optional_actions, const struct termios*  __termios_p  );
+void cfmakeraw(struct termios*  __termios_p  );
+int tcsendbreak(int __fd, int __duration);
+int tcdrain(int __fd);
+int tcflush(int __fd, int __queue_selector);
+int tcflow(int __fd, int __action);
+int  tcgetsid(int __fd);
 int test_headers_posix();
 // uniq global variable
 // inline function
-static inline unsigned short int  _OSSwapInt16(unsigned short int  _data  )
+static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
 {
-        return (unsigned short int )(_data<<8|_data>>8);
+        return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
 }
-static inline unsigned int  _OSSwapInt32(unsigned int  _data  )
+static inline unsigned int  __bswap_32(unsigned int  __bsx  )
 {
-    _data=(((_data^(_data>>16|(_data<<16)))&0xFF00FFFF)>>8)^(_data>>8|_data<<24);
-        return _data;
+        return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
 }
-static inline unsigned long long int  _OSSwapInt64(unsigned long long int  _data  )
+static inline unsigned long  int  __bswap_64(unsigned long  int  __bsx  )
 {
-    union anonymous_typeZ8 _u;
-    _u._ul[0]=(unsigned int )(_data>>32);
-    _u._ul[1]=(unsigned int )(_data&0xffffffff);
-    _u._ul[0]=_OSSwapInt32(_u._ul[0]);
-    _u._ul[1]=_OSSwapInt32(_u._ul[1]);
-        return _u._ull;
+        return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
 }
-inline int  __attribute__((__always_inline__))  __darwin_check_fd_set(int _a, const void* _b)
+static inline unsigned short int  __uint16_identity(unsigned short int  __x  )
 {
-    if((unsigned long  int )&__darwin_check_fd_set_overflow!=(unsigned long  int )0) {
-                return __darwin_check_fd_set_overflow(_a,_b,1);
-    }
-    else {
-                return 1;
-    }
+        return __x;
 }
-inline int  __attribute__((__always_inline__))  __darwin_fd_isset(int _fd, const struct fd_set*  _p  )
+static inline unsigned int  __uint32_identity(unsigned int  __x  )
 {
-    if(__darwin_check_fd_set(_fd,(const void*)_p)) {
-                return _p->fds_bits[(unsigned long  int)_fd/32]&((int )(((unsigned long  int)1)<<((unsigned long  int)_fd%32)));
-    }
-        return 0;
+        return __x;
 }
-inline void  __attribute__((__always_inline__))  __darwin_fd_set(int _fd, struct fd_set* const  _p  )
+static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
-    if(__darwin_check_fd_set(_fd,(const void*)_p)) {
-        (_p->fds_bits[(unsigned long  int)_fd/32]|=((int )(((unsigned long  int)1)<<((unsigned long  int)_fd%32))));
-    }
-}
-inline void  __attribute__((__always_inline__))  __darwin_fd_clr(int _fd, struct fd_set* const  _p  )
-{
-    if(__darwin_check_fd_set(_fd,(const void*)_p)) {
-        (_p->fds_bits[(unsigned long  int)_fd/32]&=~((int )(((unsigned long  int)1)<<((unsigned long  int)_fd%32))));
-    }
-}
-inline int  __attribute__((__always_inline__))  __sigbits(int __signo)
-{
-        return ((__signo>32)?(0):((1<<(__signo-1))));
+        return __x;
 }
 
 // body function

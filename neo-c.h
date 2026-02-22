@@ -12,7 +12,9 @@
 #define __P(protos) ()
 #endif
 
+#ifndef _GNU_SOURCE
 #define _GNU_SOURCE _GNU_SOURCE
+#endif
 
 #define ALLOCATED_MAGIC_NUM 177783
 
