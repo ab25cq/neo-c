@@ -1614,6 +1614,7 @@ struct CVALUE
     char*  c_value_without_cast_object_value  ;
     _Bool mLoadField;
     _Bool mCastValue;
+    _Bool mNullValue;
 };
 
 struct map$2char$phchar$ph
@@ -7140,7 +7141,6 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
             skip_spaces_and_lf(info);
             if(type->mClass->mStruct) {
                 type->mPointerNum=1;
-                type->mHeap=(_Bool)1;
             }
             else {
                 type->mPointerNum=1;
@@ -7154,7 +7154,6 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
                 type_40=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1587, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("ref")),(_Bool)0,info,(_Bool)0,0));
                 list$1sType$ph_add(type_40->mGenericsTypes,(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1588, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("__generics_type0")),(_Bool)0,info,(_Bool)0,0)));
                 type_40->mPointerNum++;
-                type_40->mHeap=(_Bool)1;
                 type2=(struct sType* )come_increment_ref_count(solve_generics(type_40,generics_type,info));
                 if(type2->mClass->mStruct) {
                     type2->mPointerNum=1;
@@ -7197,11 +7196,9 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
                 type_42=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1629, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("optional")),(_Bool)0,info,(_Bool)0,0));
                 list$1sType$ph_add(type_42->mGenericsTypes,(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1630, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("__generics_type0")),(_Bool)0,info,(_Bool)0,0)));
                 type_42->mPointerNum++;
-                type_42->mHeap=(_Bool)1;
                 type2_43=(struct sType* )come_increment_ref_count(solve_generics(type_42,generics_type_41,info));
                 if(type2_43->mClass->mStruct) {
                     type2_43->mPointerNum=1;
-                    type2_43->mHeap=(_Bool)1;
                 }
                 type2_43->mOptional=(_Bool)1;
                 __dec_obj68=tmp_,
@@ -7234,7 +7231,6 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
                 type_45=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1666, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("span")),(_Bool)0,info,(_Bool)0,0));
                 list$1sType$ph_add(type_45->mGenericsTypes,(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), (void*)0, 1667, "struct sType* ")),(char*)come_increment_ref_count(xsprintf("__generics_type0")),(_Bool)0,info,(_Bool)0,0)));
                 type_45->mPointerNum++;
-                type_45->mHeap=(_Bool)1;
                 type2_46=(struct sType* )come_increment_ref_count(solve_generics(type_45,generics_type_44,info));
                 type2_46->mOptional=(_Bool)1;
                 __dec_obj69=tmp_,

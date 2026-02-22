@@ -619,7 +619,7 @@ uniq string __builtin_string(const char* str)
 //////////////////////////////
 struct ref<T>
 {
-    T p;
+    T^ p;
     bool global;
     bool heap;
     bool local;
@@ -629,7 +629,7 @@ struct ref<T>
 
 impl ref<T>
 {
-    ref<T>*% initialize(ref<T>*% self, T p, bool global_, bool heap_, bool local_, void* stacktop) {
+    ref<T>*% initialize(ref<T>*% self, T^ p, bool global_, bool heap_, bool local_, void* stacktop) {
         if(!ispointer(T) || p == null) {
             puts(s"ref is pointer and not null");
             stackframe();
@@ -643,7 +643,7 @@ impl ref<T>
         return self;
     }
     
-    _norecord T unwrap(ref<T>* self) {
+    _norecord T^ unwrap(ref<T>* self) {
         using unsafe;
         
         if(self == null) {
@@ -687,7 +687,7 @@ impl ref<T>
 //////////////////////////////
 struct optional<T>
 {
-    T p;
+    T^ p;
     bool global;
     bool heap;
     bool local;
@@ -697,7 +697,7 @@ struct optional<T>
 
 impl optional<T>
 {
-    optional<T>*% initialize(optional<T>*% self, T p, bool global_, bool heap_, bool local_, void* stacktop) {
+    optional<T>*% initialize(optional<T>*% self, T^ p, bool global_, bool heap_, bool local_, void* stacktop) {
         self.p = p;
         self.global = global_;
         self.heap = heap_;
@@ -706,7 +706,7 @@ impl optional<T>
         return self;
     }
     
-    _norecord T unwrap(optional<T>* self) {
+    _norecord T^ unwrap(optional<T>* self) {
         using unsafe;
         
         if(self == null) {
@@ -751,7 +751,7 @@ impl optional<T>
             exit(2);
         }
         
-        T p = self.p;
+        T^ p = self.p;
         
         return *p;
     }

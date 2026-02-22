@@ -1616,6 +1616,7 @@ struct CVALUE
     char*  c_value_without_cast_object_value  ;
     _Bool mLoadField;
     _Bool mCastValue;
+    _Bool mNullValue;
 };
 
 struct map$2char$phchar$ph

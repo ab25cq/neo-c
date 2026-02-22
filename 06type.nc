@@ -1571,7 +1571,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
           
             if(type->mClass->mStruct) {
                 type->mPointerNum = 1;
-                type->mHeap = true;
+                //type->mHeap = true;
             }
             else {
                 type->mPointerNum = 1;
@@ -1587,7 +1587,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 sType*% type = new sType(s"ref");
                 type->mGenericsTypes.add(new sType(s"__generics_type0"));
                 type->mPointerNum++;
-                type->mHeap = true;
+                //type->mHeap = true;
                 
                 sType*% type2 = solve_generics(type, generics_type, info);
                 
@@ -1629,13 +1629,13 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 sType*% type = new sType(s"optional");
                 type->mGenericsTypes.add(new sType(s"__generics_type0"));
                 type->mPointerNum++;
-                type->mHeap = true;
+                //type->mHeap = true;
                 
                 sType*% type2 = solve_generics(type, generics_type, info);
                 
                 if(type2->mClass->mStruct) {
                     type2->mPointerNum = 1;
-                    type2->mHeap = true;
+                    //type2->mHeap = true;
                 }
                 
                 type2->mOptional = true;
@@ -1666,7 +1666,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 sType*% type = new sType(s"span");
                 type->mGenericsTypes.add(new sType(s"__generics_type0"));
                 type->mPointerNum++;
-                type->mHeap = true;
+                //type->mHeap = true;
                 
                 sType*% type2 = solve_generics(type, generics_type, info);
                 

@@ -1588,12 +1588,9 @@ class sOptionalNode extends sNodeBase
     {
         sNode*% node = self.node;
         
-//        bool no_output_come_code = info.no_output_come_code;
-//        info.no_output_come_code = true;
         node_compile(node).elif {
             return false;
         }
-//        info.no_output_come_code = no_output_come_code;
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
@@ -1611,9 +1608,19 @@ class sOptionalNode extends sNodeBase
         sType*% origin = come_value.type.mNoSolvedGenericsType;
         
         if(come_value.type.mHeap || (origin && origin->mHeap)) {
-            global_ = false;
-            heap_ = true;
-            local_ = false;
+            err_msg(info, "require borrow and do not owned for opt");
+            return true;
+        }
+        else if(come_value.var == null) {
+            if(come_value.mNullValue) {
+                global_ = false;
+                heap_ = false;
+                local_ = false;
+            }
+            else {
+                err_msg(info, "require variable address for opt");
+                return true;
+            }
         }
         else if(come_value.var) {
             global_ = come_value.var->mGlobal;
@@ -1624,6 +1631,13 @@ class sOptionalNode extends sNodeBase
             global_ = false;
             heap_ = false;
             local_ = false;
+        }
+        
+        if(come_value.type->mPointerNum ==1 || come_value.type->mArrayPointerNum == 1) {
+        }
+        else {
+            err_msg(info, "require pointer for opt");
+            return true;
         }
         
         sType*% type_ = clone come_value.type;
@@ -1686,7 +1700,11 @@ class sRefNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        if(come_value.type.mHeap) {
+        sType*% origin = come_value.type.mNoSolvedGenericsType;
+        
+        if(come_value.type.mHeap || (origin && origin->mHeap)) {
+            err_msg(info, "require borrow and do not owned for ref");
+            return true;
         }
         else if(come_value.var == null) {
             err_msg(info, "require variable name for ref");

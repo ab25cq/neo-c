@@ -75,6 +75,7 @@ class sNullNode extends sNodeBase
         come_value.c_value = xsprintf("((void*)0)");
         come_value.type = new sType(s"void*");
         come_value.var = null;
+        come_value.mNullValue = true;
         
         add_come_last_code(info, "%s", come_value.c_value);
         
