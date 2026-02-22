@@ -1,9 +1,5 @@
 /// c_include definition ///
 /// typedef definition ///
-typedef unsigned long size_t;
-
-typedef int wchar_t;
-
 typedef __builtin_va_list __gnuc_va_list;
 
 /// previous struct definition ///
@@ -36,11 +32,11 @@ __cold __used __maybe_unused __noinline __always_inline __flatten __leaf __depre
 __section(".text.kernel") __aligned(16) __visibility("hidden") __alias("f_kernel_alias") __weak
  int f_kernel_attrs(int a)
 {
-    return a;
+        return a;
 }
 
 __init  int f_init()
 {
-    return 0;
+        return 0;
 }
 

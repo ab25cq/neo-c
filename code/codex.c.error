@@ -1,0 +1,59 @@
+codex.c:2607:8: error: call to undeclared function 'ATOMIC_VAR_INIT'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2607 |     ai=ATOMIC_VAR_INIT(3);
+      |        ^
+codex.c:2608:5: error: call to undeclared function 'atomic_store_explicit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2608 |     atomic_store_explicit(&ai,10,memory_order_relaxed);
+      |     ^
+codex.c:2608:34: error: use of undeclared identifier 'memory_order_relaxed'
+ 2608 |     atomic_store_explicit(&ai,10,memory_order_relaxed);
+      |                                  ^
+codex.c:2614:25: error: call to undeclared function 'atomic_load_explicit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2614 |         _g=(long  long)(atomic_load_explicit(&ai,memory_order_relaxed));
+      |                         ^
+codex.c:2614:50: error: use of undeclared identifier 'memory_order_relaxed'
+ 2614 |         _g=(long  long)(atomic_load_explicit(&ai,memory_order_relaxed));
+      |                                                  ^
+codex.c:2622:9: error: call to undeclared function 'atomic_fetch_add_explicit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2622 |     old=atomic_fetch_add_explicit(&ai,5,memory_order_relaxed);
+      |         ^
+codex.c:2622:41: error: use of undeclared identifier 'memory_order_relaxed'
+ 2622 |     old=atomic_fetch_add_explicit(&ai,5,memory_order_relaxed);
+      |                                         ^
+codex.c:2641:29: error: call to undeclared function 'atomic_load_explicit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2641 |         _g_123=(long  long)(atomic_load_explicit(&ai,memory_order_relaxed));
+      |                             ^
+codex.c:2641:54: error: use of undeclared identifier 'memory_order_relaxed'
+ 2641 |         _g_123=(long  long)(atomic_load_explicit(&ai,memory_order_relaxed));
+      |                                                      ^
+codex.c:2650:15: error: call to undeclared function 'atomic_compare_exchange_strong_explicit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2650 |     exchanged=atomic_compare_exchange_strong_explicit(&ai,&expected,99,memory_order_relaxed,memory_order_relaxed);
+      |               ^
+codex.c:2650:72: error: use of undeclared identifier 'memory_order_relaxed'
+ 2650 |     exchanged=atomic_compare_exchange_strong_explicit(&ai,&expected,99,memory_order_relaxed,memory_order_relaxed);
+      |                                                                        ^
+codex.c:2650:93: error: use of undeclared identifier 'memory_order_relaxed'
+ 2650 |     exchanged=atomic_compare_exchange_strong_explicit(&ai,&expected,99,memory_order_relaxed,memory_order_relaxed);
+      |                                                                                             ^
+codex.c:2667:29: error: call to undeclared function 'atomic_load_explicit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2667 |         _g_125=(long  long)(atomic_load_explicit(&ai,memory_order_relaxed));
+      |                             ^
+codex.c:2667:54: error: use of undeclared identifier 'memory_order_relaxed'
+ 2667 |         _g_125=(long  long)(atomic_load_explicit(&ai,memory_order_relaxed));
+      |                                                      ^
+codex.c:2676:10: error: call to undeclared function 'atomic_fetch_or_explicit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2676 |     prev=atomic_fetch_or_explicit(&au,0xAUL,memory_order_relaxed);
+      |          ^
+codex.c:2676:45: error: use of undeclared identifier 'memory_order_relaxed'
+ 2676 |     prev=atomic_fetch_or_explicit(&au,0xAUL,memory_order_relaxed);
+      |                                             ^
+codex.c:2695:52: error: call to undeclared function 'atomic_load_explicit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2695 |         _g_129=(unsigned long  long)((unsigned int)atomic_load_explicit(&au,memory_order_relaxed));
+      |                                                    ^
+codex.c:2695:77: error: use of undeclared identifier 'memory_order_relaxed'
+ 2695 |         _g_129=(unsigned long  long)((unsigned int)atomic_load_explicit(&au,memory_order_relaxed));
+      |                                                                             ^
+codex.c:2735:5: error: call to undeclared function 'atomic_store_explicit'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 2735 |     atomic_store_explicit(&ai,1,memory_order_release);
+      |     ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.

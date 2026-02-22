@@ -453,11 +453,6 @@ static void apply_predefined_macros(MacroTable *t, const PPOpts *opts) {
     process_define(t, "#define X_OK 1");
     process_define(t, "#define W_OK 2");
     process_define(t, "#define R_OK 4");
-    // Provide minimal stdarg compatibility so code using varargs works
-    // even if <stdarg.h> isn't explicitly included in user sources.
-    process_define(t, "#define va_start(ap,last) __builtin_va_start(ap,last)");
-    process_define(t, "#define va_end(ap) __builtin_va_end(ap)");
-    process_define(t, "#define va_copy(dst,src) __builtin_va_copy(dst,src)");
     // Suppress SIMD decl attribute markers from glibc headers for compatibility.
     process_define(t, "#define __SIMD_DECL(function)");
     // OpenSSL headers rely on these attribute/visibility helpers. Provide
@@ -1551,6 +1546,34 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     continue;
                 }
                 if (protect_defined && (strcmp(ident, "__has_include") == 0 || strcmp(ident, "__has_include_next") == 0)) {
+                    if (strcmp(ident, "__has_include_next") == 0 &&
+                        g_ifexpr_this_path && strstr(g_ifexpr_this_path, "stdatomic.h") != NULL) {
+                        size_t p2 = j;
+                        while (line[p2] && isspace((unsigned char)line[p2])) p2++;
+                        if (line[p2] != '(') {
+                            g_ifexpr_builtin_error = true;
+                            sb_puts(out, "0");
+                            i = j;
+                            continue;
+                        }
+                        int depth = 0;
+                        size_t q = p2;
+                        while (line[q]) {
+                            if (line[q] == '(') depth++;
+                            else if (line[q] == ')') {
+                                depth--;
+                                if (depth == 0) { q++; break; }
+                            }
+                            q++;
+                        }
+                        if (depth != 0) {
+                            g_ifexpr_builtin_error = true;
+                            q = strlen(line);
+                        }
+                        sb_puts(out, "0");
+                        i = q;
+                        continue;
+                    }
                     size_t endp = 0;
                     int val = 0;
                     bool next = (strcmp(ident, "__has_include_next") == 0);
@@ -3665,22 +3688,25 @@ static FILE *open_in_search_next(const char *name,
     // reconstructing candidate full paths and comparing exactly. Then continue
     // search from the next entry in that list.
     long start_inc = 0, start_sys = 0;
+    bool found_this = false;
     if (this_path && opts) {
-        bool found = false;
         for (size_t i=0; i<opts->nincdirs; ++i) {
             char *cand = path_join(opts->incdirs[i], name);
             bool eq = (strcmp(cand, this_path) == 0);
             free(cand);
-            if (eq) { start_inc = (long)i + 1; found = true; break; }
+            if (eq) { start_inc = (long)i + 1; found_this = true; break; }
         }
-        if (!found) {
+        if (!found_this) {
             for (size_t j=0; j<opts->nsysincdirs; ++j) {
                 char *cand = path_join(opts->sysincdirs[j], name);
                 bool eq = (strcmp(cand, this_path) == 0);
                 free(cand);
-                if (eq) { start_sys = (long)j + 1; break; }
+                if (eq) { start_sys = (long)j + 1; found_this = true; break; }
             }
         }
+        // If we can't locate the current header in search paths, avoid
+        // spuriously treating __has_include_next / #include_next as found.
+        if (!found_this) return NULL;
     }
     if (opts) {
         for (long i=start_inc; i<(long)opts->nincdirs; ++i) {
@@ -4293,7 +4319,18 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                         free(opened_path);
                     } else {
                         if (use_include_expanded) sb_free(&include_expanded);
-                        pp_directive_error(this_path, line_no, "include file not found");
+                        bool strict_missing = false;
+                        const char *strict_env = getenv("CCPP_STRICT_MISSING_INCLUDE");
+                        if (strict_env && *strict_env) strict_missing = true;
+                        if (!strict_missing && !quoted) {
+                            const char *suppress_w = getenv("CCPP_SUPPRESS_WARNINGS");
+                            if (!(suppress_w && *suppress_w)) {
+                                fprintf(stderr, "warning: %s %ld(0): include file not found: <%s>\n",
+                                        this_path ? this_path : "<stdin>", line_no, header);
+                            }
+                        } else {
+                            pp_directive_error(this_path, line_no, "include file not found");
+                        }
                     }
                     if (use_include_expanded) sb_free(&include_expanded);
                 }
@@ -4403,52 +4440,55 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 bool curr = parent && cond;
                 istk[ilen++] = (IfCtx){ parent, curr, curr, false };
             } else if (strcmp(kw, "if") == 0) {
-                long base_line = g_cur_line;
-                Str exln; sb_init(&exln);
-                int if_bl_start = g_block_comment_depth;
-                g_ifexpr_builtin_error = false;
-                g_cur_line = base_line;
-                g_expand_pass = 0;
-                g_block_comment_depth = if_bl_start;
-                expand_into_str_ifexpr(tbl, p, &exln);
-                int if_bl_depth = g_block_comment_depth;
-                for (int pass = 0; pass < PP_RESCAN_MAX; ++pass) {
-                    Str next; sb_init(&next);
-                    g_cur_line = base_line;
-                    g_expand_pass = pass + 1;
-                    g_block_comment_depth = if_bl_start;
-                    expand_into_str_ifexpr(tbl, exln.buf ? exln.buf : "", &next);
-                    g_block_comment_depth = if_bl_depth;
-                    bool same = ((exln.buf == NULL && next.buf == NULL) || (exln.buf && next.buf && strcmp(exln.buf, next.buf) == 0));
-                    sb_free(&exln);
-                    exln = next;
-                    if (same) break;
-                }
-                Expr ex = { .s = exln.buf ? exln.buf : "", .err = false };
-                ExValue v = ex_parse_expr(tbl, &ex);
-                ex.s = ex_skip(ex.s);
-                bool invalid_if_expr = g_ifexpr_builtin_error || ex.err || (ex.s && *ex.s != '\0');
-                if (invalid_if_expr) {
-                    const char *dbg = getenv("CCPP_DEBUG_IFEXPR");
-                    if (dbg && *dbg) {
-                        fprintf(stderr, "ccpp debug: #if expr: %s\n", exln.buf ? exln.buf : "");
-                    }
-                }
-                sb_free(&exln);
-                if (invalid_if_expr) {
-                    pp_directive_error(this_path, line_no, "invalid #if expression");
-                }
-                bool cond = ex_truthy(v);
-                if (ilen == icap) { icap = icap? icap*2:8; istk = xrealloc(istk, icap*sizeof(IfCtx)); }
                 bool parent = active;
+                bool cond = false;
+                if (parent) {
+                    long base_line = g_cur_line;
+                    Str exln; sb_init(&exln);
+                    int if_bl_start = g_block_comment_depth;
+                    g_ifexpr_builtin_error = false;
+                    g_cur_line = base_line;
+                    g_expand_pass = 0;
+                    g_block_comment_depth = if_bl_start;
+                    expand_into_str_ifexpr(tbl, p, &exln);
+                    int if_bl_depth = g_block_comment_depth;
+                    for (int pass = 0; pass < PP_RESCAN_MAX; ++pass) {
+                        Str next; sb_init(&next);
+                        g_cur_line = base_line;
+                        g_expand_pass = pass + 1;
+                        g_block_comment_depth = if_bl_start;
+                        expand_into_str_ifexpr(tbl, exln.buf ? exln.buf : "", &next);
+                        g_block_comment_depth = if_bl_depth;
+                        bool same = ((exln.buf == NULL && next.buf == NULL) || (exln.buf && next.buf && strcmp(exln.buf, next.buf) == 0));
+                        sb_free(&exln);
+                        exln = next;
+                        if (same) break;
+                    }
+                    Expr ex = { .s = exln.buf ? exln.buf : "", .err = false };
+                    ExValue v = ex_parse_expr(tbl, &ex);
+                    ex.s = ex_skip(ex.s);
+                    bool invalid_if_expr = g_ifexpr_builtin_error || ex.err || (ex.s && *ex.s != '\0');
+                    if (invalid_if_expr) {
+                        const char *dbg = getenv("CCPP_DEBUG_IFEXPR");
+                        if (dbg && *dbg) {
+                            fprintf(stderr, "ccpp debug: #if expr: %s\n", exln.buf ? exln.buf : "");
+                        }
+                    }
+                    sb_free(&exln);
+                    if (invalid_if_expr) {
+                        pp_directive_error(this_path, line_no, "invalid #if expression");
+                    }
+                    cond = ex_truthy(v);
+                    // Keep block-comment depth in sync from the raw directive line.
+                    // This avoids both double-counting (via expansion side effects)
+                    // and missing cross-line comments that start on #if/#elif lines.
+                    g_block_comment_depth = if_bl_start;
+                    scan_comment_depth(raw, &g_block_comment_depth);
+                    comment_depth_handled = true;
+                }
+                if (ilen == icap) { icap = icap? icap*2:8; istk = xrealloc(istk, icap*sizeof(IfCtx)); }
                 bool curr = parent && cond;
                 istk[ilen++] = (IfCtx){ parent, curr, curr, false };
-                // Keep block-comment depth in sync from the raw directive line.
-                // This avoids both double-counting (via expansion side effects)
-                // and missing cross-line comments that start on #if/#elif lines.
-                g_block_comment_depth = if_bl_start;
-                scan_comment_depth(raw, &g_block_comment_depth);
-                comment_depth_handled = true;
             } else if (strcmp(kw, "elif") == 0) {
                 if (ilen == 0) {
                     pp_directive_error(this_path, line_no, "#elif without matching #if");
@@ -4458,6 +4498,8 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     pp_directive_error(this_path, line_no, "#elif after #else");
                 }
                 if (c->taken) {
+                    c->current_active = false;
+                } else if (!c->parent_active) {
                     c->current_active = false;
                 } else {
                     long base_line = g_cur_line;
@@ -5094,6 +5136,9 @@ void init_ccpp(int argc, char** argv)
         char *p2 = path_join(sdkroot, "usr/local/include");
         opts_global.sysincdirs = (const char**)xrealloc((void*)opts_global.sysincdirs, sizeof(char*)*(opts_global.nsysincdirs+1));
         opts_global.sysincdirs[opts_global.nsysincdirs++] = p2;
+        char *p3 = path_join(sdkroot, "System/Library/Frameworks/Kernel.framework/Headers");
+        opts_global.sysincdirs = (const char**)xrealloc((void*)opts_global.sysincdirs, sizeof(char*)*(opts_global.nsysincdirs+1));
+        opts_global.sysincdirs[opts_global.nsysincdirs++] = p3;
     }
     // add common defaults
     const char *defs[] = { 
@@ -5118,7 +5163,9 @@ void init_ccpp(int argc, char** argv)
     {
         const char *mac_defs[] = {
             "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include",
-            "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+            "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include",
+            "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Kernel.framework/Headers",
+            "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Kernel.framework/Headers"
         };
         for (size_t di=0; di<sizeof(mac_defs)/sizeof(mac_defs[0]); ++di) {
             opts_global.sysincdirs = (const char**)xrealloc((void*)opts_global.sysincdirs, sizeof(char*)*(opts_global.nsysincdirs+1));

@@ -52,7 +52,9 @@ typedef char*% string;
     c_include {#include "pico/multicore.h"}
 
     #define MUTEX_INITIALIZER (mutex_t){ .locked = false, .core = NULL }
+    #ifndef NULL
     #define NULL ((void*)0)
+    #endif
 
     typedef __builtin_va_list va_list;
 
@@ -76,7 +78,9 @@ typedef char*% string;
 
     typedef __builtin_va_list va_list;
     
+    #ifndef NULL
     #define NULL ((void*)0)
+    #endif
     
     using neo-c;
     using unsafe;
@@ -97,9 +101,11 @@ typedef char*% string;
     #include <errno.h>
     #include <assert.h>
     #include <stdbool.h>
-    
+
+    #ifndef NULL
     #define NULL ((void*)0)
-    
+    #endif
+
     using neo-c;
     using unsafe;
 #endif

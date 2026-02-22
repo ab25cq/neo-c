@@ -9,7 +9,9 @@ using C
 #include <langinfo.h>
 #include <stdatomic.h>
 #include <syslog.h>
+#if !defined(__APPLE__) && __has_include(<tgmath.h>)
 #include <tgmath.h>
+#endif
 #if __has_include(<execinfo.h>)
 #include <execinfo.h>
 #endif

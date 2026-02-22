@@ -100,7 +100,9 @@
 #include <term_entry.h>
 #include <termcap.h>
 #include <termios.h>
+#if !defined(__APPLE__) && __has_include(<tgmath.h>)
 #include <tgmath.h>
+#endif
 #include <thread_db.h>
 #include <threads.h>
 #include <time.h>

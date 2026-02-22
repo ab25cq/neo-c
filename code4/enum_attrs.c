@@ -1,9 +1,5 @@
 /// c_include definition ///
 /// typedef definition ///
-typedef unsigned long size_t;
-
-typedef int wchar_t;
-
 typedef __builtin_va_list __gnuc_va_list;
 
 /// previous struct definition ///

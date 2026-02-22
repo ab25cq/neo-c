@@ -1,9 +1,5 @@
 /// c_include definition ///
 /// typedef definition ///
-typedef unsigned long size_t;
-
-typedef int wchar_t;
-
 typedef __builtin_va_list __gnuc_va_list;
 
 typedef int __attribute__((cold))  (*fp_mid_t)();
@@ -64,21 +60,21 @@ __alloc_align(1) __attribute_malloc__ __attr_dealloc_fclose(1) __wur __pure2 __p
 _Noreturn __noreturn _Nonnull __nonnull __attribute__((used)) __attribute__((cold))
 __asm("asm_attr_prefix")  int f_attr_prefix_all()
 {
-    return 0;
+        return 0;
 }
 
 __asm__("asm_prefix_name")  int f_asm_prefix()
 {
-    return 0;
+        return 0;
 }
 
 int  __attribute__((cold))  f_attr_mid()
 {
-    return 0;
+        return 0;
 }
 
 int f_asm_suffix()
 {
-    return 0;
+        return 0;
 }
 
