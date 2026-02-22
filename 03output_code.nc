@@ -66,13 +66,10 @@ string normalize_portable_c_source(char* source)
             token[len] = '\0';
 
             char* out = token;
-            int pos = string(token).index("$DARWIN_EXTSN", -1);
-            if(pos >= 0) {
+            int pos = string(token).index("$", -1);
+            if(pos >= 0 && token[0] == '_' && token[1] != '_' && token[1] != '\0' && token[pos+1] >= 'A' && token[pos+1] <= 'Z') {
                 token[pos] = '\0';
-
-                if(token[0] == '_' && token[1] != '_' && token[1] != '\0') {
-                    out = token + 1;
-                }
+                out = token + 1;
             }
             else if(token[0] == '_' && token[1] != '_' && token[1] != '\0' && is_portable_libc_symbol(token+1)) {
                 out = token + 1;

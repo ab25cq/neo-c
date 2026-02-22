@@ -7,6 +7,13 @@ CC=clang
 INSTALL=/usr/bin/install -c
 CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_OPT) -std=c11 -g -Og
 LIBS= -lutil -ldl -lm -lrt
+UNAME_S=$(shell uname -s)
+NCC_FLAGS=
+ifeq ($(UNAME_S),Darwin)
+ifneq ($(NO_PORTABLE_C),1)
+NCC_FLAGS+=-portable-c
+endif
+endif
 
 #########################################
 # main
@@ -19,100 +26,100 @@ all: ncc
 self-host: 01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31come_main.c  32come_toplevel.c
 
 01main.c: 01main.nc
-	./ncc -c 01main.nc 
+	./ncc $(NCC_FLAGS) -c 01main.nc 
 
 02transpile.c: 02transpile.nc
-	./ncc -c 02transpile.nc 
+	./ncc $(NCC_FLAGS) -c 02transpile.nc 
 
 03output_code.c: 03output_code.nc
-	./ncc -c 03output_code.nc
+	./ncc $(NCC_FLAGS) -c 03output_code.nc
 
 04heap.c: 04heap.nc
-	./ncc -c 04heap.nc
+	./ncc $(NCC_FLAGS) -c 04heap.nc
 
 05parse.c: 05parse.nc
-	./ncc -c 05parse.nc
+	./ncc $(NCC_FLAGS) -c 05parse.nc
 
 06type.c: 06type.nc
-	./ncc -c 06type.nc
+	./ncc $(NCC_FLAGS) -c 06type.nc
 
 07function.c: 07function.nc
-	./ncc -c 07function.nc
+	./ncc $(NCC_FLAGS) -c 07function.nc
 
 08call.c: 08call.nc
-	./ncc -c 08call.nc
+	./ncc $(NCC_FLAGS) -c 08call.nc
 
 09pre_op.c: 09pre_op.nc
-	./ncc -c 09pre_op.nc
+	./ncc $(NCC_FLAGS) -c 09pre_op.nc
 
 10str.c: 10str.nc
-	./ncc -c 10str.nc
+	./ncc $(NCC_FLAGS) -c 10str.nc
 
 11number.c: 11number.nc
-	./ncc -c 11number.nc
+	./ncc $(NCC_FLAGS) -c 11number.nc
 
 12var.c: 12var.nc
-	./ncc -c 12var.nc
+	./ncc $(NCC_FLAGS) -c 12var.nc
 
 13gvar.c: 13gvar.nc
-	./ncc -c 13gvar.nc
+	./ncc $(NCC_FLAGS) -c 13gvar.nc
 
 14if.c: 14if.nc
-	./ncc -c 14if.nc
+	./ncc $(NCC_FLAGS) -c 14if.nc
 
 15while.c: 15while.nc
-	./ncc -c 15while.nc
+	./ncc $(NCC_FLAGS) -c 15while.nc
 
 16for.c: 16for.nc
-	./ncc -c 16for.nc
+	./ncc $(NCC_FLAGS) -c 16for.nc
 
 17do_while.c: 17do_while.nc
-	./ncc -c 17do_while.nc
+	./ncc $(NCC_FLAGS) -c 17do_while.nc
 
 18switch.c: 18switch.nc
-	./ncc -c 18switch.nc
+	./ncc $(NCC_FLAGS) -c 18switch.nc
 
 19struct.c: 19struct.nc
-	./ncc -c 19struct.nc
+	./ncc $(NCC_FLAGS) -c 19struct.nc
 
 20union.c: 20union.nc
-	./ncc -c 20union.nc
+	./ncc $(NCC_FLAGS) -c 20union.nc
 
 21enum.c: 21enum.nc
-	./ncc -c 21enum.nc
+	./ncc $(NCC_FLAGS) -c 21enum.nc
 
 22typedef.c: 22typedef.nc
-	./ncc -c 22typedef.nc 
+	./ncc $(NCC_FLAGS) -c 22typedef.nc 
 
 23field.c: 23field.nc
-	./ncc -c 23field.nc
+	./ncc $(NCC_FLAGS) -c 23field.nc
 
 24method.c: 24method.nc
-	./ncc -c 24method.nc
+	./ncc $(NCC_FLAGS) -c 24method.nc
 
 25obj.c: 25obj.nc
-	./ncc -c 25obj.nc
+	./ncc $(NCC_FLAGS) -c 25obj.nc
 
 26eq.c: 26eq.nc
-	./ncc -c 26eq.nc
+	./ncc $(NCC_FLAGS) -c 26eq.nc
 
 27impl.c: 27impl.nc
-	./ncc -c 27impl.nc
+	./ncc $(NCC_FLAGS) -c 27impl.nc
 
 28interface.c: 28interface.nc
-	./ncc -c 28interface.nc
+	./ncc $(NCC_FLAGS) -c 28interface.nc
 
 29module.c: 29module.nc
-	./ncc -c 29module.nc
+	./ncc $(NCC_FLAGS) -c 29module.nc
 
 30op.c: 30op.nc
-	./ncc -c 30op.nc
+	./ncc $(NCC_FLAGS) -c 30op.nc
 
 31come_main.c: 31come_main.nc
-	./ncc -c 31come_main.nc
+	./ncc $(NCC_FLAGS) -c 31come_main.nc
 
 32come_toplevel.c: 32come_toplevel.nc
-	./ncc -c 32come_toplevel.nc
+	./ncc $(NCC_FLAGS) -c 32come_toplevel.nc
 
 
 #########################################
