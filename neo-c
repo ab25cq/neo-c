@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 CC=clang
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+NCC_BIN="ncc"
+if [ -x "$SCRIPT_DIR/ncc" ]; then
+  NCC_BIN="$SCRIPT_DIR/ncc"
+fi
 
 files=()
 opts=()
@@ -100,9 +105,9 @@ cbase="$(basename "${base}")"
 
 if [ "$CC" = clang++ ]
 then
-    ncc "${opts[@]}" "${ncc_opts[@]}" -cpp "${files[0]}"
+    "$NCC_BIN" "${opts[@]}" "${ncc_opts[@]}" -cpp "${files[0]}"
 else
-    ncc "${opts[@]}" "${ncc_opts[@]}" "${files[0]}"
+    "$NCC_BIN" "${opts[@]}" "${ncc_opts[@]}" "${files[0]}"
 fi
 
 transpile_ok=$?
