@@ -47,6 +47,7 @@ echo aaa
 (make -C code3 clean)
 (make -C code4 clean)
 (make -C code5 clean)
+(make -C code6 clean)
 
 if [ -e viw/Makefile ]
 then
