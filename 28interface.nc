@@ -7,7 +7,7 @@ class sInterfaceNode extends sNodeBase
         self.super();
         
         string self.name = string(name);
-        sClass*% self.klass = clone klass;
+        sClass*% self.klass = klass;
         
         bool self.mOutput = output;
     }

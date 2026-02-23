@@ -35,6 +35,7 @@ interface sNode
     string sname();
     bool terminated();
     string kind();
+    struct sNode* left_value();
 };
 
 uniq class sClass 
@@ -645,6 +646,10 @@ uniq class sNodeBase
     
     string sname(sInfo* info=info) {
         return string(self.sname);
+    }
+    
+    sNode* left_value() {
+        return null;
     }
 };
 
