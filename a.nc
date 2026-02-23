@@ -10,10 +10,12 @@ struct sData
 
 int main(int argc, char** argv)
 {
-    int x[3] = { 1, 2, 3 };
-    int*% y = new int(5);
+    var x = v[1,2,3];
     
-    int? p = opt borrow new int(5);
+    int{} p = span borrow x;
+    p++;
+    p++;
+    p++;
     
     printf("%d\n", *p);
     
