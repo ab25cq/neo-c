@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.1.6
+version 0.9.1.7
 
 ``` C
 #include <neo-c.h>
@@ -94,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.1.7 changing ref, span, opt. Maybe OK.
 0.9.1.6 changing ref, span, opt. Maybe OK.
 0.9.1.5 changing ref, span, opt.
 0.9.1.4 My main server is in Mac.

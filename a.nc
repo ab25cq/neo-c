@@ -7,17 +7,13 @@ struct sData
     int c;
 };
 
-
 int main(int argc, char** argv)
 {
     var x = v[1,2,3];
     
-    int{} p = span borrow x;
-    p++;
-    p++;
-    p++;
+    sData{} p = span borrow x;
     
-    printf("%d\n", *p);
+    printf("%d\n", p.a);
     
     return 0;
 }
