@@ -1596,10 +1596,10 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
           
             // `T&` wraps an addressable view of `T`.
             // Keep one more pointer level and drop ownership on the wrapped side.
-            type->mPointerNum++;
+            type->mPointerNum = 1;
             type->mHeap = false;
             if(type->mNoSolvedGenericsType) {
-                type->mNoSolvedGenericsType.mPointerNum++;
+                type->mNoSolvedGenericsType.mPointerNum = 1;
                 type->mNoSolvedGenericsType.mHeap = false;
             }
             
@@ -1615,13 +1615,13 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 sType*% type = new sType(s"ref");
                 type->mGenericsTypes.add(new sType(s"__generics_type0"));
                 type->mPointerNum++;
-                //type->mHeap = true;
+                type->mHeap = true;
                 
                 sType*% type2 = solve_generics(type, generics_type, info);
                 
                 type2->mPointerNum = 1;
-                type2->mHeap = true;
-                type2->mRefference = true;
+//                type2->mHeap = true;
+//                type2->mRefference = true;
                 tmp_ = clone type2;
             }
         }
@@ -1636,6 +1636,11 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             }
           
             type->mPointerNum = 1;
+            type->mHeap = false;
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mPointerNum = 1;
+                type->mNoSolvedGenericsType.mHeap = false;
+            }
             
             sType*% generics_type = new sType(s"optional");
             generics_type->mGenericsTypes.add(clone type);
@@ -1648,7 +1653,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 sType*% type = new sType(s"optional");
                 type->mGenericsTypes.add(new sType(s"__generics_type0"));
                 type->mPointerNum++;
-                //type->mHeap = true;
+                type->mHeap = true;
                 
                 sType*% type2 = solve_generics(type, generics_type, info);
                 
@@ -1670,6 +1675,11 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             }
             
             type->mPointerNum = 1;
+            type->mHeap = false;
+            if(type->mNoSolvedGenericsType) {
+                type->mNoSolvedGenericsType.mPointerNum = 1;
+                type->mNoSolvedGenericsType.mHeap = false;
+            }
             
             sType*% generics_type = new sType(s"span");
             generics_type->mGenericsTypes.add(clone type);
@@ -1682,7 +1692,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 sType*% type = new sType(s"span");
                 type->mGenericsTypes.add(new sType(s"__generics_type0"));
                 type->mPointerNum++;
-                //type->mHeap = true;
+                type->mHeap = true;
                 
                 sType*% type2 = solve_generics(type, generics_type, info);
                 

@@ -12,8 +12,7 @@ int main(int argc, char** argv)
 {
     int x[3] = { 1, 2, 3 };
     
-    string y = s"ABC";
-    string& p = ref borrow &y;
+    int& p = ref x;
     
     printf("%s\n", *p);
     
