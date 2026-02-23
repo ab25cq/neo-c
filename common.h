@@ -35,7 +35,7 @@ interface sNode
     string sname();
     bool terminated();
     string kind();
-    struct sNode* left_value();
+    sNode* left_value();
 };
 
 uniq class sClass 
@@ -63,7 +63,7 @@ uniq class sClass
     
     string mAttribute;
     
-    new(const char* name, bool number=false, bool union_=false, bool generics=false, bool method_generics=false, bool protocol_=false, bool struct_=false, bool float_=false, int generics_num=-1, int method_generics_num=-1, bool enum_=false, bool uniq_=false, bool typename=false, sInfo* info=info)
+    new(string name, bool number=false, bool union_=false, bool generics=false, bool method_generics=false, bool protocol_=false, bool struct_=false, bool float_=false, int generics_num=-1, int method_generics_num=-1, bool enum_=false, bool uniq_=false, bool typename=false, sInfo* info=info)
     {
         self.mNumber = number;
         self.mStruct = struct_;

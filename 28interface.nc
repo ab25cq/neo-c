@@ -39,7 +39,6 @@ class sInterfaceNode extends sNodeBase
         
         if(self.mOutput) {
             info.struct_definition.insert(string(name), buf);
-//            info.classes.insert(string(name), klass);
         }
         
         return true;
@@ -80,21 +79,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
         
         var type_name = parse_word();
         
-        sClass*% klass = new sClass(name:string(type_name), struct_:true, protocol_:true);
-        info.classes.insert(type_name, klass);
-        
-        /*
-        else {
-            klass = info.classes.at(type_name, null);
-            
-            klass->mStruct = true;
-            klass->mProtocol = true;
-            
-            if(klass->mFields.length() > 0) {
-                output = false;
-            }
+        if(info.classes[type_name]) {
+            err_msg(info, "multiple define interface");
+            return null;
         }
-        */
+        
+        sClass*% klass = new sClass(name:type_name, struct_:true, protocol_:true);
+        info.classes.insert(type_name, klass);
         
         expected_next_character('{');
     

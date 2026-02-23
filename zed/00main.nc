@@ -2,12 +2,6 @@
 
 struct sInfo;
 
-interface sNode
-{
-    unsigned int id();
-    bool compile(sInfo* info);
-};
-
 unsigned int sNode*::get_hash_key(sNode* self)
 {
     return self.id();
