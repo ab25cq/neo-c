@@ -11,10 +11,11 @@ struct sData
 int main(int argc, char** argv)
 {
     int x[3] = { 1, 2, 3 };
+    int*% y = new int(5);
     
-    int& p = ref x;
+    int? p = opt borrow new int(5);
     
-    printf("%s\n", *p);
+    printf("%d\n", *p);
     
     return 0;
 }

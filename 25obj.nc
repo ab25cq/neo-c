@@ -1649,6 +1649,10 @@ class sRefNode extends sNodeBase
         
         sType*% generics_type = new sType(s"ref");
         generics_type->mGenericsTypes.add(type_);
+        if(type_->mArrayPointerNum == 1) {
+            type_->mArrayPointerNum = 0;
+            type_->mPointerNum = 1;
+        }
         
         sType*% type = new sType(s"ref");
         type->mGenericsTypes.add(new sType(s"__generics_type0"));
@@ -1737,6 +1741,10 @@ class sOptionalNode extends sNodeBase
         sType*% type_ = clone come_value.type;
         
         sType*% generics_type = new sType(s"optional");
+        if(type_->mArrayPointerNum == 1) {
+            type_->mArrayPointerNum = 0;
+            type_->mPointerNum = 1;
+        }
         generics_type->mGenericsTypes.add(type_);
         
         sType*% type = new sType(s"optional");
@@ -1912,6 +1920,10 @@ class sSpanNode extends sNodeBase
         
         sType*% generics_type = new sType(s"span");
         generics_type->mGenericsTypes.add(type_);
+        if(type_->mArrayPointerNum == 1) {
+            type_->mArrayPointerNum = 0;
+            type_->mPointerNum = 1;
+        }
         
         sType*% type = new sType(s"span");
         type->mGenericsTypes.add(new sType(s"__generics_type0"));

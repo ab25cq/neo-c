@@ -3480,7 +3480,6 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 type->mGenericsTypes.push_back((clone it));
             }
             
-            
             type = parse_pointer_attribute(type);
             
             if(is_contained_generics_class(type, info)) {
