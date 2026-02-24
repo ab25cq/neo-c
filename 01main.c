@@ -3295,7 +3295,7 @@ struct buffer*  buffer_initialize(struct buffer*  self  )
     __dec_obj1=self->buf,
     self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "/usr/local/include/neo-c.h", 3955, "char*"));
     __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
-    self->buf[0]=0;
+    ((char*)self->buf)[0]=0;
     self->len=0;
         __result_obj__0 = (struct buffer* )come_increment_ref_count(self);
     come_call_finalizer(buffer_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -3314,7 +3314,7 @@ struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char*
     __dec_obj2=self->buf,
     self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "/usr/local/include/neo-c.h", 3965, "char*"));
     __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0);
-    self->buf[0]=0;
+    ((char*)self->buf)[0]=0;
     self->len=0;
     buffer_append(self,mem,size);
         __result_obj__0 = (struct buffer* )come_increment_ref_count(self);
@@ -3400,7 +3400,7 @@ void buffer_reset(struct buffer*  self  )
                 neo_current_frame = fr.prev;
         return;
     }
-    self->buf[0]=0;
+    ((char*)self->buf)[0]=0;
     self->len=0;
     neo_current_frame = fr.prev;
 }
@@ -3414,11 +3414,11 @@ void buffer_trim(struct buffer*  self  , int len)
     }
     self->len-=len;
     if(self->len>=0) {
-        self->buf[self->len]=0;
+        ((char*)self->buf)[self->len]=0;
     }
     else {
         self->len=0;
-        self->buf[0]=0;
+        ((char*)self->buf)[0]=0;
     }
     neo_current_frame = fr.prev;
 }
@@ -3446,13 +3446,13 @@ struct buffer*  buffer_append(struct buffer*  self  , const char* mem, unsigned 
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4050, "char*"));
         __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -3481,13 +3481,13 @@ struct buffer*  buffer_append_char(struct buffer*  self  , char c)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4074, "char*"));
         __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    self->buf[self->len]=c;
+    ((char*)self->buf)[self->len]=c;
     self->len++;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -3518,13 +3518,13 @@ struct buffer*  buffer_append_str(struct buffer*  self  , const char* mem)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4100, "char*"));
         __dec_obj6 = come_decrement_ref_count(__dec_obj6, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -3569,13 +3569,13 @@ struct buffer*  buffer_append_format(struct buffer*  self  , const char* msg, ..
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4176, "char*"));
         __dec_obj7 = come_decrement_ref_count(__dec_obj7, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
     free(result);
         __result_obj__0 = self;
     (mem = come_decrement_ref_count(mem, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3608,13 +3608,13 @@ struct buffer*  buffer_append_nullterminated_str(struct buffer*  self  , const c
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4203, "char*"));
         __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
     self->len++;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
@@ -3648,13 +3648,13 @@ struct buffer*  buffer_append_int(struct buffer*  self  , int value)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4230, "char*"));
         __dec_obj9 = come_decrement_ref_count(__dec_obj9, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -3687,13 +3687,13 @@ struct buffer*  buffer_append_long(struct buffer*  self  , long value)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4256, "char*"));
         __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -3726,13 +3726,13 @@ struct buffer*  buffer_append_short(struct buffer*  self  , short value)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4283, "char*"));
         __dec_obj11 = come_decrement_ref_count(__dec_obj11, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -3765,12 +3765,12 @@ struct buffer*  buffer_alignment(struct buffer*  self  )
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4310, "char*"));
         __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     for(i=self->len;i<len;i++){
-        self->buf[i]=0;
+        ((char*)self->buf)[i]=0;
     }
     self->len=len;
         __result_obj__0 = self;
@@ -10136,6 +10136,7 @@ static struct sClass*  map$2char$phsClass$ph$p_operator_load_element(struct map$
     memset(&default_value,0,sizeof(struct sClass* ));
     if(self==((void*)0)) {
                 __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
@@ -10146,6 +10147,7 @@ static struct sClass*  map$2char$phsClass$ph$p_operator_load_element(struct map$
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                                 __result_obj__0 = (struct sClass* )come_increment_ref_count(self->items[it]);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
@@ -10156,6 +10158,7 @@ static struct sClass*  map$2char$phsClass$ph$p_operator_load_element(struct map$
             }
             else if(it==hash) {
                                 __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
@@ -10163,12 +10166,14 @@ static struct sClass*  map$2char$phsClass$ph$p_operator_load_element(struct map$
         }
         else {
                         __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+            come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             neo_current_frame = fr.prev;
             come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
         __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+    come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -10184,6 +10189,7 @@ static struct sClass*  map$2char$phsClass$ph_operator_load_element(struct map$2c
     memset(&default_value,0,sizeof(struct sClass* ));
     if(self==((void*)0)) {
                 __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
@@ -10194,6 +10200,7 @@ static struct sClass*  map$2char$phsClass$ph_operator_load_element(struct map$2c
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                                 __result_obj__0 = (struct sClass* )come_increment_ref_count(self->items[it]);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
@@ -10204,6 +10211,7 @@ static struct sClass*  map$2char$phsClass$ph_operator_load_element(struct map$2c
             }
             else if(it==hash) {
                                 __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
@@ -10211,12 +10219,14 @@ static struct sClass*  map$2char$phsClass$ph_operator_load_element(struct map$2c
         }
         else {
                         __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+            come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             neo_current_frame = fr.prev;
             come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
         __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+    come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -10329,7 +10339,7 @@ static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self)
     len=0;
     for(it=map$2char$phsClass$ph_begin(self);!map$2char$phsClass$ph_end(self);it=map$2char$phsClass$ph_next(self)){
         memset(&default_value,0,sizeof(struct sClass* ));
-        it2=((struct sClass* )(__right_value0=map$2char$phsClass$ph_at(self,it,default_value,(_Bool)0)));
+        it2=(struct sClass* )come_increment_ref_count(map$2char$phsClass$ph_at(self,it,(struct sClass* )come_increment_ref_count(default_value),(_Bool)0));
         hash=string_get_hash_key(((char* )it))%size;
         n=hash;
         while((_Bool)1) {
@@ -10355,6 +10365,8 @@ static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self)
                 come_call_finalizer(sClass_finalize, default_value_46, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
+        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(sClass_finalize, it2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     come_free((char*)self->items);
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -12537,6 +12549,7 @@ static struct sVar*  map$2char$phsVar$ph$p_operator_load_element(struct map$2cha
     memset(&default_value,0,sizeof(struct sVar* ));
     if(self==((void*)0)) {
                 __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value);
+        come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
@@ -12547,6 +12560,7 @@ static struct sVar*  map$2char$phsVar$ph$p_operator_load_element(struct map$2cha
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                                 __result_obj__0 = (struct sVar* )come_increment_ref_count(self->items[it]);
+                come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
@@ -12557,6 +12571,7 @@ static struct sVar*  map$2char$phsVar$ph$p_operator_load_element(struct map$2cha
             }
             else if(it==hash) {
                                 __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value);
+                come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
@@ -12564,12 +12579,14 @@ static struct sVar*  map$2char$phsVar$ph$p_operator_load_element(struct map$2cha
         }
         else {
                         __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value);
+            come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             neo_current_frame = fr.prev;
             come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
         __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value);
+    come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;
@@ -12585,6 +12602,7 @@ static struct sVar*  map$2char$phsVar$ph_operator_load_element(struct map$2char$
     memset(&default_value,0,sizeof(struct sVar* ));
     if(self==((void*)0)) {
                 __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value);
+        come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         neo_current_frame = fr.prev;
         come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
@@ -12595,6 +12613,7 @@ static struct sVar*  map$2char$phsVar$ph_operator_load_element(struct map$2char$
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                                 __result_obj__0 = (struct sVar* )come_increment_ref_count(self->items[it]);
+                come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
@@ -12605,6 +12624,7 @@ static struct sVar*  map$2char$phsVar$ph_operator_load_element(struct map$2char$
             }
             else if(it==hash) {
                                 __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value);
+                come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 neo_current_frame = fr.prev;
                 come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
                 return __result_obj__0;
@@ -12612,12 +12632,14 @@ static struct sVar*  map$2char$phsVar$ph_operator_load_element(struct map$2char$
         }
         else {
                         __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value);
+            come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             neo_current_frame = fr.prev;
             come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
             return __result_obj__0;
         }
     }
         __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value);
+    come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     neo_current_frame = fr.prev;
     come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
     return __result_obj__0;

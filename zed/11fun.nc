@@ -411,7 +411,7 @@ bool vm(sInfo* info) version 10
                         if(params.length() == 1) {
                             ZVALUE* param0 = borrow params[0];
                             
-                            list<ZVALUE*%>* list1 = borrow obj.listValue;
+                            list<ZVALUE*%>*% list1 = obj.listValue;
                             
                             list1.push_back(clone param0);
                             
@@ -423,7 +423,7 @@ bool vm(sInfo* info) version 10
                             int param0 = params[0].intValue;
                             ZVALUE* param1 = borrow params[1];
                             
-                            list<ZVALUE*%>* list1 = borrow obj.listValue;
+                            list<ZVALUE*%>*% list1 = obj.listValue;
                             
                             list1.insert(param0, clone param1);
                             
@@ -435,7 +435,7 @@ bool vm(sInfo* info) version 10
                             int param0 = params[0].intValue;
                             int param1 = params[1].intValue;
                             
-                            list<ZVALUE*%>* list1 = borrow obj.listValue;
+                            list<ZVALUE*%>*% list1 = obj.listValue;
                             
                             list1.delete(param0, param1);
                             
@@ -447,7 +447,7 @@ bool vm(sInfo* info) version 10
                             int param0 = params[0].intValue;
                             ZVALUE* param1 = borrow params[1];
                             
-                            list<ZVALUE*%>* list1 = borrow obj.listValue;
+                            list<ZVALUE*%>*% list1 = obj.listValue;
                             
                             list1.replace(param0, clone param1);
                             

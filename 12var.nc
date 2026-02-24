@@ -167,6 +167,10 @@ class sStoreNode extends sNodeBase
                     CVALUE*% come_value = new CVALUE();
                     
                     check_assign_type(s"\{self.name} is assigning to (1)", left_type, right_type2, come_value);
+                    if(right_type2->mHeap && !left_type->mHeap) {
+                        err_msg(info, "require borrow");
+                        exit(1);
+                    }
                     
                     if(right_type2->mHeap && left_type->mHeap && left_type->mPointerNum > 0 && right_type2->mPointerNum > 0)
                     {
@@ -347,6 +351,10 @@ class sStoreNode extends sNodeBase
                 var type_ = solve_generics(left_type, info->generics_type, info);
                 var type = solve_method_generics(type_, info);
                 check_assign_type(s"\{self.name} is assigning to (2)", type, right_type, right_value);
+                if(right_type->mHeap && !type->mHeap) {
+                    err_msg(info, "require borrow");
+                    exit(1);
+                }
                 
                 if(left_type->mPointerNum > 0 && left_type->mHeap && right_type->mClass->mName === "void" && right_type->mPointerNum > 0)
                 {
@@ -398,6 +406,10 @@ class sStoreNode extends sNodeBase
                         sType* left_type = borrow parent_var->mType;
                         
                         check_assign_type(s"\{self.name} is assigning to(3)", left_type, right_type, right_value);
+                        if(right_type->mHeap && !left_type->mHeap) {
+                            err_msg(info, "require borrow");
+                            exit(1);
+                        }
                         
                         if(left_type->mPointerNum > 0 && right_type->mPointerNum > 0 && right_type->mHeap && left_type->mHeap) {
                             string c_value = xsprintf("*(parent->%s)", parent_var->mCValueName);
@@ -475,6 +487,10 @@ class sStoreNode extends sNodeBase
             }
             else {
                 check_assign_type(s"\{self.name} is assigning to(4)", left_type, right_type, right_value);
+                if(right_type->mHeap && !left_type->mHeap) {
+                    err_msg(info, "require borrow");
+                    exit(1);
+                }
                 
                 if(right_type->mHeap && left_type->mHeap && left_type->mPointerNum > 0 && right_type->mPointerNum > 0)
                 {

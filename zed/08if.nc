@@ -66,7 +66,7 @@ class sIfNode
         
         for(int i= 0; i<elif_exps.length(); i++) {
             sNode* elif_exp = borrow elif_exps[i];
-            list<sNode*%>* elif_block = borrow elif_blocks[i];
+            list<sNode*%>*% elif_block = elif_blocks[i];
             
             if(!elif_exp.compile(info)) {
                 return false;

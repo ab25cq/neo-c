@@ -2900,6 +2900,7 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
     memset(&default_value,0,sizeof(char* ));
     if(self==((void*)0)) {
                 __result_obj__0 = (char* )come_increment_ref_count(default_value);
+        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
@@ -2910,6 +2911,7 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                                 __result_obj__0 = (char* )come_increment_ref_count(self->items[it]);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
@@ -2920,6 +2922,7 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
             }
             else if(it==hash) {
                                 __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
@@ -2927,12 +2930,14 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
         }
         else {
                         __result_obj__0 = (char* )come_increment_ref_count(default_value);
+            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
         __result_obj__0 = (char* )come_increment_ref_count(default_value);
+    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;
@@ -2948,6 +2953,7 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
     memset(&default_value,0,sizeof(char* ));
     if(self==((void*)0)) {
                 __result_obj__0 = (char* )come_increment_ref_count(default_value);
+        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
         return __result_obj__0;
@@ -2958,6 +2964,7 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
                                 __result_obj__0 = (char* )come_increment_ref_count(self->items[it]);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
@@ -2968,6 +2975,7 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
             }
             else if(it==hash) {
                                 __result_obj__0 = (char* )come_increment_ref_count(default_value);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
                 neo_current_frame = fr.prev;
                 (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
                 return __result_obj__0;
@@ -2975,12 +2983,14 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
         }
         else {
                         __result_obj__0 = (char* )come_increment_ref_count(default_value);
+            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
             return __result_obj__0;
         }
     }
         __result_obj__0 = (char* )come_increment_ref_count(default_value);
+    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
     return __result_obj__0;

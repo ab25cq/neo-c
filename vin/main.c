@@ -4283,7 +4283,7 @@ struct buffer*  buffer_initialize(struct buffer*  self  )
     __dec_obj1=self->buf,
     self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "/usr/local/include/neo-c.h", 3955, "char*"));
     __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
-    self->buf[0]=0;
+    ((char*)self->buf)[0]=0;
     self->len=0;
         __result_obj__0 = (struct buffer* )come_increment_ref_count(self);
     come_call_finalizer(buffer_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0);
@@ -4302,7 +4302,7 @@ struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char*
     __dec_obj2=self->buf,
     self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(self->size)), "/usr/local/include/neo-c.h", 3965, "char*"));
     __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0);
-    self->buf[0]=0;
+    ((char*)self->buf)[0]=0;
     self->len=0;
     buffer_append(self,mem,size);
         __result_obj__0 = (struct buffer* )come_increment_ref_count(self);
@@ -4388,7 +4388,7 @@ void buffer_reset(struct buffer*  self  )
                 neo_current_frame = fr.prev;
         return;
     }
-    self->buf[0]=0;
+    ((char*)self->buf)[0]=0;
     self->len=0;
     neo_current_frame = fr.prev;
 }
@@ -4402,11 +4402,11 @@ void buffer_trim(struct buffer*  self  , int len)
     }
     self->len-=len;
     if(self->len>=0) {
-        self->buf[self->len]=0;
+        ((char*)self->buf)[self->len]=0;
     }
     else {
         self->len=0;
-        self->buf[0]=0;
+        ((char*)self->buf)[0]=0;
     }
     neo_current_frame = fr.prev;
 }
@@ -4434,13 +4434,13 @@ struct buffer*  buffer_append(struct buffer*  self  , const char* mem, unsigned 
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4050, "char*"));
         __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4469,13 +4469,13 @@ struct buffer*  buffer_append_char(struct buffer*  self  , char c)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4074, "char*"));
         __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    self->buf[self->len]=c;
+    ((char*)self->buf)[self->len]=c;
     self->len++;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4506,13 +4506,13 @@ struct buffer*  buffer_append_str(struct buffer*  self  , const char* mem)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4100, "char*"));
         __dec_obj6 = come_decrement_ref_count(__dec_obj6, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4557,13 +4557,13 @@ struct buffer*  buffer_append_format(struct buffer*  self  , const char* msg, ..
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4176, "char*"));
         __dec_obj7 = come_decrement_ref_count(__dec_obj7, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
     free(result);
         __result_obj__0 = self;
     (mem = come_decrement_ref_count(mem, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4596,13 +4596,13 @@ struct buffer*  buffer_append_nullterminated_str(struct buffer*  self  , const c
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4203, "char*"));
         __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
     self->len++;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
@@ -4636,13 +4636,13 @@ struct buffer*  buffer_append_int(struct buffer*  self  , int value)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4230, "char*"));
         __dec_obj9 = come_decrement_ref_count(__dec_obj9, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4675,13 +4675,13 @@ struct buffer*  buffer_append_long(struct buffer*  self  , long value)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4256, "char*"));
         __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4714,13 +4714,13 @@ struct buffer*  buffer_append_short(struct buffer*  self  , short value)
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4283, "char*"));
         __dec_obj11 = come_decrement_ref_count(__dec_obj11, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     memcpy(self->buf+self->len,mem,size);
     self->len+=size;
-    self->buf[self->len]=0;
+    ((char*)self->buf)[self->len]=0;
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4753,12 +4753,12 @@ struct buffer*  buffer_alignment(struct buffer*  self  )
         self->buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(new_size)), "/usr/local/include/neo-c.h", 4310, "char*"));
         __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0);
         memcpy(self->buf,old_buf,old_len);
-        self->buf[old_len]=0;
+        ((char*)self->buf)[old_len]=0;
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     for(i=self->len;i<len;i++){
-        self->buf[i]=0;
+        ((char*)self->buf)[i]=0;
     }
     self->len=len;
         __result_obj__0 = self;

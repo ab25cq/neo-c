@@ -3858,7 +3858,8 @@ static struct list$1int$ph* list$1int$ph_insert(struct list$1int$ph* self, int p
         len=self->len;
         for(i=0;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
-            list$1int$ph_push_back(self,default_value);
+            list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
+            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         list$1int$ph_push_back(self,(int* )come_increment_ref_count(item));
                 __result_obj__0 = self;
@@ -4014,7 +4015,8 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
         len=self->len;
         for(i=0;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
-            list$1int$ph_push_back(self,default_value);
+            list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
+            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         list$1int$ph_push_back(self,(int* )come_increment_ref_count(item));
                 __result_obj__0 = self;

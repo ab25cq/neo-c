@@ -1081,7 +1081,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19;
 /////////////////////////////////////////////////////////////////////
 string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sInfo* info);
 sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false);
-sNode*% create_funcall(const char* fun_name, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false);
+sNode*% create_funcall(const char* fun_name, list<tuple2<string, sNode*%>*%>* params, buffer*% method_block, int method_block_sline, list<sType*%>*% method_generics_types, sInfo* info, bool arrow_=false);
 sNode*% create_guard_break_method_call(sNode*% expression_node, sInfo* info);
 bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) ;
 string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo* info, bool array_equal_pointer=true);

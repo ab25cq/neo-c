@@ -2228,7 +2228,7 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
     return node;
 }
 
-sNode*% create_funcall(const char* fun_name, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false)
+sNode*% create_funcall(const char* fun_name, list<tuple2<string, sNode*%>*%>* params, buffer*% method_block, int method_block_sline, list<sType*%>*% method_generics_types, sInfo* info, bool arrow_=false)
 {
     sNode*% node = new sFunCallNode((char*)fun_name, params, method_generics_types, method_block, method_block_sline, info) implements sNode;
     return node;

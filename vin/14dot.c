@@ -5409,7 +5409,7 @@ static void map$2int$list$1list$1int$$ph$ph_rehash(struct map$2int$list$1list$1i
     len=0;
     for(it=map$2int$list$1list$1int$$ph$ph_begin(self);!map$2int$list$1list$1int$$ph$ph_end(self);it=map$2int$list$1list$1int$$ph$ph_next(self)){
         memset(&default_value,0,sizeof(struct list$1list$1int$$ph*));
-        it2=((struct list$1list$1int$$ph*)(__right_value0=map$2int$list$1list$1int$$ph$ph_at(self,it,default_value,(_Bool)0)));
+        it2=(struct list$1list$1int$$ph*)come_increment_ref_count(map$2int$list$1list$1int$$ph$ph_at(self,it,(struct list$1list$1int$$ph*)come_increment_ref_count(default_value),(_Bool)0));
         hash=int_get_hash_key(((int)it))%size;
         n=hash;
         while((_Bool)1) {
@@ -5435,6 +5435,8 @@ static void map$2int$list$1list$1int$$ph$ph_rehash(struct map$2int$list$1list$1i
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, default_value_18, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
         }
+        come_call_finalizer(list$1list$1int$$ph$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1list$1int$$ph$p_finalize, it2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     come_free((char*)self->items);
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5582,7 +5584,8 @@ static struct list$1list$1int$$ph* list$1list$1int$$ph_replace(struct list$1list
         len=self->len;
         for(i=0;i<position-len;i++){
             memset(&default_value,0,sizeof(struct list$1int$*));
-            list$1list$1int$$ph_push_back(self,default_value);
+            list$1list$1int$$ph_push_back(self,(struct list$1int$*)come_increment_ref_count(default_value));
+            come_call_finalizer(list$1int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         list$1list$1int$$ph_push_back(self,(struct list$1int$*)come_increment_ref_count(item));
                 __result_obj__0 = self;

@@ -4060,6 +4060,11 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
         warning_msg(info, "invalid assign type(expanded class is null). %s", msg);
         return false;
     }
+    if(left_type2->mHeap && !right_type2->mHeap && !(right_type2->mPointerNum == 1 && right_type2->mClass->mName === "void")) {
+        err_msg(info, "invalid heap assignment");
+        show_type(left_type2);
+        show_type(right_type2);
+    }
     
     bool left_lambda = left_type2->mClass->mName === "lambda";
     bool right_lambda = right_type2->mClass->mName === "lambda";

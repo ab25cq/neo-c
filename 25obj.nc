@@ -1840,7 +1840,12 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
     }
     else if(type2->mPointerNum == 1) {
         head = node;
-        len = new sSizeOfExpNode(node, info) implements sNode;
+        if(node.kind() === "sRefferenceNode") {
+            len = new sSizeOfExpNode(clone node.left_value(), info) implements sNode;
+        }
+        else {
+            len = new sSizeOfExpNode(node, info) implements sNode;
+        }
     }
     else {
         head = node;

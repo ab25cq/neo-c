@@ -2758,7 +2758,7 @@ bool is_owned(sType*% type, sClass* klass, sType*% field_type, sType*% owner, sI
         field_type2 = field_type;
     }
     foreach(it, field_type2->mGenericsTypes) {
-        sType* type2 = it;
+        sType*% type2 = clone it;
         sClass* klass2 = type2->mClass;
         if(owner->mClass->mName !== type->mClass->mName && !type2->mWeak && is_owned(type2, klass2, type, owner, info)) {
             result = true;

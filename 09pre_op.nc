@@ -60,6 +60,11 @@ class sRefferenceNode extends sNodeBase
         return string("sRefferenceNode");
     }
     
+    sNode* left_value() 
+    {
+        return self.value;
+    }
+    
     bool compile(sInfo* info)
     {
         if(gComeSafe) {

@@ -1606,7 +1606,7 @@ impl list <T>
         if(self.len == 0 || position >= self.len) {
             int len = self.len;
             for(int i=0; i<position-len; i++) {
-                T^` default_value;
+                T` default_value;
                 memset(&default_value, 0, sizeof(T));
                 self.push_back(default_value);
             }
@@ -1850,7 +1850,7 @@ impl list <T>
         if(self.len == 0 || position >= self.len) {
             int len = self.len;
             for(int i=0; i<position-len; i++) {
-                T^` default_value;
+                T` default_value;
                 memset(&default_value, 0, sizeof(T));
                 self.push_back(default_value);
             }
@@ -1919,7 +1919,7 @@ impl list <T>
     }
     list<T>*% sublist(list<T>* self, int begin, int tail) {
         if(self == null) {
-            return self;
+            return dummy_heap self;
         }
         
         list<T>*% result = new list<T>.initialize();
@@ -1963,7 +1963,7 @@ impl list <T>
         using unsafe;
         
         if(self == null) {
-            T^` default_value;
+            T` default_value;
             memset(&default_value, 0, sizeof(T));
             return default_value;
         }
@@ -1982,7 +1982,7 @@ impl list <T>
             i++;
         };
 
-        T^` default_value;
+        T` default_value;
         memset(&default_value, 0, sizeof(T));
         return default_value;
     }
@@ -2847,7 +2847,7 @@ impl map <T, T2>
         result.key_list = new list<T>();
 
         for(var it = self.begin(); !self.end(); it = self.next()) {
-            T2^` default_value;
+            T2` default_value;
             memset(&default_value, 0, sizeof(T2));
             
             var it2 = self.at(it, default_value);
@@ -2883,9 +2883,9 @@ impl map <T, T2>
         
         list_item<T>* it = self.key_list.head;
         while(it) {
-            T2^` default_value;
+            T2` default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2^ it2 = self.at(it.item, default_value);
+            T2 it2 = self.at(it.item, default_value);
             
             result.append_str(it.item.to_string());
             result.append_str("^");
@@ -3045,9 +3045,9 @@ impl map <T, T2>
         int len = 0;
 
         for(var it = self.begin(); !self.end(); it = self.next()) {
-            T2`^ default_value;
+            T2` default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2`^ it2 = borrow self.at(it, default_value);
+            T2` it2 = self.at(it, default_value);
             unsigned int hash = ((T)it).get_hash_key() % size;
             int n = hash;
 
@@ -3100,7 +3100,7 @@ impl map <T, T2>
         for(var it = self.begin(); !self.end(); it = self.next()) {
             puts("key " + it.to_string());
             
-            T2^` default_value;
+            T2` default_value;
             memset(&default_value, 0, sizeof(T2));
             
             var item = self.at(it, default_value);
@@ -3277,7 +3277,7 @@ impl map <T, T2>
     T2 operator_load_element(map<T, T2>* self, T^ key) {
         using unsafe;
         
-        T2^` default_value;
+        T2` default_value;
         memset(&default_value, 0, sizeof(T2));
         
         if(self == null) {
@@ -3342,7 +3342,7 @@ impl map <T, T2>
             T it2 = right.key_list.item(n, default_value);
             
             if(it.equals(it2)) {
-                T2^` default_value2;
+                T2` default_value2;
                 memset(&default_value2, 0, sizeof(T2));
                 T2 item = left.at(it, default_value2);
                 T2 item2 = right.at(it2, default_value2);
@@ -3377,15 +3377,15 @@ impl map <T, T2>
         int n = 0;
         bool result = true;
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
-            T^` default_value;
+            T` default_value;
             memset(&default_value, 0, sizeof(T));
-            T^ it2 = right.key_list.item(n, default_value);
+            T it2 = right.key_list.item(n, default_value);
             
             if(it === it2) {
-                T2^` default_value2;
+                T2` default_value2;
                 memset(&default_value2, 0, sizeof(T2));
-                T2^ item = left.at(it, default_value2);
-                T2^ item2 = right.at(it2, default_value2);
+                T2 item = left.at(it, default_value2);
+                T2 item2 = right.at(it2, default_value2);
                 
                 if(!(item === item2)) {
                     result = false;
@@ -3457,7 +3457,7 @@ impl map <T, T2>
 
         int n = 0;
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
-            T2^` default_value;
+            T2` default_value;
             memset(&default_value, 0, sizeof(T2));
             T2 it2 = left.at(it, default_value);
             
@@ -3478,7 +3478,7 @@ impl map <T, T2>
 
         n=0;
         for(var it = right.key_list.begin(); !right.key_list.end(); it = right.key_list.next()) {
-            T2^` default_value;
+            T2` default_value;
             memset(&default_value, 0, sizeof(T2));
             T2 it2 = left.at(it, default_value);
             
@@ -3511,7 +3511,7 @@ impl map <T, T2>
         for(int i=0; i<right; i++ ) {
             int n = 0;
             for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
-                T2^` default_value;
+                T2` default_value;
                 memset(&default_value, 0, sizeof(T2));
                 
                 T2 it2 = left.at(it, default_value);
@@ -3563,7 +3563,7 @@ impl map <T, T2>
         }
         
         for(var it = self.key_list.begin(); !self.key_list.end(); it = self.key_list.next()) { 
-            T2^` default_value;
+            T2` default_value;
             memset(&default_value, 0, sizeof(T2));
         
             var it2 = self.at(it, default_value);
@@ -3953,7 +3953,7 @@ uniq buffer*% buffer*::initialize(buffer*% self)
 {
     self.size = 128;
     self.buf = new char[self.size];
-    self.buf[0] = '\0';
+    ((char*)self.buf)[0] = '\0';
     self.len = 0;
 
     return self;
@@ -3963,7 +3963,7 @@ uniq buffer*% buffer*::initialize_with_value(buffer*% self, const char* mem, siz
 {
     self.size = 128;
     self.buf = new char[self.size];
-    self.buf[0] = '\0';
+    ((char*)self.buf)[0] = '\0';
     self.len = 0;
     
     self.append(mem, size);
@@ -4017,7 +4017,7 @@ uniq void buffer*::reset(buffer* self)
     if(self == null) {
         return;
     }
-    self.buf[0] = '\0';
+    ((char*)self.buf)[0] = '\0';
     self.len = 0;
 }
 
@@ -4028,11 +4028,11 @@ uniq void buffer*::trim(buffer* self, int len)
     }
     self.len -= len;
     if(self.len >= 0) {
-        self.buf[self.len] = '\0';
+        ((char*)self.buf)[self.len] = '\0';
     }
     else {
         self.len = 0;
-        self.buf[0] = '\0';
+        ((char*)self.buf)[0] = '\0';
     }
 }
 
@@ -4049,13 +4049,13 @@ uniq buffer* buffer*::append(buffer* self, const char* mem, size_t size)
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
-        self.buf[old_len] = '\0';
+        ((char*)self.buf)[old_len] = '\0';
         self.size = new_size;
     }
 
     memcpy(self.buf + self.len, mem, size);
     self.len += size;
-    self.buf[self.len] = '\0';
+    ((char*)self.buf)[self.len] = '\0';
     
     return self;
 }
@@ -4073,14 +4073,14 @@ uniq buffer* buffer*::append_char(buffer* self, char c)
         int new_size = (self.size + 10 + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
-        self.buf[old_len] = '\0';
+        ((char*)self.buf)[old_len] = '\0';
         self.size = new_size;
     }
 
-    self.buf[self.len] = c;
+    ((char*)self.buf)[self.len] = c;
     self.len++;
 
-    self.buf[self.len] = '\0';
+    ((char*)self.buf)[self.len] = '\0';
     
     return self;
 }
@@ -4099,13 +4099,13 @@ uniq buffer* buffer*::append_str(buffer* self, const char* mem)
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
-        self.buf[old_len] = '\0';
+        ((char*)self.buf)[old_len] = '\0';
         self.size = new_size;
     }
 
     memcpy(self.buf + self.len, mem, size);
     self.len += size;
-    self.buf[self.len] = '\0';
+    ((char*)self.buf)[self.len] = '\0';
     
     return self;
 }
@@ -4136,13 +4136,13 @@ uniq buffer* buffer*::append_str(buffer* self, const char* mem)
             int new_size = (self.size + size + 1) * 2;
             self.buf = new char[new_size];
             memcpy(self.buf, old_buf, old_len);
-            self.buf[old_len] = '\0';
+            ((char*)self.buf)[old_len] = '\0';
             self.size = new_size;
         }
     
         memcpy(self.buf + self.len, mem, size);
         self.len += size;
-        self.buf[self.len] = '\0';
+        ((char*)self.buf)[self.len] = '\0';
         
         free(result);
         
@@ -4175,13 +4175,13 @@ uniq buffer* buffer*::append_str(buffer* self, const char* mem)
             int new_size = (self.size + size + 1) * 2;
             self.buf = new char[new_size];
             memcpy(self.buf, old_buf, old_len);
-            self.buf[old_len] = '\0';
+            ((char*)self.buf)[old_len] = '\0';
             self.size = new_size;
         }
     
         memcpy(self.buf + self.len, mem, size);
         self.len += size;
-        self.buf[self.len] = '\0';
+        ((char*)self.buf)[self.len] = '\0';
         
         free(result);
         
@@ -4202,13 +4202,13 @@ uniq buffer* buffer*::append_nullterminated_str(buffer* self, const char* mem)
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
-        self.buf[old_len] = '\0';
+        ((char*)self.buf)[old_len] = '\0';
         self.size = new_size;
     }
 
     memcpy(self.buf + self.len, mem, size);
     self.len += size;
-    self.buf[self.len] = '\0';
+    ((char*)self.buf)[self.len] = '\0';
     self.len++;
     
     return self;
@@ -4229,13 +4229,13 @@ uniq buffer* buffer*::append_int(buffer* self, int value)
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
-        self.buf[old_len] = '\0';
+        ((char*)self.buf)[old_len] = '\0';
         self.size = new_size;
     }
 
     memcpy(self.buf + self.len, mem, size);
     self.len += size;
-    self.buf[self.len] = '\0';
+    ((char*)self.buf)[self.len] = '\0';
     
     return self;
 }
@@ -4255,13 +4255,13 @@ uniq buffer* buffer*::append_long(buffer* self, long value)
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
-        self.buf[old_len] = '\0';
+        ((char*)self.buf)[old_len] = '\0';
         self.size = new_size;
     }
 
     memcpy(self.buf + self.len, mem, size);
     self.len += size;
-    self.buf[self.len] = '\0';
+    ((char*)self.buf)[self.len] = '\0';
     
     return self;
 }
@@ -4282,13 +4282,13 @@ uniq buffer* buffer*::append_short(buffer* self, short value)
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
-        self.buf[old_len] = '\0';
+        ((char*)self.buf)[old_len] = '\0';
         self.size = new_size;
     }
 
     memcpy(self.buf + self.len, mem, size);
     self.len += size;
-    self.buf[self.len] = '\0';
+    ((char*)self.buf)[self.len] = '\0';
     
     return self;
 }
@@ -4309,12 +4309,12 @@ uniq buffer* buffer*::alignment(buffer* self)
         int new_size = (self.size + 1 + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
-        self.buf[old_len] = '\0';
+        ((char*)self.buf)[old_len] = '\0';
         self.size = new_size;
     }
 
     for(int i=self.len; i<len; i++) {
-        self.buf[i] = '\0';
+        ((char*)self.buf)[i] = '\0';
     }
     
     self.len = len;
