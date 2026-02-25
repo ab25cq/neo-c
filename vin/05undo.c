@@ -3394,15 +3394,22 @@ struct ViWin*  ViWin_initialize_v5(struct ViWin*  self  , int y, int x, int widt
     struct list$1int$* __dec_obj4;
     struct ViWin*  __result_obj__0  ;
     result=(struct ViWin* )come_increment_ref_count(ViWin_initialize_v2((struct ViWin* )come_increment_ref_count(self),y,x,width,height,vi));
+    __right_value0 = (void*)0;
     __dec_obj1=result->undo,
     result->undo=(struct list$1list$1int$ph$ph*)come_increment_ref_count(list$1list$1int$ph$ph_initialize((struct list$1list$1int$ph$ph*)come_increment_ref_count((struct list$1list$1int$ph$ph*)come_calloc(1, sizeof(struct list$1list$1int$ph$ph)*(1), "05undo.nc", 7, "struct list$1list$1int$ph$ph*"))));
     come_call_finalizer(list$1list$1int$ph$ph_finalize, __dec_obj1,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+    __right_value0 = (void*)0;
+    __right_value1 = (void*)0;
     __dec_obj2=result->undoScroll,
     result->undoScroll=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "05undo.nc", 8, "struct list$1int$*"))));
     come_call_finalizer(list$1int$_finalize, __dec_obj2,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+    __right_value0 = (void*)0;
+    __right_value1 = (void*)0;
     __dec_obj3=result->undoCursorX,
     result->undoCursorX=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "05undo.nc", 9, "struct list$1int$*"))));
     come_call_finalizer(list$1int$_finalize, __dec_obj3,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+    __right_value0 = (void*)0;
+    __right_value1 = (void*)0;
     __dec_obj4=result->undoCursorY,
     result->undoCursorY=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "05undo.nc", 10, "struct list$1int$*"))));
     come_call_finalizer(list$1int$_finalize, __dec_obj4,(void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4065,9 +4072,11 @@ static struct list$1int$ph* list$1int$ph$p_clone(struct list$1int$ph* self)
     it=self->head;
     while(it!=((void*)0)) {
         if(1) {
+            __right_value0 = (void*)0;
             list$1int$ph_add(result,(int* )come_increment_ref_count((int* )come_memdup(it->item, "/usr/local/include/neo-c.h", 1360, "int* ")));
         }
         else {
+            __right_value0 = (void*)0;
             list$1int$ph_add(result,(int* )come_increment_ref_count((int* )come_memdup(it->item, "/usr/local/include/neo-c.h", 1363, "int* ")));
         }
         it=it->next;
@@ -4121,6 +4130,7 @@ static struct list$1int$ph* list$1int$ph_add(struct list$1int$ph* self, int*  it
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_14=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), "/usr/local/include/neo-c.h", 1386, "struct list_item$1int$ph*"))));
         litem_14->prev=self->head;
         litem_14->next=((void*)0);
@@ -4131,6 +4141,7 @@ static struct list$1int$ph* list$1int$ph_add(struct list$1int$ph* self, int*  it
         self->head->next=litem_14;
     }
     else {
+        __right_value0 = (void*)0;
         litem_15=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), "/usr/local/include/neo-c.h", 1396, "struct list_item$1int$ph*"))));
         litem_15->prev=self->tail;
         litem_15->next=((void*)0);
@@ -4175,6 +4186,7 @@ static struct list$1list$1int$ph$ph* list$1list$1int$ph$ph_push_back(struct list
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_16=(struct list_item$1list$1int$ph$ph*)come_increment_ref_count(((struct list_item$1list$1int$ph$ph*)(__right_value0=(struct list_item$1list$1int$ph$ph*)come_calloc(1, sizeof(struct list_item$1list$1int$ph$ph)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1list$1int$ph$ph*"))));
         litem_16->prev=self->head;
         litem_16->next=((void*)0);
@@ -4185,6 +4197,7 @@ static struct list$1list$1int$ph$ph* list$1list$1int$ph$ph_push_back(struct list
         self->head->next=litem_16;
     }
     else {
+        __right_value0 = (void*)0;
         litem_17=(struct list_item$1list$1int$ph$ph*)come_increment_ref_count(((struct list_item$1list$1int$ph$ph*)(__right_value0=(struct list_item$1list$1int$ph$ph*)come_calloc(1, sizeof(struct list_item$1list$1int$ph$ph)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1list$1int$ph$ph*"))));
         litem_17->prev=self->tail;
         litem_17->next=((void*)0);
@@ -4241,6 +4254,7 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_18=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1int$*"))));
         litem_18->prev=self->head;
         litem_18->next=((void*)0);
@@ -4249,6 +4263,7 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
         self->head->next=litem_18;
     }
     else {
+        __right_value0 = (void*)0;
         litem_19=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1int$*"))));
         litem_19->prev=self->tail;
         litem_19->next=((void*)0);
@@ -4497,6 +4512,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_20=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1lambda$*"))));
         litem_20->prev=self->head;
         litem_20->next=((void*)0);
@@ -4505,6 +4521,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
         self->head->next=litem_20;
     }
     else {
+        __right_value0 = (void*)0;
         litem_21=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1lambda$*"))));
         litem_21->prev=self->tail;
         litem_21->next=((void*)0);

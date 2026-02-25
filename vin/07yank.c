@@ -3404,6 +3404,7 @@ _Bool ViWin_saveYankToFile(struct ViWin*  self  , struct Vi*  nvi  )
         return __result_obj__0;
     }
     for(o2_saved=(struct list$1int$ph*)come_increment_ref_count(nvi->yank),it=list$1int$ph_begin(o2_saved);!list$1int$ph_end(o2_saved);it=list$1int$ph_next(o2_saved)){
+        __right_value0 = (void*)0;
         fputs(((char* )(__right_value0=wstring_to_string(it))),f);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         fputs("\n",f);
@@ -3527,6 +3528,7 @@ _Bool ViWin_loadYankFromFile(struct ViWin*  self  , struct Vi*  nvi  )
     while(fgets(line,4096,f)!=((void*)0)) {
         c=line[strlen(line)-1];
         line[strlen(line)-1]=0;
+        __right_value0 = (void*)0;
         list$1int$ph_push_back(nvi->yank,(int* )come_increment_ref_count(__builtin_wstring(line)));
     }
     fclose(f);
@@ -3589,6 +3591,7 @@ static struct list$1int$ph* list$1int$ph_push_back(struct list$1int$ph* self, in
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_2=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1int$ph*"))));
         litem_2->prev=self->head;
         litem_2->next=((void*)0);
@@ -3599,6 +3602,7 @@ static struct list$1int$ph* list$1int$ph_push_back(struct list$1int$ph* self, in
         self->head->next=litem_2;
     }
     else {
+        __right_value0 = (void*)0;
         litem_3=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1int$ph*"))));
         litem_3->prev=self->tail;
         litem_3->next=((void*)0);
@@ -3639,6 +3643,7 @@ _Bool ViWin_saveFileYankToFile(struct ViWin*  self  , struct Vi*  nvi  )
         return __result_obj__0;
     }
     for(o2_saved=(struct list$1int$ph*)come_increment_ref_count(nvi->fileYank),it=list$1int$ph_begin(o2_saved);!list$1int$ph_end(o2_saved);it=list$1int$ph_next(o2_saved)){
+        __right_value0 = (void*)0;
         fputs(((char* )(__right_value0=wstring_to_string(it))),f);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         fputs("\n",f);
@@ -3679,6 +3684,7 @@ _Bool ViWin_loadFileYankFromFile(struct ViWin*  self  , struct Vi*  nvi  )
     while(fgets(line,4096,f)!=((void*)0)) {
         c=line[strlen(line)-1];
         line[strlen(line)-1]=0;
+        __right_value0 = (void*)0;
         list$1int$ph_push_back(nvi->fileYank,(int* )come_increment_ref_count(__builtin_wstring(line)));
     }
     fclose(f);
@@ -3730,9 +3736,12 @@ void ViWin_pasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
     }
     else {
         ViWin_pushUndo_v5(self);
+        __right_value0 = (void*)0;
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
         if(list$1int$ph_length(nvi->yank)==1) {
+            __right_value0 = (void*)0;
             yank_first_line=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,0,((void*)0)));
+            __right_value0 = (void*)0;
             new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line,((int* )(__right_value1=wstring_substring(line,self->cursorX+1,-1))))))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -3743,14 +3752,22 @@ void ViWin_pasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             (new_line = come_decrement_ref_count(new_line, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(list$1int$ph_length(nvi->yank)==2) {
+            __right_value0 = (void*)0;
             yank_first_line_14=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,0,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
+            __right_value2 = (void*)0;
             new_line_15=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line_14)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+            __right_value0 = (void*)0;
             after_line=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX+1,-1));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_15));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line_15));
+            __right_value0 = (void*)0;
             yank_last_line=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,-1,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
             new_line2=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line,after_line)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+1,(int* )come_increment_ref_count(new_line2));
@@ -3762,21 +3779,31 @@ void ViWin_pasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             (new_line2 = come_decrement_ref_count(new_line2, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(list$1int$ph_length(nvi->yank)>2) {
+            __right_value0 = (void*)0;
             yank_first_line_16=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,0,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
+            __right_value2 = (void*)0;
             new_line_17=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line_16)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+            __right_value0 = (void*)0;
             after_line_18=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX+1,-1));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_17));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line_17));
             it2_19=0;
-            for(({(_conditional_value_X0=(o2_saved_20=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(nvi->yank,1,-2)),it_21=list$1int$ph_begin(o2_saved_20)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved_20)));_conditional_value_X1;});({(_conditional_value_X2=(it_21=list$1int$ph_next(o2_saved_20)));_conditional_value_X2;})){
+            for(__right_value0 = (void*)0,
+({(_conditional_value_X0=(o2_saved_20=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(nvi->yank,1,-2)),it_21=list$1int$ph_begin(o2_saved_20)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved_20)));_conditional_value_X1;});({(_conditional_value_X2=(it_21=list$1int$ph_next(o2_saved_20)));_conditional_value_X2;})){
+                __right_value0 = (void*)0;
                 list$1int$ph_insert(self->texts,self->scroll+self->cursorY+it2_19+1,(int* )come_increment_ref_count((int* )come_memdup(it_21, "07yank.nc", 173, "int* ")));
                 list$1int$_insert(self->texts_length,self->scroll+self->cursorY+it2_19+1,wcslen(it_21));
                 it2_19++;
             }
             come_call_finalizer(list$1int$ph$p_finalize, o2_saved_20, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            __right_value0 = (void*)0;
             yank_last_line_22=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,-1,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
             new_line2_23=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line_22,after_line_18)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+list$1int$ph_length(nvi->yank)-1,(int* )come_increment_ref_count(new_line2_23));
@@ -3845,6 +3872,7 @@ static struct list$1int$ph* list$1int$ph_insert(struct list$1int$ph* self, int p
         self->len++;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_4=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), "/usr/local/include/neo-c.h", 1654, "struct list_item$1int$ph*"))));
         litem_4->prev=self->head;
         litem_4->next=self->tail;
@@ -3860,6 +3888,7 @@ static struct list$1int$ph* list$1int$ph_insert(struct list$1int$ph* self, int p
         i_5=0;
         while(it!=((void*)0)) {
             if(position==i_5) {
+                __right_value0 = (void*)0;
                 litem_6=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), "/usr/local/include/neo-c.h", 1670, "struct list_item$1int$ph*"))));
                 litem_6->prev=it->prev;
                 litem_6->next=it;
@@ -3925,6 +3954,7 @@ static struct list$1int$* list$1int$_insert(struct list$1int$* self, int positio
         self->len++;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_9=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), "/usr/local/include/neo-c.h", 1654, "struct list_item$1int$*"))));
         litem_9->prev=self->head;
         litem_9->next=self->tail;
@@ -3938,6 +3968,7 @@ static struct list$1int$* list$1int$_insert(struct list$1int$* self, int positio
         i_10=0;
         while(it!=((void*)0)) {
             if(position==i_10) {
+                __right_value0 = (void*)0;
                 litem_11=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), "/usr/local/include/neo-c.h", 1670, "struct list_item$1int$*"))));
                 litem_11->prev=it->prev;
                 litem_11->next=it;
@@ -3977,6 +4008,7 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_7=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1int$*"))));
         litem_7->prev=self->head;
         litem_7->next=((void*)0);
@@ -3985,6 +4017,7 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
         self->head->next=litem_7;
     }
     else {
+        __right_value0 = (void*)0;
         litem_8=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1int$*"))));
         litem_8->prev=self->tail;
         litem_8->next=((void*)0);
@@ -4168,7 +4201,9 @@ static struct list$1int$ph* list$1int$ph_sublist(struct list$1int$ph* self, int 
         begin=0;
     }
     if(begin>=self->len) {
-                __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(((struct list$1int$ph*)(__right_value1=list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), "/usr/local/include/neo-c.h", 1964, "struct list$1int$ph*"))))));
+                __right_value0 = (void*)0;
+        __right_value1 = (void*)0;
+        __result_obj__0 = (struct list$1int$ph*)come_increment_ref_count(((struct list$1int$ph*)(__right_value1=list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), "/usr/local/include/neo-c.h", 1964, "struct list$1int$ph*"))))));
         come_call_finalizer(list$1int$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         come_call_finalizer(list$1int$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0);
         neo_current_frame = fr.prev;
@@ -4250,9 +4285,12 @@ void ViWin_pasteBeforeCursor(struct ViWin*  self  , struct Vi*  nvi  )
     }
     else {
         ViWin_pushUndo_v5(self);
+        __right_value0 = (void*)0;
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
         if(list$1int$ph_length(nvi->yank)==1) {
+            __right_value0 = (void*)0;
             yank_first_line=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,0,((void*)0)));
+            __right_value0 = (void*)0;
             new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),yank_first_line,((int* )(__right_value1=wstring_substring(line,self->cursorX,-1))))))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -4263,14 +4301,22 @@ void ViWin_pasteBeforeCursor(struct ViWin*  self  , struct Vi*  nvi  )
             (new_line = come_decrement_ref_count(new_line, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(list$1int$ph_length(nvi->yank)==2) {
+            __right_value0 = (void*)0;
             yank_first_line_24=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,0,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
+            __right_value2 = (void*)0;
             new_line_25=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),yank_first_line_24)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+            __right_value0 = (void*)0;
             after_line=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX,-1));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_25));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line_25));
+            __right_value0 = (void*)0;
             yank_last_line=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,-1,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
             new_line2=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line,after_line)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+1,(int* )come_increment_ref_count(new_line2));
@@ -4282,21 +4328,31 @@ void ViWin_pasteBeforeCursor(struct ViWin*  self  , struct Vi*  nvi  )
             (new_line2 = come_decrement_ref_count(new_line2, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(list$1int$ph_length(nvi->yank)>2) {
+            __right_value0 = (void*)0;
             yank_first_line_26=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,0,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
+            __right_value2 = (void*)0;
             new_line_27=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),yank_first_line_26)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+            __right_value0 = (void*)0;
             after_line_28=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX,-1));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_27));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line_27));
             it2_29=0;
-            for(({(_conditional_value_X0=(o2_saved_30=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(nvi->yank,1,-2)),it_31=list$1int$ph_begin(o2_saved_30)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved_30)));_conditional_value_X1;});({(_conditional_value_X2=(it_31=list$1int$ph_next(o2_saved_30)));_conditional_value_X2;})){
+            for(__right_value0 = (void*)0,
+({(_conditional_value_X0=(o2_saved_30=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(nvi->yank,1,-2)),it_31=list$1int$ph_begin(o2_saved_30)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved_30)));_conditional_value_X1;});({(_conditional_value_X2=(it_31=list$1int$ph_next(o2_saved_30)));_conditional_value_X2;})){
+                __right_value0 = (void*)0;
                 list$1int$ph_insert(self->texts,self->scroll+self->cursorY+it2_29+1,(int* )come_increment_ref_count((int* )come_memdup(it_31, "07yank.nc", 249, "int* ")));
                 list$1int$_insert(self->texts_length,self->scroll+self->cursorY+it2_29+1,wcslen(it_31));
                 it2_29++;
             }
             come_call_finalizer(list$1int$ph$p_finalize, o2_saved_30, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            __right_value0 = (void*)0;
             yank_last_line_32=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,-1,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
             new_line2_33=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line_32,after_line_28)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+list$1int$ph_length(nvi->yank)-1,(int* )come_increment_ref_count(new_line2_33));
@@ -4354,9 +4410,12 @@ void ViWin_filePasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
     }
     else {
         ViWin_pushUndo_v5(self);
+        __right_value0 = (void*)0;
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
         if(list$1int$ph_length(nvi->fileYank)==1) {
+            __right_value0 = (void*)0;
             yank_first_line=(int* )come_increment_ref_count(list$1int$ph_item(nvi->fileYank,0,((void*)0)));
+            __right_value0 = (void*)0;
             new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line,((int* )(__right_value1=wstring_substring(line,self->cursorX+1,-1))))))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -4367,14 +4426,22 @@ void ViWin_filePasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             (new_line = come_decrement_ref_count(new_line, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(list$1int$ph_length(nvi->fileYank)==2) {
+            __right_value0 = (void*)0;
             yank_first_line_34=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,0,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
+            __right_value2 = (void*)0;
             new_line_35=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line_34)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+            __right_value0 = (void*)0;
             after_line=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX+1,-1));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_35));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line_35));
+            __right_value0 = (void*)0;
             yank_last_line=(int* )come_increment_ref_count(list$1int$ph_item(nvi->fileYank,-1,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
             new_line2=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line,after_line)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+1,(int* )come_increment_ref_count(new_line2));
@@ -4386,21 +4453,31 @@ void ViWin_filePasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             (new_line2 = come_decrement_ref_count(new_line2, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(list$1int$ph_length(nvi->fileYank)>2) {
+            __right_value0 = (void*)0;
             yank_first_line_36=(int* )come_increment_ref_count(list$1int$ph_item(nvi->fileYank,0,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
+            __right_value2 = (void*)0;
             new_line_37=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line_36)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
+            __right_value0 = (void*)0;
             after_line_38=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX+1,-1));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_37));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line_37));
             it2_39=0;
-            for(({(_conditional_value_X0=(o2_saved_40=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(nvi->fileYank,1,-2)),it_41=list$1int$ph_begin(o2_saved_40)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved_40)));_conditional_value_X1;});({(_conditional_value_X2=(it_41=list$1int$ph_next(o2_saved_40)));_conditional_value_X2;})){
+            for(__right_value0 = (void*)0,
+({(_conditional_value_X0=(o2_saved_40=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(nvi->fileYank,1,-2)),it_41=list$1int$ph_begin(o2_saved_40)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved_40)));_conditional_value_X1;});({(_conditional_value_X2=(it_41=list$1int$ph_next(o2_saved_40)));_conditional_value_X2;})){
+                __right_value0 = (void*)0;
                 list$1int$ph_insert(self->texts,self->scroll+self->cursorY+it2_39+1,(int* )come_increment_ref_count((int* )come_memdup(it_41, "07yank.nc", 327, "int* ")));
                 list$1int$_insert(self->texts_length,self->scroll+self->cursorY+it2_39+1,wcslen(it_41));
                 it2_39++;
             }
             come_call_finalizer(list$1int$ph$p_finalize, o2_saved_40, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            __right_value0 = (void*)0;
             yank_last_line_42=(int* )come_increment_ref_count(list$1int$ph_item(nvi->fileYank,-1,((void*)0)));
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
             new_line2_43=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line_42,after_line_38)))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+list$1int$ph_length(nvi->yank)-1,(int* )come_increment_ref_count(new_line2_43));
@@ -4442,9 +4519,12 @@ struct Vi*  Vi_initialize_v7(struct Vi*  self  )
     struct list$1int$ph* __dec_obj9;
     struct Vi*  __result_obj__0  ;
     result=(struct Vi* )come_increment_ref_count(Vi_initialize_v6((struct Vi* )come_increment_ref_count(self)));
+    __right_value0 = (void*)0;
     __dec_obj8=result->yank,
     result->yank=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), "07yank.nc", 347, "struct list$1int$ph*"))));
     come_call_finalizer(list$1int$ph_finalize, __dec_obj8,(void*)0, (void*)0, 0, 0, 0, (void*)0);
+    __right_value0 = (void*)0;
+    __right_value1 = (void*)0;
     __dec_obj9=result->fileYank,
     result->fileYank=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), "07yank.nc", 348, "struct list$1int$ph*"))));
     come_call_finalizer(list$1int$ph_finalize, __dec_obj9,(void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4545,6 +4625,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_44=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1lambda$*"))));
         litem_44->prev=self->head;
         litem_44->next=((void*)0);
@@ -4553,6 +4634,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
         self->head->next=litem_44;
     }
     else {
+        __right_value0 = (void*)0;
         litem_45=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1lambda$*"))));
         litem_45->prev=self->tail;
         litem_45->next=((void*)0);

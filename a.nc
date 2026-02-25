@@ -7,11 +7,11 @@ struct sData
     int c;
 };
 
-sData{} fun()
+sData%{} fun()
 {
     vector<int>*% x = v[1,2,3];
     
-    sData{} p = span borrow x;
+    sData%{} p = span borrow x;
     
     return p;
 }

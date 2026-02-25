@@ -3391,6 +3391,7 @@ struct ViWin*  ViWin_initialize_v6(struct ViWin*  self  , int y, int x, int widt
     char*  __dec_obj1  ;
     struct ViWin*  __result_obj__0  ;
     result=(struct ViWin* )come_increment_ref_count(ViWin_initialize_v5((struct ViWin* )come_increment_ref_count(self),y,x,width,height,vi));
+    __right_value0 = (void*)0;
     __dec_obj1=result->fileName,
     result->fileName=(char* )come_increment_ref_count(__builtin_string("a.txt"));
     __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3670,9 +3671,12 @@ void ViWin_saveCursorPosition(struct ViWin*  self  , char* file_name)
         return;
     }
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin",home));
+    __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",file_name2))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+    __right_value0 = (void*)0;
     bname=(char* )come_increment_ref_count(xbasename(file_name));
+    __right_value0 = (void*)0;
     __dec_obj2=file_name2,
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin/%s.pos",home,bname));
     __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3710,6 +3714,7 @@ void ViWin_readCursorPosition(struct ViWin*  self  , char* file_name)
         return;
     }
     bname=(char* )come_increment_ref_count(xbasename(file_name));
+    __right_value0 = (void*)0;
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin/%s.pos",home,bname));
     f=fopen(file_name2,"r");
     if(f==((void*)0)) {
@@ -3792,6 +3797,7 @@ void ViWin_openFile_v6(struct ViWin*  self  , char*  file_name  , int line_num, 
         f=fopen(file_name,"rb");
         if(f==((void*)0)) {
             cmd=(char* )come_increment_ref_count(xsprintf("echo \"\" > %s",file_name));
+            __right_value0 = (void*)0;
             list$1int$ph_push_back(self->texts,(int* )come_increment_ref_count(__builtin_wstring("")));
             list$1int$_push_back(self->texts_length,0);
             rc=system(cmd);
@@ -3800,6 +3806,7 @@ void ViWin_openFile_v6(struct ViWin*  self  , char*  file_name  , int line_num, 
                 printf("can't open file %s\n",file_name);
                 exit(2);
             }
+            __right_value0 = (void*)0;
             __dec_obj6=self->fileName,
             self->fileName=(char* )come_increment_ref_count(__builtin_string(file_name));
             __dec_obj6 = come_decrement_ref_count(__dec_obj6, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3813,6 +3820,7 @@ void ViWin_openFile_v6(struct ViWin*  self  , char*  file_name  , int line_num, 
             memset(&line, 0, sizeof(line));
             len=0;
             while((len=fread(line,1,16,f))>0) {
+                __right_value0 = (void*)0;
                 new_line=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(16+1)), "06file.nc", 146, "int* "));
                 for(i=0;i<len;i++){
                     new_line[i]=line[i];
@@ -3824,9 +3832,11 @@ void ViWin_openFile_v6(struct ViWin*  self  , char*  file_name  , int line_num, 
             }
             fclose(f);
             if(list$1int$ph_length(self->texts)==0) {
+                __right_value0 = (void*)0;
                 list$1int$ph_push_back(self->texts,(int* )come_increment_ref_count(__builtin_wstring("")));
                 list$1int$_push_back(self->texts_length,0);
             }
+            __right_value0 = (void*)0;
             __dec_obj7=self->fileName,
             self->fileName=(char* )come_increment_ref_count(__builtin_string(file_name));
             __dec_obj7 = come_decrement_ref_count(__dec_obj7, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3844,7 +3854,9 @@ void ViWin_openFile_v6(struct ViWin*  self  , char*  file_name  , int line_num, 
     else {
         f_6=fopen(file_name,"r");
         if(f_6==((void*)0)) {
+            __right_value0 = (void*)0;
             cmd_7=(char* )come_increment_ref_count(xsprintf("echo \"\" > %s",file_name));
+            __right_value0 = (void*)0;
             list$1int$ph_push_back(self->texts,(int* )come_increment_ref_count(__builtin_wstring("")));
             list$1int$_push_back(self->texts_length,0);
             rc_8=system(cmd_7);
@@ -3853,6 +3865,7 @@ void ViWin_openFile_v6(struct ViWin*  self  , char*  file_name  , int line_num, 
                 printf("can't open file %s\n",file_name);
                 exit(2);
             }
+            __right_value0 = (void*)0;
             __dec_obj8=self->fileName,
             self->fileName=(char* )come_increment_ref_count(__builtin_string(file_name));
             __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3866,14 +3879,17 @@ void ViWin_openFile_v6(struct ViWin*  self  , char*  file_name  , int line_num, 
             memset(&line_9, 0, sizeof(line_9));
             while(fgets(line_9,4096,f_6)!=((void*)0)) {
                 line_9[strlen(line_9)-1]=0;
+                __right_value0 = (void*)0;
                 list$1int$ph_push_back(self->texts,(int* )come_increment_ref_count(__builtin_wstring(line_9)));
                 list$1int$_push_back(self->texts_length,strlen(line_9));
             }
             fclose(f_6);
             if(list$1int$ph_length(self->texts)==0) {
+                __right_value0 = (void*)0;
                 list$1int$ph_push_back(self->texts,(int* )come_increment_ref_count(__builtin_wstring("")));
                 list$1int$_push_back(self->texts_length,0);
             }
+            __right_value0 = (void*)0;
             __dec_obj9=self->fileName,
             self->fileName=(char* )come_increment_ref_count(__builtin_string(file_name));
             __dec_obj9 = come_decrement_ref_count(__dec_obj9, (void*)0, (void*)0, 0,0, (void*)0);
@@ -3920,6 +3936,7 @@ static struct list$1int$ph* list$1int$ph_push_back(struct list$1int$ph* self, in
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_2=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1int$ph*"))));
         litem_2->prev=self->head;
         litem_2->next=((void*)0);
@@ -3930,6 +3947,7 @@ static struct list$1int$ph* list$1int$ph_push_back(struct list$1int$ph* self, in
         self->head->next=litem_2;
     }
     else {
+        __right_value0 = (void*)0;
         litem_3=(struct list_item$1int$ph*)come_increment_ref_count(((struct list_item$1int$ph*)(__right_value0=(struct list_item$1int$ph*)come_calloc(1, sizeof(struct list_item$1int$ph)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1int$ph*"))));
         litem_3->prev=self->tail;
         litem_3->next=((void*)0);
@@ -3968,6 +3986,7 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_4=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1int$*"))));
         litem_4->prev=self->head;
         litem_4->next=((void*)0);
@@ -3976,6 +3995,7 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
         self->head->next=litem_4;
     }
     else {
+        __right_value0 = (void*)0;
         litem_5=(struct list_item$1int$*)come_increment_ref_count(((struct list_item$1int$*)(__right_value0=(struct list_item$1int$*)come_calloc(1, sizeof(struct list_item$1int$)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1int$*"))));
         litem_5->prev=self->tail;
         litem_5->next=((void*)0);
@@ -4098,11 +4118,14 @@ void ViWin_writeFile(struct ViWin*  self  , _Bool binary_mode)
         return;
     }
     path=(char* )come_increment_ref_count(xsprintf("%s/.vin",home));
+    __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",path))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+    __right_value0 = (void*)0;
     __dec_obj10=path,
     path=(char* )come_increment_ref_count(xsprintf("%s/.vin/backup",home));
     __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0);
+    __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",path))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     char cmd[8192];
@@ -4115,6 +4138,7 @@ void ViWin_writeFile(struct ViWin*  self  , _Bool binary_mode)
             i=0;
             for(o2_saved=(struct list$1int$ph*)come_increment_ref_count(self->texts),it=list$1int$ph_begin(o2_saved);!list$1int$ph_end(o2_saved);it=list$1int$ph_next(o2_saved)){
                 len=list$1int$_operator_load_element(self->texts_length,i);
+                __right_value0 = (void*)0;
                 buf=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len+1)), "06file.nc", 281, "char*"));
                 p=buf;
                 p2=it;
@@ -4241,6 +4265,7 @@ void Vi_openNewFile(struct Vi*  self  , char*  file_name  )
     win=(struct ViWin* )come_increment_ref_count(ViWin_initialize_v18((struct ViWin* )come_increment_ref_count((struct ViWin *)come_calloc(1, sizeof(struct ViWin )*(1), "06file.nc", 334, "struct ViWin* ")),0,0,maxx-1,height,self));
     ViWin_openFile_v6(win,(char* )come_increment_ref_count(file_name),-1,(_Bool)0);
     list$1ViWin$ph_push_back(self->wins,(struct ViWin* )come_increment_ref_count(win));
+    __right_value0 = (void*)0;
     self->activeWin=((struct ViWin* )(__right_value0=list$1ViWin$ph_operator_load_element(self->wins,-1)));
     Vi_repositionWindows_v6(self);
     it2=0;
@@ -4296,6 +4321,7 @@ static struct list$1ViWin$ph* list$1ViWin$ph_push_back(struct list$1ViWin$ph* se
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_17=(struct list_item$1ViWin$ph*)come_increment_ref_count(((struct list_item$1ViWin$ph*)(__right_value0=(struct list_item$1ViWin$ph*)come_calloc(1, sizeof(struct list_item$1ViWin$ph)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1ViWin$ph*"))));
         litem_17->prev=self->head;
         litem_17->next=((void*)0);
@@ -4306,6 +4332,7 @@ static struct list$1ViWin$ph* list$1ViWin$ph_push_back(struct list$1ViWin$ph* se
         self->head->next=litem_17;
     }
     else {
+        __right_value0 = (void*)0;
         litem_18=(struct list_item$1ViWin$ph*)come_increment_ref_count(((struct list_item$1ViWin$ph*)(__right_value0=(struct list_item$1ViWin$ph*)come_calloc(1, sizeof(struct list_item$1ViWin$ph)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1ViWin$ph*"))));
         litem_18->prev=self->tail;
         litem_18->next=((void*)0);
@@ -4871,6 +4898,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
         self->head=litem;
     }
     else if(self->len==1) {
+        __right_value0 = (void*)0;
         litem_29=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1471, "struct list_item$1lambda$*"))));
         litem_29->prev=self->head;
         litem_29->next=((void*)0);
@@ -4879,6 +4907,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
         self->head->next=litem_29;
     }
     else {
+        __right_value0 = (void*)0;
         litem_30=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1481, "struct list_item$1lambda$*"))));
         litem_30->prev=self->tail;
         litem_30->next=((void*)0);
@@ -4977,8 +5006,10 @@ void Vi_saveLastOpenFile(struct Vi*  self  , char* file_name)
         return;
     }
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin",home));
+    __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",file_name2))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+    __right_value0 = (void*)0;
     __dec_obj14=file_name2,
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin/last_open_file",home,file_name));
     __dec_obj14 = come_decrement_ref_count(__dec_obj14, (void*)0, (void*)0, 0,0, (void*)0);
@@ -5022,7 +5053,8 @@ char*  Vi_readLastOpenFile(struct Vi*  self  )
     memset(&file_name, 0, sizeof(file_name));
     if(fgets(file_name,8192,f)==((void*)0)) {
         fclose(f);
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
+                __right_value0 = (void*)0;
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))));
         (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         neo_current_frame = fr.prev;
@@ -5031,7 +5063,8 @@ char*  Vi_readLastOpenFile(struct Vi*  self  )
     }
     file_name[strlen(file_name)-1]=0;
     fclose(f);
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(file_name))));
+        __right_value0 = (void*)0;
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(file_name))));
     (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -5057,6 +5090,7 @@ void Vi_openFile_v6(struct Vi*  self  , char*  file_name  , int line_num, _Bool 
             maxy=xgetmaxy();
             win=(struct ViWin* )come_increment_ref_count(ViWin_initialize_v18((struct ViWin* )come_increment_ref_count((struct ViWin *)come_calloc(1, sizeof(struct ViWin )*(1), "06file.nc", 516, "struct ViWin* ")),0,0,maxx-1,maxy,self));
             list$1ViWin$ph_push_back(self->wins,(struct ViWin* )come_increment_ref_count(win));
+            __right_value0 = (void*)0;
             self->activeWin=((struct ViWin* )(__right_value0=list$1ViWin$ph_operator_load_element(self->wins,-1)));
             ViWin_openFile_v6(self->activeWin,(char* )come_increment_ref_count(file_name),line_num,binary_mode);
             Vi_saveLastOpenFile(self,file_name);
@@ -5064,6 +5098,7 @@ void Vi_openFile_v6(struct Vi*  self  , char*  file_name  , int line_num, _Bool 
             come_call_finalizer(ViWin_finalize, win, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else {
+            __right_value0 = (void*)0;
             __dec_obj15=self->activeWin->fileName,
             self->activeWin->fileName=(char* )come_increment_ref_count(__builtin_string(file_name));
             __dec_obj15 = come_decrement_ref_count(__dec_obj15, (void*)0, (void*)0, 0,0, (void*)0);

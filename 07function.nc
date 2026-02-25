@@ -1333,13 +1333,7 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
             break;
         }
         
-        sNode*% node;
-        if(gComelang) {
-            node = comelang_top_level(buf, head, head_sline, info);
-        }
-        else {
-            node = top_level(buf, head, head_sline, info);
-        }
+        sNode*% node = top_level(buf, head, head_sline, info);
         skip_spaces_and_lf();
         
         while(*info->p == ';') {
