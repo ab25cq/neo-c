@@ -213,11 +213,12 @@ struct sMemHeader
 {
     long size;
     long compiletime_size;
+    long alloc_size;
     int allocated;            /// ALLOCATED_MAGIC_NUM 
+    int alive;
     struct sMemHeader* next;
     struct sMemHeader* prev;
     struct sMemHeader* free_next;
-    int alive;
     
     char* fun_name[COME_STACKFRAME_MAX];
     
@@ -267,7 +268,7 @@ uniq void* alloc_from_pages(size_t size)
     sMemHeader* it = gFreeMem;
     sMemHeader* it_prev = null;
     while(it) {
-        if(size <= it->size) {
+        if(size <= it->alloc_size) {
             if(it_prev == null) {
                 gFreeMem = null;
             }
@@ -281,7 +282,9 @@ uniq void* alloc_from_pages(size_t size)
         it = it->free_next;
     }
     
-    return calloc(1, size);
+    sMemHeader* it = (sMemHeader*)calloc(1, size);
+    it->alloc_size = size;
+    return it;
 }
     
 uniq void come_free_mem_of_heap_pool(void* mem)
@@ -859,12 +862,13 @@ struct span<T> {
     size_t len;
     bool local;
     bool heap;
+    bool global;
     void* stacktop;
 };
 
 impl span<T>
 {
-    span<T>*% initialize(span<T>*% self, void* head, size_t len, bool local, bool heap, void* stacktop) {
+    span<T>*% initialize(span<T>*% self, void* head, size_t len, bool local, bool heap, bool global, void* stacktop) {
         using unsafe; 
         
         if(!ispointer(T)) {
@@ -878,6 +882,7 @@ impl span<T>
         self.len = len;
         self.local = local;
         self.heap = heap;
+        self.global = global;
         self.stacktop = stacktop;
         
         return self;

@@ -725,11 +725,12 @@ struct sMemHeader
 {
     long size;
     long compiletime_size;
+    long alloc_size;
     int allocated;
+    int alive;
     struct sMemHeader*  next  ;
     struct sMemHeader*  prev  ;
     struct sMemHeader*  free_next  ;
-    int alive;
     char* fun_name[8];
     const char* class_name;
     const char* sname;

@@ -1804,7 +1804,7 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         len = method_node;
     }
     else if(type2->mClass->mName === "map" || type2->mClass->mName === "list") {
-        err_msg(info, "can't get serialize memory of this type(%s)", type2->mClass->mName);
+        err_msg(info, "can't get serialize memory of this type(%s).require to use to_vector method.", type2->mClass->mName);
         exit(1);
     }
     else if(type2->mHeap && type2->mPointerNum == 1 && type2->mNew) {
@@ -1916,6 +1916,7 @@ class sSpanNode extends sNodeBase
         params.add(t((string)null, len));
         params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
+        params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, stacktop));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
