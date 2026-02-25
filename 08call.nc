@@ -1260,13 +1260,19 @@ class sFunCallNode extends sNodeBase
                 sType*% type_ = solve_generics(come_value.type, info->generics_type, info);
                 come_value.type = solve_method_generics(type_, info);
                 
+                bool check = false;
                 int n = 0;
                 foreach(it, fun.mParamNames) {
                     if(label === it) {
+                        check = true;
                         break;
                     }
                     
                     n++;
+                }
+                
+                if(!check) {
+                    err_msg(info, "invalid label name(%s)", label);
                 }
                 
                 if(param_types[n]) {

@@ -758,12 +758,18 @@ class sMethodCallNode extends sNodeBase
                 }
                 else if(label) {
                     int n = 0;
+                    bool check = false;
                     foreach(it, fun.mParamNames) {
                         if(label === it) {
+                            check = true;
                             break;
                         }
                         
                         n++;
+                    }
+                    
+                    if(!check) {
+                        err_msg(info, "invalid label name(%s)", label);
                     }
                     
                     node_compile(node).elif {
