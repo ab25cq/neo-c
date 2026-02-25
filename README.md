@@ -2059,7 +2059,7 @@ int main(int argc, char** argv)
 ~/neo-c # neo-c a.nc
 ~/neo-c # ./a
 123
-#1 0x468d390 (int*): come_alloc_mem_from_heap_pool, come_calloc, fun, main,
+#1 0x3a73b3b0 (int*) a.nc 5: come_alloc_mem_from_heap_pool, come_calloc, fun, main, 
 1 memory leaks. 1 alloc, 0 free.
 ```
 
