@@ -1701,11 +1701,6 @@ class sOptionalNode extends sNodeBase
             return true;
         }
         else if(come_value.var) {
-            if(come_value.type.mHeap) {
-                err_msg(info, "require borrow and do not owned for opt");
-                show_type(come_value.type);
-                return true;
-            }
             global_ = come_value.var->mGlobal;
             heap_ = come_value.var.mType.mHeap;
             local_ = !global_ && !heap_;
@@ -1716,8 +1711,15 @@ class sOptionalNode extends sNodeBase
             local_ = false;
         }
         else {
-            err_msg(info, "require variable name for opt");
-            return true;
+            if(come_value.type.mHeap) {
+                global_ = false;
+                heap_ = true;
+                local_ = false;
+            }
+            else {
+                err_msg(info, "require heap or variable name for opt");
+                return true;
+            }
         }
         
         sType*% type_ = clone come_value.type;

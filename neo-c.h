@@ -184,9 +184,11 @@ uniq void stackframe()
 
 uniq void stackframe2(void* mem)
 {
-    sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
-    
-    printf("allocated at %s %d\n", it->sname, it->sline);
+    if(mem) {
+        sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
+        
+        printf("allocated at %s %d\n", it->sname, it->sline);
+    }
     
     neo_frame *f = neo_current_frame;
     while(f) {
@@ -706,7 +708,7 @@ impl ref<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         if(self.local) {
@@ -731,7 +733,7 @@ impl ref<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -765,13 +767,13 @@ struct optional<T>
     bool local;
     
     void* stacktop;
-    void* heaptop;
+    T heaptop;
 };
 
 impl optional<T>
 {
-    optional<T>*% initialize(optional<T>*% self, T^ p, bool global_, bool heap_, bool local_, void* stacktop) {
-        self.p = p;
+    optional<T>*% initialize(optional<T>*% self, T p, bool global_, bool heap_, bool local_, void* stacktop) {
+        self.p = borrow p;
         self.global = global_;
         self.heap = heap_;
         self.local = local_;
@@ -780,12 +782,12 @@ impl optional<T>
         return self;
     }
     
-    _norecord T^ unwrap(optional<T>* self) {
+    _norecord T unwrap(optional<T>* self) {
         using unsafe;
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         if(self.local) {
@@ -804,10 +806,10 @@ impl optional<T>
         }
         if(ispointer(T) && self.p == (void*)0) {
             puts("null pointer exception");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
-        return self.p;
+        return dummy_heap self.p;
     }
     _norecord T] operator_derefference(optional<T>* self)
     {
@@ -815,7 +817,7 @@ impl optional<T>
         
         if(self == null) {
             puts("null pointer exception");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -835,11 +837,11 @@ impl optional<T>
         }
         if(ispointer(T) && self.p == (void*)0) {
             puts("null pointer exception");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
-        T^ p = self.p;
+        T p = self.p;
         
         return *p;
     }
@@ -891,7 +893,7 @@ impl span<T>
         using unsafe; 
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         if(self->local) {
@@ -932,7 +934,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -945,7 +947,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -959,7 +961,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -973,7 +975,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -987,7 +989,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -1001,7 +1003,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -1015,7 +1017,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -1052,7 +1054,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -1095,7 +1097,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -1139,7 +1141,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         
@@ -1149,7 +1151,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         return self.len;
@@ -1159,7 +1161,7 @@ impl span<T>
         
         if(self == null) {
             puts("null pointer exception. self is null");
-            stackframe2(self);
+            stackframe();
             exit(2);
         }
         

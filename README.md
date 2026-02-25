@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.2.0
+version 0.9.2.1
 
 ``` C
 #include <neo-c.h>
@@ -94,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.2.1 ref, apan, opt are ok.
 0.9.2.0 A bug exits in right value object automatically removed. Fixed it.
 0.9.1.9 heap alive checker. stupied algorithm was removed. I learn about the knowledge of the algrorithm from gemini. span, opt, ref are maybe ok.
 0.9.1.8 heap checker. changing ref, span, opt. Maybe OK.
@@ -2968,3 +2969,143 @@ int main(int argc, char** argv)
 }
 ```
 
+# span, ref , opt
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+    int c;
+};
+
+sData%? fun()
+{
+    sData%? p = opt new sData { a:111, b:222, c:333 };
+    
+    return p;
+}
+
+int main(int argc, char** argv)
+{
+    sData%? p = fun();
+    
+    printf("p.a %d\n", p.a);
+    
+    return 0;
+}
+```
+p.a 111
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+    int c;
+};
+
+int main(int argc, char** argv)
+{
+    sData%? p = null;
+    
+    printf("p.a %d\n", p.a);
+    
+    return 0;
+}
+```
+null pointer exception. self is null
+stackframe
+main
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+    int c;
+};
+
+sData? fun()
+{
+    sData data = (sData) { 111, 222, 333 };
+    sData? p = opt &data;
+    
+    return p;
+}
+
+int main(int argc, char** argv)
+{
+    sData? p = fun();
+    
+    printf("p.a %d\n", p.a);
+    
+    return 0;
+}
+```
+refferenced stack object is vanished
+allocated at a.nc 13
+stackframe2
+main
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+    int c;
+};
+
+sData& fun()
+{
+    var x = new sData { a:111, b:222, c:333 };
+
+    sData& p = ref borrow x;
+
+    return p;
+}
+
+int main(int argc, char** argv)
+{
+    sData& p = fun();
+
+    printf("p.a %d\n", p.a);
+
+    return 0;
+}
+```
+refferenced heap object is vanished
+allocated at a.nc 14
+stackframe2
+main
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+    int c;
+};
+
+int main(int argc, char** argv)
+{
+    var x = v[1,2,3];
+    
+    sData{} p = span borrow x;
+    
+    printf("p.a %d\n", p.a);
+    
+    return 0;
+}
+```
+p.a 1
