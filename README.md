@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.1.8
+version 0.9.1.9
 
 ``` C
 #include <neo-c.h>
@@ -94,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.1.9 heap alive checker. stupied algorithm was removed. I learn about the knowledge of the algrorithm from gemini. span, opt, ref are maybe ok.
 0.9.1.8 heap checker. changing ref, span, opt. Maybe OK.
 0.9.1.7 changing ref, span, opt. Maybe OK.
 0.9.1.6 changing ref, span, opt. Maybe OK.

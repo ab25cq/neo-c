@@ -7,13 +7,20 @@ struct sData
     int c;
 };
 
-int main(int argc, char** argv)
+sData{} fun()
 {
-    var x = v[1,2,3];
+    vector<int>*% x = v[1,2,3];
     
     sData{} p = span borrow x;
     
-    printf("%d\n", p.a);
+    return p;
+}
+
+int main(int argc, char** argv)
+{
+    sData{} p = fun();
+    
+    printf("p.a %d\n", p.a);
     
     return 0;
 }

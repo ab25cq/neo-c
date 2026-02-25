@@ -729,6 +729,7 @@ struct sMemHeader
     struct sMemHeader*  next  ;
     struct sMemHeader*  prev  ;
     struct sMemHeader*  free_next  ;
+    int alive;
     char* fun_name[8];
     const char* class_name;
     const char* sname;
@@ -1610,6 +1611,8 @@ extern char* program_invocation_short_name;
 extern struct neo_frame*  neo_current_frame  ;
 
 extern struct sMemHeader*  gAllocMem  ;
+
+extern struct sMemHeader*  gFreeMem  ;
 
 extern int gComeDebugLib;
 

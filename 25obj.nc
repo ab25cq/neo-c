@@ -1614,24 +1614,6 @@ class sRefNode extends sNodeBase
                 show_type(come_value.type);
                 return true;
             }
-            /*
-            global_ = come_value.var->mGlobal;
-            int value_ptr_num = come_value.type->mPointerNum
-                + come_value.type->mArrayPointerNum
-                + (come_value.type->mArrayPointerType ? 1 : 0);
-            int var_ptr_num = come_value.var.mType->mPointerNum
-                + come_value.var.mType->mArrayPointerNum
-                + (come_value.var.mType->mArrayPointerType ? 1 : 0);
-            bool points_variable_address = value_ptr_num > var_ptr_num;
-            if(points_variable_address) {
-                heap_ = false;
-                local_ = !global_;
-            }
-            else {
-                heap_ = come_value.var.mType.mHeap;
-                local_ = !global_ && !heap_;
-            }
-            */
             global_ = come_value.var->mGlobal;
             heap_ = come_value.var.mType.mHeap;
             local_ = !global_ && !heap_;
@@ -1898,23 +1880,8 @@ class sSpanNode extends sNodeBase
                 return true;
             }
             global_ = come_value.var->mGlobal;
-/*
-            int value_ptr_num = come_value.type->mPointerNum
-                + come_value.type->mArrayPointerNum
-                + (come_value.type->mArrayPointerType ? 1 : 0);
-            int var_ptr_num = come_value.var.mType->mPointerNum
-                + come_value.var.mType->mArrayPointerNum
-                + (come_value.var.mType->mArrayPointerType ? 1 : 0);
-            bool points_variable_address = value_ptr_num > var_ptr_num;
-            if(points_variable_address) {
-                heap_ = false;
-                local_ = !global_;
-            }
-            else {
-*/
-                heap_ = come_value.var.mType.mHeap;
-                local_ = !global_ && !heap_;
-//            }
+            heap_ = come_value.var.mType.mHeap;
+            local_ = !global_ && !heap_;
         }
         else {
             err_msg(info, "require variable name for span");

@@ -217,6 +217,7 @@ struct sMemHeader
     struct sMemHeader* next;
     struct sMemHeader* prev;
     struct sMemHeader* free_next;
+    int alive;
     
     char* fun_name[COME_STACKFRAME_MAX];
     
@@ -228,8 +229,9 @@ struct sMemHeader
 
 using unsafe {
 uniq sMemHeader* gAllocMem = (void*)0;
+uniq sMemHeader* gFreeMem = (void*)0;
 }
-    
+
 uniq void come_heap_final()
 {
     using unsafe;
@@ -261,6 +263,23 @@ uniq void come_heap_final()
 uniq void* alloc_from_pages(size_t size)
 {
     using unsafe; 
+    
+    sMemHeader* it = gFreeMem;
+    sMemHeader* it_prev = null;
+    while(it) {
+        if(size <= it->size) {
+            if(it_prev == null) {
+                gFreeMem = null;
+            }
+            else {
+                it_prev->free_next = it->free_next;
+            }
+            memset(it, 0, size);
+            return it;
+        }
+        it_prev = it;
+        it = it->free_next;
+    }
     
     return calloc(1, size);
 }
@@ -299,7 +318,13 @@ uniq void come_free_mem_of_heap_pool(void* mem)
         
         size_t size = it->size;
         
+        it->free_next = gFreeMem;
+        gFreeMem = it;
+        
+        it->alive = 0;
+/*
         free(it);
+*/
         
         gNumFree++;
     }
@@ -324,6 +349,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, c
     it->compiletime_size = compiletime_size;
     it->size = size2;
     it->free_next = NULL;
+    it->alive = 1;
     
     int n = 0;
     neo_frame *f = neo_current_frame;
@@ -409,17 +435,9 @@ uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sl
 
 uniq bool come_is_alive(void* mem)
 {
-    sMemHeader* object_top = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
+    sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
     
-    sMemHeader* it = gAllocMem;
-    while(it) {
-        if(object_top == it) {
-            return true;
-        }
-        it = it->next;
-    }
-    
-    return false;
+    return it->alive;
 }
 
 uniq void come_free(void* mem)
@@ -859,6 +877,7 @@ impl span<T>
         self.p = (T^)head;
         self.len = len;
         self.local = local;
+        self.heap = heap;
         self.stacktop = stacktop;
         
         return self;
