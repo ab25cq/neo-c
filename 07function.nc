@@ -1285,6 +1285,7 @@ string,string parse_function_attribute(sInfo* info=info)
             
             int nest = 0;
             while(*info->p) {
+printf("%c\n", *info->p);
                 if(*info->p == '(') {
                     info->p++;
                     skip_spaces_and_lf();
@@ -1315,14 +1316,17 @@ string,string parse_function_attribute(sInfo* info=info)
                     info->p++;
                 }
             }
+puts("X");
             
             info.p = head0;
             info.sline = sline0;
 
             parse_function_attribute_skip_paren(info);
+puts("X");
             
             char* tail = info.p;
             result.append(head0, tail-head0);
+puts("X");
         }
         else if(parse_common_function_attribute_keyword(result, info)) {
         }
