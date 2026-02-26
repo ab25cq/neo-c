@@ -51,7 +51,8 @@ for arg in "$@"; do
       CC=clang++
       ;;
     -portable-c)
-      ncc_opts+=("-portable-c")
+      portable_c_disabled=true
+#      ncc_opts+=("-portable-c")
       ;;
     -no-portable-c)
       portable_c_disabled=true

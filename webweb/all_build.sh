@@ -4,3 +4,4 @@
     make all
 )
 make all
+make run

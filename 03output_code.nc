@@ -1,6 +1,5 @@
 #include "common.h"
 
-
 bool is_portable_libc_symbol(const char* sym)
 {
     return string(sym) === "fopen"
