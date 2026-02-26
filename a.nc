@@ -1,17 +1,17 @@
-using neo-c;
+#include <neo-c.h>
 
 struct A;
 struct B;
 
 struct A
 {
-    struct B*% b;
+    list<struct B*%>*% b;
     int x;
 };
 
 struct B
 {
-    struct A*% a;
+    list<struct A*%>*% a;
     int y;
 };
 

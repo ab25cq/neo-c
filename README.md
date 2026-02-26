@@ -94,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.2.4 refference count cycle checker is refined.
 0.9.2.3 refference count cycle checker is refined.
 0.9.2.2 parametor label checker.
 0.9.2.1 ref, apan, opt are ok.

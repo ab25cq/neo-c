@@ -2740,36 +2740,64 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
 bool is_owned(sType*% type, sClass* klass, sType*% field_type, sType*% owner, sInfo* info=info)
 {
     bool result = false;
-    sType*% field_type2;
-    if(field_type->mNoSolvedGenericsType) {
-        field_type2 = field_type->mNoSolvedGenericsType;
-    }
-    else {
-        field_type2 = field_type;
-    }
-/*
-    foreach(it, field_type2->mGenericsTypes) {
-        sType*% type2 = clone it;
-        sClass* klass2 = type2->mClass;
-        if(owner->mClass->mName !== type->mClass->mName && !type2->mWeak && is_owned(type2, klass2, type, owner, info)) {
-            result = true;
-        }
-    }
-*/
-    foreach(it, field_type2->mClass->mFields) {
+    foreach(it, field_type->mClass->mFields) {
         var name3, field_type3 = it;
+        
+        field_type3->mNoSolvedGenericsType.if {
+            Value.mGenericsTypes.each {
+                if(it->mClass->mName === owner->mClass->mName) {
+                    result = true;
+                }
+            }
+        }
         
         if(field_type3->mClass->mName === owner->mClass->mName && field_type3->mHeap) {
             result = true;
         }
     }
         
-    if(klass->mName === field_type2->mClass->mName && field_type2->mHeap) {
+    if(klass->mName === field_type->mClass->mName && field_type->mHeap) {
         result = true;
     }
     
     return result;
 }
+
+bool is_owned_main(sType*% type_, sClass* klass, sType*% field_type, sType*% owner, sInfo* info=info)
+{
+    bool flag1 = false;
+    bool flag2 = false;
+    if(field_type->mHeap) {
+        if(klass->mName !== field_type->mClass->mName && is_owned(clone type_, klass, clone field_type, clone type_)) {
+            flag1 = true;
+        }
+    }
+    
+    if(flag1) {
+        foreach(it2, field_type->mClass->mFields) {
+            var name2, field_type2 = it2;
+            
+/*
+            field_type2->mNoSolvedGenericsType.if {
+                Value.mGenericsTypes.each {
+                    if(field_type->mClass->mName !== it->mClass->mName 
+                        && is_owned(clone field_type, field_type->mClass, clone it, clone field_type)) 
+                    {
+                        flag2 = true;
+                    }
+                }
+            }
+*/
+            
+            if(field_type->mClass->mName !== field_type2->mClass->mName && is_owned(clone field_type, field_type->mClass, clone field_type2, clone field_type)) {
+                flag2 = true;
+            }
+        }
+    }
+    
+    return flag2;
+}
+   
 
 sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, sInfo* info)
 {
@@ -2866,30 +2894,17 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                 var name, field_type = it;
                 
                 bool flag1 = false;
-                bool flag2 = false;
-                if(field_type->mHeap) {
-                    if(klass->mName !== field_type->mClass->mName && is_owned(clone type_, klass, clone field_type, clone type_)) {
-                        flag1 = true;
+                sType*% field_type2;
+                field_type->mNoSolvedGenericsType.if  {
+                    Value.mGenericsTypes.each {
+                        flag1 = is_owned_main(type_, klass, clone it, clone type_);
                     }
                 }
                 
-                if(flag1) {
-                    foreach(it2, field_type->mClass->mFields) {
-                        var name2, field_type2 = it2;
-                        
-                        if(field_type->mClass->mName !== field_type2->mClass->mName && is_owned(clone field_type, field_type->mClass, clone field_type2, clone field_type)) {
-                            flag2 = true;
-                        }
-                        
-/*
-                        if(is_owned(clone field_type2, field_type2->mClass, clone type2, clone type2, info)) {
-                            flag2 = true;
-                        }
-*/
-                    }
-                }
                 
-                if(flag2) {
+                bool flag2 = is_owned_main(type_, klass, clone field_type, clone type_);
+                
+                if(flag1 || flag2) {
                     warning_msg(info, "Cyclic ownership detected involving %s. Don't use heap to break cycle, but sometimes it works. If you need no check this to use _weak attribute to the fields.", field_type->mClass->mName);
                 }
                 
