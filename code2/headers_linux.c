@@ -408,11 +408,6 @@ typedef struct anonymous_typeX514 x25_hdlc_proto;
 
 /// previous struct definition ///
 /// struct definition ///
-struct __fsid_t
-{
-    int __val[2];
-};
-
 struct anonymous_typeX1
 {
     unsigned long  int fds_bits[1024/(8*sizeof(long))];
@@ -9778,6 +9773,11 @@ struct ethhdr
     unsigned char h_source[6];
     unsigned short int  h_proto  ;
 } __attribute__((packed));
+
+struct __fsid_t
+{
+    int __val[2];
+};
 
 struct anonymous_typeX494
 {

@@ -2368,15 +2368,15 @@ struct stack_st_SSL_CIPHER;
 struct lhash_st_ERR_STRING_DATA;
 
 /// struct definition ///
-struct __fsid_t
-{
-    int __val[2];
-};
-
 struct anonymous_typeX1
 {
     long long __attribute__((__aligned__(__alignof__(long long)))) __clang_max_align_nonce1 __attribute__((__aligned__(__alignof__(long long))));
     long  double __attribute__((__aligned__(__alignof__(long double)))) __clang_max_align_nonce2 __attribute__((__aligned__(__alignof__(long double))));
+};
+
+struct __fsid_t
+{
+    int __val[2];
 };
 
 struct anonymous_typeX2
