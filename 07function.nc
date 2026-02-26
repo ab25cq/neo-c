@@ -1274,6 +1274,9 @@ string,string parse_function_attribute(sInfo* info=info)
             result.append(head, tail-head);
         }
         else if(parsecmp("__asm")) {
+            char* head0 = info.p;
+            int sline0 = info.sline;
+            
             info->p += strlen("__asm");
             skip_spaces_and_lf();
             
@@ -1313,8 +1316,8 @@ string,string parse_function_attribute(sInfo* info=info)
                 }
             }
             
-            info.p = head;
-            info.sline = sline;
+            info.p = head0;
+            info.sline = sline0;
 
             parse_function_attribute_skip_paren(info);
             
