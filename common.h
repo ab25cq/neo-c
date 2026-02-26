@@ -298,8 +298,9 @@ uniq class sFun
     bool mGenericsFun;
     
     bool mDefineReturnVar;
+    string mAsmFun;
     
-    new(string name, sType*% result_type, list<sType*%>*% param_types, list<string>*% param_names, list<string>%* param_default_parametors, bool external, bool var_args, sBlock*% block, bool static_, sInfo* info, bool inline_, bool uniq_=false, string attribute=s"", string fun_attribute=s"", bool const_fun=false, string text_block=null, string generics_sname=null, int generics_sline=0, bool immutable_=false)
+    new(string name, sType*% result_type, list<sType*%>*% param_types, list<string>*% param_names, list<string>%* param_default_parametors, bool external, bool var_args, sBlock*% block, bool static_, sInfo* info, bool inline_, bool uniq_=false, string attribute=s"", string fun_attribute=s"", bool const_fun=false, string text_block=null, string generics_sname=null, int generics_sline=0, bool immutable_=false, string asm_fun=s"")
     {
         self.mName = name;
         self.mResultType = result_type;
@@ -315,6 +316,8 @@ uniq class sFun
         self.mAllVar = new list<sVar*%>();
         
         self.mLambdaType = new sType(s"lambda");
+        
+        self.mAsmFun = asm_fun;
         
         foreach(it, param_types) {
             self.mLambdaType.mParamTypes.push_back(clone it);

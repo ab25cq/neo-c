@@ -1561,7 +1561,19 @@ class sFunCallNode extends sNodeBase
             fun_name = s"strtoull";
         }
         
+#ifdef __MAC__
+/*
+        if(fun.mAsmFun !== s"") {
+            buf.append_str(fun.mAsmFun.substring);
+        }
+        else {
+            buf.append_str(fun_name);
+        }
+*/
         buf.append_str(fun_name);
+#else
+        buf.append_str(fun_name);
+#endif
         buf.append_str("(");
         
         int j = 0;

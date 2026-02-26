@@ -1,23 +1,10 @@
-#include <neo-c.h>
-
-struct A;
-struct B;
-
-struct A
-{
-    list<struct B*%>*% b;
-    int x;
-};
-
-struct B
-{
-    list<struct A*%>*% a;
-    int y;
-};
+#include <sys/stat.h>
 
 int main(int argc, char** argv) 
 {
-    struct B*% b = new B;
+    struct stat stat_;
+    
+    stat("01main.nc", &stat_);
                                     
     return 0;
 }

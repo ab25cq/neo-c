@@ -1278,9 +1278,42 @@ string,string parse_function_attribute(sInfo* info=info)
             
             info->p += strlen("__asm");
             skip_spaces_and_lf();
-
-            parse_function_attribute_skip_paren(info);
             
+            int nest = 0;
+            while(*info->p) {
+                if(*info->p == '(') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                    
+                    nest++;
+                }
+                else if(*info->p == ')') {
+                    info->p++;
+                    skip_spaces_and_lf();
+                    
+                    nest--;
+                    if(nest == 0) {
+                        break;
+                    }
+                }
+                else if(*info->p == '"') {
+                    info->p++;
+                    while(*info->p != '\0' && *info->p != '"') {
+                        asm_fun_name.append_char(*info->p);
+                        info->p++;
+                    }
+                    
+                    info->p++;
+                    skip_spaces_and_lf();
+                }
+            }
+
+            //parse_function_attribute_skip_paren(info);
+            
+            /*
+            char* tail = info.p;
+            result.append(head, tail-head);
+            */
             char* tail = info.p;
             result.append(head, tail-head);
         }
@@ -2265,12 +2298,14 @@ sNode*% parse_function(sInfo* info)
         }
     }
     
+/*
     if(asm_fun !== "") {
         fun_name = string(asm_fun);
     }
     if(asm_fun2 !== "") {
         fun_name = string(asm_fun2);
     }
+*/
     
     bool in_top_level = info.in_top_level;
     info.in_top_level = false;
@@ -2436,7 +2471,8 @@ sNode*% parse_function(sInfo* info)
                                 , param_default_parametors
                                 , true@external, var_args, null@block
                                 , false@static_, info, false@inline_
-                                , false@uniq_, fun_attribute_prefix, fun_attribute, const_fun:const_fun);
+                                , false@uniq_, fun_attribute_prefix, fun_attribute, const_fun:const_fun
+                                , asm_fun:asm_fun2);
             fun->mMiddleAttribute = fun_attribute_middle;
             
             info.funcs.insert(string(fun_name), fun);
@@ -2446,9 +2482,11 @@ sNode*% parse_function(sInfo* info)
         else {
             var asm_fun, fun_attribute2 = parse_function_attribute();
             
+/*
             if(asm_fun !== "") {
                 fun_name = string(asm_fun);
             }
+*/
 
             if(fun_attribute2 !== "") {
                 if(fun_attribute !== "") {
@@ -2468,7 +2506,7 @@ sNode*% parse_function(sInfo* info)
                                 , param_default_parametors
                                 , true@external, var_args, null@block
                                 , false@static_, info, false@inline_, false@uniq_
-                                , fun_attribute_prefix, fun_attribute, const_fun:const_fun);
+                                , fun_attribute_prefix, fun_attribute, const_fun:const_fun, asm_fun:asm_fun);
             fun->mMiddleAttribute = fun_attribute_middle;
             
             info.funcs.insert(string(fun_name), fun);
