@@ -89,8 +89,7 @@ bool should_strip_portable_asm_alias(const char* source, int* consumed)
 
 string normalize_portable_c_source(char* source)
 {
-    return string(source);
-/*
+//    return string(source);
     if(source == null) {
         return string("");
     }
@@ -138,7 +137,6 @@ string normalize_portable_c_source(char* source)
     }
 
     return result.to_string();
-*/
 }
 string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=false, bool cast_type=false, bool typedef_extended=false, bool nullchecker=false)
 {
