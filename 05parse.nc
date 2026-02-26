@@ -405,7 +405,19 @@ static void apply_pack_pragma_state(string pragma_line, sInfo* info)
             rparen_pos = i;
         }
     }
-    if(lparen_pos == -1 || rparen_pos == -1 || rparen_pos <= lparen_pos+1) {
+    if(lparen_pos == -1 || rparen_pos == -1) {
+        return;
+    }
+    
+    // #pragma pack() resets to the default alignment.
+    // Without this, a preceding #pragma pack(N) can leak to unrelated
+    // structs (e.g. sys/stat.h on macOS).
+    if(rparen_pos == lparen_pos+1) {
+        info.pragma = s"";
+        return;
+    }
+    
+    if(rparen_pos < lparen_pos+1) {
         return;
     }
 
@@ -497,7 +509,8 @@ static void apply_pack_pragma_state(string pragma_line, sInfo* info)
         }
     }
     else if(tokens.length() == 1 && is_number_token(op)) {
-        info.pragma = pragma_line;
+        // Normalize pack(N) to push/pop form so generated C stays balanced.
+        info.pragma = xsprintf("#pragma pack(push, %s)\n", op);
     }
 }
 
