@@ -7470,7 +7470,7 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
             info->sline=sline0;
             parse_function_attribute_skip_paren(info);
             tail_79=info->p;
-            buffer_append(result,head_78,tail_79-head_78);
+            buffer_append(result,head0,tail_79-head0);
         }
         else if(parse_common_function_attribute_keyword(result,info)) {
         }

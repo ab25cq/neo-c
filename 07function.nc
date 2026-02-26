@@ -1322,7 +1322,7 @@ string,string parse_function_attribute(sInfo* info=info)
             parse_function_attribute_skip_paren(info);
             
             char* tail = info.p;
-            result.append(head, tail-head);
+            result.append(head0, tail-head0);
         }
         else if(parse_common_function_attribute_keyword(result, info)) {
         }
