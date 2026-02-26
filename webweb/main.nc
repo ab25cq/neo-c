@@ -1,5 +1,5 @@
-#include <neo-c-net.h>
 #include <sys/stat.h>
+#include <neo-c-net.h>
 #include <unistd.h>
 #include <signal.h>
 #include <stdint.h>
