@@ -2773,6 +2773,7 @@ char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 struct sPlusPlusNode* sPlusPlusNode_initialize(struct sPlusPlusNode* self, struct sNode* left, _Bool quote, struct sInfo*  info  );
 char*  sPlusPlusNode_kind(struct sPlusPlusNode* self);
 _Bool sPlusPlusNode_compile(struct sPlusPlusNode* self, struct sInfo*  info  );

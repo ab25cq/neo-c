@@ -2402,6 +2402,7 @@ sNode*% expression_node(sInfo* info=info) version 98
                                     , "_Alignas", "__alignof__", "_Atomic", "borrow", "dupe", "clone", "__builtin_offsetof", "_Generic" }
                                     
         bool is_special_word = is_special_word_array.contained(25, buf);
+        bool is_portable_symbol = is_portable_libc_symbol(buf);
         
         /// backtrace ///
         bool define_function_pointer_flag = false;
@@ -2925,7 +2926,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.sline_real = sline_real;
             return node;
         }
-        else if(!is_special_word && *info->p == '(' && !is_type_name_)
+        else if(!is_special_word && *info->p == '(' && !is_type_name_ || (is_portable_symbol && *info->p == '('))
         {
             sNode*% node = parse_function_call(buf, info);
             

@@ -2701,6 +2701,7 @@ char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 struct sSwitchNode* sSwitchNode_initialize(struct sSwitchNode* self, struct sNode* expression_node, struct sBlock*  block  , struct sInfo*  info  );
 _Bool sSwitchNode_terminated(struct sSwitchNode* self);
 char*  sSwitchNode_kind(struct sSwitchNode* self);

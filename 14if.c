@@ -2704,6 +2704,7 @@ char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 struct sIfNode* sIfNode_initialize(struct sIfNode* self, struct sNode* expression_node, struct sBlock*  if_block  , struct list$1sNode$ph* elif_expression_nodes, struct list$1sBlock$ph* elif_blocks, int elif_num, struct sBlock*  else_block  , _Bool guard_, _Bool existance_result_value, struct sInfo*  info  );
 _Bool sIfNode_terminated(struct sIfNode* self);
 char*  sIfNode_kind(struct sIfNode* self);

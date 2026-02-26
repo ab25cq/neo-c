@@ -2329,6 +2329,7 @@ struct sBlock*  parse_come_block(struct sInfo*  info  );
 struct sNode* create_null_checker(struct sNode* node, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 int main(int argc, char** argv);
 void stackframe();
 void stackframe2(void* mem);

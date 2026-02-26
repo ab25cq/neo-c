@@ -2668,6 +2668,7 @@ char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 _Bool is_gcc_builtin_float_typedef(char*  type_name  , struct sInfo*  info  );
 struct sTypedefNode* sTypedefNode_initialize(struct sTypedefNode* self, char*  type_name  , struct sType*  type  , struct list$1tuple2$2sType$phchar$ph$ph* multiple_declare, struct sInfo*  info  );
 _Bool sTypedefNode_terminated(struct sTypedefNode* self);

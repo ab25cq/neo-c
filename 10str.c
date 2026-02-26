@@ -2745,6 +2745,7 @@ struct sNullChecker* sNullChecker_initialize(struct sNullChecker* self, struct s
 char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 struct sStrNode* sStrNode_initialize(struct sStrNode* self, char*  value  , int sline, struct sInfo*  info  );
 char*  sStrNode_kind(struct sStrNode* self);
 _Bool sStrNode_compile(struct sStrNode* self, struct sInfo*  info  );

@@ -2636,6 +2636,7 @@ char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 _Bool parsecmp(const char* p2, struct sInfo*  info  );
 int err_msg(struct sInfo*  info  , const char* msg, ...);
 static void __builtin_va_list_finalize(__builtin_va_list*  self  );

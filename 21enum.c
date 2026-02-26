@@ -2676,6 +2676,7 @@ char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 struct sEnumNode* sEnumNode_initialize(struct sEnumNode* self, char*  type_name  , struct list$1tuple3$3char$phsNode$phchar$ph$ph* elements, struct sType*  type_elements  , char*  attribute  , struct sInfo*  info  );
 _Bool sEnumNode_terminated(struct sEnumNode* self);
 char*  sEnumNode_kind(struct sEnumNode* self);

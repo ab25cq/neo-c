@@ -2689,6 +2689,7 @@ char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 struct sGlobalVariable* sGlobalVariable_initialize(struct sGlobalVariable* self, struct list$1tuple3$3sType$phchar$phchar$ph$ph* multiple_declare, struct sType*  type  , char*  name  , struct sNode* right_node, char*  array_initializer  , struct sInfo*  info  );
 char*  sGlobalVariable_kind(struct sGlobalVariable* self);
 _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info  );

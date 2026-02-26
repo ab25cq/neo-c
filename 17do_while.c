@@ -2654,6 +2654,7 @@ char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+_Bool is_portable_libc_symbol(const char* sym);
 struct sDoWhileNode* sDoWhileNode_initialize(struct sDoWhileNode* self, struct sNode* expression_node, struct sBlock*  block  , struct sInfo*  info  );
 _Bool sDoWhileNode_terminated(struct sDoWhileNode* self);
 char*  sDoWhileNode_kind(struct sDoWhileNode* self);
