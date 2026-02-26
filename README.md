@@ -94,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.2.3 refference count cycle checker is refined.
 0.9.2.2 parametor label checker.
 0.9.2.1 ref, apan, opt are ok.
 0.9.2.0 A bug exits in right value object automatically removed. Fixed it.

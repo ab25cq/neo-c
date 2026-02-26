@@ -1,13 +1,24 @@
-#include <neo-c.h>
+using neo-c;
 
-void fun(int x=2, int y=1)
+struct A;
+struct B;
+
+struct A
 {
-    printf("x %d y %d\n", x, y);
-}
-                            
+    struct B*% b;
+    int x;
+};
+
+struct B
+{
+    struct A*% a;
+    int y;
+};
+
 int main(int argc, char** argv) 
 {
-    fun(x:3);
+    struct B*% b = new B;
                                     
     return 0;
 }
+

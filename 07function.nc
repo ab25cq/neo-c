@@ -2739,10 +2739,6 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
 
 bool is_owned(sType*% type, sClass* klass, sType*% field_type, sType*% owner, sInfo* info=info)
 {
-    if(field_type->mWeak) {
-        return false;
-    }
-
     bool result = false;
     sType*% field_type2;
     if(field_type->mNoSolvedGenericsType) {
@@ -2751,6 +2747,7 @@ bool is_owned(sType*% type, sClass* klass, sType*% field_type, sType*% owner, sI
     else {
         field_type2 = field_type;
     }
+/*
     foreach(it, field_type2->mGenericsTypes) {
         sType*% type2 = clone it;
         sClass* klass2 = type2->mClass;
@@ -2758,11 +2755,16 @@ bool is_owned(sType*% type, sClass* klass, sType*% field_type, sType*% owner, sI
             result = true;
         }
     }
+*/
+    foreach(it, field_type2->mClass->mFields) {
+        var name3, field_type3 = it;
         
-    if(field_type->mClass->mName === owner->mClass->mName && field_type->mHeap && !field_type->mWeak) {
-        result = true;
+        if(field_type3->mClass->mName === owner->mClass->mName && field_type3->mHeap) {
+            result = true;
+        }
     }
-    if(klass->mName === field_type->mClass->mName && field_type->mHeap && !field_type->mWeak) {
+        
+    if(klass->mName === field_type2->mClass->mName && field_type2->mHeap) {
         result = true;
     }
     
@@ -2866,16 +2868,16 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                 bool flag1 = false;
                 bool flag2 = false;
                 if(field_type->mHeap) {
-                    if(is_owned(clone type_, klass, clone field_type, clone type_)) {
+                    if(klass->mName !== field_type->mClass->mName && is_owned(clone type_, klass, clone field_type, clone type_)) {
                         flag1 = true;
                     }
                 }
                 
-                if(!field_type->mWeak && !flag1) {
+                if(flag1) {
                     foreach(it2, field_type->mClass->mFields) {
                         var name2, field_type2 = it2;
                         
-                        if(field_type2->mClass->mName === type2->mClass->mName && field_type2->mHeap && !field_type2->mWeak) {
+                        if(field_type->mClass->mName !== field_type2->mClass->mName && is_owned(clone field_type, field_type->mClass, clone field_type2, clone field_type)) {
                             flag2 = true;
                         }
                         
@@ -2885,9 +2887,6 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                         }
 */
                     }
-                }
-                else if(!field_type->mWeak) {
-                    flag2 = true;
                 }
                 
                 if(flag2) {
