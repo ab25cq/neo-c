@@ -7462,7 +7462,6 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
                     skip_spaces_and_lf(info);
                 }
                 else {
-                    buffer_append_char(asm_fun_name,*info->p);
                     info->p++;
                 }
             }

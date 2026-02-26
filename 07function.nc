@@ -1311,7 +1311,7 @@ string,string parse_function_attribute(sInfo* info=info)
                     skip_spaces_and_lf();
                 }
                 else {
-                    asm_fun_name.append_char(*info->p);
+                    //asm_fun_name.append_char(*info->p);
                     info->p++;
                 }
             }
