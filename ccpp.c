@@ -4808,11 +4808,14 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                     injected_libc_protos = true;
                 }
                 // Optionally inject libc typedefs that appear in glibc headers but are not
-                // always recognized by the neo-c parser. Controlled via CCPP_INJECT_LIBC_TYPEDEFS
-                // (default on).
+                // always recognized by the neo-c parser. Controlled via
+                // CCPP_INJECT_LIBC_TYPEDEFS (default off).
+                //
+                // Keeping this off by default avoids overriding libc-provided typedefs
+                // used by system structs (for example, sys/stat.h layouts).
                 if (!injected_libc_typedefs) {
                     const char *inj_types = getenv("CCPP_INJECT_LIBC_TYPEDEFS");
-                    bool do_inject_types = (!inj_types || strcmp(inj_types, "0") != 0);
+                    bool do_inject_types = (inj_types && strcmp(inj_types, "0") != 0);
                     if (do_inject_types) {
                         sb_puts(&outln,
                                 "\n/* ccpp: libc typedefs */\n"
