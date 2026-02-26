@@ -1,7 +1,7 @@
 (
     pkill dbdb || true
     cd dbdb
-    make all
+    make run
 )
 make all
 make run
