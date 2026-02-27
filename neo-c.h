@@ -1564,11 +1564,6 @@ impl list <T>
     bool end(list<T>* self) {
         return self == null || self.it == null;
     }
-    list<T>* iter(list<T>* self)
-    {
-        // Zero-cost adapter: no wrapper object, just return self.
-        return self;
-    }
     list<T>* each(list<T>* self, void* parent, void (*block)(void*, T,int,bool*)) 
     {
         if(self == null) {
