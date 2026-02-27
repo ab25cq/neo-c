@@ -730,8 +730,10 @@ static void parse_line_control_payload(const char *payload, bool allow_linemarke
 static long g_cur_line = 0;
 
 static void pp_directive_error(const char *path, long line, const char *msg) {
+    long logical_line = line > 0 ? line : 1;
+    long real_line = g_cur_line > 0 ? g_cur_line : logical_line;
     if (path && *path) {
-        fprintf(stderr, "%s %ld(0): [error] %s\n", path, line > 0 ? line : 1, msg ? msg : "preprocessor error");
+        fprintf(stderr, "%s %ld(%ld): [error] %s\n", path, logical_line, real_line, msg ? msg : "preprocessor error");
     } else {
         fprintf(stderr, "error: %s\n", msg ? msg : "preprocessor error");
     }
@@ -4325,8 +4327,11 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                         if (!strict_missing && !quoted) {
                             const char *suppress_w = getenv("CCPP_SUPPRESS_WARNINGS");
                             if (!(suppress_w && *suppress_w)) {
-                                fprintf(stderr, "warning: %s %ld(0): include file not found: <%s>\n",
-                                        this_path ? this_path : "<stdin>", line_no, header);
+                                fprintf(stderr, "warning: %s %ld(%ld): include file not found: <%s>\n",
+                                        this_path ? this_path : "<stdin>",
+                                        line_no > 0 ? line_no : 1,
+                                        g_cur_line > 0 ? g_cur_line : (line_no > 0 ? line_no : 1),
+                                        header);
                             }
                         } else {
                             pp_directive_error(this_path, line_no, "include file not found");

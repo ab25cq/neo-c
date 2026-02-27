@@ -25,14 +25,15 @@ int err_msg(sInfo* info, const char* msg, ...)
         va_end(args);
         
         char* p = info.p;
+        int sline_real = info.sline_real > 0 ? info.sline_real : info.sline;
         
         buffer*% buf = new buffer();
         
         if(info.come_fun) {
-            buf.append_format("%s %d(%d): [error] %s in fun (%s)\n", info.sname, info.sline, info.sline_real, msg2, info.come_fun.mName);
+            buf.append_format("%s %d(%d): [error] %s in fun (%s)\n", info.sname, info.sline, sline_real, msg2, info.come_fun.mName);
         }
         else {
-            buf.append_format("%s %d(%d): [error] %s\n", info.sname, info.sline, info.sline_real, msg2);
+            buf.append_format("%s %d(%d): [error] %s\n", info.sname, info.sline, sline_real, msg2);
         }
         
         if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
@@ -63,13 +64,15 @@ int warning_msg(sInfo* info, const char* msg, ...)
         vasprintf(&msg2,msg,args);
         va_end(args);
         
+        int sline_real = info.sline_real > 0 ? info.sline_real : info.sline;
+        
         buffer*% buf = new buffer();
         
         if(info.come_fun) {
-            buf.append_format("%s %d(%d): [warning] %s in fun (%s)\n", info.sname, info.sline, info.sline_real, msg2, info.come_fun.mName);
+            buf.append_format("%s %d(%d): [warning] %s in fun (%s)\n", info.sname, info.sline, sline_real, msg2, info.come_fun.mName);
         }
         else {
-            buf.append_format("%s %d(%d): [warning] %s\n", info.sname, info.sline, info.sline_real, msg2);
+            buf.append_format("%s %d(%d): [warning] %s\n", info.sname, info.sline, sline_real, msg2);
         }
         if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
             char mem[128];
@@ -189,6 +192,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
             else if(*info->p == '\n') {
                 info->p++;
                 info->sline++;
+                info->sline_real++;
             }
             else if(*info->p == '\r') {
                 info->p++;
@@ -196,6 +200,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                     info->p++;
                 }
                 info->sline++;
+                info->sline_real++;
             }
             else if(*info->p == '\0') {
                 err_msg(info, "unterminated comment");
@@ -215,6 +220,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
             if(*info->p == '\n') {
                 info->p++;
                 info->sline++;
+                info->sline_real++;
                 if(skip_space_after) {
                     skip_spaces_and_lf2();
                 }
@@ -226,6 +232,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                     info->p++;
                 }
                 info->sline++;
+                info->sline_real++;
                 if(skip_space_after) {
                     skip_spaces_and_lf2();
                 }
@@ -257,10 +264,12 @@ void skip_spaces_and_lf(sInfo* info=info)
                 info->p++;
             }
             info->sline++;
+            info->sline_real++;
         }
         else if(*info->p == '\n') {
             info->p++;
             info->sline++;
+            info->sline_real++;
         }
         else if(skip_comment(info, false)) {
         }
@@ -289,10 +298,12 @@ void skip_spaces_and_lf2(sInfo* info=info)
                 info->p++;
             }
             info->sline++;
+            info->sline_real++;
         }
         else if(*info->p == '\n') {
             info->p++;
             info->sline++;
+            info->sline_real++;
         }
         else if(skip_comment(info, false)) {
         }
@@ -581,14 +592,17 @@ void parse_sharp(sInfo* info=info) version 5
                     }
                     if(*info->p == '\n') {
                         info->p++;
+                        info->sline_real++;
                     }
                 }
     
                 if(line > 0) {
                     info->sline = line; // - 1;
+                    info->sline_real = line;
                 }
                 else {
                     info->sline = line;
+                    info->sline_real = line;
                 }
                 
                 string fname_str = fname.to_string();
@@ -626,6 +640,7 @@ void parse_sharp(sInfo* info=info) version 5
                     }
                     if(*info->p == '\n') {
                         info->p++;
+                        info->sline_real++;
                     }
                 }
     
@@ -636,6 +651,7 @@ void parse_sharp(sInfo* info=info) version 5
                 else {
 */
                     info->sline = line;
+                    info->sline_real = line;
 //                }
                 
                 string fname_str = fname.to_string();
@@ -662,6 +678,7 @@ void parse_sharp(sInfo* info=info) version 5
                 }
                 if(*info->p == '\n') {
                     info->p++;
+                    info->sline_real++;
                 }
             }
         

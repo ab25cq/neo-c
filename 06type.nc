@@ -1433,10 +1433,14 @@ string parse_pointer_qualifier(sInfo* info=info)
 
 tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=false,sInfo* info=info)
 {
+    int sline = info.sline;
     bool no_output_come_code = info.no_output_come_code;
     info.no_output_come_code = true;
     var type, name, err = parse_type(parse_variable_name:parse_variable_name);
     info.no_output_come_code = no_output_come_code;
+    if(!err) {
+        info.sline = sline;
+    }
     
     return t(type, name, err);
 }

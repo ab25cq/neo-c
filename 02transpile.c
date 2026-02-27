@@ -5107,6 +5107,7 @@ int come_main(int argc, char** argv)
         info.sname=(char* )come_increment_ref_count(__builtin_string(it));
         __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0);
         info.sline=1;
+        info.sline_real=1;
         info.err_num=0;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;

@@ -3353,6 +3353,7 @@ int err_msg(struct sInfo*  info  , const char* msg, ...)
     char* msg2;
     __builtin_va_list  args  ;
     char* p;
+    int sline_real;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
@@ -3365,12 +3366,13 @@ int err_msg(struct sInfo*  info  , const char* msg, ...)
         vasprintf(&msg2,msg,args);
         __builtin_va_end(args);
         p=info->p;
+        sline_real=info->sline_real>0?info->sline_real:info->sline;
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 29, "struct buffer* "))));
         if(info->come_fun) {
-            buffer_append_format(buf,"%s %d(%d): [error] %s in fun (%s)\n",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
+            buffer_append_format(buf,"%s %d(%d): [error] %s in fun (%s)\n",info->sname,info->sline,sline_real,msg2,info->come_fun->mName);
         }
         else {
-            buffer_append_format(buf,"%s %d(%d): [error] %s\n",info->sname,info->sline,info->sline_real,msg2);
+            buffer_append_format(buf,"%s %d(%d): [error] %s\n",info->sname,info->sline,sline_real,msg2);
         }
         if((info->end-info->p)>30&&(info->p-info->head)>30) {
             char mem[128];
@@ -3404,6 +3406,7 @@ int warning_msg(struct sInfo*  info  , const char* msg, ...)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "warning_msg"; neo_current_frame = &fr;
     char* msg2;
     __builtin_va_list  args  ;
+    int sline_real;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
@@ -3415,12 +3418,13 @@ int warning_msg(struct sInfo*  info  , const char* msg, ...)
         __builtin_va_start(args,msg);
         vasprintf(&msg2,msg,args);
         __builtin_va_end(args);
+        sline_real=info->sline_real>0?info->sline_real:info->sline;
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 66, "struct buffer* "))));
         if(info->come_fun) {
-            buffer_append_format(buf,"%s %d(%d): [warning] %s in fun (%s)\n",info->sname,info->sline,info->sline_real,msg2,info->come_fun->mName);
+            buffer_append_format(buf,"%s %d(%d): [warning] %s in fun (%s)\n",info->sname,info->sline,sline_real,msg2,info->come_fun->mName);
         }
         else {
-            buffer_append_format(buf,"%s %d(%d): [warning] %s\n",info->sname,info->sline,info->sline_real,msg2);
+            buffer_append_format(buf,"%s %d(%d): [warning] %s\n",info->sname,info->sline,sline_real,msg2);
         }
         if((info->end-info->p)>30&&(info->p-info->head)>30) {
             char mem[128];
@@ -3693,6 +3697,7 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
             else if(*info->p==10) {
                 info->p++;
                 info->sline++;
+                info->sline_real++;
             }
             else if(*info->p==13) {
                 info->p++;
@@ -3700,6 +3705,7 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
                     info->p++;
                 }
                 info->sline++;
+                info->sline_real++;
             }
             else if(*info->p==0) {
                 err_msg(info,"unterminated comment");
@@ -3718,6 +3724,7 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
             if(*info->p==10) {
                 info->p++;
                 info->sline++;
+                info->sline_real++;
                 if(skip_space_after) {
                     skip_spaces_and_lf2(info);
                 }
@@ -3729,6 +3736,7 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
                     info->p++;
                 }
                 info->sline++;
+                info->sline_real++;
                 if(skip_space_after) {
                     skip_spaces_and_lf2(info);
                 }
@@ -3762,10 +3770,12 @@ void skip_spaces_and_lf(struct sInfo*  info  )
                 info->p++;
             }
             info->sline++;
+            info->sline_real++;
         }
         else if(*info->p==10) {
             info->p++;
             info->sline++;
+            info->sline_real++;
         }
         else if(skip_comment(info,(_Bool)0)) {
         }
@@ -3795,10 +3805,12 @@ void skip_spaces_and_lf2(struct sInfo*  info  )
                 info->p++;
             }
             info->sline++;
+            info->sline_real++;
         }
         else if(*info->p==10) {
             info->p++;
             info->sline++;
+            info->sline_real++;
         }
         else if(skip_comment(info,(_Bool)0)) {
         }
@@ -4600,13 +4612,16 @@ void parse_sharp_v5(struct sInfo*  info  )
                     }
                     if(*info->p==10) {
                         info->p++;
+                        info->sline_real++;
                     }
                 }
                 if(line>0) {
                     info->sline=line;
+                    info->sline_real=line;
                 }
                 else {
                     info->sline=line;
+                    info->sline_real=line;
                 }
                 __right_value0 = (void*)0;
                 fname_str=(char* )come_increment_ref_count(buffer_to_string(fname));
@@ -4647,9 +4662,11 @@ void parse_sharp_v5(struct sInfo*  info  )
                     }
                     if(*info->p==10) {
                         info->p++;
+                        info->sline_real++;
                     }
                 }
                 info->sline=line_14;
+                info->sline_real=line_14;
                 __right_value0 = (void*)0;
                 fname_str_16=(char* )come_increment_ref_count(buffer_to_string(fname_15));
                 if(string_length(fname_str_16)>0) {
@@ -4677,6 +4694,7 @@ void parse_sharp_v5(struct sInfo*  info  )
                 }
                 if(*info->p==10) {
                     info->p++;
+                    info->sline_real++;
                 }
             }
             skip_spaces_and_lf2(info);

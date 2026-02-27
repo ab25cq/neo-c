@@ -3111,7 +3111,7 @@ struct ip_mreqn
     int imr_ifindex;
 };
 
-#pragma pack(4)
+#pragma pack(push, 4)
 struct ip_mreq_source
 {
     struct in_addr  imr_multiaddr  ;
@@ -3119,14 +3119,14 @@ struct ip_mreq_source
     struct in_addr  imr_interface  ;
 };
 #pragma pack(pop)
-#pragma pack(4)
+#pragma pack(push, 4)
 struct group_req
 {
     unsigned int  gr_interface  ;
     struct sockaddr_storage  gr_group  ;
 };
 #pragma pack(pop)
-#pragma pack(4)
+#pragma pack(push, 4)
 struct group_source_req
 {
     unsigned int  gsr_interface  ;
@@ -3134,7 +3134,7 @@ struct group_source_req
     struct sockaddr_storage  gsr_source  ;
 };
 #pragma pack(pop)
-#pragma pack(4)
+#pragma pack(push, 4)
 struct __msfilterreq
 {
     unsigned int  msfr_ifindex  ;
@@ -3145,31 +3145,27 @@ struct __msfilterreq
     struct sockaddr_storage*  msfr_srcs  ;
 };
 #pragma pack(pop)
-#pragma pack(4)
 struct in_pktinfo
 {
     unsigned int ipi_ifindex;
     struct in_addr  ipi_spec_dst  ;
     struct in_addr  ipi_addr  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ21
 {
 unsigned char  __u6_addr8[16]  ;
 unsigned short int  __u6_addr16[8]  ;
 unsigned int  __u6_addr32[4]  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ22
 {
 unsigned char  __u6_addr8[16]  ;
 unsigned short int  __u6_addr16[8]  ;
 unsigned int  __u6_addr32[4]  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct in6_addr
 {
     union {
@@ -3178,8 +3174,7 @@ struct in6_addr
         unsigned int  __u6_addr32[4]  ;
     } __u6_addr;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct sockaddr_in6
 {
     unsigned char  sin6_len  ;
@@ -3189,80 +3184,69 @@ struct sockaddr_in6
     struct in6_addr  sin6_addr  ;
     unsigned int  sin6_scope_id  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ipv6_mreq
 {
     struct in6_addr  ipv6mr_multiaddr  ;
     unsigned int ipv6mr_interface;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct in6_pktinfo
 {
     struct in6_addr  ipi6_addr  ;
     unsigned int ipi6_ifindex;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ip6_mtuinfo
 {
     struct sockaddr_in6  ip6m_addr  ;
     unsigned int  ip6m_mtu  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct _OSUnalignedU16
 {
     volatile unsigned short int  __val  ;
 } __attribute__((__packed__));
-#pragma pack(pop)
-#pragma pack(4)
+
 struct _OSUnalignedU32
 {
     volatile unsigned int  __val  ;
 } __attribute__((__packed__));
-#pragma pack(pop)
-#pragma pack(4)
+
 struct _OSUnalignedU64
 {
     volatile unsigned long  long  __val  ;
 } __attribute__((__packed__));
-#pragma pack(pop)
+
 enum { OSUnknownByteOrder 
 ,OSLittleEndian 
 ,OSBigEndian 
 };
 
-#pragma pack(4)
 struct anonymous_typeX23
 {
     long  int  quot  ;
     long  int  rem  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct timeval64
 {
     long long  tv_sec  ;
     long long  tv_usec  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct itimerval
 {
     struct timeval  it_interval  ;
     struct timeval  it_value  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct timezone
 {
     int tz_minuteswest;
     int tz_dsttime;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct clockinfo
 {
     int hz;
@@ -3271,22 +3255,19 @@ struct clockinfo
     int stathz;
     int profhz;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ossl_dispatch_st
 {
     int function_id;
     void (*function)();
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ossl_item_st
 {
     unsigned int id;
     void* ptr;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ossl_algorithm_st
 {
     const char* algorithm_names;
@@ -3294,8 +3275,7 @@ struct ossl_algorithm_st
     const struct ossl_dispatch_st*  implementation  ;
     const char* algorithm_description;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ossl_param_st
 {
     const char* key;
@@ -3304,33 +3284,29 @@ struct ossl_param_st
     unsigned long  int  data_size  ;
     unsigned long  int  return_size  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct anonymous_typeX24
 {
     int dummy;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct crypto_ex_data_st
 {
     struct ossl_lib_ctx_st*  ctx  ;
     struct stack_st_void* sk;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct crypto_threadid_st
 {
     int dummy;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct sched_param
 {
     int sched_priority;
     char __opaque[4];
 };
-#pragma pack(pop)
+
 enum { QOS_CLASS_USER_INTERACTIVE=(0x21),
 QOS_CLASS_USER_INITIATED=(0x19),
 QOS_CLASS_DEFAULT=(0x15),
@@ -3339,7 +3315,6 @@ QOS_CLASS_BACKGROUND=(0x09),
 QOS_CLASS_UNSPECIFIED=(0x00)
 };
 
-#pragma pack(4)
 struct bio_msg_st
 {
     void* data;
@@ -3348,8 +3323,7 @@ struct bio_msg_st
     union bio_addr_st*  local  ;
     unsigned long  long  flags  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct bio_mmsg_cb_args_st
 {
     struct bio_msg_st*  msg  ;
@@ -3358,8 +3332,7 @@ struct bio_mmsg_cb_args_st
     unsigned long  long  flags  ;
     unsigned long  int*  msgs_processed  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ25
 {
 int fd;
@@ -3367,8 +3340,7 @@ void* custom;
 unsigned long  int  custom_ui  ;
 struct ssl_st*  ssl  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ26
 {
 int fd;
@@ -3376,8 +3348,7 @@ void* custom;
 unsigned long  int  custom_ui  ;
 struct ssl_st*  ssl  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct bio_poll_descriptor_st
 {
     unsigned int  type  ;
@@ -3388,7 +3359,7 @@ struct bio_poll_descriptor_st
         struct ssl_st*  ssl  ;
     } value;
 };
-#pragma pack(pop)
+
 enum  BIO_hostserv_priorities { BIO_PARSE_PRIO_HOST 
 ,BIO_PARSE_PRIO_SERV 
 };
@@ -3397,16 +3368,14 @@ enum  BIO_lookup_type { BIO_LOOKUP_CLIENT
 ,BIO_LOOKUP_SERVER 
 };
 
-#pragma pack(4)
 union BIO_sock_info_u
 {
 union bio_addr_st*  addr  ;
 };
-#pragma pack(pop)
+
 enum  BIO_sock_info_type { BIO_SOCK_INFO_ADDRESS 
 };
 
-#pragma pack(4)
 struct buf_mem_st
 {
     unsigned long  int  length  ;
@@ -3414,8 +3383,7 @@ struct buf_mem_st
     unsigned long  int  max  ;
     unsigned long  int flags;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct asn1_string_st
 {
     int length;
@@ -3423,16 +3391,14 @@ struct asn1_string_st
     unsigned char* data;
     long flags;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ASN1_ENCODING_st
 {
     unsigned char* enc;
     long len;
     int modified;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct asn1_string_table_st
 {
     int nid;
@@ -3441,8 +3407,7 @@ struct asn1_string_table_st
     unsigned long  int mask;
     unsigned long  int flags;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ27
 {
 char* ptr;
@@ -3467,8 +3432,7 @@ struct asn1_string_st*  set  ;
 struct asn1_string_st*  sequence  ;
 struct ASN1_VALUE_st*  asn1_value  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ28
 {
 char* ptr;
@@ -3493,8 +3457,7 @@ struct asn1_string_st*  set  ;
 struct asn1_string_st*  sequence  ;
 struct ASN1_VALUE_st*  asn1_value  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct asn1_type_st
 {
     int type;
@@ -3522,16 +3485,14 @@ struct asn1_type_st
         struct ASN1_VALUE_st*  asn1_value  ;
     } value;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct BIT_STRING_BITNAME_st
 {
     int bitnum;
     const char* lname;
     const char* sname;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct obj_name_st
 {
     int type;
@@ -3539,8 +3500,7 @@ struct obj_name_st
     const char* name;
     const char* data;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct anonymous_typeX29
 {
     unsigned char* out;
@@ -3548,27 +3508,24 @@ struct anonymous_typeX29
     unsigned long  int  len  ;
     unsigned int interleave;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct evp_cipher_info_st
 {
     const struct evp_cipher_st*  cipher  ;
     unsigned char iv[16];
 };
-#pragma pack(pop)
+
 enum  anonymous_typeY29 { POINT_CONVERSION_COMPRESSED=(2),
 POINT_CONVERSION_UNCOMPRESSED=(4),
 POINT_CONVERSION_HYBRID=(6)
 };
 
-#pragma pack(4)
 struct anonymous_typeX30
 {
     int nid;
     const char* comment;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct rsa_pss_params_st
 {
     struct X509_algor_st*  hashAlgorithm  ;
@@ -3577,8 +3534,7 @@ struct rsa_pss_params_st
     struct asn1_string_st*  trailerField  ;
     struct X509_algor_st*  maskHash  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct rsa_oaep_params_st
 {
     struct X509_algor_st*  hashFunc  ;
@@ -3586,8 +3542,7 @@ struct rsa_oaep_params_st
     struct X509_algor_st*  pSourceFunc  ;
     struct X509_algor_st*  maskHash  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct SHAstate_st
 {
     unsigned int h0;
@@ -3600,8 +3555,7 @@ struct SHAstate_st
     unsigned int data[16];
     unsigned int num;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct SHA256state_st
 {
     unsigned int h[8];
@@ -3611,22 +3565,19 @@ struct SHA256state_st
     unsigned int num;
     unsigned int md_len;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ31
 {
 unsigned long  long d[16];
 unsigned char p[(16*8)];
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ32
 {
 unsigned long  long d[16];
 unsigned char p[(16*8)];
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct SHA512state_st
 {
     unsigned long  long h[8];
@@ -3639,22 +3590,19 @@ struct SHA512state_st
     unsigned int num;
     unsigned int md_len;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct X509_algor_st
 {
     struct asn1_object_st*  algorithm  ;
     struct asn1_type_st*  parameter  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct X509_val_st
 {
     struct asn1_string_st*  notBefore  ;
     struct asn1_string_st*  notAfter  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct private_key_st
 {
     int version;
@@ -3666,8 +3614,7 @@ struct private_key_st
     int key_free;
     struct evp_cipher_info_st  cipher  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct X509_info_st
 {
     struct x509_st*  x509  ;
@@ -3677,44 +3624,38 @@ struct X509_info_st
     int enc_len;
     char* enc_data;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct Netscape_spkac_st
 {
     struct X509_pubkey_st*  pubkey  ;
     struct asn1_string_st*  challenge  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct Netscape_spki_st
 {
     struct Netscape_spkac_st*  spkac  ;
     struct X509_algor_st  sig_algor  ;
     struct asn1_string_st*  signature  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct Netscape_certificate_sequence
 {
     struct asn1_object_st*  type  ;
     struct stack_st_X509*  certs  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct PBEPARAM_st
 {
     struct asn1_string_st*  salt  ;
     struct asn1_string_st*  iter  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct PBE2PARAM_st
 {
     struct X509_algor_st*  keyfunc  ;
     struct X509_algor_st*  encryption  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct PBKDF2PARAM_st
 {
     struct asn1_type_st*  salt  ;
@@ -3722,15 +3663,13 @@ struct PBKDF2PARAM_st
     struct asn1_string_st*  keylength  ;
     struct X509_algor_st*  prf  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct anonymous_typeX33
 {
     struct X509_algor_st*  keyDerivationFunc  ;
     struct X509_algor_st*  messageAuthScheme  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct SCRYPT_PARAMS_st
 {
     struct asn1_string_st*  salt  ;
@@ -3739,8 +3678,7 @@ struct SCRYPT_PARAMS_st
     struct asn1_string_st*  parallelizationParameter  ;
     struct asn1_string_st*  keyLength  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct lhash_st_OPENSSL_STRING
 {
     union lh_OPENSSL_STRING_dummy {
@@ -3749,8 +3687,7 @@ struct lhash_st_OPENSSL_STRING
         int d3;
     } dummy;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct lhash_st_OPENSSL_CSTRING
 {
     union lh_OPENSSL_CSTRING_dummy {
@@ -3759,13 +3696,12 @@ struct lhash_st_OPENSSL_CSTRING
         int d3;
     } dummy;
 };
-#pragma pack(pop)
+
 enum  anonymous_typeY33 { X509_LU_NONE=(0),
 X509_LU_X509 
 ,X509_LU_CRL 
 };
 
-#pragma pack(4)
 struct x509_trust_st
 {
     int trust;
@@ -3775,22 +3711,19 @@ struct x509_trust_st
     int arg1;
     void* arg2;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct PKCS7_CTX_st
 {
     struct ossl_lib_ctx_st*  libctx  ;
     char* propq;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_issuer_and_serial_st
 {
     struct X509_name_st*  issuer  ;
     struct asn1_string_st*  serial  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_signer_info_st
 {
     struct asn1_string_st*  version  ;
@@ -3803,8 +3736,7 @@ struct pkcs7_signer_info_st
     struct evp_pkey_st*  pkey  ;
     const struct PKCS7_CTX_st*  ctx  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_recip_info_st
 {
     struct asn1_string_st*  version  ;
@@ -3814,8 +3746,7 @@ struct pkcs7_recip_info_st
     struct x509_st*  cert  ;
     const struct PKCS7_CTX_st*  ctx  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_signed_st
 {
     struct asn1_string_st*  version  ;
@@ -3825,8 +3756,7 @@ struct pkcs7_signed_st
     struct stack_st_PKCS7_SIGNER_INFO*  signer_info  ;
     struct pkcs7_st* contents;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_enc_content_st
 {
     struct asn1_object_st*  content_type  ;
@@ -3835,16 +3765,14 @@ struct pkcs7_enc_content_st
     const struct evp_cipher_st*  cipher  ;
     const struct PKCS7_CTX_st*  ctx  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_enveloped_st
 {
     struct asn1_string_st*  version  ;
     struct stack_st_PKCS7_RECIP_INFO*  recipientinfo  ;
     struct pkcs7_enc_content_st*  enc_data  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_signedandenveloped_st
 {
     struct asn1_string_st*  version  ;
@@ -3855,8 +3783,7 @@ struct pkcs7_signedandenveloped_st
     struct pkcs7_enc_content_st*  enc_data  ;
     struct stack_st_PKCS7_RECIP_INFO*  recipientinfo  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_digest_st
 {
     struct asn1_string_st*  version  ;
@@ -3864,15 +3791,13 @@ struct pkcs7_digest_st
     struct pkcs7_st* contents;
     struct asn1_string_st*  digest  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_encrypted_st
 {
     struct asn1_string_st*  version  ;
     struct pkcs7_enc_content_st*  enc_data  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ34
 {
 char* ptr;
@@ -3884,8 +3809,7 @@ struct pkcs7_digest_st*  digest  ;
 struct pkcs7_encrypted_st*  encrypted  ;
 struct asn1_type_st*  other  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 union anonymous_typeZ35
 {
 char* ptr;
@@ -3897,8 +3821,7 @@ struct pkcs7_digest_st*  digest  ;
 struct pkcs7_encrypted_st*  encrypted  ;
 struct asn1_type_st*  other  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct pkcs7_st
 {
     unsigned char* asn1;
@@ -3918,16 +3841,14 @@ struct pkcs7_st
     } d;
     struct PKCS7_CTX_st  ctx  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct anonymous_typeX36
 {
     char* section;
     char* name;
     char* value;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct lhash_st_CONF_VALUE
 {
     union lh_CONF_VALUE_dummy {
@@ -3936,8 +3857,7 @@ struct lhash_st_CONF_VALUE
         int d3;
     } dummy;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct conf_method_st
 {
     const char* name;
@@ -3951,8 +3871,7 @@ struct conf_method_st
     int (*to_int)(const struct conf_st* ,char);
     int (*load)(struct conf_st* ,const char*,long*);
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct conf_st
 {
     struct conf_method_st*  meth  ;
@@ -3963,40 +3882,35 @@ struct conf_st
     char* includedir;
     struct ossl_lib_ctx_st*  libctx  ;
 };
-#pragma pack(pop)
+
 enum  anonymous_typeY36 { CT_LOG_ENTRY_TYPE_NOT_SET=(-1),
 CT_LOG_ENTRY_TYPE_X509=(0),
 CT_LOG_ENTRY_TYPE_PRECERT=(1)
 };
 
-#pragma pack(4)
 struct srtp_protection_profile_st
 {
     const char* name;
     unsigned long  int id;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct tls_session_ticket_ext_st
 {
     unsigned short int length;
     void* data;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ssl_shutdown_ex_args_st
 {
     unsigned long  long  quic_error_code  ;
     const char* quic_reason;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ssl_stream_reset_args_st
 {
     unsigned long  long  quic_error_code  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ssl_conn_close_info_st
 {
     unsigned long  long  error_code  ;
@@ -4005,20 +3919,18 @@ struct ssl_conn_close_info_st
     unsigned long  int  reason_len  ;
     unsigned int  flags  ;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ssl_poll_item_st
 {
     struct bio_poll_descriptor_st  desc  ;
     unsigned long  long  events  ;
     unsigned long  long  revents  ;
 };
-#pragma pack(pop)
+
 enum { SSL_CT_VALIDATION_PERMISSIVE=(0),
 SSL_CT_VALIDATION_STRICT 
 };
 
-#pragma pack(4)
 struct err_state_st
 {
     int err_flags[16];
@@ -4033,15 +3945,13 @@ struct err_state_st
     int top;
     int bottom;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct ERR_string_data_st
 {
     unsigned long  int error;
     const char* string;
 };
-#pragma pack(pop)
-#pragma pack(4)
+
 struct lhash_st_ERR_STRING_DATA
 {
     union lh_ERR_STRING_DATA_dummy {
@@ -4050,7 +3960,7 @@ struct lhash_st_ERR_STRING_DATA
         int d3;
     } dummy;
 };
-#pragma pack(pop)
+
 struct sType
 {
     char*  class_name  ;
@@ -4142,14 +4052,13 @@ struct map$2char$phDatabase$ph
     int it;
 };
 
-#pragma pack(4)
 struct sInfo
 {
     char* p;
     int socket;
     char*  current_db_name  ;
 };
-#pragma pack(pop)
+
 struct tuple3$3char$phsType$ph_Bool$
 {
     char*  v1  ;
@@ -4162,7 +4071,6 @@ struct tuple1$1WhereNode$ph
     struct WhereNode*  v1  ;
 };
 
-#pragma pack(4)
 struct WhereNode
 {
     enum anonymous_typeY36 op;
@@ -4170,7 +4078,7 @@ struct WhereNode
     struct tuple1$1WhereNode$ph* right;
     char*  data  ;
 };
-#pragma pack(pop)
+
 struct map$2char$ph_Bool$
 {
     char**  keys  ;

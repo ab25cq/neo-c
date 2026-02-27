@@ -78,6 +78,7 @@ uninstall:
 	rm -f "$(DESTDIR)/share/doc/webweb2/README.md"
 
 run: webweb2
+	(cd dbdb && make run)
 	(cd cgi-bin && make)
 	rm -f *.log
 	./webweb2 -http

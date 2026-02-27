@@ -76,7 +76,20 @@ uninstall:
 run: dbdb
 	rm -f *.log
 	pkill dbdb || true
-	./dbdb &
+	nohup ./dbdb > dbdb.log 2>&1 &
+	@if command -v nc >/dev/null 2>&1; then \
+		i=0; \
+		while [ $$i -lt 50 ]; do \
+			if nc -z 127.0.0.1 3366 >/dev/null 2>&1; then \
+				exit 0; \
+			fi; \
+			i=$$((i + 1)); \
+			sleep 0.1; \
+		done; \
+		echo "warning: dbdb startup timeout (port 3366 not ready)" >&2; \
+	else \
+		echo "warning: nc not found; skipping dbdb readiness check" >&2; \
+	fi
 
 compile: dbdb
 

@@ -326,6 +326,7 @@ int come_main(int argc, char** argv)
         
         info.sname = string(it);
         info.sline = 1;
+        info.sline_real = 1;
         info.err_num = 0;
         info.funcs = new map<string, sFun*%>();
         info.uniq_funcs = new map<string, sFun*%>();
