@@ -655,6 +655,7 @@ static bool only_trailing_space_or_comments(const char *p) {
 }
 
 static void pp_directive_error(const char *path, long line, const char *msg);
+static void pp_directive_warning(const char *path, long line, const char *msg);
 
 static void parse_line_control_payload(const char *payload, bool allow_linemarker_flags,
                                        const char *path, long err_line,
@@ -738,6 +739,16 @@ static void pp_directive_error(const char *path, long line, const char *msg) {
         fprintf(stderr, "error: %s\n", msg ? msg : "preprocessor error");
     }
     exit(1);
+}
+
+static void pp_directive_warning(const char *path, long line, const char *msg) {
+    long logical_line = line > 0 ? line : 1;
+    long real_line = g_cur_line > 0 ? g_cur_line : logical_line;
+    if (path && *path) {
+        fprintf(stderr, "%s %ld(%ld): [warning] %s\n", path, logical_line, real_line, msg ? msg : "preprocessor warning");
+    } else {
+        fprintf(stderr, "warning: %s\n", msg ? msg : "preprocessor warning");
+    }
 }
 
 static void strip_comments_inplace(char *s) {
@@ -4399,7 +4410,7 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                         if (strstr(this_path, "/usr/include") || strstr(this_path, "MacOSX.sdk/usr/include")) in_sys = true;
                     }
                     if (!(suppress_w && *suppress_w) && !in_sys) {
-                        fprintf(stderr, "warning: %s\n", p);
+                        pp_directive_warning(this_path, line_no, (p && *p) ? p : "#warning");
                     }
                 }
             } else if (strcmp(kw, "error") == 0) {
@@ -4417,11 +4428,10 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                         // do nothing
                     } else if (relax_env) {
                         if (!suppress_demoted) {
-                            fprintf(stderr, "error(demoted): %s\n", p);
+                            pp_directive_warning(this_path, line_no, (p && *p) ? p : "error(demoted)");
                         }
                     } else {
-                        fprintf(stderr, "error: %s\n", p);
-                        exit(1);
+                        pp_directive_error(this_path, line_no, (p && *p) ? p : "#error");
                     }
                 }
             } else if (strcmp(kw, "ifdef") == 0) {

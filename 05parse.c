@@ -3366,8 +3366,8 @@ int err_msg(struct sInfo*  info  , const char* msg, ...)
         vasprintf(&msg2,msg,args);
         __builtin_va_end(args);
         p=info->p;
-        sline_real=info->sline_real>0?info->sline_real:info->sline;
-        buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 29, "struct buffer* "))));
+        sline_real=((info->sline_real>0)?(info->sline_real):(info->sline));
+        buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 30, "struct buffer* "))));
         if(info->come_fun) {
             buffer_append_format(buf,"%s %d(%d): [error] %s in fun (%s)\n",info->sname,info->sline,sline_real,msg2,info->come_fun->mName);
         }
@@ -3418,8 +3418,8 @@ int warning_msg(struct sInfo*  info  , const char* msg, ...)
         __builtin_va_start(args,msg);
         vasprintf(&msg2,msg,args);
         __builtin_va_end(args);
-        sline_real=info->sline_real>0?info->sline_real:info->sline;
-        buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 66, "struct buffer* "))));
+        sline_real=((info->sline_real>0)?(info->sline_real):(info->sline));
+        buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 69, "struct buffer* "))));
         if(info->come_fun) {
             buffer_append_format(buf,"%s %d(%d): [warning] %s in fun (%s)\n",info->sname,info->sline,sline_real,msg2,info->come_fun->mName);
         }
@@ -3481,7 +3481,7 @@ char*  parse_word(_Bool digits, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
     char*  __result_obj__0  ;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 111, "struct buffer* "))));
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 114, "struct buffer* "))));
     parse_sharp_v5(info);
     if(digits) {
         while((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)) {
@@ -3905,7 +3905,7 @@ static char*  pack_stack_entry_id(char* entry)
         return __result_obj__0;
     }
     __right_value0 = (void*)0;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 358, "struct buffer* "))));
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 369, "struct buffer* "))));
     buffer_append(buf,entry,p-entry);
         __right_value0 = (void*)0;
     __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
@@ -3991,7 +3991,7 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
     char*  __dec_obj18  ;
     if(info->pragma_pack_stack==((void*)0)) {
         __dec_obj3=info->pragma_pack_stack,
-        info->pragma_pack_stack=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "05parse.nc", 380, "struct list$1char$ph*"))));
+        info->pragma_pack_stack=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "05parse.nc", 391, "struct list$1char$ph*"))));
         come_call_finalizer(list$1char$ph_finalize, __dec_obj3,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(info->pragma==((void*)0)) {
@@ -4002,7 +4002,7 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    compact_buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 386, "struct buffer* "))));
+    compact_buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 397, "struct buffer* "))));
     p=pragma_line;
     while(*p) {
         if(*p!=32&&*p!=9&&*p!=10&&*p!=13) {
@@ -4050,13 +4050,13 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    tokens=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "05parse.nc", 424, "struct list$1char$ph*"))));
+    tokens=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "05parse.nc", 435, "struct list$1char$ph*"))));
     {
         i_0=lparen_pos+1;
         while(i_0<rparen_pos) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            tok=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 428, "struct buffer* "))));
+            tok=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 439, "struct buffer* "))));
             while(i_0<rparen_pos) {
                 d_1=compact[i_0];
                 if(d_1==44) {
@@ -4083,7 +4083,7 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    op=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,0,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 447, "char* "));
+    op=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,0,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 458, "char* "));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
     if(string_operator_equals(op,"push")) {
@@ -4095,19 +4095,19 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            tok2=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,i_4,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 454, "char* "));
+            tok2=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,i_4,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 465, "char* "));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             if(is_number_token(tok2)) {
                 __right_value0 = (void*)0;
                 __dec_obj9=push_num,
-                push_num=(char* )come_increment_ref_count((char* )come_memdup(tok2, "05parse.nc", 456, "char* "));
+                push_num=(char* )come_increment_ref_count((char* )come_memdup(tok2, "05parse.nc", 467, "char* "));
                 __dec_obj9 = come_decrement_ref_count(__dec_obj9, (void*)0, (void*)0, 0,0, (void*)0);
             }
             else if(string_operator_equals(push_id,"")) {
                 __right_value0 = (void*)0;
                 __dec_obj10=push_id,
-                push_id=(char* )come_increment_ref_count((char* )come_memdup(tok2, "05parse.nc", 459, "char* "));
+                push_id=(char* )come_increment_ref_count((char* )come_memdup(tok2, "05parse.nc", 470, "char* "));
                 __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0);
             }
             (tok2 = come_decrement_ref_count(tok2, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4131,19 +4131,19 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            tok2_6=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,i_5,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 474, "char* "));
+            tok2_6=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,i_5,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 485, "char* "));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
             if(is_number_token(tok2_6)) {
                 __right_value0 = (void*)0;
                 __dec_obj12=pop_num,
-                pop_num=(char* )come_increment_ref_count((char* )come_memdup(tok2_6, "05parse.nc", 476, "char* "));
+                pop_num=(char* )come_increment_ref_count((char* )come_memdup(tok2_6, "05parse.nc", 487, "char* "));
                 __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0);
             }
             else if(string_operator_equals(pop_id,"")) {
                 __right_value0 = (void*)0;
                 __dec_obj13=pop_id,
-                pop_id=(char* )come_increment_ref_count((char* )come_memdup(tok2_6, "05parse.nc", 479, "char* "));
+                pop_id=(char* )come_increment_ref_count((char* )come_memdup(tok2_6, "05parse.nc", 490, "char* "));
                 __dec_obj13 = come_decrement_ref_count(__dec_obj13, (void*)0, (void*)0, 0,0, (void*)0);
             }
             (tok2_6 = come_decrement_ref_count(tok2_6, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4552,7 +4552,7 @@ void parse_sharp_v5(struct sInfo*  info  )
             info->p++;
             skip_spaces_and_tabs(info);
             if(parsecmp("pragma",info)) {
-                buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 526, "struct buffer* "))));
+                buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 537, "struct buffer* "))));
                 buffer_append_str(buf,"#");
                 while(*info->p) {
                     if(*info->p==10) {
@@ -4582,7 +4582,7 @@ void parse_sharp_v5(struct sInfo*  info  )
                 line=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 553, "struct buffer* "))));
+                fname=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 564, "struct buffer* "))));
                 if(!xisdigit(*info->p)) {
                     err_msg(info,"invalid #line directive");
                                         come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4638,7 +4638,7 @@ void parse_sharp_v5(struct sInfo*  info  )
                 line_14=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname_15=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 603, "struct buffer* "))));
+                fname_15=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 617, "struct buffer* "))));
                 while(xisdigit(*info->p)) {
                     line_14=line_14*10+(*info->p-48);
                     info->p++;
