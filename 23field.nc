@@ -1124,7 +1124,7 @@ class sLoadRangeArrayNode extends sNodeBase
 };
 
 
-sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 18
+sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false, bool iter_=false) version 18
 {
     err_msg(info, "parse_method_call is failed");
     exit(2);
@@ -1211,6 +1211,21 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             skip_spaces_and_lf();
             
             node = new sUnwrapNode(node, info) implements sNode;
+        }
+        else if(!node->terminated() && (*info->p == '.' && *(info->p+1) == '`')) 
+        {
+            sNode*% obj = node;
+            sNode*% node_before = null;
+            while(*info->p == '.' && *(info->p+1) == '`') {
+                info->p += 2;
+                skip_spaces_and_lf();
+                
+                string field_name2 = parse_word();
+                
+printf("call iter obj %p node_before %p\n", obj, node_before);
+                node = parse_iter_call(obj, field_name2, info, false@arrow_, parent_call_node:node_before);
+                node_before = node;
+            }
         }
         else if(!node->terminated() && !range_array && (*info->p == '\\' && *(info->p+1) == '[' || *info->p == '[')) {
             bool quote = *info->p == '\\';

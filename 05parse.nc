@@ -98,7 +98,7 @@ int expected_next_character(char c, sInfo* info=info)
     if(*info->p != c) {
         if(!info.no_output_come_code) {
             err_msg(info, "expected next charaster is %c, but %c, caller %s %d", c, *info->p, info->caller_sname, info->caller_line);
-            //stackframe();
+            stackframe();
             exit(1);
         }
     }
@@ -135,7 +135,7 @@ string parse_word(bool digits=false, sInfo* info=info)
     
     if(buf.to_string().length() == 0) {
         err_msg(info, "unexpected character(%c), expected word character, caller %s %d", *info->p, info->caller_sname, info->caller_line);
-        //stackframe();
+        stackframe();
         exit(1);
     }
     

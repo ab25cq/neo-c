@@ -5,7 +5,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
     if(!gComeC && buf === "impl") {
         char* source_head = info.p;
         
-        var word = parse_word();
+        string word;
+        if(*info->p == '_' || xisalpha(*info->p)) {
+            word = parse_word();
+        }
         
         if(*info->p == '<') {
             info->p++;
@@ -49,7 +52,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
             skip_spaces_and_lf();
             
             char* head = info.p;
-            string buf = parse_word();
+            
+            string buf;
+            if(*info->p == '_' || xisalpha(*info->p)) {
+                buf = parse_word();
+            }
             
             parse_sharp(info);
             

@@ -197,6 +197,9 @@ static void init_classes(sInfo* info)
     info.classes.insert(string("_Complex"), new sClass(s"_Complex", float_:true));
     info.classes.insert(string("__int128"), new sClass(s"__int128", number:true));
     info.classes.insert(string("__int128_t"), new sClass(s"__int128_t", number:true));
+    info.classes.insert(string("iter_begin"), new sClass(s"iter_begin", iter_:true));
+    info.classes.insert(string("iter_end"), new sClass(s"iter_end", iter_:true));
+    info.classes.insert(string("iter"), new sClass(s"iter", iter_:true));
     for(int i=0; i<GENERICS_TYPE_MAX; i++) {
         string generics_type = xsprintf("__generics_type%d", i);
         info.classes.insert(generics_type, new sClass(generics_type, generics:true, generics_num:i));

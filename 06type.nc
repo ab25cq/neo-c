@@ -1684,7 +1684,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             
             tmp_ = clone type2;
         }
-        else if(*info->p == '`') {
+        else if(*info->p == '/') {
             info->p++;
             skip_spaces_and_lf();
             

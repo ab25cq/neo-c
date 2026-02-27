@@ -63,7 +63,9 @@ uniq class sClass
     
     string mAttribute;
     
-    new(string name, bool number=false, bool union_=false, bool generics=false, bool method_generics=false, bool protocol_=false, bool struct_=false, bool float_=false, int generics_num=-1, int method_generics_num=-1, bool enum_=false, bool uniq_=false, bool typename=false, sInfo* info=info)
+    bool mIter;
+    
+    new(string name, bool number=false, bool union_=false, bool generics=false, bool method_generics=false, bool protocol_=false, bool struct_=false, bool float_=false, int generics_num=-1, int method_generics_num=-1, bool enum_=false, bool uniq_=false, bool typename=false, sInfo* info=info, bool iter_=false)
     {
         self.mNumber = number;
         self.mStruct = struct_;
@@ -83,6 +85,8 @@ uniq class sClass
         self.mMethodGenericsNum = method_generics_num;
         
         self.mFields = new list<tuple2<string, sType*%>*%>();
+        
+        self.mIter = iter_;
     }
 };
 
@@ -622,6 +626,9 @@ struct sInfo
     bool if_result_value_name_defined;
     sType*% if_result_type;
     bool defer_block;
+    
+    buffer*% iter_buffer;
+    int iter_count;
 };
 
 uniq class sNodeBase
@@ -1072,7 +1079,7 @@ sNode*% load_field(sNode*% left, string name, sInfo* info=info);
 sNode*% store_field(sNode*% left, sNode*% right, string name, sInfo* info);
 
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 99;
-sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 18;
+sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false, bool iter_=false, sNode*% obj2=null) version 18;
 
 /////////////////////////////////////////////////////////////////////
 /// 19eq.c
@@ -1082,13 +1089,14 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19;
 /////////////////////////////////////////////////////////////////////
 /// 20method.c
 /////////////////////////////////////////////////////////////////////
-string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sInfo* info);
+string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sInfo* info, bool no_make_generics_function=false);
 sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false);
 sNode*% create_funcall(const char* fun_name, list<tuple2<string, sNode*%>*%>* params, buffer*% method_block, int method_block_sline, list<sType*%>*% method_generics_types, sInfo* info, bool arrow_=false);
 sNode*% create_guard_break_method_call(sNode*% expression_node, sInfo* info);
 bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFun* fun, char* fun_name, int method_block_sline, sInfo* info, bool no_create_current_stack=false) ;
 string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo* info, bool array_equal_pointer=true);
- sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 20;
+sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false) version 20;
+sNode*% parse_iter_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false, sNode*% parent_call_node=null) version 20;
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 20;
 
 /////////////////////////////////////////////////////////////////////

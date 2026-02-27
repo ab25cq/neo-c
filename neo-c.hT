@@ -440,9 +440,6 @@ uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sl
 
 uniq bool come_is_alive(void* mem)
 {
-    if(mem == null) {
-        return false;
-    }
     sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
     
     return it->alive;

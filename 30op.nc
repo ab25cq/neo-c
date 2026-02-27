@@ -2193,6 +2193,10 @@ sNode*% expression(sInfo* info=info, bool type_name_exp=false) version 13
     sNode*% node = null;
     skip_spaces_and_lf();
     
+    if(*info->p == '\\') {
+        info->p++;
+    }
+    
     /// backtrace ///
     if(type_name_exp && (*info->p == '_' || xisalpha(*info->p))) {
         char* p = info.p;

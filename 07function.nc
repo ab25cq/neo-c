@@ -646,6 +646,10 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
             else if(*info->p == '/' && *(info->p+1) == '/') {
                 skip_spaces_and_lf();
             }
+            else if(*info->p == '\\') {
+                info->p++;
+                if(*info->p) info->p++;
+            }
             else if(*info->p == '{') {
                 info->p++;
 
@@ -2252,11 +2256,20 @@ sNode*% parse_function(sInfo* info)
         obj_type2 = clone obj_type;
     }
     else if(info->impl_type) {
-        base_fun_name = parse_word();
-    
-        fun_name = create_method_name(info->impl_type, false@no_pointer_name, base_fun_name, info);
+        if(result_type->mClass->mIter) {
+            base_fun_name = parse_word();
         
-        obj_type2 = clone info->impl_type;
+            fun_name = create_method_name(info->impl_type, false@no_pointer_name, base_fun_name, info);
+            
+            obj_type2 = clone info->impl_type;
+        }
+        else {
+            base_fun_name = parse_word();
+        
+            fun_name = create_method_name(info->impl_type, false@no_pointer_name, base_fun_name, info);
+            
+            obj_type2 = clone info->impl_type;
+        }
     }
     else if(info->class_type) {
         base_fun_name = parse_word();
@@ -2344,20 +2357,38 @@ sNode*% parse_function(sInfo* info)
         return new sLambdaNode(fun, info) implements sNode;
     }
     else if(info.impl_type && info.generics_type_names.length() > 0) {
-        string none_generics_name = get_none_generics_name(info.impl_type.mClass.mName);
-        
-        string generics_sname = string(info.sname);
-        int generics_sline = info.sline;
-        
-        string block = skip_block(info);
-        
-        var fun = new sGenericsFun(info.impl_type, clone info.generics_type_names, clone info.method_generics_type_names, string(fun_name), result_type, param_types, param_names, param_default_parametors, var_args, block, info, string(generics_sname), generics_sline, const_fun:const_fun);
-        
-        string fun_name3 = xsprintf("%s_%s", none_generics_name, base_fun_name);
-        
-        info.generics_funcs.insert(string(fun_name3), fun);
-        
-        return (sNode*%)null;
+        if(result_type->mClass->mIter) {
+            string none_generics_name = get_none_generics_name(info.impl_type.mClass.mName);
+            
+            string generics_sname = string(info.sname);
+            int generics_sline = info.sline;
+            
+            string block = skip_block(info);
+            
+            var fun = new sGenericsFun(info.impl_type, clone info.generics_type_names, clone info.method_generics_type_names, string(fun_name), result_type, param_types, param_names, param_default_parametors, var_args, block, info, string(generics_sname), generics_sline, const_fun:const_fun);
+            
+            string fun_name3 = xsprintf("%s_iter_%s", none_generics_name, base_fun_name);
+            
+            info.generics_funcs.insert(string(fun_name3), fun);
+            
+            return (sNode*%)null;
+        }
+        else {
+            string none_generics_name = get_none_generics_name(info.impl_type.mClass.mName);
+            
+            string generics_sname = string(info.sname);
+            int generics_sline = info.sline;
+            
+            string block = skip_block(info);
+            
+            var fun = new sGenericsFun(info.impl_type, clone info.generics_type_names, clone info.method_generics_type_names, string(fun_name), result_type, param_types, param_names, param_default_parametors, var_args, block, info, string(generics_sname), generics_sline, const_fun:const_fun);
+            
+            string fun_name3 = xsprintf("%s_%s", none_generics_name, base_fun_name);
+            
+            info.generics_funcs.insert(string(fun_name3), fun);
+            
+            return (sNode*%)null;
+        }
     }
     else if(info.method_generics_type_names.length() > 0) {
         string generics_sname = string(info.sname);

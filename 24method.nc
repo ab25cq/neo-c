@@ -194,7 +194,7 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     return true;
 }
 
-string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sInfo* info) 
+string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sInfo* info, bool no_make_generics_function=false) 
 {
     string generics_fun_name = null;
     sFun* fun = null;
@@ -217,9 +217,14 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
     }
     else {
         if(obj_type && obj_type.mNoSolvedGenericsType && obj_type.mNoSolvedGenericsType.mGenericsTypes.length() > 0) {
-            var name, gfun = make_generics_function(obj_type, string(fun_name), info);
-            generics_fun_name = name;
-            generics_fun = gfun;
+            if(no_make_generics_function) {
+                generics_fun_name = name;
+            }
+            else {
+                var name, gfun = make_generics_function(obj_type, string(fun_name), info);
+                generics_fun_name = name;
+                generics_fun = gfun;
+            }
         }
         else if(info.method_generics_types && info.method_generics_types.length() > 0) {
             string none_generics_name = get_none_generics_name(obj_type.mClass.mName);
@@ -229,9 +234,14 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
             generics_fun = gfun;
         }
         else {
-            var name, gfun = make_generics_function(obj_type, string(fun_name), info);
-            generics_fun_name = name;
-            generics_fun = gfun;
+            if(no_make_generics_function) {
+                generics_fun_name = name;
+            }
+            else {
+                var name, gfun = make_generics_function(obj_type, string(fun_name), info);
+                generics_fun_name = name;
+                generics_fun = gfun;
+            }
         }
         
         for(int i=FUN_VERSION_MAX; i>=1; i--) {
@@ -332,6 +342,14 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
     }
     
     return t(generics_fun_name, fun, generics_fun);
+}
+
+string get_method_from_iter_call(const char* fun_name, sType* obj_type, sInfo* info) 
+{
+    string none_generics_name = get_none_generics_name(obj_type.mClass.mName);
+    string fun_name3 = xsprintf("%s_iter_%s", none_generics_name, fun_name);
+    
+    return fun_name3;
 }
 
 static bool call_cpp_method(string fun_name, list<tuple2<string, sNode*%>*%>*% params, sNode*% obj, sInfo* info=info, bool arrow_=false)
@@ -996,6 +1014,105 @@ class sMethodCallNode extends sNodeBase
     }
 };
 
+class sIterCallNode extends sNodeBase
+{
+    new(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline
+        , list<sType*%>* method_generics_types, bool no_infference_method_generics, bool recursive, sInfo* info, bool arrow_=false, sNode*% parent_call_node)
+    {
+        self.super();
+        
+printf(s"sIterCallNode initialize obj %p parent_call_node %p\n", obj, parent_call_node);
+        sNode*% self.obj = obj;
+        sNode*% self.parent_call_node = parent_call_node;
+        string self.fun_name = string(fun_name);
+        list<tuple2<string, sNode*%>*%>*% self.params = clone params;
+        buffer*% self.method_block = clone method_block;
+        int self.method_block_sline = method_block_sline;
+    }
+    
+    sNode* left_value() {
+        return self.parent_call_node;
+    }
+    
+    bool terminated()
+    {
+/*
+        if(self.method_block) {
+            return true;
+        }
+        else {
+*/
+            return false;
+//        }
+    }
+    
+    string kind()
+    {
+        return string("sIterCall");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        string fun_name = self.fun_name;
+        list<tuple2<string, sNode*%>*%>*% params = self.params;
+        sNode*% obj = self.obj;
+        buffer*% method_block = self.method_block;
+        sNode*% parent_call_node = self.parent_call_node;
+printf("compile obj %p parent_call_node %p\n", obj, parent_call_node);
+        
+        node_compile(obj).elif {
+            return false;
+        }
+        
+        CVALUE*% obj_value = get_value_from_stack(-1, info);
+        
+        sType*% obj_type = clone obj_value.type;
+        
+        string generics_fun_name = get_method_from_iter_call(fun_name, obj_type, info);
+        sGenericsFun* generics_fun = borrow info.generics_funcs.at(generics_fun_name, null);
+        
+if(generics_fun == null) {
+err_msg(info, "generics fun not found(%s)", generics_fun_name);
+return false;
+}
+        
+puts(fun_name);
+        
+        static bool recursive = false;
+        if(recursive == false) {
+            recursive = true;
+            
+            info.iter_buffer = new buffer();
+            info.iter_count = 0;
+            
+printf("obj node %p\n", obj);
+            sNode*% last_node = self implements sNode;
+            sNode* node = borrow last_node;
+printf("node %p %d\n", node, come_is_alive(node));
+            node = node.left_value();
+printf("node.left_value %p %d\n", node, come_is_alive(node));
+puts(node.kind());
+            while(node) {
+                node_compile(node).elif {
+                    return false;
+                }
+                
+                node = node.left_value();
+printf("node.left_value %p\n", node);
+            }
+            
+            info.iter_buffer = null;
+            recursive = false;
+        }
+        
+        if(info.iter_buffer) {
+            info.iter_buffer.append_str(generics_fun.mBlock);
+        }
+        
+        return true;
+    }
+};
+
 
 sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false)
 {
@@ -1010,11 +1127,6 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
 {
     list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
     params.push_back(t((string)null,clone obj));
-    
-    if(*info->p == '-' && *(info->p+1) == '>') {
-        info->p +=2;
-        skip_spaces_and_lf();
-    }
     
     /// backtrace ///
     bool parse_method_generics_type = false;
@@ -1157,6 +1269,99 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
     sNode*% node = new sMethodCallNode(fun_name, clone obj, params, method_block, method_block_sline, method_generics_types, no_infference_method_generics:false, recursive:true, info, arrow_) implements sNode;
     
     node = post_position_operator(node, info);
+    
+    return node;
+}
+
+sNode*% parse_iter_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=false, sNode*% parent_call_node=null) version 20
+{
+    list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
+    
+    if(*info->p != '{') {
+        expected_next_character('(');
+        
+        while(true) {
+            if(*info->p == ')') {
+                info->p++;
+                skip_spaces_and_lf();
+                break;
+            }
+            
+            char* p = info.p;
+            int sline = info.sline;
+            
+            bool err_flag = false;
+            string label = string("");
+            if(xisalpha(*info->p) || *info->p == '_') {
+                label = parse_word();
+                err_flag = true;
+            };
+            
+            if(err_flag == true && *info->p == ':') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
+            else {
+                label = null;
+                
+                info->p = p;
+                info->sline = sline;
+            }
+            
+            bool no_comma = info.no_comma;
+            info.no_comma = true;
+            
+            bool in_fun_param = info.in_fun_param;
+            info.in_fun_param = true;
+            
+            bool type_name_exp = false;
+            
+            sNode*% node = expression(type_name_exp:type_name_exp);
+            
+            node = post_position_operator(node, info);
+            
+            info.in_fun_param = in_fun_param;
+            info.no_comma = no_comma;
+            
+            params.push_back(t(label, node));
+            
+            if(*info->p == ',') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
+            else if(*info->p == ')') {
+                info->p++;
+                skip_spaces_and_lf();
+                break;
+            }
+        }
+    }
+    
+    buffer*% method_block = null;
+    int method_block_sline = 0;
+    if(*info->p == '{') {
+        char* head = info.p;
+        method_block_sline = info.sline;
+        
+        skip_block(info);
+        
+        char* tail = info.p;
+        
+        method_block = new buffer();
+        
+        int len = tail - head;
+        char*% mem = new char[len+1];
+        memcpy(mem, head, len);
+        mem[len] = '\0';
+        
+        method_block.append_str(mem);
+        method_block.append_str("\n");
+    }
+    
+    skip_spaces_and_lf();
+    
+printf("IterCallNode obj %p parent_call_node %p\n", obj, parent_call_node);
+    sNode*% node = new sIterCallNode(fun_name, obj, params, method_block, method_block_sline, null, no_infference_method_generics:false, recursive:true, info, arrow_, parent_call_node) implements sNode;
     
     return node;
 }
