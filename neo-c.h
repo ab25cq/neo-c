@@ -1564,6 +1564,11 @@ impl list <T>
     bool end(list<T>* self) {
         return self == null || self.it == null;
     }
+    list<T>* iter(list<T>* self)
+    {
+        // Zero-cost adapter: no wrapper object, just return self.
+        return self;
+    }
     list<T>* each(list<T>* self, void* parent, void (*block)(void*, T,int,bool*)) 
     {
         if(self == null) {
@@ -2637,6 +2642,11 @@ impl vector<T>
         using unsafe;
         
         return self.it >= self.len;
+    }
+    vector<T>* iter(vector<T>* self)
+    {
+        // Zero-cost adapter: no wrapper object, just return self.
+        return self;
     }
     
     T operator_load_element(vector<T>* self, int position) {
