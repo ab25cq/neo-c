@@ -1222,7 +1222,6 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 
                 string field_name2 = parse_word();
                 
-printf("call iter obj %p node_before %p\n", obj, node_before);
                 node = parse_iter_call(obj, field_name2, info, false@arrow_, parent_call_node:node_before);
                 node_before = node;
             }

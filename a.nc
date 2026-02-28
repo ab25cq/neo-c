@@ -2,24 +2,22 @@
 
 impl list<T>
 {
-    iter_begin iter(list<T>* self) {
+    iter filter(list<T>* self) {
         var _li = new list<T>();
         foreach(it, self) \{
-    }
-    iter filter(list<T>* self) {
-        if(`block(self, it)) \{
-            _li.add(it);
-            `next()
+            bool result = `block();
+            
+            if(result) \{
+                _li.add(it);
+            \}
         \}
     }
     iter_end each(list<T>* self) {
-        \}
-        foreach(it2, _li) \{
-            `block(self, it2);
+        foreach(it, _li) \{
+            `block();
         \}
     }
     iter_end end(list<T>* self) {
-        \}
     }
 }
 
@@ -27,8 +25,8 @@ int main(int argc, char** argv)
 {
     var li = [1,2,3,4,5,6,7];
     
-    li.`iter().`filter() { it > 5 }.`each {
-        printf("%d\n");
+    li.`filter() { it > 5 }.`each {
+        printf("%d\n", it);
     }
                                    
     return 0;

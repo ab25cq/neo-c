@@ -1873,8 +1873,9 @@ struct sInfo
     _Bool if_result_value_name_defined;
     struct sType*  if_result_type  ;
     _Bool defer_block;
-    struct buffer*  iter_buffer  ;
-    int iter_count;
+    char*  iter_buffer  ;
+    char*  iter_next  ;
+    char*  iter_block  ;
 };
 
 struct sNodeBase
@@ -5435,7 +5436,13 @@ static void sInfo_finalize(struct sInfo*  self  )
         come_call_finalizer(sType_finalize, self->if_result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     if(self!=((void*)0)&&self->iter_buffer!=((void*)0)) {
-        come_call_finalizer(buffer_finalize, self->iter_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        (self->iter_buffer = come_decrement_ref_count(self->iter_buffer, (void*)0, (void*)0, 0, 0, (void*)0));
+    }
+    if(self!=((void*)0)&&self->iter_next!=((void*)0)) {
+        (self->iter_next = come_decrement_ref_count(self->iter_next, (void*)0, (void*)0, 0, 0, (void*)0));
+    }
+    if(self!=((void*)0)&&self->iter_block!=((void*)0)) {
+        (self->iter_block = come_decrement_ref_count(self->iter_block, (void*)0, (void*)0, 0, 0, (void*)0));
     }
                 neo_current_frame = fr.prev;
 }

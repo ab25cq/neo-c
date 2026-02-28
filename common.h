@@ -627,8 +627,9 @@ struct sInfo
     sType*% if_result_type;
     bool defer_block;
     
-    buffer*% iter_buffer;
-    int iter_count;
+    string iter_buffer;
+    string iter_next;
+    string iter_block;
 };
 
 uniq class sNodeBase

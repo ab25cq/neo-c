@@ -1873,8 +1873,9 @@ struct sInfo
     _Bool if_result_value_name_defined;
     struct sType*  if_result_type  ;
     _Bool defer_block;
-    struct buffer*  iter_buffer  ;
-    int iter_count;
+    char*  iter_buffer  ;
+    char*  iter_next  ;
+    char*  iter_block  ;
 };
 
 struct sNodeBase

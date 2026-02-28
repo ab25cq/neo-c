@@ -1021,7 +1021,6 @@ class sIterCallNode extends sNodeBase
     {
         self.super();
         
-printf(s"sIterCallNode initialize obj %p parent_call_node %p\n", obj, parent_call_node);
         sNode*% self.obj = obj;
         sNode*% self.parent_call_node = parent_call_node;
         string self.fun_name = string(fun_name);
@@ -1058,7 +1057,6 @@ printf(s"sIterCallNode initialize obj %p parent_call_node %p\n", obj, parent_cal
         sNode*% obj = self.obj;
         buffer*% method_block = self.method_block;
         sNode*% parent_call_node = self.parent_call_node;
-printf("compile obj %p parent_call_node %p\n", obj, parent_call_node);
         
         node_compile(obj).elif {
             return false;
@@ -1071,42 +1069,114 @@ printf("compile obj %p parent_call_node %p\n", obj, parent_call_node);
         string generics_fun_name = get_method_from_iter_call(fun_name, obj_type, info);
         sGenericsFun* generics_fun = borrow info.generics_funcs.at(generics_fun_name, null);
         
-if(generics_fun == null) {
-err_msg(info, "generics fun not found(%s)", generics_fun_name);
-return false;
-}
-        
-puts(fun_name);
-        
         static bool recursive = false;
         if(recursive == false) {
             recursive = true;
             
-            info.iter_buffer = new buffer();
-            info.iter_count = 0;
+            string text = generics_fun.mBlock[1..-2];
             
-printf("obj node %p\n", obj);
+            char* p = borrow text;
+            char* end = borrow text + strlen(text);
+            var buf = new buffer();
+            bool squort = false;
+            bool dquort = false;
+            while(*p) {
+                if(!dquort && !squort && *p == '\\') {
+                    p++;
+                    buf.append_char(*p);
+                    p++;
+                }
+                else if(!dquort && *p == '\'') {
+                    squort = !squort;
+                    buf.append_char(*p);
+                    p++;
+                }
+                else if(!squort && *p == '"') {
+                    dquort = !dquort;
+                    buf.append_char(*p);
+                    p++;
+                }
+                else if(dquort || squort) {
+                    buf.append_char(*p);
+                    p++;
+                }
+                else if((end - p) > strlen("`block()") && memcmp(p, "`block()", strlen("`block()")) == 0) {
+                    p+=strlen("`block()");
+                    buf.append_str(method_block.to_string()[1..-3]);
+                }
+                else {
+                    buf.append_char(*p);
+                    p++;
+                }
+            }
+            
+            info.iter_buffer = buf.to_string();
+            
             sNode*% last_node = self implements sNode;
             sNode* node = borrow last_node;
-printf("node %p %d\n", node, come_is_alive(node));
             node = node.left_value();
-printf("node.left_value %p %d\n", node, come_is_alive(node));
-puts(node.kind());
             while(node) {
                 node_compile(node).elif {
                     return false;
                 }
                 
                 node = node.left_value();
-printf("node.left_value %p\n", node);
             }
+            
             
             info.iter_buffer = null;
             recursive = false;
         }
-        
-        if(info.iter_buffer) {
-            info.iter_buffer.append_str(generics_fun.mBlock);
+        else {
+            string text = generics_fun.mBlock[1..-2];
+            
+            char* p = borrow text;
+            char* end = borrow text + strlen(text);
+            var buf = new buffer();
+            bool squort = false;
+            bool dquort = false;
+            while(*p) {
+                if(!dquort && !squort && *p == '\\') {
+                    p++;
+                    buf.append_char(*p);
+                    p++;
+                }
+                else if(!dquort && *p == '\'') {
+                    squort = !squort;
+                    buf.append_char(*p);
+                    p++;
+                }
+                else if(!squort && *p == '"') {
+                    dquort = !dquort;
+                    buf.append_char(*p);
+                    p++;
+                }
+                else if(dquort || squort) {
+                    buf.append_char(*p);
+                    p++;
+                }
+                else if((end - p) > strlen("`block()") && memcmp(p, "`block()", strlen("`block()")) == 0) {
+                    p+=strlen("`block()");
+                    buf.append_str(method_block.to_string()[1..-3]);
+                }
+                else {
+                    buf.append_char(*p);
+                    p++;
+                }
+            }
+            info.iter_buffer = buf.to_string() + info.iter_buffer;
+            
+            sInfo info2;
+            info2 = *info;
+            
+            info2.source = info.iter_buffer.to_buffer();
+            info2.p = borrow info.source.buf;
+            info2.head = borrow info.source.buf;
+            info2.end = info.source.buf + info.source.len;
+            
+            sBlock*% block = parse_block(&info2);
+            
+            transpile_block(block, param_types:null, param_names:null, info, no_var_table:true);
         }
         
         return true;
@@ -1360,7 +1430,6 @@ sNode*% parse_iter_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=f
     
     skip_spaces_and_lf();
     
-printf("IterCallNode obj %p parent_call_node %p\n", obj, parent_call_node);
     sNode*% node = new sIterCallNode(fun_name, obj, params, method_block, method_block_sline, null, no_infference_method_generics:false, recursive:true, info, arrow_, parent_call_node) implements sNode;
     
     return node;
