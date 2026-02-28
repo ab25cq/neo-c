@@ -1014,6 +1014,21 @@ class sMethodCallNode extends sNodeBase
     }
 };
 
+string trim_last_bracket(string all_code, sInfo* info=info)
+{
+    char* p3 = borrow all_code + strlen(all_code);
+    while(p3 >= all_code) {
+        if(*p3 == '}' && *(p3+1) != ')') {
+            break;
+        }
+        else {
+            p3--;
+        }
+    }
+    
+    return all_code.substring(0, p3 - all_code);
+}
+
 class sIterCallNode extends sNodeBase
 {
     new(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline
@@ -1021,8 +1036,8 @@ class sIterCallNode extends sNodeBase
     {
         self.super();
         
-        sNode*% self.obj = obj;
-        sNode*% self.parent_call_node = parent_call_node;
+        sNode*% self.obj = clone obj;
+        sNode*% self.parent_call_node = clone parent_call_node;
         string self.fun_name = string(fun_name);
         list<tuple2<string, sNode*%>*%>*% self.params = clone params;
         buffer*% self.method_block = clone method_block;
@@ -1054,9 +1069,9 @@ class sIterCallNode extends sNodeBase
     {
         string fun_name = self.fun_name;
         list<tuple2<string, sNode*%>*%>*% params = self.params;
-        sNode*% obj = self.obj;
-        buffer*% method_block = self.method_block;
-        sNode*% parent_call_node = self.parent_call_node;
+        sNode*% obj = clone self.obj;
+        buffer*% method_block = clone self.method_block;
+        sNode*% parent_call_node = clone self.parent_call_node;
         
         node_compile(obj).elif {
             return false;
@@ -1072,6 +1087,7 @@ class sIterCallNode extends sNodeBase
         static bool recursive = false;
         if(recursive == false) {
             recursive = true;
+            bool use_iter_next = info.use_iter_next;
             
             string text = generics_fun.mBlock[1..-2];
             
@@ -1102,7 +1118,26 @@ class sIterCallNode extends sNodeBase
                 }
                 else if((end - p) > strlen("`block()") && memcmp(p, "`block()", strlen("`block()")) == 0) {
                     p+=strlen("`block()");
-                    buf.append_str(method_block.to_string()[1..-3]);
+                    if(!use_iter_next) {
+                        string method_block2 = trim_last_bracket(method_block.to_string()[1..-1]);
+                        buf.append_str(method_block2);
+                    }
+                    else {
+                        info.use_iter_next = false;
+                    }
+                }
+                else if((end - p) > strlen("`next()") && memcmp(p, "`next()", strlen("`next()")) == 0) {
+                    p+=strlen("`next()");
+                    if(info.iter_next) {
+                        buf.append_str(info.iter_buffer);
+                        info.iter_buffer = s"";
+                        
+//                        info.use_iter_next = true;
+                    }
+                }
+                else if((end - p) > strlen("`self") && memcmp(p, "`self", strlen("`self")) == 0) {
+                    p+=strlen("`self");
+                    buf.append_str(obj_value.c_value);
                 }
                 else {
                     buf.append_char(*p);
@@ -1111,8 +1146,10 @@ class sIterCallNode extends sNodeBase
             }
             
             info.iter_buffer = buf.to_string();
+            info.iter_next = buf.to_string();
+
             
-            sNode*% last_node = self implements sNode;
+            sNode*% last_node = (clone self) implements sNode;
             sNode* node = borrow last_node;
             node = node.left_value();
             while(node) {
@@ -1124,12 +1161,91 @@ class sIterCallNode extends sNodeBase
             }
             
             
+            string all_code = info.iter_buffer;
+            
+puts("<<<" + all_code + ">>>");
+            string all_code2 = "{" + all_code + "}"; //trim_last_bracket(all_code);
+
+            buffer*% source = info.source;
+            char* p = info.p;
+            char* head = info.head;
+            char* end = info.end;
+            
+            sType*% generics_type = info.generics_type;
+            list<string>*% generics_type_names = info.generics_type_names;
+            
+
+            info.source = all_code2.to_buffer();
+            info.p = borrow info.source.buf;
+            info.head = borrow info.source.buf;
+            info.end = info.source.buf + info.source.len;
+            
+            if(obj_type.mNoSolvedGenericsType) {
+                info.generics_type = obj_type.mNoSolvedGenericsType;
+                info.generics_type_names.add(s"T");
+            }
+            
+            sBlock*% block = parse_block(info);
+            
+            if(obj_type.mNoSolvedGenericsType) {
+                info.generics_type = obj_type.mNoSolvedGenericsType;
+                info.generics_type_names.add(s"T");
+            }
+            
+            
+//            info.iter_lv_table = clone info.lv_table;
+//            info.lv_table = borrow info.iter_lv_table;
+//            sVarTable* lv_table = info.lv_table;
+            
+//            info.lv_table = lv_table;
+            
+            info.iter_type = null;
+            
+//            bool no_output_come_code = info.no_output_come_code;
+//            info->no_output_come_code = true;
+            transpile_block(block, param_types:null, param_names:null, info, no_var_table:true, iter_:true);
+//            info->no_output_come_code = no_output_come_code;
+            
+            
+//            sVar* var_ =get_variable_from_table(info->lv_table, s"_li");
+            
+//            info.come_fun.mAllVar.remove(var_, by_pointer:true);
+            
+//            info.lv_table.mVars.remove(s"_li");
+            
+if(get_variable_from_table(info->lv_table, s"_li")) {
+puts("EXIST");
+}
+else {
+puts("NO EXIST");
+}
+            
+//            info->lv_table = lv_table;
+            
+/*
+            if(info.iter_type) {
+                info.generics_type = clone info.iter_type;
+                info.generics_type_names.reset();
+                info.generics_type_names.add(s"T");
+            }
+            transpile_block(block, param_types:null, param_names:null, info, no_var_table:true, iter_:true);
+*/
+            
+            info.source = source;
+            info.p = p;
+            info.head = head;
+            info.end = end;
+            
+            info.generics_type = generics_type;
+            info.generics_type_names = generics_type_names;
+            
             info.iter_buffer = null;
             recursive = false;
         }
         else {
             string text = generics_fun.mBlock[1..-2];
             
+            bool use_iter_next = info.use_iter_next;
             char* p = borrow text;
             char* end = borrow text + strlen(text);
             var buf = new buffer();
@@ -1157,32 +1273,39 @@ class sIterCallNode extends sNodeBase
                 }
                 else if((end - p) > strlen("`block()") && memcmp(p, "`block()", strlen("`block()")) == 0) {
                     p+=strlen("`block()");
-                    buf.append_str(method_block.to_string()[1..-3]);
+                    if(!use_iter_next) {
+                        string method_block2 = trim_last_bracket(method_block.to_string()[1..-1]);
+                        buf.append_str(method_block2);
+                    }
+                    else {
+                        info.use_iter_next = false;
+                    }
+                }
+                else if((end - p) > strlen("`next()") && memcmp(p, "`next()", strlen("`next()")) == 0) {
+                    p+=strlen("`next()");
+                    if(info.iter_next) {
+                        buf.append_str(info.iter_buffer);
+                        info.iter_buffer = s"";
+                        
+//                        info.use_iter_next = true;
+                    }
+                }
+                else if((end - p) > strlen("`self") && memcmp(p, "`self", strlen("`self")) == 0) {
+                    p+=strlen("`self");
+                    buf.append_str(obj_value.c_value);
                 }
                 else {
                     buf.append_char(*p);
                     p++;
                 }
             }
+            info.iter_next = buf.to_string();
             info.iter_buffer = buf.to_string() + info.iter_buffer;
-            
-            sInfo info2;
-            info2 = *info;
-            
-            info2.source = info.iter_buffer.to_buffer();
-            info2.p = borrow info.source.buf;
-            info2.head = borrow info.source.buf;
-            info2.end = info.source.buf + info.source.len;
-            
-            sBlock*% block = parse_block(&info2);
-            
-            transpile_block(block, param_types:null, param_names:null, info, no_var_table:true);
         }
         
         return true;
     }
 };
-
 
 sNode*% create_method_call(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline, list<sType*%>* method_generics_types, sInfo* info, bool arrow_=false)
 {

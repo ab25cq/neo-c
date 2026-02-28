@@ -630,6 +630,9 @@ struct sInfo
     string iter_buffer;
     string iter_next;
     string iter_block;
+    bool use_iter_next;
+    
+    sType*% iter_type;
 };
 
 uniq class sNodeBase
@@ -943,7 +946,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
 tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info);
 sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_function=false);
-int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false);
+int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false, bool iter_=false);
 void arrange_stack(sInfo* info, int top);
 sNode*% parse_function(sInfo* info);
 

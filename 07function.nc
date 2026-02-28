@@ -401,7 +401,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
     return result;
 }
 
-int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false)
+int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false, bool iter_=false)
 {
     bool inhibits_output_code = info->inhibits_output_code;
     info->inhibits_output_code = false;
@@ -498,6 +498,8 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
                     std_move(left_type, right_type2, come_value);
                 }
                 add_come_code(info, s"\{info.if_result_value_name} = %s;\n", come_value.c_value);
+            }
+            else if(iter_ && i == block.mNodes.length()-1) {
             }
             else {
                 add_last_code_to_source(info);
