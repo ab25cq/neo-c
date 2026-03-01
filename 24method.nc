@@ -1236,6 +1236,9 @@ class sIterCallNode extends sNodeBase
             string all_code = info.iter_buffer;
             
             string all_code2 = "{" + all_code + "}"; //trim_last_bracket(all_code);
+/*
+puts(all_code2);
+*/
 
             buffer*% source = info.source;
             char* p = info.p;

@@ -267,10 +267,6 @@ class sStoreNode extends sNodeBase
             }
             
             CVALUE*% come_value = new CVALUE();
-/*
-puts("Store" + " " + var_->mCValueName);
-stackframe();
-*/
             
             come_value.c_value = xsprintf("%s", var_->mCValueName);
             come_value.type = clone left_type;
@@ -401,6 +397,10 @@ stackframe();
                 come_value.c_value = xsprintf("%s=%s", var_->mCValueName, right_value.c_value);
                 come_value.type = clone left_type;
                 come_value.var = var_;
+/*
+puts("Store alloc " + " " + var_->mCValueName);
+stackframe();
+*/
                 
                 info.stack.push_back(come_value);
                 
@@ -786,7 +786,7 @@ class sLoadNode extends sNodeBase
         come_value.type = clone var_->mType;
         come_value.var = var_;
 /*
-puts("Load " + var_->mCValueName);
+printf("Load %s\n", var_->mCValueName);
 stackframe();
 */
         

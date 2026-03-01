@@ -125,6 +125,10 @@ class sSStringNode extends sNodeBase
                 node_compile(node).elif {
                     return false;
                 }
+/*
+puts("sStr method call");
+stackframe();
+*/
                 
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
