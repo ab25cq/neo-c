@@ -1000,7 +1000,9 @@ void free_objects(sVarTable* table, sVar* ret_value, sInfo* info, bool ret_value
         sType* type = borrow p->mType;
         sClass* klass = type->mClass;
         
-        if(type->mChannel) {
+        if(p->no_output_come_code) {
+        }
+        else if(type->mChannel) {
             add_come_code(info, "(%s[0]) ? close(%s[0]):0;\n", p->mCValueName, p->mCValueName);
             add_come_code(info, "(%s[1]) ? close(%s[1]):0;\n", p->mCValueName, p->mCValueName);
         }

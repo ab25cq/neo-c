@@ -1131,6 +1131,7 @@ struct sVar
     _Bool mAllocaValue;
     _Bool mNoFree;
     char*  mFunName  ;
+    _Bool no_output_come_code;
 };
 
 struct list_item$1sVar$ph
@@ -4103,6 +4104,9 @@ static struct sVar*  sVar_clone(struct sVar*  self  )
         __dec_obj45=result->mFunName,
         result->mFunName=(char* )come_increment_ref_count((char* )come_memdup(self->mFunName, "sVar_clone", 12, "char* "));
         __dec_obj45 = come_decrement_ref_count(__dec_obj45, (void*)0, (void*)0, 0,0, (void*)0);
+    }
+    if(self!=((void*)0)) {
+        result->no_output_come_code=self->no_output_come_code;
     }
         __result_obj__0 = (struct sVar* )come_increment_ref_count(result);
     come_call_finalizer(sVar_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0);

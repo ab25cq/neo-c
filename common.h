@@ -261,6 +261,7 @@ struct sVar
     bool mNoFree;
     
     string mFunName;
+    bool no_output_come_code;
 };
 
 uniq class sFun

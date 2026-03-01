@@ -1131,6 +1131,7 @@ struct sVar
     _Bool mAllocaValue;
     _Bool mNoFree;
     char*  mFunName  ;
+    _Bool no_output_come_code;
 };
 
 struct list_item$1sVar$ph
@@ -7756,7 +7757,9 @@ void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct 
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
         type=p->mType;
         klass=type->mClass;
-        if(type->mChannel) {
+        if(p->no_output_come_code) {
+        }
+        else if(type->mChannel) {
             add_come_code(info,"(%s[0]) ? close(%s[0]):0;\n",p->mCValueName,p->mCValueName);
             add_come_code(info,"(%s[1]) ? close(%s[1]):0;\n",p->mCValueName,p->mCValueName);
         }

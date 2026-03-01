@@ -147,11 +147,13 @@ class sParenBlockNode extends sNodeBase
             if(info.stack.length() > 0) {
                 CVALUE*% come_value = get_value_from_stack(-1, info);
                 
-                if(buf) {
-                    buf.append_str(come_value.c_value + "; ");
-                }
-                else {
-                    add_come_code(info, come_value.c_value + "; ");
+                if(!info.no_output_come_code) {
+                    if(buf) {
+                        buf.append_str(come_value.c_value + "; ");
+                    }
+                    else {
+                        add_come_code(info, come_value.c_value + "; ");
+                    }
                 }
                 
                 come_type = clone come_value.type;
@@ -160,8 +162,10 @@ class sParenBlockNode extends sNodeBase
             }
             else {
                 if(buf) {
-                    if(info.module.mLastCode) buf.append_str(info.module.mLastCode + "; ");
-                    if(info.module.mLastCode2) buf.append_str(info.module.mLastCode2 + "; ");
+                    if(!info.no_output_come_code) {
+                        if(info.module.mLastCode) buf.append_str(info.module.mLastCode + "; ");
+                        if(info.module.mLastCode2) buf.append_str(info.module.mLastCode2 + "; ");
+                    }
                     
                     transpiler_clear_last_code(info);
                 }

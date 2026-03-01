@@ -1131,6 +1131,7 @@ struct sVar
     _Bool mAllocaValue;
     _Bool mNoFree;
     char*  mFunName  ;
+    _Bool no_output_come_code;
 };
 
 struct list_item$1sVar$ph

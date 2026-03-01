@@ -1098,6 +1098,11 @@ class sIterCallNode extends sNodeBase
         string generics_fun_name = get_method_from_iter_call(fun_name, obj_type, info);
         sGenericsFun* generics_fun = borrow info.generics_funcs.at(generics_fun_name, null);
         
+        if(generics_fun == null) {
+            err_msg(info, "generics fun %s is not found", generics_fun_name);
+            exit(1);
+        }
+        
         static bool recursive = false;
         if(recursive == false) {
             recursive = true;
@@ -1177,7 +1182,6 @@ class sIterCallNode extends sNodeBase
             
             string all_code = info.iter_buffer;
             
-puts("<<<" + all_code + ">>>");
             string all_code2 = "{" + all_code + "}"; //trim_last_bracket(all_code);
 
             buffer*% source = info.source;
@@ -1211,18 +1215,13 @@ puts("<<<" + all_code + ">>>");
             
             bool no_output_come_code = info.no_output_come_code;
             info->no_output_come_code = true;
-puts("TRANSPILE");
             transpile_block(block, param_types:null, param_names:null, info, no_var_table:true, iter_:true);
-puts("TRANSPILE END");
            
             //info.lv_table.mVars.remove(s"_li");
 
 
             string all_code2 = "{" + all_code + "}"; //trim_last_bracket(all_code);
             
-puts("TRANSPILE2");
-puts(all_code2);
-
             info->no_output_come_code = no_output_come_code;
             
             info.source = all_code2.to_buffer();
@@ -1230,21 +1229,12 @@ puts(all_code2);
             info.head = borrow info.source.buf;
             info.end = info.source.buf + info.source.len;
             
-if(info.generics_type) {
-puts("GENERICS " + info.generics_type.mClass.mName);
-if(info.generics_type.mGenericsTypes.length() > 0) {
-puts("GENERICS " + info.generics_type.mGenericsTypes[0].mClass.mName);
-}
-}
-
             info.generics_type_names.reset();
             info.generics_type_names.add(s"T");
             
             sBlock*% block = parse_block(info);
             
             transpile_block(block, param_types:null, param_names:null, info, no_var_table:true, iter_:true);
-puts("TRANSPILE END2");
-            
             
             info.source = source;
             info.p = p;

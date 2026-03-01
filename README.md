@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.2.2
+version 0.9.2.5
 
 ``` C
 #include <neo-c.h>
@@ -94,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.2.5 I'm adding to zero cost iterator like rust.
 0.9.2.4 refference count cycle checker is refined.
 0.9.2.3 refference count cycle checker is refined.
 0.9.2.2 parametor label checker.
@@ -3112,3 +3113,51 @@ int main(int argc, char** argv)
 }
 ```
 p.a 1
+
+# ZERO COST ITERATOR
+
+It's testing.
+
+```
+impl list<T>
+{
+    iter_begin iter(list<T>* self) {
+        ({
+            var _li = new list<T>();
+            foreach(it, `self) \{
+                `next();
+            \};
+            _li
+        })
+    }
+    iter filter(list<T>* self) {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+        \}
+    }
+    iter map(list<T>* self) {
+        `it = `block();
+    }
+    iter_end each(list<T>* self) {
+        `block();
+    }
+    iter_end correct(list<T>* self) {
+        _li.add(it);
+    }
+    iter_end end(list<T>* self) {
+    }
+}
+
+int main(int argc, char** argv) 
+{
+    var li = [1,2,3,4,5,6,7];
+    
+    var li2 = li.`iter().`filter { it > 3 }.`map { it.to_string() + "B" }.`correct();
+    
+    puts(li2.to_string());
+                                   
+    return 0;
+}
+```

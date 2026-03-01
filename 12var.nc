@@ -277,7 +277,9 @@ class sStoreNode extends sNodeBase
             sVar* var_ = borrow info.lv_table.mVars.at(string(self.name), null);
             if(var_) {
                 if(var_->mType->mHeap) {
-                    free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                    if(!var_->no_output_come_code) {
+                        free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                    }
                 }
                 
                 info.lv_table.mVars.remove(string(self.name));
@@ -311,7 +313,6 @@ class sStoreNode extends sNodeBase
             }
             
             if(self.iter_) {
-puts("REFINE GENERICS");
                 info.generics_type = new sType(s"list");
                 info.generics_type.mGenericsTypes.add(clone right_type);
             }
@@ -854,6 +855,8 @@ class sFunLoadNode extends sNodeBase
 void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_param, bool comma=false, bool to_function_table=false)
 {
     sVar*% self = new sVar;
+    
+    self->no_output_come_code = info.no_output_come_code;
     
     self->mName = string(name);
     self->mType = clone type;
