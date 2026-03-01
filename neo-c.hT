@@ -182,9 +182,11 @@ uniq void stackframe()
     }
 }
 
+bool come_is_alive(void* mem);
+
 uniq void stackframe2(void* mem)
 {
-    if(mem) {
+    if(come_is_alive(mem) && mem) {
         sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
         
         printf("allocated at %s %d\n", it->sname, it->sline);
@@ -389,6 +391,12 @@ uniq char* come_dynamic_typeof(void* mem)
 {
     using unsafe; 
     
+    if(!come_is_alive(mem)) {
+        puts("invalid heap object");
+        stackframe();
+        exit(3);
+    }
+    
     sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
     
     if(it->allocated != ALLOCATED_MAGIC_NUM) {
@@ -403,6 +411,12 @@ uniq char* come_dynamic_typeof(void* mem)
 uniq size_t dynamic_sizeof(void* mem)
 {
     using unsafe; 
+    
+    if(!come_is_alive(mem)) {
+        puts("invalid heap object");
+        stackframe();
+        exit(3);
+    }
     
     sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
     
@@ -440,6 +454,9 @@ uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sl
 
 uniq bool come_is_alive(void* mem)
 {
+    if(mem == null) {
+        return false;
+    }
     sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
     
     return it->alive;
@@ -453,6 +470,12 @@ uniq void come_free(void* mem)
         return;
     }
     
+    if(!come_is_alive(mem)) {
+        puts("invalid heap object");
+        stackframe();
+        exit(3);
+    }
+    
     size_t* ref_count = (size_t*)((char*)mem - sizeof(size_t) - sizeof(size_t));
     
     come_free_mem_of_heap_pool((char*)ref_count);
@@ -462,8 +485,14 @@ uniq void* come_memdup(void* block, const char* sname=null, int sline=0, const c
 {
     using unsafe; 
     
-    if(!block) {
+    if(block == null) {
         return null;
+    }
+    
+    if(!come_is_alive(block)) {
+        puts("invalid heap object");
+        stackframe();
+        exit(3);
     }
 
     char* mem = (char*)block - sizeof(size_t) - sizeof(size_t);
@@ -486,6 +515,11 @@ uniq void* come_increment_ref_count(void* mem)
     if(mem == NULL) {
         return mem;
     }
+    if(!come_is_alive(mem)) {
+        puts("invalid heap object");
+        stackframe();
+        exit(3);
+    }
     
     size_t* ref_count = (size_t*)((char*)mem - sizeof(size_t) - sizeof(size_t));
     
@@ -501,6 +535,11 @@ uniq void* come_print_ref_count(void* mem)
     if(mem == NULL) {
         return mem;
     }
+    if(!come_is_alive(mem)) {
+        puts("invalid heap object");
+        stackframe();
+        exit(3);
+    }
     
     size_t* ref_count = (size_t*)((char*)mem - sizeof(size_t) - sizeof(size_t));
     
@@ -515,6 +554,11 @@ uniq int come_get_ref_count(void* mem)
     
     if(mem == NULL) {
         return 0;
+    }
+    if(!come_is_alive(mem)) {
+        puts("invalid heap object");
+        stackframe();
+        exit(3);
     }
     
     size_t* ref_count = (size_t*)((char*)mem - sizeof(size_t) - sizeof(size_t));
@@ -533,6 +577,11 @@ uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protoco
     }
     if(mem == NULL) {
         return NULL;
+    }
+    if(!come_is_alive(mem)) {
+        puts("invalid heap object");
+        stackframe();
+        exit(3);
     }
     
     long* ref_count = (long*)((char*)mem - sizeof(size_t) - sizeof(size_t));
@@ -567,6 +616,11 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
     }
     if(mem == NULL) {
         return;
+    }
+    if(!come_is_alive(mem)) {
+        puts("invalid heap object");
+        stackframe();
+        exit(3);
     }
     
     if(call_finalizer_only) {
@@ -8573,5 +8627,45 @@ uniq wstring wstring::delete(wchar_t* str, int head, int tail)
         return result;
     }
 #endif
+
+
+// ZERO COST ITERATORS LIKE RUST
+impl list<T>
+{
+    iter_begin iter() {
+        ({
+            var _li = new list<T>();
+            int i = 0;
+            foreach(it, `self) \{
+                `next();
+                i++;
+            \};
+            _li
+        })
+    }
+    iter filter() {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+        \}
+    }
+    iter take(int n) {
+        if(i < n) \{
+            `next();
+        \}
+    }
+    iter map() {
+        `it = `block();
+    }
+    iter_end each() {
+        `block();
+    }
+    iter_end collect() {
+        _li.add(it);
+    }
+    iter_end end() {
+    }
+}
 
 #endif

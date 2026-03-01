@@ -19,7 +19,7 @@ int err_msg(sInfo* info, const char* msg, ...)
     if(!info.no_output_come_code) {
         char* msg2;
     
-        va_list args;
+        va_list/ args;
         va_start(args, msg);
         vasprintf(&msg2,msg,args);
         va_end(args);
@@ -59,7 +59,7 @@ int warning_msg(sInfo* info, const char* msg, ...)
     if(!info.no_output_come_code) {
         char* msg2;
     
-        va_list args;
+        va_list/ args;
         va_start(args, msg);
         vasprintf(&msg2,msg,args);
         va_end(args);

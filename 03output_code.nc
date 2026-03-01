@@ -1719,7 +1719,7 @@ void add_come_code(sInfo* info, const char* msg, ...)
     }
     char* msg2;
 
-    va_list args;
+    va_list/ args;
     va_start(args, msg);
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
@@ -1776,7 +1776,7 @@ void add_come_code_no_indent(sInfo* info, const char* msg, ...)
     }
     char* msg2;
 
-    va_list args;
+    va_list/ args;
     va_start(args, msg);
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
@@ -2004,7 +2004,7 @@ void add_come_code_at_function_head(sInfo* info, const char* code, ...)
     }
     char* msg2;
 
-    va_list args;
+    va_list/ args;
     va_start(args, code);
     int len = vasprintf(&msg2, code, args);
     va_end(args);
@@ -2024,7 +2024,7 @@ void add_come_code_at_function_head2(sInfo* info, const char* code, ...)
     }
     char* msg2;
 
-    va_list args;
+    va_list/ args;
     va_start(args, code);
     int len = vasprintf(&msg2, code, args);
     va_end(args);
@@ -2059,7 +2059,7 @@ void add_come_last_code(sInfo* info, const char* msg, ...)
     }
     char* msg2;
 
-    va_list args;
+    va_list/ args;
     va_start(args, msg);
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
@@ -2076,7 +2076,7 @@ void add_come_last_code2(sInfo* info, const char* msg, ...)
     }
     char* msg2;
 
-    va_list args;
+    va_list/ args;
     va_start(args, msg);
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
