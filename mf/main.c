@@ -4446,7 +4446,7 @@ _Bool change_directory(struct sInfo*  info  , char* path, char* cursor_file)
     char*  absolute_path2  ;
     char*  __dec_obj12  ;
     int i;
-    struct list$1char$ph* o2_saved;
+    struct list$1char$ph* _o2_saved_1;
     char*  it  ;
     _Bool __result_obj__0;
     absolute_path=realpath(path,((void*)0));
@@ -4460,7 +4460,7 @@ _Bool change_directory(struct sInfo*  info  , char* path, char* cursor_file)
     setenv("PWD",info->path,1);
     if(cursor_file) {
         i=0;
-        for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(info->files),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
+        for(_o2_saved_1=(struct list$1char$ph*)come_increment_ref_count(info->files),it=list$1char$ph_begin(_o2_saved_1)        ;!list$1char$ph_end(_o2_saved_1);it=list$1char$ph_next(_o2_saved_1)){
             if(strcmp(it,cursor_file)==0) {
                 info->cursor=i;
                 fix_cursor(info);
@@ -4468,7 +4468,7 @@ _Bool change_directory(struct sInfo*  info  , char* path, char* cursor_file)
             }
             i++;
         }
-        come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
         info->cursor=0;
@@ -4777,7 +4777,7 @@ static _Bool list$1char$ph_contained(struct list$1char$ph* self, char*  item  , 
                 neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    for(it=list$1char$ph_begin(self);!list$1char$ph_end(self);it=list$1char$ph_next(self)){
+    for(it=list$1char$ph_begin(self)    ;!list$1char$ph_end(self);it=list$1char$ph_next(self)){
         if((!by_pointer&&string_equals(it,item))||(by_pointer&&it==item)) {
                         neo_current_frame = fr.prev;
             return (_Bool)1;
@@ -4862,20 +4862,20 @@ char*  selected_files(struct sInfo*  info  )
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
-    struct list$1char$ph* o2_saved;
+    struct list$1char$ph* _o2_saved_2;
     char*  it  ;
     char*  __result_obj__0  ;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "main.nc", 272, "struct buffer* "))));
-    for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(info->selected_files),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
+    for(_o2_saved_2=(struct list$1char$ph*)come_increment_ref_count(info->selected_files),it=list$1char$ph_begin(_o2_saved_2)    ;!list$1char$ph_end(_o2_saved_2);it=list$1char$ph_next(_o2_saved_2)){
         buffer_append_str(buf,"\"");
         buffer_append_str(buf,it);
         buffer_append_str(buf,"\"");
         buffer_append_str(buf," ");
     }
-    come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         __right_value0 = (void*)0;
     __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -4890,7 +4890,7 @@ void search_file(struct sInfo*  info  )
     int key;
     char*  __dec_obj13  ;
     int n;
-    struct list$1char$ph* o2_saved;
+    struct list$1char$ph* _o2_saved_3;
     char*  it  ;
     char*  __dec_obj14  ;
     str=(char* )come_increment_ref_count(__builtin_string(""));
@@ -4902,7 +4902,7 @@ void search_file(struct sInfo*  info  )
             str=(char* )come_increment_ref_count(xsprintf("%s%c",str,key));
             __dec_obj13 = come_decrement_ref_count(__dec_obj13, (void*)0, (void*)0, 0,0, (void*)0);
             n=0;
-            for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(info->files),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
+            for(_o2_saved_3=(struct list$1char$ph*)come_increment_ref_count(info->files),it=list$1char$ph_begin(_o2_saved_3)            ;!list$1char$ph_end(_o2_saved_3);it=list$1char$ph_next(_o2_saved_3)){
                 if(strcasestr(it,str)) {
                     info->cursor=n;
                     __right_value0 = (void*)0;
@@ -4913,7 +4913,7 @@ void search_file(struct sInfo*  info  )
                 }
                 n++;
             }
-            come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else {
             break;
@@ -4928,7 +4928,7 @@ void search_next_file(struct sInfo*  info  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "search_next_file"; neo_current_frame = &fr;
     int n;
     void* __right_value0 = (void*)0;
-    struct list$1char$ph* o2_saved;
+    struct list$1char$ph* _o2_saved_4;
     char*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -4938,14 +4938,14 @@ void search_next_file(struct sInfo*  info  )
         return;
     }
     n=info->cursor+1;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_sublist(info->files,n,-1)),it=list$1char$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1char$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1char$ph_next(o2_saved)));_conditional_value_X2;})){
+    for(({(_conditional_value_X0=(_o2_saved_4=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_sublist(info->files,n,-1)),it=list$1char$ph_begin(_o2_saved_4)));_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1char$ph_end(_o2_saved_4)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1char$ph_next(_o2_saved_4)));_conditional_value_X2;})){
         if(strcasestr(it,info->searching_str)) {
             info->cursor=n;
             break;
         }
         n++;
     }
-    come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -4955,7 +4955,7 @@ void search_prev_file(struct sInfo*  info  )
     int n;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
-    struct list$1char$ph* o2_saved;
+    struct list$1char$ph* _o2_saved_5;
     char*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -4965,15 +4965,15 @@ void search_prev_file(struct sInfo*  info  )
         return;
     }
     n=info->cursor-1;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_reverse(((struct list$1char$ph*)(__right_value0=list$1char$ph_sublist(info->files,0,n+1))))),it=list$1char$ph_begin(o2_saved)));    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1char$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1char$ph_next(o2_saved)));_conditional_value_X2;})){
+    for(({(_conditional_value_X0=(_o2_saved_5=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_reverse(((struct list$1char$ph*)(__right_value0=list$1char$ph_sublist(info->files,0,n+1))))),it=list$1char$ph_begin(_o2_saved_5)));    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1char$ph_end(_o2_saved_5)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1char$ph_next(_o2_saved_5)));_conditional_value_X2;})){
         if(strcasestr(it,info->searching_str)) {
             info->cursor=n;
             break;
         }
         n--;
     }
-    come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -5354,11 +5354,11 @@ char*  deletable_selected_files(struct sInfo*  info  )
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
-    struct list$1char$ph* o2_saved;
+    struct list$1char$ph* _o2_saved_6;
     char*  it  ;
     char*  __result_obj__0  ;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "main.nc", 437, "struct buffer* "))));
-    for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(info->selected_files),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
+    for(_o2_saved_6=(struct list$1char$ph*)come_increment_ref_count(info->selected_files),it=list$1char$ph_begin(_o2_saved_6)    ;!list$1char$ph_end(_o2_saved_6);it=list$1char$ph_next(_o2_saved_6)){
         if(is_protected_entry(it)) {
             continue;
         }
@@ -5367,10 +5367,10 @@ char*  deletable_selected_files(struct sInfo*  info  )
         buffer_append_str(buf,"\"");
         buffer_append_str(buf," ");
     }
-    come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         __right_value0 = (void*)0;
     __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0));
@@ -5404,7 +5404,7 @@ void handmade_selected_delete_file(struct sInfo*  info  )
     void* __right_value0 = (void*)0;
     char*  li  ;
     int key;
-    struct list$1char$ph* o2_saved;
+    struct list$1char$ph* _o2_saved_7;
     char*  it  ;
     char*  path  ;
     li=(char* )come_increment_ref_count(deletable_selected_files(info));
@@ -5423,7 +5423,7 @@ void handmade_selected_delete_file(struct sInfo*  info  )
     while((_Bool)1) {
         key=wgetch(stdscr);
         if(key==121||key==89||key==10) {
-            for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(info->selected_files),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
+            for(_o2_saved_7=(struct list$1char$ph*)come_increment_ref_count(info->selected_files),it=list$1char$ph_begin(_o2_saved_7)            ;!list$1char$ph_end(_o2_saved_7);it=list$1char$ph_next(_o2_saved_7)){
                 if(is_protected_entry(it)) {
                     continue;
                 }
@@ -5432,8 +5432,9 @@ void handmade_selected_delete_file(struct sInfo*  info  )
                 recursive_unlink((char* )come_increment_ref_count(path));
                 (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0));
             }
-            come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             break;
+            come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else {
             break;
@@ -5861,7 +5862,7 @@ void come_heap_final()
         if(it->class_name) {
             printf("%p (%s) %s %d: ",(char*)it+sizeof(struct sMemHeader )+sizeof(unsigned long )+sizeof(unsigned long ),it->class_name,it->sname,it->sline);
         }
-        for(i=0;i<8;i++){
+        for(i=0        ;i<8;i++){
             if(it->fun_name[i]) {
                 printf("%s, ",it->fun_name[i]);
                 flag=(_Bool)1;
@@ -6801,7 +6802,7 @@ struct buffer*  buffer_alignment(struct buffer*  self  )
         self->size=new_size;
         (old_buf = come_decrement_ref_count(old_buf, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    for(i=self->len;i<len;i++){
+    for(i=self->len    ;i<len;i++){
         ((char*)self->buf)[i]=0;
     }
     self->len=len;
@@ -6926,7 +6927,7 @@ struct buffer*  charpa_to_buffer(char** self, unsigned long  len  )
         come_call_finalizer(buffer_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
         return __result_obj__0;
     }
-    for(i=0;i<len;i++){
+    for(i=0    ;i<len;i++){
         buffer_append(result,self[i],strlen(self[i]));
     }
         __result_obj__0 = (struct buffer* )come_increment_ref_count(result);
@@ -7071,7 +7072,7 @@ char*  buffer_printable(struct buffer*  self  )
         return __result_obj__0;
     }
     n=0;
-    for(i=0;i<len;i++){
+    for(i=0    ;i<len;i++){
         c=self->buf[i];
         if((c>=0&&c<32)||c==127) {
             result[n++]=94;
@@ -7100,7 +7101,7 @@ static struct list$1char$* list$1char$_initialize_with_values(struct list$1char$
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
-    for(i=0;i<num_value;i++){
+    for(i=0    ;i<num_value;i++){
         list$1char$_push_back(self,values[i]);
     }
         __result_obj__0 = (struct list$1char$*)come_increment_ref_count(self);
@@ -7200,7 +7201,7 @@ static struct list$1char$p* list$1char$p_initialize_with_values(struct list$1cha
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
-    for(i=0;i<num_value;i++){
+    for(i=0    ;i<num_value;i++){
         list$1char$p_push_back(self,values[i]);
     }
         __result_obj__0 = (struct list$1char$p*)come_increment_ref_count(self);
@@ -7300,7 +7301,7 @@ static struct list$1short$* list$1short$_initialize_with_values(struct list$1sho
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
-    for(i=0;i<num_value;i++){
+    for(i=0    ;i<num_value;i++){
         list$1short$_push_back(self,values[i]);
     }
         __result_obj__0 = (struct list$1short$*)come_increment_ref_count(self);
@@ -7400,7 +7401,7 @@ static struct list$1int$* list$1int$_initialize_with_values(struct list$1int$* s
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
-    for(i=0;i<num_value;i++){
+    for(i=0    ;i<num_value;i++){
         list$1int$_push_back(self,values[i]);
     }
         __result_obj__0 = (struct list$1int$*)come_increment_ref_count(self);
@@ -7500,7 +7501,7 @@ static struct list$1long$* list$1long$_initialize_with_values(struct list$1long$
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
-    for(i=0;i<num_value;i++){
+    for(i=0    ;i<num_value;i++){
         list$1long$_push_back(self,values[i]);
     }
         __result_obj__0 = (struct list$1long$*)come_increment_ref_count(self);
@@ -7600,7 +7601,7 @@ static struct list$1float$* list$1float$_initialize_with_values(struct list$1flo
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
-    for(i=0;i<num_value;i++){
+    for(i=0    ;i<num_value;i++){
         list$1float$_push_back(self,values[i]);
     }
         __result_obj__0 = (struct list$1float$*)come_increment_ref_count(self);
@@ -7700,7 +7701,7 @@ static struct list$1double$* list$1double$_initialize_with_values(struct list$1d
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
-    for(i=0;i<num_value;i++){
+    for(i=0    ;i<num_value;i++){
         list$1double$_push_back(self,values[i]);
     }
         __result_obj__0 = (struct list$1double$*)come_increment_ref_count(self);
@@ -8165,7 +8166,7 @@ char*  charp_operator_mult(const char* self, int right)
     }
     __right_value0 = (void*)0;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 4823, "struct buffer* "))));
-    for(i=0;i<right;i++){
+    for(i=0    ;i<right;i++){
         buffer_append_str(buf,self);
     }
         __right_value0 = (void*)0;
@@ -8194,7 +8195,7 @@ char*  string_operator_mult(const char* self, int right)
     }
     __right_value0 = (void*)0;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 4837, "struct buffer* "))));
-    for(i=0;i<right;i++){
+    for(i=0    ;i<right;i++){
         buffer_append_str(buf,self);
     }
         __right_value0 = (void*)0;
@@ -8216,7 +8217,7 @@ _Bool charpa_contained(const char* self[], unsigned long  len  , const char* str
                 neo_current_frame = fr.prev;
         return result;
     }
-    for(i=0;i<len;i++){
+    for(i=0    ;i<len;i++){
         if(strncmp(self[i],str,strlen(self[i]))==0) {
             result=(_Bool)1;
             break;
@@ -8556,7 +8557,7 @@ char*  charp_reverse(const char* str)
     len=strlen(str);
     __right_value0 = (void*)0;
     result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len+1)), "/usr/local/include/neo-c.h", 5091, "char*"));
-    for(i=0;i<len;i++){
+    for(i=0    ;i<len;i++){
         result[i]=str[len-i-1];
     }
     result[len]=0;
@@ -8882,7 +8883,7 @@ struct list$1char$ph* charp_split_char(char* self, char c)
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     str=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 5307, "struct buffer* "))));
-    for(i=0;i<charp_length(self);i++){
+    for(i=0    ;i<charp_length(self);i++){
         if(self[i]==c) {
             __right_value0 = (void*)0;
             list$1char$ph_push_back(result,(char* )come_increment_ref_count(__builtin_string(str->buf)));
@@ -8949,7 +8950,7 @@ char*  charp_printable(char* str)
     __right_value0 = (void*)0;
     result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len*2+1)), "/usr/local/include/neo-c.h", 5341, "char*"));
     n=0;
-    for(i=0;i<len;i++){
+    for(i=0    ;i<len;i++){
         c=str[i];
         if((c>=0&&c<32)||c==127) {
             result[n++]=94;
@@ -9616,7 +9617,7 @@ void int_times(int self, void* parent, void (*block)(void*,int))
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_times"; neo_current_frame = &fr;
     int i;
-    for(i=0;i<self;i++){
+    for(i=0    ;i<self;i++){
         block(parent,i);
     }
     neo_current_frame = fr.prev;
@@ -9801,7 +9802,7 @@ void clear_captures(struct anonymous_typeX25*  ctx  )
                 neo_current_frame = fr.prev;
         return;
     }
-    for(i=0;i<ctx->capture_capacity;++i){
+    for(i=0    ;i<ctx->capture_capacity;++i){
         ctx->captures[i].start=-1;
         ctx->captures[i].length=0;
     }
@@ -10619,7 +10620,7 @@ void re_print_internal(struct regex_t*  pattern  , int depth)
     "RE_WHITESPACE", "RE_NOT_WHITESPACE", "RE_GROUP", "RE_GROUP_END"
   };
     while(pattern!=0&&pattern->type!=(0)) {
-        for(i=0;i<depth;++i){
+        for(i=0        ;i<depth;++i){
             putchar(32);
         }
         printf("type: %s",types[pattern->type]);
@@ -10899,7 +10900,7 @@ struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore
             (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
         }
         else if(regex_result>=0&&group_count>0) {
-            for(i=0;i<group_count;i++){
+            for(i=0            ;i<group_count;i++){
                 cp=&captures[i];
                 __right_value0 = (void*)0;
                 match_string=(char* )come_increment_ref_count(charp_substring((self+offset),cp->start,cp->start+cp->length));
@@ -11224,7 +11225,7 @@ char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_c
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             group_strings_46=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "/usr/local/include/neo-c.h", 7452, "struct list$1char$ph*"))));
-            for(i=0;i<group_count;i++){
+            for(i=0            ;i<group_count;i++){
                 cp=&captures[i];
                 __right_value0 = (void*)0;
                 match_string_47=(char* )come_increment_ref_count(charp_substring((self+offset),cp->start,cp->start+cp->length));
@@ -11341,7 +11342,7 @@ struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool 
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             group_strings_51=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "/usr/local/include/neo-c.h", 7528, "struct list$1char$ph*"))));
-            for(i=0;i<group_count;i++){
+            for(i=0            ;i<group_count;i++){
                 cp=&captures[i];
                 __right_value0 = (void*)0;
                 match_string_52=(char* )come_increment_ref_count(charp_substring((self+offset),cp->start,cp->start+cp->length));
@@ -11462,7 +11463,7 @@ char*  string_lower_case(char* str)
     }
     __right_value0 = (void*)0;
     result=(char* )come_increment_ref_count(__builtin_string(str));
-    for(i=0;i<strlen(str);i++){
+    for(i=0    ;i<strlen(str);i++){
         if(str[i]>=65&&str[i]<=90) {
             result[i]=str[i]-65+97;
         }
@@ -11490,7 +11491,7 @@ char*  string_upper_case(char* str)
     }
     __right_value0 = (void*)0;
     result=(char* )come_increment_ref_count(__builtin_string(str));
-    for(i=0;i<strlen(str);i++){
+    for(i=0    ;i<strlen(str);i++){
         if(str[i]>=97&&str[i]<=122) {
             result[i]=str[i]-97+65;
         }
@@ -11587,9 +11588,9 @@ int charp_index_count(const char* str, const char* search_str, int count, int de
     }
     n=0;
     len=strlen(str);
-    for(i=0;i<len;i++){
+    for(i=0    ;i<len;i++){
         len2=strlen(search_str);
-        for(j=0;j<len2;j++){
+        for(j=0        ;j<len2;j++){
             if(str[i+j]!=search_str[j]) {
                 break;
             }
@@ -11874,7 +11875,7 @@ int wchar_tp_rindex(const int*  str  , const int*  search_str  , int default_val
     while(p>=str) {
         len2=wcslen(p);
         result=(_Bool)1;
-        for(i=0;i<len&&i<len2;i++){
+        for(i=0        ;i<len&&i<len2;i++){
             if(p[i]!=search_str[i]) {
                 result=(_Bool)0;
             }
@@ -11908,7 +11909,7 @@ int*  wchar_tp_reverse(const int*  str  )
     len=wcslen(str);
     __right_value0 = (void*)0;
     result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len+1)), "/usr/local/include/neo-c.h", 7918, "int* "));
-    for(i=0;i<len;i++){
+    for(i=0    ;i<len;i++){
         result[i]=str[len-i-1];
     }
     result[len]=0;
@@ -11938,7 +11939,7 @@ int*  wchar_tp_multiply(const int*  str  , int n)
     __right_value0 = (void*)0;
     result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len)), "/usr/local/include/neo-c.h", 7937, "int* "));
     result[0]=0;
-    for(i=0;i<n;i++){
+    for(i=0    ;i<n;i++){
         wcscat(result,str);
     }
         __result_obj__0 = (int* )come_increment_ref_count(result);
@@ -11969,7 +11970,7 @@ int*  wchar_tp_printable(const int*  str  )
     __right_value0 = (void*)0;
     result=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len*2+1)), "/usr/local/include/neo-c.h", 7954, "int* "));
     n=0;
-    for(i=0;i<len;i++){
+    for(i=0    ;i<len;i++){
         c=str[i];
         if((c>=0&&c<32)||c==127) {
             result[n++]=94;
@@ -12208,7 +12209,7 @@ char*  charp_multiply(const char* str, int n)
     __right_value0 = (void*)0;
     result=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len)), "/usr/local/include/neo-c.h", 8132, "char*"));
     result[0]=0;
-    for(i=0;i<n;i++){
+    for(i=0    ;i<n;i++){
         strcat(result,str);
     }
         __result_obj__0 = (char* )come_increment_ref_count(result);
@@ -12240,7 +12241,7 @@ struct list$1char$ph* charp_split_str(const char* self, const char* str)
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 8150, "struct buffer* "))));
-    for(i=0;i<charp_length(self);i++){
+    for(i=0    ;i<charp_length(self);i++){
         if(strstr(self+i,str)==self+i) {
             __right_value0 = (void*)0;
             list$1char$ph_push_back(result,(char* )come_increment_ref_count(__builtin_string(buf->buf)));

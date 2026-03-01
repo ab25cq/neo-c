@@ -3585,7 +3585,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_0;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3593,7 +3593,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_0=0;i_0<self->size;i_0++){
+    for(i_0=0    ;i_0<self->size;i_0++){
         if(self->item_existance[i_0]) {
             if(0) {
             }
@@ -3637,7 +3637,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_1;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3645,7 +3645,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_1=0;i_1<self->size;i_1++){
+    for(i_1=0    ;i_1<self->size;i_1++){
         if(self->item_existance[i_1]) {
             if(0) {
             }
@@ -3676,7 +3676,7 @@ void ViWin_deleteOneLine_v10(struct ViWin*  self  , struct Vi*  nvi  )
         ViWin_pushUndo_v5(self);
         list$1int$ph_reset(nvi->yank);
         nvi->yankKind=(0);
-        for(i=0;i<self->digitInput+1;i++){
+        for(i=0        ;i<self->digitInput+1;i++){
             line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
             if(line!=((void*)0)) {
                 __right_value0 = (void*)0;
@@ -4119,7 +4119,7 @@ void ViWin_deleteOneLine2(struct ViWin*  self  , struct Vi*  nvi  )
         ViWin_pushUndo_v5(self);
         list$1int$ph_reset(nvi->yank);
         nvi->yankKind=(0);
-        for(i=0;i<self->digitInput+1;i++){
+        for(i=0        ;i<self->digitInput+1;i++){
             line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
             if(line!=((void*)0)) {
                 __right_value0 = (void*)0;
@@ -4180,7 +4180,7 @@ static struct list$1int$ph* list$1int$ph_insert(struct list$1int$ph* self, int p
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
             list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4266,7 +4266,7 @@ static struct list$1int$* list$1int$_insert(struct list$1int$* self, int positio
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int));
             list$1int$_push_back(self,default_value);
         }
@@ -4385,7 +4385,7 @@ void ViWin_deleteWord(struct ViWin*  self  , struct Vi*  nvi  )
         else {
             count=self->digitInput+1;
             x=self->cursorX;
-            for(i=0;i<count;i++){
+            for(i=0            ;i<count;i++){
                 p=line+x;
                 if((*p>=33&&*p<=47)||(*p>=58&&*p<=64)||(*p>=123&&*p<=126)) {
                     while((*p>=33&&*p<=47)||(*p>=58&&*p<=64)||(*p>=123&&*p<=126)) {
@@ -4523,7 +4523,7 @@ void ViWin_deleteForNextCharacter(struct ViWin*  self  )
         if(wcslen(line)>0) {
             x=self->cursorX;
             count=self->digitInput+1;
-            for(i=0;i<count;i++){
+            for(i=0            ;i<count;i++){
                 p=line+x;
                 while(*p!=key) {
                     p++;
@@ -4596,7 +4596,7 @@ void ViWin_deleteForNextCharacter2(struct ViWin*  self  )
         if(wcslen(line)>0) {
             x=self->cursorX;
             count=self->digitInput+1;
-            for(i=0;i<count;i++){
+            for(i=0            ;i<count;i++){
                 p=line+x;
                 while(*p!=key) {
                     p++;
@@ -4661,7 +4661,7 @@ void ViWin_deleteCursorCharactor(struct ViWin*  self  )
     if(self->digitInput>0&&!gBinaryMode) {
         num=self->digitInput+1;
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
-        for(i=0;i<num;i++){
+        for(i=0        ;i<num;i++){
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line,self->cursorX,self->cursorX+1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -4753,7 +4753,7 @@ static struct list$1int$* list$1int$_replace(struct list$1int$* self, int positi
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int));
             list$1int$_push_back(self,default_value);
         }
@@ -4801,7 +4801,7 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
             list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4842,7 +4842,7 @@ void ViWin_deleteBack(struct ViWin*  self  )
     if(self->digitInput>0) {
         num=self->digitInput+1;
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
-        for(i=0;i<num;i++){
+        for(i=0        ;i<num;i++){
             if(self->cursorX>0) {
                 self->cursorX--;
                 __right_value0 = (void*)0;
@@ -5028,7 +5028,7 @@ void ViWin_deleteUntilTail(struct ViWin*  self  )
         ((int* )(__right_value0=wstring_delete(line,self->cursorX,-1)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         num=self->digitInput+1;
-        for(i=1;i<num;i++){
+        for(i=1        ;i<num;i++){
             __right_value0 = (void*)0;
             line_51=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY+1,((void*)0)));
             if(line_51!=((void*)0)) {
@@ -5106,7 +5106,7 @@ void ViWin_yankOneLine(struct ViWin*  self  , struct Vi*  nvi  )
         ViWin_pushUndo_v5(self);
         list$1int$ph_reset(nvi->yank);
         nvi->yankKind=(0);
-        for(i=0;i<self->digitInput+1;i++){
+        for(i=0        ;i<self->digitInput+1;i++){
             line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY+i,((void*)0)));
             if(line!=((void*)0)) {
                 __right_value0 = (void*)0;
@@ -5178,7 +5178,7 @@ void ViWin_forwardToNextCharacter1(struct ViWin*  self  , int key)
     self->mRepeatFowardNextCharacter=key;
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
     if(self->digitInput>0) {
-        for(i=0;i<self->digitInput+1;i++){
+        for(i=0        ;i<self->digitInput+1;i++){
             __right_value0 = (void*)0;
             cursor_x=wstring_index(((int* )(__right_value0=wstring_substring(line,self->cursorX+1,-1))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -5223,7 +5223,7 @@ void ViWin_forwardToNextCharacter2(struct ViWin*  self  , int key)
     self->mRepeatFowardNextCharacter=key;
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
     if(self->digitInput>0) {
-        for(i=0;i<self->digitInput+1;i++){
+        for(i=0        ;i<self->digitInput+1;i++){
             __right_value0 = (void*)0;
             cursor_x=wstring_index(((int* )(__right_value0=wstring_substring(line,self->cursorX+2,-1))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -5283,7 +5283,7 @@ void ViWin_backwardToNextCharacter1(struct ViWin*  self  )
     key=ViWin_getKey_v14(self,(_Bool)0);
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
     if(self->digitInput>0) {
-        for(i=0;i<self->digitInput+1;i++){
+        for(i=0        ;i<self->digitInput+1;i++){
             __right_value0 = (void*)0;
             cursor_x=wstring_rindex(((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -5328,7 +5328,7 @@ void ViWin_backwardToNextCharacter2(struct ViWin*  self  )
     key=ViWin_getKey_v14(self,(_Bool)0);
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
     if(self->digitInput>0) {
-        for(i=0;i<self->digitInput+1;i++){
+        for(i=0        ;i<self->digitInput+1;i++){
             __right_value0 = (void*)0;
             cursor_x=wstring_rindex(((int* )(__right_value0=wstring_substring(line,0,self->cursorX-1))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -5374,7 +5374,7 @@ void ViWin_changeCase(struct ViWin*  self  )
     ViWin_pushUndo_v5(self);
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
     if(self->digitInput>0) {
-        for(i=0;i<self->digitInput+1;i++){
+        for(i=0        ;i<self->digitInput+1;i++){
             c=line[self->cursorX+i];
             if(c!=-1) {
                 if(c>=97&&c<=122) {
@@ -5417,7 +5417,7 @@ void ViWin_moveToHead(struct ViWin*  self  )
     int i;
     memset(&i, 0, sizeof(i));
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)));
-    for(i=0;i<wstring_length(line);i++){
+    for(i=0    ;i<wstring_length(line);i++){
         if(!(line[i]==32&&line[i]==9)) {
             break;
         }
@@ -5786,7 +5786,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }

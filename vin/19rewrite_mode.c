@@ -3597,7 +3597,7 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
             list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3648,7 +3648,7 @@ static struct list$1int$* list$1int$_replace(struct list$1int$* self, int positi
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int));
             list$1int$_push_back(self,default_value);
         }
@@ -3724,7 +3724,7 @@ _conditional_value_X0;})) {
         char keys[16];
         memset(&keys, 0, sizeof(keys));
         keys[0]=key;
-        for(i=1;i<size;i++){
+        for(i=1        ;i<size;i++){
             keys[i]=ViWin_getKey_v14(self,(_Bool)0);
         }
         keys[i]=0;
@@ -3910,7 +3910,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }
@@ -4191,7 +4191,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_11;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4199,7 +4199,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_11=0;i_11<self->size;i_11++){
+    for(i_11=0    ;i_11<self->size;i_11++){
         if(self->item_existance[i_11]) {
             if(0) {
             }
@@ -4243,7 +4243,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_12;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4251,7 +4251,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_12=0;i_12<self->size;i_12++){
+    for(i_12=0    ;i_12<self->size;i_12++){
         if(self->item_existance[i_12]) {
             if(0) {
             }

@@ -2785,7 +2785,7 @@ static void output_union(struct sClass*  klass  , char*  pragma  , struct sInfo*
     struct buffer*  buf  ;
     _Bool existance_generics;
     _Bool named_child;
-    struct list$1tuple2$2char$phsType$ph$ph* o2_saved;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_1;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var1
 ;    char*  name_2  =0;
@@ -2806,7 +2806,7 @@ static void output_union(struct sClass*  klass  , char*  pragma  , struct sInfo*
     buffer_append_format(buf,"union %s\n{\n",klass->mName);
     existance_generics=(_Bool)0;
     named_child=(_Bool)0;
-    for(o2_saved=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields),it=list$1tuple2$2char$phsType$ph$ph_begin(o2_saved);!list$1tuple2$2char$phsType$ph$ph_end(o2_saved);it=list$1tuple2$2char$phsType$ph$ph_next(o2_saved)){
+    for(_o2_saved_1=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_1)    ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_1);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_1)){
         multiple_assign_var1=it;
         name_2=(char* )come_increment_ref_count(multiple_assign_var1->v1);
         type=(struct sType* )come_increment_ref_count(multiple_assign_var1->v2);
@@ -2853,7 +2853,6 @@ static void output_union(struct sClass*  klass  , char*  pragma  , struct sInfo*
         (name_2 = come_decrement_ref_count(name_2, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     if(klass->mAttribute==((void*)0)) {
         buffer_append_str(buf,"};\n");
     }
@@ -2867,6 +2866,7 @@ static void output_union(struct sClass*  klass  , char*  pragma  , struct sInfo*
                 (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0));
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return;
     }
@@ -2882,6 +2882,7 @@ _conditional_value_X0;})) {
     (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0));
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -3315,7 +3316,7 @@ static struct map$2char$phsType$ph* map$2char$phsType$ph_insert(struct map$2char
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -3352,7 +3353,7 @@ static void map$2char$phsType$ph_rehash(struct map$2char$phsType$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phsType$ph_begin(self);!map$2char$phsType$ph_end(self);it=map$2char$phsType$ph_next(self)){
+    for(it=map$2char$phsType$ph_begin(self)    ;!map$2char$phsType$ph_end(self);it=map$2char$phsType$ph_next(self)){
         memset(&default_value,0,sizeof(struct sType* ));
         __right_value0 = (void*)0;
         it2=(struct sType* )come_increment_ref_count(map$2char$phsType$ph_at(self,it,(struct sType* )come_increment_ref_count(default_value),(_Bool)0));
@@ -4717,7 +4718,7 @@ static void list$1tuple2$2char$phsType$ph$ph$p_finalize(struct list$1tuple2$2cha
         it=it->next;
         come_call_finalizer(list_item$1tuple2$2char$phsType$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-        neo_current_frame = fr.prev;
+            neo_current_frame = fr.prev;
 }
 
 static void list_item$1tuple2$2char$phsType$ph$ph$p_finalize(struct list_item$1tuple2$2char$phsType$ph$ph* self)
@@ -4917,7 +4918,7 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2ch
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -4954,7 +4955,7 @@ static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phbuffer$ph_begin(self);!map$2char$phbuffer$ph_end(self);it=map$2char$phbuffer$ph_next(self)){
+    for(it=map$2char$phbuffer$ph_begin(self)    ;!map$2char$phbuffer$ph_end(self);it=map$2char$phbuffer$ph_next(self)){
         memset(&default_value,0,sizeof(struct buffer* ));
         __right_value0 = (void*)0;
         it2=(struct buffer* )come_increment_ref_count(map$2char$phbuffer$ph_at(self,it,(struct buffer* )come_increment_ref_count(default_value),(_Bool)0));
@@ -5528,7 +5529,7 @@ static struct map$2char$phsClass$ph* map$2char$phsClass$ph_insert(struct map$2ch
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -5565,7 +5566,7 @@ static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phsClass$ph_begin(self);!map$2char$phsClass$ph_end(self);it=map$2char$phsClass$ph_next(self)){
+    for(it=map$2char$phsClass$ph_begin(self)    ;!map$2char$phsClass$ph_end(self);it=map$2char$phsClass$ph_next(self)){
         memset(&default_value,0,sizeof(struct sClass* ));
         __right_value0 = (void*)0;
         it2=(struct sClass* )come_increment_ref_count(map$2char$phsClass$ph_at(self,it,(struct sClass* )come_increment_ref_count(default_value),(_Bool)0));

@@ -3487,7 +3487,7 @@ static _Bool list$1char$ph_contained(struct list$1char$ph* self, char*  item  , 
                 neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    for(it=list$1char$ph_begin(self);!list$1char$ph_end(self);it=list$1char$ph_next(self)){
+    for(it=list$1char$ph_begin(self)    ;!list$1char$ph_end(self);it=list$1char$ph_next(self)){
         if((!by_pointer&&string_equals(it,item))||(by_pointer&&it==item)) {
                         neo_current_frame = fr.prev;
             return (_Bool)1;
@@ -3561,7 +3561,7 @@ _Bool is_contained_generics_class(struct sType*  type  , struct sInfo*  info  )
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj35  ;
     struct sType*  __dec_obj36  ;
-    struct list$1sType$ph* o2_saved;
+    struct list$1sType$ph* _o2_saved_1;
     struct sType*  it  ;
     _Bool __result_obj__0;
     memset(&type2, 0, sizeof(type2));
@@ -3576,30 +3576,32 @@ _Bool is_contained_generics_class(struct sType*  type  , struct sInfo*  info  )
         type2=(struct sType* )come_increment_ref_count(sType_clone(type));
         come_call_finalizer(sType_finalize, __dec_obj36,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(type2->mGenericsTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
+    for(_o2_saved_1=(struct list$1sType$ph*)come_increment_ref_count(type2->mGenericsTypes),it=list$1sType$ph_begin(_o2_saved_1)    ;!list$1sType$ph_end(_o2_saved_1);it=list$1sType$ph_next(_o2_saved_1)){
         if(is_contained_generics_class(it,info)) {
                         __result_obj__0 = (_Bool)1;
-            come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
     }
-    come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     if(type2->mClass->mGenerics) {
                 __result_obj__0 = (_Bool)1;
         come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     if(type2->mClass->mMethodGenerics) {
                 __result_obj__0 = (_Bool)1;
         come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
         __result_obj__0 = (_Bool)0;
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -4525,7 +4527,7 @@ _Bool is_contained_generics_placeholder(struct sType*  type  , struct sInfo*  in
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj37  ;
     struct sType*  __dec_obj38  ;
-    struct list$1sType$ph* o2_saved;
+    struct list$1sType$ph* _o2_saved_2;
     struct sType*  it  ;
     _Bool __result_obj__0;
     char*  class_name  ;
@@ -4541,19 +4543,19 @@ _Bool is_contained_generics_placeholder(struct sType*  type  , struct sInfo*  in
         type2=(struct sType* )come_increment_ref_count(sType_clone(type));
         come_call_finalizer(sType_finalize, __dec_obj38,(void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(type2->mGenericsTypes),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
+    for(_o2_saved_2=(struct list$1sType$ph*)come_increment_ref_count(type2->mGenericsTypes),it=list$1sType$ph_begin(_o2_saved_2)    ;!list$1sType$ph_end(_o2_saved_2);it=list$1sType$ph_next(_o2_saved_2)){
         if(is_contained_generics_placeholder(it,info)) {
                         __result_obj__0 = (_Bool)1;
-            come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
     }
-    come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     if(type2->mClass==((void*)0)||type2->mClass->mName==((void*)0)) {
                 __result_obj__0 = (_Bool)0;
         come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -4561,6 +4563,7 @@ _Bool is_contained_generics_placeholder(struct sType*  type  , struct sInfo*  in
     class_name=(char* )come_increment_ref_count(__builtin_string(type2->mClass->mName));
         __result_obj__0 = string_index(class_name,"__generics_type",-1)>=0||string_index(class_name,"__mgenerics_type",-1)>=0;
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -7462,7 +7465,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo*  info  , _Bool pa
     _Bool err_133=0;
     int num_tuples;
     struct sType*  __dec_obj242  ;
-    struct list$1sType$ph* o2_saved;
+    struct list$1sType$ph* _o2_saved_3;
     struct sType*  it  ;
     struct sType*  __dec_obj243  ;
     struct sType*  __dec_obj244  ;
@@ -8978,7 +8981,7 @@ _conditional_value_X0;})) {
             result_type->mClass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,result_type->mClass->mName)));
         }
         else if(list$1char$ph_contained(info->generics_type_names,type_name,(_Bool)0)) {
-            for(i=0;i<list$1char$ph_length(info->generics_type_names);i++){
+            for(i=0            ;i<list$1char$ph_length(info->generics_type_names);i++){
                 if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
 ({(_conditional_value_X1=(string_operator_equals(((char* )(__right_value1=list$1char$ph_operator_load_element(info->generics_type_names,i))),type_name)));                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -8993,7 +8996,7 @@ _conditional_value_X1;})) {
             }
         }
         else if(list$1char$ph_contained(info->method_generics_type_names,type_name,(_Bool)0)) {
-            for(i_104=0;i_104<list$1char$ph_length(info->method_generics_type_names);i_104++){
+            for(i_104=0            ;i_104<list$1char$ph_length(info->method_generics_type_names);i_104++){
                 if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
 ({(_conditional_value_X2=(string_operator_equals(((char* )(__right_value1=list$1char$ph_operator_load_element(info->method_generics_type_names,i_104))),type_name)));                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -9297,7 +9300,7 @@ _conditional_value_X3;})) {
             result_type_108->mClass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,result_type_108->mClass->mName)));
         }
         else if(list$1char$ph_contained(info->generics_type_names,type_name,(_Bool)0)) {
-            for(i_109=0;i_109<list$1char$ph_length(info->generics_type_names);i_109++){
+            for(i_109=0            ;i_109<list$1char$ph_length(info->generics_type_names);i_109++){
                 if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
 ({(_conditional_value_X4=(string_operator_equals(((char* )(__right_value1=list$1char$ph_operator_load_element(info->generics_type_names,i_109))),type_name)));                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -9312,7 +9315,7 @@ _conditional_value_X4;})) {
             }
         }
         else if(list$1char$ph_contained(info->method_generics_type_names,type_name,(_Bool)0)) {
-            for(i_110=0;i_110<list$1char$ph_length(info->method_generics_type_names);i_110++){
+            for(i_110=0            ;i_110<list$1char$ph_length(info->method_generics_type_names);i_110++){
                 if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
 ({(_conditional_value_X5=(string_operator_equals(((char* )(__right_value1=list$1char$ph_operator_load_element(info->method_generics_type_names,i_110))),type_name)));                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -9531,7 +9534,7 @@ _conditional_value_X6;})) {
             come_call_finalizer(sType_finalize, __dec_obj221,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else if(list$1char$ph_contained(info->generics_type_names,type_name,(_Bool)0)) {
-            for(i_117=0;i_117<list$1char$ph_length(info->generics_type_names);i_117++){
+            for(i_117=0            ;i_117<list$1char$ph_length(info->generics_type_names);i_117++){
                 if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
 ({(_conditional_value_X7=(string_operator_equals(((char* )(__right_value1=list$1char$ph_operator_load_element(info->generics_type_names,i_117))),type_name)));                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -9561,7 +9564,7 @@ _conditional_value_X7;})) {
             come_call_finalizer(sType_finalize, __dec_obj225,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         else if(list$1char$ph_contained(info->method_generics_type_names,type_name,(_Bool)0)) {
-            for(i_118=0;i_118<list$1char$ph_length(info->method_generics_type_names);i_118++){
+            for(i_118=0            ;i_118<list$1char$ph_length(info->method_generics_type_names);i_118++){
                 if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
 ({(_conditional_value_X8=(string_operator_equals(((char* )(__right_value1=list$1char$ph_operator_load_element(info->method_generics_type_names,i_118))),type_name)));                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -9834,12 +9837,11 @@ _conditional_value_X9;})) {
             come_call_finalizer(sType_finalize, __dec_obj242,(void*)0, (void*)0, 0, 0, 0, (void*)0);
             type_82->mPointerNum++;
             type_82->mHeap=(_Bool)1;
-            for(o2_saved=(struct list$1sType$ph*)come_increment_ref_count(types),it=list$1sType$ph_begin(o2_saved);!list$1sType$ph_end(o2_saved);it=list$1sType$ph_next(o2_saved)){
+            for(_o2_saved_3=(struct list$1sType$ph*)come_increment_ref_count(types),it=list$1sType$ph_begin(_o2_saved_3)            ;!list$1sType$ph_end(_o2_saved_3);it=list$1sType$ph_next(_o2_saved_3)){
                 __right_value0 = (void*)0;
                 list$1sType$ph_push_back(type_82->mGenericsTypes,(struct sType* )come_increment_ref_count((((struct sType* )(__right_value0=sType_clone(it))))));
                 come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
             }
-            come_call_finalizer(list$1sType$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             __right_value0 = (void*)0;
             __dec_obj243=type_82,
             type_82=(struct sType* )come_increment_ref_count(parse_pointer_attribute((struct sType* )come_increment_ref_count(type_82),info));
@@ -9864,6 +9866,7 @@ _conditional_value_X9;})) {
             type_name=(char* )come_increment_ref_count(type_82->mClass->mName);
             __dec_obj245 = come_decrement_ref_count(__dec_obj245, (void*)0, (void*)0, 0,0, (void*)0);
             come_call_finalizer(list$1sType$ph$p_finalize, types, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         __right_value0 = (void*)0;
         attribute_135=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)0));
@@ -10456,7 +10459,7 @@ static struct map$2char$phsClass$ph* map$2char$phsClass$ph_insert(struct map$2ch
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -10493,7 +10496,7 @@ static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phsClass$ph_begin(self);!map$2char$phsClass$ph_end(self);it=map$2char$phsClass$ph_next(self)){
+    for(it=map$2char$phsClass$ph_begin(self)    ;!map$2char$phsClass$ph_end(self);it=map$2char$phsClass$ph_next(self)){
         memset(&default_value,0,sizeof(struct sClass* ));
         __right_value0 = (void*)0;
         it2=(struct sClass* )come_increment_ref_count(map$2char$phsClass$ph_at(self,it,(struct sClass* )come_increment_ref_count(default_value),(_Bool)0));
@@ -10933,7 +10936,7 @@ static struct list$1sNode$ph* list$1sNode$ph_initialize_with_values(struct list$
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
-    for(i=0;i<num_value;i++){
+    for(i=0    ;i<num_value;i++){
         list$1sNode$ph_push_back(self,(struct sNode*)come_increment_ref_count(values[i]));
     }
         __result_obj__0 = (struct list$1sNode$ph*)come_increment_ref_count(self);
@@ -11499,7 +11502,7 @@ _Bool is_same_type_ignoring_qualifier(struct sType*  left_type  , struct sType* 
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    for(i=0;i<list$1sType$ph_length(left_type2->mGenericsTypes);i++){
+    for(i=0    ;i<list$1sType$ph_length(left_type2->mGenericsTypes);i++){
         __right_value0 = (void*)0;
         left_g=((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(left_type2->mGenericsTypes,i)));
         __right_value0 = (void*)0;
@@ -11534,7 +11537,7 @@ _Bool is_same_type_ignoring_qualifier(struct sType*  left_type  , struct sType* 
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        for(i_143=0;i_143<list$1sType$ph_length(left_type2->mParamTypes);i_143++){
+        for(i_143=0        ;i_143<list$1sType$ph_length(left_type2->mParamTypes);i_143++){
             __right_value0 = (void*)0;
             lparam=((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(left_type2->mParamTypes,i_143)));
             __right_value0 = (void*)0;

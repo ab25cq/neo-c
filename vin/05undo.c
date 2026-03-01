@@ -3653,7 +3653,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_0;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3661,7 +3661,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_0=0;i_0<self->size;i_0++){
+    for(i_0=0    ;i_0<self->size;i_0++){
         if(self->item_existance[i_0]) {
             if(0) {
             }
@@ -3705,7 +3705,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_1;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3713,7 +3713,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_1=0;i_1<self->size;i_1++){
+    for(i_1=0    ;i_1<self->size;i_1++){
         if(self->item_existance[i_1]) {
             if(0) {
             }
@@ -4466,7 +4466,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }

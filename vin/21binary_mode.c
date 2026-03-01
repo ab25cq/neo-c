@@ -3391,7 +3391,7 @@ void ViWin_binaryModeView(struct ViWin*  self  , struct Vi*  nvi  )
     int maxx;
     int it2;
     void* __right_value0 = (void*)0;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_1;
     int*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -3405,13 +3405,13 @@ void ViWin_binaryModeView(struct ViWin*  self  , struct Vi*  nvi  )
     maxx=getmaxx(self->win);
     if(list$1int$ph_length(self->texts)>0) {
         it2=0;
-        for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll,self->scroll+maxy-1)),it=list$1int$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+        for(({(_conditional_value_X0=(_o2_saved_1=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll,self->scroll+maxy-1)),it=list$1int$ph_begin(_o2_saved_1)));_conditional_value_X0;})        ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_1)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_1)));_conditional_value_X2;})){
             len=list$1int$_item(self->texts_length,self->scroll+it2,-1);
             __right_value0 = (void*)0;
             line=((int* )(__right_value0=list$1int$ph_item(self->texts,self->scroll+it2,((void*)0))));
             if(line!=((void*)0)&&len!=-1) {
                 if(self->cursorY==it2&&ViWin_equals(nvi->activeWin,self)) {
-                    for(i=0;i<len;i++){
+                    for(i=0                    ;i<len;i++){
                         if(i==self->cursorX) {
                             wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
                             mvwprintw(self->win,it2,i*3,"%02x",line[i]);
@@ -3423,14 +3423,14 @@ void ViWin_binaryModeView(struct ViWin*  self  , struct Vi*  nvi  )
                     }
                 }
                 else {
-                    for(i_4=0;i_4<len;i_4++){
+                    for(i_4=0                    ;i_4<len;i_4++){
                         mvwprintw(self->win,it2,i_4*3,"%02x",line[i_4]);
                     }
                 }
             }
             it2++;
         }
-        come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     mvwprintw(self->win,self->height-1,0,"BINARY MODE x %d y %d scroll %d",self->cursorX,self->scroll+self->cursorY,self->scroll);
@@ -3871,7 +3871,7 @@ static struct list$1int$ph* list$1int$ph_insert(struct list$1int$ph* self, int p
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
             list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3957,7 +3957,7 @@ static struct list$1int$* list$1int$_insert(struct list$1int$* self, int positio
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int));
             list$1int$_push_back(self,default_value);
         }
@@ -4032,7 +4032,7 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
             list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4083,7 +4083,7 @@ static struct list$1int$* list$1int$_replace(struct list$1int$* self, int positi
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int));
             list$1int$_push_back(self,default_value);
         }
@@ -4330,7 +4330,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }
@@ -4584,7 +4584,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_26;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4592,7 +4592,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_26=0;i_26<self->size;i_26++){
+    for(i_26=0    ;i_26<self->size;i_26++){
         if(self->item_existance[i_26]) {
             if(0) {
             }
@@ -4636,7 +4636,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_27;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4644,7 +4644,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_27=0;i_27<self->size;i_27++){
+    for(i_27=0    ;i_27<self->size;i_27++){
         if(self->item_existance[i_27]) {
             if(0) {
             }

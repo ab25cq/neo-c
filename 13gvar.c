@@ -2867,7 +2867,7 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
     char*  name  ;
     struct sNode* right_node;
     char*  array_initializer  ;
-    struct list$1tuple3$3sType$phchar$phchar$ph$ph* o2_saved;
+    struct list$1tuple3$3sType$phchar$phchar$ph$ph* _o2_saved_1;
     struct tuple3$3sType$phchar$phchar$ph* it;
     struct tuple3$3sType$phchar$phchar$ph* multiple_assign_var1
 ;    struct sType*  type_12  =0;
@@ -2886,7 +2886,7 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
     __right_value0 = (void*)0;
     array_initializer=(char* )come_increment_ref_count((char* )come_memdup(self->array_initializer, "13gvar.nc", 27, "char* "));
     if(self->multiple_declare) {
-        for(o2_saved=(struct list$1tuple3$3sType$phchar$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare),it=list$1tuple3$3sType$phchar$phchar$ph$ph_begin(o2_saved);!list$1tuple3$3sType$phchar$phchar$ph$ph_end(o2_saved);it=list$1tuple3$3sType$phchar$phchar$ph$ph_next(o2_saved)){
+        for(_o2_saved_1=(struct list$1tuple3$3sType$phchar$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare),it=list$1tuple3$3sType$phchar$phchar$ph$ph_begin(_o2_saved_1)        ;!list$1tuple3$3sType$phchar$phchar$ph$ph_end(_o2_saved_1);it=list$1tuple3$3sType$phchar$phchar$ph$ph_next(_o2_saved_1)){
             multiple_assign_var1=it;
             type_12=(struct sType* )come_increment_ref_count(multiple_assign_var1->v1);
             name_13=(char* )come_increment_ref_count(multiple_assign_var1->v2);
@@ -2929,7 +2929,7 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
             (name_13 = come_decrement_ref_count(name_13, (void*)0, (void*)0, 0, 0, (void*)0));
             (initializer = come_decrement_ref_count(initializer, (void*)0, (void*)0, 0, 0, (void*)0));
         }
-        come_call_finalizer(list$1tuple3$3sType$phchar$phchar$ph$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1tuple3$3sType$phchar$phchar$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
         __right_value0 = (void*)0;
@@ -4458,7 +4458,7 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2ch
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -4495,7 +4495,7 @@ static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phbuffer$ph_begin(self);!map$2char$phbuffer$ph_end(self);it=map$2char$phbuffer$ph_next(self)){
+    for(it=map$2char$phbuffer$ph_begin(self)    ;!map$2char$phbuffer$ph_end(self);it=map$2char$phbuffer$ph_next(self)){
         memset(&default_value,0,sizeof(struct buffer* ));
         __right_value0 = (void*)0;
         it2=(struct buffer* )come_increment_ref_count(map$2char$phbuffer$ph_at(self,it,(struct buffer* )come_increment_ref_count(default_value),(_Bool)0));
@@ -5009,7 +5009,7 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -5046,7 +5046,7 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phchar$ph_begin(self);!map$2char$phchar$ph_end(self);it=map$2char$phchar$ph_next(self)){
+    for(it=map$2char$phchar$ph_begin(self)    ;!map$2char$phchar$ph_end(self);it=map$2char$phchar$ph_next(self)){
         memset(&default_value,0,sizeof(char* ));
         __right_value0 = (void*)0;
         it2=(char* )come_increment_ref_count(map$2char$phchar$ph_at(self,it,(char* )come_increment_ref_count(default_value),(_Bool)0));
@@ -5263,7 +5263,7 @@ _Bool sExternalGlobalVariable_compile(struct sExternalGlobalVariable* self, stru
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sExternalGlobalVariable_compile"; neo_current_frame = &fr;
     struct sType*  type  ;
     char*  name  ;
-    struct list$1tuple3$3sType$phchar$phchar$ph$ph* o2_saved;
+    struct list$1tuple3$3sType$phchar$phchar$ph$ph* _o2_saved_2;
     struct tuple3$3sType$phchar$phchar$ph* it;
     struct tuple3$3sType$phchar$phchar$ph* multiple_assign_var2
 ;    struct sType*  type_30  =0;
@@ -5277,7 +5277,7 @@ _Bool sExternalGlobalVariable_compile(struct sExternalGlobalVariable* self, stru
     type=self->type;
     name=(char* )come_increment_ref_count(self->name);
     if(self->multiple_declare) {
-        for(o2_saved=(struct list$1tuple3$3sType$phchar$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare),it=list$1tuple3$3sType$phchar$phchar$ph$ph_begin(o2_saved);!list$1tuple3$3sType$phchar$phchar$ph$ph_end(o2_saved);it=list$1tuple3$3sType$phchar$phchar$ph$ph_next(o2_saved)){
+        for(_o2_saved_2=(struct list$1tuple3$3sType$phchar$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare),it=list$1tuple3$3sType$phchar$phchar$ph$ph_begin(_o2_saved_2)        ;!list$1tuple3$3sType$phchar$phchar$ph$ph_end(_o2_saved_2);it=list$1tuple3$3sType$phchar$phchar$ph$ph_next(_o2_saved_2)){
             multiple_assign_var2=it;
             type_30=(struct sType* )come_increment_ref_count(multiple_assign_var2->v1);
             name_31=(char* )come_increment_ref_count(multiple_assign_var2->v2);
@@ -5292,7 +5292,7 @@ _Bool sExternalGlobalVariable_compile(struct sExternalGlobalVariable* self, stru
             (name_31 = come_decrement_ref_count(name_31, (void*)0, (void*)0, 0, 0, (void*)0));
             (initializer = come_decrement_ref_count(initializer, (void*)0, (void*)0, 0, 0, (void*)0));
         }
-        come_call_finalizer(list$1tuple3$3sType$phchar$phchar$ph$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1tuple3$3sType$phchar$phchar$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     else {
         __right_value0 = (void*)0;

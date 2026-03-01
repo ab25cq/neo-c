@@ -6,6 +6,16 @@ int main(){
     }
     
     printf("a %d\n", a);
+
+    var it = 1;
+    
+    var it = s"AAA";
+
+    var it = t(0, 1);
+
+    var s = s"\{it.v1} \{it.v2}";
+    
+    puts(s);
     
     return 0;
 }

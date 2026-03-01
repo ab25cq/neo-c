@@ -3501,7 +3501,7 @@ char*  ViWin_selector(struct ViWin*  self  , struct list$1char$ph* lines)
     while(!end_of_select) {
         wclear(stdscr);
         maxy2=list$1char$ph_length(lines)-scrolltop;
-        for(y=0;y<maxy&&y<maxy2;y++){
+        for(y=0        ;y<maxy&&y<maxy2;y++){
             it=(char* )come_increment_ref_count(list$1char$ph_item(lines,scrolltop+y,((void*)0)));
             __right_value0 = (void*)0;
             line=(char* )come_increment_ref_count(charp_substring(it,0,maxx-1));
@@ -3672,7 +3672,7 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  )
     char*  path_9  ;
     char*  item_10  ;
     struct list$1char$ph* words2;
-    struct list$1char$ph* o2_saved;
+    struct list$1char$ph* _o2_saved_1;
     char*  it  ;
     struct list$1char$ph* words3;
     char*  file_name  ;
@@ -3840,13 +3840,12 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  )
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     words2=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "12command.nc", 276, "struct list$1char$ph*"))));
-    for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(words),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
+    for(_o2_saved_1=(struct list$1char$ph*)come_increment_ref_count(words),it=list$1char$ph_begin(_o2_saved_1)    ;!list$1char$ph_end(_o2_saved_1);it=list$1char$ph_next(_o2_saved_1)){
         if(strcmp(word,"")!=0&&strstr(it,word)==it) {
             __right_value0 = (void*)0;
             list$1char$ph_push_back(words2,(char* )come_increment_ref_count((char* )come_memdup(it, "12command.nc", 280, "char* ")));
         }
     }
-    come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     __right_value0 = (void*)0;
     words3=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_sort_with_lambda(words2,lambda1));
     __right_value0 = (void*)0;
@@ -3858,6 +3857,7 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  )
     (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0));
     come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(list$1char$ph$p_finalize, words2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     come_call_finalizer(list$1char$ph$p_finalize, words3, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     (file_name = come_decrement_ref_count(file_name, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -4375,7 +4375,7 @@ void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  )
     char*  str  ;
     char*  replace  ;
     int it2;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_2;
     int*  it  ;
     void* __right_value1 = (void*)0;
     void* __right_value2 = (void*)0;
@@ -4390,7 +4390,7 @@ void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  )
         if(str!=((void*)0)&&replace!=((void*)0)) {
             ViWin_pushUndo_v5(self);
             it2=0;
-            for(o2_saved=(struct list$1int$ph*)come_increment_ref_count(self->texts),it=list$1int$ph_begin(o2_saved);!list$1int$ph_end(o2_saved);it=list$1int$ph_next(o2_saved)){
+            for(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(self->texts),it=list$1int$ph_begin(_o2_saved_2)            ;!list$1int$ph_end(_o2_saved_2);it=list$1int$ph_next(_o2_saved_2)){
                 __right_value0 = (void*)0;
                 new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=charp_sub_plain(((char* )(__right_value0=wstring_to_string(it))),str,replace)))));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -4400,7 +4400,7 @@ void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  )
                 it2++;
                 (new_line = come_decrement_ref_count(new_line, (void*)0, (void*)0, 0, 0, (void*)0));
             }
-            come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+            come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         }
         (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0));
         (replace = come_decrement_ref_count(replace, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4488,7 +4488,7 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
             list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4595,7 +4595,7 @@ static struct list$1int$* list$1int$_replace(struct list$1int$* self, int positi
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int));
             list$1int$_push_back(self,default_value);
         }
@@ -4838,7 +4838,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }
@@ -5092,7 +5092,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_28;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5100,7 +5100,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_28=0;i_28<self->size;i_28++){
+    for(i_28=0    ;i_28<self->size;i_28++){
         if(self->item_existance[i_28]) {
             if(0) {
             }
@@ -5144,7 +5144,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_29;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5152,7 +5152,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_29=0;i_29<self->size;i_29++){
+    for(i_29=0    ;i_29<self->size;i_29++){
         if(self->item_existance[i_29]) {
             if(0) {
             }

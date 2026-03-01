@@ -1103,6 +1103,59 @@ class sIterCallNode extends sNodeBase
             exit(1);
         }
         
+        list<sType*%>*% param_types = new list<sType*%>();
+        foreach(it, generics_fun.mParamTypes) {
+            if(it == null) {
+                param_types.push_back(clone it);
+            }
+            else {
+                sType*% it2 = solve_generics(dummy_heap it, info.generics_type, info);
+                
+                sType*% no_solved_obj_type = obj_type->mNoSolvedGenericsType;
+                sType*% it3 = solve_generics(dummy_heap it, no_solved_obj_type, info);
+                
+                param_types.push_back(it2);
+            }
+        }
+        
+        list<CVALUE*%>*% come_params = new list<CVALUE*%>();
+        int i + 0;
+        foreach(it, params) {
+            var label, node = it;
+            
+            node_compile(node).elif {
+                return false;
+            }
+            
+            CVALUE*% come_value = get_value_from_stack(-1, info);
+            
+            come_value.type = solve_generics(come_value.type, info->generics_type, info);
+            
+            if(param_types[i]) {
+                check_assign_type(s"(d). \{fun_name} param num \{i} is assinged to", param_types[i], come_value.type, come_value);
+            }
+            if(param_types[i] && param_types[i].mHeap && come_value.type.mHeap) {
+                std_move(param_types[i], come_value.type, come_value);
+            }
+            
+            come_params.add(come_value);
+            i++;
+        }
+        
+        int i = 0;
+        foreach(it, generics_fun.mParamNames) {
+            string name = string(it);
+            CVALUE*% come_value = come_params[i];
+            sType*% come_type = param_types[i];
+            
+            add_variable_to_table(name, come_type, info, false@function_param);
+            
+            add_come_code(info, "%s=%s;\n", name, come_value.c_value);
+            
+            add_come_code_at_function_head(info, "%s\n;", make_define_var(come_type, name));
+            i++;
+        }
+        
         static bool recursive = false;
         if(recursive == false) {
             recursive = true;
@@ -1210,16 +1263,12 @@ class sIterCallNode extends sNodeBase
                 info.generics_type_names.add(s"T");
             }
             
-            
             info.iter_type = null;
             
             bool no_output_come_code = info.no_output_come_code;
             info->no_output_come_code = true;
             transpile_block(block, param_types:null, param_names:null, info, no_var_table:true, iter_:true);
            
-            //info.lv_table.mVars.remove(s"_li");
-
-
             string all_code2 = "{" + all_code + "}"; //trim_last_bracket(all_code);
             
             info->no_output_come_code = no_output_come_code;

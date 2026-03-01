@@ -27,7 +27,9 @@ class sStoreNode extends sNodeBase
             sVar* var_ = borrow info.lv_table.mVars.at(string(self.name), null);
             if(var_) {
                 if(var_->mType->mHeap) {
-                    free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                    if(!var_->no_output_come_code) {
+                        free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                    }
                 }
                 
                 info.lv_table.mVars.remove(string(self.name));
@@ -52,7 +54,9 @@ class sStoreNode extends sNodeBase
                 var_ = borrow info.lv_table.mVars.at(string(var_name), null);
                 if(var_) {
                     if(var_->mType->mHeap) {
-                        free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                        if(!var_->no_output_come_code) {
+                            free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                        }
                     }
                     
                     info.lv_table.mVars.remove(string(var_name));
@@ -128,7 +132,9 @@ class sStoreNode extends sNodeBase
                     sVar* var_ = borrow info.lv_table.mVars.at(string(it), null);
                     if(var_) {
                         if(var_->mType->mHeap) {
-                            free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                            if(!var_->no_output_come_code) {
+                                free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                            }
                         }
                         
                         info.lv_table.mVars.remove(string(it));
@@ -209,7 +215,9 @@ class sStoreNode extends sNodeBase
             sVar* var_ = borrow info.lv_table.mVars.at(string(self.name), null);
             if(var_) {
                 if(var_->mType->mHeap) {
-                    free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                    if(!var_->no_output_come_code) {
+                        free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
+                    }
                 }
                 
                 info.lv_table.mVars.remove(string(self.name));
@@ -314,6 +322,7 @@ class sStoreNode extends sNodeBase
             
             if(self.iter_) {
                 info.generics_type = new sType(s"list");
+                info.generics_type.mGenericsTypes.reset();
                 info.generics_type.mGenericsTypes.add(clone right_type);
             }
             
@@ -726,7 +735,6 @@ class sLoadNode extends sNodeBase
         
         sVar* var_ = borrow get_variable_from_table(info.lv_table, self.name);
         
-        
         if(var_ == null) {
             var_ = borrow get_variable_from_table(info.gv_table, self.name);
             
@@ -868,6 +876,7 @@ void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_p
             same_name = true;
         }
     }
+    
     
     
     if(function_param) {

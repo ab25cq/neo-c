@@ -4266,7 +4266,7 @@ static struct map$2int$list$1list$1int$$ph$ph* map$2int$list$1list$1int$$ph$ph_i
     self->items=(struct list$1list$1int$$ph**)come_increment_ref_count(((struct list$1list$1int$$ph**)(__right_value0=(struct list$1list$1int$$ph**)come_calloc(1, sizeof(struct list$1list$1int$$ph*)*(1*(128)), "/usr/local/include/neo-c.h", 2803, "struct list$1list$1int$$ph**"))));
     __right_value0 = (void*)0;
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2804, "_Bool*"))));
-    for(i=0;i<128;i++){
+    for(i=0    ;i<128;i++){
         self->item_existance[i]=(_Bool)0;
     }
     self->size=128;
@@ -4288,7 +4288,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_0;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4296,7 +4296,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_0=0;i_0<self->size;i_0++){
+    for(i_0=0    ;i_0<self->size;i_0++){
         if(self->item_existance[i_0]) {
             if(0) {
             }
@@ -4340,7 +4340,7 @@ static void map$2int$list$1list$1int$$ph$ph_finalize(struct map$2int$list$1list$
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_1;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4348,7 +4348,7 @@ static void map$2int$list$1list$1int$$ph$ph_finalize(struct map$2int$list$1list$
         }
     }
     come_free((char*)self->items);
-    for(i_1=0;i_1<self->size;i_1++){
+    for(i_1=0    ;i_1<self->size;i_1++){
         if(self->item_existance[i_1]) {
             if(0) {
             }
@@ -4521,7 +4521,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_2;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4529,7 +4529,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_2=0;i_2<self->size;i_2++){
+    for(i_2=0    ;i_2<self->size;i_2++){
         if(self->item_existance[i_2]) {
             if(0) {
             }
@@ -4550,7 +4550,7 @@ _Bool ViWin_saveDotToFile_v14(struct ViWin*  self  , struct Vi*  nvi  )
     char*  path  ;
     struct _IO_FILE*  f  ;
     _Bool __result_obj__0;
-    struct list$1int$* o2_saved;
+    struct list$1int$* _o2_saved_1;
     int it;
     home=getenv("HOME");
     if(home==((void*)0)) {
@@ -4572,12 +4572,12 @@ _Bool ViWin_saveDotToFile_v14(struct ViWin*  self  , struct Vi*  nvi  )
         return __result_obj__0;
     }
     if(self->savedInputedKeys) {
-        for(o2_saved=(struct list$1int$*)come_increment_ref_count(self->savedInputedKeys),it=list$1int$_begin(o2_saved);!list$1int$_end(o2_saved);it=list$1int$_next(o2_saved)){
+        for(_o2_saved_1=(struct list$1int$*)come_increment_ref_count(self->savedInputedKeys),it=list$1int$_begin(_o2_saved_1)        ;!list$1int$_end(_o2_saved_1);it=list$1int$_next(_o2_saved_1)){
             if(fputc(it,f)<0) {
                 break;
             }
         }
-        come_call_finalizer(list$1int$$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1int$$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     fclose(f);
         __result_obj__0 = (_Bool)1;
@@ -4969,7 +4969,7 @@ void ViWin_saveInputedKey_v14(struct ViWin*  self  )
     void* __right_value1 = (void*)0;
     struct list$1int$* __dec_obj8;
     int i;
-    struct list$1int$* o2_saved;
+    struct list$1int$* _o2_saved_2;
     int it;
     struct list$1int$* __dec_obj9;
     if(!self->autoInput&&!self->pressedDot) {
@@ -4979,11 +4979,11 @@ void ViWin_saveInputedKey_v14(struct ViWin*  self  )
             __dec_obj8=self->savedInputedKeys,
             self->savedInputedKeys=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "14dot.nc", 219, "struct list$1int$*"))));
             come_call_finalizer(list$1int$_finalize, __dec_obj8,(void*)0, (void*)0, 0, 0, 0, (void*)0);
-            for(i=0;i<self->digitInput;i++){
-                for(o2_saved=(struct list$1int$*)come_increment_ref_count(self->inputedKeys),it=list$1int$_begin(o2_saved);!list$1int$_end(o2_saved);it=list$1int$_next(o2_saved)){
+            for(i=0            ;i<self->digitInput;i++){
+                for(_o2_saved_2=(struct list$1int$*)come_increment_ref_count(self->inputedKeys),it=list$1int$_begin(_o2_saved_2)                ;!list$1int$_end(_o2_saved_2);it=list$1int$_next(_o2_saved_2)){
                     list$1int$_push_back(self->savedInputedKeys,it);
                 }
-                come_call_finalizer(list$1int$$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                come_call_finalizer(list$1int$$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
             }
             self->digitInput=0;
         }
@@ -5400,7 +5400,7 @@ static struct map$2int$list$1list$1int$$ph$ph* map$2int$list$1list$1int$$ph$ph_i
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1int$_begin(self->key_list);!list$1int$_end(self->key_list);it2=list$1int$_next(self->key_list)){
+    for(it2=list$1int$_begin(self->key_list)    ;!list$1int$_end(self->key_list);it2=list$1int$_next(self->key_list)){
         if((!by_pointer&&int_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -5436,7 +5436,7 @@ static void map$2int$list$1list$1int$$ph$ph_rehash(struct map$2int$list$1list$1i
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2int$list$1list$1int$$ph$ph_begin(self);!map$2int$list$1list$1int$$ph$ph_end(self);it=map$2int$list$1list$1int$$ph$ph_next(self)){
+    for(it=map$2int$list$1list$1int$$ph$ph_begin(self)    ;!map$2int$list$1list$1int$$ph$ph_end(self);it=map$2int$list$1list$1int$$ph$ph_next(self)){
         memset(&default_value,0,sizeof(struct list$1list$1int$$ph*));
         __right_value0 = (void*)0;
         it2=(struct list$1list$1int$$ph*)come_increment_ref_count(map$2int$list$1list$1int$$ph$ph_at(self,it,(struct list$1list$1int$$ph*)come_increment_ref_count(default_value),(_Bool)0));
@@ -5613,7 +5613,7 @@ static struct list$1list$1int$$ph* list$1list$1int$$ph_replace(struct list$1list
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(struct list$1int$*));
             list$1list$1int$$ph_push_back(self,(struct list$1int$*)come_increment_ref_count(default_value));
             come_call_finalizer(list$1int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5881,7 +5881,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }

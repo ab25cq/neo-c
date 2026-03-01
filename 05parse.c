@@ -2716,7 +2716,7 @@ _Bool parsecmp(const char* p2, struct sInfo*  info  )
     unsigned char c;
     terminated=(_Bool)0;
     p3=info->p;
-    for(i=0;i<strlen(p2);i++){
+    for(i=0    ;i<strlen(p2);i++){
         if(*p3==0) {
                         neo_current_frame = fr.prev;
             return (_Bool)0;
@@ -3408,7 +3408,7 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
     compact=(char* )come_increment_ref_count(buffer_to_string(compact_buf));
     lparen_pos=-1;
     rparen_pos=-1;
-    for(i=0;i<string_length(compact);i++){
+    for(i=0    ;i<string_length(compact);i++){
         d=compact[i];
         if(d==40&&lparen_pos==-1) {
             lparen_pos=i;
@@ -3485,7 +3485,7 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
         push_id=(char*)come_increment_ref_count(xsprintf(""));
         __right_value0 = (void*)0;
         push_num=(char*)come_increment_ref_count(xsprintf(""));
-        for(i_4=1;i_4<list$1char$ph_length(tokens);i_4++){
+        for(i_4=1        ;i_4<list$1char$ph_length(tokens);i_4++){
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
@@ -3521,7 +3521,7 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
         pop_id=(char*)come_increment_ref_count(xsprintf(""));
         __right_value0 = (void*)0;
         pop_num=(char*)come_increment_ref_count(xsprintf(""));
-        for(i_5=1;i_5<list$1char$ph_length(tokens);i_5++){
+        for(i_5=1        ;i_5<list$1char$ph_length(tokens);i_5++){
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
@@ -3544,7 +3544,7 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
         }
         if(string_operator_not_equals(pop_id,"")) {
             found=-1;
-            for(i_7=0;i_7<list$1char$ph_length(info->pragma_pack_stack);i_7++){
+            for(i_7=0            ;i_7<list$1char$ph_length(info->pragma_pack_stack);i_7++){
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;

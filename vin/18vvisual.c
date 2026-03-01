@@ -3557,7 +3557,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_0;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3565,7 +3565,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_0=0;i_0<self->size;i_0++){
+    for(i_0=0    ;i_0<self->size;i_0++){
         if(self->item_existance[i_0]) {
             if(0) {
             }
@@ -3609,7 +3609,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_1;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3617,7 +3617,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_1=0;i_1<self->size;i_1++){
+    for(i_1=0    ;i_1<self->size;i_1++){
         if(self->item_existance[i_1]) {
             if(0) {
             }
@@ -3636,7 +3636,7 @@ void ViWin_verticalVisualModeView(struct ViWin*  self  , struct Vi*  nvi  )
     int maxx;
     int it2;
     void* __right_value0 = (void*)0;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_1;
     int*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -3649,7 +3649,7 @@ void ViWin_verticalVisualModeView(struct ViWin*  self  , struct Vi*  nvi  )
     maxx=getmaxx(self->win);
     werase(self->win);
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll,self->scroll+maxy-1)),it=list$1int$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+    for(({(_conditional_value_X0=(_o2_saved_1=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll,self->scroll+maxy-1)),it=list$1int$ph_begin(_o2_saved_1)));_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_1)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_1)));_conditional_value_X2;})){
         __right_value0 = (void*)0;
         line=(int* )come_increment_ref_count(wstring_substring(it,0,maxx-1));
         if((it2>=(self->visualModeVerticalHeadY-self->scroll)&&it2<=self->cursorY)||(it2<=(self->visualModeVerticalHeadY-self->scroll)&&it2>=self->cursorY)) {
@@ -3676,11 +3676,11 @@ void ViWin_verticalVisualModeView(struct ViWin*  self  , struct Vi*  nvi  )
         it2++;
         (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     mvwprintw(self->win,self->height-1,0,"VISUAL MODE x %d y %d",self->cursorX,self->cursorY);
     wattr_off(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     wrefresh(self->win);
+    come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -3893,7 +3893,7 @@ void ViWin_deleteOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         head=tail;
         tail=tmp;
     }
-    for(i=head;i<=tail;i++){
+    for(i=head    ;i<=tail;i++){
         it=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,i,((void*)0)));
         __right_value0 = (void*)0;
         ((int* )(__right_value0=wstring_delete(it,self->visualModeVerticalHeadX,self->visualModeVerticalHeadX+self->visualModeVerticalLen)));
@@ -3956,7 +3956,7 @@ void ViWin_deleteLinesOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nv
         head=tail;
         tail=tmp;
     }
-    for(i=head;i<=tail;i++){
+    for(i=head    ;i<=tail;i++){
         it=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,i,((void*)0)));
         __right_value0 = (void*)0;
         ((int* )(__right_value0=wstring_delete(it,0,-1)));
@@ -3995,7 +3995,7 @@ void ViWin_changeCaseVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  
         head=tail;
         tail=tmp;
     }
-    for(i=head;i<=tail;i++){
+    for(i=head    ;i<=tail;i++){
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,i,((void*)0)));
         __right_value0 = (void*)0;
         head_line=(int* )come_increment_ref_count(wstring_substring(line,0,self->visualModeVerticalHeadX));
@@ -4003,7 +4003,7 @@ void ViWin_changeCaseVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  
         tail_line=(int* )come_increment_ref_count(wstring_substring(line,self->visualModeVerticalHeadX+self->visualModeVerticalLen,-1));
         __right_value0 = (void*)0;
         middle_line=(int* )come_increment_ref_count(wstring_substring(line,self->visualModeVerticalHeadX,self->visualModeVerticalHeadX+self->visualModeVerticalLen));
-        for(i_6=0;i_6<wstring_length(middle_line);i_6++){
+        for(i_6=0        ;i_6<wstring_length(middle_line);i_6++){
             c=middle_line[i_6];
             if(c>=97&&c<=122) {
                 c2=c-97+65;
@@ -4018,8 +4018,8 @@ void ViWin_changeCaseVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  
         new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls%ls",head_line,middle_line,tail_line)))));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         __right_value0 = (void*)0;
-        list$1int$ph_replace(self->texts,i,(int* )come_increment_ref_count((int* )come_memdup(new_line, "18vvisual.nc", 169, "int* ")));
-        list$1int$_replace(self->texts_length,i,wcslen(new_line));
+        list$1int$ph_replace(self->texts,i_6,(int* )come_increment_ref_count((int* )come_memdup(new_line, "18vvisual.nc", 169, "int* ")));
+        list$1int$_replace(self->texts_length,i_6,wcslen(new_line));
         (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0));
         (head_line = come_decrement_ref_count(head_line, (void*)0, (void*)0, 0, 0, (void*)0));
         (tail_line = come_decrement_ref_count(tail_line, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4056,7 +4056,7 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
             list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4107,7 +4107,7 @@ static struct list$1int$* list$1int$_replace(struct list$1int$* self, int positi
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int));
             list$1int$_push_back(self,default_value);
         }
@@ -4201,7 +4201,7 @@ void ViWin_rewriteOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         tail=tmp;
     }
     key=ViWin_getKey_v14(self,(_Bool)0);
-    for(i=head;i<=tail;i++){
+    for(i=head    ;i<=tail;i++){
         it=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,i,((void*)0)));
         __right_value0 = (void*)0;
         head_new_line=(int* )come_increment_ref_count(wstring_substring(it,0,self->visualModeVerticalHeadX));
@@ -4267,7 +4267,7 @@ void ViWin_insertOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
             tail=tmp;
         }
         if(self->visualModeVerticalHeadX>0) {
-            for(i=head;i<=tail;i++){
+            for(i=head            ;i<=tail;i++){
                 it=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,i,((void*)0)));
                 __right_value0 = (void*)0;
                 new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(it,0,self->visualModeVerticalHeadX-1))),((int* )(__right_value1=wstring_substring(it,self->visualModeVerticalHeadX,-1))))))));
@@ -4294,7 +4294,7 @@ void ViWin_insertOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
             head_12=tail_13;
             tail_13=tmp_14;
         }
-        for(i_15=head_12;i_15<=tail_13;i_15++){
+        for(i_15=head_12        ;i_15<=tail_13;i_15++){
             __right_value0 = (void*)0;
             it_16=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,i_15,((void*)0)));
             __right_value0 = (void*)0;
@@ -4479,7 +4479,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }

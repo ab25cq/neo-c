@@ -3311,7 +3311,7 @@ static void init_classes(struct sInfo*  info  )
     __right_value2 = (void*)0;
     __right_value3 = (void*)0;
     map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string("iter")),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "02transpile.nc", 202, "struct sClass* ")),(char*)come_increment_ref_count(xsprintf("iter")),(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)1)),(_Bool)0);
-    for(i=0;i<12;i++){
+    for(i=0    ;i<12;i++){
         __right_value0 = (void*)0;
         generics_type=(char* )come_increment_ref_count(xsprintf("__generics_type%d",i));
         __right_value0 = (void*)0;
@@ -3319,7 +3319,7 @@ static void init_classes(struct sInfo*  info  )
         map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(generics_type),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "02transpile.nc", 205, "struct sClass* ")),(char* )come_increment_ref_count(generics_type),(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,i,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0)),(_Bool)0);
         (generics_type = come_decrement_ref_count(generics_type, (void*)0, (void*)0, 0, 0, (void*)0));
     }
-    for(i_16=0;i_16<7;i_16++){
+    for(i_16=0    ;i_16<7;i_16++){
         __right_value0 = (void*)0;
         generics_type_17=(char* )come_increment_ref_count(xsprintf("__mgenerics_type%d",i_16));
         __right_value0 = (void*)0;
@@ -3540,7 +3540,7 @@ static struct map$2char$phsClass$ph* map$2char$phsClass$ph_insert(struct map$2ch
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -3634,7 +3634,7 @@ static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phsClass$ph_begin(self);!map$2char$phsClass$ph_end(self);it=map$2char$phsClass$ph_next(self)){
+    for(it=map$2char$phsClass$ph_begin(self)    ;!map$2char$phsClass$ph_end(self);it=map$2char$phsClass$ph_next(self)){
         memset(&default_value,0,sizeof(struct sClass* ));
         __right_value0 = (void*)0;
         it2=(struct sClass* )come_increment_ref_count(map$2char$phsClass$ph_at(self,it,(struct sClass* )come_increment_ref_count(default_value),(_Bool)0));
@@ -4148,7 +4148,7 @@ static struct map$2char$phsType$ph* map$2char$phsType$ph_insert(struct map$2char
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -4185,7 +4185,7 @@ static void map$2char$phsType$ph_rehash(struct map$2char$phsType$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phsType$ph_begin(self);!map$2char$phsType$ph_end(self);it=map$2char$phsType$ph_next(self)){
+    for(it=map$2char$phsType$ph_begin(self)    ;!map$2char$phsType$ph_end(self);it=map$2char$phsType$ph_next(self)){
         memset(&default_value,0,sizeof(struct sType* ));
         __right_value0 = (void*)0;
         it2=(struct sType* )come_increment_ref_count(map$2char$phsType$ph_at(self,it,(struct sType* )come_increment_ref_count(default_value),(_Bool)0));
@@ -4422,7 +4422,7 @@ int come_main(int argc, char** argv)
     struct list$1char$ph* files;
     int i;
     char*  ext_name  ;
-    struct list$1char$ph* o2_saved;
+    struct list$1char$ph* _o2_saved_1;
     char*  it  ;
     struct sInfo  info  ;
     struct _IO_FILE*  Value  ;
@@ -4458,7 +4458,7 @@ int come_main(int argc, char** argv)
     memset(&info, 0, sizeof(info));
     start_num=1;
     files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "02transpile.nc", 315, "struct list$1char$ph*"))));
-    for(i=start_num;i<argc;i++){
+    for(i=start_num    ;i<argc;i++){
         __right_value0 = (void*)0;
         ext_name=(char* )come_increment_ref_count(xextname(argv[i]));
         if(charp_operator_equals(argv[i],"-cg")) {
@@ -4488,7 +4488,7 @@ int come_main(int argc, char** argv)
         (ext_name = come_decrement_ref_count(ext_name, (void*)0, (void*)0, 0, 0, (void*)0));
     }
     init_ccpp(argc,argv);
-    for(o2_saved=(struct list$1char$ph*)come_increment_ref_count(files),it=list$1char$ph_begin(o2_saved);!list$1char$ph_end(o2_saved);it=list$1char$ph_next(o2_saved)){
+    for(_o2_saved_1=(struct list$1char$ph*)come_increment_ref_count(files),it=list$1char$ph_begin(_o2_saved_1)    ;!list$1char$ph_end(_o2_saved_1);it=list$1char$ph_next(_o2_saved_1)){
         memset(&info,0,sizeof(struct sInfo ));
         Value=fopen(it,"r");
         if(Value) {
@@ -4652,9 +4652,9 @@ int come_main(int argc, char** argv)
         come_call_finalizer(sInfo_finalize, (&info), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(sVarTable_finalize, lv_table, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
-    come_call_finalizer(list$1char$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
         __result_obj__0 = 0;
     come_call_finalizer(list$1char$ph$p_finalize, files, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -4840,7 +4840,7 @@ static void map$2char$phsFun$ph$p_finalize(struct map$2char$phsFun$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsFun$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_26;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(sFun_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4848,7 +4848,7 @@ static void map$2char$phsFun$ph$p_finalize(struct map$2char$phsFun$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_26=0;i_26<self->size;i_26++){
+    for(i_26=0    ;i_26<self->size;i_26++){
         if(self->item_existance[i_26]) {
             if(1) {
                 (self->keys[i_26] = come_decrement_ref_count(self->keys[i_26], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -4983,7 +4983,7 @@ static void map$2char$phsGenericsFun$ph$p_finalize(struct map$2char$phsGenericsF
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsGenericsFun$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_27;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(sGenericsFun_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4991,7 +4991,7 @@ static void map$2char$phsGenericsFun$ph$p_finalize(struct map$2char$phsGenericsF
         }
     }
     come_free((char*)self->items);
-    for(i_27=0;i_27<self->size;i_27++){
+    for(i_27=0    ;i_27<self->size;i_27++){
         if(self->item_existance[i_27]) {
             if(1) {
                 (self->keys[i_27] = come_decrement_ref_count(self->keys[i_27], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5045,7 +5045,7 @@ static void map$2char$phsClass$ph$p_finalize(struct map$2char$phsClass$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsClass$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_28;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(sClass_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5053,7 +5053,7 @@ static void map$2char$phsClass$ph$p_finalize(struct map$2char$phsClass$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_28=0;i_28<self->size;i_28++){
+    for(i_28=0    ;i_28<self->size;i_28++){
         if(self->item_existance[i_28]) {
             if(1) {
                 (self->keys[i_28] = come_decrement_ref_count(self->keys[i_28], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5071,7 +5071,7 @@ static void map$2char$phsType$ph$p_finalize(struct map$2char$phsType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsType$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_29;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(sType_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5079,7 +5079,7 @@ static void map$2char$phsType$ph$p_finalize(struct map$2char$phsType$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_29=0;i_29<self->size;i_29++){
+    for(i_29=0    ;i_29<self->size;i_29++){
         if(self->item_existance[i_29]) {
             if(1) {
                 (self->keys[i_29] = come_decrement_ref_count(self->keys[i_29], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5097,7 +5097,7 @@ static void map$2char$phbuffer$ph$p_finalize(struct map$2char$phbuffer$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phbuffer$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_30;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(buffer_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5105,7 +5105,7 @@ static void map$2char$phbuffer$ph$p_finalize(struct map$2char$phbuffer$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_30=0;i_30<self->size;i_30++){
+    for(i_30=0    ;i_30<self->size;i_30++){
         if(self->item_existance[i_30]) {
             if(1) {
                 (self->keys[i_30] = come_decrement_ref_count(self->keys[i_30], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5123,7 +5123,7 @@ static void map$2char$phchar$ph$p_finalize(struct map$2char$phchar$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_31;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 (self->items[i] = come_decrement_ref_count(self->items[i], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5131,7 +5131,7 @@ static void map$2char$phchar$ph$p_finalize(struct map$2char$phchar$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_31=0;i_31<self->size;i_31++){
+    for(i_31=0    ;i_31<self->size;i_31++){
         if(self->item_existance[i_31]) {
             if(1) {
                 (self->keys[i_31] = come_decrement_ref_count(self->keys[i_31], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5253,7 +5253,7 @@ static struct map$2char$phsFun$ph* map$2char$phsFun$ph_initialize(struct map$2ch
     self->items=(struct sFun** )come_increment_ref_count(((struct sFun** )(__right_value0=(struct sFun* *)come_calloc(1, sizeof(struct sFun* )*(1*(128)), "/usr/local/include/neo-c.h", 2803, "struct sFun** "))));
     __right_value0 = (void*)0;
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2804, "_Bool*"))));
-    for(i=0;i<128;i++){
+    for(i=0    ;i<128;i++){
         self->item_existance[i]=(_Bool)0;
     }
     self->size=128;
@@ -5293,7 +5293,7 @@ static void map$2char$phsFun$ph_finalize(struct map$2char$phsFun$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsFun$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_32;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(sFun_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5301,7 +5301,7 @@ static void map$2char$phsFun$ph_finalize(struct map$2char$phsFun$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_32=0;i_32<self->size;i_32++){
+    for(i_32=0    ;i_32<self->size;i_32++){
         if(self->item_existance[i_32]) {
             if(1) {
                 (self->keys[i_32] = come_decrement_ref_count(self->keys[i_32], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5327,7 +5327,7 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_initialize(struct map
     self->items=(struct buffer** )come_increment_ref_count(((struct buffer** )(__right_value0=(struct buffer* *)come_calloc(1, sizeof(struct buffer* )*(1*(128)), "/usr/local/include/neo-c.h", 2803, "struct buffer** "))));
     __right_value0 = (void*)0;
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2804, "_Bool*"))));
-    for(i=0;i<128;i++){
+    for(i=0    ;i<128;i++){
         self->item_existance[i]=(_Bool)0;
     }
     self->size=128;
@@ -5349,7 +5349,7 @@ static void map$2char$phbuffer$ph_finalize(struct map$2char$phbuffer$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phbuffer$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_33;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(buffer_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5357,7 +5357,7 @@ static void map$2char$phbuffer$ph_finalize(struct map$2char$phbuffer$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_33=0;i_33<self->size;i_33++){
+    for(i_33=0    ;i_33<self->size;i_33++){
         if(self->item_existance[i_33]) {
             if(1) {
                 (self->keys[i_33] = come_decrement_ref_count(self->keys[i_33], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5383,7 +5383,7 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_initialize(struct map$2ch
     self->items=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), "/usr/local/include/neo-c.h", 2803, "char** "))));
     __right_value0 = (void*)0;
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2804, "_Bool*"))));
-    for(i=0;i<128;i++){
+    for(i=0    ;i<128;i++){
         self->item_existance[i]=(_Bool)0;
     }
     self->size=128;
@@ -5405,7 +5405,7 @@ static void map$2char$phchar$ph_finalize(struct map$2char$phchar$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_34;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 (self->items[i] = come_decrement_ref_count(self->items[i], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5413,7 +5413,7 @@ static void map$2char$phchar$ph_finalize(struct map$2char$phchar$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_34=0;i_34<self->size;i_34++){
+    for(i_34=0    ;i_34<self->size;i_34++){
         if(self->item_existance[i_34]) {
             if(1) {
                 (self->keys[i_34] = come_decrement_ref_count(self->keys[i_34], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5439,7 +5439,7 @@ static struct map$2char$phsType$ph* map$2char$phsType$ph_initialize(struct map$2
     self->items=(struct sType** )come_increment_ref_count(((struct sType** )(__right_value0=(struct sType* *)come_calloc(1, sizeof(struct sType* )*(1*(128)), "/usr/local/include/neo-c.h", 2803, "struct sType** "))));
     __right_value0 = (void*)0;
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2804, "_Bool*"))));
-    for(i=0;i<128;i++){
+    for(i=0    ;i<128;i++){
         self->item_existance[i]=(_Bool)0;
     }
     self->size=128;
@@ -5461,7 +5461,7 @@ static void map$2char$phsType$ph_finalize(struct map$2char$phsType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsType$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_35;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(sType_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5469,7 +5469,7 @@ static void map$2char$phsType$ph_finalize(struct map$2char$phsType$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_35=0;i_35<self->size;i_35++){
+    for(i_35=0    ;i_35<self->size;i_35++){
         if(self->item_existance[i_35]) {
             if(1) {
                 (self->keys[i_35] = come_decrement_ref_count(self->keys[i_35], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5495,7 +5495,7 @@ static struct map$2char$phsGenericsFun$ph* map$2char$phsGenericsFun$ph_initializ
     self->items=(struct sGenericsFun** )come_increment_ref_count(((struct sGenericsFun** )(__right_value0=(struct sGenericsFun* *)come_calloc(1, sizeof(struct sGenericsFun* )*(1*(128)), "/usr/local/include/neo-c.h", 2803, "struct sGenericsFun** "))));
     __right_value0 = (void*)0;
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2804, "_Bool*"))));
-    for(i=0;i<128;i++){
+    for(i=0    ;i<128;i++){
         self->item_existance[i]=(_Bool)0;
     }
     self->size=128;
@@ -5517,7 +5517,7 @@ static void map$2char$phsGenericsFun$ph_finalize(struct map$2char$phsGenericsFun
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsGenericsFun$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_36;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(sGenericsFun_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5525,7 +5525,7 @@ static void map$2char$phsGenericsFun$ph_finalize(struct map$2char$phsGenericsFun
         }
     }
     come_free((char*)self->items);
-    for(i_36=0;i_36<self->size;i_36++){
+    for(i_36=0    ;i_36<self->size;i_36++){
         if(self->item_existance[i_36]) {
             if(1) {
                 (self->keys[i_36] = come_decrement_ref_count(self->keys[i_36], (void*)0, (void*)0, 0, 0, (void*)0));
@@ -5551,7 +5551,7 @@ static struct map$2char$phsClass$ph* map$2char$phsClass$ph_initialize(struct map
     self->items=(struct sClass** )come_increment_ref_count(((struct sClass** )(__right_value0=(struct sClass* *)come_calloc(1, sizeof(struct sClass* )*(1*(128)), "/usr/local/include/neo-c.h", 2803, "struct sClass** "))));
     __right_value0 = (void*)0;
     self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 2804, "_Bool*"))));
-    for(i=0;i<128;i++){
+    for(i=0    ;i<128;i++){
         self->item_existance[i]=(_Bool)0;
     }
     self->size=128;
@@ -5573,7 +5573,7 @@ static void map$2char$phsClass$ph_finalize(struct map$2char$phsClass$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsClass$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_37;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(sClass_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -5581,7 +5581,7 @@ static void map$2char$phsClass$ph_finalize(struct map$2char$phsClass$ph* self)
         }
     }
     come_free((char*)self->items);
-    for(i_37=0;i_37<self->size;i_37++){
+    for(i_37=0    ;i_37<self->size;i_37++){
         if(self->item_existance[i_37]) {
             if(1) {
                 (self->keys[i_37] = come_decrement_ref_count(self->keys[i_37], (void*)0, (void*)0, 0, 0, (void*)0));

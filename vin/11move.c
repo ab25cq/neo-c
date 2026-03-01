@@ -3385,7 +3385,7 @@ void ViWin_toggleBraceForward(struct ViWin*  self  , int  head  , int  tail  )
     int*  line  ;
     int*  p  ;
     int it2;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_1;
     int*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -3419,7 +3419,7 @@ void ViWin_toggleBraceForward(struct ViWin*  self  , int  head  , int  tail  )
         cursor_y++;
         it2=0;
         for(__right_value0 = (void*)0,
-({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll+self->cursorY+1,-1)),it=list$1int$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+({(_conditional_value_X0=(_o2_saved_1=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll+self->cursorY+1,-1)),it=list$1int$ph_begin(_o2_saved_1)));_conditional_value_X0;})        ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_1)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_1)));_conditional_value_X2;})){
             p_4=it;
             while(p_4<it+wstring_length(it)) {
                 if(*p_4==tail) {
@@ -3429,7 +3429,7 @@ void ViWin_toggleBraceForward(struct ViWin*  self  , int  head  , int  tail  )
                         self->cursorY=0;
                         self->cursorX=p_4-it;
                         ViWin_centeringCursor(self);
-                                                come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                                                come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                         (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0));
                         neo_current_frame = fr.prev;
                         return;
@@ -3448,7 +3448,7 @@ void ViWin_toggleBraceForward(struct ViWin*  self  , int  head  , int  tail  )
             cursor_y++;
             it2++;
         }
-        come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -3705,7 +3705,7 @@ void ViWin_toggleBraceBack(struct ViWin*  self  , int  head  , int  tail  )
     int*  p  ;
     int it2;
     void* __right_value1 = (void*)0;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_2;
     int*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -3739,8 +3739,8 @@ void ViWin_toggleBraceBack(struct ViWin*  self  , int  head  , int  tail  )
         cursor_y--;
         it2=0;
         for(__right_value0 = (void*)0,
-({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(o2_saved)));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+({(_conditional_value_X0=(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(_o2_saved_2)));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;})        ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_2)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_2)));_conditional_value_X2;})){
             p_5=it+wstring_length(it);
             while(p_5>=it) {
                 if(*p_5==head) {
@@ -3751,7 +3751,7 @@ _conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)))
                         self->cursorY=0;
                         self->cursorX=cursor_x;
                         ViWin_centeringCursor(self);
-                                                come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                                                come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
                         (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0));
                         neo_current_frame = fr.prev;
                         return;
@@ -3770,7 +3770,7 @@ _conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)))
             cursor_y--;
             it2++;
         }
-        come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -3813,7 +3813,7 @@ void ViWin_toggleCommentForward(struct ViWin*  self  )
     int nest;
     int it2;
     void* __right_value0 = (void*)0;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_3;
     int*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -3824,7 +3824,7 @@ void ViWin_toggleCommentForward(struct ViWin*  self  )
     tail=-1;
     nest=0;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,head,tail)),it=list$1int$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+    for(({(_conditional_value_X0=(_o2_saved_3=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,head,tail)),it=list$1int$ph_begin(_o2_saved_3)));_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_3)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_3)));_conditional_value_X2;})){
         __right_value0 = (void*)0;
         index=string_index(((char* )(__right_value0=wstring_to_string(it))),"*/",-1);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -3848,7 +3848,7 @@ void ViWin_toggleCommentForward(struct ViWin*  self  )
         }
         it2++;
     }
-    come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -3861,7 +3861,7 @@ void ViWin_toggleCommentBackward(struct ViWin*  self  )
     int it2;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_4;
     int*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -3872,8 +3872,8 @@ void ViWin_toggleCommentBackward(struct ViWin*  self  )
     tail=self->scroll+self->cursorY+1;
     nest=0;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,head,tail))))),it=list$1int$ph_begin(o2_saved)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+    for(({(_conditional_value_X0=(_o2_saved_4=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,head,tail))))),it=list$1int$ph_begin(_o2_saved_4)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_4)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_4)));_conditional_value_X2;})){
         __right_value0 = (void*)0;
         index=string_index(((char* )(__right_value0=wstring_to_string(it))),"/*",-1);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
@@ -3897,7 +3897,7 @@ _conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)))
         }
         it2++;
     }
-    come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -3970,15 +3970,15 @@ void ViWin_gotoFunctionTop(struct ViWin*  self  , struct Vi*  nvi  )
     int it2;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_5;
     int*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
     _Bool _conditional_value_X2;
     _Bool _conditional_value_X3;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(o2_saved)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+    for(({(_conditional_value_X0=(_o2_saved_5=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(_o2_saved_5)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_5)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_5)));_conditional_value_X2;})){
         if(__right_value0 = (void*)0,
 ({(_conditional_value_X3=(string_match(((char* )(__right_value0=wstring_to_string(it))),"^{",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X3;})) {
@@ -3991,7 +3991,7 @@ _conditional_value_X3;})) {
         }
         it2++;
     }
-    come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -4001,7 +4001,7 @@ void ViWin_gotoMethodTop(struct ViWin*  self  , struct Vi*  nvi  )
     int it2;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_6;
     int*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -4010,8 +4010,8 @@ void ViWin_gotoMethodTop(struct ViWin*  self  , struct Vi*  nvi  )
     void* __right_value3 = (void*)0;
     _Bool _conditional_value_X3;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(o2_saved)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+    for(({(_conditional_value_X0=(_o2_saved_6=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(_o2_saved_6)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_6)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_6)));_conditional_value_X2;})){
         const char* reg="^ +{";
         const char* reg2="^ +[a-zA-Z].*{$";
         const char* reg3="^{";
@@ -4032,7 +4032,7 @@ _conditional_value_X3;})) {
         }
         it2++;
     }
-    come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -4042,7 +4042,7 @@ void ViWin_gotoFunctionBottom(struct ViWin*  self  , struct Vi*  nvi  )
     int cursor_y;
     int it2;
     void* __right_value0 = (void*)0;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_7;
     int*  it  ;
     _Bool _conditional_value_X0;
     _Bool _conditional_value_X1;
@@ -4050,7 +4050,7 @@ void ViWin_gotoFunctionBottom(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool _conditional_value_X3;
     cursor_y=self->scroll+self->cursorY+1;
     it2=0;
-    for(({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll+self->cursorY+1,-1)),it=list$1int$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+    for(({(_conditional_value_X0=(_o2_saved_7=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll+self->cursorY+1,-1)),it=list$1int$ph_begin(_o2_saved_7)));_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_7)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_7)));_conditional_value_X2;})){
         if(__right_value0 = (void*)0,
 ({(_conditional_value_X3=(string_match(((char* )(__right_value0=wstring_to_string(it))),"^}",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
 _conditional_value_X3;})) {
@@ -4063,7 +4063,7 @@ _conditional_value_X3;})) {
         cursor_y++;
         it2++;
     }
-    come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -4150,7 +4150,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }
@@ -4404,7 +4404,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_9;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4412,7 +4412,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_9=0;i_9<self->size;i_9++){
+    for(i_9=0    ;i_9<self->size;i_9++){
         if(self->item_existance[i_9]) {
             if(0) {
             }
@@ -4456,7 +4456,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_10;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4464,7 +4464,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_10=0;i_10<self->size;i_10++){
+    for(i_10=0    ;i_10<self->size;i_10++){
         if(self->item_existance[i_10]) {
             if(0) {
             }

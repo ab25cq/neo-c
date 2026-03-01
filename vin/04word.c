@@ -4017,7 +4017,7 @@ static void lambda1(struct Vi*  self  , int key)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
     int i;
     if(self->activeWin->digitInput>0) {
-        for(i=0;i<self->activeWin->digitInput+1;i++){
+        for(i=0        ;i<self->activeWin->digitInput+1;i++){
             ViWin_forwardWord(self->activeWin);
         }
         self->activeWin->digitInput=0;
@@ -4034,7 +4034,7 @@ static void lambda2(struct Vi*  self  , int key)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda2"; neo_current_frame = &fr;
     int i;
     if(self->activeWin->digitInput>0) {
-        for(i=0;i<self->activeWin->digitInput+1;i++){
+        for(i=0        ;i<self->activeWin->digitInput+1;i++){
             ViWin_forwardWord2(self->activeWin);
         }
         self->activeWin->digitInput=0;
@@ -4051,7 +4051,7 @@ static void lambda3(struct Vi*  self  , int key)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda3"; neo_current_frame = &fr;
     int i;
     if(self->activeWin->digitInput>0) {
-        for(i=0;i<self->activeWin->digitInput+1;i++){
+        for(i=0        ;i<self->activeWin->digitInput+1;i++){
             ViWin_backwardWord_v4(self->activeWin);
         }
         self->activeWin->digitInput=0;
@@ -4103,7 +4103,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }
@@ -4384,7 +4384,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_3;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4392,7 +4392,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_3=0;i_3<self->size;i_3++){
+    for(i_3=0    ;i_3<self->size;i_3++){
         if(self->item_existance[i_3]) {
             if(0) {
             }
@@ -4436,7 +4436,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_4;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4444,7 +4444,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_4=0;i_4<self->size;i_4++){
+    for(i_4=0    ;i_4<self->size;i_4++){
         if(self->item_existance[i_4]) {
             if(0) {
             }

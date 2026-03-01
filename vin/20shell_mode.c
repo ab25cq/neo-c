@@ -3584,7 +3584,7 @@ void ViWin_inputShellMode(struct ViWin*  self  , struct Vi*  nvi  )
         str=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)))),0,self->cursorX));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
         all_space=(_Bool)1;
-        for(i=0;i<wstring_length(str);i++){
+        for(i=0        ;i<wstring_length(str);i++){
             if(str[i]!=32&&str[i]!=9) {
                 all_space=(_Bool)0;
             }
@@ -3610,7 +3610,7 @@ _conditional_value_X0;})) {
         char keys[16];
         memset(&keys, 0, sizeof(keys));
         keys[0]=key;
-        for(i_0=1;i_0<size;i_0++){
+        for(i_0=1        ;i_0<size;i_0++){
             keys[i_0]=ViWin_getKey_v14(self,(_Bool)0);
         }
         keys[i_0]=0;
@@ -3745,7 +3745,7 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int* ));
             list$1int$ph_push_back(self,(int* )come_increment_ref_count(default_value));
             (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -3852,7 +3852,7 @@ static struct list$1int$* list$1int$_replace(struct list$1int$* self, int positi
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(int));
             list$1int$_push_back(self,default_value);
         }
@@ -3999,7 +3999,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }
@@ -4280,7 +4280,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_12;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4288,7 +4288,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_12=0;i_12<self->size;i_12++){
+    for(i_12=0    ;i_12<self->size;i_12++){
         if(self->item_existance[i_12]) {
             if(0) {
             }
@@ -4332,7 +4332,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_13;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4340,7 +4340,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_13=0;i_13<self->size;i_13++){
+    for(i_13=0    ;i_13<self->size;i_13++){
         if(self->item_existance[i_13]) {
             if(0) {
             }

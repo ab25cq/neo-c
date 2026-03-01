@@ -3595,7 +3595,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_0;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3603,7 +3603,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_0=0;i_0<self->size;i_0++){
+    for(i_0=0    ;i_0<self->size;i_0++){
         if(self->item_existance[i_0]) {
             if(0) {
             }
@@ -3647,7 +3647,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_1;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -3655,7 +3655,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_1=0;i_1<self->size;i_1++){
+    for(i_1=0    ;i_1<self->size;i_1++){
         if(self->item_existance[i_1]) {
             if(0) {
             }
@@ -3693,16 +3693,16 @@ void ViWin_view_v1(struct ViWin*  self  , struct Vi*  nvi  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_view_v1"; neo_current_frame = &fr;
     int it2;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_1;
     int*  it  ;
     werase(self->win);
     it2=0;
-    for(o2_saved=(struct list$1int$ph*)come_increment_ref_count(self->texts),it=list$1int$ph_begin(o2_saved);!list$1int$ph_end(o2_saved);it=list$1int$ph_next(o2_saved)){
+    for(_o2_saved_1=(struct list$1int$ph*)come_increment_ref_count(self->texts),it=list$1int$ph_begin(_o2_saved_1)    ;!list$1int$ph_end(_o2_saved_1);it=list$1int$ph_next(_o2_saved_1)){
         mvwprintw(self->win,it2,0,"%ls",it);
         it2++;
     }
-    come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     wrefresh(self->win);
+    come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
 }
 
@@ -4158,16 +4158,17 @@ _Bool ViWin_equals(struct ViWin*  left  , struct ViWin*  right  )
 int Vi_main_loop_v1(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_main_loop_v1"; neo_current_frame = &fr;
-    struct list$1ViWin$ph* o2_saved;
+    struct list$1ViWin$ph* _o2_saved_2;
     struct ViWin*  it  ;
-    for(o2_saved=(struct list$1ViWin$ph*)come_increment_ref_count(self->wins),it=list$1ViWin$ph_begin(o2_saved);!list$1ViWin$ph_end(o2_saved);it=list$1ViWin$ph_next(o2_saved)){
+    int __result_obj__0;
+    for(_o2_saved_2=(struct list$1ViWin$ph*)come_increment_ref_count(self->wins),it=list$1ViWin$ph_begin(_o2_saved_2)    ;!list$1ViWin$ph_end(_o2_saved_2);it=list$1ViWin$ph_next(_o2_saved_2)){
         ViWin_view_v21(it,self);
     }
-    come_call_finalizer(list$1ViWin$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     ViWin_input_v21(self->activeWin,self);
-        neo_current_frame = fr.prev;
-    return 0;
+        __result_obj__0 = 0;
+    come_call_finalizer(list$1ViWin$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     neo_current_frame = fr.prev;
+    return __result_obj__0;
 }
 
 static struct ViWin*  list$1ViWin$ph_begin(struct list$1ViWin$ph* self)

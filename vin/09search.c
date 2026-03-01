@@ -3414,7 +3414,7 @@ void ViWin_search(struct ViWin*  self  , struct Vi*  nvi  )
     int*  cursor_line  ;
     int x;
     int it2;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_1;
     int*  it  ;
     _Bool _conditional_value_X1;
     _Bool _conditional_value_X2;
@@ -3440,7 +3440,7 @@ _conditional_value_X0;})) {
     else {
         it2=0;
         for(__right_value0 = (void*)0,
-({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll+self->cursorY+1,-1)),it=list$1int$ph_begin(o2_saved)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+({(_conditional_value_X0=(_o2_saved_1=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll+self->cursorY+1,-1)),it=list$1int$ph_begin(_o2_saved_1)));_conditional_value_X0;})        ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_1)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_1)));_conditional_value_X2;})){
             if(nvi->regexSearch) {
                 __right_value0 = (void*)0;
                 Value=(char* )come_increment_ref_count(wchar_tp_to_string(((int* )nvi->searchString)));
@@ -3463,7 +3463,7 @@ _conditional_value_X0;})) {
             }
             it2++;
         }
-        come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     (cursor_line = come_decrement_ref_count(cursor_line, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -3718,7 +3718,7 @@ void ViWin_searchReverse(struct ViWin*  self  , struct Vi*  nvi  )
     int x;
     int it2;
     void* __right_value1 = (void*)0;
-    struct list$1int$ph* o2_saved;
+    struct list$1int$ph* _o2_saved_2;
     int*  it  ;
     _Bool _conditional_value_X1;
     _Bool _conditional_value_X2;
@@ -3749,8 +3749,8 @@ _conditional_value_X0;})) {
     else {
         it2=0;
         for(__right_value0 = (void*)0,
-({(_conditional_value_X0=(o2_saved=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(o2_saved)));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
-_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(o2_saved)));_conditional_value_X2;})){
+({(_conditional_value_X0=(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY))))),it=list$1int$ph_begin(_o2_saved_2)));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0);
+_conditional_value_X0;})        ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_2)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_2)));_conditional_value_X2;})){
             if(nvi->regexSearch) {
                 __right_value0 = (void*)0;
                 Value=(char* )come_increment_ref_count(wchar_tp_to_string(((int* )nvi->searchString)));
@@ -3773,7 +3773,7 @@ _conditional_value_X0;});({(_conditional_value_X1=(!list$1int$ph_end(o2_saved)))
             }
             it2++;
         }
-        come_call_finalizer(list$1int$ph$p_finalize, o2_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+        come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
     (cursor_line = come_decrement_ref_count(cursor_line, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
@@ -4183,7 +4183,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     }
     if(self->len==0||position>=self->len) {
         len=self->len;
-        for(i=0;i<position-len;i++){
+        for(i=0        ;i<position-len;i++){
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
             list$1lambda$_push_back(self,default_value);
         }
@@ -4437,7 +4437,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_9;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4445,7 +4445,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_9=0;i_9<self->size;i_9++){
+    for(i_9=0    ;i_9<self->size;i_9++){
         if(self->item_existance[i_9]) {
             if(0) {
             }
@@ -4489,7 +4489,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_10;
-    for(i=0;i<self->size;i++){
+    for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0);
@@ -4497,7 +4497,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_10=0;i_10<self->size;i_10++){
+    for(i_10=0    ;i_10<self->size;i_10++){
         if(self->item_existance[i_10]) {
             if(0) {
             }

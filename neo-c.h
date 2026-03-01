@@ -8579,35 +8579,41 @@ uniq wstring wstring::delete(wchar_t* str, int head, int tail)
 
 
 // ZERO COST ITERATORS LIKE RUST
-
 impl list<T>
 {
-    iter_begin iter(list<T>* self) {
+    iter_begin iter() {
         ({
             var _li = new list<T>();
+            int i = 0;
             foreach(it, `self) \{
                 `next();
+                i++;
             \};
             _li
         })
     }
-    iter filter(list<T>* self) {
+    iter filter() {
         bool result = `block();
         
         if(result) \{
             `next();
         \}
     }
-    iter map(list<T>* self) {
+    iter take(int n) {
+        if(i < n) \{
+            `next();
+        \}
+    }
+    iter map() {
         `it = `block();
     }
-    iter_end each(list<T>* self) {
+    iter_end each() {
         `block();
     }
-    iter_end correct(list<T>* self) {
+    iter_end collect() {
         _li.add(it);
     }
-    iter_end end(list<T>* self) {
+    iter_end end() {
     }
 }
 

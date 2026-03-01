@@ -3928,7 +3928,7 @@ int sizeof_struct(struct sType*  type  , struct sInfo*  info  )
     offset=0;
     max_align=1;
     n=list$1tuple2$2char$phsType$ph$ph_length(type->mClass->mFields);
-    for(i=0;i<n;i++){
+    for(i=0    ;i<n;i++){
         multiple_assign_var1=((struct tuple2$2char$phsType$ph*)(__right_value0=list$1tuple2$2char$phsType$ph$ph_operator_load_element(type->mClass->mFields,i)));
         name=(char* )come_increment_ref_count(multiple_assign_var1->v1);
         field_type=(struct sType* )come_increment_ref_count(multiple_assign_var1->v2);
@@ -4069,7 +4069,7 @@ int sizeof_union(struct sType*  type  , struct sInfo*  info  )
     max_size=0;
     max_align=1;
     n=list$1tuple2$2char$phsType$ph$ph_length(type->mClass->mFields);
-    for(i=0;i<n;i++){
+    for(i=0    ;i<n;i++){
         multiple_assign_var2=((struct tuple2$2char$phsType$ph*)(__right_value0=list$1tuple2$2char$phsType$ph$ph_operator_load_element(type->mClass->mFields,i)));
         name=(char* )come_increment_ref_count(multiple_assign_var2->v1);
         field_type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v2);
@@ -4104,7 +4104,7 @@ int sizeof_type(struct sType*  type  , struct sInfo*  info  )
     int __result_obj__0;
     if(list$1sNode$ph_length(type->mArrayNum)>0) {
         element_num=0;
-        for(i=0;i<list$1sNode$ph_length(type->mArrayNum);i++){
+        for(i=0        ;i<list$1sNode$ph_length(type->mArrayNum);i++){
             node=(struct sNode*)come_increment_ref_count(list$1sNode$ph_operator_load_element(type->mArrayNum,i));
             no_output_come_code=info->no_output_come_code;
             info->no_output_come_code=(_Bool)1;
@@ -5103,7 +5103,7 @@ int alignof_type(struct sType*  type  , struct sInfo*  info  )
     if(type->mClass->mStruct||type->mClass->mUnion) {
         max_align=1;
         n=list$1tuple2$2char$phsType$ph$ph_length(type->mClass->mFields);
-        for(i=0;i<n;i++){
+        for(i=0        ;i<n;i++){
             multiple_assign_var3=((struct tuple2$2char$phsType$ph*)(__right_value0=list$1tuple2$2char$phsType$ph$ph_operator_load_element(type->mClass->mFields,i)));
             name=(char* )come_increment_ref_count(multiple_assign_var3->v1);
             field_type=(struct sType* )come_increment_ref_count(multiple_assign_var3->v2);
@@ -8682,7 +8682,7 @@ static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2ch
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -8719,7 +8719,7 @@ static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phbuffer$ph_begin(self);!map$2char$phbuffer$ph_end(self);it=map$2char$phbuffer$ph_next(self)){
+    for(it=map$2char$phbuffer$ph_begin(self)    ;!map$2char$phbuffer$ph_end(self);it=map$2char$phbuffer$ph_next(self)){
         memset(&default_value,0,sizeof(struct buffer* ));
         __right_value0 = (void*)0;
         it2=(struct buffer* )come_increment_ref_count(map$2char$phbuffer$ph_at(self,it,(struct buffer* )come_increment_ref_count(default_value),(_Bool)0));
@@ -9130,7 +9130,7 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
         }
     }
     same_key_exist=(_Bool)0;
-    for(it2=list$1char$ph_begin(self->key_list);!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
+    for(it2=list$1char$ph_begin(self->key_list)    ;!list$1char$ph_end(self->key_list);it2=list$1char$ph_next(self->key_list)){
         if((!by_pointer&&string_equals(it2,key))||(by_pointer&&it2==key)) {
             same_key_exist=(_Bool)1;
         }
@@ -9167,7 +9167,7 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
     __right_value0 = (void*)0;
     item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3077, "_Bool*"))));
     len=0;
-    for(it=map$2char$phchar$ph_begin(self);!map$2char$phchar$ph_end(self);it=map$2char$phchar$ph_next(self)){
+    for(it=map$2char$phchar$ph_begin(self)    ;!map$2char$phchar$ph_end(self);it=map$2char$phchar$ph_next(self)){
         memset(&default_value,0,sizeof(char* ));
         __right_value0 = (void*)0;
         it2=(char* )come_increment_ref_count(map$2char$phchar$ph_at(self,it,(char* )come_increment_ref_count(default_value),(_Bool)0));
