@@ -1470,6 +1470,10 @@ struct sInfo
     _Bool if_result_value_name_defined;
     struct sType*  if_result_type  ;
     _Bool defer_block;
+    struct buffer*  loop_expression_buffer  ;
+    char*  loop_result_value_name  ;
+    _Bool loop_result_value_name_defined;
+    struct sType*  loop_result_type  ;
     char*  iter_buffer  ;
     char*  iter_next  ;
     char*  iter_block  ;
@@ -2486,6 +2490,7 @@ int sCurrentNode_sline(struct sCurrentNode* self, struct sInfo*  info  );
 char*  sCurrentNode_sname(struct sCurrentNode* self, struct sInfo*  info  );
 char*  sCurrentNode_kind(struct sCurrentNode* self);
 _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  );
+struct sNode* parse_iterator_it(struct sInfo*  info  );
 _Bool transpile_conditional_with_free_right_object_value(struct sNode* node, struct sInfo*  info  );
 int err_msg(struct sInfo*  info  , const char* msg, ...);
 int warning_msg(struct sInfo*  info  , const char* msg, ...);
@@ -2589,7 +2594,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo*  info  , _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct sType*  base_type_name  , _Bool first, struct sInfo*  info  );
 struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _Bool in_function);
-int transpile_block(struct sBlock*  block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo*  info  , _Bool no_var_table, _Bool loop_block, _Bool if_result_value, _Bool iter_);
+int transpile_block(struct sBlock*  block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo*  info  , _Bool no_var_table, _Bool loop_block, _Bool if_result_value, _Bool iter_, _Bool loop_result_type);
 void arrange_stack(struct sInfo*  info  , int top);
 struct sNode* parse_function(struct sInfo*  info  );
 struct sNode* statment(struct sInfo*  info  );
@@ -2615,7 +2620,7 @@ struct sNode* parse_none(struct sInfo*  info  );
 _Bool is_inner_calling(struct sNode* node, struct sInfo*  info  );
 struct sNode* post_position_operator_v7(struct sNode* node, struct sInfo*  info  );
 struct sNode* expression_node_v95(struct sInfo*  info  );
-struct sNode* store_var(char*  name  , struct list$1char$ph* multiple_assign, struct list$1tuple3$3sType$phchar$phsNode$ph$ph* multiple_declare, struct sType*  type  , _Bool alloc, struct sNode* right_value, struct sInfo*  info  );
+struct sNode* store_var(char*  name  , struct list$1char$ph* multiple_assign, struct list$1tuple3$3sType$phchar$phsNode$ph$ph* multiple_declare, struct sType*  type  , _Bool alloc, struct sNode* right_value, struct sInfo*  info  , _Bool iter_);
 struct sNode* create_load_var(const char* var_name, struct sInfo*  info  );
 struct sNode* parse_array_initializer(struct sInfo*  info  );
 struct sNode* parse_struct_initializer(struct sInfo*  info  );
@@ -2998,7 +3003,7 @@ _Bool sIfNode_compile(struct sIfNode* self, struct sInfo*  info  )
     add_come_code(info,") {\n");
     info->in_conditional=in_conditional;
     if_block=self->mIfBlock;
-    transpile_block(if_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,existance_result_value,(_Bool)0);
+    transpile_block(if_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,existance_result_value,(_Bool)0,(_Bool)0);
     add_come_code(info,"}\n");
     if(elif_num>0) {
         for(i=0;i<elif_num;i++){
@@ -3020,13 +3025,13 @@ _Bool sIfNode_compile(struct sIfNode* self, struct sInfo*  info  )
             info->in_conditional=in_conditional_28;
             __right_value0 = (void*)0;
             elif_node_block=((struct sBlock* )(__right_value0=list$1sBlock$ph_operator_load_element(self->mElifBlocks,i)));
-            transpile_block(elif_node_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,existance_result_value,(_Bool)0);
+            transpile_block(elif_node_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,existance_result_value,(_Bool)0,(_Bool)0);
             add_come_code(info,"}\n");
         }
     }
     if(else_block) {
         add_come_code(info,"else {\n");
-        transpile_block(else_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,existance_result_value,(_Bool)0);
+        transpile_block(else_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,existance_result_value,(_Bool)0,(_Bool)0);
         add_come_code(info,"}\n");
     }
     transpiler_clear_last_code(info);
@@ -5671,7 +5676,7 @@ _Bool sOrStatmentNode_compile(struct sOrStatmentNode* self, struct sInfo*  info 
     add_come_code(info,")) {\n");
     info->in_conditional=in_conditional;
     if_block=self->mIfBlock;
-    transpile_block(if_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0);
+    transpile_block(if_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0);
     add_come_code(info,"}\n");
     transpiler_clear_last_code(info);
         neo_current_frame = fr.prev;
@@ -5758,7 +5763,7 @@ _Bool sAndStatmentNode_compile(struct sAndStatmentNode* self, struct sInfo*  inf
     add_come_code(info,") {\n");
     info->in_conditional=in_conditional;
     if_block=self->mIfBlock;
-    transpile_block(if_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0);
+    transpile_block(if_block,((void*)0),((void*)0),info,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0);
     add_come_code(info,"}\n");
     transpiler_clear_last_code(info);
         neo_current_frame = fr.prev;
@@ -6325,7 +6330,7 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  )
     expected_next_character(123,info);
     existance_result_value=(_Bool)1;
     __right_value0 = (void*)0;
-    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info));
+    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info,(_Bool)0));
     expected_next_character(40,info);
     __right_value0 = (void*)0;
     conditional_value=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0));
@@ -6503,7 +6508,7 @@ struct sNode* parse_catch(struct sNode* expression_node, struct sInfo*  info  )
     sline=info->sline;
     existance_result_value=(_Bool)1;
     __right_value0 = (void*)0;
-    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info));
+    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info,(_Bool)0));
     __right_value0 = (void*)0;
     node1=(struct sNode*)come_increment_ref_count(create_load_var("Value",info));
     __right_value0 = (void*)0;
@@ -6605,7 +6610,7 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
     sname=(char* )come_increment_ref_count((char* )come_memdup(info->sname, "14if.nc", 550, "char* "));
     sline=info->sline;
     __right_value0 = (void*)0;
-    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info));
+    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info,(_Bool)0));
     __right_value0 = (void*)0;
     conditional_node=(struct sNode*)come_increment_ref_count(create_load_var("Value",info));
     existance_result_value=(_Bool)1;
@@ -6806,7 +6811,7 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
     sname=(char* )come_increment_ref_count((char* )come_memdup(info->sname, "14if.nc", 641, "char* "));
     sline=info->sline;
     __right_value0 = (void*)0;
-    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info));
+    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info,(_Bool)0));
     existance_result_value=(_Bool)1;
     __right_value0 = (void*)0;
     conditional_node=(struct sNode*)come_increment_ref_count(create_load_var("Value",info));
@@ -6965,7 +6970,7 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
     sname=(char* )come_increment_ref_count((char* )come_memdup(info->sname, "14if.nc", 732, "char* "));
     sline=info->sline;
     __right_value0 = (void*)0;
-    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info));
+    it_node=(struct sNode*)come_increment_ref_count(store_var((char*)come_increment_ref_count(xsprintf("Value")),((void*)0),((void*)0),((void*)0),(_Bool)1,expression_node,info,(_Bool)0));
     __right_value0 = (void*)0;
     conditional_node=(struct sNode*)come_increment_ref_count(create_load_var("Value",info));
     __right_value0 = (void*)0;

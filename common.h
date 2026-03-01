@@ -626,6 +626,10 @@ struct sInfo
     bool if_result_value_name_defined;
     sType*% if_result_type;
     bool defer_block;
+    buffer*% loop_expression_buffer;
+    string loop_result_value_name;
+    bool loop_result_value_name_defined;
+    sType*% loop_result_type;
     
     string iter_buffer;
     string iter_next;
@@ -828,6 +832,7 @@ uniq class sCurrentNode extends sNodeBase
 /////////////////////////////////////////////////////////////////////
 /// 02transpile.c ///
 /////////////////////////////////////////////////////////////////////
+sNode*% parse_iterator_it(sInfo* info=info);
 bool transpile_conditional_with_free_right_object_value(sNode* node, sInfo* info=info);
 int err_msg(sInfo* info, const char* msg, ...);
 int warning_msg(sInfo* info, const char* msg, ...);
@@ -946,7 +951,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
 tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info);
 sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_function=false);
-int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false, bool iter_=false);
+int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false, bool iter_=false, bool loop_result_type=false);
 void arrange_stack(sInfo* info, int top);
 sNode*% parse_function(sInfo* info);
 
@@ -982,7 +987,7 @@ sNode*% parse_none(sInfo* info);
 bool is_inner_calling(sNode* node, sInfo* info);
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 07;
 sNode*% expression_node(sInfo* info=info) version 95;
-sNode*% store_var(string name, list<string>* multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info);
+sNode*% store_var(string name, list<string>* multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info, bool iter_=false);
 sNode*% create_load_var(const char* var_name, sInfo* info=info);
 sNode*% parse_array_initializer(sInfo* info=info);
 sNode*% parse_struct_initializer(sInfo* info=info);

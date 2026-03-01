@@ -1734,6 +1734,16 @@ void add_come_code(sInfo* info, const char* msg, ...)
         
         info->if_expression_buffer.append_str(xsprintf("%s", msg2));
     }
+    else if(info->loop_expression_buffer) {
+        if(!info.in_conditional) {
+            int i;
+            for(i=0; i<info->block_level; i++) {
+                info.loop_expression_buffer.append_str("    ");
+            }
+        }
+        
+        info->loop_expression_buffer.append_str(xsprintf("%s", msg2));
+    }
     else if(info->paren_block_buffer) {
         info->paren_block_buffer.append_str(xsprintf("%s", msg2));
     }
@@ -1777,6 +1787,16 @@ void add_come_code_no_indent(sInfo* info, const char* msg, ...)
         }
         
         info->if_expression_buffer.append_str(xsprintf("%s", msg2));
+    }
+    else if(info->loop_expression_buffer) {
+        if(!info.in_conditional) {
+            int i;
+            for(i=0; i<info->block_level; i++) {
+                info.loop_expression_buffer.append_str("    ");
+            }
+        }
+        
+        info->loop_expression_buffer.append_str(xsprintf("%s", msg2));
     }
     else if(info->paren_block_buffer) {
         info->paren_block_buffer.append_str(xsprintf("%s", msg2));

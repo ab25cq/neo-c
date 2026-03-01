@@ -2387,6 +2387,12 @@ sNode*% expression_node(sInfo* info=info) version 98
         
         return node;
     }
+    else if(!gComeC && (info->end - info->p) >= strlen("`it") && memcmp(info->p, "`it", strlen("`it")) == 0) 
+    {
+        sNode*% node = parse_iterator_it(info);
+        
+        return node;
+    }
     else if((xisalpha(*info->p) || *info->p == '_' ) && !(((*info->p == 'L' || *info->p == 'l' || *info->p == 's' || *info->p == 'S' || *info->p == 'b' || *info->p == 'B' || *info->p == 'h' || *info->p == 'H' || *info->p == 'u' || *info->p == 'U') && *(info->p+1) == '"') || ((*info->p == 'L' || *info->p == 'u' || *info->p == 'U') && *(info->p+1) == '\'') || (*info->p == 'u' && *(info->p+1) == '8' && *(info->p+2) == '"'))) {
         char* head = info.p;
         int head_sline = info.sline;

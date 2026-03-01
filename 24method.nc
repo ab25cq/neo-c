@@ -1029,6 +1029,20 @@ string trim_last_bracket(string all_code, sInfo* info=info)
     return all_code.substring(0, p3 - all_code);
 }
 
+sNode*% parse_iterator_it(sInfo* info=info)
+{
+    info->p += strlen("`it");
+    skip_spaces_and_lf();
+    
+    expected_next_character('=');
+    
+    sNode*% right_value = expression();
+    
+    sNode*% node = store_var(s"it", null@multiple_assign, null@multiple_declare, null@type, true@alloc, right_value, info, iter_:true);
+    
+    return node;
+}
+
 class sIterCallNode extends sNodeBase
 {
     new(const char* fun_name,sNode*% obj, list<tuple2<string, sNode*%>*%>* params, buffer* method_block, int method_block_sline
@@ -1193,43 +1207,44 @@ puts("<<<" + all_code + ">>>");
             }
             
             
-//            info.iter_lv_table = clone info.lv_table;
-//            info.lv_table = borrow info.iter_lv_table;
-//            sVarTable* lv_table = info.lv_table;
-            
-//            info.lv_table = lv_table;
-            
             info.iter_type = null;
             
-//            bool no_output_come_code = info.no_output_come_code;
-//            info->no_output_come_code = true;
+            bool no_output_come_code = info.no_output_come_code;
+            info->no_output_come_code = true;
+puts("TRANSPILE");
             transpile_block(block, param_types:null, param_names:null, info, no_var_table:true, iter_:true);
-//            info->no_output_come_code = no_output_come_code;
+puts("TRANSPILE END");
+           
+            //info.lv_table.mVars.remove(s"_li");
+
+
+            string all_code2 = "{" + all_code + "}"; //trim_last_bracket(all_code);
             
+puts("TRANSPILE2");
+puts(all_code2);
+
+            info->no_output_come_code = no_output_come_code;
             
-//            sVar* var_ =get_variable_from_table(info->lv_table, s"_li");
+            info.source = all_code2.to_buffer();
+            info.p = borrow info.source.buf;
+            info.head = borrow info.source.buf;
+            info.end = info.source.buf + info.source.len;
             
-//            info.come_fun.mAllVar.remove(var_, by_pointer:true);
-            
-//            info.lv_table.mVars.remove(s"_li");
-            
-if(get_variable_from_table(info->lv_table, s"_li")) {
-puts("EXIST");
+if(info.generics_type) {
+puts("GENERICS " + info.generics_type.mClass.mName);
+if(info.generics_type.mGenericsTypes.length() > 0) {
+puts("GENERICS " + info.generics_type.mGenericsTypes[0].mClass.mName);
 }
-else {
-puts("NO EXIST");
 }
+
+            info.generics_type_names.reset();
+            info.generics_type_names.add(s"T");
             
-//            info->lv_table = lv_table;
+            sBlock*% block = parse_block(info);
             
-/*
-            if(info.iter_type) {
-                info.generics_type = clone info.iter_type;
-                info.generics_type_names.reset();
-                info.generics_type_names.add(s"T");
-            }
             transpile_block(block, param_types:null, param_names:null, info, no_var_table:true, iter_:true);
-*/
+puts("TRANSPILE END2");
+            
             
             info.source = source;
             info.p = p;

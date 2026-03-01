@@ -401,7 +401,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
     return result;
 }
 
-int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false, bool iter_=false)
+int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false, bool iter_=false, bool loop_result_type=false)
 {
     bool inhibits_output_code = info->inhibits_output_code;
     info->inhibits_output_code = false;
@@ -500,6 +500,36 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
                 add_come_code(info, s"\{info.if_result_value_name} = %s;\n", come_value.c_value);
             }
             else if(iter_ && i == block.mNodes.length()-1) {
+            }
+            else if(omit_semicolon && loop_result_type && i == block.mNodes.length()-1) {
+                //add_last_code_to_source(info);
+                
+                CVALUE*% come_value = get_value_from_stack(-1, info);
+                sType*% right_type__ = clone come_value.type;
+                var right_type_ = solve_generics(right_type__, info->generics_type, info);
+                var right_type2 = solve_method_generics(right_type_, info);
+                
+                if(!info.loop_result_value_name_defined) {
+                    info.loop_result_value_name_defined = true;
+                    string var_name = info.loop_result_value_name;
+                    sType*% result_type = clone come_value.type;
+                    add_come_code_at_function_head(info, "%s;\n", make_define_var(result_type, var_name));
+                    if(info.come_fun.mName !== "memset" && info.funcs[s"memset"]) {
+                        add_come_code_at_function_head2(info, "memset(&%s, 0, sizeof(%s));\n", var_name, var_name);
+                    }
+                    add_variable_to_table(var_name, result_type, info, false@function_param, to_function_table:true);
+                    
+                    info.loop_result_type = clone result_type;
+                }
+                else {
+                    sType*% result_type = clone come_value.type;
+                    check_assign_type("invalid loop result type", info.loop_result_type, result_type, come_value, info);
+                }
+                if(come_value.type.mHeap) {
+                    sType*% left_type = clone right_type2
+                    std_move(left_type, right_type2, come_value);
+                }
+                add_come_code(info, s"\{info.loop_result_value_name} = %s;\n", come_value.c_value);
             }
             else {
                 add_last_code_to_source(info);
@@ -2581,6 +2611,8 @@ sNode*% parse_function(sInfo* info)
     info->caller_sname = borrow info->sname;
     buffer*% if_expression_buffer = clone info.if_expression_buffer;
     info.if_expression_buffer = null;
+    buffer*% loop_expression_buffer = clone info.loop_expression_buffer;
+    info.loop_expression_buffer = null;
     buffer*% paren_block_buffer = clone info.paren_block_buffer;
     info.paren_block_buffer = null;
     
@@ -2625,6 +2657,7 @@ sNode*% parse_function(sInfo* info)
     info->max_conditional = max_conditional;
     info.in_conditional = in_conditional;
     info.if_expression_buffer = if_expression_buffer;
+    info.loop_expression_buffer = loop_expression_buffer;
     info.paren_block_buffer = paren_block_buffer;
     info->current_stack_frame_struct = current_stack_frame_struct;
     info.right_value_objects = dummy_heap right_value_objects;

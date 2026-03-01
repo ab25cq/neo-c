@@ -2,7 +2,7 @@
 
 class sStoreNode extends sNodeBase
 {
-    new(string name, list<string>* multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info, string attribute=s"")
+    new(string name, list<string>* multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info, string attribute=s"", bool iter_=false)
     {
         self.super();
         
@@ -13,6 +13,7 @@ class sStoreNode extends sNodeBase
         list<string>*% self.multiple_assign = clone multiple_assign;
         list<tuple3<sType*%, string, sNode*%>*%>*% self.multiple_declare= clone multiple_declare;
         string self.attribute = attribute;
+        bool self.iter_ = iter_;
     }
     
     string kind()
@@ -307,6 +308,12 @@ class sStoreNode extends sNodeBase
                 var type_ = solve_generics(right_type, info->generics_type, info);
                 var type = solve_method_generics(type_, info);
                 add_variable_to_table(self.name, type, info, false@function_param);
+            }
+            
+            if(self.iter_) {
+puts("REFINE GENERICS");
+                info.generics_type = new sType(s"list");
+                info.generics_type.mGenericsTypes.add(clone right_type);
             }
             
             var_ = borrow get_variable_from_table(info.lv_table, self.name);
@@ -667,9 +674,9 @@ class sReadChannelNode extends sNodeBase
     
 };
 
-sNode*% store_var(string name, list<string>* multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info)
+sNode*% store_var(string name, list<string>* multiple_assign, list<tuple3<sType*%, string, sNode*%>*%>* multiple_declare, sType* type, bool alloc, sNode* right_value, sInfo* info, bool iter_=false)
 {
-    return new sStoreNode(name, multiple_assign, multiple_declare, type, alloc, right_value, info) implements sNode;
+    return new sStoreNode(name, multiple_assign, multiple_declare, type, alloc, right_value, info, iter_:iter_) implements sNode;
 }
 
 class sLoadNode extends sNodeBase

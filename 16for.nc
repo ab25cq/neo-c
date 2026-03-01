@@ -2,7 +2,7 @@
 
 class sForNode extends sNodeBase
 {
-    new(sNode*% expression_node, sNode*% expression_node2, sNode*% expression_node3, sBlock* block, sInfo* info)
+    new(sNode*% expression_node, sNode*% expression_node2, sNode*% expression_node3, sBlock* block, sInfo* info, bool existance_result_value=false)
     {
         self.super();
     
@@ -29,6 +29,7 @@ class sForNode extends sNodeBase
         }
     
         sBlock*% self.mBlock = clone block;
+        bool self.existance_result_value = existance_result_value;
     }
     
     bool terminated()
@@ -48,6 +49,28 @@ class sForNode extends sNodeBase
         sVarTable* lv_table = borrow info->lv_table;
         sVarTable*% for_var_table = new sVarTable(global:false, parent:lv_table);
         info->lv_table = borrow for_var_table;
+        bool existance_result_value = self.existance_result_value;
+        
+        buffer*% loop_expression_buffer = clone info.loop_expression_buffer;
+        string loop_result_value_name = clone info.loop_result_value_name;
+        bool loop_result_value_name_defined = info.loop_result_value_name_defined;
+        sType*% loop_result_type = clone info.loop_result_type;
+        
+        if(existance_result_value) {
+            info.loop_expression_buffer = new buffer();
+            
+            static int n = 0;
+            n++;
+            info.loop_result_value_name = s"_if_result_value\{n}";
+            
+            info.loop_result_value_name_defined = false;
+            
+            info.loop_result_type = null;
+        }
+        
+        if(existance_result_value) {
+            add_come_code(info, "({");
+        }
         
         add_come_code(info, "for(");
         
@@ -104,7 +127,7 @@ class sForNode extends sNodeBase
         add_come_code(info, "){\n");
         info->in_conditional = in_conditional;
     
-        transpile_block(block, null, null, info, no_var_table:false, loop_block:true);
+        transpile_block(block, null, null, info, no_var_table:false, loop_block:true, loop_result_type:existance_result_value);
     
         add_come_code(info, "}\n");
         
@@ -112,6 +135,25 @@ class sForNode extends sNodeBase
         
         transpiler_clear_last_code(info);
         info->lv_table = borrow lv_table;
+        
+        if(existance_result_value) {
+            add_come_code(info, s"\{info.loop_result_value_name};});");
+            
+            CVALUE*% come_value = new CVALUE();
+            
+            come_value.c_value = info.loop_expression_buffer.to_string();
+            come_value.type = clone info.loop_result_type;
+            come_value.var = null;
+            
+            add_come_last_code(info, "%s", come_value.c_value);
+            
+            info.stack.push_back(come_value);
+            
+            info.loop_expression_buffer = loop_expression_buffer;
+            info.loop_result_value_name = loop_result_value_name;
+            info.loop_result_value_name_defined = loop_result_value_name_defined;
+            info.loop_result_type = loop_result_type;
+        }
         
         return true;
     }
@@ -121,6 +163,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 {
     if(buf === "for") {
         expected_next_character('(');
+        
+        bool existance_result_value = true;
         
         /// expression ///
         skip_spaces_and_lf();
@@ -154,9 +198,15 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         sBlock*% block = parse_block();
         
-        return new sForNode(expression_node, expression_node2, expression_node3, block, info) implements sNode;
+        if(!block.mOmitSemicolon) {
+            existance_result_value = false;
+        }
+        
+        return new sForNode(expression_node, expression_node2, expression_node3, block, info, existance_result_value) implements sNode;
     }
     else if(buf === "foreach") {
+        bool existance_result_value = true;
+        
         expected_next_character('(');
         skip_spaces_and_lf();
         
@@ -195,7 +245,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         sBlock*% block = parse_block();
         
-        return new sForNode(expression_node, expression_node2, expression_node3, block, info) implements sNode;
+        if(!block.mOmitSemicolon) {
+            existance_result_value = false;
+        }
+        
+        return new sForNode(expression_node, expression_node2, expression_node3, block, info, existance_result_value) implements sNode;
     }
     
     return inherit(buf, head,head_sline,info);

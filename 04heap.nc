@@ -915,6 +915,9 @@ void free_right_value_objects(sInfo* info)
     if(gComeC) {
         return;
     }
+    if(info->no_output_come_code) {
+        return ;
+    }
     
     bool free_right_value = false;
     list<sRightValueObject*%>* right_value_objects = borrow info.right_value_objects;
@@ -988,6 +991,9 @@ void free_objects(sVarTable* table, sVar* ret_value, sInfo* info, bool ret_value
 {
     if(gComeC) {
         return;
+    }
+    if(info->no_output_come_code) {
+        return ;
     }
     foreach(it, table->mVars) {
         sVar* p = borrow table->mVars[string(it)];
@@ -1137,6 +1143,9 @@ void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value,
     if(gComeC) {
         return;
     }
+    if(info->no_output_come_code) {
+        return ;
+    }
     sVarTable* it = info->lv_table;
     
     if(it == info->come_fun->mBlock->mVarTable) {
@@ -1156,6 +1165,9 @@ void free_objects_on_break(sInfo* info)
 {
     if(gComeC) {
         return;
+    }
+    if(info->no_output_come_code) {
+        return ;
     }
     sVar* ret_value = null;
 
