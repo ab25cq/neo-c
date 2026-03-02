@@ -283,7 +283,8 @@ class sStoreNode extends sNodeBase
         }
         else if(self.alloc) { // right_value != null
             sVar* var_ = borrow info.lv_table.mVars.at(string(self.name), null);
-            if(var_) {
+            sVar* old_var_ = var_;
+            if(var_ && !self.iter_) {
                 if(var_->mType->mHeap) {
                     if(!var_->no_output_come_code) {
                         free_object(clone var_->mType, var_->mCValueName, false@no_decrement, false@no_free, info);
@@ -313,6 +314,16 @@ class sStoreNode extends sNodeBase
             CVALUE*% right_value = get_value_from_stack(-1, info);
             sType*% right_type = clone right_value.type;
             right_type->mStatic = false;
+            
+            if(self.iter_ && old_var_) {
+                if(old_var_->mType->mHeap) {
+                    if(!old_var_->no_output_come_code) {
+                        free_object(clone old_var_->mType, old_var_->mCValueName, false@no_decrement, false@no_free, info);
+                    }
+                }
+                
+                info.lv_table.mVars.remove(string(self.name));
+            }
             
             if(self.type == null) {
                 var type_ = solve_generics(right_type, info->generics_type, info);
