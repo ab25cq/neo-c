@@ -1827,6 +1827,10 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         head = svar;
         len = new sDynamicSizeOfExpNode(create_load_var(var_name), info) implements sNode;
     }
+    else if(type2->mPointerNum == 1 && come_value.var && come_value.var->mType->mHeap) {
+        head = node;
+        len = new sDynamicSizeOfExpNode(node, info) implements sNode;
+    }
     else if(type2->mPointerNum == 1) {
         head = node;
         if(node.kind() === "sRefferenceNode") {
