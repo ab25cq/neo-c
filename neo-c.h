@@ -6251,6 +6251,30 @@ uniq void restore_captures(match_context* ctx, const re_capture* buffer_)
   memcpy(ctx->captures, buffer_, sizeof(re_capture) * ctx->capture_capacity);
 }
 
+uniq int re_unescape_literal_char(char escaped, unsigned char* out_char)
+{
+  switch (escaped)
+  {
+    case 't':
+      *out_char = (unsigned char)'\t';
+      return 1;
+    case 'n':
+      *out_char = (unsigned char)'\n';
+      return 1;
+    case 'r':
+      *out_char = (unsigned char)'\r';
+      return 1;
+    case 'v':
+      *out_char = (unsigned char)'\v';
+      return 1;
+    case 'f':
+      *out_char = (unsigned char)'\f';
+      return 1;
+    default:
+      return 0;
+  }
+}
+
 
 uniq regex_t* new_token(compiler_state* st)
 {
@@ -6376,7 +6400,15 @@ uniq regex_t* compile_sequence(compiler_state* st, const char* pattern, int* pos
           default:
           {
             token->type = RE_CHAR;
-            token->u.ch = (unsigned char)pattern[*pos];
+            unsigned char escaped = 0;
+            if (re_unescape_literal_char(pattern[*pos], &escaped))
+            {
+              token->u.ch = escaped;
+            }
+            else
+            {
+              token->u.ch = (unsigned char)pattern[*pos];
+            }
           } break;
         }
         (*pos)++;
@@ -6859,7 +6891,8 @@ uniq int matchdot(char c)
 }
 uniq int ismetachar(char c)
 {
-  return ((c == 's') || (c == 'S') || (c == 'w') || (c == 'W') || (c == 'd') || (c == 'D'));
+  return ((c == 's') || (c == 'S') || (c == 'w') || (c == 'W') || (c == 'd') || (c == 'D')
+    || (c == 't') || (c == 'n') || (c == 'r') || (c == 'v') || (c == 'f'));
 }
 
 uniq int matchmetachar(char c, const char* str)
@@ -6872,6 +6905,11 @@ uniq int matchmetachar(char c, const char* str)
     case 'W': return !matchalphanum(c);
     case 's': return  matchwhitespace(c);
     case 'S': return !matchwhitespace(c);
+    case 't': return (c == '\t');
+    case 'n': return (c == '\n');
+    case 'r': return (c == '\r');
+    case 'v': return (c == '\v');
+    case 'f': return (c == '\f');
     default:  return (c == str[0]);
   }
 }
@@ -6892,7 +6930,7 @@ uniq int matchcharclass(char c, const char* str, bool ignore_case)
       {
         return 1;
       }
-      else if ((needle == re_fold_char((unsigned char)str[0], ignore_case)) && !ismetachar((char)needle))
+      else if ((needle == re_fold_char((unsigned char)str[0], ignore_case)) && !ismetachar((char)str[0]))
       {
         return 1;
       }
@@ -7361,8 +7399,16 @@ uniq list<string>*% char*::scan(const char* self, const char* reg, bool ignore_c
         }
         /// group strings ///
         else if(regex_result >= 0 && group_count > 0) {
-            for(int i=0; i<group_count; i++) {
+            int capture_count = group_count;
+            if(capture_count > max_captures) {
+                capture_count = max_captures;
+            }
+            for(int i=0; i<capture_count; i++) {
                 re_capture* cp = &captures[i];
+                if(cp->start < 0 || cp->length < 0) {
+                    result.push_back(string(""));
+                    continue;
+                }
                 var match_string = (self + offset).substring(cp->start, cp->start + cp->length);
                 result.push_back(match_string);
             }
@@ -7584,8 +7630,16 @@ uniq string char*::sub_block(char* self, const char* reg, bool global=true, bool
 
             list<string>*% group_strings = new list<string>.initialize();
 
-            for(int i=0; i<group_count; i++) {
+            int capture_count = group_count;
+            if(capture_count > max_captures) {
+                capture_count = max_captures;
+            }
+            for(int i=0; i<capture_count; i++) {
                 re_capture* cp = &captures[i];
+                if(cp->start < 0 || cp->length < 0) {
+                    group_strings.push_back(string(""));
+                    continue;
+                }
                 var match_string = (self + offset).substring(cp->start, cp->start + cp->length);
                 group_strings.push_back(match_string);
             }
@@ -7660,8 +7714,16 @@ uniq list<string>*% char*::scan_block(const char* self, const char* reg, bool ig
         else if(regex_result >= 0 && group_count > 0) {
             list<string>*% group_strings = new list<string>.initialize();
 
-            for(int i=0; i<group_count; i++) {
+            int capture_count = group_count;
+            if(capture_count > max_captures) {
+                capture_count = max_captures;
+            }
+            for(int i=0; i<capture_count; i++) {
                 re_capture* cp = &captures[i];
+                if(cp->start < 0 || cp->length < 0) {
+                    group_strings.push_back(string(""));
+                    continue;
+                }
                 var match_string = (self + offset).substring(cp->start, cp->start + cp->length);
                 group_strings.push_back(match_string);
             }

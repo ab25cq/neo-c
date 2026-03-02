@@ -2140,6 +2140,7 @@ void re_print(struct re_program*  pattern  );
 void clear_captures(struct anonymous_typeX25*  ctx  );
 void snapshot_captures(const struct anonymous_typeX25*  ctx  , struct re_capture*  buffer_  );
 void restore_captures(struct anonymous_typeX25*  ctx  , const struct re_capture*  buffer_  );
+int re_unescape_literal_char(char escaped, unsigned char* out_char);
 struct regex_t*  new_token(struct anonymous_typeX24*  st  );
 int append_token(struct regex_t**  head  , struct regex_t**  tail  , struct regex_t*  token  );
 struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* pattern, int* pos, int in_group);
