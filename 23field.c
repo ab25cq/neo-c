@@ -5857,11 +5857,11 @@ _Bool sAutomaticallyUnwrapNode_compile(struct sAutomaticallyUnwrapNode* self, st
         return __result_obj__0;
     }
     come_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info), "23field.nc", 596);
-    if(info->come_fun&&((strlen(info->come_fun->mName)>strlen("ref$")&&memcmp(info->come_fun->mName,"ref$",strlen("ref$"))==0)||(strlen(info->come_fun->mName)>strlen("optional$")&&memcmp(info->come_fun->mName,"optional$",strlen("optional$"))==0)||(strlen(info->come_fun->mName)>strlen("span$")&&memcmp(info->come_fun->mName,"span$",strlen("span$"))==0))) {
+    if(info->come_fun&&((strlen(info->come_fun->mName)>strlen("ref$")&&memcmp(info->come_fun->mName,"ref$",strlen("ref$"))==0)||(strlen(info->come_fun->mName)>strlen("optional$")&&memcmp(info->come_fun->mName,"optional$",strlen("optional$"))==0))) {
         list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value, "23field.nc", 600));
     }
     else if(come_value->type->mNoSolvedGenericsType) {
-        if(string_operator_equals(come_value->type->mNoSolvedGenericsType->mClass->mName,"ref")||string_operator_equals(come_value->type->mNoSolvedGenericsType->mClass->mName,"optional")||string_operator_equals(come_value->type->mNoSolvedGenericsType->mClass->mName,"span")) {
+        if(string_operator_equals(come_value->type->mNoSolvedGenericsType->mClass->mName,"ref")||string_operator_equals(come_value->type->mNoSolvedGenericsType->mClass->mName,"optional")) {
             obj=(struct sNode*)come_increment_ref_count(node, "23field.nc", 605);
             __right_value0 = (void*)0;
             params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "23field.nc", 606, "struct list$1tuple2$2char$phsNode$ph$ph*"), "23field.nc", 606)), "23field.nc", 606);
