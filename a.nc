@@ -2,9 +2,9 @@
 
 int main(int argc, char** argv) 
 {
-    var li = [1,2,3,4,5,6,7];
+    var ma = ["AAA":"AAA", "BBB":"BBB"];
     
-    var v1 = li.to_vector();
+    var v1 = ma.to_vector();
     
     puts(v1.to_string());
                                    

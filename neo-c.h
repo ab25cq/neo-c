@@ -2826,6 +2826,25 @@ impl vector<T>
         
         return result.to_string();
     }
+    
+    span<T*>*% to_span(vector<T>* self)
+    {
+        using unsafe;
+        
+        if(self == null || self.items == null) {
+            return null;
+        }
+        
+        return new span<T*> {
+            memory: (char*)self.items,
+            p: self.items,
+            len: sizeof(T) * self.len,
+            local: false,
+            heap: true,
+            global: false,
+            stacktop: (void*)0
+        };
+    }
 }
 
 impl list<T>
