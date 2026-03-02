@@ -827,6 +827,9 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
         return new sMinusMinusNode(node, quote, info) implements sNode;
     }
+    else if(info->no_assign) {
+        return inherit(node, info);
+    }
     else if(!node->terminated() && ((*info->p == '\\' && *(info->p+1) == '+' && *(info->p+2) == '=') || (*info->p == '+' && *(info->p+1) == '='))) 
     {
          bool quote

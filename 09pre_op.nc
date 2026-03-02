@@ -219,6 +219,11 @@ class sDerefferenceNode extends sNodeBase
         return string("sDerefferenceNode");
     }
     
+    sNode* left_value()
+    {
+        return self.value;
+    }
+    
     bool compile(sInfo* info)
     {
         if(gComeSafe) {

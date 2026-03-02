@@ -7,30 +7,16 @@ struct sInfo
 
 int main(int argc, char** argv) 
 {
-    sInfo self;
-    self.commandString = "sp vin/01main.nc";
+    int a[2];
     
-    if(string(self.commandString).index("sp", -1) == 0) {
-    }
-    else if(string(self.commandString).index("paste", -1) == 0) {
-    }
-    else {
-        if(string(self.commandString).index("%", -1) != -1) {
-        }
-        if(string(self.commandString).index("w", -1) != -1) {
-        }
-        if(string(self.commandString).index("q", -1) != -1) {
-        }
-        if(string(self.commandString).index("shell", -1) != -1) {
-        }
-    }
-        string file_name = string(self.commandString).scan(s"sp (.+)").item(0, null).to_string();
-
-    if(string(self.commandString).index("paste", -1) == 0) {
-    }
-    else {
-    }
+    int{} p = span &a;
+    
+    p[0] = 128;
+    p[1] = 256;
+    p[2] = 365;
+    
+    printf("%d\n", p[0]);
+    printf("%d\n", p[1]);
                                    
     return 0;
 }
-
