@@ -71,7 +71,7 @@ class sReturnNode extends sNodeBase
                 if(!info.come_fun.mNoResultType) {
                     if(result_type2.mHeap) {
                         string type_name = make_type_name_string(result_type2);
-                        add_come_code(info, s"__result_obj__\{000} = (%s)come_increment_ref_count(%s);\n", type_name, come_value.c_value);
+                        add_come_code(info, s"__result_obj__\{000} = (%s)come_increment_ref_count(%s, \"%s\", %d);\n", type_name, come_value.c_value, info->sname, info->sline);
                     }
                     else {
                         add_come_code(info, s"__result_obj__\{000} = %s;\n", come_value.c_value);

@@ -792,7 +792,7 @@ class sDynamicSizeOfExpNode extends sNodeBase
         
         CVALUE*% come_value2 = new CVALUE();
         
-        come_value2.c_value = xsprintf("dynamic_sizeof(%s)", come_value.c_value);
+        come_value2.c_value = xsprintf("dynamic_sizeof(%s, \"%s\", %d)", come_value.c_value, info.sname, info.sline);
         come_value2.type = new sType(s"long");
         come_value2.type->mUnsigned = true;
         come_value2.var = null;
@@ -912,7 +912,7 @@ class sDynamicTypeOf extends sNodeBase
         if(come_value.type.mPointerNum > 0 && come_value.type.mHeap) {
             CVALUE*% come_value2 = new CVALUE();
             
-            come_value2.c_value = xsprintf("come_dynamic_typeof(%s)", come_value.c_value);
+            come_value2.c_value = xsprintf("come_dynamic_typeof(%s, \"%s\", %d)", come_value.c_value, info->sname, info->sline);
             come_value2.type = new sType(s"char*");
             come_value2.var = null;
             
