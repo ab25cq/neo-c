@@ -1083,6 +1083,13 @@ impl span<T>
                 exit(127);
             }
         }
+        if(self.heap) {
+            if(!come_is_alive(self.memory)) {
+                puts("refferenced heap object is vanished");
+                stackframe2(self);
+                exit(127);
+            }
+        }
         
         T^ p = self.p;
         

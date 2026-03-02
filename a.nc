@@ -1,12 +1,33 @@
 #include <neo-c.h>
 
+span<int*>*% fun()
+{
+    var v = v[1,2,3,4,5];
+    
+    span<int*>*% p = span borrow v;
+    
+    return p;
+}
+
 int main(int argc, char** argv) 
 {
-    var ma = ["AAA":"AAA", "BBB":"BBB"];
+    var p = fun();
     
-    var v1 = ma.to_vector();
+    printf("%d\n", *p);
+    p++;
     
-    puts(v1.to_string());
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
+    printf("%d\n", *p);
+    p++;
                                    
     return 0;
 }
