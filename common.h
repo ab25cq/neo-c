@@ -97,7 +97,7 @@ uniq class sType
     _weak sType*% mOriginalLoadVarType;
     _weak sType*% mChannelType;
     
-    list<sType*%>*% mGenericsTypes;
+    _weak list<sType*%>*% mGenericsTypes;
     _weak sType*% mNoSolvedGenericsType;
     
     sNode*% mSizeNum;
@@ -174,7 +174,7 @@ uniq class sType
     bool mArrayPointerType;
     
     //// lambda ///
-    list<sType*%>*% mParamTypes;
+    _weak list<sType*%>*% mParamTypes;
     list<string>*% mParamNames;
     _weak sType*% mResultType;
     bool mVarArgs;
@@ -269,7 +269,7 @@ uniq class sFun
     string mName;
     
     sType*% mResultType;
-    list<sType*%>*% mParamTypes;
+    _weak list<sType*%>*% mParamTypes;
     list<string>*% mParamNames;
     list<string>*% mParamDefaultParametors;
     
@@ -365,7 +365,7 @@ uniq class sGenericsFun
     string mName;
     
     sType*% mResultType;
-    list<sType*%>*% mParamTypes;
+    _weak list<sType*%>*% mParamTypes;
     list<string>*% mParamNames;
     list<string>*% mParamDefaultParametors;
     
@@ -532,7 +532,7 @@ struct sInfo
     list<sRightValueObject*%>*% right_value_objects;
     
     sType*% generics_type;
-    list<sType*%>*% method_generics_types;
+    _weak list<sType*%>*% method_generics_types;
     
     list<CVALUE*%>*% stack;
     

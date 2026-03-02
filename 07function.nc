@@ -2853,65 +2853,72 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     return true;
 }
 
-bool is_owned(sType*% type, sClass* klass, sType*% field_type, sType*% owner, sInfo* info=info)
+bool has_owned_path_to_owner(sClass* current_klass, sClass* owner_klass, list<string>* visited, sInfo* info=info)
 {
-    bool result = false;
-    foreach(it, field_type->mClass->mFields) {
-        var name3, field_type3 = it;
+    if(current_klass == null || owner_klass == null) {
+        return false;
+    }
+    
+    if(current_klass->mName === owner_klass->mName) {
+        return true;
+    }
+    
+    if(visited.contained(current_klass->mName)) {
+        return false;
+    }
+    visited.push_back(current_klass->mName);
+    
+    foreach(it, current_klass->mFields) {
+        var field_name, field_type = it;
         
-        field_type3->mNoSolvedGenericsType.if {
-            Value.mGenericsTypes.each {
-                if(it->mClass->mName === owner->mClass->mName) {
-                    result = true;
-                }
+        sType*% field_type2 = get_no_solved_type2(field_type);
+        bool weak_field = field_type2->mWeak;
+        field_type2->mNoSolvedGenericsType.if {
+            if(Value.mWeak) {
+                weak_field = true;
             }
         }
         
-        if(field_type3->mClass->mName === owner->mClass->mName && field_type3->mHeap) {
-            result = true;
+        if(!field_type2->mHeap || weak_field || field_type2->mClass == null) {
+            continue;
+        }
+        
+        if(field_type2->mClass->mName === owner_klass->mName) {
+            return true;
+        }
+        
+        if(has_owned_path_to_owner(field_type2->mClass, owner_klass, visited)) {
+            return true;
         }
     }
-        
-    if(klass->mName === field_type->mClass->mName && field_type->mHeap) {
-        result = true;
-    }
     
-    return result;
+    return false;
 }
 
 bool is_owned_main(sType*% type_, sClass* klass, sType*% field_type, sType*% owner, sInfo* info=info)
 {
-    bool flag1 = false;
-    bool flag2 = false;
-    if(field_type->mHeap) {
-        if(klass->mName !== field_type->mClass->mName && is_owned(clone type_, klass, clone field_type, clone type_)) {
-            flag1 = true;
+    if(owner == null || owner->mClass == null || field_type == null || field_type->mClass == null) {
+        return false;
+    }
+    
+    sType*% field_type2 = get_no_solved_type2(field_type);
+    bool weak_field = field_type2->mWeak;
+    field_type2->mNoSolvedGenericsType.if {
+        if(Value.mWeak) {
+            weak_field = true;
         }
     }
     
-    if(flag1) {
-        foreach(it2, field_type->mClass->mFields) {
-            var name2, field_type2 = it2;
-            
-/*
-            field_type2->mNoSolvedGenericsType.if {
-                Value.mGenericsTypes.each {
-                    if(field_type->mClass->mName !== it->mClass->mName 
-                        && is_owned(clone field_type, field_type->mClass, clone it, clone field_type)) 
-                    {
-                        flag2 = true;
-                    }
-                }
-            }
-*/
-            
-            if(field_type->mClass->mName !== field_type2->mClass->mName && is_owned(clone field_type, field_type->mClass, clone field_type2, clone field_type)) {
-                flag2 = true;
-            }
-        }
+    if(!field_type2->mHeap || weak_field) {
+        return false;
     }
     
-    return flag2;
+    if(field_type2->mClass->mName === owner->mClass->mName) {
+        return true;
+    }
+    
+    list<string>*% visited = new list<string>();
+    return has_owned_path_to_owner(field_type2->mClass, owner->mClass, visited);
 }
    
 
@@ -3008,26 +3015,30 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
-                
-                bool flag1 = false;
-                sType*% field_type2;
-                field_type->mNoSolvedGenericsType.if  {
-                    Value.mGenericsTypes.each {
-                        flag1 = is_owned_main(type_, klass, clone it, clone type_);
-                    }
-                }
-                
-                
-                bool flag2 = is_owned_main(type_, klass, clone field_type, clone type_);
-                
+
                 bool weak_field = field_type->mWeak;
                 field_type->mNoSolvedGenericsType.if {
                     if(Value.mWeak) {
                         weak_field = true;
                     }
                 }
-                
-                if((flag1 || flag2) && !weak_field) {
+
+                bool owned_cycle = false;
+                if(!weak_field) {
+                    if(is_owned_main(type_, klass, clone field_type, clone type_)) {
+                        owned_cycle = true;
+                    }
+
+                    field_type->mNoSolvedGenericsType.if {
+                        Value.mGenericsTypes.each {
+                            if(is_owned_main(type_, klass, clone it, clone type_)) {
+                                owned_cycle = true;
+                            }
+                        }
+                    }
+                }
+
+                if(owned_cycle) {
                     warning_msg(info, "Cyclic ownership detected involving %s. Don't use heap to break cycle, but sometimes it works. If you need no check this to use _weak attribute to the fields.", field_type->mClass->mName);
                 }
                 

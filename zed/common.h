@@ -20,8 +20,8 @@ struct ZVALUE
     wstring strValue;
     bool boolValue;
     FILE* fileValue;
-    list<ZVALUE*%>*% listValue;
-    map<ZVALUE*%, ZVALUE*%>*% mapValue;
+    _weak list<ZVALUE*%>*% listValue;
+    _weak map<ZVALUE*%, ZVALUE*%>*% mapValue;
 };
 struct sInfo
 {
