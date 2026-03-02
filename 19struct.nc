@@ -587,7 +587,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 exit(2);
             }
             
-            sClass*% generics_class = new sClass(name:type_name, struct_:true);
+            int generics_num = info.generics_type_names.length();
+            sClass*% generics_class = new sClass(name:type_name, struct_:true, generics:true, generics_num:generics_num);
             
             info.generics_classes.insert(string(type_name), generics_class);
             

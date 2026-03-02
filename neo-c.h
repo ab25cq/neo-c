@@ -2828,6 +2828,31 @@ impl vector<T>
     }
 }
 
+impl list<T>
+{
+    vector<T>*% to_vector(list<T>* self)
+    {
+        vector<T>*% result = new vector<T>.initialize();
+        
+        if(self == null) {
+            return result;
+        }
+        
+        list_item<T>* it = self.head;
+        while(it != null) {
+            if(isheap(T)) {
+                result.add(clone it.item);
+            }
+            else {
+                result.add(dummy_heap dupe it.item);
+            }
+            it = it.next;
+        }
+        
+        return result;
+    }
+}
+
 //////////////////////////////
 // map
 //////////////////////////////
@@ -3659,6 +3684,37 @@ impl map <T, T2>
             }
             else {
                 result.push_back(dummy_heap dupe it2);
+            }
+        }
+        
+        return result;
+    }
+    
+}
+
+impl map<T, T>
+{
+    vector<T>*% to_vector(map<T, T>* self) {
+        using unsafe;
+        
+        var result = new vector<T>.initialize();
+        
+        if(self == null) {
+            return result;
+        }
+        
+        for(var key = self.key_list.begin(); !self.key_list.end(); key = self.key_list.next()) {
+            T/ default_value;
+            memset(&default_value, 0, sizeof(T));
+            var item = self.at(key, default_value);
+            
+            if(isheap(T)) {
+                result.add(clone key);
+                result.add(clone item);
+            }
+            else {
+                result.add(dummy_heap dupe key);
+                result.add(dummy_heap dupe item);
             }
         }
         
@@ -8629,8 +8685,7 @@ uniq wstring wstring::delete(wchar_t* str, int head, int tail)
     }
 #endif
 
-
-// ZERO COST ITERATORS LIKE RUST
+// DSL PIPE FILTERS WITH ZERO COST 
 impl list<T>
 {
     iter_begin iter() {

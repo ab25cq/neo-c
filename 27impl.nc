@@ -10,7 +10,9 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
             word = parse_word();
         }
         
+        bool has_generics_args = false;
         if(*info->p == '<') {
+            has_generics_args = true;
             info->p++;
             skip_spaces_and_lf();
             
@@ -33,6 +35,19 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
                     err_msg(info, "invalid character on impl (%c)", *info->p);
                     exit(2);
                 }
+            }
+        }
+        
+        int expected_generics_num = -1;
+        sClass* generics_class = borrow info.generics_classes.at(string(word), null);
+        if(generics_class) {
+            expected_generics_num = generics_class.mGenericsNum;
+        }
+        if(expected_generics_num >= 0) {
+            int got_generics_num = has_generics_args ? info.generics_type_names.length() : 0;
+            if(got_generics_num != expected_generics_num) {
+                err_msg(info, "invalid count of generics type arguments on impl. %s requires %d but got %d", word, expected_generics_num, got_generics_num);
+                exit(2);
             }
         }
         

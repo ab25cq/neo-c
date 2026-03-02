@@ -608,6 +608,20 @@ Returns the position from the beginning of the element matched by equals. In thi
 equalsがマッチする要素の先頭からの位置を返します。この場合2です。default_valueは見つからなかった場合の値です。
 
 ```C
+vector<T>*% to_vector(list<T>* self)
+```
+
+```C
+    var li = [1,2,3];
+    var v = li.to_vector();
+    v.to_string().puts(); // v[1,2,3]
+```
+
+Convert list to vector.
+
+listをvectorに変換します。
+
+```C
 bool equals(list<T>* left, list<T>* right)
 ```
 
@@ -1040,6 +1054,20 @@ list<T2>*% values(map<T, T2>* self)
 ```
     ["AAA":1, "BBB":2, "CCC":3].values().to_string().puts();  // [1,2,3]
 ```
+
+```C
+vector<T>*% to_vector(map<T, T>* self)
+```
+
+```C
+    var ma = [1:10, 2:20, 3:30];
+    ma.to_vector().to_string().puts(); // v[1,10,2,20,3,30]
+```
+
+Flatten map entries into vector as `key, item, key, item, ...`.
+
+mapの要素を`key, item, key, item, ...`の順でvectorに展開します。
+keyとitemの型は同じである必要があります。
 
 # tuple
 

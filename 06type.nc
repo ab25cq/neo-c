@@ -3367,6 +3367,16 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
             }
             
+            int expected_generics_num = -1;
+            sClass* generics_class = borrow info.generics_classes.at(string(type_name), null);
+            if(generics_class) {
+                expected_generics_num = generics_class.mGenericsNum;
+            }
+            if(expected_generics_num >= 0 && type->mGenericsTypes.length() != expected_generics_num) {
+                err_msg(info, "invalid count of generics type arguments. %s requires %d but got %d", type_name, expected_generics_num, type->mGenericsTypes.length());
+                return t((sType*%)null, (string)null, false);
+            }
+            
             if(is_contained_generics_class(type, info)) {
                 type = solve_generics(type, info.generics_type, info);
             }

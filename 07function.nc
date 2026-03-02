@@ -3020,7 +3020,14 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                 
                 bool flag2 = is_owned_main(type_, klass, clone field_type, clone type_);
                 
-                if(flag1 || flag2) {
+                bool weak_field = field_type->mWeak;
+                field_type->mNoSolvedGenericsType.if {
+                    if(Value.mWeak) {
+                        weak_field = true;
+                    }
+                }
+                
+                if((flag1 || flag2) && !weak_field) {
                     warning_msg(info, "Cyclic ownership detected involving %s. Don't use heap to break cycle, but sometimes it works. If you need no check this to use _weak attribute to the fields.", field_type->mClass->mName);
                 }
                 

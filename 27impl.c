@@ -2663,6 +2663,11 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
 static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self);
 static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self);
 static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self, char*  item  );
+static struct sClass*  map$2char$phsClass$ph_at(struct map$2char$phsClass$ph* self, char*  key  , struct sClass*  default_value  , _Bool by_pointer);
+static void sClass_finalize(struct sClass*  self  );
+static void list$1tuple2$2char$phsType$ph$ph$p_finalize(struct list$1tuple2$2char$phsType$ph$ph* self);
+static void list_item$1tuple2$2char$phsType$ph$ph$p_finalize(struct list_item$1tuple2$2char$phsType$ph$ph* self);
+static void tuple2$2char$phsType$ph$p_finalize(struct tuple2$2char$phsType$ph* self);
 static void sType_finalize(struct sType*  self  );
 static void list$1sType$ph$p_finalize(struct list$1sType$ph* self);
 static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self);
@@ -2671,6 +2676,7 @@ static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self);
 static void list$1int$$p_finalize(struct list$1int$* self);
 static void list_item$1int$$p_finalize(struct list_item$1int$* self);
 static void list$1char$ph$p_finalize(struct list$1char$ph* self);
+static int list$1char$ph_length(struct list$1char$ph* self);
 // uniq global variable
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
@@ -2706,9 +2712,13 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
     char*  word  ;
     void* __right_value0 = (void*)0;
     char*  __dec_obj1  ;
+    _Bool has_generics_args;
     char*  generics_name  ;
-    int pointer_num;
+    int expected_generics_num;
     void* __right_value1 = (void*)0;
+    struct sClass*  generics_class  ;
+    int got_generics_num;
+    int pointer_num;
     struct sType*  __dec_obj5  ;
     char* head_2;
     char*  buf_3  ;
@@ -2731,7 +2741,9 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
             word=(char* )come_increment_ref_count(parse_word((_Bool)0,info));
             __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0);
         }
+        has_generics_args=(_Bool)0;
         if(*info->p==60) {
+            has_generics_args=(_Bool)1;
             info->p++;
             skip_spaces_and_lf(info);
             list$1char$ph_reset(info->generics_type_names);
@@ -2739,7 +2751,7 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
                 __right_value0 = (void*)0;
                 generics_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info));
                 __right_value0 = (void*)0;
-                list$1char$ph_push_back(info->generics_type_names,(char* )come_increment_ref_count((char* )come_memdup(generics_name, "27impl.nc", 21, "char* ")));
+                list$1char$ph_push_back(info->generics_type_names,(char* )come_increment_ref_count((char* )come_memdup(generics_name, "27impl.nc", 23, "char* ")));
                 if(*info->p==44) {
                     info->p++;
                     skip_spaces_and_lf(info);
@@ -2757,6 +2769,20 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
                 (generics_name = come_decrement_ref_count(generics_name, (void*)0, (void*)0, 0, 0, (void*)0));
             }
         }
+        expected_generics_num=-1;
+        __right_value0 = (void*)0;
+        generics_class=((struct sClass* )(__right_value1=map$2char$phsClass$ph_at(info->generics_classes,((char* )(__right_value0=__builtin_string(word))),((void*)0),(_Bool)0)));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0));
+        if(generics_class) {
+            expected_generics_num=generics_class->mGenericsNum;
+        }
+        if(expected_generics_num>=0) {
+            got_generics_num=((has_generics_args)?(list$1char$ph_length(info->generics_type_names)):(0));
+            if(got_generics_num!=expected_generics_num) {
+                err_msg(info,"invalid count of generics type arguments on impl. %s requires %d but got %d",word,expected_generics_num,got_generics_num);
+                exit(2);
+            }
+        }
         pointer_num=0;
         while(*info->p==42) {
             info->p++;
@@ -2765,8 +2791,9 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
         }
         expected_next_character(123,info);
         __right_value0 = (void*)0;
+        __right_value1 = (void*)0;
         __dec_obj5=info->impl_type,
-        info->impl_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "27impl.nc", 48, "struct sType* ")),(char* )come_increment_ref_count(word),(_Bool)0,info,(_Bool)0,0));
+        info->impl_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "27impl.nc", 63, "struct sType* ")),(char* )come_increment_ref_count(word),(_Bool)0,info,(_Bool)0,0));
         come_call_finalizer(sType_finalize, __dec_obj5,(void*)0, (void*)0, 0, 0, 0, (void*)0);
         info->impl_type->mPointerNum=pointer_num;
         while(*info->p!=125) {
@@ -2815,7 +2842,7 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
         source_tail=info->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "27impl.nc", 94, "struct buffer* "))));
+        header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "27impl.nc", 109, "struct buffer* "))));
         buffer_append(header,source_head,source_tail-source_head);
                 __result_obj__0 = (struct sNode*)come_increment_ref_count((struct sNode*)((void*)0));
         (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0));
@@ -2922,6 +2949,114 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
     (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0));
     neo_current_frame = fr.prev;
     return __result_obj__0;
+}
+
+static struct sClass*  map$2char$phsClass$ph_at(struct map$2char$phsClass$ph* self, char*  key  , struct sClass*  default_value  , _Bool by_pointer)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsClass$ph_at"; neo_current_frame = &fr;
+    struct sClass*  __result_obj__0  ;
+    unsigned int hash;
+    unsigned int it;
+    if(self==((void*)0)) {
+                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        neo_current_frame = fr.prev;
+        come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+        return __result_obj__0;
+    }
+    hash=string_get_hash_key(((char* )key))%self->size;
+    it=hash;
+    while((_Bool)1) {
+        if(self->item_existance[it]) {
+            if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
+                                __result_obj__0 = (struct sClass* )come_increment_ref_count(self->items[it]);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+                neo_current_frame = fr.prev;
+                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+                return __result_obj__0;
+            }
+            it++;
+            if(it>=self->size) {
+                it=0;
+            }
+            else if(it==hash) {
+                                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+                neo_current_frame = fr.prev;
+                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+                return __result_obj__0;
+            }
+        }
+        else {
+                        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+            come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+            neo_current_frame = fr.prev;
+            come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+            return __result_obj__0;
+        }
+    }
+        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value);
+    come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    neo_current_frame = fr.prev;
+    come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0);
+    return __result_obj__0;
+}
+
+static void sClass_finalize(struct sClass*  self  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sClass_finalize"; neo_current_frame = &fr;
+    if(self!=((void*)0)&&self->mName!=((void*)0)) {
+        (self->mName = come_decrement_ref_count(self->mName, (void*)0, (void*)0, 0, 0, (void*)0));
+    }
+    if(self!=((void*)0)&&self->mFields!=((void*)0)) {
+        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, self->mFields, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    }
+    if(self!=((void*)0)&&self->mParentClassName!=((void*)0)) {
+        (self->mParentClassName = come_decrement_ref_count(self->mParentClassName, (void*)0, (void*)0, 0, 0, (void*)0));
+    }
+    if(self!=((void*)0)&&self->mAttribute!=((void*)0)) {
+        (self->mAttribute = come_decrement_ref_count(self->mAttribute, (void*)0, (void*)0, 0, 0, (void*)0));
+    }
+            neo_current_frame = fr.prev;
+}
+
+static void list$1tuple2$2char$phsType$ph$ph$p_finalize(struct list$1tuple2$2char$phsType$ph$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple2$2char$phsType$ph$ph$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1tuple2$2char$phsType$ph$ph* it;
+    struct list_item$1tuple2$2char$phsType$ph$ph* prev_it;
+    if(self==((void*)0)) {
+                neo_current_frame = fr.prev;
+        return;
+    }
+    it=self->head;
+    while(it!=((void*)0)) {
+        prev_it=it;
+        it=it->next;
+        come_call_finalizer(list_item$1tuple2$2char$phsType$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    }
+            neo_current_frame = fr.prev;
+}
+
+static void list_item$1tuple2$2char$phsType$ph$ph$p_finalize(struct list_item$1tuple2$2char$phsType$ph$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1tuple2$2char$phsType$ph$ph$p_finalize"; neo_current_frame = &fr;
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    }
+            neo_current_frame = fr.prev;
+}
+
+static void tuple2$2char$phsType$ph$p_finalize(struct tuple2$2char$phsType$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple2$2char$phsType$ph$p_finalize"; neo_current_frame = &fr;
+    if(self!=((void*)0)&&self->v1!=((void*)0)) {
+        (self->v1 = come_decrement_ref_count(self->v1, (void*)0, (void*)0, 0, 0, (void*)0));
+    }
+    if(self!=((void*)0)&&self->v2!=((void*)0)) {
+        come_call_finalizer(sType_finalize, self->v2, (void*)0, (void*)0, 0, 0, 0, (void*)0);
+    }
+            neo_current_frame = fr.prev;
 }
 
 static void sType_finalize(struct sType*  self  )
@@ -3099,5 +3234,17 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
         come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0);
     }
             neo_current_frame = fr.prev;
+}
+
+static int list$1char$ph_length(struct list$1char$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_length"; neo_current_frame = &fr;
+    if(self==((void*)0)) {
+                neo_current_frame = fr.prev;
+        return 0;
+    }
+        neo_current_frame = fr.prev;
+    return self->len;
+                neo_current_frame = fr.prev;
 }
 
