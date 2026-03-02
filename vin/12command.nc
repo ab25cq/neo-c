@@ -401,11 +401,10 @@ void Vi*::enterComandMode(Vi* self)
 
 void Vi*::exitFromComandMode(Vi* self) 
 {
-    if(string(self.commandString).index("sp", -1) == 0) {
-        string file_name = string(self.commandString).scan(s"sp ([.]+)").item(0, null).to_string();
-
-        if(file_name != null) {
-            self.openNewFile(file_name);
+    if(strncmp(self.commandString, "sp", 2) == 0 && (self.commandString[2] == ' ' || self.commandString[2] == '\t' || self.commandString[2] == '\0')) {
+        var m = string(self.commandString).scan(s"^sp[ \t]+([A-Za-z0-9_./~:@%+=,-]+)$").item(0, null);
+        if(m) {
+            self.openNewFile(m.to_string());
         }
     }
     else if(string(self.commandString).index("paste", -1) == 0) {
@@ -460,4 +459,3 @@ Vi*% Vi*::initialize(Vi*% self) version 12
 
     return result;
 }
-
