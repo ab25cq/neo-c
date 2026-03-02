@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2820,7 +2822,7 @@ struct sGlobalVariable* sGlobalVariable_initialize(struct sGlobalVariable* self,
     struct list$1tuple3$3sType$phchar$phchar$ph$ph* __dec_obj45;
     struct sGlobalVariable* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sGlobalVariable*)come_increment_ref_count(self, "13gvar.nc", 7),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 17);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 7);
     __right_value0 = (void*)0;
     __dec_obj35=self->type,
     self->type=(struct sType* )come_increment_ref_count(sType_clone(type), "13gvar.nc", 9);
@@ -2896,19 +2898,19 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
             initializer=(char* )come_increment_ref_count(multiple_assign_var1->v3, "13gvar.nc", 31);
             __right_value0 = (void*)0;
             add_variable_to_global_table(name_13,((struct sType* )(__right_value0=sType_clone(type_12))),info);
-            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 46);
+            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 33);
             if(type_12->mUniq) {
                 if(!type_12->mConstant) {
                     __right_value0 = (void*)0;
                     map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name_13), "13gvar.nc", 36),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("extern %s;\n",((char* )(__right_value1=make_define_var(type_12,name_13,info,(_Bool)0,(_Bool)0))))))), "13gvar.nc", 36),(_Bool)0);
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 37));
-                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 37));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 36));
+                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 36));
                 }
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 map$2char$phchar$ph_insert(info->uniq_definition,(char* )come_increment_ref_count(__builtin_string(name_13), "13gvar.nc", 37),(char* )come_increment_ref_count(xsprintf("%s;\n",((char* )(__right_value1=make_define_var(type_12,name_13,info,(_Bool)0,(_Bool)0)))), "13gvar.nc", 37),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 45));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 37));
             }
             else if(initializer) {
                 __right_value0 = (void*)0;
@@ -2916,8 +2918,8 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
                 map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name_13), "13gvar.nc", 40),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("%s=%s;",((char* )(__right_value1=make_define_var(type_12,name_13,info,(_Bool)0,(_Bool)0))),initializer)))), "13gvar.nc", 40),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 45));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 45));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 40));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 40));
             }
             else {
                 __right_value0 = (void*)0;
@@ -2925,8 +2927,8 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
                 map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name_13), "13gvar.nc", 43),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("%s;",((char* )(__right_value1=make_define_var(type_12,name_13,info,(_Bool)0,(_Bool)0))))))), "13gvar.nc", 43),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 45));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 45));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 43));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 43));
             }
             come_call_finalizer(sType_finalize, type_12, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13gvar.nc}", 46);
             (name_13 = come_decrement_ref_count(name_13, (void*)0, (void*)0, 0, 0, (void*)0, "13gvar.nc", 46));
@@ -2937,7 +2939,7 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
     else {
         __right_value0 = (void*)0;
         add_variable_to_global_table(name,((struct sType* )(__right_value0=sType_clone(type))),info);
-        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 85);
+        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 48);
         if(array_initializer) {
             if(type->mUniq) {
                 if(!type->mConstant) {
@@ -2946,14 +2948,14 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
                     map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 52),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("extern %s;\n",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0))))))), "13gvar.nc", 52),(_Bool)0);
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 53));
-                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 53));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 52));
+                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 52));
                 }
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 map$2char$phchar$ph_insert(info->uniq_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 53),(char* )come_increment_ref_count(xsprintf("%s=%s;\n",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0))),array_initializer), "13gvar.nc", 53),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 58));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 53));
             }
             else {
                 __right_value0 = (void*)0;
@@ -2961,8 +2963,8 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
                 map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 56),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("%s=%s;",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0))),array_initializer)))), "13gvar.nc", 56),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 58));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 58));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 56));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 56));
             }
         }
         else if(right_node) {
@@ -2984,14 +2986,14 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
                     map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 67),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("extern %s;\n",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0))))))), "13gvar.nc", 67),(_Bool)0);
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 68));
-                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 68));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 67));
+                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 67));
                 }
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 map$2char$phchar$ph_insert(info->uniq_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 68),(char* )come_increment_ref_count(xsprintf("%s=%s;\n",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0))),come_value->c_value), "13gvar.nc", 68),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 73));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 68));
             }
             else {
                 __right_value0 = (void*)0;
@@ -2999,8 +3001,8 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
                 map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 71),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("%s=%s;",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0))),come_value->c_value)))), "13gvar.nc", 71),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 73));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 73));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 71));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 71));
             }
             come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13gvar.nc}", 83);
         }
@@ -3012,14 +3014,14 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
                     map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 76),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("extern %s;\n",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0))))))), "13gvar.nc", 76),(_Bool)0);
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 77));
-                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 77));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 76));
+                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 76));
                 }
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 map$2char$phchar$ph_insert(info->uniq_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 77),(char* )come_increment_ref_count(xsprintf("%s;\n",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0)))), "13gvar.nc", 77),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 82));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 77));
             }
             else {
                 __right_value0 = (void*)0;
@@ -3027,8 +3029,8 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
                 map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 80),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("%s;",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0))))))), "13gvar.nc", 80),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 82));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 82));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 80));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 80));
             }
         }
     }
@@ -5227,7 +5229,7 @@ struct sExternalGlobalVariable* sExternalGlobalVariable_initialize(struct sExter
     struct list$1tuple3$3sType$phchar$phchar$ph$ph* __dec_obj51;
     struct sExternalGlobalVariable* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sExternalGlobalVariable*)come_increment_ref_count(self, "13gvar.nc", 93),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 101);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 93);
     __right_value0 = (void*)0;
     __dec_obj49=self->type,
     self->type=(struct sType* )come_increment_ref_count(sType_clone(type), "13gvar.nc", 95);
@@ -5286,11 +5288,11 @@ _Bool sExternalGlobalVariable_compile(struct sExternalGlobalVariable* self, stru
             name_31=(char* )come_increment_ref_count(multiple_assign_var2->v2, "13gvar.nc", 113);
             initializer=(char* )come_increment_ref_count(multiple_assign_var2->v3, "13gvar.nc", 113);
             add_variable_to_global_table(name_31,((struct sType* )(__right_value0=sType_clone(type_30))),info);
-            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 117);
+            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 114);
             __right_value0 = (void*)0;
             map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name_31), "13gvar.nc", 115),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("extern %s;",((char* )(__right_value1=make_define_var(type_30,name_31,info,(_Bool)0,(_Bool)0))))))), "13gvar.nc", 115),(_Bool)0);
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 117));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 117));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 115));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 115));
             come_call_finalizer(sType_finalize, type_30, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13gvar.nc}", 117);
             (name_31 = come_decrement_ref_count(name_31, (void*)0, (void*)0, 0, 0, (void*)0, "13gvar.nc", 117));
             (initializer = come_decrement_ref_count(initializer, (void*)0, (void*)0, 0, 0, (void*)0, "13gvar.nc", 117));
@@ -5300,14 +5302,14 @@ _Bool sExternalGlobalVariable_compile(struct sExternalGlobalVariable* self, stru
     else {
         __right_value0 = (void*)0;
         add_variable_to_global_table(name,((struct sType* )(__right_value0=sType_clone(type))),info);
-        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 123);
+        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 119);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         map$2char$phbuffer$ph_insert(info->var_definition,(char* )come_increment_ref_count(__builtin_string(name), "13gvar.nc", 120),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("extern %s;",((char* )(__right_value1=make_define_var(type,name,info,(_Bool)0,(_Bool)0))))))), "13gvar.nc", 120),(_Bool)0);
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 123));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 123));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 120));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 120));
     }
         __result_obj__0 = (_Bool)1;
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "13gvar.nc", 123));
@@ -5414,7 +5416,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
             type=(struct sType* )come_increment_ref_count(multiple_assign_var3->v1, "13gvar.nc", 139);
             name=(char* )come_increment_ref_count(multiple_assign_var3->v2, "13gvar.nc", 139);
             err=multiple_assign_var3->v3;
-            come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 172);
+            come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 139);
             skip_spaces_and_lf(info);
             if(err) {
                 skip_spaces_and_lf(info);
@@ -5422,7 +5424,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
                 multiple_assign_var4=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare(type,(_Bool)1,info)));
                 type_32=(struct sType* )come_increment_ref_count(multiple_assign_var4->v1, "13gvar.nc", 144);
                 name_33=(char* )come_increment_ref_count(multiple_assign_var4->v2, "13gvar.nc", 144);
-                come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 170);
+                come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 144);
                 skip_spaces_and_lf(info);
                 if(*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62) {
                     info->p++;
@@ -5430,7 +5432,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
                     if(*info->p==123) {
                         __right_value0 = (void*)0;
                         ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 164));
+                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 152));
                     }
                     else {
                         no_comma=info->no_comma;
@@ -5463,7 +5465,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
         base_type=(struct sType* )come_increment_ref_count(multiple_assign_var5->v1, "13gvar.nc", 181);
         name_35=(char* )come_increment_ref_count(multiple_assign_var5->v2, "13gvar.nc", 181);
         err_36=multiple_assign_var5->v3;
-        come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 393);
+        come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 181);
         skip_spaces_and_lf(info);
         if(!err_36) {
             printf("%s %d: parse_type failed\n",info->sname,info->sline);
@@ -5474,7 +5476,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
         multiple_assign_var6=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare(base_type,(_Bool)1,info)));
         type2=(struct sType* )come_increment_ref_count(multiple_assign_var6->v1, "13gvar.nc", 190);
         var_name=(char* )come_increment_ref_count(multiple_assign_var6->v2, "13gvar.nc", 190);
-        come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 393);
+        come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 190);
         skip_spaces_and_lf(info);
         if(*info->p==61&&*(info->p+1)!=61) {
             info->p++;
@@ -5483,7 +5485,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
             if(*info->p==123) {
                 __right_value0 = (void*)0;
                 ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 215));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 200));
             }
             else {
                 no_comma_37=info->no_comma;
@@ -5521,7 +5523,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
             multiple_assign_var7=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare(base_type,(_Bool)0,info)));
             type2_42=(struct sType* )come_increment_ref_count(multiple_assign_var7->v1, "13gvar.nc", 233);
             var_name_43=(char* )come_increment_ref_count(multiple_assign_var7->v2, "13gvar.nc", 233);
-            come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 272);
+            come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 233);
             if(*info->p==61&&*(info->p+1)!=61) {
                 info->p++;
                 skip_spaces_and_lf(info);
@@ -5529,7 +5531,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
                 if(*info->p==123) {
                     __right_value0 = (void*)0;
                     ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 257));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 242));
                 }
                 else {
                     no_comma_45=info->no_comma;
@@ -5650,7 +5652,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
         result_type=(struct sType* )come_increment_ref_count(multiple_assign_var8->v1, "13gvar.nc", 291);
         var_name_52=(char* )come_increment_ref_count(multiple_assign_var8->v2, "13gvar.nc", 291);
         err_53=multiple_assign_var8->v3;
-        come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 393);
+        come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 291);
         skip_spaces_and_lf(info);
         info->no_output_come_code=no_output_come_code_51;
         if(!err_53) {

@@ -3671,7 +3671,7 @@ void ViWin_verticalVisualModeView(struct ViWin*  self  , struct Vi*  nvi  )
         else {
             __right_value0 = (void*)0;
             mvwprintw(self->win,it2,0,"%s",((char* )(__right_value0=wstring_to_string(line))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 57));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 54));
         }
         it2++;
         (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "18vvisual.nc", 60));
@@ -3897,7 +3897,7 @@ void ViWin_deleteOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         it=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,i,((void*)0)), "18vvisual.nc", 93);
         __right_value0 = (void*)0;
         ((int* )(__right_value0=wstring_delete(it,self->visualModeVerticalHeadX,self->visualModeVerticalHeadX+self->visualModeVerticalLen)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 100));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 97));
         (it = come_decrement_ref_count(it, (void*)0, (void*)0, 0, 0, (void*)0, "18vvisual.nc", 100));
     }
     self->cursorY=self->visualModeVerticalStartY;
@@ -3960,7 +3960,7 @@ void ViWin_deleteLinesOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nv
         it=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,i,((void*)0)), "18vvisual.nc", 120);
         __right_value0 = (void*)0;
         ((int* )(__right_value0=wstring_delete(it,0,-1)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 125));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 122));
         (it = come_decrement_ref_count(it, (void*)0, (void*)0, 0, 0, (void*)0, "18vvisual.nc", 125));
     }
     self->cursorY=self->visualModeVerticalStartY;
@@ -4016,7 +4016,7 @@ void ViWin_changeCaseVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  
         }
         __right_value0 = (void*)0;
         new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls%ls",head_line,middle_line,tail_line)))), "18vvisual.nc", 167);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 173));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 167));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,i_6,(int* )come_increment_ref_count((int* )come_memdup(new_line, "18vvisual.nc", 169, "int* "), "18vvisual.nc", 169));
         list$1int$_replace(self->texts_length,i_6,wcslen(new_line));
@@ -4207,14 +4207,14 @@ void ViWin_rewriteOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         head_new_line=(int* )come_increment_ref_count(wstring_substring(it,0,self->visualModeVerticalHeadX), "18vvisual.nc", 197);
         __right_value0 = (void*)0;
         middle_new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=string_multiply(((char* )(__right_value0=xsprintf("%lc",key))),self->visualModeVerticalLen)))), "18vvisual.nc", 198);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 207));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 207));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 198));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 198));
         __right_value0 = (void*)0;
         tail_new_line=(int* )come_increment_ref_count(wstring_substring(it,self->visualModeVerticalHeadX+self->visualModeVerticalLen,-1), "18vvisual.nc", 199);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls%ls",head_new_line,middle_new_line,tail_new_line)))), "18vvisual.nc", 201);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 207));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 201));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,i,(int* )come_increment_ref_count((int* )come_memdup(new_line, "18vvisual.nc", 203, "int* "), "18vvisual.nc", 203));
         list$1int$_replace(self->texts_length,i,wcslen(new_line));
@@ -4271,9 +4271,9 @@ void ViWin_insertOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
                 it=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,i,((void*)0)), "18vvisual.nc", 239);
                 __right_value0 = (void*)0;
                 new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(it,0,self->visualModeVerticalHeadX-1))),((int* )(__right_value1=wstring_substring(it,self->visualModeVerticalHeadX,-1))))))), "18vvisual.nc", 243);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 248));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 248));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 248));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 243));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 243));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 243));
                 __right_value0 = (void*)0;
                 list$1int$ph_replace(self->texts,i,(int* )come_increment_ref_count((int* )come_memdup(new_line, "18vvisual.nc", 245, "int* "), "18vvisual.nc", 245));
                 list$1int$_replace(self->texts_length,i,wcslen(new_line));
@@ -4302,9 +4302,9 @@ void ViWin_insertOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value2 = (void*)0;
             __right_value3 = (void*)0;
             new_line_17=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%lc%ls",((int* )(__right_value0=wstring_substring(it_16,0,self->visualModeVerticalHeadX))),key,((int* )(__right_value1=wstring_substring(it_16,self->visualModeVerticalHeadX,-1))))))), "18vvisual.nc", 272);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 278));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 278));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 278));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 271));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 272));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "18vvisual.nc", 272));
             __right_value0 = (void*)0;
             list$1int$ph_replace(self->texts,i_15,(int* )come_increment_ref_count((int* )come_memdup(new_line_17, "18vvisual.nc", 274, "int* "), "18vvisual.nc", 274));
             list$1int$_replace(self->texts_length,i_15,wcslen(new_line_17));

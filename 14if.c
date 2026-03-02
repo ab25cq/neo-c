@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2864,7 +2866,7 @@ struct sIfNode* sIfNode_initialize(struct sIfNode* self, struct sNode* expressio
     struct sBlock*  __dec_obj55  ;
     struct sIfNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sIfNode*)come_increment_ref_count(self, "14if.nc", 7),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 26);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 7);
     __right_value0 = (void*)0;
     __dec_obj1=self->mExpressionNode,
     self->mExpressionNode=(struct sNode*)come_increment_ref_count(sNode_clone(expression_node), "14if.nc", 9);
@@ -2980,7 +2982,7 @@ _Bool sIfNode_compile(struct sIfNode* self, struct sInfo*  info  )
         __dec_obj57=info->if_result_value_name,
         info->if_result_value_name=(char*)come_increment_ref_count(xsprintf("_if_result_value\%s",((char* )(__right_value0=int_to_string(n)))), "14if.nc", 53);
         __dec_obj57 = come_decrement_ref_count(__dec_obj57, (void*)0, (void*)0, 0,0, (void*)0, "14if.nc", 53);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "14if.nc", 60));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "14if.nc", 53));
         info->if_result_value_name_defined=(_Bool)0;
         __dec_obj58=info->if_result_type,
         info->if_result_type=((void*)0);
@@ -3043,8 +3045,8 @@ _Bool sIfNode_compile(struct sIfNode* self, struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         add_come_code(info,((char*)(__right_value1=xsprintf("\%s;})",((char* )(__right_value0=string_to_string(info->if_result_value_name)))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "14if.nc", 140));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "14if.nc", 140));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "14if.nc", 122));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "14if.nc", 122));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "14if.nc", 124, "struct CVALUE* "), "14if.nc", 124)), "14if.nc", 124);
@@ -5427,7 +5429,7 @@ struct sMatchNode* sMatchNode_initialize(struct sMatchNode* self, struct sNode* 
     struct sNode* __dec_obj68;
     struct sMatchNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sMatchNode*)come_increment_ref_count(self, "14if.nc", 148),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 154);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 148);
     __right_value0 = (void*)0;
     __dec_obj67=self->it_node,
     self->it_node=(struct sNode*)come_increment_ref_count(sNode_clone(it_node), "14if.nc", 150);
@@ -5527,7 +5529,7 @@ struct sIfMethodNode* sIfMethodNode_initialize(struct sIfMethodNode* self, struc
     struct sNode* __dec_obj70;
     struct sIfMethodNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sIfMethodNode*)come_increment_ref_count(self, "14if.nc", 188),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 194);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 188);
     __right_value0 = (void*)0;
     __dec_obj69=self->it_node,
     self->it_node=(struct sNode*)come_increment_ref_count(sNode_clone(it_node), "14if.nc", 190);
@@ -5627,7 +5629,7 @@ struct sOrStatmentNode* sOrStatmentNode_initialize(struct sOrStatmentNode* self,
     struct sBlock*  __dec_obj72  ;
     struct sOrStatmentNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sOrStatmentNode*)come_increment_ref_count(self, "14if.nc", 228),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 234);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 228);
     __right_value0 = (void*)0;
     __dec_obj71=self->mExpressionNode,
     self->mExpressionNode=(struct sNode*)come_increment_ref_count(sNode_clone(expression_node), "14if.nc", 230);
@@ -5714,7 +5716,7 @@ struct sAndStatmentNode* sAndStatmentNode_initialize(struct sAndStatmentNode* se
     struct sBlock*  __dec_obj74  ;
     struct sAndStatmentNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sAndStatmentNode*)come_increment_ref_count(self, "14if.nc", 274),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 280);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 274);
     __right_value0 = (void*)0;
     __dec_obj73=self->mExpressionNode,
     self->mExpressionNode=(struct sNode*)come_increment_ref_count(sNode_clone(expression_node), "14if.nc", 276);
@@ -5917,7 +5919,7 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
         _inf_value1->kind=(void*)sIfNode_kind;
         _inf_value1->left_value=(void*)sNodeBase_left_value;
         result=(struct sNode*)come_increment_ref_count(_inf_value1, "14if.nc", 411);
-        come_call_finalizer(sIfNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 417);
+        come_call_finalizer(sIfNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 411);
         info->sline_real=sline_real;
                 __result_obj__0 = (struct sNode*)come_increment_ref_count(result, "14if.nc", 414);
         (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 414));
@@ -6706,7 +6708,7 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
     _inf_value8->kind=(void*)sIfNode_kind;
     _inf_value8->left_value=(void*)sNodeBase_left_value;
     if_node=(struct sNode*)come_increment_ref_count(_inf_value8, "14if.nc", 633);
-    come_call_finalizer(sIfNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 639);
+    come_call_finalizer(sIfNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 633);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     _inf_value9=(struct sNode*)come_calloc(1, sizeof(struct sNode), "14if.nc", 634, "struct sNode");
@@ -6723,7 +6725,7 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
     _inf_value9->left_value=(void*)sNodeBase_left_value;
     __right_value2 = (void*)0;
     result=(struct sNode*)come_increment_ref_count(_inf_value9, "14if.nc", 634);
-    come_call_finalizer(sIfMethodNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 639);
+    come_call_finalizer(sIfMethodNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 634);
         __result_obj__0 = (struct sNode*)come_increment_ref_count(result, "14if.nc", 636);
     ((expression_node) ? expression_node = come_decrement_ref_count(expression_node, ((struct sNode*)expression_node)->finalize, ((struct sNode*)expression_node)->_protocol_obj, 0, 0,(void*)0, "14if.nc", 636):(void*)0);
     (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 636));
@@ -6909,7 +6911,7 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
     _inf_value10->kind=(void*)sIfNode_kind;
     _inf_value10->left_value=(void*)sNodeBase_left_value;
     if_node=(struct sNode*)come_increment_ref_count(_inf_value10, "14if.nc", 724);
-    come_call_finalizer(sIfNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 730);
+    come_call_finalizer(sIfNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 724);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     _inf_value11=(struct sNode*)come_calloc(1, sizeof(struct sNode), "14if.nc", 725, "struct sNode");
@@ -6926,7 +6928,7 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
     _inf_value11->left_value=(void*)sNodeBase_left_value;
     __right_value2 = (void*)0;
     result=(struct sNode*)come_increment_ref_count(_inf_value11, "14if.nc", 725);
-    come_call_finalizer(sIfMethodNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 730);
+    come_call_finalizer(sIfMethodNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 725);
         __result_obj__0 = (struct sNode*)come_increment_ref_count(result, "14if.nc", 727);
     ((expression_node) ? expression_node = come_decrement_ref_count(expression_node, ((struct sNode*)expression_node)->finalize, ((struct sNode*)expression_node)->_protocol_obj, 0, 0,(void*)0, "14if.nc", 727):(void*)0);
     (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 727));
@@ -7070,7 +7072,7 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
     _inf_value12->left_value=(void*)sNodeBase_left_value;
     __right_value2 = (void*)0;
     if_node=(struct sNode*)come_increment_ref_count(_inf_value12, "14if.nc", 815);
-    come_call_finalizer(sIfNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 820);
+    come_call_finalizer(sIfNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 815);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     _inf_value13=(struct sNode*)come_calloc(1, sizeof(struct sNode), "14if.nc", 816, "struct sNode");
@@ -7087,7 +7089,7 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
     _inf_value13->left_value=(void*)sNodeBase_left_value;
     __right_value2 = (void*)0;
     result=(struct sNode*)come_increment_ref_count(_inf_value13, "14if.nc", 816);
-    come_call_finalizer(sIfMethodNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 820);
+    come_call_finalizer(sIfMethodNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "14if.nc}", 816);
         __result_obj__0 = (struct sNode*)come_increment_ref_count(result, "14if.nc", 818);
     ((expression_node) ? expression_node = come_decrement_ref_count(expression_node, ((struct sNode*)expression_node)->finalize, ((struct sNode*)expression_node)->_protocol_obj, 0, 0,(void*)0, "14if.nc", 818):(void*)0);
     (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 818));

@@ -3422,8 +3422,8 @@ void ViWin_runCommand(struct ViWin*  self  )
     struct __current_stack1__ __current_stack1__;
     memset(&__current_stack1__, 0, sizeof(struct __current_stack1__));
     command_line=(char* )come_increment_ref_count(wstring_to_string(((int* )(__right_value1=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring(""))))))), "20shell_mode.nc", 29);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 48));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 48));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 29));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 29));
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     output=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "20shell_mode.nc", 31, "struct buffer* "), "20shell_mode.nc", 31)), "20shell_mode.nc", 31);
@@ -3443,8 +3443,8 @@ void ViWin_runCommand(struct ViWin*  self  )
     __current_stack1__.buf = &buf;
     __current_stack1__.fp = &fp;
     })    ,    list$1char$ph_each(((struct list$1char$ph*)(__right_value1=string_split(((char* )(__right_value0=buffer_to_string(output))),"\n",(_Bool)0))),&__current_stack1__,(void*)method_block1_20shellmodenc);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 48));
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "20shell_mode.nc}", 48);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 42));
+    come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "20shell_mode.nc}", 42);
     (command_line = come_decrement_ref_count(command_line, (void*)0, (void*)0, 0, 0, (void*)0, "20shell_mode.nc", 48));
     come_call_finalizer(buffer_finalize, output, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20shell_mode.nc}", 48);
     neo_current_frame = fr.prev;
@@ -3582,7 +3582,7 @@ void ViWin_inputShellMode(struct ViWin*  self  , struct Vi*  nvi  )
     }
     else if(key==9) {
         str=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)))),0,self->cursorX), "20shell_mode.nc", 66);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 172));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 66));
         all_space=(_Bool)1;
         for(i=0        ;i<wstring_length(str);i++){
             if(str[i]!=32&&str[i]!=9) {
@@ -3595,7 +3595,7 @@ void ViWin_inputShellMode(struct ViWin*  self  , struct Vi*  nvi  )
         }
         else {
             if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(xiswalpha(((int* )(__right_value0=wstring_substring(str,-1,-1)))[0])));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 80));
+({(_conditional_value_X0=(xiswalpha(((int* )(__right_value0=wstring_substring(str,-1,-1)))[0])));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 77));
 _conditional_value_X0;})) {
                 ViWin_completion_v13(self,nvi);
             }
@@ -3622,49 +3622,49 @@ _conditional_value_X0;})) {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "20shell_mode.nc", 103));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 172));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 103));
     }
     else if(key==123) {
         ViWin_blinkBraceFoward(self,123,125,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "20shell_mode.nc", 107));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 172));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 107));
     }
     else if(key==91) {
         ViWin_blinkBraceFoward(self,60,62,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "20shell_mode.nc", 111));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 172));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 111));
     }
     else if(key==41) {
         ViWin_blinkBraceEnd(self,40,41,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "20shell_mode.nc", 115));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 172));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 115));
     }
     else if(key==125) {
         ViWin_blinkBraceEnd(self,123,125,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "20shell_mode.nc", 119));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 172));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 119));
     }
     else if(key==93) {
         ViWin_blinkBraceEnd(self,91,93,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "20shell_mode.nc", 123));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 172));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 123));
     }
     else if(key==62) {
         ViWin_blinkBraceEnd(self,60,62,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "20shell_mode.nc", 127));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 172));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 127));
     }
     else if(key==87-65+1) {
         cursor_x=self->cursorX;
@@ -3674,10 +3674,10 @@ _conditional_value_X0;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "20shell_mode.nc", 136);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 156));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 136));
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line,self->cursorX,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 156));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 137));
             __right_value0 = (void*)0;
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line, "20shell_mode.nc", 139, "int* "), "20shell_mode.nc", 139));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line));
@@ -3690,10 +3690,10 @@ _conditional_value_X0;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line_7=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "20shell_mode.nc", 146);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 156));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 146));
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line_7,0,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 156));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 148));
             __right_value0 = (void*)0;
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line_7, "20shell_mode.nc", 150, "int* "), "20shell_mode.nc", 150));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line_7));

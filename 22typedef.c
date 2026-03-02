@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2815,7 +2817,7 @@ struct sTypedefNode* sTypedefNode_initialize(struct sTypedefNode* self, char*  t
     struct list$1tuple2$2sType$phchar$ph$ph* __dec_obj42;
     struct sTypedefNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sTypedefNode*)come_increment_ref_count(self, "22typedef.nc", 23),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 31);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 23);
     __right_value0 = (void*)0;
     __dec_obj1=self->mTypeName,
     self->mTypeName=(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 25);
@@ -2925,8 +2927,8 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
                     map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(type_name_32), "22typedef.nc", 75),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_31,type_name_32,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 75),(_Bool)0);
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 80));
-                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 80));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 75));
+                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 75));
                 }
                 else {
                     __right_value0 = (void*)0;
@@ -2934,8 +2936,8 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
                     map$2char$phbuffer$ph_insert(info->typedef_definition,(char* )come_increment_ref_count(__builtin_string(type_name_32), "22typedef.nc", 78),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_31,type_name_32,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 78),(_Bool)0);
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 80));
-                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 80));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 78));
+                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 78));
                 }
             }
             come_call_finalizer(sType_finalize, type_31, (void*)0, (void*)0, 0, 0, 0, (void*)0, "22typedef.nc}", 82);
@@ -2963,8 +2965,8 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
                 map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 95),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_33,type_name,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 95),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 100));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 100));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 95));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 95));
             }
             else {
                 __right_value0 = (void*)0;
@@ -2972,8 +2974,8 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
                 map$2char$phbuffer$ph_insert(info->typedef_definition,(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 98),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_33,type_name,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 98),(_Bool)0);
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 100));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 100));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 98));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 98));
             }
         }
         come_call_finalizer(sType_finalize, type_33, (void*)0, (void*)0, 0, 0, 0, (void*)0, "22typedef.nc}", 103);
@@ -5490,7 +5492,7 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
         type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v1, "22typedef.nc", 114);
         type_name=(char* )come_increment_ref_count(multiple_assign_var2->v2, "22typedef.nc", 114);
         err=multiple_assign_var2->v3;
-        come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 175);
+        come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 114);
         if(!err) {
             printf("%s %d: parse_type failed\n",info->sname,info->sline);
             exit(2);
@@ -5539,7 +5541,7 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
             _inf_value1->kind=(void*)sTypedefNode_kind;
             _inf_value1->left_value=(void*)sNodeBase_left_value;
             node=(struct sNode*)come_increment_ref_count(_inf_value1, "22typedef.nc", 150);
-            come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 173);
+            come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 150);
             Value=node_compile(node,info);
             if(!Value) {
                                 __result_obj__0 = (struct sNode*)come_increment_ref_count(((void*)0), "22typedef.nc", 153);
@@ -5599,7 +5601,7 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
             _inf_value2->left_value=(void*)sNodeBase_left_value;
             __right_value2 = (void*)0;
             node_39=(struct sNode*)come_increment_ref_count(_inf_value2, "22typedef.nc", 165);
-            come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 173);
+            come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 165);
             Value_40=node_compile(node_39,info);
             if(!Value_40) {
                                 __result_obj__0 = (struct sNode*)come_increment_ref_count(((void*)0), "22typedef.nc", 168);
@@ -5799,7 +5801,7 @@ _Bool add_typedef(char*  type_name  , struct sType*  type  , struct sInfo*  info
     _inf_value3->kind=(void*)sTypedefNode_kind;
     _inf_value3->left_value=(void*)sNodeBase_left_value;
     node=(struct sNode*)come_increment_ref_count(_inf_value3, "22typedef.nc", 180);
-    come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 185);
+    come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 180);
         __result_obj__0 = node_compile(node,info);
     (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "22typedef.nc", 182));
     ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "22typedef.nc", 182):(void*)0);
@@ -5843,7 +5845,7 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
         type=(struct sType* )come_increment_ref_count(multiple_assign_var3->v1, "22typedef.nc", 190);
         type_name=(char* )come_increment_ref_count(multiple_assign_var3->v2, "22typedef.nc", 190);
         err=multiple_assign_var3->v3;
-        come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 251);
+        come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 190);
         if(!err) {
             printf("%s %d: parse_type failed\n",info->sname,info->sline);
             exit(2);
@@ -5892,7 +5894,7 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
             _inf_value4->kind=(void*)sTypedefNode_kind;
             _inf_value4->left_value=(void*)sNodeBase_left_value;
             node=(struct sNode*)come_increment_ref_count(_inf_value4, "22typedef.nc", 226);
-            come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 249);
+            come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 226);
             Value=node_compile(node,info);
             if(!Value) {
                                 __result_obj__0 = (struct sNode*)come_increment_ref_count(((void*)0), "22typedef.nc", 229);
@@ -5952,7 +5954,7 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
             _inf_value5->left_value=(void*)sNodeBase_left_value;
             __right_value2 = (void*)0;
             node_44=(struct sNode*)come_increment_ref_count(_inf_value5, "22typedef.nc", 241);
-            come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 249);
+            come_call_finalizer(sTypedefNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 241);
             Value_45=node_compile(node_44,info);
             if(!Value_45) {
                                 __result_obj__0 = (struct sNode*)come_increment_ref_count(((void*)0), "22typedef.nc", 244);

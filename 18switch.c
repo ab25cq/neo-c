@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2846,7 +2848,7 @@ struct sSwitchNode* sSwitchNode_initialize(struct sSwitchNode* self, struct sNod
     struct sBlock*  __dec_obj48  ;
     struct sSwitchNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sSwitchNode*)come_increment_ref_count(self, "18switch.nc", 7),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 13);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 7);
     __right_value0 = (void*)0;
     __dec_obj1=self->mExpressionNode,
     self->mExpressionNode=(struct sNode*)come_increment_ref_count(sNode_clone(expression_node), "18switch.nc", 9);
@@ -4885,7 +4887,7 @@ struct sCaseNode* sCaseNode_initialize(struct sCaseNode* self, struct sNode* nod
     struct sNode* __dec_obj50;
     struct sCaseNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sCaseNode*)come_increment_ref_count(self, "18switch.nc", 53),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 59);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 53);
     __right_value0 = (void*)0;
     __dec_obj49=self->mNode,
     self->mNode=(struct sNode*)come_increment_ref_count(sNode_clone(node), "18switch.nc", 55);
@@ -4993,7 +4995,7 @@ struct sDefaultNode* sDefaultNode_initialize(struct sDefaultNode* self, struct s
     void* __right_value0 = (void*)0;
     struct sDefaultNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sDefaultNode*)come_increment_ref_count(self, "18switch.nc", 106),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 109);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 106);
         __result_obj__0 = (struct sDefaultNode*)come_increment_ref_count(self, "18switch.nc", 109);
     come_call_finalizer(sDefaultNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "18switch.nc}", 109);
     neo_current_frame = fr.prev;
@@ -5047,7 +5049,7 @@ struct sLabelNode* sLabelNode_initialize(struct sLabelNode* self, char*  label  
     char*  __dec_obj52  ;
     struct sLabelNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sLabelNode*)come_increment_ref_count(self, "18switch.nc", 133),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 139);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 133);
     __dec_obj52=self->label,
     self->label=(char* )come_increment_ref_count(label, "18switch.nc", 135);
     __dec_obj52 = come_decrement_ref_count(__dec_obj52, (void*)0, (void*)0, 0,0, (void*)0, "18switch.nc", 135);
@@ -5087,15 +5089,15 @@ _Bool sLabelNode_compile(struct sLabelNode* self, struct sInfo*  info  )
     void* __right_value1 = (void*)0;
     if(self->semi_colon) {
         add_come_code(info,((char*)(__right_value1=xsprintf("\%s: ;\n",((char* )(__right_value0=string_to_string(self->label)))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 158));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 158));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 152));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 152));
     }
     else {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         add_come_code(info,((char*)(__right_value1=xsprintf("\%s:\n",((char* )(__right_value0=string_to_string(self->label)))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 158));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 158));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 155));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 155));
     }
     transpiler_clear_last_code(info);
         neo_current_frame = fr.prev;
@@ -5122,7 +5124,7 @@ struct sGotoNode* sGotoNode_initialize(struct sGotoNode* self, struct sNode* lab
     struct sNode* __dec_obj53;
     struct sGotoNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sGotoNode*)come_increment_ref_count(self, "18switch.nc", 168),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 173);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 168);
     __dec_obj53=self->label,
     self->label=(struct sNode*)come_increment_ref_count(label, "18switch.nc", 170);
     (__dec_obj53 ? __dec_obj53 = come_decrement_ref_count(__dec_obj53, ((struct sNode*)__dec_obj53)->finalize, ((struct sNode*)__dec_obj53)->_protocol_obj, 0,0, (void*)0, "18switch.nc", 170) :0);
@@ -5166,8 +5168,8 @@ _Bool sGotoNode_compile(struct sGotoNode* self, struct sInfo*  info  )
     label_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info), "18switch.nc", 186);
     __right_value0 = (void*)0;
     add_come_code(info,((char*)(__right_value1=xsprintf("goto \%s;\n",((char* )(__right_value0=string_to_string(label_value->c_value)))))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 194));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 194));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 188));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "18switch.nc", 188));
     transpiler_clear_last_code(info);
         __result_obj__0 = (_Bool)1;
     ((label) ? label = come_decrement_ref_count(label, ((struct sNode*)label)->finalize, ((struct sNode*)label)->_protocol_obj, 0, 0,(void*)0, "18switch.nc", 192):(void*)0);
@@ -5194,7 +5196,7 @@ struct sBreakNode* sBreakNode_initialize(struct sBreakNode* self, struct sInfo* 
     void* __right_value0 = (void*)0;
     struct sBreakNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sBreakNode*)come_increment_ref_count(self, "18switch.nc", 200),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 203);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 200);
         __result_obj__0 = (struct sBreakNode*)come_increment_ref_count(self, "18switch.nc", 203);
     come_call_finalizer(sBreakNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "18switch.nc}", 203);
     neo_current_frame = fr.prev;
@@ -5240,7 +5242,7 @@ struct sContinueNode* sContinueNode_initialize(struct sContinueNode* self, struc
     void* __right_value0 = (void*)0;
     struct sContinueNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sContinueNode*)come_increment_ref_count(self, "18switch.nc", 224),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 227);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "18switch.nc}", 224);
         __result_obj__0 = (struct sContinueNode*)come_increment_ref_count(self, "18switch.nc", 227);
     come_call_finalizer(sContinueNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "18switch.nc}", 227);
     neo_current_frame = fr.prev;

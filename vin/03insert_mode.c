@@ -3420,13 +3420,13 @@ void ViWin_insertText(struct ViWin*  self  , int*  text  )
     else {
         __right_value0 = (void*)0;
         old_line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "03insert_mode.nc", 34);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 42));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 34));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_line=(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(old_line,0,self->cursorX))),text,((int* )(__right_value1=wstring_substring(old_line,self->cursorX,-1))))))), "03insert_mode.nc", 36);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 42));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 42));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 42));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 36));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 36));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 36));
         list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line, "03insert_mode.nc", 38));
         list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line));
         self->cursorX+=wstring_length(text);
@@ -3702,7 +3702,7 @@ void ViWin_enterNewLine(struct ViWin*  self  )
     memset(&new_line1, 0, sizeof(new_line1));
     memset(&new_line2, 0, sizeof(new_line2));
     old_line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "03insert_mode.nc", 46);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 89));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 46));
     num_spaces=0;
     for(i=0    ;i<wstring_length(old_line);i++){
         if(old_line[i]==32) {
@@ -3722,19 +3722,19 @@ void ViWin_enterNewLine(struct ViWin*  self  )
         __dec_obj6=new_line2,
         new_line2=(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value1=xsprintf("%ls",((int* )(__right_value0=wstring_substring(old_line,self->cursorX,-1))))))), "03insert_mode.nc", 64);
         __dec_obj6 = come_decrement_ref_count(__dec_obj6, (void*)0, (void*)0, 0,0, (void*)0, "03insert_mode.nc", 64);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 79));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 79));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 64));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 64));
     }
     else {
         __right_value0 = (void*)0;
         head_new_line=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(num_spaces+1)), "03insert_mode.nc", 67, "int* "), "03insert_mode.nc", 67);
         __right_value0 = (void*)0;
         wcsncpy(head_new_line,((int* )(__right_value0=__builtin_wstring(""))),num_spaces+1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 79));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 69));
         for(i_6=0        ;i_6<num_spaces;i_6++){
             __right_value0 = (void*)0;
             wcsncat(head_new_line,((int* )(__right_value0=__builtin_wstring(" "))),num_spaces+1);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 75));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 72));
         }
         __right_value0 = (void*)0;
         __dec_obj7=new_line1,
@@ -3746,8 +3746,8 @@ void ViWin_enterNewLine(struct ViWin*  self  )
         __dec_obj8=new_line2,
         new_line2=(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value1=xsprintf("%ls%ls",head_new_line,((int* )(__right_value0=wstring_substring(old_line,self->cursorX,-1))))))), "03insert_mode.nc", 76);
         __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0, "03insert_mode.nc", 76);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 79));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 79));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 76));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 76));
         (head_new_line = come_decrement_ref_count(head_new_line, (void*)0, (void*)0, 0, 0, (void*)0, "03insert_mode.nc", 79));
     }
     list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line1, "03insert_mode.nc", 79));
@@ -3953,14 +3953,14 @@ void ViWin_enterNewLine2(struct ViWin*  self  )
     new_line=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(num_spaces+1)), "03insert_mode.nc", 103, "int* "), "03insert_mode.nc", 103);
     __right_value0 = (void*)0;
     wcsncpy(new_line,((int* )(__right_value0=__builtin_wstring(""))),num_spaces+1);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 123));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 105));
     if(self->pasteMode) {
     }
     else {
         for(i_13=0        ;i_13<num_spaces;i_13++){
             __right_value0 = (void*)0;
             wcsncat(new_line,((int* )(__right_value0=__builtin_wstring(" "))),num_spaces+1);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 113));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 111));
         }
     }
     list$1int$ph_insert(self->texts,self->scroll+self->cursorY+1,(int* )come_increment_ref_count(new_line, "03insert_mode.nc", 115));
@@ -3980,11 +3980,11 @@ void ViWin_backSpace(struct ViWin*  self  )
     void* __right_value1 = (void*)0;
     int*  line  ;
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "03insert_mode.nc", 125);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 133));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 125));
     if(wstring_length(line)>0&&self->cursorX>0) {
         __right_value0 = (void*)0;
         ((int* )(__right_value0=wstring_delete(line,self->cursorX-1,self->cursorX)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 131));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 128));
         self->cursorX--;
     }
     (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "03insert_mode.nc", 133));
@@ -4001,15 +4001,15 @@ void ViWin_backIndent(struct ViWin*  self  )
     int i;
     ViWin_pushUndo_v5(self);
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "03insert_mode.nc", 137);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 153));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 137));
     if(wstring_length(line)>=4) {
         if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(wstring_index(line,((int* )(__right_value0=__builtin_wstring("    "))),-1)==0));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 150));
+({(_conditional_value_X0=(wstring_index(line,((int* )(__right_value0=__builtin_wstring("    "))),-1)==0));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 140));
 _conditional_value_X0;})) {
             for(i=0            ;i<4;i++){
                 __right_value0 = (void*)0;
                 ((int* )(__right_value0=wstring_delete(line,0,1)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 149));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 142));
                 self->cursorX--;
                 if(self->cursorX<0) {
                     self->cursorX=0;
@@ -4066,7 +4066,7 @@ void ViWin_inputInsertMode(struct ViWin*  self  , struct Vi*  nvi  )
     }
     else if(key==9) {
         str=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)))),0,self->cursorX), "03insert_mode.nc", 178);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 284));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 178));
         all_space=(_Bool)1;
         for(i=0        ;i<wstring_length(str);i++){
             if(str[i]!=32&&str[i]!=9) {
@@ -4079,7 +4079,7 @@ void ViWin_inputInsertMode(struct ViWin*  self  , struct Vi*  nvi  )
         }
         else {
             if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(xiswalpha(((int* )(__right_value0=wstring_substring(str,-1,-1)))[0])));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 192));
+({(_conditional_value_X0=(xiswalpha(((int* )(__right_value0=wstring_substring(str,-1,-1)))[0])));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 189));
 _conditional_value_X0;})) {
                 ViWin_completion_v13(self,nvi);
             }
@@ -4106,49 +4106,49 @@ _conditional_value_X0;})) {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "03insert_mode.nc", 215));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 284));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 215));
     }
     else if(key==123) {
         ViWin_blinkBraceFoward(self,123,125,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "03insert_mode.nc", 219));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 284));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 219));
     }
     else if(key==91) {
         ViWin_blinkBraceFoward(self,60,62,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "03insert_mode.nc", 223));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 284));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 223));
     }
     else if(key==41) {
         ViWin_blinkBraceEnd(self,40,41,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "03insert_mode.nc", 227));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 284));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 227));
     }
     else if(key==125) {
         ViWin_blinkBraceEnd(self,123,125,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "03insert_mode.nc", 231));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 284));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 231));
     }
     else if(key==93) {
         ViWin_blinkBraceEnd(self,91,93,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "03insert_mode.nc", 235));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 284));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 235));
     }
     else if(key==62) {
         ViWin_blinkBraceEnd(self,60,62,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "03insert_mode.nc", 239));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 284));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 239));
     }
     else if(key==87-65+1) {
         cursor_x=self->cursorX;
@@ -4158,10 +4158,10 @@ _conditional_value_X0;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "03insert_mode.nc", 248);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 268));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 248));
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line,self->cursorX,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 268));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 249));
             __right_value0 = (void*)0;
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line, "03insert_mode.nc", 251, "int* "), "03insert_mode.nc", 251));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line));
@@ -4174,10 +4174,10 @@ _conditional_value_X0;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line_15=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "03insert_mode.nc", 258);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 268));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 258));
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line_15,0,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 268));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03insert_mode.nc", 260));
             __right_value0 = (void*)0;
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line_15, "03insert_mode.nc", 262, "int* "), "03insert_mode.nc", 262));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line_15));

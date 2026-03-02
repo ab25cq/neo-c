@@ -3739,7 +3739,7 @@ void ViWin_toggleBraceBack(struct ViWin*  self  , int  head  , int  tail  )
         cursor_y--;
         it2=0;
         for(__right_value0 = (void*)0,
-({(_conditional_value_X0=(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY)))), "11move.nc", 112),it=list$1int$ph_begin(_o2_saved_2)));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11move.nc}", 144);
+({(_conditional_value_X0=(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY)))), "11move.nc", 112),it=list$1int$ph_begin(_o2_saved_2)));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11move.nc}", 112);
 _conditional_value_X0;})        ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_2)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_2)));_conditional_value_X2;})){
             p_5=it+wstring_length(it);
             while(p_5>=it) {
@@ -3827,10 +3827,10 @@ void ViWin_toggleCommentForward(struct ViWin*  self  )
     for(({(_conditional_value_X0=(_o2_saved_3=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,head,tail), "11move.nc", 155),it=list$1int$ph_begin(_o2_saved_3)));_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_3)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_3)));_conditional_value_X2;})){
         __right_value0 = (void*)0;
         index=string_index(((char* )(__right_value0=wstring_to_string(it))),"*/",-1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 180));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 156));
         __right_value0 = (void*)0;
         index2=string_index(((char* )(__right_value0=wstring_to_string(it))),"/*",-1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 180));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 158));
         if(index2!=-1) {
             nest++;
         }
@@ -3872,14 +3872,14 @@ void ViWin_toggleCommentBackward(struct ViWin*  self  )
     tail=self->scroll+self->cursorY+1;
     nest=0;
     it2=0;
-    for(({(_conditional_value_X0=(_o2_saved_4=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,head,tail)))), "11move.nc", 190),it=list$1int$ph_begin(_o2_saved_4)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11move.nc}", 215);
+    for(({(_conditional_value_X0=(_o2_saved_4=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,head,tail)))), "11move.nc", 190),it=list$1int$ph_begin(_o2_saved_4)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11move.nc}", 190);
 _conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_4)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_4)));_conditional_value_X2;})){
         __right_value0 = (void*)0;
         index=string_index(((char* )(__right_value0=wstring_to_string(it))),"/*",-1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 191));
         __right_value0 = (void*)0;
         index2=string_index(((char* )(__right_value0=wstring_to_string(it))),"*/",-1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 193));
         if(index2!=-1) {
             nest++;
         }
@@ -3977,10 +3977,10 @@ void ViWin_gotoFunctionTop(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool _conditional_value_X2;
     _Bool _conditional_value_X3;
     it2=0;
-    for(({(_conditional_value_X0=(_o2_saved_5=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY)))), "11move.nc", 286),it=list$1int$ph_begin(_o2_saved_5)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11move.nc}", 301);
+    for(({(_conditional_value_X0=(_o2_saved_5=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY)))), "11move.nc", 286),it=list$1int$ph_begin(_o2_saved_5)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11move.nc}", 286);
 _conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_5)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_5)));_conditional_value_X2;})){
         if(__right_value0 = (void*)0,
-({(_conditional_value_X3=(string_match(((char* )(__right_value0=wstring_to_string(it))),"^{",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 299));
+({(_conditional_value_X3=(string_match(((char* )(__right_value0=wstring_to_string(it))),"^{",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 287));
 _conditional_value_X3;})) {
             ViWin_saveReturnPoint(self);
             self->cursorX=0;
@@ -4010,7 +4010,7 @@ void ViWin_gotoMethodTop(struct ViWin*  self  , struct Vi*  nvi  )
     void* __right_value3 = (void*)0;
     _Bool _conditional_value_X3;
     it2=0;
-    for(({(_conditional_value_X0=(_o2_saved_6=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY)))), "11move.nc", 306),it=list$1int$ph_begin(_o2_saved_6)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11move.nc}", 329);
+    for(({(_conditional_value_X0=(_o2_saved_6=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY)))), "11move.nc", 306),it=list$1int$ph_begin(_o2_saved_6)));    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11move.nc}", 306);
 _conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_6)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_6)));_conditional_value_X2;})){
         const char* reg="^ +{";
         const char* reg2="^ +[a-zA-Z].*{$";
@@ -4018,10 +4018,10 @@ _conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_sav
         const char* reg4="^[a-zA-Z].*{$";
         if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X3=(reg&&reg2&&reg3&&reg4&&((string_match(((char* )(__right_value0=wstring_to_string(it))),reg,(_Bool)0))||(string_match(((char* )(__right_value1=wstring_to_string(it))),reg2,(_Bool)0))||(string_match(((char* )(__right_value2=wstring_to_string(it))),reg3,(_Bool)0))||(string_match(((char* )(__right_value3=wstring_to_string(it))),reg4,(_Bool)0)))));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 327));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 327));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 327));
-        (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 327));
+({(_conditional_value_X3=(reg&&reg2&&reg3&&reg4&&((string_match(((char* )(__right_value0=wstring_to_string(it))),reg,(_Bool)0))||(string_match(((char* )(__right_value1=wstring_to_string(it))),reg2,(_Bool)0))||(string_match(((char* )(__right_value2=wstring_to_string(it))),reg3,(_Bool)0))||(string_match(((char* )(__right_value3=wstring_to_string(it))),reg4,(_Bool)0)))));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 313));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 314));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 315));
+        (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 316));
 _conditional_value_X3;})) {
             ViWin_saveReturnPoint(self);
             self->cursorX=0;
@@ -4052,7 +4052,7 @@ void ViWin_gotoFunctionBottom(struct ViWin*  self  , struct Vi*  nvi  )
     it2=0;
     for(({(_conditional_value_X0=(_o2_saved_7=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,self->scroll+self->cursorY+1,-1), "11move.nc", 336),it=list$1int$ph_begin(_o2_saved_7)));_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_7)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_7)));_conditional_value_X2;})){
         if(__right_value0 = (void*)0,
-({(_conditional_value_X3=(string_match(((char* )(__right_value0=wstring_to_string(it))),"^}",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 347));
+({(_conditional_value_X3=(string_match(((char* )(__right_value0=wstring_to_string(it))),"^}",(_Bool)0)));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "11move.nc", 337));
 _conditional_value_X3;})) {
             ViWin_saveReturnPoint(self);
             self->cursorY+=it2+1;

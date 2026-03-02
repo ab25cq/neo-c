@@ -4560,7 +4560,7 @@ _Bool ViWin_saveDotToFile_v14(struct ViWin*  self  , struct Vi*  nvi  )
     path0=(char* )come_increment_ref_count(xsprintf("%s/.vin",home), "14dot.nc", 41);
     __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",path0))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "14dot.nc", 64));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "14dot.nc", 42));
     __right_value0 = (void*)0;
     path=(char* )come_increment_ref_count(xsprintf("%s/.vin/dot.txt",home), "14dot.nc", 44);
     f=fopen(path,"w");

@@ -3987,8 +3987,8 @@ void ViWin_indentVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
     for(({(_conditional_value_X0=(_o2_saved_4=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_sublist(self->texts,head,tail+1), "08visual.nc", 121),it=list$1int$ph_begin(_o2_saved_4)));_conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_4)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_4)));_conditional_value_X2;})){
         __right_value0 = (void*)0;
         new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=__builtin_wstring("    "))),it)))), "08visual.nc", 124);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 131));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 131));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 124));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 124));
         list$1int$ph_replace(self->texts,it2+head,(int* )come_increment_ref_count(new_line, "08visual.nc", 126));
         list$1int$_replace(self->texts_length,it2+head,wcslen(new_line));
         it2++;
@@ -4172,12 +4172,12 @@ void ViWin_backIndentVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         new_line=(int* )come_increment_ref_count((int* )come_memdup(it, "08visual.nc", 149, "int* "), "08visual.nc", 149);
         if(__right_value0 = (void*)0,
-({(_conditional_value_X3=(wstring_index(new_line,((int* )(__right_value0=__builtin_wstring("    "))),-1)==0));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 160));
+({(_conditional_value_X3=(wstring_index(new_line,((int* )(__right_value0=__builtin_wstring("    "))),-1)==0));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 151));
 _conditional_value_X3;})) {
             for(i=0            ;i<4;i++){
                 __right_value0 = (void*)0;
                 ((int* )(__right_value0=wstring_delete(new_line,0,1)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 156));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 153));
             }
             list$1int$ph_replace(self->texts,it2+head,(int* )come_increment_ref_count(new_line, "08visual.nc", 156));
             list$1int$_replace(self->texts_length,it2+head,wcslen(new_line));
@@ -4282,7 +4282,7 @@ void ViWin_joinVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         if(it2<tail+1-head-1) {
             __right_value0 = (void*)0;
             wcscat(new_line,((int* )(__right_value0=__builtin_wstring(" "))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 238));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 235));
         }
         it2++;
     }
@@ -4839,9 +4839,9 @@ void ViWin_equalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_line2=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls",((int* )(__right_value1=string_to_wstring(((char* )(__right_value0=buffer_to_string(head_str)))))),new_line)))), "08visual.nc", 321);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 329));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 329));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 329));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 320));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 321));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 321));
         list$1int$ph_replace(self->texts,it2+head,(int* )come_increment_ref_count(new_line2, "08visual.nc", 323));
         list$1int$_replace(self->texts_length,it2+head,wcslen(new_line2));
         it2++;
@@ -4901,12 +4901,12 @@ void ViWin_rewriteVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         for(i=0        ;i<len;i++){
             __right_value0 = (void*)0;
             buffer_append_str(buf,((char* )(__right_value0=xsprintf("%lc",c))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 371));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 368));
         }
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=buffer_to_string(buf)))), "08visual.nc", 371);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 378));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "08visual.nc", 371));
         list$1int$ph_replace(self->texts,it2+head,(int* )come_increment_ref_count(new_line, "08visual.nc", 373));
         list$1int$_replace(self->texts_length,it2+head,wcslen(new_line));
         it2++;

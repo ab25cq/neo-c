@@ -3744,7 +3744,7 @@ void ViWin_textsView(struct ViWin*  self  , struct Vi*  nvi  )
     maxx=getmaxx(self->win);
     if(list$1int$ph_length(self->texts)>0) {
         cursor_line=(int* )come_increment_ref_count(wstring_printable(((int* )(__right_value0=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0))))), "02base.nc", 19);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02base.nc", 143));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02base.nc", 19));
         cursor_height=(wcswidth(cursor_line,wstring_length(cursor_line))/(maxx-1));
         it2=0;
         for(__right_value0 = (void*)0,
@@ -3768,7 +3768,7 @@ void ViWin_textsView(struct ViWin*  self  , struct Vi*  nvi  )
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         c=(int* )come_increment_ref_count(wstring_printable(((int* )(__right_value0=wstring_substring(it,x,x+1)))), "02base.nc", 46);
-                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02base.nc", 70));
+                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02base.nc", 46));
                         if(x==self->cursorX) {
                             wmove(self->win,cursor_y,cursor_x);
                             wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
@@ -4417,7 +4417,7 @@ void ViWin_moveAtHead2(struct ViWin*  self  )
     int*  cursor_line  ;
     self->cursorX=0;
     cursor_line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "02base.nc", 386);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02base.nc", 393));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02base.nc", 386));
     while(cursor_line[self->cursorX]==L' '||cursor_line[self->cursorX]==L'\11') {
         self->cursorX++;
     }
@@ -4433,7 +4433,7 @@ void ViWin_moveAtTail(struct ViWin*  self  )
     int*  cursor_line  ;
     int line_max;
     cursor_line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "02base.nc", 395);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02base.nc", 405));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02base.nc", 395));
     line_max=wstring_length(cursor_line);
     self->cursorX=line_max-1;
     if(self->cursorX<0) {

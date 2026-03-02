@@ -3409,13 +3409,13 @@ void ViWin_insertText2(struct ViWin*  self  , int*  text  )
     else {
         __right_value0 = (void*)0;
         old_line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "19rewrite_mode.nc", 31);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 42));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 31));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(old_line,0,self->cursorX))),text,((int* )(__right_value1=wstring_substring(old_line,self->cursorX+wstring_length(text),-1))))))), "19rewrite_mode.nc", 36);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 42));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 42));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 42));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 35));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 36));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 36));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(new_line, "19rewrite_mode.nc", 38, "int* "), "19rewrite_mode.nc", 38));
         list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line));
@@ -3704,11 +3704,11 @@ void ViWin_inputRewritetMode(struct ViWin*  self  , struct Vi*  nvi  )
     }
     else if(key==9) {
         str=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)))),0,self->cursorX), "19rewrite_mode.nc", 61);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 157));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 61));
         Value="^$|^[ ]+$";
         if(Value) {
             if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(string_match(((char* )(__right_value0=wstring_to_string(str))),Value,(_Bool)0)));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 70));
+({(_conditional_value_X0=(string_match(((char* )(__right_value0=wstring_to_string(str))),Value,(_Bool)0)));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 64));
 _conditional_value_X0;})) {
                 __right_value0 = (void*)0;
                 ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring("    "), "19rewrite_mode.nc", 65));
@@ -3736,49 +3736,49 @@ _conditional_value_X0;})) {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "19rewrite_mode.nc", 90));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 157));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 90));
     }
     else if(key==123) {
         ViWin_blinkBraceFoward(self,123,125,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "19rewrite_mode.nc", 94));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 157));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 94));
     }
     else if(key==91) {
         ViWin_blinkBraceFoward(self,60,62,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "19rewrite_mode.nc", 98));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 157));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 98));
     }
     else if(key==41) {
         ViWin_blinkBraceEnd(self,40,41,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "19rewrite_mode.nc", 102));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 157));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 102));
     }
     else if(key==125) {
         ViWin_blinkBraceEnd(self,123,125,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "19rewrite_mode.nc", 106));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 157));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 106));
     }
     else if(key==93) {
         ViWin_blinkBraceEnd(self,91,93,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "19rewrite_mode.nc", 110));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 157));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 110));
     }
     else if(key==62) {
         ViWin_blinkBraceEnd(self,60,62,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "19rewrite_mode.nc", 114));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 157));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 114));
     }
     else if(key==87-65+1) {
         cursor_x=self->cursorX;
@@ -3788,10 +3788,10 @@ _conditional_value_X0;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "19rewrite_mode.nc", 123);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 143));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 123));
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line,self->cursorX,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 143));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 124));
             __right_value0 = (void*)0;
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line, "19rewrite_mode.nc", 126, "int* "), "19rewrite_mode.nc", 126));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line));
@@ -3804,10 +3804,10 @@ _conditional_value_X0;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line_6=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "19rewrite_mode.nc", 133);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 143));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 133));
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line_6,0,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 143));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 135));
             __right_value0 = (void*)0;
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line_6, "19rewrite_mode.nc", 137, "int* "), "19rewrite_mode.nc", 137));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line_6));
@@ -3829,7 +3829,7 @@ _conditional_value_X0;})) {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key)))), "19rewrite_mode.nc", 155));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 157));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 155));
     }
     neo_current_frame = fr.prev;
 }

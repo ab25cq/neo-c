@@ -3761,13 +3761,13 @@ void ViWin_horizonVisualModeView(struct ViWin*  self  , struct Vi*  nvi  )
                 wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
                 __right_value0 = (void*)0;
                 mvwprintw(self->win,it2,0,"%s",((char* )(__right_value0=wstring_to_string(line))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 125));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 118));
                 wattr_off(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
             }
             else {
                 __right_value0 = (void*)0;
                 mvwprintw(self->win,it2,0,"%s",((char* )(__right_value0=wstring_to_string(line))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 125));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 122));
             }
             it2++;
             (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "17hvisual.nc", 127));
@@ -3813,13 +3813,13 @@ void ViWin_horizonVisualModeView(struct ViWin*  self  , struct Vi*  nvi  )
                 wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
                 __right_value0 = (void*)0;
                 mvwprintw(self->win,it2_16,0,"%s",((char* )(__right_value0=wstring_to_string(line_18))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 182));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 175));
                 wattr_off(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
             }
             else {
                 __right_value0 = (void*)0;
                 mvwprintw(self->win,it2_16,0,"%s",((char* )(__right_value0=wstring_to_string(line_18))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 182));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 179));
             }
             it2_16++;
             (line_18 = come_decrement_ref_count(line_18, (void*)0, (void*)0, 0, 0, (void*)0, "17hvisual.nc", 184));
@@ -4055,7 +4055,7 @@ void ViWin_yankOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
     if(y<hv_y) {
         list$1int$ph_reset(nvi->yank);
         first_line=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,y,((void*)0)))),self->cursorX,-1), "17hvisual.nc", 213);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 262));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 213));
         __right_value0 = (void*)0;
         list$1int$ph_push_back(nvi->yank,(int* )come_increment_ref_count((int* )come_memdup(first_line, "17hvisual.nc", 215, "int* "), "17hvisual.nc", 215));
         for(__right_value0 = (void*)0,
@@ -4066,7 +4066,7 @@ void ViWin_yankOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         last_line=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,hv_y,((void*)0)))),0,self->visualModeHorizonHeadX+1), "17hvisual.nc", 220);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 262));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 220));
         __right_value0 = (void*)0;
         list$1int$ph_push_back(nvi->yank,(int* )come_increment_ref_count((int* )come_memdup(last_line, "17hvisual.nc", 222, "int* "), "17hvisual.nc", 222));
         nvi->yankKind=(1);
@@ -4083,7 +4083,7 @@ void ViWin_yankOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,y,((void*)0)))),head,tail+1), "17hvisual.nc", 234);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 244));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 234));
             __right_value0 = (void*)0;
             list$1int$ph_push_back(nvi->yank,(int* )come_increment_ref_count((int* )come_memdup(line, "17hvisual.nc", 236, "int* "), "17hvisual.nc", 236));
             (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "17hvisual.nc", 244));
@@ -4092,7 +4092,7 @@ void ViWin_yankOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line_26=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,y,((void*)0)))),tail,head+1), "17hvisual.nc", 239);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 244));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 239));
             __right_value0 = (void*)0;
             list$1int$ph_push_back(nvi->yank,(int* )come_increment_ref_count((int* )come_memdup(line_26, "17hvisual.nc", 241, "int* "), "17hvisual.nc", 241));
             (line_26 = come_decrement_ref_count(line_26, (void*)0, (void*)0, 0, 0, (void*)0, "17hvisual.nc", 244));
@@ -4105,7 +4105,7 @@ void ViWin_yankOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         first_line_27=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,hv_y,((void*)0)))),self->visualModeHorizonHeadX,-1), "17hvisual.nc", 249);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 262));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 249));
         __right_value0 = (void*)0;
         list$1int$ph_push_back(nvi->yank,(int* )come_increment_ref_count((int* )come_memdup(first_line_27, "17hvisual.nc", 251, "int* "), "17hvisual.nc", 251));
         for(__right_value0 = (void*)0,
@@ -4116,7 +4116,7 @@ void ViWin_yankOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         last_line_29=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,y,((void*)0)))),0,self->cursorX+1), "17hvisual.nc", 256);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 262));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 256));
         __right_value0 = (void*)0;
         list$1int$ph_push_back(nvi->yank,(int* )come_increment_ref_count((int* )come_memdup(last_line_29, "17hvisual.nc", 258, "int* "), "17hvisual.nc", 258));
         nvi->yankKind=(1);
@@ -4206,19 +4206,19 @@ void ViWin_deleteOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
     hv_y=self->visualModeHorizonHeadScroll+self->visualModeHorizonHeadY;
     if(y<hv_y) {
         ((int* )(__right_value1=wstring_delete(((int* )(__right_value0=list$1int$ph_item(self->texts,y,((void*)0)))),self->cursorX,-1)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 273));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 273));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ((int* )(__right_value1=wstring_delete(((int* )(__right_value0=list$1int$ph_item(self->texts,hv_y,((void*)0)))),0,self->visualModeHorizonHeadX+1)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 274));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 274));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls",((int* )(__right_value0=list$1int$ph_item(self->texts,y,((void*)0)))),((int* )(__right_value1=list$1int$ph_item(self->texts,hv_y,((void*)0)))))))), "17hvisual.nc", 275);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 275));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 275));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 275));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,y,(int* )come_increment_ref_count((int* )come_memdup(new_line, "17hvisual.nc", 276, "int* "), "17hvisual.nc", 276));
         list$1int$_replace(self->texts_length,y,wcslen(new_line));
@@ -4233,14 +4233,14 @@ void ViWin_deleteOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line=(int* )come_increment_ref_count(wstring_delete(((int* )(__right_value0=list$1int$ph_item(self->texts,y,((void*)0)))),head,tail+1), "17hvisual.nc", 288);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 294));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 288));
             (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "17hvisual.nc", 294));
         }
         else {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             line_46=(int* )come_increment_ref_count(wstring_delete(((int* )(__right_value0=list$1int$ph_item(self->texts,y,((void*)0)))),tail,head+1), "17hvisual.nc", 291);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 294));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 291));
             (line_46 = come_decrement_ref_count(line_46, (void*)0, (void*)0, 0, 0, (void*)0, "17hvisual.nc", 294));
         }
         self->cursorX=self->visualModeHorizonHeadX;
@@ -4252,21 +4252,21 @@ void ViWin_deleteOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ((int* )(__right_value1=wstring_delete(((int* )(__right_value0=list$1int$ph_item(self->texts,hv_y,((void*)0)))),self->visualModeHorizonHeadX,-1)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 300));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 300));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         ((int* )(__right_value1=wstring_delete(((int* )(__right_value0=list$1int$ph_item(self->texts,y,((void*)0)))),0,self->cursorX+1)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 301));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 301));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         new_line_47=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls",((int* )(__right_value0=list$1int$ph_item(self->texts,hv_y,((void*)0)))),((int* )(__right_value1=list$1int$ph_item(self->texts,y,((void*)0)))))))), "17hvisual.nc", 303);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 314));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 303));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 303));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 303));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,hv_y,(int* )come_increment_ref_count((int* )come_memdup(new_line_47, "17hvisual.nc", 304, "int* "), "17hvisual.nc", 304));
         list$1int$_replace(self->texts_length,hv_y,wcslen(new_line_47));
@@ -4786,7 +4786,7 @@ void ViWin_changeCaseHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         }
         __right_value0 = (void*)0;
         new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",head_first_line,tail_first_line)))), "17hvisual.nc", 350);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 430));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 350));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,y,(int* )come_increment_ref_count((int* )come_memdup(new_line, "17hvisual.nc", 352, "int* "), "17hvisual.nc", 352));
         list$1int$_replace(self->texts_length,y,wcslen(new_line));
@@ -4832,7 +4832,7 @@ void ViWin_changeCaseHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_last_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",head_last_line,tail_last_line)))), "17hvisual.nc", 393);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 430));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 393));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,hv_y,(int* )come_increment_ref_count((int* )come_memdup(new_last_line, "17hvisual.nc", 395, "int* "), "17hvisual.nc", 395));
         list$1int$_replace(self->texts_length,hv_y,wcslen(new_last_line));
@@ -4876,7 +4876,7 @@ void ViWin_changeCaseHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_line_62=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls%ls",head_line,middle_line,tail_line)))), "17hvisual.nc", 425);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 430));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 425));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,y,(int* )come_increment_ref_count((int* )come_memdup(new_line_62, "17hvisual.nc", 427, "int* "), "17hvisual.nc", 427));
         list$1int$_replace(self->texts_length,y,wcslen(new_line_62));
@@ -4940,12 +4940,12 @@ void ViWin_rewriteOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         head_first_line=(int* )come_increment_ref_count(wstring_substring(first_line,0,x), "17hvisual.nc", 453);
         __right_value0 = (void*)0;
         tail_first_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=string_multiply(((char* )(__right_value0=xsprintf("%lc",key))),wstring_length(first_line)-x)))), "17hvisual.nc", 454);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 499));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 499));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 454));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 454));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",head_first_line,tail_first_line)))), "17hvisual.nc", 456);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 499));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 456));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,y,(int* )come_increment_ref_count((int* )come_memdup(new_line, "17hvisual.nc", 458, "int* "), "17hvisual.nc", 458));
         list$1int$_replace(self->texts_length,y,wcslen(new_line));
@@ -4956,8 +4956,8 @@ void ViWin_rewriteOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             new_line_63=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=string_multiply(((char* )(__right_value0=xsprintf("%lc",key))),wstring_length(it))))), "17hvisual.nc", 463);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 469));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 469));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 463));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 463));
             __right_value0 = (void*)0;
             list$1int$ph_replace(self->texts,y+1+it2,(int* )come_increment_ref_count((int* )come_memdup(new_line_63, "17hvisual.nc", 465, "int* "), "17hvisual.nc", 465));
             list$1int$_replace(self->texts_length,y+1+it2,wcslen(new_line_63));
@@ -4970,14 +4970,14 @@ void ViWin_rewriteOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         head_last_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=string_multiply(((char* )(__right_value0=xsprintf("%lc",key))),hv_x+1)))), "17hvisual.nc", 471);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 499));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 499));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 471));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 471));
         __right_value0 = (void*)0;
         tail_last_line=(int* )come_increment_ref_count(wstring_substring(last_line,hv_x+1,-1), "17hvisual.nc", 472);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_last_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",head_last_line,tail_last_line)))), "17hvisual.nc", 474);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 499));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 474));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,hv_y,(int* )come_increment_ref_count((int* )come_memdup(new_last_line, "17hvisual.nc", 476, "int* "), "17hvisual.nc", 476));
         list$1int$_replace(self->texts_length,hv_y,wcslen(new_last_line));
@@ -5007,14 +5007,14 @@ void ViWin_rewriteOnHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         middle_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=string_multiply(((char* )(__right_value0=xsprintf("%lc",key))),tail-head)))), "17hvisual.nc", 492);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 499));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 499));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 492));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 492));
         __right_value0 = (void*)0;
         tail_line=(int* )come_increment_ref_count(wstring_substring(line,tail,-1), "17hvisual.nc", 493);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         new_line_64=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls%ls",head_line,middle_line,tail_line)))), "17hvisual.nc", 494);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 499));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "17hvisual.nc", 494));
         __right_value0 = (void*)0;
         list$1int$ph_replace(self->texts,y,(int* )come_increment_ref_count((int* )come_memdup(new_line_64, "17hvisual.nc", 496, "int* "), "17hvisual.nc", 496));
         list$1int$_replace(self->texts_length,y,wcslen(new_line_64));

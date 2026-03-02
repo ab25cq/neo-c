@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2791,7 +2793,7 @@ struct sInterfaceNode* sInterfaceNode_initialize(struct sInterfaceNode* self, ch
     struct sClass*  __dec_obj2  ;
     struct sInterfaceNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sInterfaceNode*)come_increment_ref_count(self, "28interface.nc", 7),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 15);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 7);
     __right_value0 = (void*)0;
     __dec_obj1=self->name,
     self->name=(char* )come_increment_ref_count(__builtin_string(name), "28interface.nc", 9);
@@ -2848,7 +2850,7 @@ _Bool sInterfaceNode_compile(struct sInterfaceNode* self, struct sInfo*  info  )
         buffer_append_str(buf,"    ");
         __right_value0 = (void*)0;
         buffer_append_str(buf,((char* )(__right_value0=make_define_var(type,name_2,info,(_Bool)0,(_Bool)0))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "28interface.nc", 38));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "28interface.nc", 34));
         buffer_append_str(buf,";\n");
         (name_2 = come_decrement_ref_count(name_2, (void*)0, (void*)0, 0, 0, (void*)0, "28interface.nc", 38));
         come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "28interface.nc}", 38);
@@ -3766,7 +3768,7 @@ struct tuple2$2sType$phchar$ph* parse_interface_function(struct sInfo*  info  )
     result_type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v1, "28interface.nc", 50);
     var_name=(char* )come_increment_ref_count(multiple_assign_var2->v2, "28interface.nc", 50);
     err=multiple_assign_var2->v3;
-    come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 73);
+    come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 50);
     if(!err) {
         printf("%s %d: parse_type failed\n",info->sname,info->sline);
         exit(2);
@@ -3779,7 +3781,7 @@ struct tuple2$2sType$phchar$ph* parse_interface_function(struct sInfo*  info  )
     param_names=(struct list$1char$ph*)come_increment_ref_count(multiple_assign_var3->v2, "28interface.nc", 58);
     param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(multiple_assign_var3->v3, "28interface.nc", 58);
     var_args=multiple_assign_var3->v4;
-    come_call_finalizer(tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 73);
+    come_call_finalizer(tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 58);
     __right_value0 = (void*)0;
     list$1sType$ph_insert(param_types,0,(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "28interface.nc", 60, "struct sType* "), "28interface.nc", 60),(char*)come_increment_ref_count(xsprintf("void*"), "28interface.nc", 60),(_Bool)0,info,(_Bool)0,0), "28interface.nc", 60));
     __right_value0 = (void*)0;
@@ -5077,7 +5079,7 @@ struct sNode* top_level_v92(char* buf, char* head, int head_sline, struct sInfo*
         output=(_Bool)1;
         type_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "28interface.nc", 80);
         if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,type_name)))));        come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 87);
+({(_conditional_value_X0=(((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,type_name)))));        come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 82);
 _conditional_value_X0;})) {
             err_msg(info,"multiple define interface");
                         __result_obj__0 = (struct sNode*)come_increment_ref_count(((void*)0), "28interface.nc", 84);
@@ -5109,7 +5111,7 @@ _conditional_value_X0;})) {
         finalizer->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count((__list_values1__[0]=(((struct sType* )(__right_value0=sType_clone(voidp)))),
 list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "28interface.nc", 99, "struct list$1sType$ph"), "28interface.nc", 99),1,__list_values1__)), "28interface.nc", 99);
         come_call_finalizer(list$1sType$ph_finalize, __dec_obj59,(void*)0, (void*)0, 0, 0, 0, (void*)0, "28interface.nc", 99);
-        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 146);
+        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 99);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -5139,7 +5141,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         cloner->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count((__list_values3__[0]=(((struct sType* )(__right_value0=sType_clone(voidp)))),
 list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "28interface.nc", 108, "struct list$1sType$ph"), "28interface.nc", 108),1,__list_values3__)), "28interface.nc", 108);
         come_call_finalizer(list$1sType$ph_finalize, __dec_obj62,(void*)0, (void*)0, 0, 0, 0, (void*)0, "28interface.nc", 108);
-        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 146);
+        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 108);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -5167,7 +5169,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             multiple_assign_var4=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_interface_function(info)));
             type2=(struct sType* )come_increment_ref_count(multiple_assign_var4->v1, "28interface.nc", 122);
             name=(char* )come_increment_ref_count(multiple_assign_var4->v2, "28interface.nc", 122);
-            come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 137);
+            come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 122);
             expected_next_character(59,info);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;

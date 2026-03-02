@@ -3406,7 +3406,7 @@ _Bool ViWin_saveYankToFile(struct ViWin*  self  , struct Vi*  nvi  )
     for(_o2_saved_1=(struct list$1int$ph*)come_increment_ref_count(nvi->yank, "07yank.nc", 17),it=list$1int$ph_begin(_o2_saved_1)    ;!list$1int$ph_end(_o2_saved_1);it=list$1int$ph_next(_o2_saved_1)){
         __right_value0 = (void*)0;
         fputs(((char* )(__right_value0=wstring_to_string(it))),f);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 22));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 18));
         fputs("\n",f);
     }
     fclose(f);
@@ -3645,7 +3645,7 @@ _Bool ViWin_saveFileYankToFile(struct ViWin*  self  , struct Vi*  nvi  )
     for(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(nvi->fileYank, "07yank.nc", 71),it=list$1int$ph_begin(_o2_saved_2)    ;!list$1int$ph_end(_o2_saved_2);it=list$1int$ph_next(_o2_saved_2)){
         __right_value0 = (void*)0;
         fputs(((char* )(__right_value0=wstring_to_string(it))),f);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 76));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 72));
         fputs("\n",f);
     }
     fclose(f);
@@ -3743,9 +3743,9 @@ void ViWin_pasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             yank_first_line=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,0,((void*)0)), "07yank.nc", 130);
             __right_value0 = (void*)0;
             new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line,((int* )(__right_value1=wstring_substring(line,self->cursorX+1,-1))))))), "07yank.nc", 135);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 186));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 186));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 186));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 134));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 135));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 135));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line, "07yank.nc", 137));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line));
             (yank_first_line = come_decrement_ref_count(yank_first_line, (void*)0, (void*)0, 0, 0, (void*)0, "07yank.nc", 186));
@@ -3758,8 +3758,8 @@ void ViWin_pasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             new_line_15=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line_14)))), "07yank.nc", 145);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 186));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 186));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 145));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 145));
             __right_value0 = (void*)0;
             after_line=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX+1,-1), "07yank.nc", 147);
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_15, "07yank.nc", 149));
@@ -3769,7 +3769,7 @@ void ViWin_pasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             new_line2=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line,after_line)))), "07yank.nc", 156);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 186));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 156));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+1,(int* )come_increment_ref_count(new_line2, "07yank.nc", 157));
             list$1int$_insert(self->texts_length,self->scroll+self->cursorY+1,wcslen(new_line2));
             (yank_first_line_14 = come_decrement_ref_count(yank_first_line_14, (void*)0, (void*)0, 0, 0, (void*)0, "07yank.nc", 186));
@@ -3785,8 +3785,8 @@ void ViWin_pasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             new_line_17=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line_16)))), "07yank.nc", 165);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 186));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 186));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 165));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 165));
             __right_value0 = (void*)0;
             after_line_18=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX+1,-1), "07yank.nc", 166);
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_17, "07yank.nc", 168));
@@ -3804,7 +3804,7 @@ void ViWin_pasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             new_line2_22=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line_21,after_line_18)))), "07yank.nc", 182);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 186));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 182));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+list$1int$ph_length(nvi->yank)-1,(int* )come_increment_ref_count(new_line2_22, "07yank.nc", 183));
             list$1int$_insert(self->texts_length,self->scroll+self->cursorY+list$1int$ph_length(nvi->yank)-1,wcslen(new_line2_22));
             (yank_first_line_16 = come_decrement_ref_count(yank_first_line_16, (void*)0, (void*)0, 0, 0, (void*)0, "07yank.nc", 186));
@@ -4292,9 +4292,9 @@ void ViWin_pasteBeforeCursor(struct ViWin*  self  , struct Vi*  nvi  )
             yank_first_line=(int* )come_increment_ref_count(list$1int$ph_item(nvi->yank,0,((void*)0)), "07yank.nc", 207);
             __right_value0 = (void*)0;
             new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),yank_first_line,((int* )(__right_value1=wstring_substring(line,self->cursorX,-1))))))), "07yank.nc", 212);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 262));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 262));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 262));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 211));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 212));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 212));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line, "07yank.nc", 214));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line));
             (yank_first_line = come_decrement_ref_count(yank_first_line, (void*)0, (void*)0, 0, 0, (void*)0, "07yank.nc", 262));
@@ -4307,8 +4307,8 @@ void ViWin_pasteBeforeCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             new_line_24=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),yank_first_line_23)))), "07yank.nc", 222);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 262));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 262));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 222));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 222));
             __right_value0 = (void*)0;
             after_line=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX,-1), "07yank.nc", 224);
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_24, "07yank.nc", 226));
@@ -4318,7 +4318,7 @@ void ViWin_pasteBeforeCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             new_line2=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line,after_line)))), "07yank.nc", 233);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 262));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 233));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+1,(int* )come_increment_ref_count(new_line2, "07yank.nc", 234));
             list$1int$_insert(self->texts_length,self->scroll+self->cursorY+1,wcslen(new_line2));
             (yank_first_line_23 = come_decrement_ref_count(yank_first_line_23, (void*)0, (void*)0, 0, 0, (void*)0, "07yank.nc", 262));
@@ -4334,8 +4334,8 @@ void ViWin_pasteBeforeCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             new_line_26=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),yank_first_line_25)))), "07yank.nc", 242);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 262));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 262));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 242));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 242));
             __right_value0 = (void*)0;
             after_line_27=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX,-1), "07yank.nc", 243);
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_26, "07yank.nc", 245));
@@ -4353,7 +4353,7 @@ void ViWin_pasteBeforeCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             new_line2_31=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line_30,after_line_27)))), "07yank.nc", 258);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 262));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 258));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+list$1int$ph_length(nvi->yank)-1,(int* )come_increment_ref_count(new_line2_31, "07yank.nc", 259));
             list$1int$_insert(self->texts_length,self->scroll+self->cursorY+list$1int$ph_length(nvi->yank)-1,wcslen(new_line2_31));
             (yank_first_line_25 = come_decrement_ref_count(yank_first_line_25, (void*)0, (void*)0, 0, 0, (void*)0, "07yank.nc", 262));
@@ -4417,9 +4417,9 @@ void ViWin_filePasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             yank_first_line=(int* )come_increment_ref_count(list$1int$ph_item(nvi->fileYank,0,((void*)0)), "07yank.nc", 284);
             __right_value0 = (void*)0;
             new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line,((int* )(__right_value1=wstring_substring(line,self->cursorX+1,-1))))))), "07yank.nc", 289);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 340));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 340));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 340));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 288));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 289));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 289));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line, "07yank.nc", 291));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line));
             (yank_first_line = come_decrement_ref_count(yank_first_line, (void*)0, (void*)0, 0, 0, (void*)0, "07yank.nc", 340));
@@ -4432,8 +4432,8 @@ void ViWin_filePasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             new_line_33=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line_32)))), "07yank.nc", 299);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 340));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 340));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 299));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 299));
             __right_value0 = (void*)0;
             after_line=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX+1,-1), "07yank.nc", 301);
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_33, "07yank.nc", 303));
@@ -4443,7 +4443,7 @@ void ViWin_filePasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             new_line2=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line,after_line)))), "07yank.nc", 310);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 340));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 310));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+1,(int* )come_increment_ref_count(new_line2, "07yank.nc", 311));
             list$1int$_insert(self->texts_length,self->scroll+self->cursorY+1,wcslen(new_line2));
             (yank_first_line_32 = come_decrement_ref_count(yank_first_line_32, (void*)0, (void*)0, 0, 0, (void*)0, "07yank.nc", 340));
@@ -4459,8 +4459,8 @@ void ViWin_filePasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             new_line_35=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=xsprintf("%ls%ls",((int* )(__right_value0=wstring_substring(line,0,self->cursorX+1))),yank_first_line_34)))), "07yank.nc", 319);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 340));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 340));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 319));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 319));
             __right_value0 = (void*)0;
             after_line_36=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX+1,-1), "07yank.nc", 320);
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_35, "07yank.nc", 322));
@@ -4478,7 +4478,7 @@ void ViWin_filePasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             new_line2_40=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",yank_last_line_39,after_line_36)))), "07yank.nc", 336);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 340));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 336));
             list$1int$ph_insert(self->texts,self->scroll+self->cursorY+list$1int$ph_length(nvi->yank)-1,(int* )come_increment_ref_count(new_line2_40, "07yank.nc", 337));
             list$1int$_insert(self->texts_length,self->scroll+self->cursorY+list$1int$ph_length(nvi->yank)-1,wcslen(new_line2_40));
             (yank_first_line_34 = come_decrement_ref_count(yank_first_line_34, (void*)0, (void*)0, 0, 0, (void*)0, "07yank.nc", 340));

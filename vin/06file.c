@@ -3673,7 +3673,7 @@ void ViWin_saveCursorPosition(struct ViWin*  self  , char* file_name)
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin",home), "06file.nc", 32);
     __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",file_name2))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 51));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 34));
     __right_value0 = (void*)0;
     bname=(char* )come_increment_ref_count(xbasename(file_name), "06file.nc", 36);
     __right_value0 = (void*)0;
@@ -4017,7 +4017,7 @@ void ViWin_makeTmpFile(struct ViWin*  self  )
     struct list$1int$ph* _o2_saved_1;
     int*  it  ;
     f=fopen(((char* )(__right_value0=string_operator_add(self->fileName,".tmp"))),"w");
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 244));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 233));
     if(f!=((void*)0)) {
         for(_o2_saved_1=(struct list$1int$ph*)come_increment_ref_count(self->texts, "06file.nc", 236),it=list$1int$ph_begin(_o2_saved_1)        ;!list$1int$ph_end(_o2_saved_1);it=list$1int$ph_next(_o2_saved_1)){
             fprintf(f,"%ls\n",it);
@@ -4089,7 +4089,7 @@ void ViWin_deleteTmpFile(struct ViWin*  self  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_deleteTmpFile"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     unlink(((char* )(__right_value0=string_operator_add(self->fileName,".tmp"))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 249));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 246));
     neo_current_frame = fr.prev;
 }
 
@@ -4120,14 +4120,14 @@ void ViWin_writeFile(struct ViWin*  self  , _Bool binary_mode)
     path=(char* )come_increment_ref_count(xsprintf("%s/.vin",home), "06file.nc", 258);
     __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",path))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 317));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 260));
     __right_value0 = (void*)0;
     __dec_obj10=path,
     path=(char* )come_increment_ref_count(xsprintf("%s/.vin/backup",home), "06file.nc", 262);
     __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0, "06file.nc", 262);
     __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",path))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 317));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 264));
     char cmd[8192];
     memset(&cmd, 0, sizeof(cmd));
     snprintf(cmd,8192,"cp %s %s/.vin/backup",self->fileName,home);
@@ -5008,7 +5008,7 @@ void Vi_saveLastOpenFile(struct Vi*  self  , char* file_name)
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin",home), "06file.nc", 458);
     __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",file_name2))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 475));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 460));
     __right_value0 = (void*)0;
     __dec_obj14=file_name2,
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin/last_open_file",home,file_name), "06file.nc", 462);

@@ -4290,7 +4290,7 @@ void ViWin_redo(struct ViWin*  self  )
     if(self->undoIndex<list$1list$1int$ph$ph_length(self->undo)-1) {
         self->undoIndex++;
         undo=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph$p_clone(((struct list$1int$ph*)(__right_value0=list$1list$1int$ph$ph_item(self->undo,self->undoIndex,((void*)0))))), "05undo.nc", 39);
-        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "05undo.nc}", 52);
+        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "05undo.nc}", 39);
         cursor_x=list$1int$_item(self->undoCursorX,self->undoIndex,-1);
         scroll=list$1int$_item(self->undoScroll,self->undoIndex,-1);
         cursor_y=list$1int$_item(self->undoCursorY,self->undoIndex,-1);
@@ -4396,7 +4396,7 @@ void ViWin_undo(struct ViWin*  self  )
     if(self->undoIndex>0) {
         self->undoIndex--;
         undo=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph$p_clone(((struct list$1int$ph*)(__right_value0=list$1list$1int$ph$ph_item(self->undo,self->undoIndex,((void*)0))))), "05undo.nc", 65);
-        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "05undo.nc}", 78);
+        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "05undo.nc}", 65);
         cursor_x=list$1int$_item(self->undoCursorX,self->undoIndex,-1);
         cursor_y=list$1int$_item(self->undoCursorY,self->undoIndex,-1);
         scroll=list$1int$_item(self->undoScroll,self->undoIndex,-1);

@@ -4387,7 +4387,7 @@ void vd(struct sInfo*  info  )
     read_history(history_fname);
     __right_value0 = (void*)0;
     line=readline(((char* )(__right_value0=charp_operator_add(getenv("PWD")," > "))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 134));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 95));
     if(line==((void*)0)) {
                 (history_fname = come_decrement_ref_count(history_fname, (void*)0, (void*)0, 0, 0, (void*)0, "main.nc", 98));
         neo_current_frame = fr.prev;
@@ -4421,7 +4421,7 @@ void vd(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         list$1char$ph_push_back(info->files,(char* )come_increment_ref_count(string_chomp(((char* )(__right_value0=__builtin_string(result)))), "main.nc", 125));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 127));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 125));
     }
     if(pclose(f)<0) {
                 (history_fname = come_decrement_ref_count(history_fname, (void*)0, (void*)0, 0, 0, (void*)0, "main.nc", 128));
@@ -4589,7 +4589,7 @@ void view(struct sInfo*  info  )
     __current_stack1__.head = &head;
     __current_stack1__.tail = &tail;
     })    ,    list$1char$ph_each(((struct list$1char$ph*)(__right_value0=list$1char$ph_sublist(info->files,head,tail))),&__current_stack1__,(void*)method_block1_mainnc);
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "main.nc}", 259);
+    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "main.nc}", 198);
     wattr_on(stdscr,(unsigned int )((((unsigned int )((1U))<<((10)+8)))),((void*)0));
     mvprintw(maxy,0,"%s page %d files %d head %d tail %d press ? for manual",info->path,info->page,list$1char$ph_length(info->files),head,tail);
     wattr_off(stdscr,(unsigned int )((((unsigned int )((1U))<<((10)+8)))),((void*)0));
@@ -4699,9 +4699,9 @@ void method_block1_mainnc(struct __current_stack1__* parent, char*  it  , int it
     int y;
     memset(&stat_, 0, sizeof(stat_));
     path=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value5=string_operator_add((*(parent->info))->path,((char* )(__right_value4=__builtin_string("/")))))),it), "main.nc", 200);
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 253));
-    (__right_value4 = come_decrement_ref_count(__right_value4, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 253));
-    (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 253));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 200));
+    (__right_value4 = come_decrement_ref_count(__right_value4, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 200));
+    (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 200));
     (void)stat(path,&stat_);
     is_dir=((((stat_.st_mode))&0170000)==(0040000));
     selected=list$1char$ph_contained((*(parent->info))->selected_files,it,(_Bool)0);
@@ -4715,24 +4715,24 @@ void method_block1_mainnc(struct __current_stack1__* parent, char*  it  , int it
             if(is_dir) {
                 __right_value0 = (void*)0;
                 mvprintw(y,x,"* %s/",((char* )(__right_value0=charp_substring(it,0,cols-3))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 221));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 216));
             }
             else {
                 __right_value0 = (void*)0;
                 mvprintw(y,x,"* %s",((char* )(__right_value0=charp_substring(it,0,cols-2))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 221));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 219));
             }
         }
         else {
             if(is_dir) {
                 __right_value0 = (void*)0;
                 mvprintw(y,x,"%s/",((char* )(__right_value0=charp_substring(it,0,cols-1))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 229));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 224));
             }
             else {
                 __right_value0 = (void*)0;
                 mvprintw(y,x,"%s",((char* )(__right_value0=charp_substring(it,0,cols))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 229));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 227));
             }
         }
         wattr_off(stdscr,(unsigned int )((((unsigned int )((1U))<<((10)+8)))),((void*)0));
@@ -4742,24 +4742,24 @@ void method_block1_mainnc(struct __current_stack1__* parent, char*  it  , int it
             if(is_dir) {
                 __right_value0 = (void*)0;
                 mvprintw(y,x,"* %s/",((char* )(__right_value0=charp_substring(it,0,cols-3))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 240));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 235));
             }
             else {
                 __right_value0 = (void*)0;
                 mvprintw(y,x,"* %s",((char* )(__right_value0=charp_substring(it,0,cols-2))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 240));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 238));
             }
         }
         else {
             if(is_dir) {
                 __right_value0 = (void*)0;
                 mvprintw(y,x,"%s/",((char* )(__right_value0=charp_substring(it,0,cols-1))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 248));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 243));
             }
             else {
                 __right_value0 = (void*)0;
                 mvprintw(y,x,"%s",((char* )(__right_value0=charp_substring(it,0,cols))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 248));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 246));
             }
         }
     }
@@ -4965,7 +4965,7 @@ void search_prev_file(struct sInfo*  info  )
         return;
     }
     n=info->cursor-1;
-    for(({(_conditional_value_X0=(_o2_saved_5=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_reverse(((struct list$1char$ph*)(__right_value0=list$1char$ph_sublist(info->files,0,n+1)))), "main.nc", 327),it=list$1char$ph_begin(_o2_saved_5)));    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "main.nc}", 334);
+    for(({(_conditional_value_X0=(_o2_saved_5=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_reverse(((struct list$1char$ph*)(__right_value0=list$1char$ph_sublist(info->files,0,n+1)))), "main.nc", 327),it=list$1char$ph_begin(_o2_saved_5)));    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "main.nc}", 327);
 _conditional_value_X0;})    ;({(_conditional_value_X1=(!list$1char$ph_end(_o2_saved_5)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1char$ph_next(_o2_saved_5)));_conditional_value_X2;})){
         if(strcasestr(it,info->searching_str)) {
             info->cursor=n;
@@ -5276,10 +5276,10 @@ void recursive_unlink(char*  path  )
         while(entry=readdir(dir)) {
             if(chara_operator_not_equals(entry->d_name,".")&&chara_operator_not_equals(entry->d_name,"..")) {
                 recursive_unlink((char* )come_increment_ref_count(string_operator_add(((char* )(__right_value6=string_operator_add(path,((char* )(__right_value5=__builtin_string("/")))))),((char* )(__right_value7=__builtin_string(entry->d_name)))), "main.nc", 401));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 403));
-                (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 403));
-                (__right_value6 = come_decrement_ref_count(__right_value6, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 403));
-                (__right_value7 = come_decrement_ref_count(__right_value7, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 403));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 401));
+                (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 401));
+                (__right_value6 = come_decrement_ref_count(__right_value6, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 401));
+                (__right_value7 = come_decrement_ref_count(__right_value7, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 401));
             }
         }
         closedir(dir);
@@ -5487,10 +5487,10 @@ void input(struct sInfo*  info  )
         case 10:
         {
             path=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value6=string_operator_add(info->path,((char* )(__right_value5=__builtin_string("/")))))),((char* )(__right_value7=cursor_file(info)))), "main.nc", 527);
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 554));
-            (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 554));
-            (__right_value6 = come_decrement_ref_count(__right_value6, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 554));
-            (__right_value7 = come_decrement_ref_count(__right_value7, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 554));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 527));
+            (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 527));
+            (__right_value6 = come_decrement_ref_count(__right_value6, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 527));
+            (__right_value7 = come_decrement_ref_count(__right_value7, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 527));
             (void)stat(path,&stat_);
             is_dir=((((stat_.st_mode))&0170000)==(0040000));
             if(is_dir) {
@@ -5502,15 +5502,15 @@ void input(struct sInfo*  info  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     system(((char* )(__right_value1=xsprintf("shsh -i ' \"%s\"' -n 0 -o",((char* )(__right_value0=selected_files(info)))))));
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 545));
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 545));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 540));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 540));
                 }
                 else {
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     system(((char* )(__right_value1=xsprintf("shsh -i ' \"%s\"' -n 0 -o",((char* )(__right_value0=cursor_file(info)))))));
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 545));
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 545));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 543));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 543));
                 }
                 read_dir(info);
                 puts("HIT ANY KEY");
@@ -5542,7 +5542,7 @@ void input(struct sInfo*  info  )
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             path_13=(char* )come_increment_ref_count(string_operator_add(info->path,((char* )(__right_value1=__builtin_string("/..")))), "main.nc", 567);
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 570));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 567));
             change_directory(info,path_13,current_directory_name);
             (current_directory_name = come_decrement_ref_count(current_directory_name, (void*)0, (void*)0, 0, 0, (void*)0, "main.nc", 570));
             (path_13 = come_decrement_ref_count(path_13, (void*)0, (void*)0, 0, 0, (void*)0, "main.nc", 570));
@@ -5583,15 +5583,15 @@ void input(struct sInfo*  info  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 system(((char* )(__right_value1=xsprintf("shsh -i 'cp -r \"%s\" ' -o",((char* )(__right_value0=selected_files(info)))))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 605));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 605));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 600));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 600));
             }
             else {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 system(((char* )(__right_value1=xsprintf("shsh -i 'cp -r \"%s\" ' -o",((char* )(__right_value0=cursor_file(info)))))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 605));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 605));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 603));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 603));
             }
             read_dir(info);
             puts("HIT ANY KEY");
@@ -5609,15 +5609,15 @@ void input(struct sInfo*  info  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 system(((char* )(__right_value1=xsprintf("shsh -i 'mv \"%s\" ' -o",((char* )(__right_value0=selected_files(info)))))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 623));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 623));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 618));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 618));
             }
             else {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 system(((char* )(__right_value1=xsprintf("shsh -i 'mv \"%s\" ' -o",((char* )(__right_value0=cursor_file(info)))))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 623));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 623));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 621));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 621));
             }
             read_dir(info);
             puts("HIT ANY KEY");
@@ -5645,15 +5645,15 @@ void input(struct sInfo*  info  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 system(((char* )(__right_value1=xsprintf("shsh -i ' \"%s\"' -n 0 -o",((char* )(__right_value0=selected_files(info)))))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 651));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 651));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 646));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 646));
             }
             else {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 system(((char* )(__right_value1=xsprintf("shsh -i ' ./\"%s\"' -n 0 -o",((char* )(__right_value0=cursor_file(info)))))));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 651));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 651));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 649));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 649));
             }
             read_dir(info);
             puts("HIT ANY KEY");
@@ -5670,8 +5670,8 @@ void input(struct sInfo*  info  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             system(((char* )(__right_value1=xsprintf("vin %s",((char* )(__right_value0=cursor_file(info)))))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 669));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 669));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 663));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 663));
             initscr();
             keypad(stdscr,(_Bool)1);
             raw();
@@ -6324,9 +6324,9 @@ void* come_null_checker(void* mem, const char* sname, int sline)
         return __result_obj__0;
     }
     puts(((char*)(__right_value2=xsprintf("null pointer exception \%s \%s",((char* )(__right_value0=charp_to_string(sname))),((char* )(__right_value1=int_to_string(sline)))))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 781));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 781));
-    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "main.nc", 781));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "/usr/local/include/neo-c.h", 695));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "/usr/local/include/neo-c.h", 695));
+    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "/usr/local/include/neo-c.h", 695));
     stackframe();
     exit(1);
     neo_current_frame = fr.prev;
@@ -11429,7 +11429,7 @@ char*  string_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
         __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=charp_sub_block(self,reg,global,ignore_case,parent,block))), "/usr/local/include/neo-c.h", 7693);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "/usr/local/include/neo-c.h", 7693));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "", 7693));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 7693));
     return __result_obj__0;

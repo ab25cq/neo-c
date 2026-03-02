@@ -469,6 +469,8 @@ struct sRightValueObject
     _weak sType*% mType;
     string mVarName;
     string mFunName;
+    char* mSName;
+    int mSLine;
     bool mFreed;
     int mID;
     int mBlockLevel;

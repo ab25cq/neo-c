@@ -396,6 +396,8 @@ void append_object_to_right_values(CVALUE* come_value, sType* type, sInfo* info,
     new_value.mID = info->right_value_num;
     new_value.mVarName = xsprintf("__right_value%d", info->right_value_num++);
     new_value.mFunName = info->come_fun->mName;
+    new_value.mSName = borrow info->sname;
+    new_value.mSLine = info->sline;
     new_value.mBlockLevel = info->block_level;
     new_value.mDecrementRefCount = decrement_ref_count;
     
@@ -947,8 +949,14 @@ void free_right_value_objects(sInfo* info)
                 if(info->generics_type) {
                     type = solve_generics(type2, info->generics_type, info);
                 }
-                
+
+                string sname_saved = string(info->sname);
+                int sline_saved = info->sline;
+                info->sname = string(it->mSName);
+                info->sline = it->mSLine;
                 free_object(type, it->mVarName, !it->mDecrementRefCount@no_decrement, false@no_free, info);
+                info->sname = sname_saved;
+                info->sline = sline_saved;
                 
                 it->mFreed = true;
                 free_right_value = true;

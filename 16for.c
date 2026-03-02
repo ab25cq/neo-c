@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2779,7 +2781,7 @@ struct sForNode* sForNode_initialize(struct sForNode* self, struct sNode* expres
     struct sBlock*  __dec_obj53  ;
     struct sForNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sForNode*)come_increment_ref_count(self, "16for.nc", 7),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "16for.nc}", 35);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "16for.nc}", 7);
     ((void*)0);
     if(expression_node) {
         __right_value0 = (void*)0;
@@ -5044,8 +5046,8 @@ struct sNode* string_node_v11(char* buf, char* head, int head_sline, struct sInf
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         o2_name=(char* )come_increment_ref_count(charp_operator_add(((char*)(__right_value2=xsprintf("_o2_saved_"))),((char* )(__right_value3=int_to_string(n)))), "16for.nc", 186);
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "16for.nc", 216));
-        (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0, "16for.nc", 216));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "16for.nc", 186));
+        (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0, "16for.nc", 186));
         __right_value0 = (void*)0;
         o2_saved=(struct sNode*)come_increment_ref_count(store_var((char* )come_increment_ref_count(o2_name, "16for.nc", 188),((void*)0),((void*)0),((void*)0),(_Bool)1,exp,info,(_Bool)0), "16for.nc", 188);
         __right_value0 = (void*)0;

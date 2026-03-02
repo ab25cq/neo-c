@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2921,7 +2923,7 @@ struct sPlusPlusNode* sPlusPlusNode_initialize(struct sPlusPlusNode* self, struc
     struct sNode* __dec_obj1;
     struct sPlusPlusNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sPlusPlusNode*)come_increment_ref_count(self, "26eq.nc", 7),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 13);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 7);
     __right_value0 = (void*)0;
     __dec_obj1=self->mLeft,
     self->mLeft=(struct sNode*)come_increment_ref_count(sNode_clone(left), "26eq.nc", 9);
@@ -4156,7 +4158,7 @@ struct sMinusMinusNode* sMinusMinusNode_initialize(struct sMinusMinusNode* self,
     struct sNode* __dec_obj41;
     struct sMinusMinusNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sMinusMinusNode*)come_increment_ref_count(self, "26eq.nc", 64),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 70);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 64);
     __right_value0 = (void*)0;
     __dec_obj41=self->mLeft,
     self->mLeft=(struct sNode*)come_increment_ref_count(sNode_clone(left), "26eq.nc", 66);
@@ -4265,7 +4267,7 @@ struct sPlusEqualNode* sPlusEqualNode_initialize(struct sPlusEqualNode* self, st
     struct sNode* __dec_obj45;
     struct sPlusEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sPlusEqualNode*)come_increment_ref_count(self, "26eq.nc", 121),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 128);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 121);
     __right_value0 = (void*)0;
     __dec_obj44=self->mLeft,
     self->mLeft=(struct sNode*)come_increment_ref_count(sNode_clone(left), "26eq.nc", 123);
@@ -4392,7 +4394,7 @@ struct sMinusEqualNode* sMinusEqualNode_initialize(struct sMinusEqualNode* self,
     struct sNode* __dec_obj49;
     struct sMinusEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sMinusEqualNode*)come_increment_ref_count(self, "26eq.nc", 182),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 190);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 182);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj48=self->mLeft,
@@ -4519,7 +4521,7 @@ struct sMultEqualNode* sMultEqualNode_initialize(struct sMultEqualNode* self, st
     struct sNode* __dec_obj53;
     struct sMultEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sMultEqualNode*)come_increment_ref_count(self, "26eq.nc", 244),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 252);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 244);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj52=self->mLeft,
@@ -4646,7 +4648,7 @@ struct sDivEqualNode* sDivEqualNode_initialize(struct sDivEqualNode* self, struc
     struct sNode* __dec_obj57;
     struct sDivEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sDivEqualNode*)come_increment_ref_count(self, "26eq.nc", 306),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 314);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 306);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj56=self->mLeft,
@@ -4773,7 +4775,7 @@ struct sModEqualNode* sModEqualNode_initialize(struct sModEqualNode* self, struc
     struct sNode* __dec_obj61;
     struct sModEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sModEqualNode*)come_increment_ref_count(self, "26eq.nc", 368),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 376);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 368);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj60=self->mLeft,
@@ -4900,7 +4902,7 @@ struct sLShifEqualNode* sLShifEqualNode_initialize(struct sLShifEqualNode* self,
     struct sNode* __dec_obj65;
     struct sLShifEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sLShifEqualNode*)come_increment_ref_count(self, "26eq.nc", 430),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 438);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 430);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj64=self->mLeft,
@@ -5027,7 +5029,7 @@ struct sRShiftEqualNode* sRShiftEqualNode_initialize(struct sRShiftEqualNode* se
     struct sNode* __dec_obj69;
     struct sRShiftEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sRShiftEqualNode*)come_increment_ref_count(self, "26eq.nc", 492),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 500);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 492);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj68=self->mLeft,
@@ -5154,7 +5156,7 @@ struct sXorEqualNode* sXorEqualNode_initialize(struct sXorEqualNode* self, struc
     struct sNode* __dec_obj73;
     struct sXorEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sXorEqualNode*)come_increment_ref_count(self, "26eq.nc", 554),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 562);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 554);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj72=self->mLeft,
@@ -5281,7 +5283,7 @@ struct sOrEqualNode* sOrEqualNode_initialize(struct sOrEqualNode* self, struct s
     struct sNode* __dec_obj77;
     struct sOrEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sOrEqualNode*)come_increment_ref_count(self, "26eq.nc", 616),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 624);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 616);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj76=self->mLeft,
@@ -5408,7 +5410,7 @@ struct sAndEqualNode* sAndEqualNode_initialize(struct sAndEqualNode* self, struc
     struct sNode* __dec_obj81;
     struct sAndEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sAndEqualNode*)come_increment_ref_count(self, "26eq.nc", 678),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 686);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 678);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj80=self->mLeft,
@@ -5535,7 +5537,7 @@ struct sExpEqualNode* sExpEqualNode_initialize(struct sExpEqualNode* self, struc
     struct sNode* __dec_obj85;
     struct sExpEqualNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sExpEqualNode*)come_increment_ref_count(self, "26eq.nc", 740),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 748);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "26eq.nc}", 740);
     self->mQuote=quote;
     __right_value0 = (void*)0;
     __dec_obj84=self->mLeft,

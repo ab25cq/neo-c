@@ -3556,12 +3556,12 @@ void ViWin_completion_v13(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         li=(struct list$1char$ph*)come_increment_ref_count(string_scan(((char* )(__right_value0=wstring_to_string(it))),"[a-zA-Z0-9_]+",(_Bool)0), "13completion.nc", 137);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 147));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 137));
         for(_o2_saved_2=(struct list$1char$ph*)come_increment_ref_count(li, "13completion.nc", 139),it2=list$1char$ph_begin(_o2_saved_2)        ;!list$1char$ph_end(_o2_saved_2);it2=list$1char$ph_next(_o2_saved_2)){
             if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X0=(string_index(it2,((char* )(__right_value0=wstring_to_string(word))),-1)==0&&strcmp(it2,((char* )(__right_value1=wstring_to_string(word))))!=0));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 144));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 144));
+({(_conditional_value_X0=(string_index(it2,((char* )(__right_value0=wstring_to_string(word))),-1)==0&&strcmp(it2,((char* )(__right_value1=wstring_to_string(word))))!=0));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 140));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 140));
 _conditional_value_X0;})) {
                 __right_value0 = (void*)0;
                 list$1int$ph_push_back(candidates,(int* )come_increment_ref_count(string_to_wstring(it2), "13completion.nc", 142));
@@ -3573,7 +3573,7 @@ _conditional_value_X0;})) {
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     candidates2=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_uniq(((struct list$1int$ph*)(__right_value0=list$1int$ph_sort(candidates))),(_Bool)0), "13completion.nc", 147);
-    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13completion.nc}", 156);
+    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13completion.nc}", 147);
     candidate=ViWin_selector2(self,candidates2);
     if(candidate) {
         __right_value0 = (void*)0;

@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2844,7 +2846,7 @@ struct sStaticAssert* sStaticAssert_initialize(struct sStaticAssert* self, struc
     struct sNode* __dec_obj2;
     struct sStaticAssert* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sStaticAssert*)come_increment_ref_count(self, "29module.nc", 6),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 12);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 6);
     __dec_obj1=self->exp,
     self->exp=(struct sNode*)come_increment_ref_count(exp, "29module.nc", 8);
     (__dec_obj1 ? __dec_obj1 = come_decrement_ref_count(__dec_obj1, ((struct sNode*)__dec_obj1)->finalize, ((struct sNode*)__dec_obj1)->_protocol_obj, 0,0, (void*)0, "29module.nc", 8) :0);
@@ -3167,7 +3169,7 @@ struct sUndefNode* sUndefNode_initialize(struct sUndefNode* self, char*  str  , 
     char*  __dec_obj5  ;
     struct sUndefNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sUndefNode*)come_increment_ref_count(self, "29module.nc", 49),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 54);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 49);
     __dec_obj5=self->str,
     self->str=(char* )come_increment_ref_count(str, "29module.nc", 51);
     __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0, "29module.nc", 51);
@@ -3752,7 +3754,7 @@ struct sNoneNode* sNoneNode_initialize(struct sNoneNode* self, struct sInfo*  in
     void* __right_value0 = (void*)0;
     struct sNoneNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNoneNode*)come_increment_ref_count(self, "29module.nc", 75),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 78);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 75);
         __result_obj__0 = (struct sNoneNode*)come_increment_ref_count(self, "29module.nc", 78);
     come_call_finalizer(sNoneNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "29module.nc}", 78);
     neo_current_frame = fr.prev;
@@ -3935,7 +3937,7 @@ int sizeof_struct(struct sType*  type  , struct sInfo*  info  )
         multiple_assign_var1=((struct tuple2$2char$phsType$ph*)(__right_value0=list$1tuple2$2char$phsType$ph$ph_operator_load_element(type->mClass->mFields,i)));
         name=(char* )come_increment_ref_count(multiple_assign_var1->v1, "29module.nc", 113);
         field_type=(struct sType* )come_increment_ref_count(multiple_assign_var1->v2, "29module.nc", 113);
-        come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 126);
+        come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 113);
         align=alignof_type(field_type,info);
         size=(sizeof_type)(field_type,info);
         offset=align_up(offset,align);
@@ -4076,7 +4078,7 @@ int sizeof_union(struct sType*  type  , struct sInfo*  info  )
         multiple_assign_var2=((struct tuple2$2char$phsType$ph*)(__right_value0=list$1tuple2$2char$phsType$ph$ph_operator_load_element(type->mClass->mFields,i)));
         name=(char* )come_increment_ref_count(multiple_assign_var2->v1, "29module.nc", 137);
         field_type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v2, "29module.nc", 137);
-        come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 150);
+        come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 137);
         size=(sizeof_type)(field_type,info);
         align=alignof_type(field_type,info);
         if(size>max_size) {
@@ -5110,7 +5112,7 @@ int alignof_type(struct sType*  type  , struct sInfo*  info  )
             multiple_assign_var3=((struct tuple2$2char$phsType$ph*)(__right_value0=list$1tuple2$2char$phsType$ph$ph_operator_load_element(type->mClass->mFields,i)));
             name=(char* )come_increment_ref_count(multiple_assign_var3->v1, "29module.nc", 209);
             field_type=(struct sType* )come_increment_ref_count(multiple_assign_var3->v2, "29module.nc", 209);
-            come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 216);
+            come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 209);
             a=alignof_type(field_type,info);
             if(a>max_align) {
                 max_align=a;
@@ -5273,7 +5275,7 @@ char*  reflection_node(struct sInfo*  info  )
     char*  exp_96  ;
     if(parsecmp("sizeof",info)) {
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 231));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5323,7 +5325,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("alignof",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 264));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5373,7 +5375,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("defined",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 297));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5438,7 +5440,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("macro_defined",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 340));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5475,7 +5477,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("macro_value",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 368));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5520,7 +5522,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("macro_call",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 402));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5578,7 +5580,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_static",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 443));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5622,7 +5624,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_heap",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 479));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5658,7 +5660,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_const",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 505));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5694,7 +5696,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_uniq",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 531));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5730,7 +5732,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_type",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 557));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5775,7 +5777,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("type",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 589));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5829,7 +5831,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("result_type",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 625));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5878,7 +5880,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("param_types",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 657));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5940,7 +5942,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("param_names",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 699));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -5998,7 +6000,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("num_param_types",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 738));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -6047,7 +6049,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("num_fields",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 770));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -6098,7 +6100,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("field_types",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 804));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -6128,7 +6130,7 @@ char*  reflection_node(struct sInfo*  info  )
                     multiple_assign_var4=((struct tuple2$2char$phsType$ph*)(__right_value0=list$1tuple2$2char$phsType$ph$ph_operator_load_element(Value_70->mFields,n)));
                     name=(char* )come_increment_ref_count(multiple_assign_var4->v1, "29module.nc", 835);
                     type_71=(struct sType* )come_increment_ref_count(multiple_assign_var4->v2, "29module.nc", 835);
-                    come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 840);
+                    come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "29module.nc}", 835);
                     if(type_71) {
                         __right_value0 = (void*)0;
                         __dec_obj55=result_69,
@@ -6170,7 +6172,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_inline",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 851));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -6217,7 +6219,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_struct",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 885));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -6264,7 +6266,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_union",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 919));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -6311,7 +6313,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_enum",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 953));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -6358,7 +6360,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_interface",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 987));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -6405,7 +6407,7 @@ char*  reflection_node(struct sInfo*  info  )
     else if(parsecmp("is_generics",info)) {
         __right_value0 = (void*)0;
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1215));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1021));
         skip_spaces_and_lf(info);
         if(*info->p==40) {
             info->p++;
@@ -8028,7 +8030,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         n++;
         __right_value0 = (void*)0;
         map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__c__\%s",((char* )(__right_value0=int_to_string(n)))), "29module.nc", 1484),(struct buffer* )come_increment_ref_count(charp_to_buffer(contents), "29module.nc", 1484),(_Bool)0);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1796));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1484));
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         _inf_value2=(struct sNode*)come_calloc(1, sizeof(struct sNode), "29module.nc", 1486, "struct sNode");
@@ -8071,7 +8073,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         map$2char$phbuffer$ph_insert(info->c_include_definition,(char*)come_increment_ref_count(xsprintf("c_include\%s",((char* )(__right_value0=int_to_string(n_115)))), "29module.nc", 1503),(struct buffer* )come_increment_ref_count(charp_to_buffer(contents_114), "29module.nc", 1503),(_Bool)0);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1796));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1503));
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         _inf_value3=(struct sNode*)come_calloc(1, sizeof(struct sNode), "29module.nc", 1505, "struct sNode");
@@ -8212,7 +8214,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char*)come_increment_ref_count(xsprintf("__macro_include__\%s",((char* )(__right_value0=int_to_string(macro_include_id)))), "29module.nc", 1578),(struct buffer* )come_increment_ref_count(charp_to_buffer(macro_defines), "29module.nc", 1578),(_Bool)0);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1580));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1578));
         }
         if(macro_defines) {
             free(macro_defines);
@@ -8297,7 +8299,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         else {
             __right_value0 = (void*)0;
             ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1632));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1629));
         }
         skip_spaces_and_lf(info);
         parse_sharp_v5(info);
@@ -8305,7 +8307,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             if(parsecmp("elif",info)) {
                 __right_value0 = (void*)0;
                 (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1664));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1637));
                 if(*info->p==40) {
                     info->p++;
                     skip_spaces_and_lf(info);
@@ -8324,7 +8326,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
                 else {
                     __right_value0 = (void*)0;
                     ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1660));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1657));
                     parse_sharp_v5(info);
                 }
                 (reflection_condtional_119 = come_decrement_ref_count(reflection_condtional_119, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1664));
@@ -8336,7 +8338,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         if(parsecmp("else",info)) {
             __right_value0 = (void*)0;
             (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1679));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1667));
             if(!match_) {
                 expected_next_character(123,info);
                 transpile_toplevel((_Bool)1,info);
@@ -8344,7 +8346,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             else {
                 __right_value0 = (void*)0;
                 ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1677));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1674));
                 parse_sharp_v5(info);
             }
         }
@@ -8533,9 +8535,9 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             __dec_obj71=def,
             def=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value5=string_operator_add(exp_131,((char*)(__right_value4=xsprintf(" ")))))),exp2_132), "29module.nc", 1765);
             __dec_obj71 = come_decrement_ref_count(__dec_obj71, (void*)0, (void*)0, 0,0, (void*)0, "29module.nc", 1765);
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1768));
-            (__right_value4 = come_decrement_ref_count(__right_value4, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1768));
-            (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1768));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1765));
+            (__right_value4 = come_decrement_ref_count(__right_value4, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1765));
+            (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1765));
         }
         if(def) {
             macro_define(def);

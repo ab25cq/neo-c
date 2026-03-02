@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -3011,7 +3013,7 @@ struct tuple2$2char$phsGenericsFun$p* make_generics_function(struct sType*  type
         multiple_assign_var1=((struct tuple2$2char$ph_Bool$*)(__right_value1=create_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name2), "24method.nc", 25),generics_fun,type2,info)));
         name=(char* )come_increment_ref_count(multiple_assign_var1->v1, "24method.nc", 25);
         err=multiple_assign_var1->v2;
-        come_call_finalizer(tuple2$2char$ph_Bool$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 35);
+        come_call_finalizer(tuple2$2char$ph_Bool$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 25);
         if(!err) {
             err_msg(info,"%s not found",fun_name3);
                         __right_value0 = (void*)0;
@@ -4275,7 +4277,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
     _inf_value2->kind=(void*)sCurrentNode_kind;
     _inf_value2->left_value=(void*)sNodeBase_left_value;
     current_stack_frame_node=(struct sNode*)come_increment_ref_count(_inf_value2, "24method.nc", 62);
-    come_call_finalizer(sCurrentNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 197);
+    come_call_finalizer(sCurrentNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 62);
     Value=node_compile(current_stack_frame_node,info);
     if(!Value) {
                 __result_obj__0 = (_Bool)0;
@@ -4292,13 +4294,13 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     method_block_type=(struct sType* )come_increment_ref_count(sType_clone(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(fun->mParamTypes,-1)))), "24method.nc", 72);
-    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 197);
+    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 72);
     __right_value0 = (void*)0;
     class_name=(char* )come_increment_ref_count(xsprintf("__current_stack%d__",info->current_stack_num), "24method.nc", 74);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     ((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(method_block_type->mParamTypes,0)))->mClass=((struct sClass* )(__right_value1=map$2char$phsClass$ph_operator_load_element(info->classes,class_name)));
-    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 197);
+    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 76);
     current_stack_frame_struct=info->current_stack_frame_struct;
     __right_value0 = (void*)0;
     info->current_stack_frame_struct=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,class_name)));
@@ -4339,8 +4341,8 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     buffer_append_format(method_block2,"%s method_block%d_%s(",((char* )(__right_value0=make_come_type_name_string(result_type2,info))),num_method_block,((char* )(__right_value1=buffer_to_string(all_alhabet_sname))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 197));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 197));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 108));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 108));
     i=0;
     for(_o2_saved_1=(struct list$1sType$ph*)come_increment_ref_count(param_types, "24method.nc", 111),it=list$1sType$ph_begin(_o2_saved_1)    ;!list$1sType$ph_end(_o2_saved_1);it=list$1sType$ph_next(_o2_saved_1)){
         param_type=(struct sType* )come_increment_ref_count(it, "24method.nc", 112);
@@ -4349,7 +4351,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
             param_name=(char* )come_increment_ref_count(xsprintf("parent"), "24method.nc", 115);
             __right_value0 = (void*)0;
             buffer_append_format(method_block2,"%s",((char* )(__right_value0=make_come_define_var(param_type,param_name,info))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 134));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 117));
             (param_name = come_decrement_ref_count(param_name, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 134));
         }
         else if(i==1) {
@@ -4359,7 +4361,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
             param_type2=(struct sType* )come_increment_ref_count(solve_generics(param_type,info->generics_type,info), "24method.nc", 122);
             __right_value0 = (void*)0;
             buffer_append_format(method_block2,"%s",((char* )(__right_value0=make_come_define_var(param_type,param_name_14,info))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 134));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 124));
             (param_name_14 = come_decrement_ref_count(param_name_14, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 134));
             come_call_finalizer(sType_finalize, param_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc}", 134);
         }
@@ -4368,7 +4370,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
             param_name_15=(char* )come_increment_ref_count(xsprintf("it%d",i), "24method.nc", 127);
             __right_value0 = (void*)0;
             buffer_append_format(method_block2,"%s",((char* )(__right_value0=make_come_define_var(param_type,param_name_15,info))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 134));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 131));
             (param_name_15 = come_decrement_ref_count(param_name_15, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 134));
         }
         if(i!=list$1sType$ph_length(param_types)-1) {
@@ -4380,7 +4382,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
     buffer_append_str(method_block2,")\n");
     __right_value0 = (void*)0;
     buffer_append_str(method_block2,((char* )(__right_value0=buffer_to_string(method_block))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 197));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 142));
     source3=(struct buffer* )come_increment_ref_count(info->source, "24method.nc", 144);
     p_16=info->p;
     head=info->head;
@@ -4418,14 +4420,14 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     method_block_name=(char* )come_increment_ref_count(xsprintf("method_block%d_%s",num_method_block,((char* )(__right_value0=buffer_to_string(all_alhabet_sname)))), "24method.nc", 163);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 197));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 163));
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "24method.nc", 165, "struct CVALUE* "), "24method.nc", 165)), "24method.nc", 165);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     fun2=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(method_block_name))),((void*)0),(_Bool)0)));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 197));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 167));
     if(fun2==((void*)0)) {
         err_msg(info,"method block function not found(%s)",method_block_name);
                 __result_obj__0 = (_Bool)1;
@@ -5381,7 +5383,7 @@ struct tuple3$3char$phsFun$psGenericsFun$p* get_method(const char* fun_name, str
         fun_name2=(char* )come_increment_ref_count(create_non_method_name(obj_type,(_Bool)0,info->come_fun->mName,info,(_Bool)1), "24method.nc", 204);
         klass=obj_type->mClass;
         while(__right_value0 = (void*)0,
-({(_conditional_value_X0=(klass->mParentClassName&&((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mParentClassName)))));        come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 217);
+({(_conditional_value_X0=(klass->mParentClassName&&((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mParentClassName)))));        come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 207);
 _conditional_value_X0;})) {
             __right_value0 = (void*)0;
             klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mParentClassName)));
@@ -5391,7 +5393,7 @@ _conditional_value_X0;})) {
             __dec_obj50 = come_decrement_ref_count(__dec_obj50, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 209);
             __right_value0 = (void*)0;
             fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 217));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 211));
             if(fun) {
                 break;
             }
@@ -5411,7 +5413,7 @@ _conditional_value_X0;})) {
                 multiple_assign_var2=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name), "24method.nc", 224),info,(_Bool)1)));
                 name=(char* )come_increment_ref_count(multiple_assign_var2->v1, "24method.nc", 224);
                 gfun=multiple_assign_var2->v2;
-                come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 228);
+                come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 224);
                 __dec_obj52=generics_fun_name,
                 generics_fun_name=(char* )come_increment_ref_count(name, "24method.nc", 225);
                 __dec_obj52 = come_decrement_ref_count(__dec_obj52, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 225);
@@ -5429,7 +5431,7 @@ _conditional_value_X0;})) {
             multiple_assign_var3=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_method_generics_function((char* )come_increment_ref_count(__builtin_string(fun_name3), "24method.nc", 232),info->method_generics_types,info)));
             name_24=(char* )come_increment_ref_count(multiple_assign_var3->v1, "24method.nc", 232);
             gfun_25=multiple_assign_var3->v2;
-            come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 247);
+            come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 232);
             __dec_obj53=generics_fun_name,
             generics_fun_name=(char* )come_increment_ref_count(name_24, "24method.nc", 233);
             __dec_obj53 = come_decrement_ref_count(__dec_obj53, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 233);
@@ -5450,7 +5452,7 @@ _conditional_value_X0;})) {
                 multiple_assign_var4=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name), "24method.nc", 241),info,(_Bool)1)));
                 name_26=(char* )come_increment_ref_count(multiple_assign_var4->v1, "24method.nc", 241);
                 gfun_27=multiple_assign_var4->v2;
-                come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 245);
+                come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 241);
                 __dec_obj55=generics_fun_name,
                 generics_fun_name=(char* )come_increment_ref_count(name_26, "24method.nc", 242);
                 __dec_obj55 = come_decrement_ref_count(__dec_obj55, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 242);
@@ -5464,7 +5466,7 @@ _conditional_value_X0;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             fun=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(new_fun_name))))));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 258));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 250));
             if(fun!=((void*)0)) {
                 __right_value0 = (void*)0;
                 __dec_obj56=generics_fun_name,
@@ -5481,11 +5483,11 @@ _conditional_value_X0;})) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 array_method_name=(char* )come_increment_ref_count(create_method_name(((struct sType* )(__right_value0=sType_clone(obj_array_type))),(_Bool)0,fun_name,info,(_Bool)0), "24method.nc", 262);
-                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 341);
+                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 262);
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(array_method_name))),((void*)0),(_Bool)0)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 341));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 264));
                 if(fun) {
                     __right_value0 = (void*)0;
                     __dec_obj57=generics_fun_name,
@@ -5496,18 +5498,18 @@ _conditional_value_X0;})) {
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 280));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 270));
                     if(fun==((void*)0)) {
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj58=generics_fun_name,
                         generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "24method.nc", 273);
                         __dec_obj58 = come_decrement_ref_count(__dec_obj58, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 273);
-                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 279));
+                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 273));
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
-                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 279));
+                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 274));
                         if(fun==((void*)0)) {
                                                         __right_value0 = (void*)0;
                             __right_value1 = (void*)0;
@@ -5527,22 +5529,22 @@ _conditional_value_X0;})) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 341));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 282));
                 if(fun==((void*)0)) {
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj60=generics_fun_name,
                     generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "24method.nc", 285);
                     __dec_obj60 = come_decrement_ref_count(__dec_obj60, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 285);
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 340));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 285));
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 340));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 287));
                     if(fun==((void*)0)) {
                         klass_28=obj_type->mClass;
                         while(__right_value0 = (void*)0,
-({(_conditional_value_X1=(klass_28->mParentClassName&&((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass_28->mParentClassName)))));                        come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 301);
+({(_conditional_value_X1=(klass_28->mParentClassName&&((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass_28->mParentClassName)))));                        come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 291);
 _conditional_value_X1;})) {
                             __right_value0 = (void*)0;
                             klass_28=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass_28->mParentClassName)));
@@ -5553,7 +5555,7 @@ _conditional_value_X1;})) {
                             __right_value0 = (void*)0;
                             __right_value1 = (void*)0;
                             fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
-                            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 301));
+                            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 295));
                             if(fun) {
                                 break;
                             }
@@ -5564,7 +5566,7 @@ _conditional_value_X1;})) {
                         multiple_assign_var5=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_to_string_automatically(obj_type,fun_name,info)));
                         fun2=multiple_assign_var5->v1;
                         real_fun_name=(char* )come_increment_ref_count(multiple_assign_var5->v2, "24method.nc", 304);
-                        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 309);
+                        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 304);
                         fun=fun2;
                         __dec_obj62=generics_fun_name,
                         generics_fun_name=(char* )come_increment_ref_count(real_fun_name, "24method.nc", 307);
@@ -5576,7 +5578,7 @@ _conditional_value_X1;})) {
                         multiple_assign_var6=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_get_hash_key_automatically(obj_type,fun_name,info)));
                         fun2_29=multiple_assign_var6->v1;
                         real_fun_name_30=(char* )come_increment_ref_count(multiple_assign_var6->v2, "24method.nc", 310);
-                        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 315);
+                        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 310);
                         fun=fun2_29;
                         __dec_obj63=generics_fun_name,
                         generics_fun_name=(char* )come_increment_ref_count(real_fun_name_30, "24method.nc", 313);
@@ -5588,7 +5590,7 @@ _conditional_value_X1;})) {
                         multiple_assign_var7=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_equals_automatically(obj_type,fun_name,info)));
                         fun2_31=multiple_assign_var7->v1;
                         real_fun_name_32=(char* )come_increment_ref_count(multiple_assign_var7->v2, "24method.nc", 316);
-                        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 321);
+                        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 316);
                         __right_value0 = (void*)0;
                         fun=((struct sFun* )(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,real_fun_name_32)));
                         __dec_obj64=generics_fun_name,
@@ -5601,7 +5603,7 @@ _conditional_value_X1;})) {
                         multiple_assign_var8=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_compare_automatically(obj_type,fun_name,info)));
                         fun2_33=multiple_assign_var8->v1;
                         real_fun_name_34=(char* )come_increment_ref_count(multiple_assign_var8->v2, "24method.nc", 322);
-                        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 327);
+                        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 322);
                         __right_value0 = (void*)0;
                         fun=((struct sFun* )(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,real_fun_name_34)));
                         __dec_obj65=generics_fun_name,
@@ -5613,11 +5615,11 @@ _conditional_value_X1;})) {
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         original_obj_type_fun_name=(char* )come_increment_ref_count(create_method_name_original_obj_type(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "24method.nc", 328);
-                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 336));
+                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 328));
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(original_obj_type_fun_name))),((void*)0),(_Bool)0)));
-                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 336));
+                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 329));
                         if(fun) {
                             __dec_obj66=generics_fun_name,
                             generics_fun_name=(char* )come_increment_ref_count(original_obj_type_fun_name, "24method.nc", 332);
@@ -6155,7 +6157,7 @@ struct sMethodCallNode* sMethodCallNode_initialize(struct sMethodCallNode* self,
     struct list$1sType$ph* __dec_obj78;
     struct sMethodCallNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sMethodCallNode*)come_increment_ref_count(self, "24method.nc", 428),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 442);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 428);
     __right_value0 = (void*)0;
     __dec_obj69=self->obj,
     self->obj=(struct sNode*)come_increment_ref_count(sNode_clone(obj), "24method.nc", 430);
@@ -6466,7 +6468,7 @@ _Bool sMethodCallNode_compile(struct sMethodCallNode* self, struct sInfo*  info 
                 multiple_assign_var10=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(type,(char* )come_increment_ref_count(__builtin_string(fun_name), "24method.nc", 502),info,(_Bool)1)));
                 name=(char* )come_increment_ref_count(multiple_assign_var10->v1, "24method.nc", 502);
                 gfun=multiple_assign_var10->v2;
-                come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 617);
+                come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 502);
                 generics_fun_name=(char* )come_increment_ref_count(name, "24method.nc", 504);
                 __right_value0 = (void*)0;
                 fun=((struct sFun* )(__right_value0=map$2char$phsFun$ph_at(info->funcs,generics_fun_name,((void*)0),(_Bool)0)));
@@ -6518,8 +6520,8 @@ _Bool sMethodCallNode_compile(struct sMethodCallNode* self, struct sInfo*  info 
                             __right_value0 = (void*)0;
                             __right_value1 = (void*)0;
                             list$1sType$ph_operator_store_element(info->method_generics_types,method_generics_num_50,(struct sType* )come_increment_ref_count(sType_clone(((struct sType* )(__right_value2=list$1sType$ph_operator_load_element(method_block_lambda_type->mParamTypes,n)))), "24method.nc", 532));
-                            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 534);
-                            come_call_finalizer(sType_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 534);
+                            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 532);
+                            come_call_finalizer(sType_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 532);
                         }
                         n++;
                     }
@@ -6593,8 +6595,8 @@ _Bool sMethodCallNode_compile(struct sMethodCallNode* self, struct sInfo*  info 
                                 __right_value2 = (void*)0;
                                 __right_value3 = (void*)0;
                                 list$1sType$ph_operator_store_element(info->method_generics_types,method_generics_num_56,(struct sType* )come_increment_ref_count(sType_clone(((struct CVALUE* )(__right_value2=list$1CVALUE$ph_operator_load_element(come_params_51,n)))->type), "24method.nc", 569));
-                                come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 571);
-                                come_call_finalizer(CVALUE_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 571);
+                                come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 569);
+                                come_call_finalizer(CVALUE_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 569);
                             }
                         }
                         n++;
@@ -6674,8 +6676,8 @@ _Bool sMethodCallNode_compile(struct sMethodCallNode* self, struct sInfo*  info 
                                 __right_value2 = (void*)0;
                                 __right_value3 = (void*)0;
                                 list$1sType$ph_operator_store_element(info->method_generics_types,method_generics_num_67,(struct sType* )come_increment_ref_count(sType_clone(((struct CVALUE* )(__right_value2=list$1CVALUE$ph_operator_load_element(come_params_57,n_65)))->type), "24method.nc", 608));
-                                come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 610);
-                                come_call_finalizer(CVALUE_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 610);
+                                come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 608);
+                                come_call_finalizer(CVALUE_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 608);
                             }
                         }
                         n_65++;
@@ -6760,16 +6762,16 @@ _Bool sMethodCallNode_compile(struct sMethodCallNode* self, struct sInfo*  info 
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
                 check_assign_type(((char*)(__right_value2=xsprintf("(a). \%s param num \%s is assinged to",((char* )(__right_value0=string_to_string(fun_name))),((char* )(__right_value1=int_to_string(i_72)))))),((struct sType* )(__right_value3=list$1sType$ph_operator_load_element(lambda_type->mParamTypes,i_72-1))),come_value_77->type,come_value_77,info);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 668));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 668));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 668));
-                come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 668);
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 658));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 658));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 658));
+                come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 658);
                 if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(lambda_type->mParamTypes,i_72-1)))->mHeap&&come_value_77->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 664);
+({(_conditional_value_X0=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(lambda_type->mParamTypes,i_72-1)))->mHeap&&come_value_77->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 659);
 _conditional_value_X0;})) {
                     __right_value0 = (void*)0;
                     std_move(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(lambda_type->mParamTypes,i_72-1))),come_value_77->type,come_value_77,info);
-                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 664);
+                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 661);
                 }
                 list$1CVALUE$ph_push_back(come_params_71,(struct CVALUE* )come_increment_ref_count(come_value_77, "24method.nc", 664));
                 i_72++;
@@ -6838,7 +6840,7 @@ _conditional_value_X0;})) {
         generics_fun_name_79=(char* )come_increment_ref_count(multiple_assign_var15->v1, "24method.nc", 716);
         fun_80=multiple_assign_var15->v2;
         generics_fun_81=multiple_assign_var15->v3;
-        come_call_finalizer(tuple3$3char$phsFun$psGenericsFun$p$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1013);
+        come_call_finalizer(tuple3$3char$phsFun$psGenericsFun$p$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 716);
         if(fun_80==((void*)0)) {
             err_msg(info,"function not found(%s, %s) at method(%s)(ZY)",generics_fun_name_79,fun_name,info->come_fun->mName);
                         __result_obj__0 = (_Bool)1;
@@ -6972,26 +6974,26 @@ _conditional_value_X0;})) {
                 come_value_100->type=(struct sType* )come_increment_ref_count(solve_generics(come_value_100->type,info->generics_type,info), "24method.nc", 799);
                 come_call_finalizer(sType_finalize, __dec_obj95,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 799);
                 if(__right_value0 = (void*)0,
-({(_conditional_value_X1=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,n_95)))));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 804);
+({(_conditional_value_X1=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,n_95)))));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 801);
 _conditional_value_X1;})) {
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
                     check_assign_type(((char*)(__right_value2=xsprintf("(b). \%s param num \%s is assinged to",((char* )(__right_value0=string_to_string(fun_name))),((char* )(__right_value1=int_to_string(n_95)))))),((struct sType* )(__right_value3=list$1sType$ph_operator_load_element(type_checking_param_types,n_95))),come_value_100->type,come_value_100,info);
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 804));
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 804));
-                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 804));
-                    come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 804);
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 802));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 802));
+                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 802));
+                    come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 802);
                 }
                 if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X2=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,n_95)))&&((struct sType* )(__right_value1=list$1sType$ph_operator_load_element(param_types,n_95)))->mHeap&&come_value_100->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 808);
-                come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 808);
+({(_conditional_value_X2=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,n_95)))&&((struct sType* )(__right_value1=list$1sType$ph_operator_load_element(param_types,n_95)))->mHeap&&come_value_100->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 804);
+                come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 804);
 _conditional_value_X2;})) {
                     __right_value0 = (void*)0;
                     std_move(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,n_95))),come_value_100->type,come_value_100,info);
-                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 808);
+                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 805);
                 }
                 list$1CVALUE$ph_replace(come_params_88,n_95,(struct CVALUE* )come_increment_ref_count(come_value_100, "24method.nc", 808));
                 come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc}", 810);
@@ -7011,23 +7013,23 @@ _conditional_value_X2;})) {
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
                 check_assign_type(((char*)(__right_value2=xsprintf("(c). \%s param num \%s is assinged to",((char* )(__right_value0=string_to_string(fun_name))),((char* )(__right_value1=int_to_string(i_102)))))),((struct sType* )(__right_value3=list$1sType$ph_operator_load_element(type_checking_param_types,i_102))),obj_value->type,obj_value,info);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 859));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 859));
-                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 859));
-                come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 859);
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 817));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 817));
+                (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 817));
+                come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 817);
                 if(__right_value0 = (void*)0,
-({(_conditional_value_X3=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))->mHeap&&obj_value->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 825);
+({(_conditional_value_X3=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))->mHeap&&obj_value->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 818);
 _conditional_value_X3;})) {
                     __right_value0 = (void*)0;
                     std_move(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102))),obj_value->type,obj_value,info);
-                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 825);
+                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 819);
                 }
                 else if(__right_value0 = (void*)0,
-({(_conditional_value_X4=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))->mHeap&&!obj_value->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 825);
+({(_conditional_value_X4=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))->mHeap&&!obj_value->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 821);
 _conditional_value_X4;})) {
                     __right_value0 = (void*)0;
                     err_msg(info,"require heap parametor(%s)",((char* )(__right_value0=list$1char$ph_operator_load_element(fun_80->mParamNames,i_102))));
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 825));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 822));
                                         __result_obj__0 = (_Bool)1;
                     (label_104 = come_decrement_ref_count(label_104, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 823));
                     ((node_105) ? node_105 = come_decrement_ref_count(node_105, ((struct sNode*)node_105)->finalize, ((struct sNode*)node_105)->_protocol_obj, 0, 0,(void*)0, "24method.nc", 823):(void*)0);
@@ -7058,7 +7060,7 @@ _conditional_value_X4;})) {
             else {
                 while((_Bool)1) {
                     if(__right_value0 = (void*)0,
-({(_conditional_value_X5=(((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(come_params_88,i_102)))==((void*)0)));                    come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 839);
+({(_conditional_value_X5=(((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(come_params_88,i_102)))==((void*)0)));                    come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 833);
 _conditional_value_X5;})) {
                         break;
                     }
@@ -7097,26 +7099,26 @@ _conditional_value_X5;})) {
                 come_value_109->type=(struct sType* )come_increment_ref_count(solve_generics(come_value_109->type,info->generics_type,info), "24method.nc", 847);
                 come_call_finalizer(sType_finalize, __dec_obj97,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 847);
                 if(__right_value0 = (void*)0,
-({(_conditional_value_X6=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 852);
+({(_conditional_value_X6=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 849);
 _conditional_value_X6;})) {
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
                     check_assign_type(((char*)(__right_value2=xsprintf("(d). \%s param num \%s is assinged to",((char* )(__right_value0=string_to_string(fun_name))),((char* )(__right_value1=int_to_string(i_102)))))),((struct sType* )(__right_value3=list$1sType$ph_operator_load_element(type_checking_param_types,i_102))),come_value_109->type,come_value_109,info);
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 852));
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 852));
-                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 852));
-                    come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 852);
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 850));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 850));
+                    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 850));
+                    come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 850);
                 }
                 if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X7=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))&&((struct sType* )(__right_value1=list$1sType$ph_operator_load_element(param_types,i_102)))->mHeap&&come_value_109->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 856);
-                come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 856);
+({(_conditional_value_X7=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))&&((struct sType* )(__right_value1=list$1sType$ph_operator_load_element(param_types,i_102)))->mHeap&&come_value_109->type->mHeap));                come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 852);
+                come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 852);
 _conditional_value_X7;})) {
                     __right_value0 = (void*)0;
                     std_move(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102))),come_value_109->type,come_value_109,info);
-                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 856);
+                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 853);
                 }
                 list$1CVALUE$ph_replace(come_params_88,i_102,(struct CVALUE* )come_increment_ref_count(come_value_109, "24method.nc", 856));
                 i_102++;
@@ -7127,7 +7129,7 @@ _conditional_value_X7;})) {
         }
         while((_Bool)1) {
             if(__right_value0 = (void*)0,
-({(_conditional_value_X8=(((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(come_params_88,i_102)))==((void*)0)));            come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 868);
+({(_conditional_value_X8=(((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(come_params_88,i_102)))==((void*)0)));            come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 862);
 _conditional_value_X8;})) {
                 break;
             }
@@ -7140,11 +7142,11 @@ _conditional_value_X8;})) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 default_param=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value0=list$1char$ph_operator_load_element(fun_80->mParamDefaultParametors,i_102))), "24method.nc", 873, "char* "), "24method.nc", 873);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 919));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 873));
                 __right_value0 = (void*)0;
                 param_name=((char* )(__right_value0=list$1char$ph_operator_load_element(fun_80->mParamNames,i_102)));
                 if(__right_value0 = (void*)0,
-({(_conditional_value_X9=(default_param&&string_operator_not_equals(default_param,"")&&((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(come_params_88,i_102)))==((void*)0)));                come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 918);
+({(_conditional_value_X9=(default_param&&string_operator_not_equals(default_param,"")&&((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(come_params_88,i_102)))==((void*)0)));                come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 876);
 _conditional_value_X9;})) {
                     source=(struct buffer* )come_increment_ref_count(info->source, "24method.nc", 877);
                     p=info->p;
@@ -7199,26 +7201,26 @@ _conditional_value_X9;})) {
                     come_value_113->type=(struct sType* )come_increment_ref_count(solve_generics(come_value_113->type,info->generics_type,info), "24method.nc", 903);
                     come_call_finalizer(sType_finalize, __dec_obj100,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 903);
                     if(__right_value0 = (void*)0,
-({(_conditional_value_X10=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))));                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 907);
+({(_conditional_value_X10=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))));                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 904);
 _conditional_value_X10;})) {
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __right_value2 = (void*)0;
                         __right_value3 = (void*)0;
                         check_assign_type(((char*)(__right_value2=xsprintf("(e). \%s param num \%s is assinged to",((char* )(__right_value0=string_to_string(fun_name))),((char* )(__right_value1=int_to_string(i_102)))))),((struct sType* )(__right_value3=list$1sType$ph_operator_load_element(type_checking_param_types,i_102))),come_value_113->type,come_value_113,info);
-                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 907));
-                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 907));
-                        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 907));
-                        come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 907);
+                        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 905));
+                        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 905));
+                        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 905));
+                        come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 905);
                     }
                     if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X11=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))&&((struct sType* )(__right_value1=list$1sType$ph_operator_load_element(param_types,i_102)))->mHeap&&come_value_113->type->mHeap));                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 910);
-                    come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 910);
+({(_conditional_value_X11=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102)))&&((struct sType* )(__right_value1=list$1sType$ph_operator_load_element(param_types,i_102)))->mHeap&&come_value_113->type->mHeap));                    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 907);
+                    come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 907);
 _conditional_value_X11;})) {
                         __right_value0 = (void*)0;
                         std_move(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i_102))),come_value_113->type,come_value_113,info);
-                        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 910);
+                        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 908);
                     }
                     list$1CVALUE$ph_replace(come_params_88,i_102,(struct CVALUE* )come_increment_ref_count(come_value_113, "24method.nc", 910));
                     come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc}", 918);
@@ -7227,7 +7229,7 @@ _conditional_value_X11;})) {
                 }
                 else {
                     if(__right_value0 = (void*)0,
-({(_conditional_value_X12=(((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(come_params_88,i_102)))==((void*)0)));                    come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 917);
+({(_conditional_value_X12=(((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(come_params_88,i_102)))==((void*)0)));                    come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 913);
 _conditional_value_X12;})) {
                         err_msg(info,"require parametor(%s) %d",fun_80->mName,i_102);
                                                 __result_obj__0 = (_Bool)1;
@@ -7291,7 +7293,7 @@ _conditional_value_X12;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             var_name=(char*)come_increment_ref_count(xsprintf("deffer_right_value\%s",((char* )(__right_value0=int_to_string(n_115)))), "24method.nc", 937);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 978));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 937));
             __right_value0 = (void*)0;
             type_116=(struct sType* )come_increment_ref_count(sType_clone(obj_type), "24method.nc", 938);
             type_116->mDefferRightValue=(_Bool)1;
@@ -7299,7 +7301,7 @@ _conditional_value_X12;})) {
             var_=get_variable_from_table(info->lv_table,var_name);
             __right_value0 = (void*)0;
             add_come_code_at_function_head(info,"%s;\n",((char* )(__right_value0=make_define_var(type_116,var_->mCValueName,info,(_Bool)0,(_Bool)0))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 978));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 945));
             add_come_code(info,"%s=%s;\n",var_->mCValueName,obj_value->c_value);
             __dec_obj101=saved_obj_value,
             saved_obj_value=(char* )come_increment_ref_count(var_->mCValueName, "24method.nc", 947);
@@ -8170,7 +8172,7 @@ struct sIterCallNode* sIterCallNode_initialize(struct sIterCallNode* self, const
     struct buffer*  __dec_obj109  ;
     struct sIterCallNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sIterCallNode*)come_increment_ref_count(self, "24method.nc", 1051),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1061);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1051);
     __right_value0 = (void*)0;
     __dec_obj105=self->obj,
     self->obj=(struct sNode*)come_increment_ref_count(sNode_clone(obj), "24method.nc", 1053);
@@ -8461,24 +8463,24 @@ _Bool sIterCallNode_compile(struct sIterCallNode* self, struct sInfo*  info  )
         come_value->type=(struct sType* )come_increment_ref_count(solve_generics(come_value->type,info->generics_type,info), "24method.nc", 1150);
         come_call_finalizer(sType_finalize, __dec_obj118,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 1150);
         if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i)))));        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1155);
+({(_conditional_value_X0=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i)))));        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1152);
 _conditional_value_X0;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             check_assign_type(((char*)(__right_value2=xsprintf("(d). \%s param num \%s is assinged to",((char* )(__right_value0=string_to_string(fun_name))),((char* )(__right_value1=int_to_string(i)))))),((struct sType* )(__right_value3=list$1sType$ph_operator_load_element(param_types,i))),come_value->type,come_value,info);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1155));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1155));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1155));
-            come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1155);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1153));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1153));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1153));
+            come_call_finalizer(sType_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1153);
         }
         if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X1=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i)))&&((struct sType* )(__right_value1=list$1sType$ph_operator_load_element(param_types,i)))->mHeap&&come_value->type->mHeap));        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1159);
-        come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1159);
+({(_conditional_value_X1=(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i)))&&((struct sType* )(__right_value1=list$1sType$ph_operator_load_element(param_types,i)))->mHeap&&come_value->type->mHeap));        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1155);
+        come_call_finalizer(sType_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1155);
 _conditional_value_X1;})) {
             __right_value0 = (void*)0;
             std_move(((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(param_types,i))),come_value->type,come_value,info);
-            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1159);
+            come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1156);
         }
         list$1CVALUE$ph_add(come_params,(struct CVALUE* )come_increment_ref_count(come_value, "24method.nc", 1159));
         i++;
@@ -8498,7 +8500,7 @@ _conditional_value_X1;})) {
         add_come_code(info,"%s=%s;\n",name,come_value_126->c_value);
         __right_value0 = (void*)0;
         add_come_code_at_function_head(info,"%s\n;",((char* )(__right_value0=make_define_var(come_type,name,info,(_Bool)0,(_Bool)0))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1177));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1173));
         i_124++;
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 1177));
         come_call_finalizer(CVALUE_finalize, come_value_126, (void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc}", 1177);
@@ -8543,7 +8545,7 @@ _conditional_value_X1;})) {
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
                     method_block2=(char* )come_increment_ref_count(trim_last_bracket((char* )come_increment_ref_count(string_operator_load_range_element(((char* )(__right_value1=buffer_to_string(method_block))),1,-1), "24method.nc", 1210),info), "24method.nc", 1210);
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1216));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1210));
                     buffer_append_str(buf,method_block2);
                     (method_block2 = come_decrement_ref_count(method_block2, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 1216));
                 }
@@ -8594,7 +8596,7 @@ _conditional_value_X1;})) {
         _inf_value3->left_value=(void*)sIterCallNode_left_value;
         __right_value1 = (void*)0;
         last_node=(struct sNode*)come_increment_ref_count(_inf_value3, "24method.nc", 1239);
-        come_call_finalizer(sIterCallNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1381);
+        come_call_finalizer(sIterCallNode_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1239);
         node_127=last_node;
         node_127=node_127->left_value(node_127->_protocol_obj);
         while(node_127) {
@@ -8627,7 +8629,7 @@ _conditional_value_X1;})) {
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         all_code2=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value1=charp_operator_add("{",all_code))),"}"), "24method.nc", 1253);
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1381));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1253));
         source=(struct buffer* )come_increment_ref_count(info->source, "24method.nc", 1258);
         p_129=info->p;
         head=info->head;
@@ -8678,7 +8680,7 @@ _conditional_value_X1;})) {
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         all_code2_131=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value1=charp_operator_add("{",all_code))),"}"), "24method.nc", 1293);
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1381));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1293));
         info->no_output_come_code=no_output_come_code;
         __right_value0 = (void*)0;
         __dec_obj133=info->source,
@@ -8767,7 +8769,7 @@ _conditional_value_X1;})) {
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
                     method_block2_140=(char* )come_increment_ref_count(trim_last_bracket((char* )come_increment_ref_count(string_operator_load_range_element(((char* )(__right_value1=buffer_to_string(method_block))),1,-1), "24method.nc", 1353),info), "24method.nc", 1353);
-                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1359));
+                    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1353));
                     buffer_append_str(buf_137,method_block2_140);
                     (method_block2_140 = come_decrement_ref_count(method_block2_140, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 1359));
                 }
@@ -8805,7 +8807,7 @@ _conditional_value_X1;})) {
         __dec_obj143=info->iter_buffer,
         info->iter_buffer=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value1=buffer_to_string(buf_137))),info->iter_buffer), "24method.nc", 1378);
         __dec_obj143 = come_decrement_ref_count(__dec_obj143, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 1378);
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1381));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1378));
         (text_133 = come_decrement_ref_count(text_133, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 1381));
         come_call_finalizer(buffer_finalize, buf_137, (void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc}", 1381);
     }
@@ -8944,7 +8946,7 @@ struct sNode* create_method_call(const char* fun_name, struct sNode* obj, struct
     _inf_value4->kind=(void*)sMethodCallNode_kind;
     _inf_value4->left_value=(void*)sNodeBase_left_value;
     node=(struct sNode*)come_increment_ref_count(_inf_value4, "24method.nc", 1387);
-    come_call_finalizer(sMethodCallNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1394);
+    come_call_finalizer(sMethodCallNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1387);
     __right_value0 = (void*)0;
     __dec_obj150=node,
     node=(struct sNode*)come_increment_ref_count(post_position_operator_v99((struct sNode*)come_increment_ref_count(node, "24method.nc", 1389),info), "24method.nc", 1389);
@@ -9127,7 +9129,7 @@ struct sNode* parse_method_call_v20(struct sNode* obj, char*  fun_name  , struct
                 type=(struct sType* )come_increment_ref_count(multiple_assign_var19->v1, "24method.nc", 1442);
                 name=(char* )come_increment_ref_count(multiple_assign_var19->v2, "24method.nc", 1442);
                 err=multiple_assign_var19->v3;
-                come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1451);
+                come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1442);
                 if(!err) {
                     err_msg(info,"invalid method generics paramtor type");
                     exit(2);
@@ -9208,7 +9210,7 @@ struct sNode* parse_method_call_v20(struct sNode* obj, char*  fun_name  , struct
         method_block_sline=info->sline;
         __right_value0 = (void*)0;
         ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1535));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1520));
         tail=info->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
@@ -9241,7 +9243,7 @@ struct sNode* parse_method_call_v20(struct sNode* obj, char*  fun_name  , struct
     _inf_value5->kind=(void*)sMethodCallNode_kind;
     _inf_value5->left_value=(void*)sNodeBase_left_value;
     node_145=(struct sNode*)come_increment_ref_count(_inf_value5, "24method.nc", 1537);
-    come_call_finalizer(sMethodCallNode_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1544);
+    come_call_finalizer(sMethodCallNode_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1537);
     __right_value0 = (void*)0;
     __dec_obj160=node_145,
     node_145=(struct sNode*)come_increment_ref_count(post_position_operator_v99((struct sNode*)come_increment_ref_count(node_145, "24method.nc", 1539),info), "24method.nc", 1539);
@@ -9446,7 +9448,7 @@ struct sNode* parse_iter_call_v20(struct sNode* obj, char*  fun_name  , struct s
         method_block_sline=info->sline;
         __right_value0 = (void*)0;
         ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1629));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1614));
         tail=info->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
@@ -9478,7 +9480,7 @@ struct sNode* parse_iter_call_v20(struct sNode* obj, char*  fun_name  , struct s
     _inf_value6->kind=(void*)sIterCallNode_kind;
     _inf_value6->left_value=(void*)sIterCallNode_left_value;
     node_146=(struct sNode*)come_increment_ref_count(_inf_value6, "24method.nc", 1631);
-    come_call_finalizer(sIterCallNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1636);
+    come_call_finalizer(sIterCallNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 1631);
         __result_obj__0 = (struct sNode*)come_increment_ref_count(node_146, "24method.nc", 1633);
     ((obj) ? obj = come_decrement_ref_count(obj, ((struct sNode*)obj)->finalize, ((struct sNode*)obj)->_protocol_obj, 0, 0,(void*)0, "24method.nc", 1633):(void*)0);
     (fun_name = come_decrement_ref_count(fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 1633));

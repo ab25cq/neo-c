@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2816,7 +2818,7 @@ struct sIntNode* sIntNode_initialize(struct sIntNode* self, char*  value  , stru
     char*  __dec_obj1  ;
     struct sIntNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sIntNode*)come_increment_ref_count(self, "11number.nc", 7),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 12);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 7);
     __dec_obj1=self->value,
     self->value=(char* )come_increment_ref_count(value, "11number.nc", 9);
     __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "11number.nc", 9);
@@ -3157,7 +3159,7 @@ struct sUIntNode* sUIntNode_initialize(struct sUIntNode* self, char*  value  , s
     char*  __dec_obj7  ;
     struct sUIntNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sUIntNode*)come_increment_ref_count(self, "11number.nc", 37),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 42);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 37);
     __dec_obj7=self->value,
     self->value=(char* )come_increment_ref_count(value, "11number.nc", 39);
     __dec_obj7 = come_decrement_ref_count(__dec_obj7, (void*)0, (void*)0, 0,0, (void*)0, "11number.nc", 39);
@@ -3229,7 +3231,7 @@ struct sLongNode* sLongNode_initialize(struct sLongNode* self, char*  value  , s
     char*  __dec_obj10  ;
     struct sLongNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sLongNode*)come_increment_ref_count(self, "11number.nc", 67),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 72);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 67);
     __dec_obj10=self->value,
     self->value=(char* )come_increment_ref_count(value, "11number.nc", 69);
     __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0, "11number.nc", 69);
@@ -3301,7 +3303,7 @@ struct sULongNode* sULongNode_initialize(struct sULongNode* self, char*  value  
     char*  __dec_obj13  ;
     struct sULongNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sULongNode*)come_increment_ref_count(self, "11number.nc", 97),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 102);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 97);
     __dec_obj13=self->value,
     self->value=(char* )come_increment_ref_count(value, "11number.nc", 99);
     __dec_obj13 = come_decrement_ref_count(__dec_obj13, (void*)0, (void*)0, 0,0, (void*)0, "11number.nc", 99);
@@ -3372,7 +3374,7 @@ struct sFloatNode* sFloatNode_initialize(struct sFloatNode* self, char*  value  
     char*  __dec_obj16  ;
     struct sFloatNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sFloatNode*)come_increment_ref_count(self, "11number.nc", 127),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 132);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 127);
     __dec_obj16=self->value,
     self->value=(char* )come_increment_ref_count(value, "11number.nc", 129);
     __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0, "11number.nc", 129);
@@ -3444,7 +3446,7 @@ struct sComplexNode* sComplexNode_initialize(struct sComplexNode* self, char*  v
     char*  __dec_obj19  ;
     struct sComplexNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sComplexNode*)come_increment_ref_count(self, "11number.nc", 157),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 162);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 157);
     __dec_obj19=self->value,
     self->value=(char* )come_increment_ref_count(value, "11number.nc", 159);
     __dec_obj19 = come_decrement_ref_count(__dec_obj19, (void*)0, (void*)0, 0,0, (void*)0, "11number.nc", 159);
@@ -3517,7 +3519,7 @@ struct sDoubleNode* sDoubleNode_initialize(struct sDoubleNode* self, char*  valu
     char*  __dec_obj22  ;
     struct sDoubleNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sDoubleNode*)come_increment_ref_count(self, "11number.nc", 188),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 193);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 188);
     __dec_obj22=self->value,
     self->value=(char* )come_increment_ref_count(value, "11number.nc", 190);
     __dec_obj22 = come_decrement_ref_count(__dec_obj22, (void*)0, (void*)0, 0,0, (void*)0, "11number.nc", 190);
@@ -3589,7 +3591,7 @@ struct sDigitNode* sDigitNode_initialize(struct sDigitNode* self, char* value, s
     char*  __dec_obj25  ;
     struct sDigitNode* __result_obj__0;
     ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sDigitNode*)come_increment_ref_count(self, "11number.nc", 218),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 223);
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "11number.nc}", 218);
     __right_value0 = (void*)0;
     __dec_obj25=self->value,
     self->value=(char* )come_increment_ref_count(__builtin_string(value), "11number.nc", 220);

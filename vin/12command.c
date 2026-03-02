@@ -3466,7 +3466,7 @@ void ViWin_commandModeView(struct ViWin*  self  , struct Vi*  nvi  )
     ViWin_textsView(self,nvi);
     wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     mvwprintw(self->win,self->height-1,0,":%s",((char* )(__right_value0=chara_printable(nvi->commandString))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 30));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 24));
     wattr_off(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     wrefresh(self->win);
     neo_current_frame = fr.prev;
@@ -3765,7 +3765,7 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  )
         if(strcmp(word,"/")!=0&&word[strlen(word)-1]==47) {
             __right_value0 = (void*)0;
             dir_3=opendir(((char* )(__right_value0=charp_substring(word,0,-2))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 218));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 212));
         }
         else {
             dir_3=opendir(dir_name);
@@ -3794,7 +3794,7 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 list$1char$ph_push_back(words,(char* )come_increment_ref_count(xsprintf("%s%s",dir_name,((char* )(__right_value0=__builtin_string(entry_4->d_name)))), "12command.nc", 236));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 238));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 236));
             }
             (path_5 = come_decrement_ref_count(path_5, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 240));
         }
@@ -3804,7 +3804,7 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  )
         if(word[strlen(word)-1]==47) {
             __right_value0 = (void*)0;
             dir_7=opendir(((char* )(__right_value0=charp_substring(word,0,-2))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 251));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 245));
         }
         else {
             dir_7=opendir(dir_name);
@@ -3851,7 +3851,7 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  )
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     file_name=(char* )come_increment_ref_count(charp_substring(((char* )(__right_value0=ViWin_selector(self,words3))),strlen(word),-1), "12command.nc", 285);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 290));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 285));
     strncat(nvi->commandString,file_name,128);
     (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 290));
     (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 290));
@@ -4393,8 +4393,8 @@ void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  )
             for(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(self->texts, "12command.nc", 384),it=list$1int$ph_begin(_o2_saved_2)            ;!list$1int$ph_end(_o2_saved_2);it=list$1int$ph_next(_o2_saved_2)){
                 __right_value0 = (void*)0;
                 new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=charp_sub_plain(((char* )(__right_value0=wstring_to_string(it))),str,replace)))), "12command.nc", 385);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 392));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 392));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 385));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 385));
                 list$1int$ph_replace(self->texts,it2,(int* )come_increment_ref_count(new_line, "12command.nc", 387));
                 list$1int$_replace(self->texts_length,it2,wcslen(new_line));
                 it2++;
@@ -4716,42 +4716,42 @@ void Vi_exitFromComandMode(struct Vi*  self  )
     _Bool writed;
     _Bool _conditional_value_X5;
     _Bool _conditional_value_X6;
-    if(({(_conditional_value_X0=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"sp",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 443));
+    if(({(_conditional_value_X0=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"sp",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 404));
 _conditional_value_X0;})) {
         __right_value0 = (void*)0;
-        file_name=(char* )come_increment_ref_count(string_to_string(((char* )(__right_value3=list$1char$ph_item(((struct list$1char$ph*)(__right_value2=string_scan(((char* )(__right_value0=__builtin_string(self->commandString))),((char*)(__right_value1=xsprintf("sp (.+)"))),(_Bool)0))),0,((void*)0))))), "12command.nc", 405);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 443));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 443));
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "12command.nc}", 443);
-        (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 443));
+        file_name=(char* )come_increment_ref_count(string_to_string(((char* )(__right_value3=list$1char$ph_item(((struct list$1char$ph*)(__right_value2=string_scan(((char* )(__right_value0=__builtin_string(self->commandString))),((char*)(__right_value1=xsprintf("sp ([.]+)"))),(_Bool)0))),0,((void*)0))))), "12command.nc", 405);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 405));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 405));
+        come_call_finalizer(list$1char$ph$p_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "12command.nc}", 405);
+        (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 405));
         if(file_name!=((void*)0)) {
             Vi_openNewFile(self,(char* )come_increment_ref_count(file_name, "12command.nc", 408));
         }
         (file_name = come_decrement_ref_count(file_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 443));
     }
     else if(__right_value0 = (void*)0,
-({(_conditional_value_X1=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"paste",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 443));
+({(_conditional_value_X1=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"paste",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 411));
 _conditional_value_X1;})) {
         self->activeWin->pasteMode=!self->activeWin->pasteMode;
     }
     else {
         if(__right_value0 = (void*)0,
-({(_conditional_value_X2=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"%",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 419));
+({(_conditional_value_X2=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"%",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 415));
 _conditional_value_X2;})) {
             ViWin_subAllTextsFromCommandMode(self->activeWin,self);
             self->mode=(0);
         }
         if(__right_value0 = (void*)0,
-({(_conditional_value_X3=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"w",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 422));
+({(_conditional_value_X3=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"w",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 419));
 _conditional_value_X3;})) {
             ViWin_writeFile(self->activeWin,gBinaryMode);
         }
         if(__right_value0 = (void*)0,
-({(_conditional_value_X4=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"q",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 434));
+({(_conditional_value_X4=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"q",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 422));
 _conditional_value_X4;})) {
             writed=self->activeWin->writed;
             if(__right_value0 = (void*)0,
-({(_conditional_value_X5=(!writed||string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"!",-1)!=-1));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 433));
+({(_conditional_value_X5=(!writed||string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"!",-1)!=-1));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 425));
 _conditional_value_X5;})) {
                 if(list$1ViWin$ph_length(self->wins)==1) {
                     self->appEnd=(_Bool)1;
@@ -4762,7 +4762,7 @@ _conditional_value_X5;})) {
             }
         }
         if(__right_value0 = (void*)0,
-({(_conditional_value_X6=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"shell",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 441));
+({(_conditional_value_X6=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"shell",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 434));
 _conditional_value_X6;})) {
             endwin();
             (void)system("bash");
@@ -4770,7 +4770,7 @@ _conditional_value_X6;})) {
         }
     }
     if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"paste",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 449));
+({(_conditional_value_X0=(string_index(((char* )(__right_value0=__builtin_string(self->commandString))),"paste",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 443));
 _conditional_value_X0;})) {
         Vi_enterInsertMode_v5(self);
     }

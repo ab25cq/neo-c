@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2775,7 +2777,7 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
         expected_generics_num=-1;
         __right_value0 = (void*)0;
         generics_class=((struct sClass* )(__right_value1=map$2char$phsClass$ph_at(info->generics_classes,((char* )(__right_value0=__builtin_string(word))),((void*)0),(_Bool)0)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "27impl.nc", 115));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "27impl.nc", 42));
         if(generics_class) {
             expected_generics_num=generics_class->mGenericsNum;
         }

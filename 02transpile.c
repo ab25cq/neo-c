@@ -1263,6 +1263,8 @@ struct sRightValueObject
     struct sType*  mType  ;
     char*  mVarName  ;
     char*  mFunName  ;
+    char* mSName;
+    int mSLine;
     _Bool mFreed;
     int mID;
     int mBlockLevel;
@@ -2776,9 +2778,9 @@ static void write_source_file_position_to_source(struct sInfo*  info  )
     if(gComeOriginalSourcePosition) {
         if(info->writing_source_file_position) {
             add_come_code(info,((char*)(__right_value2=xsprintf("# \%s \"\%s\"\n",((char* )(__right_value0=int_to_string(info->sline))),((char* )(__right_value1=string_to_string(info->sname)))))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 21));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 21));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 21));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 18));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 18));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 18));
             info->writing_source_file_position=(_Bool)0;
         }
     }
@@ -2804,7 +2806,7 @@ _Bool node_compile(struct sNode* node, struct sInfo*  info  )
     __dec_obj1=info->sname,
     info->sname=(char* )come_increment_ref_count(__builtin_string(((char* )(__right_value0=node->sname(node->_protocol_obj)))), "02transpile.nc", 30);
     __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "02transpile.nc", 30);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 45));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 30));
     info->sline=node->sline(node->_protocol_obj);
     info->sline_real=node->sline_real(node->_protocol_obj);
     write_source_file_position_to_source(info);
@@ -3130,8 +3132,8 @@ static _Bool cpp(struct sInfo*  info  )
     if(out==((void*)0)) {
         __right_value0 = (void*)0;
         puts(((char*)(__right_value1=xsprintf("CAN'T OPEN CPP OUTPUT FILE \%s",((char* )(__right_value0=string_to_string(output_file_name)))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 121));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 121));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 117));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 117));
         exit(1);
     }
     is_mac=system("uname -a | grep Darwin 1> /dev/null 2>/dev/null")==0;
@@ -4484,8 +4486,8 @@ int come_main(int argc, char** argv)
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             puts(((char*)(__right_value1=xsprintf("require .nc extension instead of .c extension \%s",((char* )(__right_value0=charp_to_string(argv[i])))))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 338));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 338));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 335));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 335));
             exit(1);
         }
         (ext_name = come_decrement_ref_count(ext_name, (void*)0, (void*)0, 0, 0, (void*)0, "02transpile.nc", 338));
@@ -4632,7 +4634,7 @@ int come_main(int argc, char** argv)
         __dec_obj45=info.source,
         info.source=(struct buffer* )come_increment_ref_count(charp_read(((char* )(__right_value0=xsprintf("%s.i",it)))), "02transpile.nc", 366);
         come_call_finalizer(buffer_finalize, __dec_obj45,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 366);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 391));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 366));
         info.p=info.source->buf;
         info.head=info.source->buf;
         info.end=info.source->buf+info.source->len;

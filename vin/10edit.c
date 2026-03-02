@@ -4378,7 +4378,7 @@ void ViWin_deleteWord(struct ViWin*  self  , struct Vi*  nvi  )
     ViWin_pushUndo_v5(self);
     if(self->digitInput>0) {
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "10edit.nc", 103);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 243));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 103));
         if(wcslen(line)==0) {
             ViWin_deleteOneLine_v10(self,nvi);
         }
@@ -4431,7 +4431,7 @@ void ViWin_deleteWord(struct ViWin*  self  , struct Vi*  nvi  )
             ViWin_saveYankToFile(self,nvi);
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line,self->cursorX,x)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 174));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 169));
             ViWin_modifyCursorOnDeleting(self);
         }
         self->digitInput=0;
@@ -4441,7 +4441,7 @@ void ViWin_deleteWord(struct ViWin*  self  , struct Vi*  nvi  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         line_26=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "10edit.nc", 177);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 243));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 177));
         if(wcslen(line_26)==0) {
             ViWin_deleteOneLine_v10(self,nvi);
         }
@@ -4491,7 +4491,7 @@ void ViWin_deleteWord(struct ViWin*  self  , struct Vi*  nvi  )
             ViWin_saveYankToFile(self,nvi);
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line_26,self->cursorX,x_27)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 242));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 238));
             ViWin_modifyCursorOnDeleting(self);
         }
         (line_26 = come_decrement_ref_count(line_26, (void*)0, (void*)0, 0, 0, (void*)0, "10edit.nc", 243));
@@ -4519,7 +4519,7 @@ void ViWin_deleteForNextCharacter(struct ViWin*  self  )
     if(self->digitInput>0) {
         key=ViWin_getKey_v14(self,(_Bool)0);
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "10edit.nc", 252);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 312));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 252));
         if(wcslen(line)>0) {
             x=self->cursorX;
             count=self->digitInput+1;
@@ -4539,7 +4539,7 @@ void ViWin_deleteForNextCharacter(struct ViWin*  self  )
             if(*p==key) {
                 __right_value0 = (void*)0;
                 ((int* )(__right_value0=wstring_delete(line,self->cursorX,x+1)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 283));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 281));
             }
         }
         self->digitInput=0;
@@ -4550,7 +4550,7 @@ void ViWin_deleteForNextCharacter(struct ViWin*  self  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         line_30=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "10edit.nc", 290);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 312));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 290));
         if(wcslen(line_30)>0) {
             x_31=self->cursorX;
             p_32=line_30+x_31;
@@ -4564,7 +4564,7 @@ void ViWin_deleteForNextCharacter(struct ViWin*  self  )
             if(*p_32==key_29) {
                 __right_value0 = (void*)0;
                 ((int* )(__right_value0=wstring_delete(line_30,self->cursorX,x_31+1)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 310));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 308));
             }
         }
         (line_30 = come_decrement_ref_count(line_30, (void*)0, (void*)0, 0, 0, (void*)0, "10edit.nc", 312));
@@ -4592,7 +4592,7 @@ void ViWin_deleteForNextCharacter2(struct ViWin*  self  )
     if(self->digitInput>0) {
         key=ViWin_getKey_v14(self,(_Bool)0);
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "10edit.nc", 321);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 381));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 321));
         if(wcslen(line)>0) {
             x=self->cursorX;
             count=self->digitInput+1;
@@ -4612,7 +4612,7 @@ void ViWin_deleteForNextCharacter2(struct ViWin*  self  )
             if(*p==key) {
                 __right_value0 = (void*)0;
                 ((int* )(__right_value0=wstring_delete(line,self->cursorX,x)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 352));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 350));
             }
         }
         self->digitInput=0;
@@ -4623,7 +4623,7 @@ void ViWin_deleteForNextCharacter2(struct ViWin*  self  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         line_34=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "10edit.nc", 359);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 381));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 359));
         if(wcslen(line_34)>0) {
             x_35=self->cursorX;
             p_36=line_34+x_35;
@@ -4637,7 +4637,7 @@ void ViWin_deleteForNextCharacter2(struct ViWin*  self  )
             if(*p_36==key_33) {
                 __right_value0 = (void*)0;
                 ((int* )(__right_value0=wstring_delete(line_34,self->cursorX,x_35)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 379));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 377));
             }
         }
         (line_34 = come_decrement_ref_count(line_34, (void*)0, (void*)0, 0, 0, (void*)0, "10edit.nc", 381));
@@ -4664,7 +4664,7 @@ void ViWin_deleteCursorCharactor(struct ViWin*  self  )
         for(i=0        ;i<num;i++){
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line,self->cursorX,self->cursorX+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 397));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 393));
         }
         ViWin_modifyOverCursorXValue(self);
         self->digitInput=0;
@@ -4693,7 +4693,7 @@ void ViWin_deleteCursorCharactor(struct ViWin*  self  )
             line_40=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "10edit.nc", 420);
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line_40,self->cursorX,self->cursorX+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 429));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 421));
             len_41=list$1int$_item(self->texts_length,self->scroll+self->cursorY,-1);
             len_41--;
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,len_41);
@@ -4847,7 +4847,7 @@ void ViWin_deleteBack(struct ViWin*  self  )
                 self->cursorX--;
                 __right_value0 = (void*)0;
                 ((int* )(__right_value0=wstring_delete(line,self->cursorX,self->cursorX+1)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 447));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 444));
             }
         }
         ViWin_modifyOverCursorXValue(self);
@@ -4861,7 +4861,7 @@ void ViWin_deleteBack(struct ViWin*  self  )
             self->cursorX--;
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line_42,self->cursorX,self->cursorX+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 461));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 458));
         }
         ViWin_modifyOverCursorXValue(self);
         (line_42 = come_decrement_ref_count(line_42, (void*)0, (void*)0, 0, 0, (void*)0, "10edit.nc", 463));
@@ -4950,15 +4950,15 @@ void ViWin_incrementNumber(struct ViWin*  self  )
         if(head!=-1&&tail!=-1) {
             __right_value0 = (void*)0;
             number_string=(char* )come_increment_ref_count(wstring_to_string(((int* )(__right_value0=wstring_substring(line,head,tail)))), "10edit.nc", 530);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 542));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 530));
             n=atoi(number_string);
             n+=num;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%d%ls",((int* )(__right_value0=wstring_substring(line,0,head))),n,((int* )(__right_value1=wstring_substring(line,tail,-1))))))), "10edit.nc", 536);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 542));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 542));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 542));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 536));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 536));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 536));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line, "10edit.nc", 538));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line));
             (number_string = come_decrement_ref_count(number_string, (void*)0, (void*)0, 0, 0, (void*)0, "10edit.nc", 542));
@@ -4976,7 +4976,7 @@ void ViWin_incrementNumber(struct ViWin*  self  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             number_string_48=(char* )come_increment_ref_count(wstring_to_string(((int* )(__right_value0=wstring_substring(line_45,head_46,tail_47)))), "10edit.nc", 554);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 566));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 554));
             n_49=atoi(number_string_48);
             n_49++;
             __right_value0 = (void*)0;
@@ -4984,9 +4984,9 @@ void ViWin_incrementNumber(struct ViWin*  self  )
             __right_value2 = (void*)0;
             __right_value3 = (void*)0;
             new_line_50=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%d%ls",((int* )(__right_value0=wstring_substring(line_45,0,head_46))),n_49,((int* )(__right_value1=wstring_substring(line_45,tail_47,-1))))))), "10edit.nc", 560);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 566));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 566));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 566));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 560));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 560));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 560));
             list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(new_line_50, "10edit.nc", 562));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line_50));
             (number_string_48 = come_decrement_ref_count(number_string_48, (void*)0, (void*)0, 0, 0, (void*)0, "10edit.nc", 566));
@@ -5026,7 +5026,7 @@ void ViWin_deleteUntilTail(struct ViWin*  self  )
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "10edit.nc", 600);
         __right_value0 = (void*)0;
         ((int* )(__right_value0=wstring_delete(line,self->cursorX,-1)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 628));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 602));
         num=self->digitInput+1;
         for(i=1        ;i<num;i++){
             __right_value0 = (void*)0;
@@ -5047,7 +5047,7 @@ void ViWin_deleteUntilTail(struct ViWin*  self  )
         line_52=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "10edit.nc", 623);
         __right_value0 = (void*)0;
         ((int* )(__right_value0=wstring_delete(line_52,self->cursorX,-1)));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 628));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 624));
         ViWin_modifyOverCursorXValue(self);
         (line_52 = come_decrement_ref_count(line_52, (void*)0, (void*)0, 0, 0, (void*)0, "10edit.nc", 628));
     }
@@ -5069,7 +5069,7 @@ void ViWin_joinLines(struct ViWin*  self  )
         next_line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY+1,((void*)0)), "10edit.nc", 636);
         __right_value0 = (void*)0;
         line2=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls %ls",line,next_line)))), "10edit.nc", 638);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 647));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 638));
         list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(line2, "10edit.nc", 640));
         list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line2));
         list$1int$ph_delete(self->texts,self->scroll+self->cursorY+1,self->scroll+self->cursorY+1+1);
@@ -5145,16 +5145,16 @@ void ViWin_joinLines2_v10(struct ViWin*  self  )
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "10edit.nc", 688);
         __right_value0 = (void*)0;
         next_line=(int* )come_increment_ref_count((int* )come_memdup(((int* )(__right_value0=list$1int$ph_item(self->texts,self->scroll+self->cursorY+1,((void*)0)))), "10edit.nc", 689, "int* "), "10edit.nc", 689);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 697));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 689));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",line,next_line)))), "10edit.nc", 691));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 697));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 691));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(((int* )(__right_value1=string_to_wstring(((char* )(__right_value0=xsprintf("%ls%ls",line,next_line))))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 697));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 697));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 692));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 692));
         list$1int$ph_delete(self->texts,self->scroll+self->cursorY+1,self->scroll+self->cursorY+1+1);
         list$1int$_delete(self->texts_length,self->scroll+self->cursorY+1,self->scroll+self->cursorY+1+1);
         (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "10edit.nc", 697));
@@ -5181,9 +5181,9 @@ void ViWin_forwardToNextCharacter1(struct ViWin*  self  , int key)
         for(i=0        ;i<self->digitInput+1;i++){
             __right_value0 = (void*)0;
             cursor_x=wstring_index(((int* )(__right_value0=wstring_substring(line,self->cursorX+1,-1))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 720));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 720));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 720));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 709));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 709));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 709));
             if(cursor_x!=-1) {
                 self->cursorX+=cursor_x+1;
             }
@@ -5198,9 +5198,9 @@ void ViWin_forwardToNextCharacter1(struct ViWin*  self  , int key)
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         cursor_x_54=wstring_index(((int* )(__right_value0=wstring_substring(line,self->cursorX+1,-1))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 729));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 729));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 729));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 723));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 723));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 723));
         if(cursor_x_54!=-1) {
             self->cursorX+=cursor_x_54+1;
         }
@@ -5226,9 +5226,9 @@ void ViWin_forwardToNextCharacter2(struct ViWin*  self  , int key)
         for(i=0        ;i<self->digitInput+1;i++){
             __right_value0 = (void*)0;
             cursor_x=wstring_index(((int* )(__right_value0=wstring_substring(line,self->cursorX+2,-1))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 751));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 751));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 751));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 740));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 740));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 740));
             if(cursor_x!=-1) {
                 self->cursorX+=cursor_x+1;
             }
@@ -5243,9 +5243,9 @@ void ViWin_forwardToNextCharacter2(struct ViWin*  self  , int key)
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         cursor_x_55=wstring_index(((int* )(__right_value0=wstring_substring(line,self->cursorX+1,-1))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 760));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 760));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 760));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 754));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 754));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 754));
         if(cursor_x_55!=-1) {
             self->cursorX+=cursor_x_55;
         }
@@ -5286,9 +5286,9 @@ void ViWin_backwardToNextCharacter1(struct ViWin*  self  )
         for(i=0        ;i<self->digitInput+1;i++){
             __right_value0 = (void*)0;
             cursor_x=wstring_rindex(((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 795));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 795));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 795));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 784));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 784));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 784));
             if(cursor_x!=-1) {
                 self->cursorX=cursor_x;
             }
@@ -5303,9 +5303,9 @@ void ViWin_backwardToNextCharacter1(struct ViWin*  self  )
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         cursor_x_56=wstring_rindex(((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 804));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 804));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 804));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 798));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 798));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 798));
         if(cursor_x_56!=-1) {
             self->cursorX=cursor_x_56;
         }
@@ -5331,9 +5331,9 @@ void ViWin_backwardToNextCharacter2(struct ViWin*  self  )
         for(i=0        ;i<self->digitInput+1;i++){
             __right_value0 = (void*)0;
             cursor_x=wstring_rindex(((int* )(__right_value0=wstring_substring(line,0,self->cursorX-1))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 825));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 825));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 825));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 814));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 814));
+            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 814));
             if(cursor_x!=-1) {
                 self->cursorX=cursor_x+1;
             }
@@ -5348,9 +5348,9 @@ void ViWin_backwardToNextCharacter2(struct ViWin*  self  )
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         cursor_x_57=wstring_rindex(((int* )(__right_value0=wstring_substring(line,0,self->cursorX))),((int* )(__right_value2=string_to_wstring(((char* )(__right_value1=xsprintf("%c",key)))))),-1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 834));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 834));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 834));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 828));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 828));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 828));
         if(cursor_x_57!=-1) {
             self->cursorX=cursor_x_57+1;
         }

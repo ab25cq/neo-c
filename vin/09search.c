@@ -3422,7 +3422,7 @@ void ViWin_search(struct ViWin*  self  , struct Vi*  nvi  )
     char*  Value  ;
     _Bool _conditional_value_X3;
     memset(&x_4, 0, sizeof(x_4));
-    if(({(_conditional_value_X0=(wcscmp(nvi->searchString,((int* )(__right_value0=__builtin_wstring(""))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 38));
+    if(({(_conditional_value_X0=(wcscmp(nvi->searchString,((int* )(__right_value0=__builtin_wstring(""))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 33));
 _conditional_value_X0;})) {
                 neo_current_frame = fr.prev;
         return;
@@ -3431,7 +3431,7 @@ _conditional_value_X0;})) {
     cursor_line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "09search.nc", 38);
     __right_value0 = (void*)0;
     x=wstring_index(((int* )(__right_value0=wstring_substring(cursor_line,self->cursorX+1,-1))),nvi->searchString,-1);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 75));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 40));
     if(x!=-1) {
         ViWin_saveReturnPoint(self);
         x+=self->cursorX+1;
@@ -3447,7 +3447,7 @@ _conditional_value_X0;})) {
                 if(({(_conditional_value_X3=(Value));_conditional_value_X3;})) {
                     __right_value0 = (void*)0;
                     x_4=string_index_regex(((char* )(__right_value0=wstring_to_string(it))),Value,-1,(_Bool)0);
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 57));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 55));
                 }
                 (Value = come_decrement_ref_count(Value, (void*)0, (void*)0, 0, 0, (void*)0, "09search.nc", 62));
             }
@@ -3727,7 +3727,7 @@ void ViWin_searchReverse(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool _conditional_value_X3;
     memset(&x, 0, sizeof(x));
     memset(&x_5, 0, sizeof(x_5));
-    if(({(_conditional_value_X0=(wcscmp(nvi->searchString,((int* )(__right_value0=__builtin_wstring(""))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 82));
+    if(({(_conditional_value_X0=(wcscmp(nvi->searchString,((int* )(__right_value0=__builtin_wstring(""))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 77));
 _conditional_value_X0;})) {
                 neo_current_frame = fr.prev;
         return;
@@ -3740,7 +3740,7 @@ _conditional_value_X0;})) {
     else {
         __right_value0 = (void*)0;
         x=wstring_rindex(((int* )(__right_value0=wstring_substring(cursor_line,0,self->cursorX-1))),nvi->searchString,-1);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 93));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 90));
     }
     if(x!=-1) {
         ViWin_saveReturnPoint(self);
@@ -3749,7 +3749,7 @@ _conditional_value_X0;})) {
     else {
         it2=0;
         for(__right_value0 = (void*)0,
-({(_conditional_value_X0=(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY)))), "09search.nc", 100),it=list$1int$ph_begin(_o2_saved_2)));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "09search.nc}", 122);
+({(_conditional_value_X0=(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_reverse(((struct list$1int$ph*)(__right_value0=list$1int$ph_sublist(self->texts,0,self->scroll+self->cursorY)))), "09search.nc", 100),it=list$1int$ph_begin(_o2_saved_2)));        come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "09search.nc}", 100);
 _conditional_value_X0;})        ;({(_conditional_value_X1=(!list$1int$ph_end(_o2_saved_2)));_conditional_value_X1;});({(_conditional_value_X2=(it=list$1int$ph_next(_o2_saved_2)));_conditional_value_X2;})){
             if(nvi->regexSearch) {
                 __right_value0 = (void*)0;
@@ -3757,7 +3757,7 @@ _conditional_value_X0;})        ;({(_conditional_value_X1=(!list$1int$ph_end(_o2
                 if(({(_conditional_value_X3=(Value));_conditional_value_X3;})) {
                     __right_value0 = (void*)0;
                     x_5=string_index_regex(((char* )(__right_value0=wstring_to_string(it))),Value,-1,(_Bool)0);
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 106));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 104));
                 }
                 (Value = come_decrement_ref_count(Value, (void*)0, (void*)0, 0, 0, (void*)0, "09search.nc", 111));
             }
@@ -3819,7 +3819,7 @@ void ViWin_searchWordOnCursor(struct ViWin*  self  , struct Vi*  nvi  )
     int word_head;
     int*  search_word  ;
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "09search.nc", 127);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 172));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 127));
     if(self->cursorX<wstring_length(line)) {
         cursor_x_before=self->cursorX;
         p=line+self->cursorX;
@@ -3867,7 +3867,7 @@ void ViWin_searchWordOnCursorReverse(struct ViWin*  self  , struct Vi*  nvi  )
     int word_head;
     int*  search_word  ;
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "09search.nc", 174);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 218));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 174));
     if(self->cursorX<wstring_length(line)) {
         cursor_x_before=self->cursorX;
         p=line+self->cursorX;
@@ -3927,7 +3927,7 @@ void ViWin_inputSearchlMode(struct ViWin*  self  , struct Vi*  nvi  )
             a[0]=key;
             a[1]=0;
             wcsncat(nvi->searchString,((int* )(__right_value0=chara_to_wstring(a))),128);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 238));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 236));
         }
         break;
         case 87-65+1:
@@ -3963,8 +3963,8 @@ void ViWin_inputSearchlMode(struct ViWin*  self  , struct Vi*  nvi  )
         default:
         __right_value0 = (void*)0;
         wcsncat(nvi->searchString,((int* )(__right_value1=string_to_wstring(((char* )(__right_value0=xsprintf("%c",key)))))),128);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 278));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 278));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 275));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 275));
         break;
     }
     ViWin_saveInputedKey_v14(self);
@@ -4000,7 +4000,7 @@ void Vi_saveSearchString(struct Vi*  self  , const char* file_name)
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin",home), "09search.nc", 299);
     __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",file_name2))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 319));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 301));
     __right_value0 = (void*)0;
     __dec_obj4=file_name2,
     file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin/%s",home,file_name), "09search.nc", 303);
@@ -4012,7 +4012,7 @@ void Vi_saveSearchString(struct Vi*  self  , const char* file_name)
         return;
     }
     if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(wcscmp(self->searchString,((int* )(__right_value0=__builtin_wstring(""))))!=0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 316));
+({(_conditional_value_X0=(wcscmp(self->searchString,((int* )(__right_value0=__builtin_wstring(""))))!=0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 311));
 _conditional_value_X0;})) {
         fprintf(f,"%ls\n",self->searchString);
     }
@@ -4033,7 +4033,7 @@ void Vi_readSearchString(struct Vi*  self  , const char* file_name)
     home=getenv("HOME");
     if(home==((void*)0)) {
         wcsncpy(self->searchString,((int* )(__right_value0=__builtin_wstring(""))),128);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 328));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 324));
                 neo_current_frame = fr.prev;
         return;
     }
@@ -4043,7 +4043,7 @@ void Vi_readSearchString(struct Vi*  self  , const char* file_name)
     if(f==((void*)0)) {
         __right_value0 = (void*)0;
         wcsncpy(self->searchString,((int* )(__right_value0=__builtin_wstring(""))),128);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 337));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 333));
                 (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "09search.nc", 334));
         neo_current_frame = fr.prev;
         return;
@@ -4067,7 +4067,7 @@ void Vi_enterSearchMode_v9(struct Vi*  self  , _Bool regex_search, _Bool reverse
     void* __right_value0 = (void*)0;
     self->mode=(4);
     wcsncpy(self->searchString,((int* )(__right_value0=__builtin_wstring(""))),128);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 358));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 353));
     self->regexSearch=regex_search;
     self->searchReverse=reverse;
     neo_current_frame = fr.prev;
