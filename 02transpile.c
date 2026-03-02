@@ -4638,16 +4638,16 @@ int come_main(int argc, char** argv)
         __dec_obj46 = come_decrement_ref_count(__dec_obj46, (void*)0, (void*)0, 0,0, (void*)0);
         transpile(&info);
         if(info.err_num>0) {
-            printf("transpile error number %d\n",info.err_num);
+            printf("transpile failed for %s: %d error(s). see diagnostics above.\n",it,info.err_num);
             exit(2);
         }
         Value_39=output_source_file(&info);
         if(!Value_39) {
-            printf("output source file faield\n");
+            printf("output source file failed\n");
             exit(2);
         }
         if(info.warning_num>0) {
-            printf("transpile warning number %d\n",info.warning_num);
+            printf("transpile completed for %s with %d warning(s).\n",it,info.warning_num);
         }
         come_call_finalizer(sInfo_finalize, (&info), (void*)0, (void*)0, 1, 0, 0, (void*)0);
         come_call_finalizer(sVarTable_finalize, lv_table, (void*)0, (void*)0, 0, 0, 0, (void*)0);

@@ -3161,3 +3161,26 @@ int main(int argc, char** argv)
     return 0;
 }
 ```
+
+`find` usage example (current style):
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    var li = [1,2,3,4,5,6,7];
+
+    // take first 3 items -> find first item that matches -> map -> collect to list
+    var li2 = li.`iter().`take(3).`find { it > 2 }.`map { it.to_string() + "B" }.`collect();
+
+    puts(li2.to_string());   // [3B]
+
+    return 0;
+}
+```
+
+Note:
+
+- Use `it.to_string() + "B"` for string output.
+- `it + "B"` is invalid (`int + string`) and now reports a compile error.

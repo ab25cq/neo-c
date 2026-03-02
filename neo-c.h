@@ -8659,6 +8659,17 @@ impl list<T>
     iter map() {
         `it = `block();
     }
+    iter enumerate() {
+        `it = t(i, it);
+    }
+    iter find() {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+            break;
+        \}
+    }
     iter_end each() {
         `block();
     }

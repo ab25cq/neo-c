@@ -1694,8 +1694,13 @@ class sOptionalNode extends sNodeBase
         bool local_;
         
         sType*% origin = come_value.type.mTypedefOriginalType;
+        int origin_pointer_num = origin ? origin.mPointerNum : 0;
         
-        if(come_value.type->mPointerNum != 1 && come_value.type->mArrayPointerNum != 1 && origin.mPointerNum != 1) {
+        if(!come_value.mNullValue
+            && come_value.type->mPointerNum != 1
+            && come_value.type->mArrayPointerNum != 1
+            && origin_pointer_num != 1)
+        {
             err_msg(info, "require pointer for opt");
             show_type(come_value.type);
             return true;

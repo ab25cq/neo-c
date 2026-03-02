@@ -43,6 +43,10 @@ test: *.nc
 	./comelang13
 	$(NEO_C) comelang14.nc
 	./comelang14
+	$(NEO_C) test_iter_obj_eval_once.nc
+	./test_iter_obj_eval_once
+	$(NEO_C) test_iter_tuple_rebind.nc
+	./test_iter_tuple_rebind
 	$(NEO_C) comelang2.nc
 	./comelang2
 	$(NEO_C) comelang3.nc

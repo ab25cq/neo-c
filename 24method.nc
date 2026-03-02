@@ -1086,14 +1086,32 @@ class sIterCallNode extends sNodeBase
         sNode*% obj = clone self.obj;
         buffer*% method_block = clone self.method_block;
         sNode*% parent_call_node = clone self.parent_call_node;
+        bool recursive = info.iter_buffer != null;
         
-        node_compile(obj).elif {
-            return false;
+        CVALUE*% obj_value;
+        sType*% obj_type;
+        if(recursive && info.iter_block && info.iter_type) {
+            obj_value = new CVALUE();
+            obj_value.c_value = clone info.iter_block;
+            obj_value.type = clone info.iter_type;
+            obj_value.var = null;
+            
+            obj_type = clone obj_value.type;
         }
-        
-        CVALUE*% obj_value = get_value_from_stack(-1, info);
-        
-        sType*% obj_type = clone obj_value.type;
+        else {
+            node_compile(obj).elif {
+                return false;
+            }
+            
+            obj_value = get_value_from_stack(-1, info);
+            
+            obj_type = clone obj_value.type;
+            
+            if(!recursive) {
+                info.iter_block = clone obj_value.c_value;
+                info.iter_type = clone obj_value.type;
+            }
+        }
         
         string generics_fun_name = get_method_from_iter_call(fun_name, obj_type, info);
         sGenericsFun* generics_fun = borrow info.generics_funcs.at(generics_fun_name, null);
@@ -1156,9 +1174,7 @@ class sIterCallNode extends sNodeBase
             i++;
         }
         
-        static bool recursive = false;
-        if(recursive == false) {
-            recursive = true;
+        if(!recursive) {
             bool use_iter_next = info.use_iter_next;
             
             string text = generics_fun.mBlock[1..-2];
@@ -1203,8 +1219,7 @@ class sIterCallNode extends sNodeBase
                     if(info.iter_next) {
                         buf.append_str(info.iter_buffer);
                         info.iter_buffer = s"";
-                        
-//                        info.use_iter_next = true;
+                        info.use_iter_next = true;
                     }
                 }
                 else if((end - p) > strlen("`self") && memcmp(p, "`self", strlen("`self")) == 0) {
@@ -1247,8 +1262,11 @@ puts(all_code2);
             
             sType*% generics_type = info.generics_type;
             list<string>*% generics_type_names = info.generics_type_names;
+            list<string>*% first_pass_generics_type_names = clone info.generics_type_names;
+            list<string>*% second_pass_generics_type_names = new list<string>();
+            second_pass_generics_type_names.add(s"T");
             
-
+            info.generics_type_names = first_pass_generics_type_names;
             info.source = all_code2.to_buffer();
             info.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
@@ -1281,8 +1299,7 @@ puts(all_code2);
             info.head = borrow info.source.buf;
             info.end = info.source.buf + info.source.len;
             
-            info.generics_type_names.reset();
-            info.generics_type_names.add(s"T");
+            info.generics_type_names = second_pass_generics_type_names;
             
             sBlock*% block = parse_block(info);
             
@@ -1297,7 +1314,9 @@ puts(all_code2);
             info.generics_type_names = generics_type_names;
             
             info.iter_buffer = null;
-            recursive = false;
+            info.iter_block = null;
+            info.iter_next = null;
+            info.use_iter_next = false;
         }
         else {
             string text = generics_fun.mBlock[1..-2];
@@ -1343,8 +1362,7 @@ puts(all_code2);
                     if(info.iter_next) {
                         buf.append_str(info.iter_buffer);
                         info.iter_buffer = s"";
-                        
-//                        info.use_iter_next = true;
+                        info.use_iter_next = true;
                     }
                 }
                 else if((end - p) > strlen("`self") && memcmp(p, "`self", strlen("`self")) == 0) {
@@ -1623,4 +1641,3 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     
     return inherit(buf, head, head_sline, info);
 }
-

@@ -460,9 +460,11 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
             info.sname = node.sname();
             
             node_compile(node).elif {
-                puts(node.kind());
-                printf("%s %d: compiling is failed(5)\n", info->sname, info->sline);
-                exit(2);
+                if(gComeDebug) {
+                    puts(node.kind());
+                    printf("%s %d: compiling is failed(5)\n", info->sname, info->sline);
+                }
+                return false;
             }
             
             info.sline = sline;

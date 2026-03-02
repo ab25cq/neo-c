@@ -137,6 +137,19 @@ class sAddNode extends sNodeBase
         }
         
         if(!calling_fun) {
+            bool left_is_string = left_value.type->mClass->mName === "char" && left_value.type->mPointerNum == 1
+                && (left_value.c_value && left_value.c_value[0] == '"');
+            bool right_is_string = right_value.type->mClass->mName === "char" && right_value.type->mPointerNum == 1
+                && (right_value.c_value && right_value.c_value[0] == '"');
+            bool left_is_arithmetic = left_value.type->mClass->mNumber || left_value.type->mClass->mFloat || left_value.type->mClass->mEnum;
+            bool right_is_arithmetic = right_value.type->mClass->mNumber || right_value.type->mClass->mFloat || right_value.type->mClass->mEnum;
+            if((left_is_arithmetic && right_is_string)
+                || (right_is_arithmetic && left_is_string))
+            {
+                err_msg(info, "invalid + between arithmetic type and string. use to_string() or string interpolation.");
+                return false;
+            }
+
             sType*% result_type = clone left_value.type;
             if(right_value.type->mPointerNum > 0) {
                 result_type = clone right_value.type;
