@@ -2849,10 +2849,10 @@ void stackframe2(void* mem, char* sname, int sline)
     char* fun_name;
     if(come_is_alive(mem)&&mem) {
         it=(struct sMemHeader* )((char*)mem-sizeof(unsigned long )-sizeof(unsigned long )-sizeof(struct sMemHeader ));
-        if(sname) {
-            printf("Source Point %s %d\n",sname,sline);
-        }
         printf("allocated at %s %d. type is %s.\n",it->sname,it->sline,it->class_name);
+    }
+    if(sname) {
+        printf("Source Point %s %d\n",sname,sline);
     }
     f=neo_current_frame;
     while(f) {

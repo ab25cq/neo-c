@@ -189,9 +189,9 @@ uniq void stackframe2(void* mem, char* sname=null, int sline=0)
     if(come_is_alive(mem) && mem) {
         sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
         
-        if(sname) printf("Source Point %s %d\n", sname, sline);
         printf("allocated at %s %d. type is %s.\n", it->sname, it->sline, it->class_name);
     }
+    if(sname) printf("Source Point %s %d\n", sname, sline);
     
     neo_frame *f = neo_current_frame;
     while(f) {
