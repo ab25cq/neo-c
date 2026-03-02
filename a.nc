@@ -2,25 +2,9 @@
 
 int main(int argc, char** argv) 
 {
-    int v[5] = { 1,2,3,4,5 };
-    
-    int& p = ref v;
+    int? p = opt new int(5);
     
     printf("%d\n", *p);
-    p++;
-    
-    printf("%d\n", *p);
-    p++;
-    printf("%d\n", *p);
-    p++;
-    printf("%d\n", *p);
-    p++;
-    printf("%d\n", *p);
-    p++;
-    printf("%d\n", *p);
-    p++;
-    printf("%d\n", *p);
-    p++;
                                    
     return 0;
 }

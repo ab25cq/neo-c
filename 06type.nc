@@ -1631,10 +1631,10 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             }
           
             type->mPointerNum = 1;
-            //type->mHeap = false;
+            type->mHeap = true;
             if(type->mNoSolvedGenericsType) {
                 type->mNoSolvedGenericsType.mPointerNum = 1;
-        //        type->mNoSolvedGenericsType.mHeap = false;
+                type->mNoSolvedGenericsType.mHeap = true;
             }
             
             sType*% generics_type = new sType(s"optional");

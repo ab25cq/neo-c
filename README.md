@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.2.5
+version 0.9.2.6
 
 ``` C
 #include <neo-c.h>
@@ -94,6 +94,7 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.2.6 opt is ownd and heap only. DSL pipe filter with zero cost like rust.
 0.9.2.5 I'm adding to zero cost iterator like rust.
 0.9.2.4 refference count cycle checker is refined.
 0.9.2.3 refference count cycle checker is refined.
@@ -3013,61 +3014,9 @@ struct sData
     int c;
 };
 
-sData%? fun()
-{
-    sData%? p = opt new sData { a:111, b:222, c:333 };
-    
-    return p;
-}
-
-int main(int argc, char** argv)
-{
-    sData%? p = fun();
-    
-    printf("p.a %d\n", p.a);
-    
-    return 0;
-}
-```
-p.a 111
-
-```
-#include <neo-c.h>
-
-struct sData
-{
-    int a;
-    int b;
-    int c;
-};
-
-int main(int argc, char** argv)
-{
-    sData%? p = null;
-    
-    printf("p.a %d\n", p.a);
-    
-    return 0;
-}
-```
-null pointer exception. self is null
-stackframe
-main
-
-```
-#include <neo-c.h>
-
-struct sData
-{
-    int a;
-    int b;
-    int c;
-};
-
 sData? fun()
 {
-    sData data = (sData) { 111, 222, 333 };
-    sData? p = opt &data;
+    sData? p = opt new sData { a:111, b:222, c:333 };
     
     return p;
 }
@@ -3081,10 +3030,48 @@ int main(int argc, char** argv)
     return 0;
 }
 ```
-refferenced stack object is vanished
-allocated at a.nc 13
-stackframe2
+p.a 111
+
+optional is owned.
+
+```
+#include <neo-c.h>
+
+struct sData
+{
+    int a;
+    int b;
+    int c;
+};
+
+int main(int argc, char** argv)
+{
+    sData? p = null;
+    
+    printf("p.a %d\n", p.a);
+    
+    return 0;
+}
+```
+null pointer exception. self is null
+stackframe
 main
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv) 
+{
+    int? p = opt new int(5);
+    
+    printf("%d\n", *p);
+                                   
+    return 0;
+}
+```
+5.
+
+
 
 ```
 #include <neo-c.h>

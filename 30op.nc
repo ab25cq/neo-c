@@ -1,7 +1,52 @@
 #include "common.h"
 
+bool is_ref_or_optional_type_for_operator(sType* type, sInfo* info=info)
+{
+    if(type == null || type->mClass == null) {
+        return false;
+    }
+    
+    sType* type2 = type;
+    if(type->mNoSolvedGenericsType && type->mNoSolvedGenericsType.mClass) {
+        type2 = borrow type->mNoSolvedGenericsType;
+    }
+    
+    char* class_name = borrow type2->mClass->mName;
+    
+    return class_name === "ref"
+        || class_name === "optional"
+        || (strlen(class_name) >= 4 && memcmp(class_name, "ref$", 4) == 0)
+        || (strlen(class_name) >= 9 && memcmp(class_name, "optional$", 9) == 0);
+}
+
+bool reject_ref_optional_unary_operator(const char* op_name, CVALUE* value, sInfo* info=info)
+{
+    if(value && is_ref_or_optional_type_for_operator(value.type)) {
+        err_msg(info, "invalid operator(%s). ref/optional type is not supported this operator", op_name);
+        return true;
+    }
+    
+    return false;
+}
+
+bool reject_ref_optional_binary_operator(const char* op_name, CVALUE* left_value, CVALUE* right_value, sInfo* info=info)
+{
+    if((left_value && is_ref_or_optional_type_for_operator(left_value.type))
+        || (right_value && is_ref_or_optional_type_for_operator(right_value.type)))
+    {
+        err_msg(info, "invalid operator(%s). ref/optional type is not supported this operator", op_name);
+        return true;
+    }
+    
+    return false;
+}
+
 bool operator_overload_fun(sType* type, const char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE* left_value, CVALUE* right_value, bool break_guard, sInfo* info)
 {
+    if(reject_ref_optional_binary_operator(fun_name, left_value, right_value)) {
+        return true;
+    }
+    
     sType* generics_type;
     if(type->mNoSolvedGenericsType) {
         generics_type = borrow type->mNoSolvedGenericsType;
@@ -130,7 +175,7 @@ class sAddNode extends sNodeBase
         const char* fun_name = "operator_add";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -211,7 +256,7 @@ class sSubNode extends sNodeBase
         const char* fun_name = "operator_sub";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -279,7 +324,7 @@ class sMultNode extends sNodeBase
         const char* fun_name = "operator_mult";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -342,7 +387,7 @@ class sDivNode extends sNodeBase
         const char* fun_name = "operator_div";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -405,7 +450,7 @@ class sModNode extends sNodeBase
         const char* fun_name = "operator_mod";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -469,7 +514,7 @@ class sLShiftNode extends sNodeBase
         const char* fun_name = "operator_lshift";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -532,7 +577,7 @@ class sRShiftNode extends sNodeBase
         const char* fun_name = "operator_rshift";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -595,7 +640,7 @@ class sGtEqNode extends sNodeBase
         const char* fun_name = "operator_gteq";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -657,7 +702,7 @@ class sLtEqNode extends sNodeBase
         const char* fun_name = "operator_lteq";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -719,7 +764,7 @@ class sLtNode extends sNodeBase
         const char* fun_name = "operator_lt";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -781,7 +826,7 @@ class sGtNode extends sNodeBase
         const char* fun_name = "operator_gt";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -941,10 +986,9 @@ class sEq2Node extends sNodeBase
         const char* fun_name = "operator_equals";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
-
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
         }
         
@@ -1004,7 +1048,7 @@ class sNotEq2Node extends sNodeBase
         const char* fun_name = "operator_not_equals";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -1066,7 +1110,7 @@ class sAndNode extends sNodeBase
         const char* fun_name = "operator_and";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -1130,7 +1174,7 @@ class sXOrNode extends sNodeBase
         const char* fun_name = "operator_xor";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -1193,7 +1237,7 @@ class sOrNode extends sNodeBase
         const char* fun_name = "operator_or";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -1257,7 +1301,7 @@ class sAndAndNode extends sNodeBase
         const char* fun_name = "operator_andand";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);
@@ -1320,7 +1364,7 @@ class sOrOrNode extends sNodeBase
         const char* fun_name = "operator_oror";
         bool calling_fun;
         if(self.mQuote) {
-            calling_fun = false;
+            calling_fun = reject_ref_optional_binary_operator(fun_name, left_value, right_value, info);
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left_node, right_node, left_value, right_value, false@break_guard, info);

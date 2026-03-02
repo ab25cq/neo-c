@@ -816,24 +816,22 @@ impl ref<T>
 //////////////////////////////
 struct optional<T>
 {
-    T^ p;
+    T p;   // owned
     bool global;
     bool heap;
     bool local;
     
     void* stacktop;
-    T heaptop;
 };
 
 impl optional<T>
 {
     optional<T>*% initialize(optional<T>*% self, T p, bool global_, bool heap_, bool local_, void* stacktop) {
-        self.p = borrow p;
+        self.p = p;
         self.global = global_;
         self.heap = heap_;
         self.local = local_;
         self.stacktop = stacktop;
-        self.heaptop = p;
         return self;
     }
     
@@ -853,7 +851,7 @@ impl optional<T>
             }
         }
         if(self.heap) {
-            if(!come_is_alive(self.heaptop)) {
+            if(!come_is_alive(self.p)) {
                 puts("refferenced heap object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -884,7 +882,7 @@ impl optional<T>
             }
         }
         if(self.heap) {
-            if(!come_is_alive(self.heaptop)) {
+            if(!come_is_alive(self.p)) {
                 puts("refferenced heap object is vanished");
                 stackframe2(self);
                 exit(127);

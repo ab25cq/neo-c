@@ -2,6 +2,12 @@
 
 bool operator_overload_fun_self(sType* type, const char* fun_name, sNode*% node, CVALUE* left_value, sInfo* info)
 {
+    if((fun_name === "operator_plus_plus" || fun_name === "operator_minus_minus")
+        && reject_ref_optional_unary_operator(fun_name, left_value))
+    {
+        return true;
+    }
+    
     sType*% generics_type;
     if(type->mNoSolvedGenericsType) {
         generics_type = type->mNoSolvedGenericsType;
@@ -428,6 +434,10 @@ class sPlusPlusNode2 extends sNodeBase
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
 
+        if(reject_ref_optional_unary_operator("operator_plus_plus", left_value)) {
+            return false;
+        }
+
         sType*% type = left_value.type;
 
         const char* fun_name = "operator_plus_plus";
@@ -473,6 +483,10 @@ class sMinusMinusNode2 extends sNodeBase
         }
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
+
+        if(reject_ref_optional_unary_operator("operator_minus_minus", left_value)) {
+            return false;
+        }
 
         sType*% type = left_value.type;
 
