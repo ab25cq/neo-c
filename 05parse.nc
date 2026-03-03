@@ -95,9 +95,9 @@ int warning_msg(sInfo* info, const char* msg, ...)
 int expected_next_character(char c, sInfo* info=info)
 {
     parse_sharp();
-    if(*info->p.p != c) {
+    if(*info.p != c) {
         if(!info.no_output_come_code) {
-            err_msg(info, "expected next charaster is %c, but %c, caller %s %d", c, *info->p.p, info->caller_sname, info->caller_line);
+            err_msg(info, "expected next charaster is %c, but %c, caller %s %d", c, *info.p, info->caller_sname, info->caller_line);
             //stackframe();
             exit(1);
         }
@@ -115,18 +115,18 @@ string parse_word(bool digits=false, sInfo* info=info)
     parse_sharp();
     
     if(digits) {
-        while((*info->p.p >= 'a' && *info->p.p <= 'z') || (*info->p.p >= 'A' && *info->p.p <= 'Z') || *info->p.p == '_' || (*info->p.p >= '0' && *info->p.p <= '9') || (*info->p.p == '$'))
+        while((*info.p >= 'a' && *info.p <= 'z') || (*info.p >= 'A' && *info.p <= 'Z') || *info.p == '_' || (*info.p >= '0' && *info.p <= '9') || (*info.p == '$'))
         {
-            buf.append_char(*info->p.p);
+            buf.append_char(*info.p);
             info->p.p++;
         }
     }
     else {
-        if((*info->p.p >= 'a' && *info->p.p <= 'z') || (*info->p.p >= 'A' && *info->p.p <= 'Z') || *info->p.p == '_' || (*info->p.p == '$'))
+        if((*info.p >= 'a' && *info.p <= 'z') || (*info.p >= 'A' && *info.p <= 'Z') || *info.p == '_' || (*info.p == '$'))
         {
-            while((*info->p.p >= 'a' && *info->p.p <= 'z') || (*info->p.p >= 'A' && *info->p.p <= 'Z') || *info->p.p == '_' || (*info->p.p >= '0' && *info->p.p <= '9') || (*info->p.p == '$'))
+            while((*info.p >= 'a' && *info.p <= 'z') || (*info.p >= 'A' && *info.p <= 'Z') || *info.p == '_' || (*info.p >= '0' && *info.p <= '9') || (*info.p == '$'))
             {
-                buf.append_char(*info->p.p);
+                buf.append_char(*info.p);
                 info->p.p++;
             }
         }
@@ -134,7 +134,7 @@ string parse_word(bool digits=false, sInfo* info=info)
     skip_spaces_and_lf();
     
     if(buf.to_string().length() == 0) {
-        err_msg(info, "unexpected character(%c), expected word character, caller %s %d", *info->p.p, info->caller_sname, info->caller_line);
+        err_msg(info, "unexpected character(%c), expected word character, caller %s %d", *info.p, info->caller_sname, info->caller_line);
         //stackframe();
         exit(1);
     }
@@ -156,7 +156,7 @@ string backtrace_parse_word(sInfo* info=info)
     int sline = info.sline;
     
     string buf;
-    if(xisalpha(*info->p.p) || *info->p.p == '_') {
+    if(xisalpha(*info.p) || *info.p == '_') {
         buf = parse_word();
     }
     else {
@@ -171,14 +171,14 @@ string backtrace_parse_word(sInfo* info=info)
 
 static bool skip_comment(sInfo* info, bool skip_space_after)
 {
-    if(*info->p.p == '/' && *(info->p.p+1) == '*') {
+    if(*info.p == '/' && *(info->p.p+1) == '*') {
         int nest = 0;
         while(1) {
-            if(*info->p.p == '/' && *(info->p.p+1) == '*') {
+            if(*info.p == '/' && *(info->p.p+1) == '*') {
                 info->p.p +=2;
                 nest++;
             }
-            else if(*info->p.p == '*' && *(info->p.p+1) == '/') {
+            else if(*info.p == '*' && *(info->p.p+1) == '/') {
                 info->p.p +=2;
                 nest--;
                 
@@ -189,20 +189,20 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                     break;
                 }
             }
-            else if(*info->p.p == '\n') {
+            else if(*info.p == '\n') {
                 info->p.p++;
                 info->sline++;
                 info->sline_real++;
             }
-            else if(*info->p.p == '\r') {
+            else if(*info.p == '\r') {
                 info->p.p++;
-                if(*info->p.p == '\n') {
+                if(*info.p == '\n') {
                     info->p.p++;
                 }
                 info->sline++;
                 info->sline_real++;
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 err_msg(info, "unterminated comment");
                 break;
             }
@@ -213,11 +213,11 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
         
         return true;
     }
-    else if(*info->p.p == '/' && *(info->p.p+1) == '/') {
+    else if(*info.p == '/' && *(info->p.p+1) == '/') {
         info->p.p+=2;
         
         while(1) {
-            if(*info->p.p == '\n') {
+            if(*info.p == '\n') {
                 info->p.p++;
                 info->sline++;
                 info->sline_real++;
@@ -226,9 +226,9 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                 }
                 break;
             }
-            else if(*info->p.p == '\r') {
+            else if(*info.p == '\r') {
                 info->p.p++;
-                if(*info->p.p == '\n') {
+                if(*info.p == '\n') {
                     info->p.p++;
                 }
                 info->sline++;
@@ -238,7 +238,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                 }
                 break;
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 break;
             }
             else { 
@@ -255,18 +255,18 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
 void skip_spaces_and_lf(sInfo* info=info)
 {
     while(true) {
-        if(*info->p.p == ' ' || *info->p.p == '\t') {
+        if(*info.p == ' ' || *info.p == '\t') {
             info->p.p++;
         }
-        else if(*info->p.p == '\r') {
+        else if(*info.p == '\r') {
             info->p.p++;
-            if(*info->p.p == '\n') {
+            if(*info.p == '\n') {
                 info->p.p++;
             }
             info->sline++;
             info->sline_real++;
         }
-        else if(*info->p.p == '\n') {
+        else if(*info.p == '\n') {
             info->p.p++;
             info->sline++;
             info->sline_real++;
@@ -278,10 +278,10 @@ void skip_spaces_and_lf(sInfo* info=info)
         }
     }
     
-    if(*info->p.p == '#') {
+    if(*info.p == '#') {
         parse_sharp();
     }
-    else if(*info->p.p == '_' && parsecmp("__extension__")) {
+    else if(*info.p == '_' && parsecmp("__extension__")) {
         parse_sharp();
     }
 }
@@ -289,18 +289,18 @@ void skip_spaces_and_lf(sInfo* info=info)
 void skip_spaces_and_lf2(sInfo* info=info)
 {
     while(true) {
-        if(*info->p.p == ' ' || *info->p.p == '\t') {
+        if(*info.p == ' ' || *info.p == '\t') {
             info->p.p++;
         }
-        else if(*info->p.p == '\r') {
+        else if(*info.p == '\r') {
             info->p.p++;
-            if(*info->p.p == '\n') {
+            if(*info.p == '\n') {
                 info->p.p++;
             }
             info->sline++;
             info->sline_real++;
         }
-        else if(*info->p.p == '\n') {
+        else if(*info.p == '\n') {
             info->p.p++;
             info->sline++;
             info->sline_real++;
@@ -316,15 +316,15 @@ void skip_spaces_and_lf2(sInfo* info=info)
 void skip_spaces_and_tabs(sInfo* info=info)
 {
     while(true) {
-        if(*info->p.p == ' ' || *info->p.p == '\t') {
+        if(*info.p == ' ' || *info.p == '\t') {
             info->p.p++;
         }
-        else if(*info->p.p == '/' && *(info->p.p+1) == '*') {
+        else if(*info.p == '/' && *(info->p.p+1) == '*') {
             (void)skip_comment(info, false);
         }
-        else if(*info->p.p == '/' && *(info->p.p+1) == '/') {
+        else if(*info.p == '/' && *(info->p.p+1) == '/') {
             info->p.p += 2;
-            while(*info->p.p && *info->p.p != '\n' && *info->p.p != '\r') {
+            while(*info.p && *info.p != '\n' && *info.p != '\r') {
                 info->p.p++;
             }
             break;
@@ -529,24 +529,24 @@ void parse_sharp(sInfo* info=info) version 5
 {
     
     while(1) {
-        if(*info->p.p == '#') {
+        if(*info.p == '#') {
             info->p.p++;
             skip_spaces_and_tabs();
             
             if(parsecmp("pragma")) {
                 buffer*% buf = new buffer();
                 buf.append_str("#");
-                while(*info->p.p) {
-                    if(*info->p.p == '\n') {
-                        buf.append_char(*info->p.p);
+                while(*info.p) {
+                    if(*info.p == '\n') {
+                        buf.append_char(*info.p);
                         skip_spaces_and_lf2();
                         break;
                     }
-                    else if(*info->p.p == '\0') {
+                    else if(*info.p == '\0') {
                         break;
                     }
                     else {
-                        buf.append_char(*info->p.p);
+                        buf.append_char(*info.p);
                         info->p.p++;
                     }
                 }
@@ -563,34 +563,34 @@ void parse_sharp(sInfo* info=info) version 5
                 int line = 0;
                 buffer*% fname = new buffer();
     
-                if(!xisdigit(*info->p.p)) {
+                if(!xisdigit(*info.p)) {
                     err_msg(info, "invalid #line directive");
                     return;
                 }
                 
-                while(xisdigit(*info->p.p)) {
-                    line = line * 10 + (*info->p.p - '0');
+                while(xisdigit(*info.p)) {
+                    line = line * 10 + (*info.p - '0');
                     info->p.p++;
                 }
                 skip_spaces_and_tabs();
     
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     info->p.p++;
     
-                    while(*info->p.p && *info->p.p != '"') {
-                        fname.append_char(*info->p.p);
+                    while(*info.p && *info.p != '"') {
+                        fname.append_char(*info.p);
                         info->p.p++;
                     }
-                    if(*info->p.p == '\0') {
+                    if(*info.p == '\0') {
                         err_msg(info, "unterminated #line file name");
                         return;
                     }
                     info->p.p++;
     
-                    while(*info->p.p && *info->p.p != '\n') {
+                    while(*info.p && *info.p != '\n') {
                         info->p.p++;
                     }
-                    if(*info->p.p == '\n') {
+                    if(*info.p == '\n') {
                         info->p.p++;
                         info->sline_real++;
                     }
@@ -612,33 +612,33 @@ void parse_sharp(sInfo* info=info) version 5
     
                 skip_spaces_and_tabs();
             }
-            else if(xisdigit(*info->p.p)) {
+            else if(xisdigit(*info.p)) {
                 int line = 0;
                 buffer*% fname = new buffer();
     
-                while(xisdigit(*info->p.p)) {
-                    line = line * 10 + (*info->p.p - '0');
+                while(xisdigit(*info.p)) {
+                    line = line * 10 + (*info.p - '0');
                     info->p.p++;
                 }
                 skip_spaces_and_tabs();
     
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     info->p.p++;
     
-                    while(*info->p.p && *info->p.p != '"') {
-                        fname.append_char(*info->p.p);
+                    while(*info.p && *info.p != '"') {
+                        fname.append_char(*info.p);
                         info->p.p++;
                     }
-                    if(*info->p.p == '\0') {
+                    if(*info.p == '\0') {
                         err_msg(info, "unterminated #line file name");
                         return;
                     }
                     info->p.p++;
     
-                    while(*info->p.p && *info->p.p != '\n') {
+                    while(*info.p && *info.p != '\n') {
                         info->p.p++;
                     }
-                    if(*info->p.p == '\n') {
+                    if(*info.p == '\n') {
                         info->p.p++;
                         info->sline_real++;
                     }
@@ -661,22 +661,22 @@ void parse_sharp(sInfo* info=info) version 5
     
                 skip_spaces_and_tabs();
             }
-            else if(*info->p.p == '"') {
+            else if(*info.p == '"') {
                 info->p.p++;
     
-                while(*info->p.p && *info->p.p != '"') {
+                while(*info.p && *info.p != '"') {
                     info->p.p++;
                 }
-                if(*info->p.p == '\0') {
+                if(*info.p == '\0') {
                     err_msg(info, "unterminated #include file name");
                     return;
                 }
                 info->p.p++;
     
-                while(*info->p.p && *info->p.p != '\n') {
+                while(*info.p && *info.p != '\n') {
                     info->p.p++;
                 }
-                if(*info->p.p == '\n') {
+                if(*info.p == '\n') {
                     info->p.p++;
                     info->sline_real++;
                 }
@@ -700,13 +700,13 @@ void skip_paren(sInfo* info)
 {
     int nest = 0;
     while(true) {
-        if(*info->p.p == '(') {
+        if(*info.p == '(') {
             info->p.p++;
             skip_spaces_and_lf();
             
             nest++;
         }
-        else if(*info->p.p == ')') {
+        else if(*info.p == ')') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -715,7 +715,7 @@ void skip_paren(sInfo* info)
                 break;
             }
         }
-        else if(*info->p.p == '\0') {
+        else if(*info.p == '\0') {
             err_msg(info, "invalid the source end. require )");
             exit(1);
         }

@@ -2686,6 +2686,7 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
 _Bool is_portable_libc_symbol(const char* sym);
+struct sNode* add_node(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sInterfaceNode* sInterfaceNode_initialize(struct sInterfaceNode* self, char*  name  , struct sClass*  klass  , _Bool output, struct sInfo*  info  );
 char*  sInterfaceNode_kind(struct sInterfaceNode* self);
 _Bool sInterfaceNode_compile(struct sInterfaceNode* self, struct sInfo*  info  );
@@ -2761,6 +2762,8 @@ static struct list$1tuple2$2char$phsType$ph$ph* list$1tuple2$2char$phsType$ph$ph
 static struct tuple2$2char$phsType$ph* tuple2$2char$phsType$ph_initialize(struct tuple2$2char$phsType$ph* self, char*  v1  , struct sType*  v2  );
 static struct list$1sType$ph* list$1sType$ph_initialize_with_values(struct list$1sType$ph* self, int num_value, struct sType**  values  );
 static struct list$1char$ph* list$1char$ph_initialize_with_values(struct list$1char$ph* self, int num_value, char**  values  );
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
+static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct sInterfaceNode* sInterfaceNode_clone(struct sInterfaceNode* self);
 static struct sClass*  sClass_clone(struct sClass*  self  );
 static struct list$1tuple2$2char$phsType$ph$ph* list$1tuple2$2char$phsType$ph$ph$p_clone(struct list$1tuple2$2char$phsType$ph$ph* self);
@@ -5171,7 +5174,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __right_value2 = (void*)0;
         list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "28interface.nc", 113, "struct tuple2$2char$phsType$ph"), "28interface.nc", 113),(char* )come_increment_ref_count(__builtin_string("clone"), "28interface.nc", 113),(struct sType* )come_increment_ref_count(cloner, "28interface.nc", 113)), "28interface.nc", 113));
         while((_Bool)1) {
-            if(*info->p->p==125) {
+            if(span$1char$p_operator_derefference(info->p)==125) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
                 break;
@@ -5187,7 +5190,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __right_value1 = (void*)0;
             list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "28interface.nc", 125, "struct tuple2$2char$phsType$ph"), "28interface.nc", 125),(char* )come_increment_ref_count(name, "28interface.nc", 125),(struct sType* )come_increment_ref_count(type2, "28interface.nc", 125)), "28interface.nc", 125));
             skip_spaces_and_lf(info);
-            if(*info->p->p==125) {
+            if(span$1char$p_operator_derefference(info->p)==125) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "28interface.nc}", 132);
@@ -5721,6 +5724,88 @@ static struct list$1char$ph* list$1char$ph_initialize_with_values(struct list$1c
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1476);
     return __result_obj__0;
+}
+
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
+}
+
+static char span$1char$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
 }
 
 static struct sInterfaceNode* sInterfaceNode_clone(struct sInterfaceNode* self)

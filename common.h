@@ -1264,5 +1264,6 @@ sNode*% create_new_object(sType*% type, sInfo* info=info);
 sNode*% parse_vector(sInfo* info=info);
 
 bool is_portable_libc_symbol(const char* sym);
+sNode*% add_node(sNode*% node, sNode*% right, sInfo* info=info);
 
 #endif

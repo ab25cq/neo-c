@@ -274,11 +274,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     else if(buf === "continue") {
         return new sContinueNode(info) implements sNode;
     }
-    else if(!info->no_label && *info->p.p == ':' && buf !== "tup") {
+    else if(!info->no_label && *info.p == ':' && buf !== "tup") {
         info->p.p++;
         skip_spaces_and_lf();
         
-        if(*info->p.p == ';') {
+        if(*info.p == ';') {
             return new sLabelNode(string(buf), info, true@semi_colon) implements sNode;
         }
         else {

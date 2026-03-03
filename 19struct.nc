@@ -396,7 +396,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
     while(true) {
         skip_spaces_and_lf();
         
-        if(*info->p.p == '}') {
+        if(*info.p == '}') {
             info->p.p++;
             skip_spaces_and_lf();
             break;
@@ -411,7 +411,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
             
             var type, name, err = backtrace_parse_type(parse_variable_name:true);
             
-            if(err && *info->p.p == ',') {
+            if(err && *info.p == ',') {
                 multiple_declare = true;
             }
                 
@@ -426,7 +426,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
             
             klass.mFields.push_back(t(name2, type2));
             
-            while(*info->p.p == ',') {
+            while(*info.p == ',') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -445,14 +445,14 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
             
             klass.mFields.push_back(t(name, type2));
         }
-        if(*info->p.p == ';') {
+        if(*info.p == ';') {
             info->p.p++;
             skip_spaces_and_lf();
         }
         
         skip_spaces_and_lf();
         
-        if(*info->p.p == '}') {
+        if(*info.p == '}') {
             info->p.p++;
             skip_spaces_and_lf();
             break;
@@ -511,7 +511,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             }
         }
         
-        if(*info->p.p == ';') {
+        if(*info.p == ';') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -557,7 +557,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             info.parse_struct_recursive_count--;
             return new sStructNobodyNode(string(type_name), info) implements sNode;
         }
-        else if(*info->p.p == '<') {
+        else if(*info.p == '<') {
             info.generics_type_names.reset();
             
             info->p.p++;
@@ -567,12 +567,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 var T = parse_word() ;
                 info.generics_type_names.push_back(clone T);
                 
-                if(*info->p.p == '>') {
+                if(*info.p == '>') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     break;
                 }
-                else if(*info->p.p == ',') {
+                else if(*info.p == ',') {
                     info->p.p++;
                     skip_spaces_and_lf();
                 }
@@ -597,7 +597,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             while(true) {
                 skip_spaces_and_lf();
                 
-                if(*info->p.p == '}') {
+                if(*info.p == '}') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     break;
@@ -612,10 +612,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     exit(2);
                 }
                 
-                if(*info->p.p == ',') {
+                if(*info.p == ',') {
                     generics_class.mFields.push_back(t(name, type2));
                     
-                    while(*info->p.p == ',') {
+                    while(*info.p == ',') {
                         info->p.p++;
                         skip_spaces_and_lf();
                         
@@ -623,7 +623,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                         
                         var type3 = clone type2;
                         
-                        if(*info->p.p == ':') {
+                        if(*info.p == ':') {
                             info->p.p++;
                             skip_spaces_and_lf();
                             
@@ -642,14 +642,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     generics_class.mFields.push_back(t(name, type2));
                 }
                 
-                if(*info->p.p == ';') {
+                if(*info.p == ';') {
                     info->p.p++;
                     skip_spaces_and_lf();
                 }
                 
                 skip_spaces_and_lf();
                 
-                if(*info->p.p == '}') {
+                if(*info.p == '}') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     break;
@@ -712,7 +712,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
            
             while(true) {
                 skip_spaces_and_lf();
-                if(*info->p.p == '}') {
+                if(*info.p == '}') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     break;
@@ -726,7 +726,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     
                     var type, name, err = backtrace_parse_type(parse_variable_name:true);
                     
-                    if(err && *info->p.p == ',') {
+                    if(err && *info.p == ',') {
                         multiple_declare = true;
                     }
                         
@@ -741,7 +741,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     
                     struct_class.mFields.push_back(t(name2, type2));
                     
-                    while(*info->p.p == ',') {
+                    while(*info.p == ',') {
                         info->p.p++;
                         skip_spaces_and_lf();
                         
@@ -760,7 +760,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     struct_class.mFields.push_back(t(name, type2));
                 }
                 
-                if(*info->p.p == ';') {
+                if(*info.p == ';') {
                     info->p.p++;
                     skip_spaces_and_lf();
                 }
@@ -768,7 +768,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 
                 skip_spaces_and_lf();
                 
-                if(*info->p.p == '}') {
+                if(*info.p == '}') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     break;
@@ -874,7 +874,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         while(true) {
             skip_spaces_and_lf();
             
-            if(*info->p.p == '}') {
+            if(*info.p == '}') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 break;
@@ -892,7 +892,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 if((info->end - info->p.p) >= strlen("new(") && memcmp(info.p.p, "new(", 4) != 0) {
                     var type, name, err = backtrace_parse_type(parse_variable_name:true);
                     
-                    if(err && *info->p.p == ',') {
+                    if(err && *info.p == ',') {
                         multiple_declare = true;
                     }
                 }
@@ -911,13 +911,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 }
                 else {
                     bool invalid_type = false;
-                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                    if(xisalpha(*info.p) || *info.p == '_') {
                         var result_type, fun_name, err = backtrace_parse_type();
                     }
                     
                     string word = null;
-                    if(xisalnum(*info.p.p) || *info->p.p == '_') {
-                        while(xisalnum(*info.p.p) || *info->p.p == '_') {
+                    if(xisalnum(*info.p.p) || *info.p == '_') {
+                        while(xisalnum(*info.p.p) || *info.p == '_') {
                             word = parse_word();
                         }
                     }
@@ -927,33 +927,33 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     
                     if(word) {
                         if(is_type_name(word)) {
-                            while(*info->p.p == '*') {
+                            while(*info.p == '*') {
                                 info->p.p++;
                                 skip_spaces_and_lf();
                             }
-                            while(*info->p.p == '%') {
+                            while(*info.p == '%') {
                                 info->p.p++;
                                 skip_spaces_and_lf();
                             }
-                            if(*info->p.p == '[' && *(info->p.p+1) == ']') {
+                            if(*info.p == '[' && *(info->p.p+1) == ']') {
                                 info->p.p += 2;
                                 skip_spaces_and_lf();
                             }
-                            if(*info->p.p == ':') {
+                            if(*info.p == ':') {
                                 info->p.p++;
                                 skip_spaces_and_lf();
                             }
-                            if(*info->p.p == ':') {
+                            if(*info.p == ':') {
                                 info->p.p++;
                                 skip_spaces_and_lf();
                             }
-                            if(xisalnum(*info.p.p) || *info->p.p == '_') {
+                            if(xisalnum(*info.p.p) || *info.p == '_') {
                                 word = parse_word();
                             }
                         }
                         
                         /// fun name ///
-                        if(strlen(word) > 0 && (*info->p.p == '(' || (*info->p.p == ':' && *(info->p.p+1) == ':'))) {
+                        if(strlen(word) > 0 && (*info.p == '(' || (*info.p == ':' && *(info->p.p+1) == ':'))) {
                             define_function_flag = true;
                         }
                     }
@@ -987,7 +987,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 
                 struct_class.mFields.push_back(t(name2, type2));
                 
-                while(*info->p.p == ',') {
+                while(*info.p == ',') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     
@@ -1006,7 +1006,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 
                 struct_class.mFields.push_back(t(name, type2));
                 
-                if(*info->p.p == ';') {
+                if(*info.p == ';') {
                     info->p.p++;
                     skip_spaces_and_lf();
                 }
@@ -1015,7 +1015,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             
             skip_spaces_and_lf();
             
-            if(*info->p.p == '}') {
+            if(*info.p == '}') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 break;
@@ -1045,7 +1045,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.no_output_come_code = true;
         
         if(buf === "struct") {
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info.p) || *info.p == '_') {
                 string type_name = parse_word();
                 
                 (void)parse_struct_attribute();
@@ -1057,10 +1057,10 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 
                 (void)parse_struct_attribute();
                 
-                if(*info->p.p == '{') {
+                if(*info.p == '{') {
                     skip_block();
                     
-                    if(*info->p.p == ';') {
+                    if(*info.p == ';') {
                         define_struct = true;
                     }
                 }

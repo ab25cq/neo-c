@@ -96,7 +96,7 @@ struct sInfo
 
 void skip_spaces(sInfo* info=info) 
 {
-    while(*info->p.p == ' ' || *info->p.p == '\t') {
+    while(*info.p == ' ' || *info.p == '\t') {
         info->p.p++;
     }
 }
@@ -105,15 +105,15 @@ string parse_word(sInfo* info=info)
 {
     var buf = new buffer();
     
-    while(*info->p.p) {
-        if(*info->p.p == ' ' || *info->p.p == '\t' || *info->p.p == '\n' || *info->p.p == '\r') {
+    while(*info.p) {
+        if(*info.p == ' ' || *info.p == '\t' || *info.p == '\n' || *info.p == '\r') {
             break;
         }
-        else if(!xisalnum(*info->p.p) && *info->p.p != '_' && *info->p.p != '-') {
+        else if(!xisalnum(*info.p) && *info.p != '_' && *info.p != '-') {
             break;
         }
         else {
-            buf.append_char(*info->p.p);
+            buf.append_char(*info.p);
             info->p.p++;
         }
     }
@@ -124,12 +124,12 @@ string parse_word(sInfo* info=info)
 
 bool expected_next_charactor(char c, sInfo* info=info)
 {
-    if(*info->p.p == c) {
+    if(*info.p == c) {
         info->p.p++;
         skip_spaces();
     }
     else {
-        printf("expected character(%c), but it is %c.\n", c, *info->p.p);
+        printf("expected character(%c), but it is %c.\n", c, *info.p);
         return false;
     }
     
@@ -149,12 +149,12 @@ string, sType*%, bool parse_type(sInfo* info=info)
     bool not_null = false;
     
     while(1) {
-        if(*info->p.p == '(') {
+        if(*info.p == '(') {
             info->p.p++;
             skip_spaces();
             int n = 0;
-            while(xisdigit(*info->p.p)) {
-                n = n * 10 + *info->p.p - '0';
+            while(xisdigit(*info.p)) {
+                n = n * 10 + *info.p - '0';
                 info->p.p++;
                 skip_spaces();
             }
@@ -217,7 +217,7 @@ bool eval_create_table(sInfo* info)
         
         types.add(t(field_name, type));
         
-        if(*info->p.p == ')') {
+        if(*info.p == ')') {
             break;
         }
         
@@ -243,29 +243,29 @@ bool eval_create_table(sInfo* info)
 
 string parse_value(sInfo* info=info)
 {
-    if(*info->p.p == '\'') {
+    if(*info.p == '\'') {
         info->p.p++;
         skip_spaces();
         
         buffer*% buf = new buffer();
         
         while(1) {
-            if(*info->p.p == '\\') {
+            if(*info.p == '\\') {
                 info->p.p++;
-                if(*info->p.p != '\0') {
-                    buf.append_char(*info->p.p);
+                if(*info.p != '\0') {
+                    buf.append_char(*info.p);
                     info->p.p++;
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 break;
             }
-            else if(*info->p.p == '\'') {
+            else if(*info.p == '\'') {
                 info->p.p++;
                 break;
             }
             else {
-                buf.append_char(*info->p.p);
+                buf.append_char(*info.p);
                 info->p.p++;
             }
         }
@@ -295,7 +295,7 @@ bool eval_insert_into(sInfo* info)
         
         field_names.add(field);
         
-        if(*info->p.p == ')') {
+        if(*info.p == ')') {
             break;
         }
         
@@ -318,7 +318,7 @@ bool eval_insert_into(sInfo* info)
         
         values.add(value);
         
-        if(*info->p.p == ')') {
+        if(*info.p == ')') {
             break;
         }
         
@@ -408,12 +408,12 @@ WhereNode*% parse_where(sInfo* info=info)
     WhereNode*% left = new WhereNode(null, null, kWOData, str);
     
     WhereNode*% result = null;
-    if(*info->p.p == '=') {
+    if(*info.p == '=') {
         info->p.p++;
         skip_spaces();
         
         string str2;
-        if(*info->p.p == '\'') {
+        if(*info.p == '\'') {
             str2 = parse_value();
         }
         else {
@@ -429,7 +429,7 @@ WhereNode*% parse_where(sInfo* info=info)
         skip_spaces();
         
         string str2;
-        if(*info->p.p == '\'') {
+        if(*info.p == '\'') {
             str2 = parse_value();
         }
         else {
@@ -445,7 +445,7 @@ WhereNode*% parse_where(sInfo* info=info)
         skip_spaces();
         
         string str2;
-        if(*info->p.p == '\'') {
+        if(*info.p == '\'') {
             str2 = parse_value();
         }
         else {
@@ -461,7 +461,7 @@ WhereNode*% parse_where(sInfo* info=info)
         skip_spaces();
         
         string str2;
-        if(*info->p.p == '\'') {
+        if(*info.p == '\'') {
             str2 = parse_value();
         }
         else {
@@ -472,12 +472,12 @@ WhereNode*% parse_where(sInfo* info=info)
         
         result = new WhereNode(left, right, kWOLtEq, null);
     }
-    else if(*info->p.p == '>') {
+    else if(*info.p == '>') {
         info->p.p++;
         skip_spaces();
         
         string str2;
-        if(*info->p.p == '\'') {
+        if(*info.p == '\'') {
             str2 = parse_value();
         }
         else {
@@ -488,12 +488,12 @@ WhereNode*% parse_where(sInfo* info=info)
         
         result = new WhereNode(left, right, kWOGt, null);
     }
-    else if(*info->p.p == '<') {
+    else if(*info.p == '<') {
         info->p.p++;
         skip_spaces();
         
         string str2;
-        if(*info->p.p == '\'') {
+        if(*info.p == '\'') {
             str2 = parse_value();
         }
         else {
@@ -698,7 +698,7 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
     bool max_ = false;
     list<string>*% field_names = new list<string>();
     map<string,bool>*% max_field = new map<string,bool>();
-    if(*info->p.p =='*') {
+    if(*info.p =='*') {
         info->p.p++;
         skip_spaces();
         all_ = true;
@@ -776,10 +776,10 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                 
                 in_values.add(value);
                 
-                if(*info->p.p == '\0') {
+                if(*info.p == '\0') {
                     return false;
                 }
-                else if(*info->p.p == ')') {
+                else if(*info.p == ')') {
                     info->p.p++;
                     skip_spaces();
                     break;

@@ -1628,6 +1628,17 @@ struct sNullChecker
     struct sNode* value;
 };
 
+struct span$1buffer$p
+{
+    char* memory;
+    struct buffer*  p  ;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 /// variable definition ///
 extern struct _IO_FILE*  stdin  ;
 extern struct _IO_FILE*  stdout  ;
@@ -2675,6 +2686,7 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
 _Bool is_portable_libc_symbol(const char* sym);
+struct sNode* add_node(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 static void write_source_file_position_to_source(struct sInfo*  info  );
 _Bool node_compile(struct sNode* node, struct sInfo*  info  );
 _Bool transpile_conditional_with_free_right_object_value(struct sNode* node, struct sInfo*  info  );
@@ -2754,7 +2766,8 @@ static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_initialize(
 static void list$1sRightValueObject$ph_finalize(struct list$1sRightValueObject$ph* self);
 static struct list$1CVALUE$ph* list$1CVALUE$ph_initialize(struct list$1CVALUE$ph* self);
 static void list$1CVALUE$ph_finalize(struct list$1CVALUE$ph* self);
-static struct span$1char$p* span$1char$p_initialize(struct span$1char$p* self, void* head, unsigned long  len  , _Bool local, _Bool heap, _Bool global, void* stacktop);
+static struct span$1buffer$p* span$1buffer$p_initialize(struct span$1buffer$p* self, void* head, unsigned long  len  , _Bool local, _Bool heap, _Bool global, void* stacktop);
+static void span$1buffer$p$p_finalize(struct span$1buffer$p* self);
 // uniq global variable
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
@@ -4650,16 +4663,21 @@ int come_main(int argc, char** argv)
         info.source=(struct buffer* )come_increment_ref_count(charp_read(((char* )(__right_value0=xsprintf("%s.i",it)))), "02transpile.nc", 366);
         come_call_finalizer(buffer_finalize, __dec_obj45,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 366);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 366));
-        __right_value0 = (void*)0;
-        __right_value1 = (void*)0;
-        __dec_obj46=info.p,
-        info.p=(struct span$1char$p*)come_increment_ref_count(span$1char$p_initialize((struct span$1char$p*)come_increment_ref_count((struct span$1char$p*)come_calloc(1, sizeof(struct span$1char$p)*(1), "02transpile.nc", 367, "struct span$1char$p*"), "02transpile.nc", 367),info.source->buf,sizeof(info.source->buf),(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "02transpile.nc", 367);
-        come_call_finalizer(span$1char$p$p_finalize, __dec_obj46,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 367);
+        if(info.p==((void*)0)) {
+            __right_value0 = (void*)0;
+            __right_value1 = (void*)0;
+            __dec_obj46=info.p,
+            info.p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "02transpile.nc", 368, "struct span$1buffer$p*"), "02transpile.nc", 368),info.source->buf,info.source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "02transpile.nc", 368);
+            come_call_finalizer(span$1char$p$p_finalize, __dec_obj46,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 368);
+        }
+        info.p->memory=info.source->buf;
+        info.p->len=info.source->len+2;
+        info.p->p=info.source->buf;
         info.head=info.source->buf;
         info.end=info.source->buf+info.source->len;
         __dec_obj47=info.output_file_name,
         info.output_file_name=((void*)0);
-        __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0, "02transpile.nc", 371);
+        __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0, "02transpile.nc", 376);
         transpile(&info);
         if(info.err_num>0) {
             printf("transpile failed for %s: %d error(s). see diagnostics above.\n",it,info.err_num);
@@ -4673,12 +4691,12 @@ int come_main(int argc, char** argv)
         if(info.warning_num>0) {
             printf("transpile completed for %s with %d warning(s).\n",it,info.warning_num);
         }
-        come_call_finalizer(sInfo_finalize, (&info), (void*)0, (void*)0, 1, 0, 0, (void*)0, "02transpile.nc}", 391);
-        come_call_finalizer(sVarTable_finalize, lv_table, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 391);
+        come_call_finalizer(sInfo_finalize, (&info), (void*)0, (void*)0, 1, 0, 0, (void*)0, "02transpile.nc}", 396);
+        come_call_finalizer(sVarTable_finalize, lv_table, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 396);
     }
         __result_obj__0 = 0;
-    come_call_finalizer(list$1char$ph$p_finalize, files, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 391);
-    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 391);
+    come_call_finalizer(list$1char$ph$p_finalize, files, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 396);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 396);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -5691,26 +5709,32 @@ static void list$1CVALUE$ph_finalize(struct list$1CVALUE$ph* self)
             neo_current_frame = fr.prev;
 }
 
-static struct span$1char$p* span$1char$p_initialize(struct span$1char$p* self, void* head, unsigned long  len  , _Bool local, _Bool heap, _Bool global, void* stacktop)
+static struct span$1buffer$p* span$1buffer$p_initialize(struct span$1buffer$p* self, void* head, unsigned long  len  , _Bool local, _Bool heap, _Bool global, void* stacktop)
 {
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1char$p_initialize"; neo_current_frame = &fr;
-    struct span$1char$p* __result_obj__0;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1buffer$p_initialize"; neo_current_frame = &fr;
+    struct span$1buffer$p* __result_obj__0;
     if(!1) {
         puts("invalid span");
         stackframe2(self,((void*)0),0);
         exit(2);
     }
     self->memory=(char*)head;
-    self->p=(char*)head;
+    self->p=(struct buffer* )head;
     self->len=len;
     self->local=local;
     self->heap=heap;
     self->global=global;
     self->stacktop=stacktop;
-        __result_obj__0 = (struct span$1char$p*)come_increment_ref_count(self, "/usr/local/include/neo-c.h", 1005);
-    come_call_finalizer(span$1char$p$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1005);
+        __result_obj__0 = (struct span$1buffer$p*)come_increment_ref_count(self, "/usr/local/include/neo-c.h", 1005);
+    come_call_finalizer(span$1buffer$p$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1005);
     neo_current_frame = fr.prev;
-    come_call_finalizer(span$1char$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1005);
+    come_call_finalizer(span$1buffer$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1005);
     return __result_obj__0;
+}
+
+static void span$1buffer$p$p_finalize(struct span$1buffer$p* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1buffer$p$p_finalize"; neo_current_frame = &fr;
+        neo_current_frame = fr.prev;
 }
 

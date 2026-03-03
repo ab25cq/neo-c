@@ -118,7 +118,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
         }
         info.in_typedef = in_typedef;
         
-        if(*info->p.p == ',') {
+        if(*info.p == ',') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -132,7 +132,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
             tuple2<sType*%, string>*% variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
             multiple_declare.push_back(variable_name2);
             
-            while(*info->p.p == ',') {
+            while(*info.p == ',') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -194,7 +194,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
         info.in_typedef = in_typedef;
         
-        if(*info->p.p == ',') {
+        if(*info.p == ',') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -208,7 +208,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             tuple2<sType*%, string>*% variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
             multiple_declare.push_back(variable_name2);
             
-            while(*info->p.p == ',') {
+            while(*info.p == ',') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 

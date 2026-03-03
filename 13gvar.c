@@ -2720,6 +2720,7 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
 _Bool is_portable_libc_symbol(const char* sym);
+struct sNode* add_node(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sGlobalVariable* sGlobalVariable_initialize(struct sGlobalVariable* self, struct list$1tuple3$3sType$phchar$phchar$ph$ph* multiple_declare, struct sType*  type  , char*  name  , struct sNode* right_node, char*  array_initializer  , struct sInfo*  info  );
 char*  sGlobalVariable_kind(struct sGlobalVariable* self);
 _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info  );
@@ -2789,6 +2790,8 @@ char*  sExternalGlobalVariable_kind(struct sExternalGlobalVariable* self);
 _Bool sExternalGlobalVariable_compile(struct sExternalGlobalVariable* self, struct sInfo*  info  );
 static void sExternalGlobalVariable_finalize(struct sExternalGlobalVariable* self);
 struct sNode* parse_global_variable(struct sInfo*  info  );
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
+static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static void tuple3$3sType$phchar$ph_Bool$$p_finalize(struct tuple3$3sType$phchar$ph_Bool$* self);
 static void tuple2$2sType$phchar$ph$p_finalize(struct tuple2$2sType$phchar$ph* self);
 static struct list$1tuple3$3sType$phchar$phchar$ph$ph* list$1tuple3$3sType$phchar$phchar$ph$ph_push_back(struct list$1tuple3$3sType$phchar$phchar$ph$ph* self, struct tuple3$3sType$phchar$phchar$ph* item);
@@ -5422,7 +5425,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
         sline=info->sline;
         no_output_come_code=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        if(xisalpha(*info->p->p)||*info->p->p==95) {
+        if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
             skip_spaces_and_lf(info);
             multiple_assign_var3=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
             type=(struct sType* )come_increment_ref_count(multiple_assign_var3->v1, "13gvar.nc", 139);
@@ -5438,10 +5441,10 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
                 name_33=(char* )come_increment_ref_count(multiple_assign_var4->v2, "13gvar.nc", 144);
                 come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 144);
                 skip_spaces_and_lf(info);
-                if(*info->p->p==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
+                if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
                     info->p->p++;
                     skip_spaces_and_lf(info);
-                    if(*info->p->p==123) {
+                    if(span$1char$p_operator_derefference(info->p)==123) {
                         __right_value0 = (void*)0;
                         ((char* )(__right_value0=skip_block(info,(_Bool)0)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 152));
@@ -5455,7 +5458,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
                         ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "13gvar.nc", 164):(void*)0);
                     }
                 }
-                if(!is_type_name(name_33,info)&&*info->p->p==44) {
+                if(!is_type_name(name_33,info)&&span$1char$p_operator_derefference(info->p)==44) {
                     multiple_declare=(_Bool)1;
                 }
                 come_call_finalizer(sType_finalize, type_32, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13gvar.nc}", 170);
@@ -5490,11 +5493,11 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
         var_name=(char* )come_increment_ref_count(multiple_assign_var6->v2, "13gvar.nc", 190);
         come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 190);
         skip_spaces_and_lf(info);
-        if(*info->p->p==61&&*(info->p->p+1)!=61) {
+        if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61) {
             info->p->p++;
             skip_spaces_and_lf(info);
             head=info->p->p;
-            if(*info->p->p==123) {
+            if(span$1char$p_operator_derefference(info->p)==123) {
                 __right_value0 = (void*)0;
                 ((char* )(__right_value0=skip_block(info,(_Bool)0)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 200));
@@ -5528,7 +5531,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
             __right_value1 = (void*)0;
             list$1tuple3$3sType$phchar$phchar$ph$ph_push_back(multiple_declare_34,(struct tuple3$3sType$phchar$phchar$ph*)come_increment_ref_count(tuple3$3sType$phchar$phchar$ph_initialize((struct tuple3$3sType$phchar$phchar$ph*)come_increment_ref_count((struct tuple3$3sType$phchar$phchar$ph*)come_calloc(1, sizeof(struct tuple3$3sType$phchar$phchar$ph)*(1), "13gvar.nc", 226, "struct tuple3$3sType$phchar$phchar$ph"), "13gvar.nc", 226),(struct sType* )come_increment_ref_count(type2, "13gvar.nc", 226),(char* )come_increment_ref_count(var_name, "13gvar.nc", 226),(char* )come_increment_ref_count((char* )((void*)0), "13gvar.nc", 226)), "13gvar.nc", 226));
         }
-        while(*info->p->p==44) {
+        while(span$1char$p_operator_derefference(info->p)==44) {
             info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
@@ -5536,11 +5539,11 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
             type2_42=(struct sType* )come_increment_ref_count(multiple_assign_var7->v1, "13gvar.nc", 233);
             var_name_43=(char* )come_increment_ref_count(multiple_assign_var7->v2, "13gvar.nc", 233);
             come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 233);
-            if(*info->p->p==61&&*(info->p->p+1)!=61) {
+            if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
                 head_44=info->p->p;
-                if(*info->p->p==123) {
+                if(span$1char$p_operator_derefference(info->p)==123) {
                     __right_value0 = (void*)0;
                     ((char* )(__right_value0=skip_block(info,(_Bool)0)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 242));
@@ -5673,70 +5676,70 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
         }
         right_node_54=((void*)0);
         array_initializer_55=((void*)0);
-        if(*info->p->p==61&&*(info->p->p+1)!=61) {
+        if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61) {
             info->p->p++;
             skip_spaces_and_lf(info);
-            if(*info->p->p==123) {
+            if(span$1char$p_operator_derefference(info->p)==123) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 buf_56=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "13gvar.nc", 308, "struct buffer* "), "13gvar.nc", 308)), "13gvar.nc", 308);
-                buffer_append_char(buf_56,*info->p->p);
+                buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                 info->p->p++;
                 squort=(_Bool)0;
                 dquort=(_Bool)0;
                 nest=1;
                 while(1) {
-                    if(*info->p->p==0) {
+                    if(span$1char$p_operator_derefference(info->p)==0) {
                         err_msg(info,"unexpected source end in array initiailizer");
                         exit(2);
                     }
-                    else if(*info->p->p==92) {
-                        buffer_append_char(buf_56,*info->p->p);
+                    else if(span$1char$p_operator_derefference(info->p)==92) {
+                        buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                         info->p->p++;
-                        if(*info->p->p==10) {
+                        if(span$1char$p_operator_derefference(info->p)==10) {
                             info->sline++;
                         }
-                        buffer_append_char(buf_56,*info->p->p);
+                        buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                         info->p->p++;
                     }
-                    else if(!squort&&*info->p->p==34) {
-                        buffer_append_char(buf_56,*info->p->p);
+                    else if(!squort&&span$1char$p_operator_derefference(info->p)==34) {
+                        buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                         info->p->p++;
                         dquort=!dquort;
                     }
-                    else if(!dquort&&*info->p->p==39) {
-                        buffer_append_char(buf_56,*info->p->p);
+                    else if(!dquort&&span$1char$p_operator_derefference(info->p)==39) {
+                        buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                         info->p->p++;
                         squort=!squort;
                     }
                     else if(squort||dquort) {
-                        if(*info->p->p==10) {
+                        if(span$1char$p_operator_derefference(info->p)==10) {
                             info->sline++;
                         }
-                        buffer_append_char(buf_56,*info->p->p);
+                        buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                         info->p->p++;
                     }
-                    else if(*info->p->p==123) {
+                    else if(span$1char$p_operator_derefference(info->p)==123) {
                         nest++;
-                        buffer_append_char(buf_56,*info->p->p);
+                        buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                         info->p->p++;
                     }
-                    else if(*info->p->p==125) {
+                    else if(span$1char$p_operator_derefference(info->p)==125) {
                         nest--;
-                        buffer_append_char(buf_56,*info->p->p);
+                        buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                         info->p->p++;
                         if(nest==0) {
                             skip_spaces_and_lf(info);
                             break;
                         }
                     }
-                    else if(*info->p->p==10) {
+                    else if(span$1char$p_operator_derefference(info->p)==10) {
                         info->sline++;
-                        buffer_append_char(buf_56,*info->p->p);
+                        buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                         info->p->p++;
                     }
                     else {
-                        buffer_append_char(buf_56,*info->p->p);
+                        buffer_append_char(buf_56,span$1char$p_operator_derefference(info->p));
                         info->p->p++;
                     }
                 }
@@ -5822,6 +5825,88 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
     neo_current_frame = fr.prev;
     ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "13gvar.nc", 393):(void*)0);
     return __result_obj__0;
+}
+
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
+}
+
+static char span$1char$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
 }
 
 static void tuple3$3sType$phchar$ph_Bool$$p_finalize(struct tuple3$3sType$phchar$ph_Bool$* self)

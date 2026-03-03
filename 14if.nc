@@ -349,13 +349,13 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             int saved_sline = info->sline;
             skip_spaces_and_lf();
             
-            if(*info->p.p == ';') {
+            if(*info.p == ';') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
     
             /// else ///
-            if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
+            if(!(xisalpha(*info.p) || *info.p == '_')) {
                 break;
             }
             skip_spaces_and_lf();
@@ -481,7 +481,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
             }
         }
         else {
-            if(*info->p.p == '}') {
+            if(*info.p == '}') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 break;
@@ -506,7 +506,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
             elif_num++;
         }
         
-        if(*info->p.p == '}') {
+        if(*info.p == '}') {
             info->p.p++;
             skip_spaces_and_lf();
             break;
@@ -576,13 +576,13 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
         int saved_sline = info->sline;
         skip_spaces_and_lf();
         
-        if(*info->p.p == ';') {
+        if(*info.p == ';') {
             info->p.p++;
             skip_spaces_and_lf();
         }
 
         /// else ///
-        if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
+        if(!(xisalpha(*info.p) || *info.p == '_')) {
             break;
         }
         skip_spaces_and_lf();
@@ -667,13 +667,13 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
         int saved_sline = info->sline;
         skip_spaces_and_lf();
         
-        if(*info->p.p == ';') {
+        if(*info.p == ';') {
             info->p.p++;
             skip_spaces_and_lf();
         }
 
         /// else ///
-        if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
+        if(!(xisalpha(*info.p) || *info.p == '_')) {
             break;
         }
         skip_spaces_and_lf();
@@ -758,13 +758,13 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
         int saved_sline = info->sline;
         skip_spaces_and_lf();
         
-        if(*info->p.p == ';') {
+        if(*info.p == ';') {
             info->p.p++;
             skip_spaces_and_lf();
         }
 
         /// else ///
-        if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
+        if(!(xisalpha(*info.p) || *info.p == '_')) {
             break;
         }
         skip_spaces_and_lf();

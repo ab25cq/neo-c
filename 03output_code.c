@@ -2698,6 +2698,7 @@ char*  sNullChecker_kind(struct sNullChecker* self);
 _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
+struct sNode* add_node(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 _Bool is_portable_libc_symbol(const char* sym);
 _Bool should_strip_portable_asm_alias(const char* source, int* consumed);
 char*  normalize_portable_c_source(char* source);

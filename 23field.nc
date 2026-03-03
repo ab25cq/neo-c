@@ -1147,7 +1147,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             char* p = info.p.p;
             int sline = info.sline;
             
-            if(*info->p.p == '[') {
+            if(*info.p == '[') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -1159,7 +1159,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 info->no_comma = no_comma;
                 info->no_output_come_code = no_output_come_code;
                 
-                if(*info->p.p == '.' && *(info->p.p+1) == '.') {
+                if(*info.p == '.' && *(info->p.p+1) == '.') {
                     range_array = true;
                 }
             }
@@ -1168,8 +1168,8 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             info.sline = sline;
         }
         
-        if(!node.terminated() && range_array && (*info->p.p == '\\' && *(info->p.p+1) == '[' || *info->p.p == '[')) {
-            bool quote = *info->p.p == '\\';
+        if(!node.terminated() && range_array && (*info.p == '\\' && *(info->p.p+1) == '[' || *info.p == '[')) {
+            bool quote = *info.p == '\\';
             if(quote) {
                 info->p.p++;
             }
@@ -1184,7 +1184,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             
             array_num.push_back(node2);
             
-            if(*info->p.p == '.' && *(info->p.p+1) == '.') {
+            if(*info.p == '.' && *(info->p.p+1) == '.') {
                 info->p.p += 2;
                 skip_spaces_and_lf(info);
                 
@@ -1206,17 +1206,17 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             }
             node = new sLoadRangeArrayNode(node2, array_num, quote, info) implements sNode;
         }
-        else if(!node.terminated() && *info->p.p == '!' && *(info->p.p+1) != '=') {
+        else if(!node.terminated() && *info.p == '!' && *(info->p.p+1) != '=') {
             info->p.p++;
             skip_spaces_and_lf();
             
             node = new sUnwrapNode(node, info) implements sNode;
         }
-        else if(!node->terminated() && (*info->p.p == '.' && *(info->p.p+1) == '`')) 
+        else if(!node->terminated() && (*info.p == '.' && *(info->p.p+1) == '`')) 
         {
             sNode*% obj = node;
             sNode*% node_before = null;
-            while(*info->p.p == '.' && *(info->p.p+1) == '`') {
+            while(*info.p == '.' && *(info->p.p+1) == '`') {
                 info->p.p += 2;
                 skip_spaces_and_lf();
                 
@@ -1226,8 +1226,8 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 node_before = node;
             }
         }
-        else if(!node->terminated() && !range_array && (*info->p.p == '\\' && *(info->p.p+1) == '[' || *info->p.p == '[')) {
-            bool quote = *info->p.p == '\\';
+        else if(!node->terminated() && !range_array && (*info.p == '\\' && *(info->p.p+1) == '[' || *info.p == '[')) {
+            bool quote = *info.p == '\\';
             if(quote) {
                 info->p.p++;
             }
@@ -1240,7 +1240,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                     char* p = info.p.p;
                     int sline = info.sline;
                     
-                    if(*info->p.p == '[') {
+                    if(*info.p == '[') {
                         info->p.p++;
                         skip_spaces_and_lf();
                         
@@ -1252,7 +1252,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                         info->no_comma = no_comma;
                         info->no_output_come_code = no_output_come_code;
                         
-                        if(*info->p.p == '.' && *(info->p.p+1) == '.') {
+                        if(*info.p == '.' && *(info->p.p+1) == '.') {
                             range_array2 = true;
                         }
                     }
@@ -1264,7 +1264,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 if(range_array2) {
                     break;
                 }
-                else if(*info->p.p == '[') {
+                else if(*info.p == '[') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     
@@ -1274,7 +1274,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                     
                     array_num.push_back(node2);
                     
-                    if(*info->p.p == ']') {
+                    if(*info.p == ']') {
                         info->p.p++;
                         skip_spaces_and_lf();
                     }
@@ -1288,7 +1288,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 }
             }
             
-            if(!info.no_assign && *info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
+            if(!info.no_assign && *info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -1317,13 +1317,13 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 node = new sLoadArrayNode(node2, array_num, quote, false@break_guard, info) implements sNode;
             }
         }
-        else if((*info->p.p == '\\' && *(info->p.p+1) == '.') || (*info->p.p == '\\' && *(info->p.p+1) == '-' && *(info->p.p+2) == '>') || (*info->p.p == '.' && *(info->p.p+1) != '.') || (*info->p.p == '-' && *(info->p.p+1) == '>')) {
-            bool quote = *info->p.p == '\\';
+        else if((*info.p == '\\' && *(info->p.p+1) == '.') || (*info.p == '\\' && *(info->p.p+1) == '-' && *(info->p.p+2) == '>') || (*info.p == '.' && *(info->p.p+1) != '.') || (*info.p == '-' && *(info->p.p+1) == '>')) {
+            bool quote = *info.p == '\\';
             if(quote) {
                 info.p.p++;
             }
             bool arrow_ = false;
-            if(*info->p.p == '.') {
+            if(*info.p == '.') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
@@ -1344,11 +1344,11 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 char* p = info->p.p;
                 int sline = info->sline;
                 
-                if(*info->p.p == '<') {
+                if(*info.p == '<') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     
-                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                    if(xisalpha(*info.p) || *info.p == '_') {
                         string word = parse_word();
                         
                         if(is_type_name(word)) {
@@ -1361,7 +1361,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 info->sline = sline;
             }
             
-            if(!info.no_assign && *info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
+            if(!info.no_assign && *info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -1377,7 +1377,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 }
                 node = new sStoreFieldNode(node2, right_node, field_name, info, arrow_) implements sNode;
             }
-            else if(!gComeC && (*info->p.p == '(' || *info->p.p == '{' || parse_method_generics_type)) {
+            else if(!gComeC && (*info.p == '(' || *info.p == '{' || parse_method_generics_type)) {
                 if(field_name === "if") 
                 {
                     node = parse_if_method_call(node, info);

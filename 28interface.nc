@@ -113,7 +113,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
         klass.mFields.push_back(t(string("clone"), cloner));
         
         while(true) {
-            if(*info->p.p == '}') {
+            if(*info.p == '}') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 break;
@@ -126,7 +126,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
             
             skip_spaces_and_lf();
             
-            if(*info->p.p == '}') {
+            if(*info.p == '}') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 break;

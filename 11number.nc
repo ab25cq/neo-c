@@ -253,23 +253,23 @@ static bool is_imaginary_suffix(char c)
 
 sNode*% get_suffix(char* buf, char* p2, sInfo* info=info)
 {
-    if(*info->p.p == 'u' || *info->p.p == 'U')
+    if(*info.p == 'u' || *info.p == 'U')
     {
-        *p2++ = *info->p.p;
+        *p2++ = *info.p;
         *p2 = 0;
         info->p.p++;
         skip_spaces_and_lf();
 
-        if(*info->p.p == 'L' || *info->p.p == 'l')
+        if(*info.p == 'L' || *info.p == 'l')
         {
-            *p2++ = *info->p.p;
+            *p2++ = *info.p;
             *p2 = 0;
             info->p.p++;
             skip_spaces_and_lf();
 
-            if(*info->p.p == 'L' || *info->p.p == 'l')
+            if(*info.p == 'L' || *info.p == 'l')
             {
-                *p2++ = *info->p.p;
+                *p2++ = *info.p;
                 *p2 = 0;
                 info->p.p++;
                 skip_spaces_and_lf();
@@ -284,21 +284,21 @@ sNode*% get_suffix(char* buf, char* p2, sInfo* info=info)
             return new sUIntNode(buf.to_string(), info) implements sNode;
         }
     }
-    else if(*info->p.p == 'L' || *info->p.p == 'l') {
-        *p2++ = *info->p.p;
+    else if(*info.p == 'L' || *info.p == 'l') {
+        *p2++ = *info.p;
         *p2 = 0;
         info->p.p++;
         skip_spaces_and_lf();
 
-        if(*info->p.p == 'L' || *info->p.p == 'l')
+        if(*info.p == 'L' || *info.p == 'l')
         {
-            *p2++ = *info->p.p;
+            *p2++ = *info.p;
             *p2 = 0;
             info->p.p++;
             skip_spaces_and_lf();
             
-            if(*info->p.p == 'u' || *info->p.p == 'U') {
-                *p2++ = *info->p.p;
+            if(*info.p == 'u' || *info.p == 'U') {
+                *p2++ = *info.p;
                 *p2 = 0;
                 info->p.p++;
                 skip_spaces_and_lf();
@@ -309,9 +309,9 @@ sNode*% get_suffix(char* buf, char* p2, sInfo* info=info)
                 return new sLongNode(buf.to_string(), info) implements sNode;
             }
         }
-        else if(*info->p.p == 'U' || *info->p.p == 'u')
+        else if(*info.p == 'U' || *info.p == 'u')
         {
-            *p2++ = *info->p.p;
+            *p2++ = *info.p;
             *p2 = 0;
             info->p.p++;
             skip_spaces_and_lf();
@@ -338,17 +338,17 @@ sNode*% get_number(bool minus, sInfo* info)
         p++;
     }
 
-    if(!xisdigit(*info->p.p)) {
+    if(!xisdigit(*info.p)) {
         err_msg(info, "require digits after + or -");
         exit(2);
     }
     
-    while(xisdigit(*info->p.p) || *info->p.p == '\'') {
-        if(*info->p.p == '\'') {
+    while(xisdigit(*info.p) || *info.p == '\'') {
+        if(*info.p == '\'') {
             info->p.p++;
         }
         else {
-            *p++ = *info->p.p;
+            *p++ = *info.p;
             info->p.p++;
         }
 
@@ -360,9 +360,9 @@ sNode*% get_number(bool minus, sInfo* info)
     
     bool is_float = false;
     
-    if(*info->p.p == '.' && (xisdigit(*(info->p.p+1)) || *(info->p.p+1) == 'F' || *(info->p.p+1) == 'L')) {
+    if(*info.p == '.' && (xisdigit(*(info->p.p+1)) || *(info->p.p+1) == 'F' || *(info->p.p+1) == 'L')) {
         is_float = true;
-        *p++ = *info->p.p;
+        *p++ = *info.p;
         
         if(p - buf >= buf_size) {
             printf("%s %d: overflow node of number", info->sname, info->sline);
@@ -371,12 +371,12 @@ sNode*% get_number(bool minus, sInfo* info)
         
         info->p.p++;
         
-        while(xisdigit(*info->p.p) || *info->p.p == '\'') {
-            if(*info->p.p == '\'') {
+        while(xisdigit(*info.p) || *info.p == '\'') {
+            if(*info.p == '\'') {
                 info->p.p++;
             }
             else {
-                *p++ = *info->p.p;
+                *p++ = *info.p;
                 info->p.p++;
             }
 
@@ -387,9 +387,9 @@ sNode*% get_number(bool minus, sInfo* info)
         }
     }
     
-    if(*info->p.p == 'e' || *info->p.p == 'E') {
+    if(*info.p == 'e' || *info.p == 'E') {
         is_float = true;
-        *p++ = *info->p.p;
+        *p++ = *info.p;
         info->p.p++;
 
         if(p - buf >= buf_size) {
@@ -397,8 +397,8 @@ sNode*% get_number(bool minus, sInfo* info)
             exit(2);
         }
         
-        if(*info->p.p == '+' || *info->p.p == '-') {
-            *p++ = *info->p.p;
+        if(*info.p == '+' || *info.p == '-') {
+            *p++ = *info.p;
             info->p.p++;
 
             if(p - buf >= buf_size) {
@@ -407,17 +407,17 @@ sNode*% get_number(bool minus, sInfo* info)
             }
         }
         
-        if(!xisdigit(*info->p.p)) {
+        if(!xisdigit(*info.p)) {
             err_msg(info, "require digits after exponent");
             exit(2);
         }
         
-        while(xisdigit(*info->p.p) || *info->p.p == '\'') {
-            if(*info->p.p == '\'') {
+        while(xisdigit(*info.p) || *info.p == '\'') {
+            if(*info.p == '\'') {
                 info->p.p++;
             }
             else {
-                *p++ = *info->p.p;
+                *p++ = *info.p;
                 info->p.p++;
             }
 
@@ -432,13 +432,13 @@ sNode*% get_number(bool minus, sInfo* info)
     skip_spaces_and_lf();
     
     if(is_float) {
-        if(*info->p.p == 'f' || *info->p.p == 'F') {
-            *p++ = *info->p.p;
+        if(*info.p == 'f' || *info.p == 'F') {
+            *p++ = *info.p;
             *p = 0;
             
             info->p.p++;
-            if(is_imaginary_suffix(*info->p.p)) {
-                *p++ = *info->p.p;
+            if(is_imaginary_suffix(*info.p)) {
+                *p++ = *info.p;
                 *p = 0;
                 
                 info->p.p++;
@@ -452,13 +452,13 @@ sNode*% get_number(bool minus, sInfo* info)
                 return new sFloatNode(string(buf), info) implements sNode;
             }
         }
-        else if(*info->p.p == 'l' || *info->p.p == 'L') {
-            *p++ = *info->p.p;
+        else if(*info.p == 'l' || *info.p == 'L') {
+            *p++ = *info.p;
             *p = 0;
             
             info->p.p++;
-            if(is_imaginary_suffix(*info->p.p)) {
-                *p++ = *info->p.p;
+            if(is_imaginary_suffix(*info.p)) {
+                *p++ = *info.p;
                 *p = 0;
                 
                 info->p.p++;
@@ -472,13 +472,13 @@ sNode*% get_number(bool minus, sInfo* info)
                 return new sDoubleNode(string(buf), info) implements sNode;
             }
         }
-        else if(is_imaginary_suffix(*info->p.p)) {
-            *p++ = *info->p.p;
+        else if(is_imaginary_suffix(*info.p)) {
+            *p++ = *info.p;
             *p = 0;
             
             info->p.p++;
-            if(*info->p.p == 'f' || *info->p.p == 'F' || *info->p.p == 'l' || *info->p.p == 'L') {
-                *p++ = *info->p.p;
+            if(*info.p == 'f' || *info.p == 'F' || *info.p == 'l' || *info.p == 'L') {
+                *p++ = *info.p;
                 *p = 0;
                 
                 info->p.p++;
@@ -511,13 +511,13 @@ sNode*% get_hex_number(bool minus, sInfo* info)
     *p++ = 'x';
 
     bool has_digit = false;
-    while((*info->p.p >= '0' && *info->p.p <= '9') || (*info->p.p >= 'a' && *info->p.p <= 'f') || (*info->p.p >= 'A' && *info->p.p <= 'F') || *info->p.p == '\'') 
+    while((*info.p >= '0' && *info.p <= '9') || (*info.p >= 'a' && *info.p <= 'f') || (*info.p >= 'A' && *info.p <= 'F') || *info.p == '\'') 
     {
-        if(*info->p.p == '\'') {
+        if(*info.p == '\'') {
             info->p.p++;
         }
         else {
-            *p++ = *info->p.p;
+            *p++ = *info.p;
             info->p.p++;
             has_digit = true;
         }
@@ -547,12 +547,12 @@ sNode*% get_digits(sInfo* info)
     *p++ = 'b';
 
     bool has_digit = false;
-    while(*info->p.p == '0' || *info->p.p == '1' || *info->p.p == '\'') {
-        if(*info->p.p == '\'') {
+    while(*info.p == '0' || *info.p == '1' || *info.p == '\'') {
+        if(*info.p == '\'') {
             info->p.p++;
         }
         else {
-            *p++ = *info->p.p;
+            *p++ = *info.p;
             info->p.p++;
             has_digit = true;
         }
@@ -566,7 +566,7 @@ sNode*% get_digits(sInfo* info)
         err_msg(info, "require digits after 0b");
         exit(2);
     }
-    if(xisdigit(*info->p.p)) {
+    if(xisdigit(*info.p)) {
         err_msg(info, "invalid binary digit");
         exit(2);
     }
@@ -588,12 +588,12 @@ sNode*% get_oct_number(bool minus, sInfo* info)
     *p++ = '0';
 
     bool has_digit = false;
-    while((*info->p.p >= '0' && *info->p.p <= '7') || *info->p.p == '\'') {
-        if(*info->p.p == '\'') {
+    while((*info.p >= '0' && *info.p <= '7') || *info.p == '\'') {
+        if(*info.p == '\'') {
             info->p.p++;
         }
         else {
-            *p = *info->p.p;
+            *p = *info.p;
             p++;
             info->p.p++;
             has_digit = true;
@@ -608,7 +608,7 @@ sNode*% get_oct_number(bool minus, sInfo* info)
         err_msg(info, "invalid octal digit");
         exit(2);
     }
-    if(*info->p.p >= '8' && *info->p.p <= '9') {
+    if(*info.p >= '8' && *info.p <= '9') {
         err_msg(info, "invalid octal digit");
         exit(2);
     }
@@ -624,7 +624,7 @@ sNode*% expression_node(sInfo* info=info) version 99
     skip_spaces_and_lf();
     
     
-    if(*info->p.p == '0' && (*(info->p.p+1) == 'x' || *(info->p.p+1) == 'X')) {
+    if(*info.p == '0' && (*(info->p.p+1) == 'x' || *(info->p.p+1) == 'X')) {
         info->p.p += 2;
 
         sNode*% node = get_hex_number(false@minus, info);
@@ -633,7 +633,7 @@ sNode*% expression_node(sInfo* info=info) version 99
         
         return node;
     }
-    else if(*info->p.p == '0' && (*(info->p.p+1) == 'b' || *(info->p.p+1) == 'B')) {
+    else if(*info.p == '0' && (*(info->p.p+1) == 'b' || *(info->p.p+1) == 'B')) {
         info->p.p += 2;
 
         sNode*% node = get_digits(info);
@@ -642,7 +642,7 @@ sNode*% expression_node(sInfo* info=info) version 99
         
         return node;
     }
-    else if(*info->p.p == '0' && xisdigit(*(info->p.p+1))) {
+    else if(*info.p == '0' && xisdigit(*(info->p.p+1))) {
         info->p.p++;
 
         sNode*% node = get_oct_number(false@minus, info);
@@ -651,18 +651,18 @@ sNode*% expression_node(sInfo* info=info) version 99
         
         return node;
     }
-    else if(xisdigit(*info->p.p)) {
+    else if(xisdigit(*info.p)) {
         sNode*% node = get_number(false@minus, info);
         
         node = post_position_operator(node, info);
         
         return node;
     }
-    else if(*info->p.p == '-' && (xisdigit(*(info->p.p+1)) || (*info->p.p == '0' && *(info->p.p+1) == 'x' || *(info->p.p+1) == 'X') || (*info->p.p == '0' && xisdigit(*(info->p.p+1))))) {
+    else if(*info.p == '-' && (xisdigit(*(info->p.p+1)) || (*info.p == '0' && *(info->p.p+1) == 'x' || *(info->p.p+1) == 'X') || (*info.p == '0' && xisdigit(*(info->p.p+1))))) {
         info->p.p++;
         
         sNode*% node;
-        if(*info->p.p == '0' && (*(info->p.p+1) == 'x' || *(info->p.p+1) == 'X')) {
+        if(*info.p == '0' && (*(info->p.p+1) == 'x' || *(info->p.p+1) == 'X')) {
             info->p.p += 2;
     
             node = get_hex_number(true@minus, info);
@@ -671,7 +671,7 @@ sNode*% expression_node(sInfo* info=info) version 99
             
             return node;
         }
-        else if(*info->p.p == '0' && xisdigit(*(info->p.p+1))) {
+        else if(*info.p == '0' && xisdigit(*(info->p.p+1))) {
             info->p.p++;
     
             node = get_oct_number(true@minus, info);

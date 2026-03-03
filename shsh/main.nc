@@ -45,7 +45,7 @@ struct sInfo
 
 void skip_spaces(sInfo* info)
 {
-    while(*info->p.p == ' ' || *info->p.p == '\t') info->p.p++;
+    while(*info.p == ' ' || *info.p == '\t') info->p++;
 }
 
 string parse_word(sInfo* info);
@@ -53,53 +53,53 @@ string parse_word(sInfo* info);
 void parse_redirect(sInfo* info)
 {
     while(true) {
-        if(*info->p.p == '>' && *(info->p.p+1) == '>') {
-            info->p.p += 2;
+        if(*info.p == '>' && *(info->p+1) == '>') {
+            info->p += 2;
             skip_spaces(info);
             
             string file_name = parse_word(info);
             
             info.commands[-1].redirect_stdout = t(file_name, true);
         }
-        else if(*info->p.p == '>') {
-            info->p.p ++;
+        else if(*info.p == '>') {
+            info->p ++;
             skip_spaces(info);
             
             string file_name = parse_word(info);
             
             info.commands[-1].redirect_stdout = t(file_name, false);
         }
-        else if(memcmp(info->p.p, "2>&1", 4) == 0) {
-            info->p.p += 4;
+        else if(memcmp(info->p, "2>&1", 4) == 0) {
+            info->p += 4;
             skip_spaces(info);
             info.commands[-1].mix_stdout = true;
         }
-        else if(*info->p.p == '2' && *(info->p.p+1) == '>' && *(info->p.p+2) == '>') {
-            info->p.p += 3;
+        else if(*info.p == '2' && *(info->p+1) == '>' && *(info->p+2) == '>') {
+            info->p += 3;
             skip_spaces(info);
             
             string file_name = parse_word(info);
             
             info.commands[-1].redirect_stderr = t(file_name, true);
         }
-        else if(*info->p.p == '2' && *(info->p.p+1) == '>') {
-            info->p.p += 2;
+        else if(*info.p == '2' && *(info->p+1) == '>') {
+            info->p += 2;
             skip_spaces(info);
             
             string file_name = parse_word(info);
             
             info.commands[-1].redirect_stderr = t(file_name, false);
         }
-        else if(*info->p.p == '1' && *(info->p.p+1) == '>' && *(info->p.p+2) == '>') {
-            info->p.p += 3;
+        else if(*info.p == '1' && *(info->p+1) == '>' && *(info->p+2) == '>') {
+            info->p += 3;
             skip_spaces(info);
             
             string file_name = parse_word(info);
             
             info.commands[-1].redirect_stdout = t(file_name, true);
         }
-        else if(*info->p.p == '1' && *(info->p.p+1) == '>') {
-            info->p.p += 2;
+        else if(*info.p == '1' && *(info->p+1) == '>') {
+            info->p += 2;
             skip_spaces(info);
             
             string file_name = parse_word(info);
@@ -154,56 +154,56 @@ string parse_word(sInfo* info)
     bool squort = false;
     bool dquort = false;
     
-    if(*info->p.p == '~') {
-        info->p.p++;
+    if(*info.p == '~') {
+        info->p++;
         
         result.append_str(getenv("HOME"));
     }
     
     while(true) {
-        if(!squort && *info->p.p == '"') {
-            info->p.p++;
+        if(!squort && *info.p == '"') {
+            info->p++;
             dquort = !dquort;
         }
-        else if(!dquort && *info->p.p == '\'') {
-            info->p.p++;
+        else if(!dquort && *info.p == '\'') {
+            info->p++;
             squort = !squort;
         }
-        else if(!squort && *info->p.p == '$') {
-            info->p.p++;
+        else if(!squort && *info.p == '$') {
+            info->p++;
             
             var buf2 = new buffer();
-            while(xisalpha(*info->p.p) || *info->p.p == '_') {
-                buf2.append_char(*info->p.p);
-                info->p.p++;
+            while(xisalpha(*info.p) || *info.p == '_') {
+                buf2.append_char(*info.p);
+                info->p++;
             }
             
             result.append_str(getenv(buf2.to_string()));
         }
         else if(squort || dquort) {
-            result.append_char(*info->p.p);
-            info->p.p++;
+            result.append_char(*info.p);
+            info->p++;
         }
-        else if(*info->p.p == '\\') {
-            info->p.p++;
+        else if(*info.p == '\\') {
+            info->p++;
             
-            if(*info->p.p == '\0') {
+            if(*info.p == '\0') {
                 break;
             }
             else {
-                result.append_char(*info->p.p);
-                info->p.p++;
+                result.append_char(*info.p);
+                info->p++;
             }
         }
-        else if(*info->p.p == ' ' ||  *info->p.p == '\t' || *info->p.p == '\n' 
-                || *info->p.p == '\0' || *info->p.p == ';' || *info->p.p == '&' 
-                || *info->p.p == '|' || *info->p.p == '>' || (strlen(info->p.p) >= strlen("2>&1") && memcmp(info->p.p, "2>&1", strlen("2>&1")) == 0)) 
+        else if(*info.p == ' ' ||  *info.p == '\t' || *info.p == '\n' 
+                || *info.p == '\0' || *info.p == ';' || *info.p == '&' 
+                || *info.p == '|' || *info.p == '>' || (strlen(info->p) >= strlen("2>&1") && memcmp(info->p, "2>&1", strlen("2>&1")) == 0)) 
         {
             break;
         }
         else {
-            result.append_char(*info->p.p);
-            info->p.p++;
+            result.append_char(*info.p);
+            info->p++;
         }
     }
     
@@ -280,62 +280,62 @@ bool parse_statment(sInfo* info)
     while(true) {
         bool sub_shell = false;
         
-        while(*info->p.p == ' ' || *info->p.p == '\t') {
-            info->p.p++;
+        while(*info.p == ' ' || *info.p == '\t') {
+            info->p++;
         }
         
         bool zed_command = false;
-        if(command_name && *info->p.p == '!') {
-            info->p.p++;
+        if(command_name && *info.p == '!') {
+            info->p++;
             zed_command = true;
         }
-        else if(command_name && *info->p.p == '.' && xisalpha(*(info->p.p+1))) {
+        else if(command_name && *info.p == '.' && xisalpha(*(info->p+1))) {
             zed_command = true;
         }
         
-        if(*info->p.p == '(') {
-            info->p.p++;
+        if(*info.p == '(') {
+            info->p++;
             sub_shell = true;
         }
         
         buffer*% buf = new buffer();
-        char* p = info->p.p;
-        while(*info->p.p != '\n' && *info->p.p != '\0' && *info->p.p != ';' && *info->p.p != ')') {
-            buf.append_char(*info->p.p);
-            info->p.p++;
+        char* p = info->p;
+        while(*info.p != '\n' && *info.p != '\0' && *info.p != ';' && *info.p != ')') {
+            buf.append_char(*info.p);
+            info->p++;
         }
         string line = buf.to_string();
         
         if(zed_command) {
-            info->p.p = p;
+            info->p = p;
             
             buffer*% arg = new buffer();
-            while(*info->p.p) {
-                if(*info->p.p == '|' && *(info->p.p+1) != '|') {
+            while(*info.p) {
+                if(*info.p == '|' && *(info->p+1) != '|') {
                     break;
                 }
-                else if(*info->p.p == '{') {
-                    arg.append_char(*info->p.p);
-                    info->p.p++;
+                else if(*info.p == '{') {
+                    arg.append_char(*info.p);
+                    info->p++;
                     
-                    while(*info->p.p) {
-                        if(*info->p.p == '}') {
-                            arg.append_char(*info->p.p);
-                            info->p.p++;
+                    while(*info.p) {
+                        if(*info.p == '}') {
+                            arg.append_char(*info.p);
+                            info->p++;
                             break;
                         }
                         else {
-                            arg.append_char(*info->p.p);
-                            info->p.p++;
+                            arg.append_char(*info.p);
+                            info->p++;
                         }
                     }
                 }
-                else if(*info->p.p == ';') {
+                else if(*info.p == ';') {
                     break;
                 }
                 else {
-                    arg.append_char(*info->p.p);
-                    info->p.p++;
+                    arg.append_char(*info.p);
+                    info->p++;
                 }
             }
             
@@ -347,81 +347,81 @@ bool parse_statment(sInfo* info)
             info->commands[-1].args.push_back(arg.to_string());
         }
         else if(sub_shell) {
-            info->p.p = p;
+            info->p = p;
             
             bool command_name = true;
             buffer*% arg = new buffer();
-            while(*info->p.p) {
-                if(*info->p.p == '|') {
-                    arg.append_char(*info->p.p);
-                    info->p.p++;
+            while(*info.p) {
+                if(*info.p == '|') {
+                    arg.append_char(*info.p);
+                    info->p++;
                     
-                    while(*info->p.p == ' ' || *info->p.p == '\t') { 
-                        arg.append_char(*info->p.p);
-                        info->p.p++; 
+                    while(*info.p == ' ' || *info.p == '\t') { 
+                        arg.append_char(*info.p);
+                        info->p++; 
                     }
                     
                     bool zed_command = false;
-                    if(command_name && *info->p.p == '!') {
-                        arg.append_char(*info->p.p);
-                        info->p.p++;
+                    if(command_name && *info.p == '!') {
+                        arg.append_char(*info.p);
+                        info->p++;
                         zed_command = true;
                     }
-                    else if(command_name && *info->p.p == '.' && xisalpha(*(info->p.p+1))) {
+                    else if(command_name && *info.p == '.' && xisalpha(*(info->p+1))) {
                         zed_command = true;
                     }
                     
                     if(zed_command) {
                         int brace_nest = 0;
-                        while(*info->p.p) {
-                            if(*info->p.p == '(') {
-                                arg.append_char(*info->p.p);
-                                info->p.p++;
+                        while(*info.p) {
+                            if(*info.p == '(') {
+                                arg.append_char(*info.p);
+                                info->p++;
                                 brace_nest++;
                             }
-                            else if(*info->p.p == ')') {
+                            else if(*info.p == ')') {
                                 if(brace_nest == 0) {
                                     break;
                                 }
-                                arg.append_char(*info->p.p);
-                                info->p.p++;
+                                arg.append_char(*info.p);
+                                info->p++;
                                 brace_nest--;
                             }
-                            else if(*info->p.p == '{') {
-                                arg.append_char(*info->p.p);
-                                info->p.p++;
+                            else if(*info.p == '{') {
+                                arg.append_char(*info.p);
+                                info->p++;
                                 
-                                while(*info->p.p) {
-                                    if(*info->p.p == '}') {
-                                        arg.append_char(*info->p.p);
-                                        info->p.p++;
+                                while(*info.p) {
+                                    if(*info.p == '}') {
+                                        arg.append_char(*info.p);
+                                        info->p++;
                                         break;
                                     }
                                     else {
-                                        arg.append_char(*info->p.p);
-                                        info->p.p++;
+                                        arg.append_char(*info.p);
+                                        info->p++;
                                     }
                                 }
                             }
-                            else if(*info->p.p == '|' || *info->p.p == ';') {
-                                arg.append_char(*info->p.p);
-                                info->p.p++;
+                            else if(*info.p == '|' || *info.p == ';') {
+                                arg.append_char(*info.p);
+                                info->p++;
                                 break;
                             }
                             else {
-                                arg.append_char(*info->p.p);
-                                info->p.p++;
+                                arg.append_char(*info.p);
+                                info->p++;
                             }
                         }
                     }
                 }
-                else if(*info->p.p == ')') {
-                    info->p.p++;
+                else if(*info.p == ')') {
+                    info->p++;
                     break;
                 }
                 else {
-                    arg.append_char(*info->p.p);
-                    info->p.p++;
+                    arg.append_char(*info.p);
+                    info->p++;
                 }
                 
                 command_name = false;
@@ -453,25 +453,25 @@ bool parse_statment(sInfo* info)
             }
         }
         else if(line.match("^if ")) {
-            info->p.p = p;
+            info->p = p;
             
-            info->p.p += 2;
+            info->p += 2;
             skip_spaces(info);
             
-            char* head = info->p.p;
+            char* head = info->p;
             char* tail = null;
             
-            while(*info->p.p) {
-                if(parse_cmp(info->p.p, "then") == 0) {
-                    tail = info->p.p -1;
+            while(*info.p) {
+                if(parse_cmp(info->p, "then") == 0) {
+                    tail = info->p -1;
                     break;
                 }
                 else {
-                    info->p.p++;
+                    info->p++;
                 }
             }
             
-            info->p.p += 4;
+            info->p += 4;
             
             if(tail == null) {
                 puts("if statment error");
@@ -490,25 +490,25 @@ bool parse_statment(sInfo* info)
             }
             
             if(rcode == 0) {
-                char* head = info->p.p;
+                char* head = info->p;
                 char* tail = null;
                 
-                while(*info->p.p) {
-                    if(parse_cmp(info->p.p, "fi") == 0) {
-                        tail = info->p.p -1;
-                        info->p.p += 2;
+                while(*info.p) {
+                    if(parse_cmp(info->p, "fi") == 0) {
+                        tail = info->p -1;
+                        info->p += 2;
                         break;
                     }
-                    else if(parse_cmp(info->p.p, "else") == 0) {
-                        tail = info->p.p -1;
+                    else if(parse_cmp(info->p, "else") == 0) {
+                        tail = info->p -1;
                         break;
                     }
-                    else if(parse_cmp(info->p.p, "elif") == 0) {
-                        tail = info->p.p -1;
+                    else if(parse_cmp(info->p, "elif") == 0) {
+                        tail = info->p -1;
                         break;
                     }
                     else {
-                        info->p.p++;
+                        info->p++;
                     }
                 }
                 
@@ -529,25 +529,25 @@ bool parse_statment(sInfo* info)
                 }
             }
             else {
-                char* head = info->p.p;
+                char* head = info->p;
                 char* tail = null;
                 
-                while(*info->p.p) {
-                    if(parse_cmp(info->p.p, "fi") == 0) {
-                        tail = info->p.p -1;
-                        info->p.p += 2;
+                while(*info.p) {
+                    if(parse_cmp(info->p, "fi") == 0) {
+                        tail = info->p -1;
+                        info->p += 2;
                         break;
                     }
-                    else if(parse_cmp(info->p.p, "else") == 0) {
-                        tail = info->p.p -1;
+                    else if(parse_cmp(info->p, "else") == 0) {
+                        tail = info->p -1;
                         break;
                     }
-                    else if(parse_cmp(info->p.p, "elif") == 0) {
-                        tail = info->p.p -1;
+                    else if(parse_cmp(info->p, "elif") == 0) {
+                        tail = info->p -1;
                         break;
                     }
                     else {
-                        info->p.p++;
+                        info->p++;
                     }
                 }
                 
@@ -558,20 +558,20 @@ bool parse_statment(sInfo* info)
             }
             
             while(true) {
-                if(parse_cmp(info->p.p, "else") == 0) {
-                    info->p.p += 4;
+                if(parse_cmp(info->p, "else") == 0) {
+                    info->p += 4;
                     
-                    char* head = info->p.p;
+                    char* head = info->p;
                     char* tail = null;
                     
-                    while(*info->p.p) {
-                        if(parse_cmp(info->p.p, "fi") == 0) {
-                            tail = info->p.p -1;
-                            info->p.p += 2;
+                    while(*info.p) {
+                        if(parse_cmp(info->p, "fi") == 0) {
+                            tail = info->p -1;
+                            info->p += 2;
                             break;
                         }
                         else {
-                            info->p.p++;
+                            info->p++;
                         }
                     }
                     
@@ -595,24 +595,24 @@ bool parse_statment(sInfo* info)
                         rcode = rcode2;
                     }
                 }
-                else if(parse_cmp(info->p.p, "elif") == 0) {
-                    info->p.p += 4;
+                else if(parse_cmp(info->p, "elif") == 0) {
+                    info->p += 4;
                     skip_spaces(info);
                     
-                    char* head = info->p.p;
+                    char* head = info->p;
                     char* tail = null;
                     
-                    while(*info->p.p) {
-                        if(parse_cmp(info->p.p, "then") == 0) {
-                            tail = info->p.p -1;
+                    while(*info.p) {
+                        if(parse_cmp(info->p, "then") == 0) {
+                            tail = info->p -1;
                             break;
                         }
                         else {
-                            info->p.p++;
+                            info->p++;
                         }
                     }
                     
-                    info->p.p += 4;
+                    info->p += 4;
                     
                     if(tail == null) {
                         puts("if statment error");
@@ -631,25 +631,25 @@ bool parse_statment(sInfo* info)
                     }
                     
                     if(rcode2 == 0) {
-                        char* head = info->p.p;
+                        char* head = info->p;
                         char* tail = null;
                         
-                        while(*info->p.p) {
-                            if(parse_cmp(info->p.p, "fi") == 0) {
-                                tail = info->p.p -1;
-                                info->p.p += 2;
+                        while(*info.p) {
+                            if(parse_cmp(info->p, "fi") == 0) {
+                                tail = info->p -1;
+                                info->p += 2;
                                 break;
                             }
-                            else if(parse_cmp(info->p.p, "else") == 0) {
-                                tail = info->p.p -1;
+                            else if(parse_cmp(info->p, "else") == 0) {
+                                tail = info->p -1;
                                 break;
                             }
-                            else if(parse_cmp(info->p.p, "elif") == 0) {
-                                tail = info->p.p -1;
+                            else if(parse_cmp(info->p, "elif") == 0) {
+                                tail = info->p -1;
                                 break;
                             }
                             else {
-                                info->p.p++;
+                                info->p++;
                             }
                         }
                         
@@ -670,25 +670,25 @@ bool parse_statment(sInfo* info)
                         }
                     }
                     else {
-                        char* head = info->p.p;
+                        char* head = info->p;
                         char* tail = null;
                         
-                        while(*info->p.p) {
-                            if(parse_cmp(info->p.p, "fi") == 0) {
-                                tail = info->p.p -1;
-                                info->p.p += 2;
+                        while(*info.p) {
+                            if(parse_cmp(info->p, "fi") == 0) {
+                                tail = info->p -1;
+                                info->p += 2;
                                 break;
                             }
-                            else if(parse_cmp(info->p.p, "else") == 0) {
-                                tail = info->p.p -1;
+                            else if(parse_cmp(info->p, "else") == 0) {
+                                tail = info->p -1;
                                 break;
                             }
-                            else if(parse_cmp(info->p.p, "elif") == 0) {
-                                tail = info->p.p -1;
+                            else if(parse_cmp(info->p, "elif") == 0) {
+                                tail = info->p -1;
                                 break;
                             }
                             else {
-                                info->p.p++;
+                                info->p++;
                             }
                         }
                         
@@ -706,25 +706,25 @@ bool parse_statment(sInfo* info)
             }
         }
         else if(line.match("^while ")) {
-            info->p.p = p;
+            info->p = p;
             
-            info->p.p += strlen("while");
+            info->p += strlen("while");
             skip_spaces(info);
             
-            char* head = info->p.p;
+            char* head = info->p;
             char* tail = null;
             
-            while(*info->p.p) {
-                if(parse_cmp(info->p.p, "do") == 0) {
-                    tail = info->p.p -1;
+            while(*info.p) {
+                if(parse_cmp(info->p, "do") == 0) {
+                    tail = info->p -1;
                     break;
                 }
                 else {
-                    info->p.p++;
+                    info->p++;
                 }
             }
             
-            info->p.p += strlen("do");
+            info->p += strlen("do");
             
             if(tail == null) {
                 puts("while statment error");
@@ -738,20 +738,20 @@ bool parse_statment(sInfo* info)
             buffer*% source2 = new buffer();
             
             {
-                char* head = info->p.p;
+                char* head = info->p;
                 char* tail = null;
                 
-                while(*info->p.p) {
-                    if(parse_cmp(info->p.p, "done") == 0) {
-                        tail = info->p.p -1;
+                while(*info.p) {
+                    if(parse_cmp(info->p, "done") == 0) {
+                        tail = info->p -1;
                         break;
                     }
                     else {
-                        info->p.p++;
+                        info->p++;
                     }
                 }
                 
-                info->p.p += strlen("done");
+                info->p += strlen("done");
                 
                 if(tail == null) {
                     puts("while statment error");
@@ -801,7 +801,7 @@ bool parse_statment(sInfo* info)
             }
         }
         else {
-            info->p.p = p;
+            info->p = p;
             
             string arg = parse_word(info);
             
@@ -952,10 +952,10 @@ int, bool run(char* source)
     sInfo info;
     
     info.commands = new list<sCommand*%>();
-    info.p.p = source;
+    info.p = source;
     
-    while(*info->p.p) {
-        while(*info->p.p == '\n' || *info->p.p == ';') info->p.p++;
+    while(*info.p) {
+        while(*info.p == '\n' || *info.p == ';') info->p++;
         
         while(true) {
             parse_statment(&info);
@@ -964,8 +964,8 @@ int, bool run(char* source)
                 break;
             }
             
-            if(*info->p.p == '|' && *(info->p.p+1) != '|') {
-                info->p.p++;
+            if(*info.p == '|' && *(info->p+1) != '|') {
+                info->p++;
                 skip_spaces(&info);
             }
             else {
@@ -1010,20 +1010,20 @@ int, bool run(char* source)
             setenv("?", xsprintf("%d", info.rcode), 1);
         }
         
-        if(*info->p.p == '|' && *(info->p.p+1) == '|') {
-            info->p.p+=2;
+        if(*info.p == '|' && *(info->p+1) == '|') {
+            info->p+=2;
             if(info->rcode == 0) {
                 break;
             }
         }
-        else if(*info->p.p == '&' && *(info->p.p+1) == '&') {
-            info->p.p+=2;
+        else if(*info.p == '&' && *(info->p+1) == '&') {
+            info->p+=2;
             if(info->rcode != 0) {
                 break;
             }
         }
         
-        while(*info->p.p == '\n' || *info->p.p == ';') info->p.p++;
+        while(*info.p == '\n' || *info.p == ';') info->p++;
     }
     
     return t(info->rcode, false);

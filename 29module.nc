@@ -1589,6 +1589,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         int sline = info.sline;
         
         info.source = "__ccpp_tmp".read();
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
         info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         info.end = info.source.buf + info.source.len;
@@ -1598,7 +1603,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         transpile_toplevel(block:false);
         
         info.source = source;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.end = end;
         info.sname = sname;
@@ -1690,8 +1701,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         string sname = info.sname;
         int sline = info.sline;
         
-        info.p.p = borrow source2.buf;
         info.source = source2;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
+        info.p.p = borrow info.source.buf;
         info.head = borrow source2.buf;
         info.end = source2.buf + source2.len;
         
@@ -1700,8 +1716,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         transpile_toplevel();
         
-        info.p.p = p;
         info.source = source;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
+        info.p.p = borrow info.source.buf;
+        info.p.p = p;
         info.head = head;
         info.end = end;
         

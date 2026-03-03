@@ -144,7 +144,7 @@ sNode*% parse_enum(string type_name, string attribute, sInfo* info)
     }
     
     sType*% type_elements = null;
-    if(*info->p.p == ':') {
+    if(*info.p == ':') {
         info->p.p++;
         skip_spaces_and_lf();
         
@@ -182,7 +182,7 @@ sNode*% parse_enum(string type_name, string attribute, sInfo* info)
 
         string attribute = parse_struct_attribute();
         
-        if(*info->p.p == '=' && *(info->p.p+1) != '=') {
+        if(*info.p == '=' && *(info->p.p+1) != '=') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -202,14 +202,14 @@ sNode*% parse_enum(string type_name, string attribute, sInfo* info)
 
         parse_struct_attribute();
         
-        if(*info->p.p == ',') {
+        if(*info.p == ',') {
             info->p.p++;
             skip_spaces_and_lf();
         }
 
         parse_struct_attribute();
         
-        if(*info->p.p == '}') {
+        if(*info.p == '}') {
             info->p.p++;
             skip_spaces_and_lf();
             break;
@@ -242,7 +242,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
         
         string attribute = parse_struct_attribute();
         
-        if(*info->p.p == ':') {
+        if(*info.p == ':') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -251,7 +251,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
             type_elements = type;
             parse_struct_attribute();
         }
-        if(*info->p.p == '{') {
+        if(*info.p == '{') {
             type_name = string("");
         }
         else {
@@ -278,7 +278,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
                     attribute = attribute + " " + attribute_after_name;
                 }
             }
-            if(*info->p.p == ':') {
+            if(*info.p == ':') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -315,7 +315,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
             string element_name = parse_word();
             string attribute = parse_struct_attribute();
 
-            if(*info->p.p == '=' && *(info->p.p+1) != '=') {
+            if(*info.p == '=' && *(info->p.p+1) != '=') {
                 info->p.p++;
                 skip_spaces_and_lf();
 
@@ -332,13 +332,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 96
             }
             parse_struct_attribute();
 
-            if(*info->p.p == ',') {
+            if(*info.p == ',') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
             parse_struct_attribute();
 
-            if(*info->p.p == '}') {
+            if(*info.p == '}') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 break;
@@ -380,15 +380,15 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.no_output_come_code = true;
         
         if(buf === "enum") {
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info.p) || *info.p == '_') {
                 string type_name = parse_word();
                 
                 (void)parse_struct_attribute();
                 
-                if(*info->p.p == '{') {
+                if(*info.p == '{') {
                     skip_block();
                     
-                    if(*info->p.p == ';') {
+                    if(*info.p == ';') {
                         define_enum = true;
                     }
                 }

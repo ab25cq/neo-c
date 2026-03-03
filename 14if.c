@@ -2735,6 +2735,7 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
 _Bool is_portable_libc_symbol(const char* sym);
+struct sNode* add_node(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sIfNode* sIfNode_initialize(struct sIfNode* self, struct sNode* expression_node, struct sBlock*  if_block  , struct list$1sNode$ph* elif_expression_nodes, struct list$1sBlock$ph* elif_blocks, int elif_num, struct sBlock*  else_block  , _Bool guard_, _Bool existance_result_value, struct sInfo*  info  );
 _Bool sIfNode_terminated(struct sIfNode* self);
 char*  sIfNode_kind(struct sIfNode* self);
@@ -2824,6 +2825,8 @@ char*  sAndStatmentNode_kind(struct sAndStatmentNode* self);
 _Bool sAndStatmentNode_compile(struct sAndStatmentNode* self, struct sInfo*  info  );
 static void sAndStatmentNode_finalize(struct sAndStatmentNode* self);
 struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo*  info  );
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
+static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* self, struct sNode* item);
 static struct list$1sBlock$ph* list$1sBlock$ph_push_back(struct list$1sBlock$ph* self, struct sBlock*  item  );
 static struct sIfNode* sIfNode_clone(struct sIfNode* self);
@@ -5861,11 +5864,11 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
             saved_p=info->p->p;
             saved_sline=info->sline;
             skip_spaces_and_lf(info);
-            if(*info->p->p==59) {
+            if(span$1char$p_operator_derefference(info->p)==59) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
             }
-            if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
+            if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
                 break;
             }
             skip_spaces_and_lf(info);
@@ -5958,6 +5961,88 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
     neo_current_frame = fr.prev;
     ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "14if.nc", 417):(void*)0);
     return __result_obj__0;
+}
+
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
+}
+
+static char span$1char$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
 }
 
 static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* self, struct sNode* item)
@@ -6384,7 +6469,7 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  )
             }
         }
         else {
-            if(*info->p->p==125) {
+            if(span$1char$p_operator_derefference(info->p)==125) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
                 break;
@@ -6405,7 +6490,7 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  )
             ((conditional_value_42) ? conditional_value_42 = come_decrement_ref_count(conditional_value_42, ((struct sNode*)conditional_value_42)->finalize, ((struct sNode*)conditional_value_42)->_protocol_obj, 0, 0,(void*)0, "14if.nc", 509):(void*)0);
             come_call_finalizer(sBlock_finalize, elif_block, (void*)0, (void*)0, 0, 0, 0, (void*)0, "14if.nc}", 509);
         }
-        if(*info->p->p==125) {
+        if(span$1char$p_operator_derefference(info->p)==125) {
             info->p->p++;
             skip_spaces_and_lf(info);
             break;
@@ -6653,11 +6738,11 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
         saved_p=info->p->p;
         saved_sline=info->sline;
         skip_spaces_and_lf(info);
-        if(*info->p->p==59) {
+        if(span$1char$p_operator_derefference(info->p)==59) {
             info->p->p++;
             skip_spaces_and_lf(info);
         }
-        if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
+        if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
             break;
         }
         skip_spaces_and_lf(info);
@@ -6856,11 +6941,11 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
         saved_p=info->p->p;
         saved_sline=info->sline;
         skip_spaces_and_lf(info);
-        if(*info->p->p==59) {
+        if(span$1char$p_operator_derefference(info->p)==59) {
             info->p->p++;
             skip_spaces_and_lf(info);
         }
-        if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
+        if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
             break;
         }
         skip_spaces_and_lf(info);
@@ -7016,11 +7101,11 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
         saved_p=info->p->p;
         saved_sline=info->sline;
         skip_spaces_and_lf(info);
-        if(*info->p->p==59) {
+        if(span$1char$p_operator_derefference(info->p)==59) {
             info->p->p++;
             skip_spaces_and_lf(info);
         }
-        if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
+        if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
             break;
         }
         skip_spaces_and_lf(info);

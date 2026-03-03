@@ -2742,6 +2742,7 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
 _Bool is_portable_libc_symbol(const char* sym);
+struct sNode* add_node(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 static struct sType*  expand_typedef_for_load_element(struct sType*  type  );
 static struct sType*  sType_clone(struct sType*  self  );
 static void sType_finalize(struct sType*  self  );
@@ -2847,6 +2848,8 @@ struct sNode* parse_method_call_v18(struct sNode* obj, char*  fun_name  , struct
 struct sNode* store_field(struct sNode* left, struct sNode* right, char*  name  , struct sInfo*  info  );
 static struct sStoreFieldNode* sStoreFieldNode_clone(struct sStoreFieldNode* self);
 struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info  );
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
+static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* self, struct sNode* item);
 static struct sLoadRangeArrayNode* sLoadRangeArrayNode_clone(struct sLoadRangeArrayNode* self);
 static struct sUnwrapNode* sUnwrapNode_clone(struct sUnwrapNode* self);
@@ -7544,7 +7547,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
         {
             p=info->p->p;
             sline=info->sline;
-            if(*info->p->p==91) {
+            if(span$1char$p_operator_derefference(info->p)==91) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
                 no_comma=info->no_comma;
@@ -7554,7 +7557,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                 exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1158);
                 info->no_comma=no_comma;
                 info->no_output_come_code=no_output_come_code;
-                if(*info->p->p==46&&*(info->p->p+1)==46) {
+                if(span$1char$p_operator_derefference(info->p)==46&&*(info->p->p+1)==46) {
                     range_array=(_Bool)1;
                 }
                 ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1167):(void*)0);
@@ -7562,8 +7565,8 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             info->p->p=p;
             info->sline=sline;
         }
-        if(!node->terminated(node->_protocol_obj)&&range_array&&(*info->p->p==92&&*(info->p->p+1)==91||*info->p->p==91)) {
-            quote=*info->p->p==92;
+        if(!node->terminated(node->_protocol_obj)&&range_array&&(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==91||span$1char$p_operator_derefference(info->p)==91)) {
+            quote=span$1char$p_operator_derefference(info->p)==92;
             if(quote) {
                 info->p->p++;
             }
@@ -7575,7 +7578,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             __right_value0 = (void*)0;
             node2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1183);
             list$1sNode$ph_push_back(array_num,(struct sNode*)come_increment_ref_count(node2, "23field.nc", 1185));
-            if(*info->p->p==46&&*(info->p->p+1)==46) {
+            if(span$1char$p_operator_derefference(info->p)==46&&*(info->p->p+1)==46) {
                 info->p->p+=2;
                 skip_spaces_and_lf(info);
                 skip_pointer_attribute(info);
@@ -7618,7 +7621,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             come_call_finalizer(list$1sNode$ph$p_finalize, array_num, (void*)0, (void*)0, 0, 0, 0, (void*)0, "23field.nc}", 1431);
             ((node2_60) ? node2_60 = come_decrement_ref_count(node2_60, ((struct sNode*)node2_60)->finalize, ((struct sNode*)node2_60)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1431):(void*)0);
         }
-        else if(!node->terminated(node->_protocol_obj)&&*info->p->p==33&&*(info->p->p+1)!=61) {
+        else if(!node->terminated(node->_protocol_obj)&&span$1char$p_operator_derefference(info->p)==33&&*(info->p->p+1)!=61) {
             info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
@@ -7641,10 +7644,10 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             (__dec_obj171 ? __dec_obj171 = come_decrement_ref_count(__dec_obj171, ((struct sNode*)__dec_obj171)->finalize, ((struct sNode*)__dec_obj171)->_protocol_obj, 0,0, (void*)0, "23field.nc", 1213) :0);
             come_call_finalizer(sUnwrapNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "23field.nc}", 1213);
         }
-        else if(!node->terminated(node->_protocol_obj)&&(*info->p->p==46&&*(info->p->p+1)==96)) {
+        else if(!node->terminated(node->_protocol_obj)&&(span$1char$p_operator_derefference(info->p)==46&&*(info->p->p+1)==96)) {
             obj=(struct sNode*)come_increment_ref_count(node, "23field.nc", 1217);
             node_before=((void*)0);
-            while(*info->p->p==46&&*(info->p->p+1)==96) {
+            while(span$1char$p_operator_derefference(info->p)==46&&*(info->p->p+1)==96) {
                 info->p->p+=2;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
@@ -7661,8 +7664,8 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             ((obj) ? obj = come_decrement_ref_count(obj, ((struct sNode*)obj)->finalize, ((struct sNode*)obj)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1431):(void*)0);
             ((node_before) ? node_before = come_decrement_ref_count(node_before, ((struct sNode*)node_before)->finalize, ((struct sNode*)node_before)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1431):(void*)0);
         }
-        else if(!node->terminated(node->_protocol_obj)&&!range_array&&(*info->p->p==92&&*(info->p->p+1)==91||*info->p->p==91)) {
-            quote_61=*info->p->p==92;
+        else if(!node->terminated(node->_protocol_obj)&&!range_array&&(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==91||span$1char$p_operator_derefference(info->p)==91)) {
+            quote_61=span$1char$p_operator_derefference(info->p)==92;
             if(quote_61) {
                 info->p->p++;
             }
@@ -7675,7 +7678,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                 {
                     p_63=info->p->p;
                     sline_64=info->sline;
-                    if(*info->p->p==91) {
+                    if(span$1char$p_operator_derefference(info->p)==91) {
                         info->p->p++;
                         skip_spaces_and_lf(info);
                         no_comma_65=info->no_comma;
@@ -7686,7 +7689,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                         exp_67=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1251);
                         info->no_comma=no_comma_65;
                         info->no_output_come_code=no_output_come_code_66;
-                        if(*info->p->p==46&&*(info->p->p+1)==46) {
+                        if(span$1char$p_operator_derefference(info->p)==46&&*(info->p->p+1)==46) {
                             range_array2=(_Bool)1;
                         }
                         ((exp_67) ? exp_67 = come_decrement_ref_count(exp_67, ((struct sNode*)exp_67)->finalize, ((struct sNode*)exp_67)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1260):(void*)0);
@@ -7697,14 +7700,14 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                 if(range_array2) {
                     break;
                 }
-                else if(*info->p->p==91) {
+                else if(span$1char$p_operator_derefference(info->p)==91) {
                     info->p->p++;
                     skip_spaces_and_lf(info);
                     skip_pointer_attribute(info);
                     __right_value0 = (void*)0;
                     node2_68=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1273);
                     list$1sNode$ph_push_back(array_num_62,(struct sNode*)come_increment_ref_count(node2_68, "23field.nc", 1275));
-                    if(*info->p->p==93) {
+                    if(span$1char$p_operator_derefference(info->p)==93) {
                         info->p->p++;
                         skip_spaces_and_lf(info);
                     }
@@ -7718,7 +7721,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                     break;
                 }
             }
-            if(!info->no_assign&&*info->p->p==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
+            if(!info->no_assign&&span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
@@ -7792,13 +7795,13 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             }
             come_call_finalizer(list$1sNode$ph$p_finalize, array_num_62, (void*)0, (void*)0, 0, 0, 0, (void*)0, "23field.nc}", 1431);
         }
-        else if((*info->p->p==92&&*(info->p->p+1)==46)||(*info->p->p==92&&*(info->p->p+1)==45&&*(info->p->p+2)==62)||(*info->p->p==46&&*(info->p->p+1)!=46)||(*info->p->p==45&&*(info->p->p+1)==62)) {
-            quote_71=*info->p->p==92;
+        else if((span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==46)||(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==45&&*(info->p->p+2)==62)||(span$1char$p_operator_derefference(info->p)==46&&*(info->p->p+1)!=46)||(span$1char$p_operator_derefference(info->p)==45&&*(info->p->p+1)==62)) {
+            quote_71=span$1char$p_operator_derefference(info->p)==92;
             if(quote_71) {
                 info->p->p++;
             }
             arrow_=(_Bool)0;
-            if(*info->p->p==46) {
+            if(span$1char$p_operator_derefference(info->p)==46) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
             }
@@ -7815,10 +7818,10 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             {
                 p_72=info->p->p;
                 sline_73=info->sline;
-                if(*info->p->p==60) {
+                if(span$1char$p_operator_derefference(info->p)==60) {
                     info->p->p++;
                     skip_spaces_and_lf(info);
-                    if(xisalpha(*info->p->p)||*info->p->p==95) {
+                    if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
                         __right_value0 = (void*)0;
                         word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "23field.nc", 1352);
                         if(is_type_name(word,info)) {
@@ -7830,7 +7833,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                 info->p->p=p_72;
                 info->sline=sline_73;
             }
-            if(!info->no_assign&&*info->p->p==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
+            if(!info->no_assign&&span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
@@ -7868,7 +7871,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                 ((right_node_74) ? right_node_74 = come_decrement_ref_count(right_node_74, ((struct sNode*)right_node_74)->finalize, ((struct sNode*)right_node_74)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1421):(void*)0);
                 ((node2_75) ? node2_75 = come_decrement_ref_count(node2_75, ((struct sNode*)node2_75)->finalize, ((struct sNode*)node2_75)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1421):(void*)0);
             }
-            else if(!gComeC&&(*info->p->p==40||*info->p->p==123||parse_method_generics_type)) {
+            else if(!gComeC&&(span$1char$p_operator_derefference(info->p)==40||span$1char$p_operator_derefference(info->p)==123||parse_method_generics_type)) {
                 if(string_operator_equals(field_name,"if")) {
                     __right_value0 = (void*)0;
                     __dec_obj190=node,
@@ -7977,6 +7980,88 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
     neo_current_frame = fr.prev;
     ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "23field.nc", 1433):(void*)0);
     return __result_obj__0;
+}
+
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
+}
+
+static char span$1char$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
 }
 
 static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* self, struct sNode* item)

@@ -2736,6 +2736,7 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
 _Bool is_portable_libc_symbol(const char* sym);
+struct sNode* add_node(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sIntNode* sIntNode_initialize(struct sIntNode* self, char*  value  , struct sInfo*  info  );
 char*  sIntNode_kind(struct sIntNode* self);
 _Bool sIntNode_compile(struct sIntNode* self, struct sInfo*  info  );
@@ -2784,6 +2785,8 @@ struct sNode* create_int_node(char*  value  , struct sInfo*  info  );
 static struct sIntNode* sIntNode_clone(struct sIntNode* self);
 static _Bool is_imaginary_suffix(char c);
 struct sNode* get_suffix(char* buf, char* p2, struct sInfo*  info  );
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
+static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct sULongNode* sULongNode_clone(struct sULongNode* self);
 static struct sUIntNode* sUIntNode_clone(struct sUIntNode* self);
 static struct sLongNode* sLongNode_clone(struct sLongNode* self);
@@ -3768,18 +3771,18 @@ struct sNode* get_suffix(char* buf, char* p2, struct sInfo*  info  )
     struct sLongNode* _inf_obj_value8;
     struct sNode* _inf_value9;
     struct sIntNode* _inf_obj_value9;
-    if(*info->p->p==117||*info->p->p==85) {
-        *p2++=*info->p->p;
+    if(span$1char$p_operator_derefference(info->p)==117||span$1char$p_operator_derefference(info->p)==85) {
+        *p2++=span$1char$p_operator_derefference(info->p);
         *p2=0;
         info->p->p++;
         skip_spaces_and_lf(info);
-        if(*info->p->p==76||*info->p->p==108) {
-            *p2++=*info->p->p;
+        if(span$1char$p_operator_derefference(info->p)==76||span$1char$p_operator_derefference(info->p)==108) {
+            *p2++=span$1char$p_operator_derefference(info->p);
             *p2=0;
             info->p->p++;
             skip_spaces_and_lf(info);
-            if(*info->p->p==76||*info->p->p==108) {
-                *p2++=*info->p->p;
+            if(span$1char$p_operator_derefference(info->p)==76||span$1char$p_operator_derefference(info->p)==108) {
+                *p2++=span$1char$p_operator_derefference(info->p);
                 *p2=0;
                 info->p->p++;
                 skip_spaces_and_lf(info);
@@ -3852,18 +3855,18 @@ struct sNode* get_suffix(char* buf, char* p2, struct sInfo*  info  )
             return __result_obj__0;
         }
     }
-    else if(*info->p->p==76||*info->p->p==108) {
-        *p2++=*info->p->p;
+    else if(span$1char$p_operator_derefference(info->p)==76||span$1char$p_operator_derefference(info->p)==108) {
+        *p2++=span$1char$p_operator_derefference(info->p);
         *p2=0;
         info->p->p++;
         skip_spaces_and_lf(info);
-        if(*info->p->p==76||*info->p->p==108) {
-            *p2++=*info->p->p;
+        if(span$1char$p_operator_derefference(info->p)==76||span$1char$p_operator_derefference(info->p)==108) {
+            *p2++=span$1char$p_operator_derefference(info->p);
             *p2=0;
             info->p->p++;
             skip_spaces_and_lf(info);
-            if(*info->p->p==117||*info->p->p==85) {
-                *p2++=*info->p->p;
+            if(span$1char$p_operator_derefference(info->p)==117||span$1char$p_operator_derefference(info->p)==85) {
+                *p2++=span$1char$p_operator_derefference(info->p);
                 *p2=0;
                 info->p->p++;
                 skip_spaces_and_lf(info);
@@ -3915,8 +3918,8 @@ struct sNode* get_suffix(char* buf, char* p2, struct sInfo*  info  )
                 return __result_obj__0;
             }
         }
-        else if(*info->p->p==85||*info->p->p==117) {
-            *p2++=*info->p->p;
+        else if(span$1char$p_operator_derefference(info->p)==85||span$1char$p_operator_derefference(info->p)==117) {
+            *p2++=span$1char$p_operator_derefference(info->p);
             *p2=0;
             info->p->p++;
             skip_spaces_and_lf(info);
@@ -3993,6 +3996,88 @@ struct sNode* get_suffix(char* buf, char* p2, struct sInfo*  info  )
         return __result_obj__0;
     }
     neo_current_frame = fr.prev;
+}
+
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
+}
+
+static char span$1char$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
 }
 
 static struct sULongNode* sULongNode_clone(struct sULongNode* self)
@@ -4139,16 +4224,16 @@ struct sNode* get_number(_Bool minus, struct sInfo*  info  )
         *p=45;
         p++;
     }
-    if(!xisdigit(*info->p->p)) {
+    if(!xisdigit(span$1char$p_operator_derefference(info->p))) {
         err_msg(info,"require digits after + or -");
         exit(2);
     }
-    while(xisdigit(*info->p->p)||*info->p->p==39) {
-        if(*info->p->p==39) {
+    while(xisdigit(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==39) {
+        if(span$1char$p_operator_derefference(info->p)==39) {
             info->p->p++;
         }
         else {
-            *p++=*info->p->p;
+            *p++=span$1char$p_operator_derefference(info->p);
             info->p->p++;
         }
         if(p-buf>=buf_size) {
@@ -4157,20 +4242,20 @@ struct sNode* get_number(_Bool minus, struct sInfo*  info  )
         }
     }
     is_float=(_Bool)0;
-    if(*info->p->p==46&&(xisdigit(*(info->p->p+1))||*(info->p->p+1)==70||*(info->p->p+1)==76)) {
+    if(span$1char$p_operator_derefference(info->p)==46&&(xisdigit(*(info->p->p+1))||*(info->p->p+1)==70||*(info->p->p+1)==76)) {
         is_float=(_Bool)1;
-        *p++=*info->p->p;
+        *p++=span$1char$p_operator_derefference(info->p);
         if(p-buf>=buf_size) {
             printf("%s %d: overflow node of number",info->sname,info->sline);
             exit(11);
         }
         info->p->p++;
-        while(xisdigit(*info->p->p)||*info->p->p==39) {
-            if(*info->p->p==39) {
+        while(xisdigit(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==39) {
+            if(span$1char$p_operator_derefference(info->p)==39) {
                 info->p->p++;
             }
             else {
-                *p++=*info->p->p;
+                *p++=span$1char$p_operator_derefference(info->p);
                 info->p->p++;
             }
             if(p-buf>=buf_size) {
@@ -4179,32 +4264,32 @@ struct sNode* get_number(_Bool minus, struct sInfo*  info  )
             }
         }
     }
-    if(*info->p->p==101||*info->p->p==69) {
+    if(span$1char$p_operator_derefference(info->p)==101||span$1char$p_operator_derefference(info->p)==69) {
         is_float=(_Bool)1;
-        *p++=*info->p->p;
+        *p++=span$1char$p_operator_derefference(info->p);
         info->p->p++;
         if(p-buf>=buf_size) {
             err_msg(info,"overflow node of number");
             exit(2);
         }
-        if(*info->p->p==43||*info->p->p==45) {
-            *p++=*info->p->p;
+        if(span$1char$p_operator_derefference(info->p)==43||span$1char$p_operator_derefference(info->p)==45) {
+            *p++=span$1char$p_operator_derefference(info->p);
             info->p->p++;
             if(p-buf>=buf_size) {
                 err_msg(info,"overflow node of number");
                 exit(2);
             }
         }
-        if(!xisdigit(*info->p->p)) {
+        if(!xisdigit(span$1char$p_operator_derefference(info->p))) {
             err_msg(info,"require digits after exponent");
             exit(2);
         }
-        while(xisdigit(*info->p->p)||*info->p->p==39) {
-            if(*info->p->p==39) {
+        while(xisdigit(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==39) {
+            if(span$1char$p_operator_derefference(info->p)==39) {
                 info->p->p++;
             }
             else {
-                *p++=*info->p->p;
+                *p++=span$1char$p_operator_derefference(info->p);
                 info->p->p++;
             }
             if(p-buf>=buf_size) {
@@ -4216,12 +4301,12 @@ struct sNode* get_number(_Bool minus, struct sInfo*  info  )
     *p=0;
     skip_spaces_and_lf(info);
     if(is_float) {
-        if(*info->p->p==102||*info->p->p==70) {
-            *p++=*info->p->p;
+        if(span$1char$p_operator_derefference(info->p)==102||span$1char$p_operator_derefference(info->p)==70) {
+            *p++=span$1char$p_operator_derefference(info->p);
             *p=0;
             info->p->p++;
-            if(is_imaginary_suffix(*info->p->p)) {
-                *p++=*info->p->p;
+            if(is_imaginary_suffix(span$1char$p_operator_derefference(info->p))) {
+                *p++=span$1char$p_operator_derefference(info->p);
                 *p=0;
                 info->p->p++;
                 skip_spaces_and_lf(info);
@@ -4270,12 +4355,12 @@ struct sNode* get_number(_Bool minus, struct sInfo*  info  )
                 return __result_obj__0;
             }
         }
-        else if(*info->p->p==108||*info->p->p==76) {
-            *p++=*info->p->p;
+        else if(span$1char$p_operator_derefference(info->p)==108||span$1char$p_operator_derefference(info->p)==76) {
+            *p++=span$1char$p_operator_derefference(info->p);
             *p=0;
             info->p->p++;
-            if(is_imaginary_suffix(*info->p->p)) {
-                *p++=*info->p->p;
+            if(is_imaginary_suffix(span$1char$p_operator_derefference(info->p))) {
+                *p++=span$1char$p_operator_derefference(info->p);
                 *p=0;
                 info->p->p++;
                 skip_spaces_and_lf(info);
@@ -4328,12 +4413,12 @@ struct sNode* get_number(_Bool minus, struct sInfo*  info  )
                 return __result_obj__0;
             }
         }
-        else if(is_imaginary_suffix(*info->p->p)) {
-            *p++=*info->p->p;
+        else if(is_imaginary_suffix(span$1char$p_operator_derefference(info->p))) {
+            *p++=span$1char$p_operator_derefference(info->p);
             *p=0;
             info->p->p++;
-            if(*info->p->p==102||*info->p->p==70||*info->p->p==108||*info->p->p==76) {
-                *p++=*info->p->p;
+            if(span$1char$p_operator_derefference(info->p)==102||span$1char$p_operator_derefference(info->p)==70||span$1char$p_operator_derefference(info->p)==108||span$1char$p_operator_derefference(info->p)==76) {
+                *p++=span$1char$p_operator_derefference(info->p);
                 *p=0;
                 info->p->p++;
             }
@@ -4530,12 +4615,12 @@ struct sNode* get_hex_number(_Bool minus, struct sInfo*  info  )
     *p++=48;
     *p++=120;
     has_digit=(_Bool)0;
-    while((*info->p->p>=48&&*info->p->p<=57)||(*info->p->p>=97&&*info->p->p<=102)||(*info->p->p>=65&&*info->p->p<=70)||*info->p->p==39) {
-        if(*info->p->p==39) {
+    while((span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57)||(span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=102)||(span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=70)||span$1char$p_operator_derefference(info->p)==39) {
+        if(span$1char$p_operator_derefference(info->p)==39) {
             info->p->p++;
         }
         else {
-            *p++=*info->p->p;
+            *p++=span$1char$p_operator_derefference(info->p);
             info->p->p++;
             has_digit=(_Bool)1;
         }
@@ -4572,12 +4657,12 @@ struct sNode* get_digits(struct sInfo*  info  )
     *p++=48;
     *p++=98;
     has_digit=(_Bool)0;
-    while(*info->p->p==48||*info->p->p==49||*info->p->p==39) {
-        if(*info->p->p==39) {
+    while(span$1char$p_operator_derefference(info->p)==48||span$1char$p_operator_derefference(info->p)==49||span$1char$p_operator_derefference(info->p)==39) {
+        if(span$1char$p_operator_derefference(info->p)==39) {
             info->p->p++;
         }
         else {
-            *p++=*info->p->p;
+            *p++=span$1char$p_operator_derefference(info->p);
             info->p->p++;
             has_digit=(_Bool)1;
         }
@@ -4590,7 +4675,7 @@ struct sNode* get_digits(struct sInfo*  info  )
         err_msg(info,"require digits after 0b");
         exit(2);
     }
-    if(xisdigit(*info->p->p)) {
+    if(xisdigit(span$1char$p_operator_derefference(info->p))) {
         err_msg(info,"invalid binary digit");
         exit(2);
     }
@@ -4620,12 +4705,12 @@ struct sNode* get_oct_number(_Bool minus, struct sInfo*  info  )
     }
     *p++=48;
     has_digit=(_Bool)0;
-    while((*info->p->p>=48&&*info->p->p<=55)||*info->p->p==39) {
-        if(*info->p->p==39) {
+    while((span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=55)||span$1char$p_operator_derefference(info->p)==39) {
+        if(span$1char$p_operator_derefference(info->p)==39) {
             info->p->p++;
         }
         else {
-            *p=*info->p->p;
+            *p=span$1char$p_operator_derefference(info->p);
             p++;
             info->p->p++;
             has_digit=(_Bool)1;
@@ -4639,7 +4724,7 @@ struct sNode* get_oct_number(_Bool minus, struct sInfo*  info  )
         err_msg(info,"invalid octal digit");
         exit(2);
     }
-    if(*info->p->p>=56&&*info->p->p<=57) {
+    if(span$1char$p_operator_derefference(info->p)>=56&&span$1char$p_operator_derefference(info->p)<=57) {
         err_msg(info,"invalid octal digit");
         exit(2);
     }
@@ -4676,7 +4761,7 @@ struct sNode* expression_node_v99(struct sInfo*  info  )
     struct sNode* __dec_obj52;
     memset(&node_5, 0, sizeof(node_5));
     skip_spaces_and_lf(info);
-    if(*info->p->p==48&&(*(info->p->p+1)==120||*(info->p->p+1)==88)) {
+    if(span$1char$p_operator_derefference(info->p)==48&&(*(info->p->p+1)==120||*(info->p->p+1)==88)) {
         info->p->p+=2;
         node=(struct sNode*)come_increment_ref_count(get_hex_number((_Bool)0,info), "11number.nc", 630);
         __right_value0 = (void*)0;
@@ -4690,7 +4775,7 @@ struct sNode* expression_node_v99(struct sInfo*  info  )
         return __result_obj__0;
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "11number.nc", 698):(void*)0);
     }
-    else if(*info->p->p==48&&(*(info->p->p+1)==98||*(info->p->p+1)==66)) {
+    else if(span$1char$p_operator_derefference(info->p)==48&&(*(info->p->p+1)==98||*(info->p->p+1)==66)) {
         info->p->p+=2;
         __right_value0 = (void*)0;
         node_2=(struct sNode*)come_increment_ref_count(get_digits(info), "11number.nc", 639);
@@ -4705,7 +4790,7 @@ struct sNode* expression_node_v99(struct sInfo*  info  )
         return __result_obj__0;
         ((node_2) ? node_2 = come_decrement_ref_count(node_2, ((struct sNode*)node_2)->finalize, ((struct sNode*)node_2)->_protocol_obj, 0, 0,(void*)0, "11number.nc", 698):(void*)0);
     }
-    else if(*info->p->p==48&&xisdigit(*(info->p->p+1))) {
+    else if(span$1char$p_operator_derefference(info->p)==48&&xisdigit(*(info->p->p+1))) {
         info->p->p++;
         __right_value0 = (void*)0;
         node_3=(struct sNode*)come_increment_ref_count(get_oct_number((_Bool)0,info), "11number.nc", 648);
@@ -4720,7 +4805,7 @@ struct sNode* expression_node_v99(struct sInfo*  info  )
         return __result_obj__0;
         ((node_3) ? node_3 = come_decrement_ref_count(node_3, ((struct sNode*)node_3)->finalize, ((struct sNode*)node_3)->_protocol_obj, 0, 0,(void*)0, "11number.nc", 698):(void*)0);
     }
-    else if(xisdigit(*info->p->p)) {
+    else if(xisdigit(span$1char$p_operator_derefference(info->p))) {
         __right_value0 = (void*)0;
         node_4=(struct sNode*)come_increment_ref_count(get_number((_Bool)0,info), "11number.nc", 655);
         __right_value0 = (void*)0;
@@ -4734,9 +4819,9 @@ struct sNode* expression_node_v99(struct sInfo*  info  )
         return __result_obj__0;
         ((node_4) ? node_4 = come_decrement_ref_count(node_4, ((struct sNode*)node_4)->finalize, ((struct sNode*)node_4)->_protocol_obj, 0, 0,(void*)0, "11number.nc", 698):(void*)0);
     }
-    else if(*info->p->p==45&&(xisdigit(*(info->p->p+1))||(*info->p->p==48&&*(info->p->p+1)==120||*(info->p->p+1)==88)||(*info->p->p==48&&xisdigit(*(info->p->p+1))))) {
+    else if(span$1char$p_operator_derefference(info->p)==45&&(xisdigit(*(info->p->p+1))||(span$1char$p_operator_derefference(info->p)==48&&*(info->p->p+1)==120||*(info->p->p+1)==88)||(span$1char$p_operator_derefference(info->p)==48&&xisdigit(*(info->p->p+1))))) {
         info->p->p++;
-        if(*info->p->p==48&&(*(info->p->p+1)==120||*(info->p->p+1)==88)) {
+        if(span$1char$p_operator_derefference(info->p)==48&&(*(info->p->p+1)==120||*(info->p->p+1)==88)) {
             info->p->p+=2;
             __right_value0 = (void*)0;
             __dec_obj46=node_5,
@@ -4752,7 +4837,7 @@ struct sNode* expression_node_v99(struct sInfo*  info  )
             ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "11number.nc", 672):(void*)0);
             return __result_obj__0;
         }
-        else if(*info->p->p==48&&xisdigit(*(info->p->p+1))) {
+        else if(span$1char$p_operator_derefference(info->p)==48&&xisdigit(*(info->p->p+1))) {
             info->p->p++;
             __right_value0 = (void*)0;
             __dec_obj48=node_5,

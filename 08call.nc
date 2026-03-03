@@ -1371,6 +1371,11 @@ class sFunCallNode extends sNodeBase
                     int sline = info.sline;
                     
                     info.source = default_param.to_buffer();
+                    if(info.p == null) {
+                        info.p = span borrow info.source;
+                    }
+                    info.p.memory = borrow info.source.buf;
+                    info.p.len = info.source.len+2;
                     info.p.p = borrow info.source.buf;
                     info.head = borrow info.source.buf;
                     
@@ -1386,7 +1391,13 @@ class sFunCallNode extends sNodeBase
                     info.no_output_come_code = no_output_come_code;
                     
                     info.source = source;
-                    info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
                     info.head = head;
                     info.sline = sline;
             
@@ -1512,6 +1523,11 @@ class sFunCallNode extends sNodeBase
             int sline = info.sline;
             
             info.source = method_block2;
+            if(info.p == null) {
+                info.p = span borrow info.source;
+            }
+            info.p.memory = borrow info.source.buf;
+            info.p.len = info.source.len+2;
             info.p.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
             info.sline = method_block_sline;
@@ -1542,7 +1558,13 @@ class sFunCallNode extends sNodeBase
             come_params.push_back(come_value2);
             
             info.source = source3;
-            info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
             info.head = head;
             info.sline = sline;
             
@@ -1703,6 +1725,11 @@ class sComeCallNode extends sNodeBase
         int sline = info.sline;
         
         info.source = come_block2;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
         info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         info.sline = come_block_sline;
@@ -1717,7 +1744,13 @@ class sComeCallNode extends sNodeBase
         info.in_method_block = in_method_block;
         
         info.source = source3;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.sline = sline;
         

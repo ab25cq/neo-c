@@ -166,9 +166,9 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info, bool 
             printf("%s %d: parse_type failed\n", info->sname, info->sline);
             exit(2);
         }
-        if(*info->p.p == ',') {
+        if(*info.p == ',') {
             skip_spaces_and_lf();
-            while(*info->p.p == ',') {
+            while(*info.p == ',') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -188,7 +188,7 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info, bool 
         
         skip_spaces_and_lf();
         
-        if(*info->p.p == '}') {
+        if(*info.p == '}') {
             info->p.p++;
             skip_spaces_and_lf();
             break;
@@ -272,8 +272,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
             
             skip_spaces_and_lf();
             
-            if(*info->p.p == ',') {
-                while(*info->p.p == ',') {
+            if(*info.p == ',') {
+                while(*info.p == ',') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     
@@ -294,7 +294,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
                 klass.mFields.push_back(t(name, type2));
             }
             
-            if(*info->p.p == '}') {
+            if(*info.p == '}') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 break;
@@ -348,16 +348,16 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         if(buf === "union") {
             string type_name;
-            if(*info->p.p == '_' || xisalpha(*info->p.p)) {
+            if(*info.p == '_' || xisalpha(*info.p)) {
                 union_attribute = parse_struct_attribute();
                 
-                if(*info->p.p == '_' || xisalpha(*info->p.p)) {
+                if(*info.p == '_' || xisalpha(*info.p)) {
                     type_name = parse_word();
                     
-                    if(*info->p.p == '{') {
+                    if(*info.p == '{') {
                         skip_block();
                         
-                        if(*info->p.p == ';') {
+                        if(*info.p == ';') {
                             define_union = true;
                         }
                     }

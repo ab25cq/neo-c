@@ -1765,6 +1765,42 @@ class sOptionalNode extends sNodeBase
     }
 };
 
+static bool is_buffer_like_type(sType* type)
+{
+    if(type == null) {
+        return false;
+    }
+    
+    sType*% it = clone type;
+    int guard = 0;
+    
+    while(it != null && guard < 16) {
+        if(it->mClass && it->mClass->mName) {
+            string class_name = string(it->mClass->mName);
+            if(class_name === "buffer" || class_name === "buffer*") {
+                return true;
+            }
+        }
+        
+        if(it->mOriginalTypeName) {
+            string original_name = string(it->mOriginalTypeName);
+            if(original_name === "buffer" || original_name === "buffer*") {
+                return true;
+            }
+        }
+        
+        if(it->mTypedefOriginalType) {
+            it = clone it->mTypedefOriginalType;
+            guard++;
+            continue;
+        }
+        
+        break;
+    }
+    
+    return false;
+}
+
 sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sInfo* info=info)
 {
     sNode*% head;
@@ -1778,7 +1814,13 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         type2 = type;
     }
 
-    if((type2->mOriginalTypeName && type2->mOriginalTypeName === "string") || (type2->mClass->mName === "char" && type2->mPointerNum == 1 && type2->mHeap) && !type2->mNew) {
+    bool buffer_like = is_buffer_like_type(type) || is_buffer_like_type(type2);
+
+    if(buffer_like) {
+        head = load_field(node, s"buf", info);
+        len = load_field(node, s"len", info);
+    }
+    else if((type2->mOriginalTypeName && type2->mOriginalTypeName === "string") || (type2->mClass->mName === "char" && type2->mPointerNum == 1 && type2->mHeap) && !type2->mNew) {
         static int n = 0;
         string var_name = s"__tmp_string\{++n}";
         
@@ -1792,10 +1834,7 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         params.add(t((string)null, create_load_var(var_name)));
         
         len = create_funcall("strlen", params, null, 0, null, info);
-    }
-    else if(type2->mClass->mName === "buffer") {
-        head = load_field(node, s"buf", info);
-        len = load_field(node, s"len", info);
+//        len = add_node(v, create_int_node(s"1", info));
     }
     else if(type2->mClass->mName === "vector") {
         head = load_field(node, s"items", info);
@@ -1827,7 +1866,10 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
         head = svar;
         len = new sDynamicSizeOfExpNode(create_load_var(var_name), info) implements sNode;
     }
-    else if(type2->mPointerNum == 1 && come_value.var && come_value.var->mType->mHeap) {
+    else if(type2->mPointerNum == 1
+        && ((come_value.var && come_value.var->mType->mHeap)
+            || (come_value.mLoadField && come_value.var && is_buffer_like_type(come_value.var->mType))))
+    {
         head = node;
         len = new sDynamicSizeOfExpNode(node, info) implements sNode;
     }
@@ -1958,7 +2000,7 @@ class sSpanNode extends sNodeBase
             exit(2);
         }
         
-        if(*info->p.p == '(') {
+        if(*info.p == '(') {
             if(type->mClass->mNumber) {
                 info->p.p++;
                 skip_spaces_and_lf();
@@ -1975,7 +2017,7 @@ class sSpanNode extends sNodeBase
                 return parse_method_call(clone obj, string(fun_name), info);
             }
         }
-        else if(*info->p.p == '{') {
+        else if(*info.p == '{') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -1984,7 +2026,7 @@ class sSpanNode extends sNodeBase
             while(true) {
                 string word = parse_word();
                 
-                if(*info->p.p == ':') {
+                if(*info.p == ':') {
                     info->p.p++
                     skip_spaces_and_lf();
                     
@@ -1995,27 +2037,27 @@ class sSpanNode extends sNodeBase
                     
                     initializer.add(t(word, exp));
                 }
-                else if(*info->p.p == ',') {
+                else if(*info.p == ',') {
                     sNode*% exp = create_load_var(word);
                     
                     initializer.add(t(word, exp));
                 }
                 else {
-                    err_msg(info, "invalid character(21) %c", *info->p.p);
+                    err_msg(info, "invalid character(21) %c", *info.p);
                     exit(2);
                 }
                 
-                if(*info->p.p == ',') {
+                if(*info.p == ',') {
                     info->p.p++;
                     skip_spaces_and_lf();
                 }
-                else if(*info->p.p == '}') {
+                else if(*info.p == '}') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     break;
                 }
                 else {
-                    err_msg(info, "invalid character(30) %c", *info->p.p);
+                    err_msg(info, "invalid character(30) %c", *info.p);
                     exit(2);
                 }
             }
@@ -2036,17 +2078,17 @@ class sSpanNode extends sNodeBase
     else if(buf === "false") {
         return new sFalseNode(info) implements sNode;
     }
-    else if(!gComeC && buf === "delete" && *info->p.p != '(') {
+    else if(!gComeC && buf === "delete" && *info.p != '(') {
          sNode*% node = expression();
          
          return new sDeleteNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "borrow" && *info->p.p != '(') {
+    else if(!gComeC && buf === "borrow" && *info.p != '(') {
          sNode*% node = expression();
          
          return new sBorrowNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "clone" && *info->p.p != '(') {
+    else if(!gComeC && buf === "clone" && *info.p != '(') {
          sNode*% node = expression();
          
          return new sCloneNode(node, info) implements sNode;
@@ -2061,7 +2103,7 @@ class sSpanNode extends sNodeBase
          
          return new sDummyHeapNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "gc_inc" && *info->p.p == '(') {
+    else if(!gComeC && buf === "gc_inc" && *info.p == '(') {
          info->p.p++;
          skip_spaces_and_lf();
          
@@ -2071,7 +2113,7 @@ class sSpanNode extends sNodeBase
          
          return new sGCIncNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "gc_dec" && *info->p.p == '(') {
+    else if(!gComeC && buf === "gc_dec" && *info.p == '(') {
          info->p.p++;
          skip_spaces_and_lf();
          
@@ -2081,7 +2123,7 @@ class sSpanNode extends sNodeBase
          
          return new sGCDecNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "gc_dec_nofree" && *info->p.p == '(') {
+    else if(!gComeC && buf === "gc_dec_nofree" && *info.p == '(') {
          info->p.p++;
          skip_spaces_and_lf();
          
@@ -2091,7 +2133,7 @@ class sSpanNode extends sNodeBase
          
          return new sGCDecNoFreeNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "lock" && *info->p.p == '(') {
+    else if(!gComeC && buf === "lock" && *info.p == '(') {
          info->p.p++;
          skip_spaces_and_lf();
          
@@ -2101,7 +2143,7 @@ class sSpanNode extends sNodeBase
          
          return new sGCDecNoFreeNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "isheap" && *info->p.p == '(') {
+    else if(!gComeC && buf === "isheap" && *info.p == '(') {
         info->p.p++;
         skip_spaces_and_lf();
         
@@ -2118,7 +2160,7 @@ class sSpanNode extends sNodeBase
         
         return new sIsHeap(type2, info) implements sNode;
     }
-    else if(buf === "ispointer" && *info->p.p == '(') {
+    else if(buf === "ispointer" && *info.p == '(') {
         info->p.p++;
         skip_spaces_and_lf();
         
@@ -2135,18 +2177,18 @@ class sSpanNode extends sNodeBase
         
         return new sIsPointer(type2, info) implements sNode;
     }
-    else if(!gComeC && buf === "opt" && *info->p.p != '<') {
+    else if(!gComeC && buf === "opt" && *info.p != '<') {
         
         sNode*% node = expression();
         
         return new sOptionalNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "ref" && *info->p.p != '<') {
+    else if(!gComeC && buf === "ref" && *info.p != '<') {
         sNode*% node = expression();
         
         return new sRefNode(node, info) implements sNode;
     }
-    else if(!gComeC && buf === "span" && *info->p.p != '<') {
+    else if(!gComeC && buf === "span" && *info.p != '<') {
         sNode*% node = expression();
         
         return new sSpanNode(node, info) implements sNode;
@@ -2189,7 +2231,7 @@ class sSpanNode extends sNodeBase
             bool come_c = gComeC;
             gComeC = true;
             
-            if(*info->p.p == '{') {
+            if(*info.p == '{') {
                 sNode*% node = parse_normal_block(clang:true);
                 
                 gComeC = come_c;
@@ -2207,7 +2249,7 @@ class sSpanNode extends sNodeBase
             bool come_safe = gComeSafe;
             gComeSafe = false;
             
-            if(*info->p.p == '{') {
+            if(*info.p == '{') {
                 sNode*% node = parse_normal_block(unsafe_block:true);
                 
                 gComeSafe = come_safe;
@@ -2225,7 +2267,7 @@ class sSpanNode extends sNodeBase
             bool come_safe = gComeSafe;
             gComeSafe = true;
             
-            if(*info->p.p == '{') {
+            if(*info.p == '{') {
                 sNode*% node = parse_normal_block();
                 
                 gComeSafe = come_safe;
@@ -2241,7 +2283,7 @@ class sSpanNode extends sNodeBase
             exit(2);
         }
     }
-    else if(buf === "_Generic" && *info->p.p == '(') {
+    else if(buf === "_Generic" && *info.p == '(') {
         info->p.p ++;
         skip_spaces_and_lf();
         
@@ -2283,15 +2325,15 @@ class sSpanNode extends sNodeBase
                 exps.add(node);
             }
             
-            if(*info->p.p == ',')  {
+            if(*info.p == ',')  {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 err_msg(info, "invalid source end");
                 exit(2);
             }
-            else if(*info->p.p == ')') {
+            else if(*info.p == ')') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 break;
@@ -2322,7 +2364,7 @@ class sSpanNode extends sNodeBase
     }
     else if(buf === "sizeof") {
         bool paren = false;
-        if(*info->p.p == '(') {
+        if(*info.p == '(') {
             info->p.p++;
             skip_spaces_and_lf();
             paren = true;
@@ -2335,7 +2377,7 @@ class sSpanNode extends sNodeBase
             char* p = info.p.p;
             int sline = info.sline;
             
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info.p) || *info.p == '_') {
                 var word = parse_word();
                 
                 if(is_type_name(word)) {
@@ -2354,7 +2396,7 @@ class sSpanNode extends sNodeBase
                 exit(2);
             }
             
-            if(paren && *info->p.p == ')') {
+            if(paren && *info.p == ')') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
@@ -2375,7 +2417,7 @@ class sSpanNode extends sNodeBase
                 exp = expression();
             }
             
-            if(paren && *info->p.p == ')') {
+            if(paren && *info.p == ')') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
@@ -2390,7 +2432,7 @@ class sSpanNode extends sNodeBase
         //expected_next_character('(');
         
         bool paren = false;
-        if(*info->p.p == '(') {
+        if(*info.p == '(') {
             info->p.p++;
             skip_spaces_and_lf();
             paren = true;
@@ -2402,7 +2444,7 @@ class sSpanNode extends sNodeBase
             char* p = info.p.p;
             int sline = info.sline;
             
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info.p) || *info.p == '_') {
                 var word = parse_word();
                 
                 if(is_type_name(word)) {
@@ -2423,7 +2465,7 @@ class sSpanNode extends sNodeBase
             
             //expected_next_character(')');
             
-            if(paren && *info->p.p == ')') {
+            if(paren && *info.p == ')') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
@@ -2444,7 +2486,7 @@ class sSpanNode extends sNodeBase
             
             //expected_next_character(')');
             
-            if(paren && *info->p.p == ')') {
+            if(paren && *info.p == ')') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
@@ -2457,7 +2499,7 @@ class sSpanNode extends sNodeBase
         //expected_next_character('(');
         
         bool paren = false;
-        if(*info->p.p == '(') {
+        if(*info.p == '(') {
             info->p.p++;
             skip_spaces_and_lf();
             paren = true;
@@ -2476,7 +2518,7 @@ class sSpanNode extends sNodeBase
         
         //expected_next_character(')');
         
-        if(paren && *info->p.p == ')') {
+        if(paren && *info.p == ')') {
             info->p.p++;
             skip_spaces_and_lf();
         }
@@ -2487,7 +2529,7 @@ class sSpanNode extends sNodeBase
         //expected_next_character('(');
         
         bool paren = false;
-        if(*info->p.p == '(') {
+        if(*info.p == '(') {
             info->p.p++;
             skip_spaces_and_lf();
             paren = true;
@@ -2506,7 +2548,7 @@ class sSpanNode extends sNodeBase
         
         //expected_next_character(')');
         
-        if(paren && *info->p.p == ')') {
+        if(paren && *info.p == ')') {
             info->p.p++;
             skip_spaces_and_lf();
         }
@@ -2515,7 +2557,7 @@ class sSpanNode extends sNodeBase
     }
     else if(buf === "_Alignof") {
         bool paren = false;
-        if(*info->p.p == '(') {
+        if(*info.p == '(') {
             paren = true;
             info->p.p++;
             skip_spaces_and_lf();
@@ -2527,7 +2569,7 @@ class sSpanNode extends sNodeBase
             char* p = info.p.p;
             int sline = info.sline;
             
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info.p) || *info.p == '_') {
                 var word = parse_word();
                 
                 if(is_type_name(word)) {
@@ -2546,7 +2588,7 @@ class sSpanNode extends sNodeBase
                 exit(2);
             }
             
-            if(paren && *info->p.p == ')') {
+            if(paren && *info.p == ')') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
@@ -2570,7 +2612,7 @@ class sSpanNode extends sNodeBase
     }
     else if(buf === "__alignof__") {
         bool paren = false;
-        if(*info->p.p == '(') {
+        if(*info.p == '(') {
             paren = true;
             info->p.p++;
             skip_spaces_and_lf();
@@ -2582,7 +2624,7 @@ class sSpanNode extends sNodeBase
             char* p = info.p.p;
             int sline = info.sline;
             
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info.p) || *info.p == '_') {
                 var word = parse_word();
                 
                 if(is_type_name(word)) {
@@ -2601,7 +2643,7 @@ class sSpanNode extends sNodeBase
                 exit(2);
             }
             
-            if(paren && *info->p.p == ')') {
+            if(paren && *info.p == ')') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
@@ -2633,7 +2675,7 @@ class sSpanNode extends sNodeBase
             char* p = info.p.p;
             int sline = info.sline;
             
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info.p) || *info.p == '_') {
                 var word = parse_word();
                 
                 if(is_type_name(word)) {
@@ -2704,7 +2746,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
             info->p.p += strlen("c");
             skip_spaces_and_lf();
             
-            if(*info->p.p == '{') {
+            if(*info.p == '{') {
                 info->p.p++;
                 skip_spaces_and_lf(info);
                 
@@ -2723,7 +2765,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
             info->p.p += strlen("unsafe");
             skip_spaces_and_lf();
             
-            if(*info->p.p == '{') {
+            if(*info.p == '{') {
                 info->p.p++;
                 skip_spaces_and_lf(info);
                 
@@ -2742,7 +2784,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94
             info->p.p += strlen("safe");
             skip_spaces_and_lf();
             
-            if(*info->p.p == '{') {
+            if(*info.p == '{') {
                 info->p.p++;
                 skip_spaces_and_lf(info);
                 
@@ -2789,9 +2831,9 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 21
         
         return new sImplementsNode(node, inf_type, info) implements sNode;
     }
-    else if(*info->p.p == '@') {
+    else if(*info.p == '@') {
         info->p.p++;
-        while(xisalnum(*info->p.p) || *info->p.p == '_') {
+        while(xisalnum(*info.p) || *info.p == '_') {
             info->p.p++;
         }
         skip_spaces_and_lf();

@@ -979,7 +979,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.p.p = head;
         info.sline = head_sline;
         
-        if(xisalpha(*info->p.p) || *info->p.p == '_') {
+        if(xisalpha(*info.p) || *info.p == '_') {
             skip_spaces_and_lf();
             var type, name, err = parse_type(parse_variable_name:false);
             skip_spaces_and_lf();
@@ -988,11 +988,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 skip_spaces_and_lf();
                 var type,name = parse_variable_name_on_multiple_declare(type@base_type_name, true@first, info);
                 
-                if(*info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && !info->no_assign) {
+                if(*info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && !info->no_assign) {
                     info->p.p++;
                     skip_spaces_and_lf();
                     
-                    if(*info->p.p == '{') {
+                    if(*info.p == '{') {
                         skip_block();
                     }
                     else {
@@ -1009,7 +1009,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                     }
                 }
                 
-                if(!is_type_name(name) && *info->p.p == ',') {
+                if(!is_type_name(name) && *info.p == ',') {
                     multiple_declare = true;
                 }
             }
@@ -1054,11 +1054,11 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         list<string>*% multiple_assign = null;
         
-        if(*info->p.p == ',' ) {
+        if(*info.p == ',' ) {
             multiple_assign = new list<string>();
             multiple_assign.push_back(clone buf2);
             
-            while(*info->p.p == ',') {
+            while(*info.p == ',') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -1070,7 +1070,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
         skip_spaces_and_lf();
         
-        if(*info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && !info->no_assign) {
+        if(*info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && !info->no_assign) {
             info.p.p++;
             skip_spaces_and_lf();
             
@@ -1088,7 +1088,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             return node;
         }
         else {
-            err_msg(info, "var requires a right value(%c)", *info->p.p);
+            err_msg(info, "var requires a right value(%c)", *info.p);
             exit(1);
         }
     }
@@ -1116,7 +1116,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         var type2,var_name = parse_variable_name_on_multiple_declare(base_type, true@first, info);
         skip_spaces_and_lf();
         
-        if(*info->p.p == '=' && *(info->p.p+1) != '=') {
+        if(*info.p == '=' && *(info->p.p+1) != '=') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -1145,13 +1145,13 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             multiple_declare.push_back(t(type2, var_name, (sNode*%)null));
         }
         
-        while(*info->p.p == ',') {
+        while(*info.p == ',') {
             info->p.p++;
             skip_spaces_and_lf();
             
             var type2, var_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
             
-            if(*info->p.p == '=' && *(info->p.p+1) != '=')  {
+            if(*info.p == '=' && *(info->p.p+1) != '=')  {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -1211,7 +1211,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         skip_spaces_and_lf();
         info.defining_class->mFields.add(t(name, type));
         
-        if(*info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
+        if(*info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -1229,7 +1229,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             return create_null_node();
         }
     }
-    else if(!is_type_name_flag && *info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && !info->no_assign) {
+    else if(!is_type_name_flag && *info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && !info->no_assign) {
         info.p.p++;
         skip_spaces_and_lf();
         
@@ -1267,7 +1267,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.sline = head_sline;
         
         string word;
-        if(xisalpha(*info->p.p) || *info->p.p == '_') {
+        if(xisalpha(*info.p) || *info.p == '_') {
             word = parse_word();
         }
         else {
@@ -1290,13 +1290,13 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             }
             skip_spaces_and_lf();
             
-            if(*info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && info->no_assign) {
+            if(*info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && info->no_assign) {
                 sNode*% node = new sLoadNode(name@name, info) implements sNode;
                 
                 info.sline_real = sline_real;
                 return node;
             }
-            else if(*info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && !info->no_assign) {
+            else if(*info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>' && !info->no_assign) {
                 info.p.p++;
                 skip_spaces_and_lf();
                 

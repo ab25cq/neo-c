@@ -2676,7 +2676,10 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  );
 struct sNode* create_new_object(struct sType*  type  , struct sInfo*  info  );
 struct sNode* parse_vector(struct sInfo*  info  );
 _Bool is_portable_libc_symbol(const char* sym);
+struct sNode* add_node(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*  info  );
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
+static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self);
 static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self);
 static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self, char*  item  );
@@ -2753,13 +2756,13 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
     memset(&buf_3, 0, sizeof(buf_3));
     if(!gComeC&&charp_operator_equals(buf,"impl")) {
         source_head=info->p->p;
-        if(*info->p->p==95||xisalpha(*info->p->p)) {
+        if(span$1char$p_operator_derefference(info->p)==95||xisalpha(span$1char$p_operator_derefference(info->p))) {
             __dec_obj1=word,
             word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "27impl.nc", 10);
             __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "27impl.nc", 10);
         }
         has_generics_args=(_Bool)0;
-        if(*info->p->p==60) {
+        if(span$1char$p_operator_derefference(info->p)==60) {
             has_generics_args=(_Bool)1;
             info->p->p++;
             skip_spaces_and_lf(info);
@@ -2769,18 +2772,18 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
                 generics_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "27impl.nc", 21);
                 __right_value0 = (void*)0;
                 list$1char$ph_push_back(info->generics_type_names,(char* )come_increment_ref_count((char* )come_memdup(generics_name, "27impl.nc", 23, "char* "), "27impl.nc", 23));
-                if(*info->p->p==44) {
+                if(span$1char$p_operator_derefference(info->p)==44) {
                     info->p->p++;
                     skip_spaces_and_lf(info);
                 }
-                else if(*info->p->p==62) {
+                else if(span$1char$p_operator_derefference(info->p)==62) {
                     info->p->p++;
                     skip_spaces_and_lf(info);
                     (generics_name = come_decrement_ref_count(generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "27impl.nc", 32));
                     break;
                 }
                 else {
-                    err_msg(info,"invalid character on impl (%c)",*info->p->p);
+                    err_msg(info,"invalid character on impl (%c)",span$1char$p_operator_derefference(info->p));
                     exit(2);
                 }
                 (generics_name = come_decrement_ref_count(generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "27impl.nc", 39));
@@ -2801,7 +2804,7 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
             }
         }
         pointer_num=0;
-        while(*info->p->p==42) {
+        while(span$1char$p_operator_derefference(info->p)==42) {
             info->p->p++;
             skip_spaces_and_lf(info);
             pointer_num++;
@@ -2813,10 +2816,10 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
         info->impl_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "27impl.nc", 63, "struct sType* "), "27impl.nc", 63),(char* )come_increment_ref_count(word, "27impl.nc", 63),(_Bool)0,info,(_Bool)0,0), "27impl.nc", 63);
         come_call_finalizer(sType_finalize, __dec_obj5,(void*)0, (void*)0, 0, 0, 0, (void*)0, "27impl.nc", 63);
         info->impl_type->mPointerNum=pointer_num;
-        while(*info->p->p!=125) {
+        while(span$1char$p_operator_derefference(info->p)!=125) {
             skip_spaces_and_lf(info);
             head_2=info->p->p;
-            if(*info->p->p==95||xisalpha(*info->p->p)) {
+            if(span$1char$p_operator_derefference(info->p)==95||xisalpha(span$1char$p_operator_derefference(info->p))) {
                 __right_value0 = (void*)0;
                 __dec_obj6=buf_3,
                 buf_3=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "27impl.nc", 73);
@@ -2826,7 +2829,7 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
             __right_value0 = (void*)0;
             node=(struct sNode*)come_increment_ref_count(top_level_v99(buf_3,head_2,head_sline,info), "27impl.nc", 78);
             parse_sharp_v5(info);
-            while(*info->p->p==59) {
+            while(span$1char$p_operator_derefference(info->p)==59) {
                 info->p->p++;
                 skip_spaces_and_lf(info);
             }
@@ -2876,6 +2879,88 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
     neo_current_frame = fr.prev;
     ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "27impl.nc", 115):(void*)0);
     return __result_obj__0;
+}
+
+static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
+}
+
+static char span$1char$p_operator_derefference(struct span$1char$p* self)
+{
+    char* p;
+    if(self==((void*)0)) {
+        puts("null pointer exception. self is null");
+        stackframe();
+        exit(2);
+    }
+    if(self->local) {
+        if(self->stacktop<neo_current_frame->stacktop) {
+            puts("refferenced stack object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    if(self->heap) {
+        if(!come_is_alive(self->memory)) {
+            puts("refferenced heap object is vanished");
+            stackframe2(self,((void*)0),0);
+            exit(127);
+        }
+    }
+    p=self->p;
+    if(sizeof(char)>self->len) {
+        puts("invalid span. len is few");
+        stackframe2(self,((void*)0),0);
+        exit(2);
+    }
+    if(self->p>=(char*)self->memory+self->len) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+    if(self->p<(char*)self->memory) {
+        puts("out of range of span");
+        stackframe2(self,((void*)0),0);
+        exit(1);
+    }
+        return *p;
 }
 
 static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self)

@@ -377,11 +377,16 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
     if(return_self_at_last) {
         char* p = info.p.p;
         char* head = info.head;
+        buffer*% source2 = info.source;
         
-        string source = string("return self;");
-        
-        info.p.p = borrow source;
-        info.head = borrow source;
+        info.source = string("return self;").to_buffer();
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
+        info.p.p = borrow info.source.buf;
+        info.head = borrow info.source.buf;
         
         sNode*% node = expression();
         
@@ -392,6 +397,13 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
         
         result.mNodes.push_back(node);
         
+        info.source = source2;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
+        info.p.p = borrow info.source.buf;
         info.p.p = p;
         info.head = borrow head;
     }
@@ -2703,6 +2715,11 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     buffer*% source = info.source;
     
     info.source = generics_fun->mBlock.to_buffer();
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
     info.p.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     
@@ -2727,6 +2744,12 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     info.head = head;
     info.source = source;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
     info.p.p = p;
     info.sline = sline;
     info.sname = sname;
@@ -2800,6 +2823,11 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     buffer*% source = info.source;
     
     info.source = generics_fun->mBlock.to_buffer();
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
     info.p.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     
@@ -2820,6 +2848,12 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     
     info.head = head;
     info.source = source;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
     info.p.p = p;
     info.sline = sline;
     info.sname = sname;
@@ -3068,7 +3102,12 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             buffer*% source3 = info.source;
             
             info.source = source;
-            info.p.p = borrow source.buf;
+            if(info.p == null) {
+                info.p = span borrow info.source;
+            }
+            info.p.memory = borrow info.source.buf;
+            info.p.len = info.source.len+2;
+            info.p.p = borrow info.source.buf;
             info.head = borrow source.buf;
             
             info.sname = string(real_fun_name);
@@ -3120,7 +3159,13 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             }
             
             info.source = source3;
-            info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
             info.head = head;
             info.sline = sline;
             info.sname = sname;
@@ -3181,7 +3226,12 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p.p = borrow source.buf;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
+        info.p.p = borrow info.source.buf;
         info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
@@ -3230,7 +3280,13 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
         }
         
         info.source = source3;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.sline = sline;
         info.sname = sname;
@@ -3308,7 +3364,12 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p.p = borrow source.buf;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
+        info.p.p = borrow info.source.buf;
         info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
@@ -3357,7 +3418,13 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
         }
         
         info.source = source3;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.sline = sline;
         info.sname = sname;
@@ -3432,7 +3499,12 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p.p = borrow source.buf;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
+        info.p.p = borrow info.source.buf;
         info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
@@ -3481,7 +3553,13 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
         }
         
         info.source = source3;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.sline = sline;
         info.sname = sname;
@@ -3541,7 +3619,12 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p.p = borrow source.buf;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
+        info.p.p = borrow info.source.buf;
         info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
@@ -3590,7 +3673,13 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
         }
         
         info.source = source3;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.sline = sline;
         info.sname = sname;
@@ -3759,6 +3848,11 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         char* head = info.head;
         
         info.source = source;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
         info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         
@@ -3809,7 +3903,13 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         info.sline = sline;
         
         info.source = source3;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.sline = sline;
     }
@@ -3887,6 +3987,11 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
         char* head = info.head;
         
         info.source = source;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
         info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         
@@ -3937,7 +4042,13 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
         info.sline = sline;
         
         info.source = source3;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.sline = sline;
     }
@@ -4030,6 +4141,11 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
         char* head = info.head;
         
         info.source = source;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
         info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         
@@ -4080,7 +4196,13 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
         info.sline = sline;
         
         info.source = source3;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.sline = sline;
     }
@@ -4173,6 +4295,11 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
         char* head = info.head;
         
         info.source = source;
+        if(info.p == null) {
+            info.p = span borrow info.source;
+        }
+        info.p.memory = borrow info.source.buf;
+        info.p.len = info.source.len+2;
         info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         
@@ -4225,7 +4352,13 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
         info.sline = sline;
         
         info.source = source3;
-        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
         info.head = head;
         info.sline = sline;
     }
@@ -4256,6 +4389,11 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     buffer*% source = info.source;
     
     info.source = fun.mTextBlock.to_buffer();
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
     info.p.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     
@@ -4266,6 +4404,12 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     
     info.head = head;
     info.source = source;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
     info.p.p = p;
     info.sline = sline;
     info.sname = sname;

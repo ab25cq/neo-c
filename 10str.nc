@@ -1131,7 +1131,7 @@ class sMapNode extends sNodeBase
 sNode*% expression_node(sInfo* info) version 96
 {
     /// here document ///
-    if(*info->p.p == '"' && *(info->p.p+1) == '"' && *(info->p.p+2) == '"' && *(info->p.p+3) == '\n') {
+    if(*info.p == '"' && *(info->p.p+1) == '"' && *(info->p.p+2) == '"' && *(info->p.p+3) == '\n') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         info->p.p +=4;
@@ -1146,118 +1146,118 @@ sNode*% expression_node(sInfo* info) version 96
         
 
         while(1) {
-            if(*info->p.p == '"' && *(info->p.p+1) == '"' && *(info->p.p+2) == '"') {
+            if(*info.p == '"' && *(info->p.p+1) == '"' && *(info->p.p+2) == '"') {
                 info->p.p+=3;
                 
                 skip_spaces_and_lf();
                 break;
             }
-            else if(*info->p.p == '%') {
+            else if(*info.p == '%') {
                 value.append_char('%');
                 value.append_char('%');
                 info->p.p++;
             }
-            else if(*info->p.p == '"') {
+            else if(*info.p == '"') {
                 value.append_char('\\');
                 value.append_char('"');
                 info->p.p++;
             }
-            else if(*info->p.p == '\\') {
+            else if(*info.p == '\\') {
                 value.append_char('\\');
                 info->p.p++;
                 
-                if(xisdigit(*info->p.p)) {
+                if(xisdigit(*info.p)) {
                     int len = 0;
-                    while(xisdigit(*info->p.p) && len < 3) {
-                        value.append_char(*info->p.p);
+                    while(xisdigit(*info.p) && len < 3) {
+                        value.append_char(*info.p);
                         info->p.p++;
                         len++;
                     }
                 }
-                else if(*info->p.p == 'x' || *info->p.p == 'X') {
-                    value.append_char(*info->p.p);
+                else if(*info.p == 'x' || *info.p == 'X') {
+                    value.append_char(*info.p);
                     info->p.p++;
                     
-                    while(*info->p.p >= '0' && *info->p.p <= '9' || *info->p.p >= 'a' && *info->p.p <= 'f' || *info->p.p >= 'A' && *info->p.p <= 'F') {
-                        value.append_char(*info->p.p);
+                    while(*info.p >= '0' && *info.p <= '9' || *info.p >= 'a' && *info.p <= 'f' || *info.p >= 'A' && *info.p <= 'F') {
+                        value.append_char(*info.p);
                         info->p.p++;
                     }
                 }
-                else if(*info->p.p == '{') {
+                else if(*info.p == '{') {
                     info->p.p++;
                     
                     sNode*% exp = expression();
                     
                     exps.add(exp);
                     
-                    if(*info->p.p == '}') {
+                    if(*info.p == '}') {
                         info->p.p++;
                     }
                     
                     value.append_str("%s");
                 }
                 else {
-                    switch(*info->p.p) {
+                    switch(*info.p) {
                         case '0':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'n':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 't':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'r':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'v':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'f':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'a':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'b':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case '\\':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         default:
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
                     }
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 int sline2 = info->sline;
                 info->sline = sline;
                 err_msg(info, "close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(*info->p.p == '\n') {
+                if(*info.p == '\n') {
                     value.append_char('\\');
                     value.append_char('n');
                     info->p.p++;
@@ -1266,7 +1266,7 @@ sNode*% expression_node(sInfo* info) version 96
                     head_of_last_line = info->p.p;
                 }
                 else {
-                    value.append_char(*info->p.p);
+                    value.append_char(*info.p);
                     info->p.p++;
                 }
             }
@@ -1277,7 +1277,7 @@ sNode*% expression_node(sInfo* info) version 96
         info.sline_real = sline_real;
         return new sSStringNode(value.to_string(), exps, sline, info) implements sNode;
     }
-    else if(*info->p.p == 'u' && *(info->p.p+1) == '8' && *(info->p.p+2) == '"')
+    else if(*info.p == 'u' && *(info->p.p+1) == '8' && *(info->p.p+2) == '"')
     {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
@@ -1289,7 +1289,7 @@ sNode*% expression_node(sInfo* info) version 96
         buffer*% value = new buffer();
 
         while(1) {
-            if(*info->p.p == '"') {
+            if(*info.p == '"') {
                 info->p.p++;
                 
                 char* p = info->p.p;
@@ -1299,7 +1299,7 @@ sNode*% expression_node(sInfo* info) version 96
                 
                 parse_sharp()
                 
-                if(*info->p.p == 'u' && *(info->p.p+1) == '8' && *(info->p.p+2) == '"') {
+                if(*info.p == 'u' && *(info->p.p+1) == '8' && *(info->p.p+2) == '"') {
                     info->p.p += 3;
                 }
                 else {
@@ -1308,20 +1308,20 @@ sNode*% expression_node(sInfo* info) version 96
                     break;
                 }
             }
-            else if(*info->p.p == '\\') {
+            else if(*info.p == '\\') {
                 value.append_char('\\');
                 info->p.p++;
                 
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     value.append_char('"');
                     info->p.p++;
                 }
                 else {
-                    value.append_char(*info->p.p);
+                    value.append_char(*info.p);
                     info->p.p++;
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 int sline2 = info->sline;
                 info->sline = sline;
                 err_msg(info, "close \" to make c string value");
@@ -1329,9 +1329,9 @@ sNode*% expression_node(sInfo* info) version 96
                 exit(2);
             }
             else {
-                if(*info->p.p == '\n') info->sline++;
+                if(*info.p == '\n') info->sline++;
 
-                value.append_char(*info->p.p);
+                value.append_char(*info.p);
                 info->p.p++;
             }
         }
@@ -1341,12 +1341,12 @@ sNode*% expression_node(sInfo* info) version 96
         info.sline_real = sline_real;
         return new sPrefixedStringNode(value.to_string(), xsprintf("u8"), sline, info) implements sNode;
     }
-    else if((*info->p.p == 'u' || *info->p.p == 'U') && *(info->p.p+1) == '"')
+    else if((*info.p == 'u' || *info.p == 'U') && *(info->p.p+1) == '"')
     {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
 
-        char prefix = *info->p.p;
+        char prefix = *info.p;
         info->p.p+=2;
 
         int sline = info->sline;
@@ -1354,7 +1354,7 @@ sNode*% expression_node(sInfo* info) version 96
         buffer*% value = new buffer();
 
         while(1) {
-            if(*info->p.p == '"') {
+            if(*info.p == '"') {
                 info->p.p++;
                 
                 char* p = info->p.p;
@@ -1364,7 +1364,7 @@ sNode*% expression_node(sInfo* info) version 96
                 
                 parse_sharp()
                 
-                if(*info->p.p == prefix && *(info->p.p+1) == '"') {
+                if(*info.p == prefix && *(info->p.p+1) == '"') {
                     info->p.p += 2;
                 }
                 else {
@@ -1373,20 +1373,20 @@ sNode*% expression_node(sInfo* info) version 96
                     break;
                 }
             }
-            else if(*info->p.p == '\\') {
+            else if(*info.p == '\\') {
                 value.append_char('\\');
                 info->p.p++;
                 
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     value.append_char('"');
                     info->p.p++;
                 }
                 else {
-                    value.append_char(*info->p.p);
+                    value.append_char(*info.p);
                     info->p.p++;
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 int sline2 = info->sline;
                 info->sline = sline;
                 err_msg(info, "close \" to make c string value");
@@ -1394,9 +1394,9 @@ sNode*% expression_node(sInfo* info) version 96
                 exit(2);
             }
             else {
-                if(*info->p.p == '\n') info->sline++;
+                if(*info.p == '\n') info->sline++;
 
-                value.append_char(*info->p.p);
+                value.append_char(*info.p);
                 info->p.p++;
             }
         }
@@ -1406,7 +1406,7 @@ sNode*% expression_node(sInfo* info) version 96
         info.sline_real = sline_real;
         return new sPrefixedStringNode(value.to_string(), xsprintf("%c", prefix), sline, info) implements sNode;
     }
-    else if(*info->p.p == '"') 
+    else if(*info.p == '"') 
     {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
@@ -1417,7 +1417,7 @@ sNode*% expression_node(sInfo* info) version 96
         buffer*% value = new buffer();
 
         while(1) {
-            if(*info->p.p == '"') {
+            if(*info.p == '"') {
                 info->p.p++;
                 
                 char* p = info->p.p;
@@ -1427,7 +1427,7 @@ sNode*% expression_node(sInfo* info) version 96
                 
                 parse_sharp()
                 
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     info->p.p++;
                 }
                 else {
@@ -1436,20 +1436,20 @@ sNode*% expression_node(sInfo* info) version 96
                     break;
                 }
             }
-            else if(*info->p.p == '\\') {
+            else if(*info.p == '\\') {
                 value.append_char('\\');
                 info->p.p++;
                 
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     value.append_char('"');
                     info->p.p++;
                 }
                 else {
-                    value.append_char(*info->p.p);
+                    value.append_char(*info.p);
                     info->p.p++;
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 int sline2 = info->sline;
                 info->sline = sline;
                 err_msg(info, "close \" to make c string value");
@@ -1457,9 +1457,9 @@ sNode*% expression_node(sInfo* info) version 96
                 exit(2);
             }
             else {
-                if(*info->p.p == '\n') info->sline++;
+                if(*info.p == '\n') info->sline++;
 
-                value.append_char(*info->p.p);
+                value.append_char(*info.p);
                 info->p.p++;
             }
         }
@@ -1469,7 +1469,7 @@ sNode*% expression_node(sInfo* info) version 96
         info.sline_real = sline_real;
         return new sStrNode(value.to_string(), sline, info) implements sNode;
     }
-    else if((*info->p.p == 'b' || *info->p.p == 'B') && *(info->p.p+1) == '"') 
+    else if((*info.p == 'b' || *info.p == 'B') && *(info->p.p+1) == '"') 
     {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
@@ -1481,8 +1481,8 @@ sNode*% expression_node(sInfo* info) version 96
 
         size_t size = 0;
         while(1) {
-            if(*info->p.p == '"') {
-//                value.append_char(*info->p.p);
+            if(*info.p == '"') {
+//                value.append_char(*info.p);
                 info->p.p++;
                 
                 char* p = info->p.p;
@@ -1490,7 +1490,7 @@ sNode*% expression_node(sInfo* info) version 96
                 
                 skip_spaces_and_lf();
                 
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     info->p.p++;
                 }
                 else {
@@ -1499,103 +1499,103 @@ sNode*% expression_node(sInfo* info) version 96
                     break;
                 }
             }
-            else if(*info->p.p == '\\') {
+            else if(*info.p == '\\') {
                 value.append_char('\\');
                 info->p.p++;
                 
-                if(xisdigit(*info->p.p)) {
+                if(xisdigit(*info.p)) {
                     int len = 0;
-                    while(xisdigit(*info->p.p) && len < 3) {
-                        value.append_char(*info->p.p);
+                    while(xisdigit(*info.p) && len < 3) {
+                        value.append_char(*info.p);
                         info->p.p++;
                         len++;
                     }
                     size++;
                 }
-                else if(*info->p.p == 'x' || *info->p.p == 'X') {
-                    value.append_char(*info->p.p);
+                else if(*info.p == 'x' || *info.p == 'X') {
+                    value.append_char(*info.p);
                     info->p.p++;
                     
-                    while(*info->p.p >= '0' && *info->p.p <= '9' || *info->p.p >= 'a' && *info->p.p <= 'f' || *info->p.p >= 'A' && *info->p.p <= 'F') {
-                        value.append_char(*info->p.p);
+                    while(*info.p >= '0' && *info.p <= '9' || *info.p >= 'a' && *info.p <= 'f' || *info.p >= 'A' && *info.p <= 'F') {
+                        value.append_char(*info.p);
                         info->p.p++;
                     }
                     size++;
                 }
                 else {
-                    switch(*info->p.p) {
+                    switch(*info.p) {
                         case '0':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
     
                         case 'n':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
     
                         case 't':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
     
                         case 'r':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
     
                         case 'v':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
     
                         case 'f':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
     
                         case 'a':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
     
                         case 'b':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
     
                         case '\\':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
     
                         default:
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             size++;
                             break;
                     }
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 int sline2 = info->sline;
                 info->sline = sline;
                 err_msg(info, "close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(*info->p.p == '\n') info->sline++;
+                if(*info.p == '\n') info->sline++;
 
-                value.append_char(*info->p.p);
+                value.append_char(*info.p);
                 info->p.p++;
                 size++;
             }
@@ -1606,7 +1606,7 @@ sNode*% expression_node(sInfo* info) version 96
         info.sline_real = sline_real;
         return new sBufferNode(value, size, info) implements sNode;
     }
-    else if(*info->p.p == '/' && *(info->p.p-1) != '*' && *(info->p.p+1) != '*') {
+    else if(*info.p == '/' && *(info->p.p-1) != '*' && *(info->p.p+1) != '*') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         info->p.p++;
@@ -1615,33 +1615,33 @@ sNode*% expression_node(sInfo* info) version 96
         
         buffer*% buf = new buffer();
         while(true) {
-            if(*info->p.p == '\\' && *(info->p.p+1) == '/') {
+            if(*info.p == '\\' && *(info->p.p+1) == '/') {
                 info->p.p++;
-                buf.append_char(*info->p.p);
+                buf.append_char(*info.p);
                 info->p.p++;
             }
-            else if(*info->p.p == '/') {
+            else if(*info.p == '/') {
                 info->p.p++;
                 break;
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 err_msg(info, "require closing / for regex");
                 exit(5);
             }
             else {
-                buf.append_char(*info->p.p);
+                buf.append_char(*info.p);
                 info->p.p++;
             }
         }
         
         bool global = false;
         bool ignore_case = false;
-        while(*info->p.p == 'g' || *info->p.p == 'i') {
-            if(*info->p.p == 'g') {
+        while(*info.p == 'g' || *info.p == 'i') {
+            if(*info.p == 'g') {
                 info->p.p++;
                 global = true;
             }
-            else if(*info->p.p == 'i') {
+            else if(*info.p == 'i') {
                 info->p.p++;
                 ignore_case = true;
             }
@@ -1677,7 +1677,7 @@ sNode*% expression_node(sInfo* info) version 96
         info.sline_real = sline_real;
         return node;
     }
-    else if((*info->p.p == 'R' || *info->p.p == 'r') && *(info->p.p+1) == '"') {
+    else if((*info.p == 'R' || *info.p == 'r') && *(info->p.p+1) == '"') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         info->p.p+=2;
@@ -1686,7 +1686,7 @@ sNode*% expression_node(sInfo* info) version 96
         
         buffer*% value = new buffer();
         while(1) {
-            if(*info->p.p == '"') {
+            if(*info.p == '"') {
                 info->p.p++;
                 
                 char* p = info->p.p;
@@ -1694,7 +1694,7 @@ sNode*% expression_node(sInfo* info) version 96
                 
                 skip_spaces_and_lf();
                 
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     info->p.p++;
                 }
                 else {
@@ -1703,103 +1703,103 @@ sNode*% expression_node(sInfo* info) version 96
                     break;
                 }
             }
-            else if(*info->p.p == '\\') {
+            else if(*info.p == '\\') {
                 value.append_char('\\');
                 info->p.p++;
                 
-                if(xisdigit(*info->p.p)) {
+                if(xisdigit(*info.p)) {
                     int len = 0;
-                    while(xisdigit(*info->p.p) && len < 3) {
-                        value.append_char(*info->p.p);
+                    while(xisdigit(*info.p) && len < 3) {
+                        value.append_char(*info.p);
                         info->p.p++;
                         len++;
                     }
                 }
-                else if(*info->p.p == 'x' || *info->p.p == 'X') {
-                    value.append_char(*info->p.p);
+                else if(*info.p == 'x' || *info.p == 'X') {
+                    value.append_char(*info.p);
                     info->p.p++;
                     
-                    while(*info->p.p >= '0' && *info->p.p <= '9' || *info->p.p >= 'a' && *info->p.p <= 'f' || *info->p.p >= 'A' && *info->p.p <= 'F') {
-                        value.append_char(*info->p.p);
+                    while(*info.p >= '0' && *info.p <= '9' || *info.p >= 'a' && *info.p <= 'f' || *info.p >= 'A' && *info.p <= 'F') {
+                        value.append_char(*info.p);
                         info->p.p++;
                     }
                 }
                 else {
-                    switch(*info->p.p) {
+                    switch(*info.p) {
                         case '0':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'n':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 't':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'r':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'v':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'f':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'a':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'b':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case '\\':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         default:
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
                     }
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 int sline2 = info->sline;
                 info->sline = sline;
                 err_msg(info, "close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(*info->p.p == '\n') info->sline++;
+                if(*info.p == '\n') info->sline++;
 
-                value.append_char(*info->p.p);
+                value.append_char(*info.p);
                 info->p.p++;
             }
         }
         
         bool global = false;
         bool ignore_case = false;
-        while(*info->p.p == 'g' || *info->p.p == 'i') {
-            if(*info->p.p == 'g') {
+        while(*info.p == 'g' || *info.p == 'i') {
+            if(*info.p == 'g') {
                 info->p.p++;
                 global = true;
             }
-            else if(*info->p.p == 'i') {
+            else if(*info.p == 'i') {
                 info->p.p++;
                 ignore_case = true;
             }
@@ -1835,29 +1835,29 @@ sNode*% expression_node(sInfo* info) version 96
         info.sline_real = sline_real;
         return node;
     }
-    else if((*info->p.p == 'u' || *info->p.p == 'U') && *(info->p.p+1) == '\'') {
+    else if((*info.p == 'u' || *info.p == 'U') && *(info->p.p+1) == '\'') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
 
-        char prefix = *info->p.p;
+        char prefix = *info.p;
         info->p.p += 2;
 
         int c;
 
-        if(*info->p.p == '\\') {
+        if(*info.p == '\\') {
             info->p.p++;
 
-            if(xisdigit(*info->p.p)) {
+            if(xisdigit(*info.p)) {
                 int n = 0;
-                while(xisdigit(*info->p.p)) {
-                    n = n * 8 + *info->p.p - '0';
+                while(xisdigit(*info.p)) {
+                    n = n * 8 + *info.p - '0';
                     info->p.p++;
                 }
                 
                 c = n;
             }
             else {
-                switch(*info->p.p) {
+                switch(*info.p) {
                     case 'n':
                         c = '\n';
                         info->p.p++;
@@ -1902,10 +1902,10 @@ sNode*% expression_node(sInfo* info) version 96
                         c = '\0';
                         info->p.p++;
                         
-                        if(xisdigit(*info->p.p)) {
+                        if(xisdigit(*info.p)) {
                             int n = 0;
-                            while(xisdigit(*info->p.p)) {
-                                n = n * 8 + *info->p.p - '0';
+                            while(xisdigit(*info.p)) {
+                                n = n * 8 + *info.p - '0';
                                 info->p.p++;
                                 skip_spaces_and_lf();
                             }
@@ -1920,9 +1920,9 @@ sNode*% expression_node(sInfo* info) version 96
                         
                         char buf[128];
                         strncpy(buf, "0x", 128);
-                        while(*info->p.p >= '0' && *info->p.p <= '9' || *info->p.p >= 'a' && *info->p.p <= 'f' || *info->p.p >= 'A' && *info->p.p <= 'F') {
+                        while(*info.p >= '0' && *info.p <= '9' || *info.p >= 'a' && *info.p <= 'f' || *info.p >= 'A' && *info.p <= 'F') {
                             char buf2[2];
-                            buf2[0] = *info->p.p;
+                            buf2[0] = *info.p;
                             buf2[1] = '\0';
                             info->p.p++;
                             strncat(buf, buf2, 128);
@@ -1935,18 +1935,18 @@ sNode*% expression_node(sInfo* info) version 96
                         break;
 
                     default:
-                        c = *info->p.p;
+                        c = *info.p;
                         info->p.p++;
                         break;
                 }
             }
         }
         else {
-            c = *info->p.p;
+            c = *info.p;
             info->p.p++;
         }
 
-        if(*info->p.p != '\'') {
+        if(*info.p != '\'') {
             err_msg(info, "close \' to make character value");
             exit(1);
         }
@@ -1959,27 +1959,27 @@ sNode*% expression_node(sInfo* info) version 96
             return new sPrefixedCharNode(c, xsprintf("%c", prefix), info) implements sNode;
         }
     }
-    else if(*info->p.p == '\'') {
+    else if(*info.p == '\'') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         info->p.p++;
 
         int c;
 
-        if(*info->p.p == '\\') {
+        if(*info.p == '\\') {
             info->p.p++;
 
-            if(xisdigit(*info->p.p)) {
+            if(xisdigit(*info.p)) {
                 int n = 0;
-                while(xisdigit(*info->p.p)) {
-                    n = n * 8 + *info->p.p - '0';
+                while(xisdigit(*info.p)) {
+                    n = n * 8 + *info.p - '0';
                     info->p.p++;
                 }
                 
                 c = n;
             }
             else {
-                switch(*info->p.p) {
+                switch(*info.p) {
                     case 'n':
                         c = '\n';
                         info->p.p++;
@@ -2024,10 +2024,10 @@ sNode*% expression_node(sInfo* info) version 96
                         c = '\0';
                         info->p.p++;
                         
-                        if(xisdigit(*info->p.p)) {
+                        if(xisdigit(*info.p)) {
                             int n = 0;
-                            while(xisdigit(*info->p.p)) {
-                                n = n * 8 + *info->p.p - '0';
+                            while(xisdigit(*info.p)) {
+                                n = n * 8 + *info.p - '0';
                                 info->p.p++;
                                 skip_spaces_and_lf();
                             }
@@ -2042,9 +2042,9 @@ sNode*% expression_node(sInfo* info) version 96
                         
                         char buf[128];
                         strncpy(buf, "0x", 128);
-                        while(*info->p.p >= '0' && *info->p.p <= '9' || *info->p.p >= 'a' && *info->p.p <= 'f' || *info->p.p >= 'A' && *info->p.p <= 'F') {
+                        while(*info.p >= '0' && *info.p <= '9' || *info.p >= 'a' && *info.p <= 'f' || *info.p >= 'A' && *info.p <= 'F') {
                             char buf2[2];
-                            buf2[0] = *info->p.p;
+                            buf2[0] = *info.p;
                             buf2[1] = '\0';
                             info->p.p++;
                             strncat(buf, buf2, 128);
@@ -2057,18 +2057,18 @@ sNode*% expression_node(sInfo* info) version 96
                         break;
     
                     default:
-                        c = *info->p.p;
+                        c = *info.p;
                         info->p.p++;
                         break;
                 }
             }
         }
         else {
-            c = *info->p.p;
+            c = *info.p;
             info->p.p++;
         }
 
-        if(*info->p.p != '\'') {
+        if(*info.p != '\'') {
             err_msg(info, "close \' to make character value");
             exit(1);
         }
@@ -2083,7 +2083,7 @@ sNode*% expression_node(sInfo* info) version 96
     }
 #ifndef __BAREMETAL__
     /// wchararacter ///
-    else if(*info->p.p == 'L' && *(info->p.p+1) == '\'') {
+    else if(*info.p == 'L' && *(info->p.p+1) == '\'') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         info->p.p+=2;
@@ -2091,21 +2091,21 @@ sNode*% expression_node(sInfo* info) version 96
         wchar_t c;
         bool quote;
 
-        if(*info->p.p == '\\') {
+        if(*info.p == '\\') {
             quote = true;
             info->p.p++;
             
-            if(xisdigit(*info->p.p)) {
+            if(xisdigit(*info.p)) {
                 int n = 0;
-                while(xisdigit(*info->p.p)) {
-                    n = n * 8 + *info->p.p - '0';
+                while(xisdigit(*info.p)) {
+                    n = n * 8 + *info.p - '0';
                     info->p.p++;
                 }
                 
                 c = n;
             }
             else {
-                switch(*info->p.p) {
+                switch(*info.p) {
                     case 'n':
                         c = '\n';
                         info->p.p++;
@@ -2136,10 +2136,10 @@ sNode*% expression_node(sInfo* info) version 96
                         
                         info->p.p++;
                         
-                        if(xisdigit(*info->p.p)) {
+                        if(xisdigit(*info.p)) {
                             int n = 0;
-                            while(xisdigit(*info->p.p)) {
-                                n = n * 8 + *info->p.p - '0';
+                            while(xisdigit(*info.p)) {
+                                n = n * 8 + *info.p - '0';
                                 info->p.p++;
                                 skip_spaces_and_lf();
                             }
@@ -2154,9 +2154,9 @@ sNode*% expression_node(sInfo* info) version 96
                         
                         char buf[128];
                         strncpy(buf, "0x", 128);
-                        while(*info->p.p >= '0' && *info->p.p <= '9' || *info->p.p >= 'a' && *info->p.p <= 'f' || *info->p.p >= 'A' && *info->p.p <= 'F') {
+                        while(*info.p >= '0' && *info.p <= '9' || *info.p >= 'a' && *info.p <= 'f' || *info.p >= 'A' && *info.p <= 'F') {
                             char buf2[2];
-                            buf2[0] = *info->p.p;
+                            buf2[0] = *info.p;
                             buf2[1] = '\0';
                             info->p.p++;
                             strncat(buf, buf2, 128);
@@ -2169,7 +2169,7 @@ sNode*% expression_node(sInfo* info) version 96
                         break;
     
                     default:
-                        c = *info->p.p;
+                        c = *info.p;
                         info->p.p++;
                         break;
                 }
@@ -2208,12 +2208,12 @@ sNode*% expression_node(sInfo* info) version 96
             }
             /// ASCII character ///
             else {
-                c = *info->p.p;
+                c = *info.p;
                 info->p.p++;
             }
         }
         
-        if(*info->p.p != '\'') {
+        if(*info.p != '\'') {
             err_msg(info, "close \' to make character value");
             info->err_num++;
             exit(2);
@@ -2228,7 +2228,7 @@ sNode*% expression_node(sInfo* info) version 96
         }
     }
     /// wstring ///
-    else if(*info->p.p == 'L' && *(info->p.p+1) == '"') {
+    else if(*info.p == 'L' && *(info->p.p+1) == '"') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         info->p.p+=2;
@@ -2238,7 +2238,7 @@ sNode*% expression_node(sInfo* info) version 96
         buffer*% value = new buffer();
 
         while(1) {
-            if(*info->p.p == '"') {
+            if(*info.p == '"') {
                 info->p.p++;
                 
                 char* p = info->p.p;
@@ -2246,7 +2246,7 @@ sNode*% expression_node(sInfo* info) version 96
                 
                 skip_spaces_and_lf();
                 
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     info->p.p++;
                 }
                 else {
@@ -2255,29 +2255,29 @@ sNode*% expression_node(sInfo* info) version 96
                     break;
                 }
             }
-            else if(*info->p.p == '\\') {
+            else if(*info.p == '\\') {
                 value.append_char('\\');
                 info->p.p++;
                 
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     value.append_char('"');
                     info->p.p++;
                 }
                 else {
-                    value.append_char(*info->p.p);
+                    value.append_char(*info.p);
                     info->p.p++;
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 int sline2 = info->sline;
                 info->sline = sline;
                 err_msg(info, "close \" to make c string value");
                 exit(2);
             }
             else {
-                if(*info->p.p == '\n') info->sline++;
+                if(*info.p == '\n') info->sline++;
 
-                value.append_char(*info->p.p);
+                value.append_char(*info.p);
                 info->p.p++;
             }
         }
@@ -2302,7 +2302,7 @@ sNode*% expression_node(sInfo* info) version 96
     }
 #endif
     /// heap string ///
-    else if((*info->p.p == 's' || *info->p.p == 'S')  && *(info->p.p+1) == '"') {
+    else if((*info.p == 's' || *info.p == 'S')  && *(info->p.p+1) == '"') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         info->p.p+=2;
@@ -2313,7 +2313,7 @@ sNode*% expression_node(sInfo* info) version 96
         buffer*% value = new buffer();
 
         while(1) {
-            if(*info->p.p == '"') {
+            if(*info.p == '"') {
                 info->p.p++;
                 
                 char* p = info->p.p;
@@ -2321,7 +2321,7 @@ sNode*% expression_node(sInfo* info) version 96
                 
                 skip_spaces_and_lf();
                 
-                if(*info->p.p == '"') {
+                if(*info.p == '"') {
                     info->p.p++;
                 }
                 else {
@@ -2330,13 +2330,13 @@ sNode*% expression_node(sInfo* info) version 96
                     break;
                 }
             }
-            else if(*info->p.p == '%') {
+            else if(*info.p == '%') {
                 value.append_char('%');
                 value.append_char('%');
                 info->p.p++;
             }
 /*
-            else if(*info->p.p == '$') {
+            else if(*info.p == '$') {
                 info->p.p++;
                 
                 sNode*% exp = expression();
@@ -2353,104 +2353,104 @@ sNode*% expression_node(sInfo* info) version 96
                 info->p.p = p + 1;
             }
 */
-            else if(*info->p.p == '\\') {
+            else if(*info.p == '\\') {
                 value.append_char('\\');
                 info->p.p++;
                 
-                if(xisdigit(*info->p.p)) {
+                if(xisdigit(*info.p)) {
                     int len = 0;
-                    while(xisdigit(*info->p.p) && len < 3) {
-                        value.append_char(*info->p.p);
+                    while(xisdigit(*info.p) && len < 3) {
+                        value.append_char(*info.p);
                         info->p.p++;
                         len++;
                     }
                 }
-                else if(*info->p.p == 'x' || *info->p.p == 'X') {
-                    value.append_char(*info->p.p);
+                else if(*info.p == 'x' || *info.p == 'X') {
+                    value.append_char(*info.p);
                     info->p.p++;
                     
-                    while(*info->p.p >= '0' && *info->p.p <= '9' || *info->p.p >= 'a' && *info->p.p <= 'f' || *info->p.p >= 'A' && *info->p.p <= 'F') {
-                        value.append_char(*info->p.p);
+                    while(*info.p >= '0' && *info.p <= '9' || *info.p >= 'a' && *info.p <= 'f' || *info.p >= 'A' && *info.p <= 'F') {
+                        value.append_char(*info.p);
                         info->p.p++;
                     }
                 }
-                else if(*info->p.p == '{') {
+                else if(*info.p == '{') {
                     info->p.p++;
                     
                     sNode*% exp = expression();
                     
                     exps.add(exp);
                     
-                    if(*info->p.p == '}') {
+                    if(*info.p == '}') {
                         info->p.p++;
                     }
                     
                     value.append_str("%s");
                 }
                 else {
-                    switch(*info->p.p) {
+                    switch(*info.p) {
                         case '0':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'n':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 't':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'r':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'v':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'f':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'a':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case 'b':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         case '\\':
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
     
                         default:
-                            value.append_char(*info->p.p);
+                            value.append_char(*info.p);
                             info->p.p++;
                             break;
                     }
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info.p == '\0') {
                 int sline2 = info->sline;
                 info->sline = sline;
                 err_msg(info, "close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(*info->p.p == '\n') info->sline++;
+                if(*info.p == '\n') info->sline++;
 
-                value.append_char(*info->p.p);
+                value.append_char(*info.p);
                 info->p.p++;
             }
         }
@@ -2460,7 +2460,7 @@ sNode*% expression_node(sInfo* info) version 96
         info.sline_real = sline_real;
         return new sSStringNode(value.to_string(), exps, sline, info) implements sNode;
     }
-    else if(*info->p.p == '[') {
+    else if(*info.p == '[') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         info->p.p++;
@@ -2488,7 +2488,7 @@ sNode*% expression_node(sInfo* info) version 96
         list<sNode*%>*% map_elements = new list<sNode*%>();
         
         //// map ///
-        if(*info->p.p == ':') {
+        if(*info.p == ':') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -2504,7 +2504,7 @@ sNode*% expression_node(sInfo* info) version 96
             
             map_elements.push_back(node2);
             
-            if(*info->p.p == ']') {
+            if(*info.p == ']') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 
@@ -2534,21 +2534,21 @@ sNode*% expression_node(sInfo* info) version 96
                     
                     map_elements.push_back(node3);
                     
-                    if(*info->p.p == '\0') {
+                    if(*info.p == '\0') {
                         err_msg(info, "invalid source end");
                         exit(2);
                     }
-                    else if(*info->p.p == ',') {
+                    else if(*info.p == ',') {
                         info->p.p++;
                         skip_spaces_and_lf();
                     }
-                    else if(*info->p.p == ']') {
+                    else if(*info.p == ']') {
                         info->p.p++;
                         skip_spaces_and_lf();
                         break;
                     }
                     else {
-                        err_msg(info, "invalid character(3)(%c)", *info->p.p);
+                        err_msg(info, "invalid character(3)(%c)", *info.p);
                         exit(2);
                     }
                 }
@@ -2557,13 +2557,13 @@ sNode*% expression_node(sInfo* info) version 96
             }
         }
         /// list ///
-        else if(*info->p.p == ']') {
+        else if(*info.p == ']') {
             info->p.p++;
             skip_spaces_and_lf();
             
             list_elements.push_back(node);
         }
-        else if(*info->p.p == ',') {
+        else if(*info.p == ',') {
             info->p.p++;
             skip_spaces_and_lf();
             
@@ -2579,27 +2579,27 @@ sNode*% expression_node(sInfo* info) version 96
                 
                 list_elements.push_back(node2);
                 
-                if(*info->p.p == '\0') {
+                if(*info.p == '\0') {
                     err_msg(info, "invalid source end");
                     exit(2);
                 }
-                else if(*info->p.p == ',') {
+                else if(*info.p == ',') {
                     info->p.p++;
                     skip_spaces_and_lf();
                 }
-                else if(*info->p.p == ']') {
+                else if(*info.p == ']') {
                     info->p.p++;
                     skip_spaces_and_lf();
                     break;
                 }
                 else {
-                    err_msg(info, "invalid character(4)(%c)", *info->p.p);
+                    err_msg(info, "invalid character(4)(%c)", *info.p);
                     exit(2);
                 }
             }
         }
         else {
-            err_msg(info, "invalid character(5)(%c)", *info->p.p);
+            err_msg(info, "invalid character(5)(%c)", *info.p);
             exit(2);
         }
         
@@ -2612,7 +2612,7 @@ sNode*% expression_node(sInfo* info) version 96
             return null;
         }
     }
-    else if(*info->p.p == 'v' && *(info->p.p+1) == '(') {
+    else if(*info.p == 'v' && *(info->p.p+1) == '(') {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
         info->p.p+=2;
@@ -2650,17 +2650,17 @@ sNode*% parse_tuple(sInfo* info, bool named_tuple=false)
         
         tuple_elements.push_back(t(clone name, node));
         
-        if(*info->p.p == ',') {
+        if(*info.p == ',') {
             info->p.p++;
             skip_spaces_and_lf();
         }
-        else if(*info->p.p == ')') {
+        else if(*info.p == ')') {
             info->p.p++;
             skip_spaces_and_lf();
             break;
         }
         else {
-            err_msg(info, "invalid character in tuple expression (%c)", *info->p.p);
+            err_msg(info, "invalid character in tuple expression (%c)", *info.p);
             exit(2);
         }
     }
@@ -2694,13 +2694,13 @@ sNode*% parse_vector(sInfo* info=info)
     list<sNode*%>*% map_elements = new list<sNode*%>();
     
     /// vector ///
-    if(*info->p.p == ']') {
+    if(*info.p == ']') {
         info->p.p++;
         skip_spaces_and_lf();
         
         list_elements.push_back(node);
     }
-    else if(*info->p.p == ',') {
+    else if(*info.p == ',') {
         info->p.p++;
         skip_spaces_and_lf();
         
@@ -2716,27 +2716,27 @@ sNode*% parse_vector(sInfo* info=info)
             
             list_elements.push_back(node2);
             
-            if(*info->p.p == '\0') {
+            if(*info.p == '\0') {
                 err_msg(info, "invalid source end");
                 exit(2);
             }
-            else if(*info->p.p == ',') {
+            else if(*info.p == ',') {
                 info->p.p++;
                 skip_spaces_and_lf();
             }
-            else if(*info->p.p == ']') {
+            else if(*info.p == ']') {
                 info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
             else {
-                err_msg(info, "invalid character(4)(%c)", *info->p.p);
+                err_msg(info, "invalid character(4)(%c)", *info.p);
                 exit(2);
             }
         }
     }
     else {
-        err_msg(info, "invalid character(5)(%c)", *info->p.p);
+        err_msg(info, "invalid character(5)(%c)", *info.p);
         exit(2);
     }
     

@@ -147,6 +147,11 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     int sline = info.sline;
     
     info.source = method_block2;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
     info.p.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     info.sline = method_block_sline;
@@ -180,6 +185,12 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     come_params.push_back(come_value2);
     
     info.source = source3;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
     info.p.p = p;
     info.head = head;
     info.sline = sline;
@@ -880,6 +891,11 @@ class sMethodCallNode extends sNodeBase
                         int sline = info.sline;
                         
                         info.source = default_param.to_buffer();
+                        if(info.p == null) {
+                            info.p = span borrow info.source;
+                        }
+                        info.p.memory = borrow info.source.buf;
+                        info.p.len = info.source.len+2;
                         info.p.p = borrow info.source.buf;
                         info.head = borrow info.source.buf;
                         
@@ -895,7 +911,13 @@ class sMethodCallNode extends sNodeBase
                         info.no_output_come_code = no_output_come_code;
                         
                         info.source = source;
-                        info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
                         info.head = head;
                         info.sline = sline;
                 
@@ -1268,6 +1290,11 @@ puts(all_code2);
             
             info.generics_type_names = first_pass_generics_type_names;
             info.source = all_code2.to_buffer();
+            if(info.p == null) {
+                info.p = span borrow info.source;
+            }
+            info.p.memory = borrow info.source.buf;
+            info.p.len = info.source.len+2;
             info.p.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
             info.end = info.source.buf + info.source.len;
@@ -1295,6 +1322,11 @@ puts(all_code2);
             info->no_output_come_code = no_output_come_code;
             
             info.source = all_code2.to_buffer();
+            if(info.p == null) {
+                info.p = span borrow info.source;
+            }
+            info.p.memory = borrow info.source.buf;
+            info.p.len = info.source.len+2;
             info.p.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
             info.end = info.source.buf + info.source.len;
@@ -1306,7 +1338,13 @@ puts(all_code2);
             transpile_block(block, param_types:null, param_names:null, info, no_var_table:true, iter_:true);
             
             info.source = source;
-            info.p.p = p;
+    if(info.p == null) {
+        info.p = span borrow info.source;
+    }
+    info.p.memory = borrow info.source.buf;
+    info.p.len = info.source.len+2;
+    info.p.p = borrow info.source.buf;
+    info.p.p = p;
             info.head = head;
             info.end = end;
             
