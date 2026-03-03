@@ -6101,7 +6101,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj91=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 384, "struct span$1buffer$p*"), "07function.nc", 384),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 384);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 384, "struct span$1buffer$p*"), "07function.nc", 384),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 384);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj91,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 384);
         }
         info->p->memory=info->source->buf;
@@ -6128,7 +6128,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj93=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 402, "struct span$1buffer$p*"), "07function.nc", 402),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 402);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 402, "struct span$1buffer$p*"), "07function.nc", 402),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 402);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj93,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 402);
         }
         info->p->memory=info->source->buf;
@@ -10606,7 +10606,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj177=info->p,
-        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 2719, "struct span$1buffer$p*"), "07function.nc", 2719),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 2719);
+        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 2719, "struct span$1buffer$p*"), "07function.nc", 2719),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 2719);
         come_call_finalizer(span$1char$p$p_finalize, __dec_obj177,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 2719);
     }
     info->p->memory=info->source->buf;
@@ -10650,7 +10650,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj183=info->p,
-        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 2748, "struct span$1buffer$p*"), "07function.nc", 2748),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 2748);
+        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 2748, "struct span$1buffer$p*"), "07function.nc", 2748),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 2748);
         come_call_finalizer(span$1char$p$p_finalize, __dec_obj183,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 2748);
     }
     info->p->memory=info->source->buf;
@@ -11186,7 +11186,7 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj217=info->p,
-        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 2827, "struct span$1buffer$p*"), "07function.nc", 2827),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 2827);
+        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 2827, "struct span$1buffer$p*"), "07function.nc", 2827),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 2827);
         come_call_finalizer(span$1char$p$p_finalize, __dec_obj217,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 2827);
     }
     info->p->memory=info->source->buf;
@@ -11222,7 +11222,7 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj222=info->p,
-        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 2852, "struct span$1buffer$p*"), "07function.nc", 2852),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 2852);
+        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 2852, "struct span$1buffer$p*"), "07function.nc", 2852),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 2852);
         come_call_finalizer(span$1char$p$p_finalize, __dec_obj222,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 2852);
     }
     info->p->memory=info->source->buf;
@@ -11973,7 +11973,7 @@ __right_value1 = (void*)0,
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj253=info->p,
-                info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3106, "struct span$1buffer$p*"), "07function.nc", 3106),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3106);
+                info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3106, "struct span$1buffer$p*"), "07function.nc", 3106),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3106);
                 come_call_finalizer(span$1char$p$p_finalize, __dec_obj253,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3106);
             }
             info->p->memory=info->source->buf;
@@ -12065,7 +12065,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj256=info->p,
-                info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3163, "struct span$1buffer$p*"), "07function.nc", 3163),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3163);
+                info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3163, "struct span$1buffer$p*"), "07function.nc", 3163),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3163);
                 come_call_finalizer(span$1char$p$p_finalize, __dec_obj256,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3163);
             }
             info->p->memory=info->source->buf;
@@ -12663,7 +12663,7 @@ struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType*  type  ,
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj273=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3230, "struct span$1buffer$p*"), "07function.nc", 3230),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3230);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3230, "struct span$1buffer$p*"), "07function.nc", 3230),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3230);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj273,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3230);
         }
         info->p->memory=info->source->buf;
@@ -12755,7 +12755,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj276=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3284, "struct span$1buffer$p*"), "07function.nc", 3284),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3284);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3284, "struct span$1buffer$p*"), "07function.nc", 3284),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3284);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj276,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3284);
         }
         info->p->memory=info->source->buf;
@@ -13022,7 +13022,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sT
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj292=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3368, "struct span$1buffer$p*"), "07function.nc", 3368),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3368);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3368, "struct span$1buffer$p*"), "07function.nc", 3368),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3368);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj292,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3368);
         }
         info->p->memory=info->source->buf;
@@ -13114,7 +13114,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj295=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3422, "struct span$1buffer$p*"), "07function.nc", 3422),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3422);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3422, "struct span$1buffer$p*"), "07function.nc", 3422),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3422);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj295,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3422);
         }
         info->p->memory=info->source->buf;
@@ -13391,7 +13391,7 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType*  typ
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj311=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3503, "struct span$1buffer$p*"), "07function.nc", 3503),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3503);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3503, "struct span$1buffer$p*"), "07function.nc", 3503),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3503);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj311,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3503);
         }
         info->p->memory=info->source->buf;
@@ -13483,7 +13483,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj314=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3557, "struct span$1buffer$p*"), "07function.nc", 3557),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3557);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3557, "struct span$1buffer$p*"), "07function.nc", 3557),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3557);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj314,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3557);
         }
         info->p->memory=info->source->buf;
@@ -13732,7 +13732,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType*
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj330=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3623, "struct span$1buffer$p*"), "07function.nc", 3623),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3623);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3623, "struct span$1buffer$p*"), "07function.nc", 3623),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3623);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj330,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3623);
         }
         info->p->memory=info->source->buf;
@@ -13824,7 +13824,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj333=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3677, "struct span$1buffer$p*"), "07function.nc", 3677),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3677);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3677, "struct span$1buffer$p*"), "07function.nc", 3677),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3677);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj333,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3677);
         }
         info->p->memory=info->source->buf;
@@ -14285,7 +14285,7 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj362=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3852, "struct span$1buffer$p*"), "07function.nc", 3852),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3852);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3852, "struct span$1buffer$p*"), "07function.nc", 3852),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3852);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj362,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3852);
         }
         info->p->memory=info->source->buf;
@@ -14373,7 +14373,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj366=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3907, "struct span$1buffer$p*"), "07function.nc", 3907),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3907);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3907, "struct span$1buffer$p*"), "07function.nc", 3907),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3907);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj366,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3907);
         }
         info->p->memory=info->source->buf;
@@ -14627,7 +14627,7 @@ struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType*  type
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj381=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3991, "struct span$1buffer$p*"), "07function.nc", 3991),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3991);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 3991, "struct span$1buffer$p*"), "07function.nc", 3991),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 3991);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj381,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3991);
         }
         info->p->memory=info->source->buf;
@@ -14718,7 +14718,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj385=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4046, "struct span$1buffer$p*"), "07function.nc", 4046),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4046);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4046, "struct span$1buffer$p*"), "07function.nc", 4046),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4046);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj385,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4046);
         }
         info->p->memory=info->source->buf;
@@ -15013,7 +15013,7 @@ struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType*  t
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj401=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4145, "struct span$1buffer$p*"), "07function.nc", 4145),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4145);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4145, "struct span$1buffer$p*"), "07function.nc", 4145),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4145);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj401,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4145);
         }
         info->p->memory=info->source->buf;
@@ -15104,7 +15104,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj405=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4200, "struct span$1buffer$p*"), "07function.nc", 4200),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4200);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4200, "struct span$1buffer$p*"), "07function.nc", 4200),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4200);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj405,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4200);
         }
         info->p->memory=info->source->buf;
@@ -15399,7 +15399,7 @@ struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType*  type  
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj421=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4299, "struct span$1buffer$p*"), "07function.nc", 4299),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4299);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4299, "struct span$1buffer$p*"), "07function.nc", 4299),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4299);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj421,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4299);
         }
         info->p->memory=info->source->buf;
@@ -15496,7 +15496,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj425=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4356, "struct span$1buffer$p*"), "07function.nc", 4356),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4356);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4356, "struct span$1buffer$p*"), "07function.nc", 4356),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4356);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj425,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4356);
         }
         info->p->memory=info->source->buf;
@@ -15793,7 +15793,7 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj440=info->p,
-        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4393, "struct span$1buffer$p*"), "07function.nc", 4393),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4393);
+        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4393, "struct span$1buffer$p*"), "07function.nc", 4393),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4393);
         come_call_finalizer(span$1char$p$p_finalize, __dec_obj440,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4393);
     }
     info->p->memory=info->source->buf;
@@ -15814,7 +15814,7 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj443=info->p,
-        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4408, "struct span$1buffer$p*"), "07function.nc", 4408),info->source->buf,info->source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4408);
+        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "07function.nc", 4408, "struct span$1buffer$p*"), "07function.nc", 4408),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "07function.nc", 4408);
         come_call_finalizer(span$1char$p$p_finalize, __dec_obj443,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4408);
     }
     info->p->memory=info->source->buf;

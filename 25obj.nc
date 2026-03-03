@@ -1818,7 +1818,8 @@ sNode*%@head,sNode*%@len get_head_and_len(sNode*% node, CVALUE*% come_value, sIn
 
     if(buffer_like) {
         head = load_field(node, s"buf", info);
-        len = load_field(node, s"len", info);
+        sNode*% len_field = load_field(node, s"len", info);
+        len = add_node(len_field, create_int_node(s"2", info));
     }
     else if((type2->mOriginalTypeName && type2->mOriginalTypeName === "string") || (type2->mClass->mName === "char" && type2->mPointerNum == 1 && type2->mHeap) && !type2->mNew) {
         static int n = 0;

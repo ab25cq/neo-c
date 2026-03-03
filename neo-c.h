@@ -1034,12 +1034,12 @@ impl span<T>
             exit(2);
         }
         if(self.p >= (char*)self.memory + self.len) {
-            puts("out of range of span");
+            puts("out of range of span(1)");
             stackframe2(self);
             exit(1);
         }
         if(self.p < (char*)self.memory) {
-            puts("out of range of span");
+            puts("out of range of span(2)");
             stackframe2(self);
             exit(1);
         }
@@ -1162,12 +1162,12 @@ impl span<T>
             exit(2);
         }
         if(self.p >= (char*)self.memory + self.len) {
-            puts("out of range of span");
+            puts("out of range of span(3)");
             stackframe2(self);
             exit(1);
         }
         if(self.p < (char*)self.memory) {
-            puts("out of range of span");
+            puts("out of range of span(4)");
             stackframe2(self);
             exit(1);
         }
@@ -1206,12 +1206,12 @@ impl span<T>
             exit(2);
         }
         if(self.p + position >= (char*)self.memory + self.len) {
-            puts("out of range of span");
+            puts("out of range of span(5)");
             stackframe2(self);
             exit(1);
         }
         if(self.p + position < (char*)self.memory) {
-            puts("out of range of span");
+            puts("out of range of span(6)");
             stackframe2(self);
             exit(1);
         }
@@ -1249,12 +1249,12 @@ impl span<T>
             exit(2);
         }
         if(self.p + position >= (char*)self.memory + self.len) {
-            puts("out of range of span");
+            puts("out of range of span(7)");
             stackframe2(self);
             exit(1);
         }
         if(self.p + position < (char*)self.memory) {
-            puts("out of range of span");
+            puts("out of range of span(8)");
             stackframe2(self);
             exit(1);
         }
@@ -1313,17 +1313,17 @@ impl span<T>
             exit(2);
         }
         if((char*)self.p >= (char*)self.memory + self.len) {
-            puts("out of range of span");
+            puts("out of range of span(9)");
             stackframe2(self);
             exit(1);
         }
         if((char*)self.p + len >= (char*)self.memory + self.len) {
-            puts("out of range of span");
+            puts("out of range of span(10)");
             stackframe2(self);
             exit(1);
         }
         if(self.p < (char*)self.memory) {
-            puts("out of range of span");
+            puts("out of range of span(11)");
             stackframe2(self);
             exit(1);
         }

@@ -364,12 +364,7 @@ int come_main(int argc, char** argv)
         }
 
         info.source = xsprintf("%s.i", it).read();
-        if(info.p == null) {
-            info.p = span borrow info.source;
-        }
-        info.p.memory = borrow info.source.buf;
-        info.p.len = info.source.len+2;
-        info.p.p = borrow info.source.buf;
+        info.p = span borrow info.source;
         info.head = borrow info.source.buf;
         info.end = info.source.buf + info.source.len;
         

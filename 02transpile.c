@@ -4663,21 +4663,16 @@ int come_main(int argc, char** argv)
         info.source=(struct buffer* )come_increment_ref_count(charp_read(((char* )(__right_value0=xsprintf("%s.i",it)))), "02transpile.nc", 366);
         come_call_finalizer(buffer_finalize, __dec_obj45,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 366);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 366));
-        if(info.p==((void*)0)) {
-            __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            __dec_obj46=info.p,
-            info.p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "02transpile.nc", 368, "struct span$1buffer$p*"), "02transpile.nc", 368),info.source->buf,info.source->len,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "02transpile.nc", 368);
-            come_call_finalizer(span$1char$p$p_finalize, __dec_obj46,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 368);
-        }
-        info.p->memory=info.source->buf;
-        info.p->len=info.source->len+2;
-        info.p->p=info.source->buf;
+        __right_value0 = (void*)0;
+        __right_value1 = (void*)0;
+        __dec_obj46=info.p,
+        info.p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "02transpile.nc", 367, "struct span$1buffer$p*"), "02transpile.nc", 367),info.source->buf,info.source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "02transpile.nc", 367);
+        come_call_finalizer(span$1char$p$p_finalize, __dec_obj46,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 367);
         info.head=info.source->buf;
         info.end=info.source->buf+info.source->len;
         __dec_obj47=info.output_file_name,
         info.output_file_name=((void*)0);
-        __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0, "02transpile.nc", 376);
+        __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0, "02transpile.nc", 371);
         transpile(&info);
         if(info.err_num>0) {
             printf("transpile failed for %s: %d error(s). see diagnostics above.\n",it,info.err_num);
@@ -4691,12 +4686,12 @@ int come_main(int argc, char** argv)
         if(info.warning_num>0) {
             printf("transpile completed for %s with %d warning(s).\n",it,info.warning_num);
         }
-        come_call_finalizer(sInfo_finalize, (&info), (void*)0, (void*)0, 1, 0, 0, (void*)0, "02transpile.nc}", 396);
-        come_call_finalizer(sVarTable_finalize, lv_table, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 396);
+        come_call_finalizer(sInfo_finalize, (&info), (void*)0, (void*)0, 1, 0, 0, (void*)0, "02transpile.nc}", 391);
+        come_call_finalizer(sVarTable_finalize, lv_table, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 391);
     }
         __result_obj__0 = 0;
-    come_call_finalizer(list$1char$ph$p_finalize, files, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 396);
-    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 396);
+    come_call_finalizer(list$1char$ph$p_finalize, files, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 391);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 391);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }

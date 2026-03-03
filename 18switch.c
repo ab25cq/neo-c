@@ -5727,12 +5727,12 @@ static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
         exit(2);
     }
     if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span");
+        puts("out of range of span(3)");
         stackframe2(self,((void*)0),0);
         exit(1);
     }
     if(self->p<(char*)self->memory) {
-        puts("out of range of span");
+        puts("out of range of span(4)");
         stackframe2(self,((void*)0),0);
         exit(1);
     }
@@ -5768,12 +5768,12 @@ static char span$1char$p_operator_derefference(struct span$1char$p* self)
         exit(2);
     }
     if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span");
+        puts("out of range of span(3)");
         stackframe2(self,((void*)0),0);
         exit(1);
     }
     if(self->p<(char*)self->memory) {
-        puts("out of range of span");
+        puts("out of range of span(4)");
         stackframe2(self,((void*)0),0);
         exit(1);
     }
