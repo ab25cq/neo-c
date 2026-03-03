@@ -4423,7 +4423,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj46=info->p,
-        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 151, "struct span$1buffer$p*"), "24method.nc", 151),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 151);
+        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 151, "struct span$1buffer$p*"), "24method.nc", 151),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 151);
         come_call_finalizer(span$1char$p$p_finalize, __dec_obj46,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 151);
     }
     info->p->memory=info->source->buf;
@@ -4505,7 +4505,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj50=info->p,
-        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 189, "struct span$1buffer$p*"), "24method.nc", 189),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 189);
+        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 189, "struct span$1buffer$p*"), "24method.nc", 189),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 189);
         come_call_finalizer(span$1char$p$p_finalize, __dec_obj50,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 189);
     }
     info->p->memory=info->source->buf;
@@ -7245,7 +7245,7 @@ _conditional_value_X9;})) {
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj101=info->p,
-                        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 895, "struct span$1buffer$p*"), "24method.nc", 895),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 895);
+                        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 895, "struct span$1buffer$p*"), "24method.nc", 895),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 895);
                         come_call_finalizer(span$1char$p$p_finalize, __dec_obj101,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 895);
                     }
                     info->p->memory=info->source->buf;
@@ -7289,7 +7289,7 @@ _conditional_value_X9;})) {
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj103=info->p,
-                        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 915, "struct span$1buffer$p*"), "24method.nc", 915),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 915);
+                        info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 915, "struct span$1buffer$p*"), "24method.nc", 915),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 915);
                         come_call_finalizer(span$1char$p$p_finalize, __dec_obj103,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 915);
                     }
                     info->p->memory=info->source->buf;
@@ -8761,7 +8761,7 @@ _conditional_value_X1;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj134=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 1294, "struct span$1buffer$p*"), "24method.nc", 1294),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 1294);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 1294, "struct span$1buffer$p*"), "24method.nc", 1294),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 1294);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj134,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 1294);
         }
         info->p->memory=info->source->buf;
@@ -8806,7 +8806,7 @@ _conditional_value_X1;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj139=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 1326, "struct span$1buffer$p*"), "24method.nc", 1326),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 1326);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 1326, "struct span$1buffer$p*"), "24method.nc", 1326),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 1326);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj139,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 1326);
         }
         info->p->memory=info->source->buf;
@@ -8828,7 +8828,7 @@ _conditional_value_X1;})) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj142=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 1342, "struct span$1buffer$p*"), "24method.nc", 1342),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 1342);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "24method.nc", 1342, "struct span$1buffer$p*"), "24method.nc", 1342),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "24method.nc", 1342);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj142,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 1342);
         }
         info->p->memory=info->source->buf;

@@ -1,13 +1,27 @@
 #include <neo-c.h>
 
+struct sData
+{
+    int a;
+    int b;
+    int c;
+};
+
+sData gData = { 1, 2, 3 };
+
+sData{} fun()
+{
+    sData{} p = span &gData;
+    
+    return p;
+}    
+
 int main(int argc, char** argv) 
 {
-    int s[16];
-    int{} p = span borrow s;
+    var p = fun();
     
-    p++;
-    p++;
-    printf("%d\n", p.position());
+    printf("%d %d %d\n", p.a, p.b, p.c);
                                    
     return 0;
 }
+

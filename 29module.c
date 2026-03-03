@@ -8264,7 +8264,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj63=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "29module.nc", 1593, "struct span$1buffer$p*"), "29module.nc", 1593),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "29module.nc", 1593);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "29module.nc", 1593, "struct span$1buffer$p*"), "29module.nc", 1593),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "29module.nc", 1593);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj63,(void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc", 1593);
         }
         info->p->memory=info->source->buf;
@@ -8285,7 +8285,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj66=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "29module.nc", 1607, "struct span$1buffer$p*"), "29module.nc", 1607),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "29module.nc", 1607);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "29module.nc", 1607, "struct span$1buffer$p*"), "29module.nc", 1607),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "29module.nc", 1607);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj66,(void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc", 1607);
         }
         info->p->memory=info->source->buf;
@@ -8442,7 +8442,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj69=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "29module.nc", 1706, "struct span$1buffer$p*"), "29module.nc", 1706),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "29module.nc", 1706);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "29module.nc", 1706, "struct span$1buffer$p*"), "29module.nc", 1706),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "29module.nc", 1706);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj69,(void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc", 1706);
         }
         info->p->memory=info->source->buf;
@@ -8463,7 +8463,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj72=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "29module.nc", 1721, "struct span$1buffer$p*"), "29module.nc", 1721),info->source->buf,info->source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "29module.nc", 1721);
+            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "29module.nc", 1721, "struct span$1buffer$p*"), "29module.nc", 1721),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "29module.nc", 1721);
             come_call_finalizer(span$1char$p$p_finalize, __dec_obj72,(void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc", 1721);
         }
         info->p->memory=info->source->buf;

@@ -4666,7 +4666,7 @@ int come_main(int argc, char** argv)
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj46=info.p,
-        info.p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "02transpile.nc", 367, "struct span$1buffer$p*"), "02transpile.nc", 367),info.source->buf,info.source->len+2,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "02transpile.nc", 367);
+        info.p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "02transpile.nc", 367, "struct span$1buffer$p*"), "02transpile.nc", 367),info.source->buf,info.source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "02transpile.nc", 367);
         come_call_finalizer(span$1char$p$p_finalize, __dec_obj46,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 367);
         info.head=info.source->buf;
         info.end=info.source->buf+info.source->len;
