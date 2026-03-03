@@ -1901,6 +1901,14 @@ class sSpanNode extends sNodeBase
         
         sType*% type_ = clone come_value.type;
         
+        // normalize pointer-to-array (e.g. &char[16]) to element type for span<T>
+        if(type_->mPointerNum == 1 && type_->mArrayNum.length() > 0) {
+            type_->mPointerNum = 1;
+            type_->mArrayNum.reset();
+            type_->mArrayPointerNum = 0;
+            type_->mArrayPointerType = false;
+        }
+        
         sType*% generics_type = new sType(s"span");
         generics_type->mGenericsTypes.add(type_);
         if(type_->mArrayPointerNum == 1) {

@@ -1,5 +1,52 @@
 #include "common.h"
 
+bool operator_overload_fun_store_derefference(sType* type, sNode*% left_node, sNode*% right_node, CVALUE* left_value, CVALUE* right_value, sInfo* info)
+{
+    sType* type2;
+    if(type->mNoSolvedGenericsType) {
+        type2 = borrow type->mNoSolvedGenericsType;
+    }
+    else {
+        type2 = type;
+    }
+    
+    const char* fun_name = "operator_store_derefference";
+    var fun_name2, operator_fun, generics_fun = get_method(fun_name, type2, info);
+    
+    bool result = false;
+    
+    if(operator_fun) {
+        {
+            sRightValueObject* right_value_object = left_value.right_value_objects;
+            
+            if(right_value_object) {
+                right_value_object->mFreed = true;
+            }
+        }
+        {
+            sRightValueObject* right_value_object = right_value.right_value_objects;
+            
+            if(right_value_object) {
+                right_value_object->mFreed = true;
+            }
+        }
+        
+        sNode*% obj = left_node;
+        list<tuple2<string, sNode*%>*%>*% params =  new list<tuple2<string, sNode*%>*%>();
+        
+        params.add(t((string)null, left_node));
+        params.add(t((string)null, right_node));
+        
+        sNode*% node = create_method_call(fun_name, obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+        
+        node_compile(node).if {
+            result = true;
+        }
+    }
+    
+    return result;
+}
+
 class sPlusPlusNode extends sNodeBase
 {
     new(sNode*% left, bool quote, sInfo* info)
@@ -777,6 +824,23 @@ class sExpEqualNode extends sNodeBase
         }
         else {
             calling_fun = operator_overload_fun(type, fun_name, left, right, left_value, right_value, false@break_guard, info);
+            
+            if(!calling_fun && left.kind() === "sDerefferenceNode") {
+                sNode*% left2 = clone left.left_value();
+                
+                bool no_output_come_code = info.no_output_come_code;
+                info.no_output_come_code = true;
+                bool compile_result = node_compile(left2);
+                info.no_output_come_code = no_output_come_code;
+                
+                if(!compile_result) {
+                    return false;
+                }
+                
+                CVALUE*% left_value2 = get_value_from_stack(-1, info);
+                
+                calling_fun = operator_overload_fun_store_derefference(left_value2.type, left2, right, left_value2, right_value, info);
+            }
         }
         
         if(!calling_fun) {

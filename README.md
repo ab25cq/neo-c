@@ -3128,6 +3128,38 @@ int main(int argc, char** argv)
 }
 ```
 p.a 1
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv) 
+{
+    char*% s = string("abc");
+    char{} p = span borrow s;
+    
+    *p = 'X';
+    
+    puts(p!);
+                                   
+    return 0;
+}
+```
+Xbc
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv) 
+{
+    buffer*% buf = b"ABC";
+    char{} p = span borrow buf;
+    
+    *p = 'X';
+    
+    puts(p!);
+                                   
+    return 0;
+}
+```
+XBC
 
 # ZERO COST ITERATOR
 

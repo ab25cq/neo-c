@@ -810,6 +810,33 @@ impl ref<T>
         
         return *self.p;
     }
+    _norecord void operator_store_derefference(ref<T>* self, T] item)
+    {
+        using unsafe;
+        
+        if(self == null) {
+            puts("null pointer exception. self is null");
+            stackframe();
+            exit(2);
+        }
+        
+        if(self.local) {
+            if(self.stacktop < neo_current_frame.stacktop) {
+                puts("refferenced stack object is vanished");
+                stackframe2(self);
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.heaptop)) {
+                puts("refferenced heap object is vanished");
+                stackframe2(self);
+                exit(127);
+            }
+        }
+        
+        *self.p = item;
+    }
 }
 
 //////////////////////////////
@@ -899,6 +926,40 @@ impl optional<T>
         
         return *p;
     }
+    _norecord void operator_store_derefference(optional<T>* self, T] item)
+    {
+        using unsafe;
+        
+        if(self == null) {
+            puts("null pointer exception");
+            stackframe();
+            exit(2);
+        }
+        
+        if(self.local) {
+            if(self.stacktop < neo_current_frame.stacktop) {
+                puts("refferenced stack object is vanished");
+                stackframe2(self);
+                exit(127);
+            }
+        }
+        if(self.heap) {
+            if(!come_is_alive(self.p)) {
+                puts("refferenced heap object is vanished");
+                stackframe2(self);
+                exit(127);
+            }
+        }
+        if(ispointer(T) && self.p == (void*)0) {
+            puts("null pointer exception");
+            stackframe();
+            exit(2);
+        }
+        
+        T p = self.p;
+        
+        *p = item;
+    }
 }
 
 //////////////////////////////
@@ -942,6 +1003,9 @@ impl span<T>
         self.stacktop = stacktop;
         
         return self;
+    }
+    size_t position(span<T>* self) {
+        return self.p - (T^)self.memory;
     }
     _norecord T^ unwrap(span<T>* self) {
         using unsafe; 
@@ -1109,6 +1173,9 @@ impl span<T>
         }
         
         return *p;
+    }
+    _norecord void operator_store_derefference(span<T>* self, T^] item) {
+        self.operator_store_element(0, item);
     }
     _norecord void operator_store_element(span<T>* self, int position, T^] item) {
         using unsafe; 
@@ -1338,6 +1405,13 @@ impl rawptr<T>
         T*^ p = self.p;
         
         return *p;
+    }
+    void operator_store_derefference(rawptr<T>* self, T] item) {
+        using unsafe;
+        
+        T*^ p = self.p;
+        
+        *p = item;
     }
     void operator_store_element(rawptr<T>* self, int position, T] item) {
         using unsafe; 
