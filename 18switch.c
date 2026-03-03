@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -5322,7 +5333,7 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
         info->no_label=no_label;
         node2=((void*)0);
         if(parsecmp("...",info)) {
-            info->p+=strlen("...");
+            info->p->p+=strlen("...");
             skip_spaces_and_lf(info);
             no_label_24=info->no_label;
             info->no_label=(_Bool)1;
@@ -5427,10 +5438,10 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "18switch.nc", 275):(void*)0);
         return __result_obj__0;
     }
-    else if(!info->no_label&&*info->p==58&&charp_operator_not_equals(buf,"tup")) {
-        info->p++;
+    else if(!info->no_label&&*info->p->p==58&&charp_operator_not_equals(buf,"tup")) {
+        info->p->p++;
         skip_spaces_and_lf(info);
-        if(*info->p==59) {
+        if(*info->p->p==59) {
                         __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;

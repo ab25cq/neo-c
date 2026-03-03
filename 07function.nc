@@ -194,45 +194,45 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
     int block_level = info->block_level;
     info->block_level++;
     
-    if(*info->p == '{') {
-        info->p++;
+    if(*info->p.p == '{') {
+        info->p.p++;
         skip_spaces_and_lf();
         while(true) {
             skip_spaces_and_lf();
-            if(*info->p == '}') {
-                info->p++;
+            if(*info->p.p == '}') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
-            while(*info->p == ';') {
-                info->p++;
+            while(*info->p.p == ';') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             
             skip_spaces_and_lf();
             
-            char* p = info.p;
+            char* p = info.p.p;
             int sline = info.sline;
             string sname = string(info.sname);
             
             
-            if(*info->p == '{') {
+            if(*info->p.p == '{') {
                 info->sline_top = sline;
             }
             
             sNode*% node = null;
             if(in_function) {
                 sNode*% nested_fun = null;
-                char* head = info->p;
+                char* head = info->p.p;
                 int head_sline = info->sline;
                 string head_sname = string(info->sname);
                 
-                if(xisalpha(*info->p) || *info->p == '_') {
-                    char* p0 = info->p;
+                if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                    char* p0 = info->p.p;
                     int sline0 = info->sline;
                     string word = parse_word();
                     bool is_type = is_type_name(word);
-                    info->p = p0;
+                    info->p.p = p0;
                     info->sline = sline0;
                     
                     if(is_type) {
@@ -242,15 +242,15 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                         var type, name, err = parse_type(parse_variable_name:true);
                         skip_spaces_and_lf();
                         
-                        if(err && *info->p == '(') {
+                        if(err && *info->p.p == '(') {
                             skip_paren(info);
                             skip_spaces_and_lf();
                             var asm_name, fun_attr = parse_function_attribute();
                             skip_spaces_and_lf();
                             
-                            if(*info->p == '{') {
+                            if(*info->p.p == '{') {
                                 string block = skip_block(info);
-                                char* tail = info->p;
+                                char* tail = info->p.p;
                                 
                                 buffer*% buf = new buffer();
                                 buf.append(head, tail - head);
@@ -267,7 +267,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                     node = nested_fun;
                 }
                 else {
-                    info->p = head;
+                    info->p.p = head;
                     info->sline = head_sline;
                     info->sname = string(head_sname);
                 }
@@ -296,18 +296,18 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
             if(node.terminated()) {
                 omit_semicolon = false;
             }
-            while(*info->p == ';') {
-                info->p++;
+            while(*info->p.p == ';') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 omit_semicolon = false;
             }
             skip_spaces_and_lf();
             
-            if(*info->p == '}') {
+            if(*info->p.p == '}') {
                 result.mOmitSemicolon = omit_semicolon;
                 if(omit_semicolon && in_function) {
-                    info->p++;
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
                     sNode*% node2 = create_return_node(node);
@@ -318,7 +318,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                 }
                 else {
                     result.mNodes.push_back(node);
-                    info->p++;
+                    info->p.p++;
                     skip_spaces_and_lf();
                     break;
                 }
@@ -333,8 +333,8 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
         skip_spaces_and_lf();
         sNode*% node;
         
-        if(*info->p == ';') {
-            info->p++;
+        if(*info->p.p == ';') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             
@@ -361,8 +361,8 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
             if(node.terminated()) {
                 omit_semicolon = false;
             }
-            while(*info->p == ';') {
-                info->p++;
+            while(*info->p.p == ';') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 omit_semicolon = false;
@@ -375,12 +375,12 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
     }
     
     if(return_self_at_last) {
-        char* p = info.p;
+        char* p = info.p.p;
         char* head = info.head;
         
         string source = string("return self;");
         
-        info.p = borrow source;
+        info.p.p = borrow source;
         info.head = borrow source;
         
         sNode*% node = expression();
@@ -392,7 +392,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
         
         result.mNodes.push_back(node);
         
-        info.p = p;
+        info.p.p = p;
         info.head = borrow head;
     }
     
@@ -583,9 +583,9 @@ void arrange_stack(sInfo* info, int top)
 
 string skip_block(sInfo* info=info, bool return_self_at_last=false)
 {
-    char* head = info.p;
-    if(*info->p == '{') {
-        info->p++;
+    char* head = info.p.p;
+    if(*info->p.p == '{') {
+        info->p.p++;
 
         bool dquort = false;
         bool squort = false;
@@ -594,103 +594,103 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
         while(1) {
             parse_sharp();
             if(dquort) {
-                if(*info->p == '\\') {
-                    info->p++;
-                    if(*info->p == '\0') {
+                if(*info->p.p == '\\') {
+                    info->p.p++;
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
-                    if(*info->p == '\n') {
-                        info->p++;
+                    if(*info->p.p == '\n') {
+                        info->p.p++;
                     }
-                    info->p++;
+                    info->p.p++;
                 }
-                else if(*info->p == '"') {
-                    info->p++;
+                else if(*info->p.p == '"') {
+                    info->p.p++;
                     dquort = !dquort;
                 }
-                else if(*info->p == '\n') {
-                    info->p++;
+                else if(*info->p.p == '\n') {
+                    info->p.p++;
                     info->sline++;
 
-                    if(*info->p == '\0') {
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p++;
+                    info->p.p++;
 
-                    if(*info->p == '\0') {
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
             }
             else if(squort) {
-                if(*info->p == '\\') {
-                    info->p++;
-                    if(*info->p == '\0') {
+                if(*info->p.p == '\\') {
+                    info->p.p++;
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
-                    if(*info->p == '\n') {
+                    if(*info->p.p == '\n') {
                         info->sline++;
                     }
-                    info->p++;
+                    info->p.p++;
                 }
-                else if(*info->p == '\'') {
-                    info->p++;
+                else if(*info->p.p == '\'') {
+                    info->p.p++;
                     squort = !squort;
                 }
-                else if(*info->p == '\n') {
-                    info->p++;
+                else if(*info->p.p == '\n') {
+                    info->p.p++;
                     info->sline++;
 
-                    if(*info->p == '\0') {
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p++;
+                    info->p.p++;
 
-                    if(*info->p == '\0') {
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
             }
-            else if(*info->p == '\'') {
+            else if(*info->p.p == '\'') {
                 sline = info->sline;
-                info->p++;
+                info->p.p++;
                 squort = !squort;
             }
-            else if(*info->p == '"') {
+            else if(*info->p.p == '"') {
                 sline = info->sline;
-                info->p++;
+                info->p.p++;
                 dquort = !dquort;
             }
-            else if(*info->p == '#') {
+            else if(*info->p.p == '#') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p == '/' && *(info->p+1) == '*') {
+            else if(*info->p.p == '/' && *(info->p.p+1) == '*') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p == '/' && *(info->p+1) == '/') {
+            else if(*info->p.p == '/' && *(info->p.p+1) == '/') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p == '\\') {
-                info->p++;
-                if(*info->p) info->p++;
+            else if(*info->p.p == '\\') {
+                info->p.p++;
+                if(*info->p.p) info->p.p++;
             }
-            else if(*info->p == '{') {
-                info->p++;
+            else if(*info->p.p == '{') {
+                info->p.p++;
 
                 nest++;
             }
-            else if(*info->p == '}') {
-                info->p++;
+            else if(*info->p.p == '}') {
+                info->p.p++;
 
                 if(nest == 0) {
                     break;
@@ -698,26 +698,26 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
 
                 nest--;
             }
-            else if(*info->p == '\0') {
+            else if(*info->p.p == '\0') {
                 err_msg(info, "The block requires } character for closing block");
                 exit(2);
             }
-            else if(*info->p == '\n') {
-                info->p++;
+            else if(*info->p.p == '\n') {
+                info->p.p++;
                 info->sline++;
             }
             else {
-                info->p++;
+                info->p.p++;
             }
         }
     }
     else {
-        err_msg(info, "Require block. This is %c", *info->p);
+        err_msg(info, "Require block. This is %c", *info->p.p);
         //stackframe();
         exit(1);
     }
     
-    char* tail = info.p;
+    char* tail = info.p.p;
     
     buffer*% buf = new buffer();
     
@@ -738,9 +738,9 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
 /*
 string skip_paren(sInfo* info=info)
 {
-    char* head = info.p;
-    if(*info->p == '(') {
-        info->p++;
+    char* head = info.p.p;
+    if(*info->p.p == '(') {
+        info->p.p++;
 
         bool dquort = false;
         bool squort = false;
@@ -749,99 +749,99 @@ string skip_paren(sInfo* info=info)
         while(1) {
             parse_sharp();
             if(dquort) {
-                if(*info->p == '\\') {
-                    info->p++;
-                    if(*info->p == '\0') {
+                if(*info->p.p == '\\') {
+                    info->p.p++;
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
-                    if(*info->p == '\n') {
-                        info->p++;
+                    if(*info->p.p == '\n') {
+                        info->p.p++;
                     }
-                    info->p++;
+                    info->p.p++;
                 }
-                else if(*info->p == '"') {
-                    info->p++;
+                else if(*info->p.p == '"') {
+                    info->p.p++;
                     dquort = !dquort;
                 }
-                else if(*info->p == '\n') {
-                    info->p++;
+                else if(*info->p.p == '\n') {
+                    info->p.p++;
                     info->sline++;
 
-                    if(*info->p == '\0') {
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p++;
+                    info->p.p++;
 
-                    if(*info->p == '\0') {
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
             }
             else if(squort) {
-                if(*info->p == '\\') {
-                    info->p++;
-                    if(*info->p == '\0') {
+                if(*info->p.p == '\\') {
+                    info->p.p++;
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
-                    if(*info->p == '\n') {
+                    if(*info->p.p == '\n') {
                         info->sline++;
                     }
-                    info->p++;
+                    info->p.p++;
                 }
-                else if(*info->p == '\'') {
-                    info->p++;
+                else if(*info->p.p == '\'') {
+                    info->p.p++;
                     squort = !squort;
                 }
-                else if(*info->p == '\n') {
-                    info->p++;
+                else if(*info->p.p == '\n') {
+                    info->p.p++;
                     info->sline++;
 
-                    if(*info->p == '\0') {
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p++;
+                    info->p.p++;
 
-                    if(*info->p == '\0') {
+                    if(*info->p.p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
             }
-            else if(*info->p == '\'') {
+            else if(*info->p.p == '\'') {
                 sline = info->sline;
-                info->p++;
+                info->p.p++;
                 squort = !squort;
             }
-            else if(*info->p == '"') {
+            else if(*info->p.p == '"') {
                 sline = info->sline;
-                info->p++;
+                info->p.p++;
                 dquort = !dquort;
             }
-            else if(*info->p == '#') {
+            else if(*info->p.p == '#') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p == '/' && *(info->p+1) == '*') {
+            else if(*info->p.p == '/' && *(info->p.p+1) == '*') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p == '/' && *(info->p+1) == '/') {
+            else if(*info->p.p == '/' && *(info->p.p+1) == '/') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p == '(') {
-                info->p++;
+            else if(*info->p.p == '(') {
+                info->p.p++;
 
                 nest++;
             }
-            else if(*info->p == ')') {
-                info->p++;
+            else if(*info->p.p == ')') {
+                info->p.p++;
 
                 if(nest == 0) {
                     break;
@@ -849,25 +849,25 @@ string skip_paren(sInfo* info=info)
 
                 nest--;
             }
-            else if(*info->p == '\0') {
+            else if(*info->p.p == '\0') {
                 err_msg(info, "The block requires } character for closing block");
                 exit(2);
             }
-            else if(*info->p == '\n') {
-                info->p++;
+            else if(*info->p.p == '\n') {
+                info->p.p++;
                 info->sline++;
             }
             else {
-                info->p++;
+                info->p.p++;
             }
         }
     }
     else {
-        err_msg(info, "Require block. This is %c", *info->p);
+        err_msg(info, "Require block. This is %c", *info->p.p);
         exit(1);
     }
     
-    char* tail = info.p;
+    char* tail = info.p.p;
     
     buffer*% buf = new buffer();
     
@@ -882,16 +882,16 @@ string skip_paren(sInfo* info=info)
 void parse_function_attribute_skip_paren(sInfo* info)
 {
     skip_spaces_and_lf();
-    if(*info->p == '(') {
+    if(*info->p.p == '(') {
         int nest = 0;
         while(1) {
-            if(*info->p == '(') {
-                info->p++;
+            if(*info->p.p == '(') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 nest++;
             }
-            else if(*info->p == ')') {
-                info->p++
+            else if(*info->p.p == ')') {
+                info->p.p++
                 skip_spaces_and_lf();
                 
                 nest--;
@@ -899,11 +899,11 @@ void parse_function_attribute_skip_paren(sInfo* info)
                     break;
                 }
             }
-            else if(*info->p == '\0') {
+            else if(*info->p.p == '\0') {
                 break;
             }
             else {
-                info->p++;
+                info->p.p++;
             }
         }
     }
@@ -913,12 +913,12 @@ void parse_function_attribute_skip_paren(sInfo* info)
 bool parse_function_attribute_keyword(buffer* result, const char* keyword, sInfo* info=info)
 {
     if(parsecmp(keyword)) {
-        char* head = info.p;
-        info->p += strlen(keyword);
+        char* head = info.p.p;
+        info->p.p += strlen(keyword);
         
         parse_function_attribute_skip_paren(info);
         
-        char* tail = info.p;
+        char* tail = info.p.p;
         result.append(head, tail-head);
         
         return true;
@@ -1117,12 +1117,12 @@ string,string parse_function_attribute(sInfo* info=info)
     
     while(true) {
         if(parsecmp("__attribute__")) {
-            char* head = info.p;
-            info->p += strlen("__attribute__");
+            char* head = info.p.p;
+            info->p.p += strlen("__attribute__");
 
             parse_function_attribute_skip_paren(info);
 
-            char* tail = info.p;
+            char* tail = info.p.p;
             
             result.append(head, tail-head);
         }
@@ -1136,201 +1136,201 @@ string,string parse_function_attribute(sInfo* info=info)
             }
         }
         else if(parsecmp("_Noreturn")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("_Noreturn");
+            info->p.p += strlen("_Noreturn");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("_Nonnull")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("_Nonnull");
+            info->p.p += strlen("_Nonnull");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__noreturn")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__noreturn");
+            info->p.p += strlen("__noreturn");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__asm__")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__asm__");
+            info->p.p += strlen("__asm__");
             skip_spaces_and_lf();
             
-            if(((info->end - info->p) >= strlen("__ASMNAME")) && memcmp(info->p, "__ASMNAME", strlen("__ASMNAME")) == 0) {
-                info->p += strlen("__ASMNAME");
+            if(((info->end - info->p.p) >= strlen("__ASMNAME")) && memcmp(info->p.p, "__ASMNAME", strlen("__ASMNAME")) == 0) {
+                info->p.p += strlen("__ASMNAME");
                 skip_spaces_and_lf();
             }
 
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__attribute_pure__")) {
-            char* head = info.p; 
+            char* head = info.p.p; 
             
-            info->p += strlen("__attribute_pure__");
+            info->p.p += strlen("__attribute_pure__");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__malloc_like")) {
-            char* head = info.p; 
+            char* head = info.p.p; 
             
-            info->p += strlen("__malloc_like");
+            info->p.p += strlen("__malloc_like");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__result_use_check")) {
-            char* head = info.p; 
+            char* head = info.p.p; 
             
-            info->p += strlen("__result_use_check");
+            info->p.p += strlen("__result_use_check");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__alloc_size2")) {
-            char* head = info.p; 
+            char* head = info.p.p; 
             
-            info->p += strlen("__alloc_size2");
+            info->p.p += strlen("__alloc_size2");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__alloc_size")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__alloc_size");
+            info->p.p += strlen("__alloc_size");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__nonnull")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__nonnull");
+            info->p.p += strlen("__nonnull");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__alloc_align")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__alloc_align");
+            info->p.p += strlen("__alloc_align");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__attribute_malloc__")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__attribute_malloc__");
+            info->p.p += strlen("__attribute_malloc__");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__attr_dealloc_fclose")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__attr_dealloc_fclose");
+            info->p.p += strlen("__attr_dealloc_fclose");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__wur")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__wur");
+            info->p.p += strlen("__wur");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__pure2")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__pure2");
+            info->p.p += strlen("__pure2");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__pure")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__pure");
+            info->p.p += strlen("__pure");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__THROW")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__THROW");
+            info->p.p += strlen("__THROW");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__asm")) {
-            char* head0 = info.p;
+            char* head0 = info.p.p;
             int sline0 = info.sline;
             
-            info->p += strlen("__asm");
+            info->p.p += strlen("__asm");
             skip_spaces_and_lf();
             
-            char* head = info.p;
+            char* head = info.p.p;
             int sline = info.sline;
             
             int nest = 0;
-            while(*info->p) {
-                if(*info->p == '(') {
-                    info->p++;
+            while(*info->p.p) {
+                if(*info->p.p == '(') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
                     nest++;
                 }
-                else if(*info->p == ')') {
-                    info->p++;
+                else if(*info->p.p == ')') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
                     nest--;
@@ -1338,31 +1338,31 @@ string,string parse_function_attribute(sInfo* info=info)
                         break;
                     }
                 }
-                else if(*info->p == '"') {
-                    info->p++;
-                    while(*info->p != '\0' && *info->p != '"') {
-                        asm_fun_name.append_char(*info->p);
-                        info->p++;
+                else if(*info->p.p == '"') {
+                    info->p.p++;
+                    while(*info->p.p != '\0' && *info->p.p != '"') {
+                        asm_fun_name.append_char(*info->p.p);
+                        info->p.p++;
                     }
                     
-                    info->p++;
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
                 else {
-                    //asm_fun_name.append_char(*info->p);
-                    info->p++;
+                    //asm_fun_name.append_char(*info->p.p);
+                    info->p.p++;
                 }
             }
             
-            info.p = head0;
+            info.p.p = head0;
             info.sline = sline0;
             
-            info->p += strlen("__asm");
+            info->p.p += strlen("__asm");
             skip_spaces_and_lf();
 
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             result.append(head0, tail-head0);
         }
         else if(parse_common_function_attribute_keyword(result, info)) {
@@ -1378,28 +1378,28 @@ string,string parse_function_attribute(sInfo* info=info)
 
 void transpile_toplevel(bool block=false, sInfo* info=info)
 {
-    while(*info->p) {
+    while(*info->p.p) {
         info.sname_at_head = clone info.sname;
         skip_spaces_and_lf();
         
-        if(*info->p == '\0') {
+        if(*info->p.p == '\0') {
             break;
         }
-        if(block && *info->p == '}') {
-            info->p++;
+        if(block && *info->p.p == '}') {
+            info->p.p++;
             skip_spaces_and_lf(info);
             break;
         }
-        while(*info->p == ';') {
-            info->p++;
+        while(*info->p.p == ';') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         skip_spaces_and_lf();
         
-        char* head = info.p;
+        char* head = info.p.p;
         int head_sline = info.sline;
         string buf = null;
-        if(*info->p == '[' && *(info->p+1) == '[') {
+        if(*info->p.p == '[' && *(info->p.p+1) == '[') {
             buf = s"__attribute__";
         }
         else {
@@ -1408,8 +1408,8 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(block && *info->p == '}') {
-            info->p++;
+        if(block && *info->p.p == '}') {
+            info->p.p++;
             skip_spaces_and_lf(info);
             break;
         }
@@ -1417,8 +1417,8 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
         sNode*% node = top_level(buf, head, head_sline, info);
         skip_spaces_and_lf();
         
-        while(*info->p == ';') {
-            info->p++;
+        while(*info->p.p == ';') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         skip_spaces_and_lf();
@@ -1433,8 +1433,8 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(block && *info->p == '}') {
-            info->p++;
+        if(block && *info->p.p == '}') {
+            info->p.p++;
             skip_spaces_and_lf(info);
             break;
         }
@@ -1560,12 +1560,12 @@ bool is_function_attribute_word(char* buf)
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
 {
     info.in_top_level = true;
-    char* source_head = info->p;
+    char* source_head = info->p.p;
     
     bool is_type_name_flag = is_type_name(buf);
     int sline = info.sline;
     
-    info.p = head;
+    info.p.p = head;
     info.sline = head_sline;
     
     var define_only, anonymous_name, struct_, union_, enum_ = backtrace_struct_union_enum();
@@ -1583,16 +1583,16 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
         if(buf === "struct") {
             parse_word();
             
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 string word = parse_word();
                 
-                if(*info->p == ';') {
+                if(*info->p.p == ';') {
                     define_struct_nobody = true;
                 }
             }
@@ -1600,7 +1600,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         
         info.no_output_come_code = no_output_come_code;
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
@@ -1610,15 +1610,15 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p;
-        info.p = head;
+        char* p = info.p.p;
+        info.p.p = head;
         int sline = info.sline;
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             parse_word();
         }
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             string buf2 = parse_word();
             
             if(buf2 === "class") {
@@ -1626,7 +1626,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             }
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
         info.no_output_come_code = no_output_come_code;
     }
@@ -1639,27 +1639,27 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p;
-        info.p = head;
+        char* p = info.p.p;
+        info.p.p = head;
         
-        if(xisalpha(*info->p) || *info->p == '_' || (*info->p == '[' && *(info->p+1) == '[')) {
+        if(xisalpha(*info->p.p) || *info->p.p == '_' || (*info->p.p == '[' && *(info->p.p+1) == '[')) {
             var result_type, fun_name, err = backtrace_parse_type();
             
-            if(*info->p == '(') {
-                info->p ++;
+            if(*info->p.p == '(') {
+                info->p.p ++;
                 skip_spaces_and_lf();
                 
-                if(*info->p != '*') {
+                if(*info->p.p != '*') {
                     define_function_pointer_result_function = true;
                     
-                    if(xisalpha(*info->p) || *info->p == '_') {
+                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
                         string word = parse_word();
                         
-                        if(!is_type_name(word) && *info->p == ')') {
-                            info->p++;
+                        if(!is_type_name(word) && *info->p.p == ')') {
+                            info->p.p++;
                             skip_spaces_and_lf();
                             
-                            if(*info->p == '(') {
+                            if(*info->p.p == '(') {
                             }
                             else {
                                 define_variable_between_brace = true;
@@ -1671,7 +1671,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         }
         
         info.no_output_come_code = no_output_come_code;
-        info.p = head;
+        info.p.p = head;
         info.sline = sline;
     }
     
@@ -1682,19 +1682,19 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p;
-        info.p = head;
+        char* p = info.p.p;
+        info.p.p = head;
         
-        if(xisalpha(*info->p) || *info->p == '_' || (*info->p == '[' && *(info->p+1) == '[')) {
+        if(xisalpha(*info->p.p) || *info->p.p == '_' || (*info->p.p == '[' && *(info->p.p+1) == '[')) {
             var result_type, fun_name, err = backtrace_parse_type();
         }
-        if(*info->p == '(' || (*info->p == ':' && *(info->p+1) == ':')) {
+        if(*info->p.p == '(' || (*info->p.p == ':' && *(info->p.p+1) == ':')) {
             define_function_flag = true;
         }
         
         if(!define_only) {
             string word = null;
-            if(xisalnum(*info.p) || *info->p == '_') {
+            if(xisalnum(*info.p.p) || *info->p.p == '_') {
                 word = parse_word();
                 
                 if(word === "extern") {
@@ -1707,29 +1707,29 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             
             if(word) {
                 if(is_type_name(word)) {
-                    while(*info->p == '*') {
-                        info->p++;
+                    while(*info->p.p == '*') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                     }
-                    if(*info->p == '[' && *(info->p+1) == ']') {
-                        info->p += 2;
+                    if(*info->p.p == '[' && *(info->p.p+1) == ']') {
+                        info->p.p += 2;
                         skip_spaces_and_lf();
                     }
-                    if(*info->p == ':') {
-                        info->p++;
+                    if(*info->p.p == ':') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                     }
-                    if(*info->p == ':') {
-                        info->p++;
+                    if(*info->p.p == ':') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                     }
-                    if(xisalnum(*info.p) || *info->p == '_') {
+                    if(xisalnum(*info.p.p) || *info->p.p == '_') {
                         word = parse_word();
                     }
                 }
                 
                 /// fun name ///
-                if(strlen(word) > 0 && (*info->p == '(' || (*info->p == ':' && *(info->p+1) == ':'))) {
+                if(strlen(word) > 0 && (*info->p.p == '(' || (*info->p.p == ':' && *(info->p.p+1) == ':'))) {
                     if(is_type_name_flag) {
                         define_function_flag = true;
                     }
@@ -1738,7 +1738,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         }
         
         info.no_output_come_code = no_output_come_code;
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
@@ -1749,45 +1749,45 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p;
-        info.p = head;
+        char* p = info.p.p;
+        info.p.p = head;
         
         if(!is_type_name_flag) {
             define_variable = false;
         }
         
-        if(xisalpha(*info->p) || *info->p == '_' || (*info->p == '[' && *(info->p+1) == '[')) {
+        if(xisalpha(*info->p.p) || *info->p.p == '_' || (*info->p.p == '[' && *(info->p.p+1) == '[')) {
             var result_type, fun_name, err = backtrace_parse_type();
             
-            if(*info->p == '(') {
-                info->p ++;
+            if(*info->p.p == '(') {
+                info->p.p ++;
                 skip_spaces_and_lf();
                 
-                if(*info->p == '*') {
-                    info->p++;
+                if(*info->p.p == '*') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
-                    if(xisalpha(*info->p) || *info->p == '_') {
+                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
                         string word = parse_word();
                         
-                        if(*info->p == ')') {
-                            info->p++;
+                        if(*info->p.p == ')') {
+                            info->p.p++;
                             skip_spaces_and_lf();
                             
-                            if(*info->p == '(') {
+                            if(*info->p.p == '(') {
                                 define_variable = true;
                             }
                         }
                     }
                 }
-                else if(xisalpha(*info->p) || *info->p == '_') {
+                else if(xisalpha(*info->p.p) || *info->p.p == '_') {
                     string word = parse_word();
                     
-                    if(*info->p == ')') {
-                        info->p++;
+                    if(*info->p.p == ')') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         
-                        if(!is_type_name(word) && *info->p != '(') {
+                        if(!is_type_name(word) && *info->p.p != '(') {
                             define_variable = true;
                         }
                     }
@@ -1801,21 +1801,21 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         else if(define_variable) {
         }
         else {
-            if(!(xisalpha(*info->p) || *info->p == '_')) {
+            if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
                 define_variable = false;
             }
             
-            while(xisalpha(*info->p) || *info->p == '_') {
-                info->p++;
+            while(xisalpha(*info->p.p) || *info->p.p == '_') {
+                info->p.p++;
             }
             skip_spaces_and_lf();
             
-            if(*info->p == '(' || *info->p == ':') {
+            if(*info->p.p == '(' || *info->p.p == ':') {
                 define_variable = false;
             }
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
         info.no_output_come_code = no_output_come_code;
     }
@@ -1829,16 +1829,16 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p;
-        info.p = head;
+        char* p = info.p.p;
+        info.p.p = head;
         
         if(buf === "struct") {
             parse_struct_attribute();
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 parse_word();
-                if(xisalpha(*info->p) || *info->p == '_') {
+                if(xisalpha(*info->p.p) || *info->p.p == '_') {
                     string word = parse_word();
-                    if(xisalpha(*info->p) || *info->p == '_') {
+                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
                         word = parse_word();
                         
                         if(word === "extends") {
@@ -1855,30 +1855,30 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         else if(define_variable) {
         }
         else {
-            if(!(xisalpha(*info->p) || *info->p == '_')) {
+            if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
                 define_variable = false;
             }
             
-            while(xisalpha(*info->p) || *info->p == '_') {
-                info->p++;
+            while(xisalpha(*info->p.p) || *info->p.p == '_') {
+                info->p.p++;
             }
             skip_spaces_and_lf();
             
-            if(*info->p == '(' || *info->p == ':') {
+            if(*info->p.p == '(' || *info->p.p == ':') {
                 define_variable = false;
             }
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
         info.no_output_come_code = no_output_come_code;
     }
     
-    info.p = head;
+    info.p.p = head;
     info.sline = head_sline;
     
     if(uniq_class) {
-        info.p = head;
+        info.p.p = head;
         info.sline = sline;
         
         string buf2 = parse_word();
@@ -1888,23 +1888,23 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     else if(buf === "template") {
         string word = parse_word();
         
-        if(*info->p == '<') {
-            info->p++;
+        if(*info->p.p == '<') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             info->method_generics_type_names.reset();
             
             while(true) {
-                if(*info->p == '>') {
-                    info->p++;
+                if(*info->p.p == '>') {
+                    info->p.p++;
                     skip_spaces_and_lf(info);
                     break;
                 }
-                else if(*info->p == ',') {
-                    info->p++;
+                else if(*info->p.p == ',') {
+                    info->p.p++;
                     skip_spaces_and_lf(info);
                 }
-                else if(*info->p == '\0') {
+                else if(*info->p.p == '\0') {
                     err_msg(info, "unexpected source end");
                     exit(2);
                 }
@@ -1921,29 +1921,29 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             return node;
         }
     }
-    else if(buf === "enum" && *info->p == '{') {
+    else if(buf === "enum" && *info->p.p == '{') {
     }
     else if(define_struct_nobody) {
     }
     else if(define_variable_between_brace) {
-        info.p = head;
+        info.p.p = head;
         info.sline = sline;
         
         return parse_global_variable(info);
     }
     else if(define_function_pointer_result_function) {
-        char* header_head = info.p;
+        char* header_head = info.p.p;
         var result_type, fun_name, err = parse_type();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             var param_types = new list<sType*%>();
             var param_names = new list<string>();
             
-            if(*info->p == ')') {
-                info->p++;
+            if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             else {
@@ -1960,21 +1960,21 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
                     static int num_function_pointer_result_var_name_a = 0;
                     param_names.push_back(xsprintf("_function_pointer_result_var_name_a%d", ++num_function_pointer_result_var_name_a));
                     
-                    if(xisalpha(*info->p) || *info->p == '_') {
+                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
                         (void)parse_word();
                     }
                     
-                    if(*info->p == ',') {
-                        info->p++;
+                    if(*info->p.p == ',') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                     }
-                    else if(*info->p == ')') {
-                        info->p++;
+                    else if(*info->p.p == ')') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         break;
                     }
                     else {
-                        err_msg(info, "require , or ) (1) it is %c", *info->p);
+                        err_msg(info, "require , or ) (1) it is %c", *info->p.p);
                         exit(2);
                     }
                 }
@@ -1982,15 +1982,15 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             
             expected_next_character(')');
             
-            if(*info->p == '(') {
-                info->p++;
+            if(*info->p.p == '(') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 var param_types2 = new list<sType*%>();
                 var param_names2 = new list<string>();
                 
-                if(*info->p == ')') {
-                    info->p++;
+                if(*info->p.p == ')') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
                 else {
@@ -2007,16 +2007,16 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
                         static int num_function_pointer_result_var_name_b = 0;
                         param_names2.push_back(xsprintf("_function_pointer_result_var_name_b%d", ++num_function_pointer_result_var_name_b));
                     
-                        if(xisalpha(*info->p) || *info->p == '_') {
+                        if(xisalpha(*info->p.p) || *info->p.p == '_') {
                             (void)parse_word();
                         }
                         
-                        if(*info->p == ',') {
-                            info->p++;
+                        if(*info->p.p == ',') {
+                            info->p.p++;
                             skip_spaces_and_lf();
                         }
-                        else if(*info->p == ')') {
-                            info->p++;
+                        else if(*info->p.p == ')') {
+                            info->p.p++;
                             skip_spaces_and_lf();
                             break;
                         }
@@ -2027,7 +2027,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
                     }
                 }
                 
-                char* header_tail = info.p;
+                char* header_tail = info.p.p;
                 
                 sType*% result_type2 = new sType(s"lambda");
                 
@@ -2061,12 +2061,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         }
     }
     else if(buf === "__attribute__" || buf === "__declspec") {
-        info.p = head;
+        info.p.p = head;
         info.sline = sline;
         
         string struct_attribute0 = parse_struct_attribute();
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             string word = parse_word();
             
             if(word === "struct") {
@@ -2090,39 +2090,39 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
                     bool no_output_come_code = info.no_output_come_code;
                     info.no_output_come_code = true;
                     
-                    char* p = info.p;
+                    char* p = info.p.p;
                     int sline2 = info.sline;
-                    info.p = head;
+                    info.p.p = head;
                     info.sline = head_sline;
                     
                     (void)parse_struct_attribute();
-                    while(xisalnum(*info.p) || *info->p == '_') {
+                    while(xisalnum(*info.p.p) || *info->p.p == '_') {
                         string declaration_word = parse_word();
                         bool type_word = is_type_name(declaration_word);
                         
                         if(!type_word) {
-                            if(*info->p == '(' || (*info->p == ':' && *(info->p+1) == ':')) {
+                            if(*info->p.p == '(' || (*info->p.p == ':' && *(info->p.p+1) == ':')) {
                                 attribute_define_function = true;
                             }
                             break;
                         }
                         
-                        while(*info->p == '*') {
-                            info->p++;
+                        while(*info->p.p == '*') {
+                            info->p.p++;
                             skip_spaces_and_lf();
                         }
-                        if(*info->p == '[' && *(info->p+1) == ']') {
-                            info->p += 2;
+                        if(*info->p.p == '[' && *(info->p.p+1) == ']') {
+                            info->p.p += 2;
                             skip_spaces_and_lf();
                         }
                     }
                     
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline2;
                     info.no_output_come_code = no_output_come_code;
                 }
                 
-                info.p = head;
+                info.p.p = head;
                 info.sline = sline;
 
                 sNode*% node;
@@ -2146,7 +2146,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         }
     }
     else if(is_function_attribute_word(buf)) {
-        info.p = head;
+        info.p.p = head;
         info.sline = sline;
         
         sNode*% node = parse_function(info);
@@ -2154,7 +2154,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         return node;
     }
     else if(define_function_flag) {
-        info.p = head;
+        info.p.p = head;
         info.sline = sline;
         
         sNode*% node = parse_function(info);
@@ -2162,12 +2162,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         return node;
     }
     else if(define_variable) {
-        info.p = head;
+        info.p.p = head;
         info.sline = sline;
         
         sNode*% node = parse_global_variable(info);
         
-        char* source_tail = info.p;
+        char* source_tail = info.p.p;
         
         buffer*% header = new buffer();
         header.append(source_head, source_tail - source_head);
@@ -2175,7 +2175,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         return node;
     }
     
-    info.p = head;
+    info.p.p = head;
     info.sline = sline;
     
     string buf2 = parse_word();
@@ -2185,8 +2185,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
 
 sNode*% parse_function(sInfo* info)
 {
-    char* header_head = info.p;
-    char* source_head = info.p;
+    char* header_head = info.p.p;
+    char* source_head = info.p.p;
     
     var asm_fun, fun_attribute_prefix = parse_function_attribute();
     string fun_attribute = s"";
@@ -2197,7 +2197,7 @@ sNode*% parse_function(sInfo* info)
     string var_name = null;
     bool constructor_ = false;
 
-    if(info.in_class && (info->end - info->p) >= strlen("new(") && memcmp(info.p, "new(", 4) == 0) {
+    if(info.in_class && (info->end - info->p.p) >= strlen("new(") && memcmp(info.p.p, "new(", 4) == 0) {
         parse_word();
         result_type = clone info.class_type;
         result_type.mHeap = true;
@@ -2234,32 +2234,32 @@ sNode*% parse_function(sInfo* info)
     /// backtrace ///
     bool method_definition = false;
     {
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
         bool flag = false;
-        while(xisalnum(*info->p) || *info->p == '_') {
+        while(xisalnum(*info->p.p) || *info->p.p == '_') {
             flag = true;
             parse_word();
         }
         
-        while(*info->p == '*') {
-            info->p++;
+        while(*info->p.p == '*') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
-        while(*info->p == '[' && *(info->p+1) == ']') {
-            info->p+=2;
+        while(*info->p.p == '[' && *(info->p.p+1) == ']') {
+            info->p.p+=2;
             skip_spaces_and_lf();
         }
-        while(*info->p == '%') {
-            info->p++;
+        while(*info->p.p == '%') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
-        if(flag && *info->p == ':' && *(info->p+1) == ':') {
+        if(flag && *info->p.p == ':' && *(info->p.p+1) == ':') {
             method_definition = true;
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
@@ -2322,7 +2322,7 @@ sNode*% parse_function(sInfo* info)
     }
     
     var param_types, param_names, param_default_parametors, var_args = parse_params(info, constructor_);
-    char* header_tail = info.p;
+    char* header_tail = info.p.p;
     if(info.in_class && base_fun_name === "initialize") {
         info.in_class = true;
     }
@@ -2331,13 +2331,13 @@ sNode*% parse_function(sInfo* info)
     
     int version = 0;
     if(parsecmp("version")) {
-        info->p += strlen("version");
+        info->p.p += strlen("version");
         skip_spaces_and_lf();
         
         int n = 0;
-        while(xisdigit(*info->p)) {
-            n = n * 10 + (*info->p - '0');
-            info->p++;
+        while(xisdigit(*info->p.p)) {
+            n = n * 10 + (*info->p.p - '0');
+            info->p.p++;
         }
         skip_spaces_and_lf();
         
@@ -2441,8 +2441,8 @@ sNode*% parse_function(sInfo* info)
         
         return (sNode*%)null;
     }
-    else if(*info->p == '{') {
-        char* source_tail = info.p -1;
+    else if(*info->p.p == '{') {
+        char* source_tail = info.p.p -1;
         
         if(version > 0) {
             string new_fun_name = xsprintf("%s_v%d", string(fun_name), version);
@@ -2527,14 +2527,14 @@ sNode*% parse_function(sInfo* info)
             return new sFunNode(fun, info) implements sNode;
         }
     }
-    else if(xisalpha(*info->p) || *info->p == '_' || *info->p == ';') {
+    else if(xisalpha(*info->p.p) || *info->p.p == '_' || *info->p.p == ';') {
         if(version > 0) {
             string new_fun_name = xsprintf("%s_v%d", fun_name, version);
             fun_name = string(new_fun_name);
         }
         
-        if(*info->p == ';') {
-            info->p++;
+        if(*info->p.p == ';') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             result_type->mStatic = false;
@@ -2590,7 +2590,7 @@ sNode*% parse_function(sInfo* info)
         }
     }
     else {
-        err_msg(info, "invalid character(2)(%c)", *info->p);
+        err_msg(info, "invalid character(2)(%c)", *info->p.p);
         exit(2);
     }
     
@@ -2696,14 +2696,14 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     var param_default_parametors = clone generics_fun->mParamDefaultParametors;
     
-    char* p = info.p;
+    char* p = info.p.p;
     int sline = info.sline;
     string sname = info.sname;
     char* head = info.head;
     buffer*% source = info.source;
     
     info.source = generics_fun->mBlock.to_buffer();
-    info.p = borrow info.source.buf;
+    info.p.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     
     sType*% generics_type_saved = info->generics_type;
@@ -2727,7 +2727,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     info.head = head;
     info.source = source;
-    info.p = p;
+    info.p.p = p;
     info.sline = sline;
     info.sname = sname;
     
@@ -2793,14 +2793,14 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     
     var param_default_parametors = clone generics_fun->mParamDefaultParametors;
     
-    char* p = info.p;
+    char* p = info.p.p;
     int sline = info.sline;
     string sname = info.sname;
     char* head = info.head;
     buffer*% source = info.source;
     
     info.source = generics_fun->mBlock.to_buffer();
-    info.p = borrow info.source.buf;
+    info.p.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     
     list<string>*% method_generics_type_names = info->method_generics_type_names;
@@ -2820,7 +2820,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     
     info.head = head;
     info.source = source;
-    info.p = p;
+    info.p.p = p;
     info.sline = sline;
     info.sname = sname;
     
@@ -3061,14 +3061,14 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             
             source.append_char('}');
             
-            char* p = info.p;
+            char* p = info.p.p;
             int sline = info.sline;
             string sname = info.sname;
             char* head = info.head;
             buffer*% source3 = info.source;
             
             info.source = source;
-            info.p = borrow source.buf;
+            info.p.p = borrow source.buf;
             info.head = borrow source.buf;
             
             info.sname = string(real_fun_name);
@@ -3120,7 +3120,7 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             }
             
             info.source = source3;
-            info.p = p;
+            info.p.p = p;
             info.head = head;
             info.sline = sline;
             info.sname = sname;
@@ -3174,14 +3174,14 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
         source.append_str("return true;");
         source.append_char('}');
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         string sname = info.sname;
         char* head = info.head;
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p = borrow source.buf;
+        info.p.p = borrow source.buf;
         info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
@@ -3230,7 +3230,7 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
         }
         
         info.source = source3;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.sline = sline;
         info.sname = sname;
@@ -3301,14 +3301,14 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
         
         source.append_char('}');
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         string sname = info.sname;
         char* head = info.head;
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p = borrow source.buf;
+        info.p.p = borrow source.buf;
         info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
@@ -3357,7 +3357,7 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
         }
         
         info.source = source3;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.sline = sline;
         info.sname = sname;
@@ -3425,14 +3425,14 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
         
         source.append_char('}');
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         string sname = info.sname;
         char* head = info.head;
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p = borrow source.buf;
+        info.p.p = borrow source.buf;
         info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
@@ -3481,7 +3481,7 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
         }
         
         info.source = source3;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.sline = sline;
         info.sname = sname;
@@ -3534,14 +3534,14 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
         source.append_str("return true;\n");
         source.append_char('}');
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         string sname = info.sname;
         char* head = info.head;
         buffer*% source3 = info.source;
         
         info.source = source;
-        info.p = borrow source.buf;
+        info.p.p = borrow source.buf;
         info.head = borrow source.buf;
         
         info.sname = string(real_fun_name);
@@ -3590,7 +3590,7 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
         }
         
         info.source = source3;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.sline = sline;
         info.sname = sname;
@@ -3752,14 +3752,14 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         source.append_format("return result;");
         source.append_char('}');
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         string sname = info.sname;
         buffer*% source3 = info.source;
         char* head = info.head;
         
         info.source = source;
-        info.p = borrow info.source.buf;
+        info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         
         info.sname = string(real_fun_name);
@@ -3809,7 +3809,7 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         info.sline = sline;
         
         info.source = source3;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.sline = sline;
     }
@@ -3880,14 +3880,14 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
         source.append_format("return result.to_string();\n");
         source.append_char('}');
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         string sname = info.sname;
         buffer*% source3 = info.source;
         char* head = info.head;
         
         info.source = source;
-        info.p = borrow info.source.buf;
+        info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         
         info.sname = string(real_fun_name);
@@ -3937,7 +3937,7 @@ sFun*,string create_to_string_automatically(sType* type, const char* fun_name, s
         info.sline = sline;
         
         info.source = source3;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.sline = sline;
     }
@@ -4023,14 +4023,14 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
         source.append_format("return result;\n");
         source.append_char('}');
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         string sname = info.sname;
         buffer*% source3 = info.source;
         char* head = info.head;
         
         info.source = source;
-        info.p = borrow info.source.buf;
+        info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         
         info.sname = string(real_fun_name);
@@ -4080,7 +4080,7 @@ sFun*,string create_get_hash_key_automatically(sType* type, const char* fun_name
         info.sline = sline;
         
         info.source = source3;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.sline = sline;
     }
@@ -4166,14 +4166,14 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
         source.append_format("return result;\n");
         source.append_char('}');
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         string sname = info.sname;
         buffer*% source3 = info.source;
         char* head = info.head;
         
         info.source = source;
-        info.p = borrow info.source.buf;
+        info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         
         info.sname = string(real_fun_name);
@@ -4225,7 +4225,7 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
         info.sline = sline;
         
         info.source = source3;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.sline = sline;
     }
@@ -4249,14 +4249,14 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     
     var param_default_parametors = clone fun->mParamDefaultParametors;
     
-    char* p = info.p;
+    char* p = info.p.p;
     int sline = info.sline;
     string sname = info.sname;
     char* head = info.head;
     buffer*% source = info.source;
     
     info.source = fun.mTextBlock.to_buffer();
-    info.p = borrow info.source.buf;
+    info.p.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     
     info.sline = fun->mTextBlockSline;
@@ -4266,7 +4266,7 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     
     info.head = head;
     info.source = source;
-    info.p = p;
+    info.p.p = p;
     info.sline = sline;
     info.sname = sname;
     

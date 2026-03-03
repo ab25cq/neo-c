@@ -142,12 +142,12 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     method_block2.append_str(method_block.to_string());
     
     buffer*% source3 = info.source;
-    char* p = info.p;
+    char* p = info.p.p;
     char* head = info.head;
     int sline = info.sline;
     
     info.source = method_block2;
-    info.p = borrow info.source.buf;
+    info.p.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     info.sline = method_block_sline;
    
@@ -180,7 +180,7 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     come_params.push_back(come_value2);
     
     info.source = source3;
-    info.p = p;
+    info.p.p = p;
     info.head = head;
     info.sline = sline;
     
@@ -875,12 +875,12 @@ class sMethodCallNode extends sNodeBase
                     
                     if(default_param && default_param !== "" && come_params[i] == null) {
                         buffer*% source = info.source;
-                        char* p = info.p;
+                        char* p = info.p.p;
                         char* head = info.head;
                         int sline = info.sline;
                         
                         info.source = default_param.to_buffer();
-                        info.p = borrow info.source.buf;
+                        info.p.p = borrow info.source.buf;
                         info.head = borrow info.source.buf;
                         
                         bool no_output_come_code = info.no_output_come_code;
@@ -895,7 +895,7 @@ class sMethodCallNode extends sNodeBase
                         info.no_output_come_code = no_output_come_code;
                         
                         info.source = source;
-                        info.p = p;
+                        info.p.p = p;
                         info.head = head;
                         info.sline = sline;
                 
@@ -1031,7 +1031,7 @@ string trim_last_bracket(string all_code, sInfo* info=info)
 
 sNode*% parse_iterator_it(sInfo* info=info)
 {
-    info->p += strlen("`it");
+    info->p.p += strlen("`it");
     skip_spaces_and_lf();
     
     expected_next_character('=');
@@ -1256,7 +1256,7 @@ puts(all_code2);
 */
 
             buffer*% source = info.source;
-            char* p = info.p;
+            char* p = info.p.p;
             char* head = info.head;
             char* end = info.end;
             
@@ -1268,7 +1268,7 @@ puts(all_code2);
             
             info.generics_type_names = first_pass_generics_type_names;
             info.source = all_code2.to_buffer();
-            info.p = borrow info.source.buf;
+            info.p.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
             info.end = info.source.buf + info.source.len;
             
@@ -1295,7 +1295,7 @@ puts(all_code2);
             info->no_output_come_code = no_output_come_code;
             
             info.source = all_code2.to_buffer();
-            info.p = borrow info.source.buf;
+            info.p.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
             info.end = info.source.buf + info.source.len;
             
@@ -1306,7 +1306,7 @@ puts(all_code2);
             transpile_block(block, param_types:null, param_names:null, info, no_var_table:true, iter_:true);
             
             info.source = source;
-            info.p = p;
+            info.p.p = p;
             info.head = head;
             info.end = end;
             
@@ -1399,14 +1399,14 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
     /// backtrace ///
     bool parse_method_generics_type = false;
     {
-        char* p = info->p;
+        char* p = info->p.p;
         int sline = info->sline;
         
-        if(*info->p == '<') {
-            info->p++;
+        if(*info->p.p == '<') {
+            info->p.p++;
             skip_spaces_and_lf();
             
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 string word = parse_word();
                 
                 if(is_type_name(word)) {
@@ -1415,27 +1415,27 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
             }
         }
         
-        info->p = p;
+        info->p.p = p;
         info->sline = sline;
     }
     
     list<sType*%>*% method_generics_types = new list<sType*%>();
-    if(parse_method_generics_type && *info->p == '<') {
-        info->p++;
+    if(parse_method_generics_type && *info->p.p == '<') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         while(true) {
-            if(*info->p == '\0') {
+            if(*info->p.p == '\0') {
                 err_msg(info, "unexpected source end");
                 exit(2);
             }
-            else if(*info->p == '>') {
-                info->p++;
+            else if(*info->p.p == '>') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
-            else if(*info->p == ',') {
-                info->p++;
+            else if(*info->p.p == ',') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             else {
@@ -1451,34 +1451,34 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
         }
     }
     
-    if(*info->p != '{') {
+    if(*info->p.p != '{') {
         expected_next_character('(');
         
         while(true) {
-            if(*info->p == ')') {
-                info->p++;
+            if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
             
-            char* p = info.p;
+            char* p = info.p.p;
             int sline = info.sline;
             
             bool err_flag = false;
             string label = string("");
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 label = parse_word();
                 err_flag = true;
             };
             
-            if(err_flag == true && *info->p == ':') {
-                info->p++;
+            if(err_flag == true && *info->p.p == ':') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             else {
                 label = null;
                 
-                info->p = p;
+                info->p.p = p;
                 info->sline = sline;
             }
             
@@ -1499,12 +1499,12 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
             
             params.push_back(t(label, node));
             
-            if(*info->p == ',') {
-                info->p++;
+            if(*info->p.p == ',') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
-            else if(*info->p == ')') {
-                info->p++;
+            else if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
@@ -1513,13 +1513,13 @@ sNode*% parse_method_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_
     
     buffer*% method_block = null;
     int method_block_sline = 0;
-    if(*info->p == '{') {
-        char* head = info.p;
+    if(*info->p.p == '{') {
+        char* head = info.p.p;
         method_block_sline = info.sline;
         
         skip_block(info);
         
-        char* tail = info.p;
+        char* tail = info.p.p;
         
         method_block = new buffer();
         
@@ -1545,34 +1545,34 @@ sNode*% parse_iter_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=f
 {
     list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
     
-    if(*info->p != '{') {
+    if(*info->p.p != '{') {
         expected_next_character('(');
         
         while(true) {
-            if(*info->p == ')') {
-                info->p++;
+            if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
             
-            char* p = info.p;
+            char* p = info.p.p;
             int sline = info.sline;
             
             bool err_flag = false;
             string label = string("");
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 label = parse_word();
                 err_flag = true;
             };
             
-            if(err_flag == true && *info->p == ':') {
-                info->p++;
+            if(err_flag == true && *info->p.p == ':') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             else {
                 label = null;
                 
-                info->p = p;
+                info->p.p = p;
                 info->sline = sline;
             }
             
@@ -1593,12 +1593,12 @@ sNode*% parse_iter_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=f
             
             params.push_back(t(label, node));
             
-            if(*info->p == ',') {
-                info->p++;
+            if(*info->p.p == ',') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
-            else if(*info->p == ')') {
-                info->p++;
+            else if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
@@ -1607,13 +1607,13 @@ sNode*% parse_iter_call(sNode*% obj, string fun_name, sInfo* info, bool arrow_=f
     
     buffer*% method_block = null;
     int method_block_sline = 0;
-    if(*info->p == '{') {
-        char* head = info.p;
+    if(*info->p.p == '{') {
+        char* head = info.p.p;
         method_block_sline = info.sline;
         
         skip_block(info);
         
-        char* tail = info.p;
+        char* tail = info.p.p;
         
         method_block = new buffer();
         

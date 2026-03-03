@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -5278,14 +5289,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 231));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 240);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5328,14 +5339,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 264));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_19=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 273);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5378,14 +5389,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 297));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_23=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 306);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5443,14 +5454,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 340));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_29=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 349);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5480,14 +5491,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 368));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_31=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 377);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5525,24 +5536,24 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 402));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_33=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 411);
         __right_value0 = (void*)0;
         args=(char*)come_increment_ref_count(xsprintf(""), "29module.nc", 412);
-        if(*info->p==44) {
-            info->p++;
+        if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __dec_obj46=args,
             args=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 417);
             __dec_obj46 = come_decrement_ref_count(__dec_obj46, (void*)0, (void*)0, 0,0, (void*)0, "29module.nc", 417);
         }
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5583,22 +5594,22 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 443));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
-        if(*info->p==34) {
-            info->p++;
+        if(*info->p->p==34) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_36=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 457);
-        if(*info->p==34) {
-            info->p++;
+        if(*info->p->p==34) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5627,14 +5638,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 479));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_37=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 488);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5663,14 +5674,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 505));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_38=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 514);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5699,14 +5710,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 531));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_39=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 540);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5735,14 +5746,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 557));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_40=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 566);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5780,14 +5791,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 589));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_43=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 598);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5834,14 +5845,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 625));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_47=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 634);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5883,20 +5894,20 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 657));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_50=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 666);
-        if(*info->p==44) {
-            info->p++;
+        if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp2=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 673);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5945,20 +5956,20 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 699));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_55=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 708);
-        if(*info->p==44) {
-            info->p++;
+        if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp2_56=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 715);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6003,14 +6014,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 738));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_61=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 747);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6052,14 +6063,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 770));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_64=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 779);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6103,20 +6114,20 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 804));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_67=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 813);
-        if(*info->p==44) {
-            info->p++;
+        if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp2_68=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 820);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6175,14 +6186,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 851));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_72=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 860);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6222,14 +6233,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 885));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_75=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 894);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6269,14 +6280,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 919));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_78=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 928);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6316,14 +6327,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 953));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_81=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 962);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6363,14 +6374,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 987));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_84=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 996);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6410,14 +6421,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1021));
         skip_spaces_and_lf(info);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_87=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1030);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6452,51 +6463,51 @@ char*  reflection_node(struct sInfo*  info  )
         (exp_87 = come_decrement_ref_count(exp_87, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1215));
         come_call_finalizer(sClass_finalize, Value_89, (void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc}", 1215);
     }
-    else if(*info->p==34) {
+    else if(*info->p->p==34) {
         sline_real=info->sline_real;
         info->sline_real=info->sline;
-        info->p++;
+        info->p->p++;
         sline=info->sline;
         __right_value0 = (void*)0;
         value_90=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "29module.nc", 1092, "struct buffer* "), "29module.nc", 1092)), "29module.nc", 1092);
         while(1) {
-            if(*info->p==34) {
-                info->p++;
-                p=info->p;
+            if(*info->p->p==34) {
+                info->p->p++;
+                p=info->p->p;
                 sline_91=info->sline;
                 skip_spaces_and_lf(info);
                 parse_sharp_v5(info);
-                if(*info->p==34) {
-                    info->p++;
+                if(*info->p->p==34) {
+                    info->p->p++;
                 }
                 else {
-                    info->p=p;
+                    info->p->p=p;
                     info->sline=sline_91;
                     break;
                 }
             }
-            else if(*info->p==92) {
-                info->p++;
-                if(*info->p==123) {
-                    info->p++;
+            else if(*info->p->p==92) {
+                info->p->p++;
+                if(*info->p->p==123) {
+                    info->p->p++;
                     __right_value0 = (void*)0;
                     exp_92=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1120);
                     expected_next_character(125,info);
                     buffer_append_str(value_90,exp_92);
                     (exp_92 = come_decrement_ref_count(exp_92, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1136));
                 }
-                else if(*info->p==34) {
+                else if(*info->p->p==34) {
                     buffer_append_char(value_90,92);
                     buffer_append_char(value_90,34);
-                    info->p++;
+                    info->p->p++;
                 }
                 else {
                     buffer_append_char(value_90,92);
-                    buffer_append_char(value_90,*info->p);
-                    info->p++;
+                    buffer_append_char(value_90,*info->p->p);
+                    info->p->p++;
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 sline2=info->sline;
                 info->sline=sline;
                 err_msg(info,"close \" to make c string value");
@@ -6504,11 +6515,11 @@ char*  reflection_node(struct sInfo*  info  )
                 exit(2);
             }
             else {
-                if(*info->p==10) {
+                if(*info->p->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_90,*info->p);
-                info->p++;
+                buffer_append_char(value_90,*info->p->p);
+                info->p->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -6522,8 +6533,8 @@ char*  reflection_node(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_90, (void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc}", 1215);
     }
-    else if(*info->p==36) {
-        info->p++;
+    else if(*info->p->p==36) {
+        info->p->p++;
         __right_value0 = (void*)0;
         var_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "29module.nc", 1159);
         __right_value0 = (void*)0;
@@ -6547,13 +6558,13 @@ char*  reflection_node(struct sInfo*  info  )
         (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1215));
         (value_93 = come_decrement_ref_count(value_93, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1215));
     }
-    else if(xisalpha(*info->p)||*info->p==95) {
+    else if(xisalpha(*info->p->p)||*info->p->p==95) {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "29module.nc", 1171, "struct buffer* "), "29module.nc", 1171)), "29module.nc", 1171);
-        while(xisalnum(*info->p)||*info->p==95||*info->p==42||*info->p==37||*info->p==60||*info->p==62) {
-            buffer_append_char(buf,*info->p);
-            info->p++;
+        while(xisalnum(*info->p->p)||*info->p->p==95||*info->p->p==42||*info->p->p==37||*info->p->p==60||*info->p->p==62) {
+            buffer_append_char(buf,*info->p->p);
+            info->p->p++;
         }
         skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
@@ -6565,11 +6576,11 @@ char*  reflection_node(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc}", 1215);
     }
-    else if(*info->p==45&&xisdigit(*(info->p+1))) {
+    else if(*info->p->p==45&&xisdigit(*(info->p->p+1))) {
         n_94=0;
-        while(xisdigit(*info->p)) {
-            n_94=n_94*10+(*info->p-48);
-            info->p++;
+        while(xisdigit(*info->p->p)) {
+            n_94=n_94*10+(*info->p->p-48);
+            info->p->p++;
         }
         skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
@@ -6579,11 +6590,11 @@ char*  reflection_node(struct sInfo*  info  )
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "29module.nc", 1187));
         return __result_obj__0;
     }
-    else if(xisdigit(*info->p)) {
+    else if(xisdigit(*info->p->p)) {
         n_95=0;
-        while(xisdigit(*info->p)) {
-            n_95=n_95*10+(*info->p-48);
-            info->p++;
+        while(xisdigit(*info->p->p)) {
+            n_95=n_95*10+(*info->p->p-48);
+            info->p->p++;
         }
         skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
@@ -6593,8 +6604,8 @@ char*  reflection_node(struct sInfo*  info  )
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "29module.nc", 1196));
         return __result_obj__0;
     }
-    else if(*info->p==33) {
-        info->p++;
+    else if(*info->p->p==33) {
+        info->p->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         exp_96=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1202);
@@ -6619,9 +6630,9 @@ char*  reflection_node(struct sInfo*  info  )
         (exp_96 = come_decrement_ref_count(exp_96, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1215));
     }
     else {
-        err_msg(info,"invalid character(%c)",*info->p);
+        err_msg(info,"invalid character(%c)",*info->p->p);
     }
-    err_msg(info,"invalid character(%c)",*info->p);
+    err_msg(info,"invalid character(%c)",*info->p->p);
         __right_value0 = (void*)0;
     __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "29module.nc", 1217);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1217));
@@ -7494,9 +7505,9 @@ char*  reflection_expression_mult(struct sInfo*  info  )
     char*  right_98  ;
     node=(char* )come_increment_ref_count(reflection_node(info), "29module.nc", 1222);
     skip_spaces_and_lf(info);
-    while(*info->p) {
-        if(*info->p==42) {
-            info->p++;
+    while(*info->p->p) {
+        if(*info->p->p==42) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_node(info), "29module.nc", 1231);
@@ -7510,8 +7521,8 @@ char*  reflection_expression_mult(struct sInfo*  info  )
             return __result_obj__0;
             (right = come_decrement_ref_count(right, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1254));
         }
-        else if(*info->p==47) {
-            info->p++;
+        else if(*info->p->p==47) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_97=(char* )come_increment_ref_count(reflection_node(info), "29module.nc", 1239);
@@ -7525,8 +7536,8 @@ char*  reflection_expression_mult(struct sInfo*  info  )
             return __result_obj__0;
             (right_97 = come_decrement_ref_count(right_97, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1254));
         }
-        else if(*info->p==37) {
-            info->p++;
+        else if(*info->p->p==37) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_98=(char* )come_increment_ref_count(reflection_node(info), "29module.nc", 1247);
@@ -7562,9 +7573,9 @@ char*  reflection_expression_add(struct sInfo*  info  )
     char*  right_100  ;
     node=(char* )come_increment_ref_count(reflection_expression_mult(info), "29module.nc", 1261);
     skip_spaces_and_lf(info);
-    while(*info->p) {
-        if(*info->p==46) {
-            info->p++;
+    while(*info->p->p) {
+        if(*info->p->p==46) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_mult(info), "29module.nc", 1270);
@@ -7578,8 +7589,8 @@ char*  reflection_expression_add(struct sInfo*  info  )
             return __result_obj__0;
             (right = come_decrement_ref_count(right, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1293));
         }
-        else if(*info->p==43) {
-            info->p++;
+        else if(*info->p->p==43) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_99=(char* )come_increment_ref_count(reflection_expression_mult(info), "29module.nc", 1278);
@@ -7593,8 +7604,8 @@ char*  reflection_expression_add(struct sInfo*  info  )
             return __result_obj__0;
             (right_99 = come_decrement_ref_count(right_99, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1293));
         }
-        else if(*info->p==45) {
-            info->p++;
+        else if(*info->p->p==45) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_100=(char* )come_increment_ref_count(reflection_expression_mult(info), "29module.nc", 1286);
@@ -7631,9 +7642,9 @@ char*  reflection_expression_comp(struct sInfo*  info  )
     char*  right_103  ;
     node=(char* )come_increment_ref_count(reflection_expression_add(info), "29module.nc", 1300);
     skip_spaces_and_lf(info);
-    while(*info->p) {
-        if(*info->p==62&&*(info->p+1)==61) {
-            info->p+=2;
+    while(*info->p->p) {
+        if(*info->p->p==62&&*(info->p->p+1)==61) {
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_add(info), "29module.nc", 1309);
@@ -7659,8 +7670,8 @@ char*  reflection_expression_comp(struct sInfo*  info  )
             }
             (right = come_decrement_ref_count(right, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1360));
         }
-        else if(*info->p==60&&*(info->p+1)==61) {
-            info->p+=2;
+        else if(*info->p->p==60&&*(info->p->p+1)==61) {
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_101=(char* )come_increment_ref_count(reflection_expression_add(info), "29module.nc", 1322);
@@ -7686,8 +7697,8 @@ char*  reflection_expression_comp(struct sInfo*  info  )
             }
             (right_101 = come_decrement_ref_count(right_101, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1360));
         }
-        else if(*info->p==62) {
-            info->p+=1;
+        else if(*info->p->p==62) {
+            info->p->p+=1;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_102=(char* )come_increment_ref_count(reflection_expression_add(info), "29module.nc", 1335);
@@ -7713,8 +7724,8 @@ char*  reflection_expression_comp(struct sInfo*  info  )
             }
             (right_102 = come_decrement_ref_count(right_102, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1360));
         }
-        else if(*info->p==60) {
-            info->p+=1;
+        else if(*info->p->p==60) {
+            info->p->p+=1;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_103=(char* )come_increment_ref_count(reflection_expression_add(info), "29module.nc", 1348);
@@ -7761,9 +7772,9 @@ char*  reflection_expression_eq(struct sInfo*  info  )
     char*  right_104  ;
     node=(char* )come_increment_ref_count(reflection_expression_comp(info), "29module.nc", 1367);
     skip_spaces_and_lf(info);
-    while(*info->p) {
-        if(*info->p==61&&*(info->p+1)==61&&*(info->p+2)!=61) {
-            info->p+=2;
+    while(*info->p->p) {
+        if(*info->p->p==61&&*(info->p->p+1)==61&&*(info->p->p+2)!=61) {
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_comp(info), "29module.nc", 1376);
@@ -7789,8 +7800,8 @@ char*  reflection_expression_eq(struct sInfo*  info  )
             }
             (right = come_decrement_ref_count(right, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1401));
         }
-        else if(*info->p==33&&*(info->p+1)==61&&*(info->p+2)!=61) {
-            info->p+=2;
+        else if(*info->p->p==33&&*(info->p->p+1)==61&&*(info->p->p+2)!=61) {
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_104=(char* )come_increment_ref_count(reflection_expression_comp(info), "29module.nc", 1389);
@@ -7836,9 +7847,9 @@ char*  reflection_expression_oror(struct sInfo*  info  )
     char*  __result_obj__0  ;
     node=(char* )come_increment_ref_count(reflection_expression_eq(info), "29module.nc", 1408);
     skip_spaces_and_lf(info);
-    while(*info->p) {
-        if(*info->p==124&&*(info->p+1)==124) {
-            info->p+=2;
+    while(*info->p->p) {
+        if(*info->p->p==124&&*(info->p->p+1)==124) {
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_eq(info), "29module.nc", 1417);
@@ -7884,9 +7895,9 @@ char*  reflection_expression_andand(struct sInfo*  info  )
     char*  __result_obj__0  ;
     node=(char* )come_increment_ref_count(reflection_expression_oror(info), "29module.nc", 1436);
     skip_spaces_and_lf(info);
-    while(*info->p) {
-        if(*info->p==38&&*(info->p+1)==38) {
-            info->p+=2;
+    while(*info->p->p) {
+        if(*info->p->p==38&&*(info->p->p+1)==38) {
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_oror(info), "29module.nc", 1445);
@@ -8018,7 +8029,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
     char*  exp_133  ;
     struct sNode* _inf_value12;
     struct sNothingNode* _inf_obj_value12;
-    if(charp_operator_equals(buf,"__c__")&&*info->p==123) {
+    if(charp_operator_equals(buf,"__c__")&&*info->p->p==123) {
         block_text=(char* )come_increment_ref_count(skip_block(info,(_Bool)0), "29module.nc", 1470);
         p=block_text+strlen(block_text);
         while(*p&&p>=block_text&&*p!=125) {
@@ -8058,7 +8069,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         (block_text = come_decrement_ref_count(block_text, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1796));
         (contents = come_decrement_ref_count(contents, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1796));
     }
-    else if(charp_operator_equals(buf,"c_include")&&*info->p==123) {
+    else if(charp_operator_equals(buf,"c_include")&&*info->p->p==123) {
         __right_value0 = (void*)0;
         block_text_112=(char* )come_increment_ref_count(skip_block(info,(_Bool)0), "29module.nc", 1489);
         p_113=block_text_112+strlen(block_text_112);
@@ -8141,8 +8152,8 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
     else if(charp_operator_equals(buf,"undef")) {
         __right_value0 = (void*)0;
         word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "29module.nc", 1524);
-        if(*info->p==59) {
-            info->p++;
+        if(*info->p->p==59) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
                 __right_value0 = (void*)0;
@@ -8171,33 +8182,33 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
     }
     else if(charp_operator_equals(buf,"macro_include")) {
         quoted=0;
-        if(*info->p==34) {
+        if(*info->p->p==34) {
             quoted=1;
-            info->p++;
+            info->p->p++;
         }
-        else if(*info->p==60) {
-            info->p++;
+        else if(*info->p->p==60) {
+            info->p->p++;
         }
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         buf_116=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "29module.nc", 1543, "struct buffer* "), "29module.nc", 1543)), "29module.nc", 1543);
-        while(*info->p) {
-            if(*info->p==92) {
-                info->p++;
-                buffer_append_char(buf_116,*info->p);
-                info->p++;
+        while(*info->p->p) {
+            if(*info->p->p==92) {
+                info->p->p++;
+                buffer_append_char(buf_116,*info->p->p);
+                info->p->p++;
             }
-            else if(*info->p==34) {
-                info->p++;
+            else if(*info->p->p==34) {
+                info->p->p++;
                 break;
             }
-            else if(*info->p==62) {
-                info->p++;
+            else if(*info->p->p==62) {
+                info->p->p++;
                 break;
             }
             else {
-                buffer_append_char(buf_116,*info->p);
-                info->p++;
+                buffer_append_char(buf_116,*info->p->p);
+                info->p->p++;
             }
         }
         __right_value0 = (void*)0;
@@ -8221,7 +8232,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             free(macro_defines);
         }
         source=(struct buffer* )come_increment_ref_count(info->source, "29module.nc", 1584);
-        p_117=info->p;
+        p_117=info->p->p;
         head_118=info->head;
         end=info->end;
         sname=(char* )come_increment_ref_count(info->sname, "29module.nc", 1588);
@@ -8230,7 +8241,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         __dec_obj62=info->source,
         info->source=(struct buffer* )come_increment_ref_count(charp_read("__ccpp_tmp"), "29module.nc", 1591);
         come_call_finalizer(buffer_finalize, __dec_obj62,(void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc", 1591);
-        info->p=info->source->buf;
+        info->p->p=info->source->buf;
         info->head=info->source->buf;
         info->end=info->source->buf+info->source->len;
         __right_value0 = (void*)0;
@@ -8242,7 +8253,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         __dec_obj64=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "29module.nc", 1600);
         come_call_finalizer(buffer_finalize, __dec_obj64,(void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc", 1600);
-        info->p=p_117;
+        info->p->p=p_117;
         info->head=head_118;
         info->end=end;
         __dec_obj65=info->sname,
@@ -8281,14 +8292,14 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1796));
     }
     else if(charp_operator_equals(buf,"if")) {
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         reflection_condtional=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1616);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         match_=(_Bool)0;
@@ -8309,14 +8320,14 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
                 __right_value0 = (void*)0;
                 (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "29module.nc", 1637));
-                if(*info->p==40) {
-                    info->p++;
+                if(*info->p->p==40) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                 }
                 __right_value0 = (void*)0;
                 reflection_condtional_119=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1644);
-                if(*info->p==41) {
-                    info->p++;
+                if(*info->p->p==41) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                 }
                 if(!match_&&string_operator_not_equals(reflection_condtional_119,"false")) {
@@ -8380,13 +8391,13 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         value=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1682);
         __right_value0 = (void*)0;
         source2=(struct buffer* )come_increment_ref_count(charp_to_buffer(value), "29module.nc", 1684);
-        p_120=info->p;
+        p_120=info->p->p;
         source_121=(struct buffer* )come_increment_ref_count(info->source, "29module.nc", 1687);
         head_122=info->head;
         end_123=info->end;
         sname_124=(char* )come_increment_ref_count(info->sname, "29module.nc", 1690);
         sline_125=info->sline;
-        info->p=source2->buf;
+        info->p->p=source2->buf;
         __dec_obj66=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source2, "29module.nc", 1694);
         come_call_finalizer(buffer_finalize, __dec_obj66,(void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc", 1694);
@@ -8398,7 +8409,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         __dec_obj67 = come_decrement_ref_count(__dec_obj67, (void*)0, (void*)0, 0,0, (void*)0, "29module.nc", 1698);
         info->sline=1;
         transpile_toplevel((_Bool)0,info);
-        info->p=p_120;
+        info->p->p=p_120;
         __dec_obj68=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source_121, "29module.nc", 1704);
         come_call_finalizer(buffer_finalize, __dec_obj68,(void*)0, (void*)0, 0, 0, 0, (void*)0, "29module.nc", 1704);
@@ -8472,15 +8483,15 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         (value_126 = come_decrement_ref_count(value_126, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1796));
     }
     else if(charp_operator_equals(buf,"puts")) {
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_130=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1730);
         puts(exp_130);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
                 __right_value0 = (void*)0;
@@ -8508,23 +8519,23 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         (exp_130 = come_decrement_ref_count(exp_130, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1796));
     }
     else if(charp_operator_equals(buf,"macro_define")) {
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_131=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1747);
         exp2_132=((void*)0);
-        if(*info->p==44) {
-            info->p++;
+        if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __dec_obj70=exp2_132,
             exp2_132=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1753);
             __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0, "29module.nc", 1753);
         }
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -8572,14 +8583,14 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         (def = come_decrement_ref_count(def, (void*)0, (void*)0, 0, 0, (void*)0, "29module.nc", 1796));
     }
     else if(charp_operator_equals(buf,"macro_undef")) {
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_133=(char* )come_increment_ref_count(reflection_expression(info), "29module.nc", 1780);
-        if(*info->p==41) {
-            info->p++;
+        if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);

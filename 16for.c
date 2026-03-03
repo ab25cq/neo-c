@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -4958,7 +4969,7 @@ struct sNode* string_node_v11(char* buf, char* head, int head_sline, struct sInf
         expected_next_character(40,info);
         existance_result_value=(_Bool)0;
         skip_spaces_and_lf(info);
-        if(*info->p==59) {
+        if(*info->p->p==59) {
             __dec_obj54=expression_node,
             expression_node=((void*)0);
             (__dec_obj54 ? __dec_obj54 = come_decrement_ref_count(__dec_obj54, ((struct sNode*)__dec_obj54)->finalize, ((struct sNode*)__dec_obj54)->_protocol_obj, 0,0, (void*)0, "16for.nc", 132) :0);
@@ -4970,7 +4981,7 @@ struct sNode* string_node_v11(char* buf, char* head, int head_sline, struct sInf
         }
         expected_next_character(59,info);
         skip_spaces_and_lf(info);
-        if(*info->p==59) {
+        if(*info->p->p==59) {
             __dec_obj56=expression_node2,
             expression_node2=((void*)0);
             (__dec_obj56 ? __dec_obj56 = come_decrement_ref_count(__dec_obj56, ((struct sNode*)__dec_obj56)->finalize, ((struct sNode*)__dec_obj56)->_protocol_obj, 0,0, (void*)0, "16for.nc", 141) :0);
@@ -4983,7 +4994,7 @@ struct sNode* string_node_v11(char* buf, char* head, int head_sline, struct sInf
         }
         expected_next_character(59,info);
         skip_spaces_and_lf(info);
-        if(*info->p==41) {
+        if(*info->p->p==41) {
             __dec_obj58=expression_node3,
             expression_node3=((void*)0);
             (__dec_obj58 ? __dec_obj58 = come_decrement_ref_count(__dec_obj58, ((struct sNode*)__dec_obj58)->finalize, ((struct sNode*)__dec_obj58)->_protocol_obj, 0,0, (void*)0, "16for.nc", 150) :0);

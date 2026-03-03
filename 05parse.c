@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2720,7 +2731,7 @@ _Bool parsecmp(const char* p2, struct sInfo*  info  )
     int i;
     unsigned char c;
     terminated=(_Bool)0;
-    p3=info->p;
+    p3=info->p->p;
     for(i=0    ;i<strlen(p2);i++){
         if(*p3==0) {
                         neo_current_frame = fr.prev;
@@ -2728,9 +2739,9 @@ _Bool parsecmp(const char* p2, struct sInfo*  info  )
         }
         p3++;
     }
-    c=*(info->p+strlen(p2));
+    c=*(info->p->p+strlen(p2));
         neo_current_frame = fr.prev;
-    return memcmp(info->p,p2,strlen(p2))==0&&(xispunct(c)||c==32||c==9||c==10||c==0||c==13)&&c!=95;
+    return memcmp(info->p->p,p2,strlen(p2))==0&&(xispunct(c)||c==32||c==9||c==10||c==0||c==13)&&c!=95;
     neo_current_frame = fr.prev;
 }
 
@@ -2751,7 +2762,7 @@ int err_msg(struct sInfo*  info  , const char* msg, ...)
         __builtin_va_start(args,msg);
         vasprintf(&msg2,msg,args);
         __builtin_va_end(args);
-        p=info->p;
+        p=info->p->p;
         sline_real=((info->sline_real>0)?(info->sline_real):(info->sline));
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 30, "struct buffer* "), "05parse.nc", 30)), "05parse.nc", 30);
         if(info->come_fun) {
@@ -2760,10 +2771,10 @@ int err_msg(struct sInfo*  info  , const char* msg, ...)
         else {
             buffer_append_format(buf,"%s %d(%d): [error] %s\n",info->sname,info->sline,sline_real,msg2);
         }
-        if((info->end-info->p)>30&&(info->p-info->head)>30) {
+        if((info->end-info->p->p)>30&&(info->p->p-info->head)>30) {
             char mem[128];
             memset(&mem, 0, sizeof(mem));
-            memcpy(mem,info->p-30,60);
+            memcpy(mem,info->p->p-30,60);
             mem[20]=0;
             __right_value0 = (void*)0;
             buffer_append_str(buf,((char* )(__right_value0=charp_operator_add(mem,"\n"))));
@@ -2811,10 +2822,10 @@ int warning_msg(struct sInfo*  info  , const char* msg, ...)
         else {
             buffer_append_format(buf,"%s %d(%d): [warning] %s\n",info->sname,info->sline,sline_real,msg2);
         }
-        if((info->end-info->p)>30&&(info->p-info->head)>30) {
+        if((info->end-info->p->p)>30&&(info->p->p-info->head)>30) {
             char mem[128];
             memset(&mem, 0, sizeof(mem));
-            memcpy(mem,info->p-30,60);
+            memcpy(mem,info->p->p-30,60);
             mem[20]=0;
             __right_value0 = (void*)0;
             buffer_append_str(buf,((char* )(__right_value0=charp_operator_add(mem,"\n"))));
@@ -2842,13 +2853,13 @@ int expected_next_character(char c, struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "expected_next_character"; neo_current_frame = &fr;
     parse_sharp_v5(info);
-    if(*info->p!=c) {
+    if(*info->p->p!=c) {
         if(!info->no_output_come_code) {
-            err_msg(info,"expected next charaster is %c, but %c, caller %s %d",c,*info->p,info->caller_sname,info->caller_line);
+            err_msg(info,"expected next charaster is %c, but %c, caller %s %d",c,*info->p->p,info->caller_sname,info->caller_line);
             exit(1);
         }
     }
-    info->p++;
+    info->p->p++;
     skip_spaces_and_lf(info);
         neo_current_frame = fr.prev;
     return 0;
@@ -2869,16 +2880,16 @@ char*  parse_word(_Bool digits, struct sInfo*  info  )
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 114, "struct buffer* "), "05parse.nc", 114)), "05parse.nc", 114);
     parse_sharp_v5(info);
     if(digits) {
-        while((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)) {
-            buffer_append_char(buf,*info->p);
-            info->p++;
+        while((*info->p->p>=97&&*info->p->p<=122)||(*info->p->p>=65&&*info->p->p<=90)||*info->p->p==95||(*info->p->p>=48&&*info->p->p<=57)||(*info->p->p==36)) {
+            buffer_append_char(buf,*info->p->p);
+            info->p->p++;
         }
     }
     else {
-        if((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p==36)) {
-            while((*info->p>=97&&*info->p<=122)||(*info->p>=65&&*info->p<=90)||*info->p==95||(*info->p>=48&&*info->p<=57)||(*info->p==36)) {
-                buffer_append_char(buf,*info->p);
-                info->p++;
+        if((*info->p->p>=97&&*info->p->p<=122)||(*info->p->p>=65&&*info->p->p<=90)||*info->p->p==95||(*info->p->p==36)) {
+            while((*info->p->p>=97&&*info->p->p<=122)||(*info->p->p>=65&&*info->p->p<=90)||*info->p->p==95||(*info->p->p>=48&&*info->p->p<=57)||(*info->p->p==36)) {
+                buffer_append_char(buf,*info->p->p);
+                info->p->p++;
             }
         }
     }
@@ -2886,7 +2897,7 @@ char*  parse_word(_Bool digits, struct sInfo*  info  )
     if(__right_value0 = (void*)0,
 ({(_conditional_value_X0=(string_length(((char* )(__right_value0=buffer_to_string(buf))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 136));
 _conditional_value_X0;})) {
-        err_msg(info,"unexpected character(%c), expected word character, caller %s %d",*info->p,info->caller_sname,info->caller_line);
+        err_msg(info,"unexpected character(%c), expected word character, caller %s %d",*info->p->p,info->caller_sname,info->caller_line);
         exit(1);
     }
     __right_value0 = (void*)0;
@@ -3036,9 +3047,9 @@ char*  backtrace_parse_word(struct sInfo*  info  )
     char*  __dec_obj2  ;
     char*  __result_obj__0  ;
     memset(&buf, 0, sizeof(buf));
-    p=info->p;
+    p=info->p->p;
     sline=info->sline;
-    if(xisalpha(*info->p)||*info->p==95) {
+    if(xisalpha(*info->p->p)||*info->p->p==95) {
         __dec_obj1=buf,
         buf=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "05parse.nc", 160);
         __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 160);
@@ -3049,7 +3060,7 @@ char*  backtrace_parse_word(struct sInfo*  info  )
         buf=(char* )come_increment_ref_count(__builtin_string(""), "05parse.nc", 163);
         __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 163);
     }
-    info->p=p;
+    info->p->p=p;
     info->sline=sline;
         __result_obj__0 = (char* )come_increment_ref_count(buf, "05parse.nc", 169);
     (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 169));
@@ -3062,15 +3073,15 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_comment"; neo_current_frame = &fr;
     int nest;
-    if(*info->p==47&&*(info->p+1)==42) {
+    if(*info->p->p==47&&*(info->p->p+1)==42) {
         nest=0;
         while(1) {
-            if(*info->p==47&&*(info->p+1)==42) {
-                info->p+=2;
+            if(*info->p->p==47&&*(info->p->p+1)==42) {
+                info->p->p+=2;
                 nest++;
             }
-            else if(*info->p==42&&*(info->p+1)==47) {
-                info->p+=2;
+            else if(*info->p->p==42&&*(info->p->p+1)==47) {
+                info->p->p+=2;
                 nest--;
                 if(nest==0) {
                     if(skip_space_after) {
@@ -3079,35 +3090,35 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
                     break;
                 }
             }
-            else if(*info->p==10) {
-                info->p++;
+            else if(*info->p->p==10) {
+                info->p->p++;
                 info->sline++;
                 info->sline_real++;
             }
-            else if(*info->p==13) {
-                info->p++;
-                if(*info->p==10) {
-                    info->p++;
+            else if(*info->p->p==13) {
+                info->p->p++;
+                if(*info->p->p==10) {
+                    info->p->p++;
                 }
                 info->sline++;
                 info->sline_real++;
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 err_msg(info,"unterminated comment");
                 break;
             }
             else {
-                info->p++;
+                info->p->p++;
             }
         }
                 neo_current_frame = fr.prev;
         return (_Bool)1;
     }
-    else if(*info->p==47&&*(info->p+1)==47) {
-        info->p+=2;
+    else if(*info->p->p==47&&*(info->p->p+1)==47) {
+        info->p->p+=2;
         while(1) {
-            if(*info->p==10) {
-                info->p++;
+            if(*info->p->p==10) {
+                info->p->p++;
                 info->sline++;
                 info->sline_real++;
                 if(skip_space_after) {
@@ -3115,10 +3126,10 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
                 }
                 break;
             }
-            else if(*info->p==13) {
-                info->p++;
-                if(*info->p==10) {
-                    info->p++;
+            else if(*info->p->p==13) {
+                info->p->p++;
+                if(*info->p->p==10) {
+                    info->p->p++;
                 }
                 info->sline++;
                 info->sline_real++;
@@ -3127,11 +3138,11 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
                 }
                 break;
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 break;
             }
             else {
-                info->p++;
+                info->p->p++;
             }
         }
                 neo_current_frame = fr.prev;
@@ -3146,19 +3157,19 @@ void skip_spaces_and_lf(struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf"; neo_current_frame = &fr;
     while((_Bool)1) {
-        if(*info->p==32||*info->p==9) {
-            info->p++;
+        if(*info->p->p==32||*info->p->p==9) {
+            info->p->p++;
         }
-        else if(*info->p==13) {
-            info->p++;
-            if(*info->p==10) {
-                info->p++;
+        else if(*info->p->p==13) {
+            info->p->p++;
+            if(*info->p->p==10) {
+                info->p->p++;
             }
             info->sline++;
             info->sline_real++;
         }
-        else if(*info->p==10) {
-            info->p++;
+        else if(*info->p->p==10) {
+            info->p->p++;
             info->sline++;
             info->sline_real++;
         }
@@ -3168,10 +3179,10 @@ void skip_spaces_and_lf(struct sInfo*  info  )
             break;
         }
     }
-    if(*info->p==35) {
+    if(*info->p->p==35) {
         parse_sharp_v5(info);
     }
-    else if(*info->p==95&&parsecmp("__extension__",info)) {
+    else if(*info->p->p==95&&parsecmp("__extension__",info)) {
         parse_sharp_v5(info);
     }
     neo_current_frame = fr.prev;
@@ -3181,19 +3192,19 @@ void skip_spaces_and_lf2(struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_lf2"; neo_current_frame = &fr;
     while((_Bool)1) {
-        if(*info->p==32||*info->p==9) {
-            info->p++;
+        if(*info->p->p==32||*info->p->p==9) {
+            info->p->p++;
         }
-        else if(*info->p==13) {
-            info->p++;
-            if(*info->p==10) {
-                info->p++;
+        else if(*info->p->p==13) {
+            info->p->p++;
+            if(*info->p->p==10) {
+                info->p->p++;
             }
             info->sline++;
             info->sline_real++;
         }
-        else if(*info->p==10) {
-            info->p++;
+        else if(*info->p->p==10) {
+            info->p->p++;
             info->sline++;
             info->sline_real++;
         }
@@ -3210,16 +3221,16 @@ void skip_spaces_and_tabs(struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_spaces_and_tabs"; neo_current_frame = &fr;
     while((_Bool)1) {
-        if(*info->p==32||*info->p==9) {
-            info->p++;
+        if(*info->p->p==32||*info->p->p==9) {
+            info->p->p++;
         }
-        else if(*info->p==47&&*(info->p+1)==42) {
+        else if(*info->p->p==47&&*(info->p->p+1)==42) {
             (void)skip_comment(info,(_Bool)0);
         }
-        else if(*info->p==47&&*(info->p+1)==47) {
-            info->p+=2;
-            while(*info->p&&*info->p!=10&&*info->p!=13) {
-                info->p++;
+        else if(*info->p->p==47&&*(info->p->p+1)==47) {
+            info->p->p+=2;
+            while(*info->p->p&&*info->p->p!=10&&*info->p->p!=13) {
+                info->p->p++;
             }
             break;
         }
@@ -3933,24 +3944,24 @@ void parse_sharp_v5(struct sInfo*  info  )
     char*  fname_str_16  ;
     char*  __dec_obj20  ;
     while(1) {
-        if(*info->p==35) {
-            info->p++;
+        if(*info->p->p==35) {
+            info->p->p++;
             skip_spaces_and_tabs(info);
             if(parsecmp("pragma",info)) {
                 buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 537, "struct buffer* "), "05parse.nc", 537)), "05parse.nc", 537);
                 buffer_append_str(buf,"#");
-                while(*info->p) {
-                    if(*info->p==10) {
-                        buffer_append_char(buf,*info->p);
+                while(*info->p->p) {
+                    if(*info->p->p==10) {
+                        buffer_append_char(buf,*info->p->p);
                         skip_spaces_and_lf2(info);
                         break;
                     }
-                    else if(*info->p==0) {
+                    else if(*info->p->p==0) {
                         break;
                     }
                     else {
-                        buffer_append_char(buf,*info->p);
-                        info->p++;
+                        buffer_append_char(buf,*info->p->p);
+                        info->p->p++;
                     }
                 }
                 __right_value0 = (void*)0;
@@ -3962,41 +3973,41 @@ void parse_sharp_v5(struct sInfo*  info  )
                 (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 685));
             }
             else if(parsecmp("line",info)) {
-                info->p+=strlen("line");
+                info->p->p+=strlen("line");
                 skip_spaces_and_tabs(info);
                 line=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 fname=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 564, "struct buffer* "), "05parse.nc", 564)), "05parse.nc", 564);
-                if(!xisdigit(*info->p)) {
+                if(!xisdigit(*info->p->p)) {
                     err_msg(info,"invalid #line directive");
                                         come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 568);
                     neo_current_frame = fr.prev;
                     return;
                 }
-                while(xisdigit(*info->p)) {
-                    line=line*10+(*info->p-48);
-                    info->p++;
+                while(xisdigit(*info->p->p)) {
+                    line=line*10+(*info->p->p-48);
+                    info->p->p++;
                 }
                 skip_spaces_and_tabs(info);
-                if(*info->p==34) {
-                    info->p++;
-                    while(*info->p&&*info->p!=34) {
-                        buffer_append_char(fname,*info->p);
-                        info->p++;
+                if(*info->p->p==34) {
+                    info->p->p++;
+                    while(*info->p->p&&*info->p->p!=34) {
+                        buffer_append_char(fname,*info->p->p);
+                        info->p->p++;
                     }
-                    if(*info->p==0) {
+                    if(*info->p->p==0) {
                         err_msg(info,"unterminated #line file name");
                                                 come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 586);
                         neo_current_frame = fr.prev;
                         return;
                     }
-                    info->p++;
-                    while(*info->p&&*info->p!=10) {
-                        info->p++;
+                    info->p->p++;
+                    while(*info->p->p&&*info->p->p!=10) {
+                        info->p->p++;
                     }
-                    if(*info->p==10) {
-                        info->p++;
+                    if(*info->p->p==10) {
+                        info->p->p++;
                         info->sline_real++;
                     }
                 }
@@ -4019,34 +4030,34 @@ void parse_sharp_v5(struct sInfo*  info  )
                 come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 685);
                 (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 685));
             }
-            else if(xisdigit(*info->p)) {
+            else if(xisdigit(*info->p->p)) {
                 line_14=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 fname_15=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 617, "struct buffer* "), "05parse.nc", 617)), "05parse.nc", 617);
-                while(xisdigit(*info->p)) {
-                    line_14=line_14*10+(*info->p-48);
-                    info->p++;
+                while(xisdigit(*info->p->p)) {
+                    line_14=line_14*10+(*info->p->p-48);
+                    info->p->p++;
                 }
                 skip_spaces_and_tabs(info);
-                if(*info->p==34) {
-                    info->p++;
-                    while(*info->p&&*info->p!=34) {
-                        buffer_append_char(fname_15,*info->p);
-                        info->p++;
+                if(*info->p->p==34) {
+                    info->p->p++;
+                    while(*info->p->p&&*info->p->p!=34) {
+                        buffer_append_char(fname_15,*info->p->p);
+                        info->p->p++;
                     }
-                    if(*info->p==0) {
+                    if(*info->p->p==0) {
                         err_msg(info,"unterminated #line file name");
                                                 come_call_finalizer(buffer_finalize, fname_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 634);
                         neo_current_frame = fr.prev;
                         return;
                     }
-                    info->p++;
-                    while(*info->p&&*info->p!=10) {
-                        info->p++;
+                    info->p->p++;
+                    while(*info->p->p&&*info->p->p!=10) {
+                        info->p->p++;
                     }
-                    if(*info->p==10) {
-                        info->p++;
+                    if(*info->p->p==10) {
+                        info->p->p++;
                         info->sline_real++;
                     }
                 }
@@ -4063,22 +4074,22 @@ void parse_sharp_v5(struct sInfo*  info  )
                 come_call_finalizer(buffer_finalize, fname_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 685);
                 (fname_str_16 = come_decrement_ref_count(fname_str_16, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 685));
             }
-            else if(*info->p==34) {
-                info->p++;
-                while(*info->p&&*info->p!=34) {
-                    info->p++;
+            else if(*info->p->p==34) {
+                info->p->p++;
+                while(*info->p->p&&*info->p->p!=34) {
+                    info->p->p++;
                 }
-                if(*info->p==0) {
+                if(*info->p->p==0) {
                     err_msg(info,"unterminated #include file name");
                                         neo_current_frame = fr.prev;
                     return;
                 }
-                info->p++;
-                while(*info->p&&*info->p!=10) {
-                    info->p++;
+                info->p->p++;
+                while(*info->p->p&&*info->p->p!=10) {
+                    info->p->p++;
                 }
-                if(*info->p==10) {
-                    info->p++;
+                if(*info->p->p==10) {
+                    info->p->p++;
                     info->sline_real++;
                 }
             }
@@ -4087,7 +4098,7 @@ void parse_sharp_v5(struct sInfo*  info  )
         else if(skip_comment(info,(_Bool)1)) {
         }
         else if(parsecmp("__extension__",info)) {
-            info->p+=strlen("__extension__");
+            info->p->p+=strlen("__extension__");
             skip_spaces_and_lf2(info);
         }
         else {
@@ -4103,25 +4114,25 @@ void skip_paren(struct sInfo*  info  )
     int nest;
     nest=0;
     while((_Bool)1) {
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             nest++;
         }
-        else if(*info->p==41) {
-            info->p++;
+        else if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             nest--;
             if(nest==0) {
                 break;
             }
         }
-        else if(*info->p==0) {
+        else if(*info->p->p==0) {
             err_msg(info,"invalid the source end. require )");
             exit(1);
         }
         else {
-            info->p++;
+            info->p->p++;
         }
     }
     neo_current_frame = fr.prev;

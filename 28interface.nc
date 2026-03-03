@@ -73,7 +73,7 @@ sType*%, string parse_interface_function(sInfo* info)
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
 {
     if(!gComeC && buf === "interface") {
-        char* source_head = info.p;
+        char* source_head = info.p.p;
         
         bool output = true;
         
@@ -113,8 +113,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
         klass.mFields.push_back(t(string("clone"), cloner));
         
         while(true) {
-            if(*info->p == '}') {
-                info->p++;
+            if(*info->p.p == '}') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
@@ -126,15 +126,15 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 92
             
             skip_spaces_and_lf();
             
-            if(*info->p == '}') {
-                info->p++;
+            if(*info->p.p == '}') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
             skip_spaces_and_lf();
         }
         
-        char* source_tail = info.p;
+        char* source_tail = info.p.p;
         
         buffer*% header = new buffer();
         header.append_str("interface ");

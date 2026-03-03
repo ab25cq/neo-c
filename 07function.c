@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -5823,42 +5834,42 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
     info->sline_top=info->sline;
     block_level=info->block_level;
     info->block_level++;
-    if(*info->p==123) {
-        info->p++;
+    if(*info->p->p==123) {
+        info->p->p++;
         skip_spaces_and_lf(info);
         while((_Bool)1) {
             skip_spaces_and_lf(info);
-            if(*info->p==125) {
-                info->p++;
+            if(*info->p->p==125) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
-            while(*info->p==59) {
-                info->p++;
+            while(*info->p->p==59) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
             skip_spaces_and_lf(info);
-            p=info->p;
+            p=info->p->p;
             sline=info->sline;
             __right_value0 = (void*)0;
             sname=(char* )come_increment_ref_count(__builtin_string(info->sname), "07function.nc", 216);
-            if(*info->p==123) {
+            if(*info->p->p==123) {
                 info->sline_top=sline;
             }
             node=((void*)0);
             if(in_function) {
                 nested_fun=((void*)0);
-                head=info->p;
+                head=info->p->p;
                 head_sline=info->sline;
                 __right_value0 = (void*)0;
                 head_sname=(char* )come_increment_ref_count(__builtin_string(info->sname), "07function.nc", 228);
-                if(xisalpha(*info->p)||*info->p==95) {
-                    p0=info->p;
+                if(xisalpha(*info->p->p)||*info->p->p==95) {
+                    p0=info->p->p;
                     sline0=info->sline;
                     __right_value0 = (void*)0;
                     word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 233);
                     is_type=is_type_name(word,info);
-                    info->p=p0;
+                    info->p->p=p0;
                     info->sline=sline0;
                     if(is_type) {
                         no_output_come_code=info->no_output_come_code;
@@ -5870,7 +5881,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
                         err=multiple_assign_var1->v3;
                         come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 242);
                         skip_spaces_and_lf(info);
-                        if(err&&*info->p==40) {
+                        if(err&&*info->p->p==40) {
                             skip_paren(info);
                             skip_spaces_and_lf(info);
                             __right_value0 = (void*)0;
@@ -5879,10 +5890,10 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
                             fun_attr=(char* )come_increment_ref_count(multiple_assign_var2->v2, "07function.nc", 248);
                             come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 248);
                             skip_spaces_and_lf(info);
-                            if(*info->p==123) {
+                            if(*info->p->p==123) {
                                 __right_value0 = (void*)0;
                                 block=(char* )come_increment_ref_count(skip_block(info,(_Bool)0), "07function.nc", 252);
-                                tail=info->p;
+                                tail=info->p->p;
                                 __right_value0 = (void*)0;
                                 __right_value1 = (void*)0;
                                 buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 255, "struct buffer* "), "07function.nc", 255)), "07function.nc", 255);
@@ -5923,7 +5934,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
                     (__dec_obj80 ? __dec_obj80 = come_decrement_ref_count(__dec_obj80, ((struct sNode*)__dec_obj80)->finalize, ((struct sNode*)__dec_obj80)->_protocol_obj, 0,0, (void*)0, "07function.nc", 267) :0);
                 }
                 else {
-                    info->p=head;
+                    info->p->p=head;
                     info->sline=head_sline;
                     __right_value0 = (void*)0;
                     __dec_obj81=info->sname,
@@ -5962,16 +5973,16 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
             if(node->terminated(node->_protocol_obj)) {
                 omit_semicolon=(_Bool)0;
             }
-            while(*info->p==59) {
-                info->p++;
+            while(*info->p->p==59) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 omit_semicolon=(_Bool)0;
             }
             skip_spaces_and_lf(info);
-            if(*info->p==125) {
+            if(*info->p->p==125) {
                 result->mOmitSemicolon=omit_semicolon;
                 if(omit_semicolon&&in_function) {
-                    info->p++;
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                     __right_value0 = (void*)0;
                     node2=(struct sNode*)come_increment_ref_count(create_return_node((struct sNode*)come_increment_ref_count(node, "07function.nc", 313),info), "07function.nc", 313);
@@ -5984,7 +5995,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
                 }
                 else {
                     list$1sNode$ph_push_back(result->mNodes,(struct sNode*)come_increment_ref_count(node, "07function.nc", 320));
-                    info->p++;
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                     (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 323));
                     ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 323):(void*)0);
@@ -5999,8 +6010,8 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
     else {
         info->sline_block=info->sline;
         skip_spaces_and_lf(info);
-        if(*info->p==59) {
-            info->p++;
+        if(*info->p->p==59) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
@@ -6046,8 +6057,8 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
             if(node_29->terminated(node_29->_protocol_obj)) {
                 omit_semicolon_30=(_Bool)0;
             }
-            while(*info->p==59) {
-                info->p++;
+            while(*info->p->p==59) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 omit_semicolon_30=(_Bool)0;
             }
@@ -6058,11 +6069,11 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
         ((node_29) ? node_29 = come_decrement_ref_count(node_29, ((struct sNode*)node_29)->finalize, ((struct sNode*)node_29)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 377):(void*)0);
     }
     if(return_self_at_last) {
-        p_31=info->p;
+        p_31=info->p->p;
         head_32=info->head;
         __right_value0 = (void*)0;
         source=(char* )come_increment_ref_count(__builtin_string("return self;"), "07function.nc", 381);
-        info->p=source;
+        info->p->p=source;
         info->head=source;
         __right_value0 = (void*)0;
         node_33=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "07function.nc", 386);
@@ -6077,7 +6088,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
             return __result_obj__0;
         }
         list$1sNode$ph_push_back(result->mNodes,(struct sNode*)come_increment_ref_count(node_33, "07function.nc", 393));
-        info->p=p_31;
+        info->p->p=p_31;
         info->head=head_32;
         (source = come_decrement_ref_count(source, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 399));
         ((node_33) ? node_33 = come_decrement_ref_count(node_33, ((struct sNode*)node_33)->finalize, ((struct sNode*)node_33)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 399):(void*)0);
@@ -6879,9 +6890,9 @@ char*  skip_block(struct sInfo*  info  , _Bool return_self_at_last)
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     char*  __result_obj__0  ;
-    head=info->p;
-    if(*info->p==123) {
-        info->p++;
+    head=info->p->p;
+    if(*info->p->p==123) {
+        info->p->p++;
         dquort=(_Bool)0;
         squort=(_Bool)0;
         sline=0;
@@ -6889,123 +6900,123 @@ char*  skip_block(struct sInfo*  info  , _Bool return_self_at_last)
         while(1) {
             parse_sharp_v5(info);
             if(dquort) {
-                if(*info->p==92) {
-                    info->p++;
-                    if(*info->p==0) {
+                if(*info->p->p==92) {
+                    info->p->p++;
+                    if(*info->p->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
-                    if(*info->p==10) {
-                        info->p++;
+                    if(*info->p->p==10) {
+                        info->p->p++;
                     }
-                    info->p++;
+                    info->p->p++;
                 }
-                else if(*info->p==34) {
-                    info->p++;
+                else if(*info->p->p==34) {
+                    info->p->p++;
                     dquort=!dquort;
                 }
-                else if(*info->p==10) {
-                    info->p++;
+                else if(*info->p->p==10) {
+                    info->p->p++;
                     info->sline++;
-                    if(*info->p==0) {
+                    if(*info->p->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p++;
-                    if(*info->p==0) {
+                    info->p->p++;
+                    if(*info->p->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
                 }
             }
             else if(squort) {
-                if(*info->p==92) {
-                    info->p++;
-                    if(*info->p==0) {
+                if(*info->p->p==92) {
+                    info->p->p++;
+                    if(*info->p->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
-                    if(*info->p==10) {
+                    if(*info->p->p==10) {
                         info->sline++;
                     }
-                    info->p++;
+                    info->p->p++;
                 }
-                else if(*info->p==39) {
-                    info->p++;
+                else if(*info->p->p==39) {
+                    info->p->p++;
                     squort=!squort;
                 }
-                else if(*info->p==10) {
-                    info->p++;
+                else if(*info->p->p==10) {
+                    info->p->p++;
                     info->sline++;
-                    if(*info->p==0) {
+                    if(*info->p->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p++;
-                    if(*info->p==0) {
+                    info->p->p++;
+                    if(*info->p->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
                 }
             }
-            else if(*info->p==39) {
+            else if(*info->p->p==39) {
                 sline=info->sline;
-                info->p++;
+                info->p->p++;
                 squort=!squort;
             }
-            else if(*info->p==34) {
+            else if(*info->p->p==34) {
                 sline=info->sline;
-                info->p++;
+                info->p->p++;
                 dquort=!dquort;
             }
-            else if(*info->p==35) {
+            else if(*info->p->p==35) {
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p==47&&*(info->p+1)==42) {
+            else if(*info->p->p==47&&*(info->p->p+1)==42) {
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p==47&&*(info->p+1)==47) {
+            else if(*info->p->p==47&&*(info->p->p+1)==47) {
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p==92) {
-                info->p++;
-                if(*info->p) {
-                    info->p++;
+            else if(*info->p->p==92) {
+                info->p->p++;
+                if(*info->p->p) {
+                    info->p->p++;
                 }
             }
-            else if(*info->p==123) {
-                info->p++;
+            else if(*info->p->p==123) {
+                info->p->p++;
                 nest++;
             }
-            else if(*info->p==125) {
-                info->p++;
+            else if(*info->p->p==125) {
+                info->p->p++;
                 if(nest==0) {
                     break;
                 }
                 nest--;
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 err_msg(info,"The block requires } character for closing block");
                 exit(2);
             }
-            else if(*info->p==10) {
-                info->p++;
+            else if(*info->p->p==10) {
+                info->p->p++;
                 info->sline++;
             }
             else {
-                info->p++;
+                info->p->p++;
             }
         }
     }
     else {
-        err_msg(info,"Require block. This is %c",*info->p);
+        err_msg(info,"Require block. This is %c",*info->p->p);
         exit(1);
     }
-    tail=info->p;
+    tail=info->p->p;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 722, "struct buffer* "), "07function.nc", 722)), "07function.nc", 722);
     buffer_append(buf,head,tail-head-1);
     if(return_self_at_last) {
@@ -7029,27 +7040,27 @@ void parse_function_attribute_skip_paren(struct sInfo*  info  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parse_function_attribute_skip_paren"; neo_current_frame = &fr;
     int nest;
     skip_spaces_and_lf(info);
-    if(*info->p==40) {
+    if(*info->p->p==40) {
         nest=0;
         while(1) {
-            if(*info->p==40) {
-                info->p++;
+            if(*info->p->p==40) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 nest++;
             }
-            else if(*info->p==41) {
-                info->p++;
+            else if(*info->p->p==41) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 nest--;
                 if(nest==0) {
                     break;
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 break;
             }
             else {
-                info->p++;
+                info->p->p++;
             }
         }
     }
@@ -7063,10 +7074,10 @@ _Bool parse_function_attribute_keyword(struct buffer*  result  , const char* key
     char* head;
     char* tail;
     if(parsecmp(keyword,info)) {
-        head=info->p;
-        info->p+=strlen(keyword);
+        head=info->p->p;
+        info->p->p+=strlen(keyword);
         parse_function_attribute_skip_paren(info);
-        tail=info->p;
+        tail=info->p->p;
         buffer_append(result,head,tail-head);
                 neo_current_frame = fr.prev;
         return (_Bool)1;
@@ -7379,10 +7390,10 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 1116, "struct buffer* "), "07function.nc", 1116)), "07function.nc", 1116);
     while((_Bool)1) {
         if(parsecmp("__attribute__",info)) {
-            head=info->p;
-            info->p+=strlen("__attribute__");
+            head=info->p->p;
+            info->p->p+=strlen("__attribute__");
             parse_function_attribute_skip_paren(info);
-            tail=info->p;
+            tail=info->p->p;
             buffer_append(result,head,tail-head);
         }
         else if(parsecmp("__declspec",info)) {
@@ -7397,170 +7408,170 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
             (attr = come_decrement_ref_count(attr, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1373));
         }
         else if(parsecmp("_Noreturn",info)) {
-            head_50=info->p;
-            info->p+=strlen("_Noreturn");
+            head_50=info->p->p;
+            info->p->p+=strlen("_Noreturn");
             parse_function_attribute_skip_paren(info);
-            tail_51=info->p;
+            tail_51=info->p->p;
             buffer_append(result,head_50,tail_51-head_50);
         }
         else if(parsecmp("_Nonnull",info)) {
-            head_52=info->p;
-            info->p+=strlen("_Nonnull");
+            head_52=info->p->p;
+            info->p->p+=strlen("_Nonnull");
             parse_function_attribute_skip_paren(info);
-            tail_53=info->p;
+            tail_53=info->p->p;
             buffer_append(result,head_52,tail_53-head_52);
         }
         else if(parsecmp("__noreturn",info)) {
-            head_54=info->p;
-            info->p+=strlen("__noreturn");
+            head_54=info->p->p;
+            info->p->p+=strlen("__noreturn");
             parse_function_attribute_skip_paren(info);
-            tail_55=info->p;
+            tail_55=info->p->p;
             buffer_append(result,head_54,tail_55-head_54);
         }
         else if(parsecmp("__asm__",info)) {
-            head_56=info->p;
-            info->p+=strlen("__asm__");
+            head_56=info->p->p;
+            info->p->p+=strlen("__asm__");
             skip_spaces_and_lf(info);
-            if(((info->end-info->p)>=strlen("__ASMNAME"))&&memcmp(info->p,"__ASMNAME",strlen("__ASMNAME"))==0) {
-                info->p+=strlen("__ASMNAME");
+            if(((info->end-info->p->p)>=strlen("__ASMNAME"))&&memcmp(info->p->p,"__ASMNAME",strlen("__ASMNAME"))==0) {
+                info->p->p+=strlen("__ASMNAME");
                 skip_spaces_and_lf(info);
             }
             parse_function_attribute_skip_paren(info);
-            tail_57=info->p;
+            tail_57=info->p->p;
             buffer_append(result,head_56,tail_57-head_56);
         }
         else if(parsecmp("__attribute_pure__",info)) {
-            head_58=info->p;
-            info->p+=strlen("__attribute_pure__");
+            head_58=info->p->p;
+            info->p->p+=strlen("__attribute_pure__");
             parse_function_attribute_skip_paren(info);
-            tail_59=info->p;
+            tail_59=info->p->p;
             buffer_append(result,head_58,tail_59-head_58);
         }
         else if(parsecmp("__malloc_like",info)) {
-            head_60=info->p;
-            info->p+=strlen("__malloc_like");
+            head_60=info->p->p;
+            info->p->p+=strlen("__malloc_like");
             parse_function_attribute_skip_paren(info);
-            tail_61=info->p;
+            tail_61=info->p->p;
             buffer_append(result,head_60,tail_61-head_60);
         }
         else if(parsecmp("__result_use_check",info)) {
-            head_62=info->p;
-            info->p+=strlen("__result_use_check");
+            head_62=info->p->p;
+            info->p->p+=strlen("__result_use_check");
             parse_function_attribute_skip_paren(info);
-            tail_63=info->p;
+            tail_63=info->p->p;
             buffer_append(result,head_62,tail_63-head_62);
         }
         else if(parsecmp("__alloc_size2",info)) {
-            head_64=info->p;
-            info->p+=strlen("__alloc_size2");
+            head_64=info->p->p;
+            info->p->p+=strlen("__alloc_size2");
             parse_function_attribute_skip_paren(info);
-            tail_65=info->p;
+            tail_65=info->p->p;
             buffer_append(result,head_64,tail_65-head_64);
         }
         else if(parsecmp("__alloc_size",info)) {
-            head_66=info->p;
-            info->p+=strlen("__alloc_size");
+            head_66=info->p->p;
+            info->p->p+=strlen("__alloc_size");
             parse_function_attribute_skip_paren(info);
-            tail_67=info->p;
+            tail_67=info->p->p;
             buffer_append(result,head_66,tail_67-head_66);
         }
         else if(parsecmp("__nonnull",info)) {
-            head_68=info->p;
-            info->p+=strlen("__nonnull");
+            head_68=info->p->p;
+            info->p->p+=strlen("__nonnull");
             parse_function_attribute_skip_paren(info);
-            tail_69=info->p;
+            tail_69=info->p->p;
             buffer_append(result,head_68,tail_69-head_68);
         }
         else if(parsecmp("__alloc_align",info)) {
-            head_70=info->p;
-            info->p+=strlen("__alloc_align");
+            head_70=info->p->p;
+            info->p->p+=strlen("__alloc_align");
             parse_function_attribute_skip_paren(info);
-            tail_71=info->p;
+            tail_71=info->p->p;
             buffer_append(result,head_70,tail_71-head_70);
         }
         else if(parsecmp("__attribute_malloc__",info)) {
-            head_72=info->p;
-            info->p+=strlen("__attribute_malloc__");
+            head_72=info->p->p;
+            info->p->p+=strlen("__attribute_malloc__");
             parse_function_attribute_skip_paren(info);
-            tail_73=info->p;
+            tail_73=info->p->p;
             buffer_append(result,head_72,tail_73-head_72);
         }
         else if(parsecmp("__attr_dealloc_fclose",info)) {
-            head_74=info->p;
-            info->p+=strlen("__attr_dealloc_fclose");
+            head_74=info->p->p;
+            info->p->p+=strlen("__attr_dealloc_fclose");
             parse_function_attribute_skip_paren(info);
-            tail_75=info->p;
+            tail_75=info->p->p;
             buffer_append(result,head_74,tail_75-head_74);
         }
         else if(parsecmp("__wur",info)) {
-            head_76=info->p;
-            info->p+=strlen("__wur");
+            head_76=info->p->p;
+            info->p->p+=strlen("__wur");
             parse_function_attribute_skip_paren(info);
-            tail_77=info->p;
+            tail_77=info->p->p;
             buffer_append(result,head_76,tail_77-head_76);
         }
         else if(parsecmp("__pure2",info)) {
-            head_78=info->p;
-            info->p+=strlen("__pure2");
+            head_78=info->p->p;
+            info->p->p+=strlen("__pure2");
             parse_function_attribute_skip_paren(info);
-            tail_79=info->p;
+            tail_79=info->p->p;
             buffer_append(result,head_78,tail_79-head_78);
         }
         else if(parsecmp("__pure",info)) {
-            head_80=info->p;
-            info->p+=strlen("__pure");
+            head_80=info->p->p;
+            info->p->p+=strlen("__pure");
             parse_function_attribute_skip_paren(info);
-            tail_81=info->p;
+            tail_81=info->p->p;
             buffer_append(result,head_80,tail_81-head_80);
         }
         else if(parsecmp("__THROW",info)) {
-            head_82=info->p;
-            info->p+=strlen("__THROW");
+            head_82=info->p->p;
+            info->p->p+=strlen("__THROW");
             parse_function_attribute_skip_paren(info);
-            tail_83=info->p;
+            tail_83=info->p->p;
             buffer_append(result,head_82,tail_83-head_82);
         }
         else if(parsecmp("__asm",info)) {
-            head0=info->p;
+            head0=info->p->p;
             sline0=info->sline;
-            info->p+=strlen("__asm");
+            info->p->p+=strlen("__asm");
             skip_spaces_and_lf(info);
-            head_84=info->p;
+            head_84=info->p->p;
             sline=info->sline;
             nest=0;
-            while(*info->p) {
-                if(*info->p==40) {
-                    info->p++;
+            while(*info->p->p) {
+                if(*info->p->p==40) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                     nest++;
                 }
-                else if(*info->p==41) {
-                    info->p++;
+                else if(*info->p->p==41) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                     nest--;
                     if(nest==0) {
                         break;
                     }
                 }
-                else if(*info->p==34) {
-                    info->p++;
-                    while(*info->p!=0&&*info->p!=34) {
-                        buffer_append_char(asm_fun_name,*info->p);
-                        info->p++;
+                else if(*info->p->p==34) {
+                    info->p->p++;
+                    while(*info->p->p!=0&&*info->p->p!=34) {
+                        buffer_append_char(asm_fun_name,*info->p->p);
+                        info->p->p++;
                     }
-                    info->p++;
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                 }
                 else {
-                    info->p++;
+                    info->p->p++;
                 }
             }
-            info->p=head0;
+            info->p->p=head0;
             info->sline=sline0;
-            info->p+=strlen("__asm");
+            info->p->p+=strlen("__asm");
             skip_spaces_and_lf(info);
             parse_function_attribute_skip_paren(info);
-            tail_85=info->p;
+            tail_85=info->p->p;
             buffer_append(result,head0,tail_85-head0);
         }
         else if(parse_common_function_attribute_keyword(result,info)) {
@@ -7613,28 +7624,28 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
     char*  __dec_obj104  ;
     struct sNode* node;
     _Bool Value;
-    while(*info->p) {
+    while(*info->p->p) {
         __dec_obj102=info->sname_at_head,
         info->sname_at_head=(char* )come_increment_ref_count((char* )come_memdup(info->sname, "07function.nc", 1382, "char* "), "07function.nc", 1382);
         __dec_obj102 = come_decrement_ref_count(__dec_obj102, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 1382);
         skip_spaces_and_lf(info);
-        if(*info->p==0) {
+        if(*info->p->p==0) {
             break;
         }
-        if(block&&*info->p==125) {
-            info->p++;
+        if(block&&*info->p->p==125) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             break;
         }
-        while(*info->p==59) {
-            info->p++;
+        while(*info->p->p==59) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        head=info->p;
+        head=info->p->p;
         head_sline=info->sline;
         buf=((void*)0);
-        if(*info->p==91&&*(info->p+1)==91) {
+        if(*info->p->p==91&&*(info->p->p+1)==91) {
             __right_value0 = (void*)0;
             __dec_obj103=buf,
             buf=(char*)come_increment_ref_count(xsprintf("__attribute__"), "07function.nc", 1403);
@@ -7647,8 +7658,8 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
             __dec_obj104 = come_decrement_ref_count(__dec_obj104, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 1406);
         }
         skip_spaces_and_lf(info);
-        if(block&&*info->p==125) {
-            info->p++;
+        if(block&&*info->p->p==125) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1414));
             break;
@@ -7656,8 +7667,8 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
         __right_value0 = (void*)0;
         node=(struct sNode*)come_increment_ref_count(top_level_v99(buf,head,head_sline,info), "07function.nc", 1417);
         skip_spaces_and_lf(info);
-        while(*info->p==59) {
-            info->p++;
+        while(*info->p->p==59) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -7669,8 +7680,8 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
             }
         }
         skip_spaces_and_lf(info);
-        if(block&&*info->p==125) {
-            info->p++;
+        if(block&&*info->p->p==125) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1439));
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 1439):(void*)0);
@@ -8148,10 +8159,10 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     char*  buf2_139  ;
     memset(&node_135, 0, sizeof(node_135));
     info->in_top_level=(_Bool)1;
-    source_head=info->p;
+    source_head=info->p->p;
     is_type_name_flag=is_type_name(buf,info);
     sline=info->sline;
-    info->p=head;
+    info->p->p=head;
     info->sline=head_sline;
     multiple_assign_var3=((struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$*)(__right_value0=backtrace_struct_union_enum(info)));
     define_only=multiple_assign_var3->v1;
@@ -8165,38 +8176,38 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     {
         no_output_come_code=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p=info->p;
+        p=info->p->p;
         sline_95=info->sline;
         if(charp_operator_equals(buf,"struct")) {
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_word((_Bool)0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07function.nc", 1590));
-            if(xisalpha(*info->p)||*info->p==95) {
+            if(xisalpha(*info->p->p)||*info->p->p==95) {
                 __right_value0 = (void*)0;
                 word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1593);
-                if(*info->p==59) {
+                if(*info->p->p==59) {
                     define_struct_nobody=(_Bool)1;
                 }
                 (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1599));
             }
         }
         info->no_output_come_code=no_output_come_code;
-        info->p=p;
+        info->p->p=p;
         info->sline=sline_95;
     }
     uniq_class=(_Bool)0;
     if(charp_operator_equals(buf,"uniq")) {
         no_output_come_code_96=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_97=info->p;
-        info->p=head;
+        p_97=info->p->p;
+        info->p->p=head;
         sline_98=info->sline;
-        if(xisalpha(*info->p)||*info->p==95) {
+        if(xisalpha(*info->p->p)||*info->p->p==95) {
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_word((_Bool)0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07function.nc", 1618));
         }
-        if(xisalpha(*info->p)||*info->p==95) {
+        if(xisalpha(*info->p->p)||*info->p->p==95) {
             __right_value0 = (void*)0;
             buf2=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1622);
             if(string_operator_equals(buf2,"class")) {
@@ -8204,7 +8215,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             }
             (buf2 = come_decrement_ref_count(buf2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1629));
         }
-        info->p=p_97;
+        info->p->p=p_97;
         info->sline=sline_98;
         info->no_output_come_code=no_output_come_code_96;
     }
@@ -8213,27 +8224,27 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     if(is_type_name_flag&&!uniq_class&&!square_attribute_head) {
         no_output_come_code_99=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_100=info->p;
-        info->p=head;
-        if(xisalpha(*info->p)||*info->p==95||(*info->p==91&&*(info->p+1)==91)) {
+        p_100=info->p->p;
+        info->p->p=head;
+        if(xisalpha(*info->p->p)||*info->p->p==95||(*info->p->p==91&&*(info->p->p+1)==91)) {
             __right_value0 = (void*)0;
             multiple_assign_var4=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=backtrace_parse_type((_Bool)0,info)));
             result_type=(struct sType* )come_increment_ref_count(multiple_assign_var4->v1, "07function.nc", 1646);
             fun_name=(char* )come_increment_ref_count(multiple_assign_var4->v2, "07function.nc", 1646);
             err=multiple_assign_var4->v3;
             come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 1646);
-            if(*info->p==40) {
-                info->p++;
+            if(*info->p->p==40) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
-                if(*info->p!=42) {
+                if(*info->p->p!=42) {
                     define_function_pointer_result_function=(_Bool)1;
-                    if(xisalpha(*info->p)||*info->p==95) {
+                    if(xisalpha(*info->p->p)||*info->p->p==95) {
                         __right_value0 = (void*)0;
                         word_101=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1656);
-                        if(!is_type_name(word_101,info)&&*info->p==41) {
-                            info->p++;
+                        if(!is_type_name(word_101,info)&&*info->p->p==41) {
+                            info->p->p++;
                             skip_spaces_and_lf(info);
-                            if(*info->p==40) {
+                            if(*info->p->p==40) {
                             }
                             else {
                                 define_variable_between_brace=(_Bool)1;
@@ -8247,16 +8258,16 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             (fun_name = come_decrement_ref_count(fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1673));
         }
         info->no_output_come_code=no_output_come_code_99;
-        info->p=head;
+        info->p->p=head;
         info->sline=sline;
     }
     define_function_flag=(_Bool)0;
     if(is_type_name_flag&&!define_function_pointer_result_function&&charp_operator_not_equals(buf,"__typeof__")&&!uniq_class&&!square_attribute_head) {
         no_output_come_code_102=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_103=info->p;
-        info->p=head;
-        if(xisalpha(*info->p)||*info->p==95||(*info->p==91&&*(info->p+1)==91)) {
+        p_103=info->p->p;
+        info->p->p=head;
+        if(xisalpha(*info->p->p)||*info->p->p==95||(*info->p->p==91&&*(info->p->p+1)==91)) {
             __right_value0 = (void*)0;
             multiple_assign_var5=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=backtrace_parse_type((_Bool)0,info)));
             result_type_104=(struct sType* )come_increment_ref_count(multiple_assign_var5->v1, "07function.nc", 1689);
@@ -8266,12 +8277,12 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             come_call_finalizer(sType_finalize, result_type_104, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 1691);
             (fun_name_105 = come_decrement_ref_count(fun_name_105, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1691));
         }
-        if(*info->p==40||(*info->p==58&&*(info->p+1)==58)) {
+        if(*info->p->p==40||(*info->p->p==58&&*(info->p->p+1)==58)) {
             define_function_flag=(_Bool)1;
         }
         if(!define_only) {
             word_107=((void*)0);
-            if(xisalnum(*info->p)||*info->p==95) {
+            if(xisalnum(*info->p->p)||*info->p->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj105=word_107,
                 word_107=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1698);
@@ -8290,30 +8301,30 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             }
             if(word_107) {
                 if(is_type_name(word_107,info)) {
-                    while(*info->p==42) {
-                        info->p++;
+                    while(*info->p->p==42) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
                     }
-                    if(*info->p==91&&*(info->p+1)==93) {
-                        info->p+=2;
+                    if(*info->p->p==91&&*(info->p->p+1)==93) {
+                        info->p->p+=2;
                         skip_spaces_and_lf(info);
                     }
-                    if(*info->p==58) {
-                        info->p++;
+                    if(*info->p->p==58) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
                     }
-                    if(*info->p==58) {
-                        info->p++;
+                    if(*info->p->p==58) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
                     }
-                    if(xisalnum(*info->p)||*info->p==95) {
+                    if(xisalnum(*info->p->p)||*info->p->p==95) {
                         __right_value0 = (void*)0;
                         __dec_obj108=word_107,
                         word_107=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1727);
                         __dec_obj108 = come_decrement_ref_count(__dec_obj108, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 1727);
                     }
                 }
-                if(strlen(word_107)>0&&(*info->p==40||(*info->p==58&&*(info->p+1)==58))) {
+                if(strlen(word_107)>0&&(*info->p->p==40||(*info->p->p==58&&*(info->p->p+1)==58))) {
                     if(is_type_name_flag) {
                         define_function_flag=(_Bool)1;
                     }
@@ -8322,51 +8333,51 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             (word_107 = come_decrement_ref_count(word_107, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1740));
         }
         info->no_output_come_code=no_output_come_code_102;
-        info->p=p_103;
+        info->p->p=p_103;
         info->sline=sline;
     }
     define_variable=(_Bool)1;
     if(is_type_name_flag&&!define_function_pointer_result_function&&!uniq_class&&!square_attribute_head) {
         no_output_come_code_108=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_109=info->p;
-        info->p=head;
+        p_109=info->p->p;
+        info->p->p=head;
         if(!is_type_name_flag) {
             define_variable=(_Bool)0;
         }
-        if(xisalpha(*info->p)||*info->p==95||(*info->p==91&&*(info->p+1)==91)) {
+        if(xisalpha(*info->p->p)||*info->p->p==95||(*info->p->p==91&&*(info->p->p+1)==91)) {
             __right_value0 = (void*)0;
             multiple_assign_var6=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=backtrace_parse_type((_Bool)0,info)));
             result_type_110=(struct sType* )come_increment_ref_count(multiple_assign_var6->v1, "07function.nc", 1760);
             fun_name_111=(char* )come_increment_ref_count(multiple_assign_var6->v2, "07function.nc", 1760);
             err_112=multiple_assign_var6->v3;
             come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 1760);
-            if(*info->p==40) {
-                info->p++;
+            if(*info->p->p==40) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
-                if(*info->p==42) {
-                    info->p++;
+                if(*info->p->p==42) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
-                    if(xisalpha(*info->p)||*info->p==95) {
+                    if(xisalpha(*info->p->p)||*info->p->p==95) {
                         __right_value0 = (void*)0;
                         word_113=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1771);
-                        if(*info->p==41) {
-                            info->p++;
+                        if(*info->p->p==41) {
+                            info->p->p++;
                             skip_spaces_and_lf(info);
-                            if(*info->p==40) {
+                            if(*info->p->p==40) {
                                 define_variable=(_Bool)1;
                             }
                         }
                         (word_113 = come_decrement_ref_count(word_113, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1782));
                     }
                 }
-                else if(xisalpha(*info->p)||*info->p==95) {
+                else if(xisalpha(*info->p->p)||*info->p->p==95) {
                     __right_value0 = (void*)0;
                     word_114=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1784);
-                    if(*info->p==41) {
-                        info->p++;
+                    if(*info->p->p==41) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
-                        if(!is_type_name(word_114,info)&&*info->p!=40) {
+                        if(!is_type_name(word_114,info)&&*info->p->p!=40) {
                             define_variable=(_Bool)1;
                         }
                     }
@@ -8382,18 +8393,18 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         else if(define_variable) {
         }
         else {
-            if(!(xisalpha(*info->p)||*info->p==95)) {
+            if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
                 define_variable=(_Bool)0;
             }
-            while(xisalpha(*info->p)||*info->p==95) {
-                info->p++;
+            while(xisalpha(*info->p->p)||*info->p->p==95) {
+                info->p->p++;
             }
             skip_spaces_and_lf(info);
-            if(*info->p==40||*info->p==58) {
+            if(*info->p->p==40||*info->p->p==58) {
                 define_variable=(_Bool)0;
             }
         }
-        info->p=p_109;
+        info->p->p=p_109;
         info->sline=sline;
         info->no_output_come_code=no_output_come_code_108;
     }
@@ -8403,20 +8414,20 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     if(!define_function_pointer_result_function) {
         no_output_come_code_115=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_116=info->p;
-        info->p=head;
+        p_116=info->p->p;
+        info->p->p=head;
         if(charp_operator_equals(buf,"struct")) {
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07function.nc", 1836));
-            if(xisalpha(*info->p)||*info->p==95) {
+            if(xisalpha(*info->p->p)||*info->p->p==95) {
                 __right_value0 = (void*)0;
                 ((char* )(__right_value0=parse_word((_Bool)0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07function.nc", 1838));
-                if(xisalpha(*info->p)||*info->p==95) {
+                if(xisalpha(*info->p->p)||*info->p->p==95) {
                     __right_value0 = (void*)0;
                     word_117=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1840);
-                    if(xisalpha(*info->p)||*info->p==95) {
+                    if(xisalpha(*info->p->p)||*info->p->p==95) {
                         __right_value0 = (void*)0;
                         __dec_obj109=word_117,
                         word_117=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1842);
@@ -8435,25 +8446,25 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         else if(define_variable) {
         }
         else {
-            if(!(xisalpha(*info->p)||*info->p==95)) {
+            if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
                 define_variable=(_Bool)0;
             }
-            while(xisalpha(*info->p)||*info->p==95) {
-                info->p++;
+            while(xisalpha(*info->p->p)||*info->p->p==95) {
+                info->p->p++;
             }
             skip_spaces_and_lf(info);
-            if(*info->p==40||*info->p==58) {
+            if(*info->p->p==40||*info->p->p==58) {
                 define_variable=(_Bool)0;
             }
         }
-        info->p=p_116;
+        info->p->p=p_116;
         info->sline=sline;
         info->no_output_come_code=no_output_come_code_115;
     }
-    info->p=head;
+    info->p->p=head;
     info->sline=head_sline;
     if(uniq_class) {
-        info->p=head;
+        info->p->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         buf2_118=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1884);
@@ -8469,21 +8480,21 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     else if(charp_operator_equals(buf,"template")) {
         __right_value0 = (void*)0;
         word_119=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 1889);
-        if(*info->p==60) {
-            info->p++;
+        if(*info->p->p==60) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             list$1char$ph_reset(info->method_generics_type_names);
             while((_Bool)1) {
-                if(*info->p==62) {
-                    info->p++;
+                if(*info->p->p==62) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                     break;
                 }
-                else if(*info->p==44) {
-                    info->p++;
+                else if(*info->p->p==44) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                 }
-                else if(*info->p==0) {
+                else if(*info->p->p==0) {
                     err_msg(info,"unexpected source end");
                     exit(2);
                 }
@@ -8508,12 +8519,12 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         }
         (word_119 = come_decrement_ref_count(word_119, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 2178));
     }
-    else if(charp_operator_equals(buf,"enum")&&*info->p==123) {
+    else if(charp_operator_equals(buf,"enum")&&*info->p->p==123) {
     }
     else if(define_struct_nobody) {
     }
     else if(define_variable_between_brace) {
-        info->p=head;
+        info->p->p=head;
         info->sline=sline;
                 __right_value0 = (void*)0;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_global_variable(info))), "07function.nc", 1932);
@@ -8523,23 +8534,23 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         return __result_obj__0;
     }
     else if(define_function_pointer_result_function) {
-        header_head=info->p;
+        header_head=info->p->p;
         __right_value0 = (void*)0;
         multiple_assign_var7=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
         result_type_121=(struct sType* )come_increment_ref_count(multiple_assign_var7->v1, "07function.nc", 1936);
         fun_name_122=(char* )come_increment_ref_count(multiple_assign_var7->v2, "07function.nc", 1936);
         err_123=multiple_assign_var7->v3;
         come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 1936);
-        if(*info->p==40) {
-            info->p++;
+        if(*info->p->p==40) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             param_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "07function.nc", 1942, "struct list$1sType$ph*"), "07function.nc", 1942)), "07function.nc", 1942);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             param_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 1943, "struct list$1char$ph*"), "07function.nc", 1943)), "07function.nc", 1943);
-            if(*info->p==41) {
-                info->p++;
+            if(*info->p->p==41) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
             else {
@@ -8558,24 +8569,24 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                     static int num_function_pointer_result_var_name_a=0;
                     __right_value0 = (void*)0;
                     list$1char$ph_push_back(param_names,(char* )come_increment_ref_count(xsprintf("_function_pointer_result_var_name_a%d",++num_function_pointer_result_var_name_a), "07function.nc", 1961));
-                    if(xisalpha(*info->p)||*info->p==95) {
+                    if(xisalpha(*info->p->p)||*info->p->p==95) {
                         __right_value0 = (void*)0;
                         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07function.nc", 1964));
                     }
-                    if(*info->p==44) {
-                        info->p++;
+                    if(*info->p->p==44) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
                     }
-                    else if(*info->p==41) {
-                        info->p++;
+                    else if(*info->p->p==41) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
                         come_call_finalizer(sType_finalize, param_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 1974);
                         (param_name = come_decrement_ref_count(param_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 1974));
                         break;
                     }
                     else {
-                        err_msg(info,"require , or ) (1) it is %c",*info->p);
+                        err_msg(info,"require , or ) (1) it is %c",*info->p->p);
                         exit(2);
                     }
                     come_call_finalizer(sType_finalize, param_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 1981);
@@ -8583,8 +8594,8 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                 }
             }
             expected_next_character(41,info);
-            if(*info->p==40) {
-                info->p++;
+            if(*info->p->p==40) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
@@ -8592,8 +8603,8 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 param_names2=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 1990, "struct list$1char$ph*"), "07function.nc", 1990)), "07function.nc", 1990);
-                if(*info->p==41) {
-                    info->p++;
+                if(*info->p->p==41) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                 }
                 else {
@@ -8612,17 +8623,17 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                         static int num_function_pointer_result_var_name_b=0;
                         __right_value0 = (void*)0;
                         list$1char$ph_push_back(param_names2,(char* )come_increment_ref_count(xsprintf("_function_pointer_result_var_name_b%d",++num_function_pointer_result_var_name_b), "07function.nc", 2008));
-                        if(xisalpha(*info->p)||*info->p==95) {
+                        if(xisalpha(*info->p->p)||*info->p->p==95) {
                             __right_value0 = (void*)0;
                             (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
                             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07function.nc", 2011));
                         }
-                        if(*info->p==44) {
-                            info->p++;
+                        if(*info->p->p==44) {
+                            info->p->p++;
                             skip_spaces_and_lf(info);
                         }
-                        else if(*info->p==41) {
-                            info->p++;
+                        else if(*info->p->p==41) {
+                            info->p->p++;
                             skip_spaces_and_lf(info);
                             come_call_finalizer(sType_finalize, param_type_127, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 2021);
                             (param_name_128 = come_decrement_ref_count(param_name_128, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 2021));
@@ -8636,7 +8647,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                         (param_name_128 = come_decrement_ref_count(param_name_128, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 2028));
                     }
                 }
-                header_tail=info->p;
+                header_tail=info->p->p;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 result_type2=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "07function.nc", 2032, "struct sType* "), "07function.nc", 2032),(char*)come_increment_ref_count(xsprintf("lambda"), "07function.nc", 2032),(_Bool)0,info,(_Bool)0,0), "07function.nc", 2032);
@@ -8712,11 +8723,11 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         (fun_name_122 = come_decrement_ref_count(fun_name_122, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 2178));
     }
     else if(charp_operator_equals(buf,"__attribute__")||charp_operator_equals(buf,"__declspec")) {
-        info->p=head;
+        info->p->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         struct_attribute0=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1), "07function.nc", 2067);
-        if(xisalpha(*info->p)||*info->p==95) {
+        if(xisalpha(*info->p->p)||*info->p->p==95) {
             __right_value0 = (void*)0;
             word_130=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 2070);
             if(string_operator_equals(word_130,"struct")) {
@@ -8801,39 +8812,39 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                 if(!attribute_define_function) {
                     no_output_come_code_133=info->no_output_come_code;
                     info->no_output_come_code=(_Bool)1;
-                    p_134=info->p;
+                    p_134=info->p->p;
                     sline2=info->sline;
-                    info->p=head;
+                    info->p->p=head;
                     info->sline=head_sline;
                     __right_value0 = (void*)0;
                     (void)((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07function.nc", 2098));
-                    while(xisalnum(*info->p)||*info->p==95) {
+                    while(xisalnum(*info->p->p)||*info->p->p==95) {
                         __right_value0 = (void*)0;
                         declaration_word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 2100);
                         type_word=is_type_name(declaration_word,info);
                         if(!type_word) {
-                            if(*info->p==40||(*info->p==58&&*(info->p+1)==58)) {
+                            if(*info->p->p==40||(*info->p->p==58&&*(info->p->p+1)==58)) {
                                 attribute_define_function=(_Bool)1;
                             }
                             (declaration_word = come_decrement_ref_count(declaration_word, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 2107));
                             break;
                         }
-                        while(*info->p==42) {
-                            info->p++;
+                        while(*info->p->p==42) {
+                            info->p->p++;
                             skip_spaces_and_lf(info);
                         }
-                        if(*info->p==91&&*(info->p+1)==93) {
-                            info->p+=2;
+                        if(*info->p->p==91&&*(info->p->p+1)==93) {
+                            info->p->p+=2;
                             skip_spaces_and_lf(info);
                         }
                         (declaration_word = come_decrement_ref_count(declaration_word, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 2120));
                     }
-                    info->p=p_134;
+                    info->p->p=p_134;
                     info->sline=sline2;
                     info->no_output_come_code=no_output_come_code_133;
                 }
-                info->p=head;
+                info->p->p=head;
                 info->sline=sline;
                 if(attribute_define_function) {
                     __right_value0 = (void*)0;
@@ -8878,7 +8889,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         (struct_attribute0 = come_decrement_ref_count(struct_attribute0, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 2178));
     }
     else if(is_function_attribute_word(buf)) {
-        info->p=head;
+        info->p->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         node_136=(struct sNode*)come_increment_ref_count(parse_function(info), "07function.nc", 2152);
@@ -8890,7 +8901,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         ((node_136) ? node_136 = come_decrement_ref_count(node_136, ((struct sNode*)node_136)->finalize, ((struct sNode*)node_136)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 2178):(void*)0);
     }
     else if(define_function_flag) {
-        info->p=head;
+        info->p->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         node_137=(struct sNode*)come_increment_ref_count(parse_function(info), "07function.nc", 2160);
@@ -8902,11 +8913,11 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         ((node_137) ? node_137 = come_decrement_ref_count(node_137, ((struct sNode*)node_137)->finalize, ((struct sNode*)node_137)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 2178):(void*)0);
     }
     else if(define_variable) {
-        info->p=head;
+        info->p->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         node_138=(struct sNode*)come_increment_ref_count(parse_global_variable(info), "07function.nc", 2168);
-        source_tail=info->p;
+        source_tail=info->p->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 2172, "struct buffer* "), "07function.nc", 2172)), "07function.nc", 2172);
@@ -8920,7 +8931,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         ((node_138) ? node_138 = come_decrement_ref_count(node_138, ((struct sNode*)node_138)->finalize, ((struct sNode*)node_138)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 2178):(void*)0);
         come_call_finalizer(buffer_finalize, header, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 2178);
     }
-    info->p=head;
+    info->p->p=head;
     info->sline=sline;
     __right_value0 = (void*)0;
     buf2_139=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 2181);
@@ -9127,8 +9138,8 @@ struct sNode* parse_function(struct sInfo*  info  )
     struct sNode* _inf_value9;
     struct sFunNode* _inf_obj_value9;
     memset(&fun_name, 0, sizeof(fun_name));
-    header_head=info->p;
-    source_head=info->p;
+    header_head=info->p->p;
+    source_head=info->p->p;
     multiple_assign_var10=((struct tuple2$2char$phchar$ph*)(__right_value0=parse_function_attribute(info)));
     asm_fun=(char* )come_increment_ref_count(multiple_assign_var10->v1, "07function.nc", 2191);
     fun_attribute_prefix=(char* )come_increment_ref_count(multiple_assign_var10->v2, "07function.nc", 2191);
@@ -9140,7 +9151,7 @@ struct sNode* parse_function(struct sInfo*  info  )
     result_type=((void*)0);
     var_name=((void*)0);
     constructor_=(_Bool)0;
-    if(info->in_class&&(info->end-info->p)>=strlen("new(")&&memcmp(info->p,"new(",4)==0) {
+    if(info->in_class&&(info->end-info->p->p)>=strlen("new(")&&memcmp(info->p->p,"new(",4)==0) {
         __right_value0 = (void*)0;
         ((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07function.nc", 2201));
@@ -9201,31 +9212,31 @@ struct sNode* parse_function(struct sInfo*  info  )
     }
     method_definition=(_Bool)0;
     {
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         flag=(_Bool)0;
-        while(xisalnum(*info->p)||*info->p==95) {
+        while(xisalnum(*info->p->p)||*info->p->p==95) {
             flag=(_Bool)1;
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_word((_Bool)0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07function.nc", 2243));
         }
-        while(*info->p==42) {
-            info->p++;
+        while(*info->p->p==42) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
-        while(*info->p==91&&*(info->p+1)==93) {
-            info->p+=2;
+        while(*info->p->p==91&&*(info->p->p+1)==93) {
+            info->p->p+=2;
             skip_spaces_and_lf(info);
         }
-        while(*info->p==37) {
-            info->p++;
+        while(*info->p->p==37) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
-        if(flag&&*info->p==58&&*(info->p+1)==58) {
+        if(flag&&*info->p->p==58&&*(info->p->p+1)==58) {
             method_definition=(_Bool)1;
         }
-        info->p=p;
+        info->p->p=p;
         info->sline=sline;
     }
     base_fun_name=((void*)0);
@@ -9336,19 +9347,19 @@ struct sNode* parse_function(struct sInfo*  info  )
     param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(multiple_assign_var13->v3, "07function.nc", 2324);
     var_args=multiple_assign_var13->v4;
     come_call_finalizer(tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 2324);
-    header_tail=info->p;
+    header_tail=info->p->p;
     if(info->in_class&&charp_operator_equals(base_fun_name,"initialize")) {
         info->in_class=(_Bool)1;
     }
     const_fun=(_Bool)0;
     version=0;
     if(parsecmp("version",info)) {
-        info->p+=strlen("version");
+        info->p->p+=strlen("version");
         skip_spaces_and_lf(info);
         n=0;
-        while(xisdigit(*info->p)) {
-            n=n*10+(*info->p-48);
-            info->p++;
+        while(xisdigit(*info->p->p)) {
+            n=n*10+(*info->p->p-48);
+            info->p->p++;
         }
         skip_spaces_and_lf(info);
         version=n;
@@ -9591,8 +9602,8 @@ struct sNode* parse_function(struct sInfo*  info  )
         (block_155 = come_decrement_ref_count(block_155, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 2597));
         come_call_finalizer(sGenericsFun_finalize, fun_156, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 2597);
     }
-    else if(*info->p==123) {
-        source_tail=info->p-1;
+    else if(*info->p->p==123) {
+        source_tail=info->p->p-1;
         if(version>0) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
@@ -9758,7 +9769,7 @@ struct sNode* parse_function(struct sInfo*  info  )
             come_call_finalizer(sFun_finalize, fun_162, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 2529);
         }
     }
-    else if(xisalpha(*info->p)||*info->p==95||*info->p==59) {
+    else if(xisalpha(*info->p->p)||*info->p->p==95||*info->p->p==59) {
         if(version>0) {
             __right_value0 = (void*)0;
             new_fun_name_163=(char* )come_increment_ref_count(xsprintf("%s_v%d",fun_name,version), "07function.nc", 2532);
@@ -9768,8 +9779,8 @@ struct sNode* parse_function(struct sInfo*  info  )
             __dec_obj153 = come_decrement_ref_count(__dec_obj153, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 2533);
             (new_fun_name_163 = come_decrement_ref_count(new_fun_name_163, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 2536));
         }
-        if(*info->p==59) {
-            info->p++;
+        if(*info->p->p==59) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             result_type->mStatic=(_Bool)0;
             result_type->mUniq=(_Bool)0;
@@ -9899,7 +9910,7 @@ struct sNode* parse_function(struct sInfo*  info  )
         }
     }
     else {
-        err_msg(info,"invalid character(2)(%c)",*info->p);
+        err_msg(info,"invalid character(2)(%c)",*info->p->p);
         exit(2);
     }
     info->constructor_=(_Bool)0;
@@ -10499,7 +10510,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
     param_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(generics_fun->mParamNames), "07function.nc", 2695);
     __right_value0 = (void*)0;
     param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(generics_fun->mParamDefaultParametors), "07function.nc", 2697);
-    p=info->p;
+    p=info->p->p;
     sline=info->sline;
     sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 2701);
     head=info->head;
@@ -10508,7 +10519,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
     __dec_obj172=info->source,
     info->source=(struct buffer* )come_increment_ref_count(charp_to_buffer(generics_fun->mBlock), "07function.nc", 2705);
     come_call_finalizer(buffer_finalize, __dec_obj172,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 2705);
-    info->p=info->source->buf;
+    info->p->p=info->source->buf;
     info->head=info->source->buf;
     generics_type_saved=(struct sType* )come_increment_ref_count(info->generics_type, "07function.nc", 2709);
     come_call_finalizer(sType_finalize, generics_type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 2710);
@@ -10543,7 +10554,7 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
     __dec_obj177=info->source,
     info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 2729);
     come_call_finalizer(buffer_finalize, __dec_obj177,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 2729);
-    info->p=p;
+    info->p->p=p;
     info->sline=sline;
     __dec_obj178=info->sname,
     info->sname=(char* )come_increment_ref_count(sname, "07function.nc", 2732);
@@ -11058,7 +11069,7 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
     param_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(generics_fun->mParamNames), "07function.nc", 2792);
     __right_value0 = (void*)0;
     param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(generics_fun->mParamDefaultParametors), "07function.nc", 2794);
-    p=info->p;
+    p=info->p->p;
     sline=info->sline;
     sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 2798);
     head=info->head;
@@ -11067,7 +11078,7 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
     __dec_obj210=info->source,
     info->source=(struct buffer* )come_increment_ref_count(charp_to_buffer(generics_fun->mBlock), "07function.nc", 2802);
     come_call_finalizer(buffer_finalize, __dec_obj210,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 2802);
-    info->p=info->source->buf;
+    info->p->p=info->source->buf;
     info->head=info->source->buf;
     method_generics_type_names=(struct list$1char$ph*)come_increment_ref_count(info->method_generics_type_names, "07function.nc", 2806);
     __right_value0 = (void*)0;
@@ -11094,7 +11105,7 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
     __dec_obj214=info->source,
     info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 2822);
     come_call_finalizer(buffer_finalize, __dec_obj214,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 2822);
-    info->p=p;
+    info->p->p=p;
     info->sline=sline;
     __dec_obj215=info->sname,
     info->sname=(char* )come_increment_ref_count(sname, "07function.nc", 2825);
@@ -11825,7 +11836,7 @@ __right_value1 = (void*)0,
                 come_call_finalizer(sType_finalize, Value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3062);
             }
             buffer_append_char(source,125);
-            p=info->p;
+            p=info->p->p;
             sline=info->sline;
             sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 3066);
             head=info->head;
@@ -11833,7 +11844,7 @@ __right_value1 = (void*)0,
             __dec_obj244=info->source,
             info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 3070);
             come_call_finalizer(buffer_finalize, __dec_obj244,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3070);
-            info->p=source->buf;
+            info->p->p=source->buf;
             info->head=source->buf;
             __right_value0 = (void*)0;
             __dec_obj245=info->sname,
@@ -11916,7 +11927,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             __dec_obj246=info->source,
             info->source=(struct buffer* )come_increment_ref_count(source3, "07function.nc", 3122);
             come_call_finalizer(buffer_finalize, __dec_obj246,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3122);
-            info->p=p;
+            info->p->p=p;
             info->head=head;
             info->sline=sline;
             __dec_obj247=info->sname,
@@ -12494,7 +12505,7 @@ struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType*  type  ,
         }
         buffer_append_str(source,"return true;");
         buffer_append_char(source,125);
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 3179);
         head=info->head;
@@ -12502,7 +12513,7 @@ struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType*  type  ,
         __dec_obj262=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 3183);
         come_call_finalizer(buffer_finalize, __dec_obj262,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3183);
-        info->p=source->buf;
+        info->p->p=source->buf;
         info->head=source->buf;
         __right_value0 = (void*)0;
         __dec_obj263=info->sname,
@@ -12585,7 +12596,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __dec_obj264=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source3, "07function.nc", 3232);
         come_call_finalizer(buffer_finalize, __dec_obj264,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3232);
-        info->p=p;
+        info->p->p=p;
         info->head=head;
         info->sline=sline;
         __dec_obj265=info->sname,
@@ -12832,7 +12843,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sT
             come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3302);
         }
         buffer_append_char(source,125);
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 3306);
         head=info->head;
@@ -12840,7 +12851,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sT
         __dec_obj279=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 3310);
         come_call_finalizer(buffer_finalize, __dec_obj279,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3310);
-        info->p=source->buf;
+        info->p->p=source->buf;
         info->head=source->buf;
         __right_value0 = (void*)0;
         __dec_obj280=info->sname,
@@ -12923,7 +12934,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __dec_obj281=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source3, "07function.nc", 3359);
         come_call_finalizer(buffer_finalize, __dec_obj281,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3359);
-        info->p=p;
+        info->p->p=p;
         info->head=head;
         info->sline=sline;
         __dec_obj282=info->sname,
@@ -13180,7 +13191,7 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType*  typ
             come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_12, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3426);
         }
         buffer_append_char(source,125);
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 3430);
         head=info->head;
@@ -13188,7 +13199,7 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType*  typ
         __dec_obj296=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 3434);
         come_call_finalizer(buffer_finalize, __dec_obj296,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3434);
-        info->p=source->buf;
+        info->p->p=source->buf;
         info->head=source->buf;
         __right_value0 = (void*)0;
         __dec_obj297=info->sname,
@@ -13271,7 +13282,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __dec_obj298=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source3, "07function.nc", 3483);
         come_call_finalizer(buffer_finalize, __dec_obj298,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3483);
-        info->p=p;
+        info->p->p=p;
         info->head=head;
         info->sline=sline;
         __dec_obj299=info->sname,
@@ -13500,7 +13511,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType*
         }
         buffer_append_str(source,"return true;\n");
         buffer_append_char(source,125);
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 3539);
         head=info->head;
@@ -13508,7 +13519,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType*
         __dec_obj313=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 3543);
         come_call_finalizer(buffer_finalize, __dec_obj313,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3543);
-        info->p=source->buf;
+        info->p->p=source->buf;
         info->head=source->buf;
         __right_value0 = (void*)0;
         __dec_obj314=info->sname,
@@ -13591,7 +13602,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __dec_obj315=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source3, "07function.nc", 3592);
         come_call_finalizer(buffer_finalize, __dec_obj315,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3592);
-        info->p=p;
+        info->p->p=p;
         info->head=head;
         info->sline=sline;
         __dec_obj316=info->sname,
@@ -14032,7 +14043,7 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
         user_cloner=((struct sFun* )(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,user_real_fun_name)));
         buffer_append_format(source,"return result;");
         buffer_append_char(source,125);
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 3757);
         source3=(struct buffer* )come_increment_ref_count(info->source, "07function.nc", 3758);
@@ -14040,7 +14051,7 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
         __dec_obj343=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 3761);
         come_call_finalizer(buffer_finalize, __dec_obj343,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3761);
-        info->p=info->source->buf;
+        info->p->p=info->source->buf;
         info->head=info->source->buf;
         __right_value0 = (void*)0;
         __dec_obj344=info->sname,
@@ -14119,7 +14130,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __dec_obj346=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source3, "07function.nc", 3811);
         come_call_finalizer(buffer_finalize, __dec_obj346,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3811);
-        info->p=p;
+        info->p->p=p;
         info->head=head;
         info->sline=sline;
         come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3818);
@@ -14353,7 +14364,7 @@ struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType*  type
         buffer_append_str(source,"result.append_str(\"}\");\n");
         buffer_append_format(source,"return result.to_string();\n");
         buffer_append_char(source,125);
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 3885);
         source3=(struct buffer* )come_increment_ref_count(info->source, "07function.nc", 3886);
@@ -14361,7 +14372,7 @@ struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType*  type
         __dec_obj360=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 3889);
         come_call_finalizer(buffer_finalize, __dec_obj360,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3889);
-        info->p=info->source->buf;
+        info->p->p=info->source->buf;
         info->head=info->source->buf;
         __right_value0 = (void*)0;
         __dec_obj361=info->sname,
@@ -14443,7 +14454,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __dec_obj363=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source3, "07function.nc", 3939);
         come_call_finalizer(buffer_finalize, __dec_obj363,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3939);
-        info->p=p;
+        info->p->p=p;
         info->head=head;
         info->sline=sline;
         come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3946);
@@ -14718,7 +14729,7 @@ struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType*  t
         }
         buffer_append_format(source,"return result;\n");
         buffer_append_char(source,125);
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 4028);
         source3=(struct buffer* )come_increment_ref_count(info->source, "07function.nc", 4029);
@@ -14726,7 +14737,7 @@ struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType*  t
         __dec_obj378=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 4032);
         come_call_finalizer(buffer_finalize, __dec_obj378,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4032);
-        info->p=info->source->buf;
+        info->p->p=info->source->buf;
         info->head=info->source->buf;
         __right_value0 = (void*)0;
         __dec_obj379=info->sname,
@@ -14808,7 +14819,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __dec_obj381=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source3, "07function.nc", 4082);
         come_call_finalizer(buffer_finalize, __dec_obj381,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4082);
-        info->p=p;
+        info->p->p=p;
         info->head=head;
         info->sline=sline;
         come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 4089);
@@ -15083,7 +15094,7 @@ struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType*  type  
         buffer_append_str(source,source2);
         buffer_append_format(source,"return result;\n");
         buffer_append_char(source,125);
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 4171);
         source3=(struct buffer* )come_increment_ref_count(info->source, "07function.nc", 4172);
@@ -15091,7 +15102,7 @@ struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType*  type  
         __dec_obj396=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 4175);
         come_call_finalizer(buffer_finalize, __dec_obj396,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4175);
-        info->p=info->source->buf;
+        info->p->p=info->source->buf;
         info->head=info->source->buf;
         __right_value0 = (void*)0;
         __dec_obj397=info->sname,
@@ -15179,7 +15190,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __dec_obj399=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source3, "07function.nc", 4227);
         come_call_finalizer(buffer_finalize, __dec_obj399,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4227);
-        info->p=p;
+        info->p->p=p;
         info->head=head;
         info->sline=sline;
         come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 4234);
@@ -15455,7 +15466,7 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  )
     param_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(fun->mParamNames), "07function.nc", 4248);
     __right_value0 = (void*)0;
     param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(fun->mParamDefaultParametors), "07function.nc", 4250);
-    p=info->p;
+    p=info->p->p;
     sline=info->sline;
     sname=(char* )come_increment_ref_count(info->sname, "07function.nc", 4254);
     head=info->head;
@@ -15464,7 +15475,7 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  )
     __dec_obj413=info->source,
     info->source=(struct buffer* )come_increment_ref_count(charp_to_buffer(fun->mTextBlock), "07function.nc", 4258);
     come_call_finalizer(buffer_finalize, __dec_obj413,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4258);
-    info->p=info->source->buf;
+    info->p->p=info->source->buf;
     info->head=info->source->buf;
     info->sline=fun->mTextBlockSline;
     __dec_obj414=info->sname,
@@ -15476,7 +15487,7 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  )
     __dec_obj415=info->source,
     info->source=(struct buffer* )come_increment_ref_count(source, "07function.nc", 4268);
     come_call_finalizer(buffer_finalize, __dec_obj415,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 4268);
-    info->p=p;
+    info->p->p=p;
     info->sline=sline;
     __dec_obj416=info->sname,
     info->sname=(char* )come_increment_ref_count(sname, "07function.nc", 4271);

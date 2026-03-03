@@ -3,17 +3,17 @@
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
 {
     if(!gComeC && buf === "impl") {
-        char* source_head = info.p;
+        char* source_head = info.p.p;
         
         string word;
-        if(*info->p == '_' || xisalpha(*info->p)) {
+        if(*info->p.p == '_' || xisalpha(*info->p.p)) {
             word = parse_word();
         }
         
         bool has_generics_args = false;
-        if(*info->p == '<') {
+        if(*info->p.p == '<') {
             has_generics_args = true;
-            info->p++;
+            info->p.p++;
             skip_spaces_and_lf();
             
             info.generics_type_names.reset();
@@ -22,17 +22,17 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
  
                 info.generics_type_names.push_back(clone generics_name);
                 
-                if(*info->p == ',') {
-                    info->p++;
+                if(*info->p.p == ',') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
-                else if(*info->p == '>') {
-                    info->p++;
+                else if(*info->p.p == '>') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     break;
                 }
                 else {
-                    err_msg(info, "invalid character on impl (%c)", *info->p);
+                    err_msg(info, "invalid character on impl (%c)", *info->p.p);
                     exit(2);
                 }
             }
@@ -52,8 +52,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
         }
         
         int pointer_num = 0;
-        while(*info->p == '*') {
-            info->p++;
+        while(*info->p.p == '*') {
+            info->p.p++;
             skip_spaces_and_lf();
             pointer_num++;
         }
@@ -63,13 +63,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
         info->impl_type = new sType(word);
         info->impl_type->mPointerNum = pointer_num;
         
-        while(*info->p != '}') {
+        while(*info->p.p != '}') {
             skip_spaces_and_lf();
             
-            char* head = info.p;
+            char* head = info.p.p;
             
             string buf;
-            if(*info->p == '_' || xisalpha(*info->p)) {
+            if(*info->p.p == '_' || xisalpha(*info->p.p)) {
                 buf = parse_word();
             }
             
@@ -78,8 +78,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
             sNode*% node = top_level(buf, head, head_sline, info);
             parse_sharp(info);
             
-            while(*info->p == ';') {
-                info->p++;
+            while(*info->p.p == ';') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             parse_sharp(info);
@@ -104,7 +104,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
         info.generics_type_names.reset();
         info->impl_type = null;
         
-        char* source_tail = info.p;
+        char* source_tail = info.p.p;
         
         buffer*% header = new buffer();
         header.append(source_head, source_tail - source_head);

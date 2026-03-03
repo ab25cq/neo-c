@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -5847,14 +5858,14 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
         elif_num=0;
         else_block=((void*)0);
         while(1) {
-            saved_p=info->p;
+            saved_p=info->p->p;
             saved_sline=info->sline;
             skip_spaces_and_lf(info);
-            if(*info->p==59) {
-                info->p++;
+            if(*info->p->p==59) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
-            if(!(xisalpha(*info->p)||*info->p==95)) {
+            if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
                 break;
             }
             skip_spaces_and_lf(info);
@@ -5866,7 +5877,7 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
                 info->sline_real=info->sline;
                 if(parsecmp("if",info)) {
                     skip_spaces_and_lf(info);
-                    info->p+=strlen("if");
+                    info->p->p+=strlen("if");
                     skip_spaces_and_lf(info);
                     expected_next_character(40,info);
                     __right_value0 = (void*)0;
@@ -5898,7 +5909,7 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
                 info->sline_real=sline_real_36;
             }
             else {
-                info->p=saved_p;
+                info->p->p=saved_p;
                 info->sline=saved_sline;
                 (buf_35 = come_decrement_ref_count(buf_35, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 407));
                 break;
@@ -6362,7 +6373,7 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  )
     while((_Bool)1) {
         skip_spaces_and_lf(info);
         if(parsecmp("else",info)) {
-            info->p+=strlen("else");
+            info->p->p+=strlen("else");
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __dec_obj94=else_block,
@@ -6373,8 +6384,8 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  )
             }
         }
         else {
-            if(*info->p==125) {
-                info->p++;
+            if(*info->p->p==125) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
@@ -6394,8 +6405,8 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  )
             ((conditional_value_42) ? conditional_value_42 = come_decrement_ref_count(conditional_value_42, ((struct sNode*)conditional_value_42)->finalize, ((struct sNode*)conditional_value_42)->_protocol_obj, 0, 0,(void*)0, "14if.nc", 509):(void*)0);
             come_call_finalizer(sBlock_finalize, elif_block, (void*)0, (void*)0, 0, 0, 0, (void*)0, "14if.nc}", 509);
         }
-        if(*info->p==125) {
-            info->p++;
+        if(*info->p->p==125) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             break;
         }
@@ -6639,14 +6650,14 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
     elif_num=0;
     else_block=((void*)0);
     while(1) {
-        saved_p=info->p;
+        saved_p=info->p->p;
         saved_sline=info->sline;
         skip_spaces_and_lf(info);
-        if(*info->p==59) {
-            info->p++;
+        if(*info->p->p==59) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
-        if(!(xisalpha(*info->p)||*info->p==95)) {
+        if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
             break;
         }
         skip_spaces_and_lf(info);
@@ -6656,7 +6667,7 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
         if(string_operator_equals(buf,"else")) {
             if(parsecmp("if",info)) {
                 skip_spaces_and_lf(info);
-                info->p+=strlen("if");
+                info->p->p+=strlen("if");
                 skip_spaces_and_lf(info);
                 expected_next_character(40,info);
                 __right_value0 = (void*)0;
@@ -6687,7 +6698,7 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
             }
         }
         else {
-            info->p=saved_p;
+            info->p->p=saved_p;
             info->sline=saved_sline;
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 629));
             break;
@@ -6842,14 +6853,14 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
     elif_num=0;
     else_block=((void*)0);
     while(1) {
-        saved_p=info->p;
+        saved_p=info->p->p;
         saved_sline=info->sline;
         skip_spaces_and_lf(info);
-        if(*info->p==59) {
-            info->p++;
+        if(*info->p->p==59) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
-        if(!(xisalpha(*info->p)||*info->p==95)) {
+        if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
             break;
         }
         skip_spaces_and_lf(info);
@@ -6859,7 +6870,7 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
         if(string_operator_equals(buf,"else")) {
             if(parsecmp("if",info)) {
                 skip_spaces_and_lf(info);
-                info->p+=strlen("if");
+                info->p->p+=strlen("if");
                 skip_spaces_and_lf(info);
                 expected_next_character(40,info);
                 __right_value0 = (void*)0;
@@ -6890,7 +6901,7 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
             }
         }
         else {
-            info->p=saved_p;
+            info->p->p=saved_p;
             info->sline=saved_sline;
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 720));
             break;
@@ -7002,14 +7013,14 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
     elif_num=0;
     else_block=((void*)0);
     while(1) {
-        saved_p=info->p;
+        saved_p=info->p->p;
         saved_sline=info->sline;
         skip_spaces_and_lf(info);
-        if(*info->p==59) {
-            info->p++;
+        if(*info->p->p==59) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
-        if(!(xisalpha(*info->p)||*info->p==95)) {
+        if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
             break;
         }
         skip_spaces_and_lf(info);
@@ -7019,7 +7030,7 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
         if(string_operator_equals(buf,"else")) {
             if(parsecmp("if",info)) {
                 skip_spaces_and_lf(info);
-                info->p+=strlen("if");
+                info->p->p+=strlen("if");
                 skip_spaces_and_lf(info);
                 expected_next_character(40,info);
                 __right_value0 = (void*)0;
@@ -7050,7 +7061,7 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
             }
         }
         else {
-            info->p=saved_p;
+            info->p->p=saved_p;
             info->sline=saved_sline;
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 811));
             break;

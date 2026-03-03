@@ -129,12 +129,12 @@ sNode*% parse_global_variable(sInfo* info)
     /// backtrace ///
     bool multiple_declare = false;
     {
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             skip_spaces_and_lf();
             var type, name, err = parse_type();
             skip_spaces_and_lf();
@@ -144,11 +144,11 @@ sNode*% parse_global_variable(sInfo* info)
                 var type,name = parse_variable_name_on_multiple_declare(type@base_type_name, true@first, info);
                 skip_spaces_and_lf();
                 
-                if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
-                    info->p++;
+                if(*info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
-                    if(*info->p == '{') {
+                    if(*info->p.p == '{') {
                         skip_block();
                     }
                     else {
@@ -163,14 +163,14 @@ sNode*% parse_global_variable(sInfo* info)
                     
                 }
                 
-                if(!is_type_name(name) && *info->p == ',') {
+                if(!is_type_name(name) && *info->p.p == ',') {
                     multiple_declare = true;
                 }
             }
         }
         
         info.no_output_come_code =  no_output_come_code;
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
@@ -190,13 +190,13 @@ sNode*% parse_global_variable(sInfo* info)
         var type2, var_name = parse_variable_name_on_multiple_declare(base_type, true@first, info);
         skip_spaces_and_lf();
         
-        if(*info->p == '=' && *(info->p+1) != '=') {
-            info->p++;
+        if(*info->p.p == '=' && *(info->p.p+1) != '=') {
+            info->p.p++;
             skip_spaces_and_lf();
             
-            char* head = info.p;
+            char* head = info.p.p;
             
-            if(*info->p == '{') {
+            if(*info->p.p == '{') {
                 skip_block();
             }
             else {
@@ -212,7 +212,7 @@ sNode*% parse_global_variable(sInfo* info)
                 info->no_output_come_code = no_output_come_code;
             }
             
-            char* tail = info.p;
+            char* tail = info.p.p;
             
             var buf = new buffer();
             
@@ -226,19 +226,19 @@ sNode*% parse_global_variable(sInfo* info)
             multiple_declare.push_back(t(type2, var_name, (string)null));
         }
         
-        while(*info->p == ',') {
-            info->p++;
+        while(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             var type2, var_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
             
-            if(*info->p == '=' && *(info->p+1) != '=')  {
-                info->p++;
+            if(*info->p.p == '=' && *(info->p.p+1) != '=')  {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
-                char* head = info.p;
+                char* head = info.p.p;
                 
-                if(*info->p == '{') {
+                if(*info->p.p == '{') {
                     skip_block();
                 }
                 else {
@@ -254,7 +254,7 @@ sNode*% parse_global_variable(sInfo* info)
                     info->no_output_come_code = no_output_come_code;
                 }
                 
-                char* tail = info.p;
+                char* tail = info.p.p;
                 
                 var buf = new buffer();
                 
@@ -300,73 +300,73 @@ sNode*% parse_global_variable(sInfo* info)
         sNode*% right_node = null;
         string array_initializer = null;
         
-        if(*info->p == '=' && *(info->p+1) != '=') {
-            info->p++;
+        if(*info->p.p == '=' && *(info->p.p+1) != '=') {
+            info->p.p++;
             skip_spaces_and_lf();
             
-            if(*info->p == '{') {
+            if(*info->p.p == '{') {
                 buffer*% buf = new buffer();
                 
-                buf.append_char(*info->p);
-                info->p++;
+                buf.append_char(*info->p.p);
+                info->p.p++;
                 
                 bool squort = false;
                 bool dquort = false;
                 int nest = 1;
                 while(1) {
-                    if(*info->p == '\0') {
+                    if(*info->p.p == '\0') {
                         err_msg(info, "unexpected source end in array initiailizer");
                         exit(2);
                     }
-                    else if(*info->p == '\\') {
-                        buf.append_char(*info->p);
-                        info->p++;
-                        if(*info->p == '\n') {
+                    else if(*info->p.p == '\\') {
+                        buf.append_char(*info->p.p);
+                        info->p.p++;
+                        if(*info->p.p == '\n') {
                             info->sline++;
                         }
-                        buf.append_char(*info->p);
-                        info->p++;
+                        buf.append_char(*info->p.p);
+                        info->p.p++;
                     }
-                    else if(!squort && *info->p == '"') {
-                        buf.append_char(*info->p);
-                        info->p++;
+                    else if(!squort && *info->p.p == '"') {
+                        buf.append_char(*info->p.p);
+                        info->p.p++;
                         dquort = !dquort;
                     }
-                    else if(!dquort && *info->p == '\'') {
-                        buf.append_char(*info->p);
-                        info->p++;
+                    else if(!dquort && *info->p.p == '\'') {
+                        buf.append_char(*info->p.p);
+                        info->p.p++;
                         squort = !squort;
                     }
                     else if(squort || dquort) {
-                        if(*info->p == '\n') {
+                        if(*info->p.p == '\n') {
                             info->sline++;
                         }
-                        buf.append_char(*info->p);
-                        info->p++;
+                        buf.append_char(*info->p.p);
+                        info->p.p++;
                     }
-                    else if(*info->p == '{') {
+                    else if(*info->p.p == '{') {
                         nest++;
-                        buf.append_char(*info->p);
-                        info->p++;
+                        buf.append_char(*info->p.p);
+                        info->p.p++;
                     }
-                    else if(*info->p == '}') {
+                    else if(*info->p.p == '}') {
                         nest--;
-                        buf.append_char(*info->p);
-                        info->p++;
+                        buf.append_char(*info->p.p);
+                        info->p.p++;
                         
                         if(nest == 0) {
                             skip_spaces_and_lf();
                             break;
                         }
                     }
-                    else if(*info->p == '\n') {
+                    else if(*info->p.p == '\n') {
                         info->sline++;
-                        buf.append_char(*info->p);
-                        info->p++;
+                        buf.append_char(*info->p.p);
+                        info->p.p++;
                     }
                     else {
-                        buf.append_char(*info->p);
-                        info->p++;
+                        buf.append_char(*info->p.p);
+                        info->p.p++;
                     }
                 }
                 array_initializer = buf.to_string();

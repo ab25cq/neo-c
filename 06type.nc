@@ -29,8 +29,8 @@ bool is_type_name(char* buf, sInfo* info=info)
             || buf === "_Alignas"
             || buf === "_Atomic"
             || buf === "__type__"
-            || buf === "__attribute__" && (*info->p == '(' || (*info->p == '[' && *(info->p+1) == '['))
-            || buf === "__declspec" && *info->p == '('
+            || buf === "__attribute__" && (*info->p.p == '(' || (*info->p.p == '[' && *(info->p.p+1) == '['))
+            || buf === "__declspec" && *info->p.p == '('
             || buf === "void" ;
     }
     else {
@@ -54,9 +54,9 @@ bool is_type_name(char* buf, sInfo* info=info)
         || buf === "restrict"
         || buf === "__type__"
         || buf === "_weak"
-        || buf === "__attribute__" && (*info->p == '(' || (*info->p == '[' && *(info->p+1) == '['))
-        || buf === "__declspec" && *info->p == '('
-        || (buf === "tup" && (*info->p == ':' || *info->p == '('))
+        || buf === "__attribute__" && (*info->p.p == '(' || (*info->p.p == '[' && *(info->p.p+1) == '['))
+        || buf === "__declspec" && *info->p.p == '('
+        || (buf === "tup" && (*info->p.p == ':' || *info->p.p == '('))
         || (info.in_top_level && buf === "uniq") ;
     }
 }
@@ -136,37 +136,37 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
     /// backtrace ///
     bool void_param = false;
     {
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
         if(parsecmp("void")) {
-            info.p += strlen("void");
+            info.p.p += strlen("void");
             skip_spaces_and_lf();
             
-            if(*info->p == ')') {
+            if(*info->p.p == ')') {
                 void_param = true;
             }
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
     if(void_param) {
         if(parsecmp("void")) {
-            info.p += strlen("void");
+            info.p.p += strlen("void");
             skip_spaces_and_lf();
             
-            if(*info->p == ')') {
-                info->p++;
+            if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
         }
     }
     else {
         while(true) {
-            if(*info->p == ')') {
-                info->p++;
+            if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
@@ -185,12 +185,12 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
             param_types.push_back(clone param_type2);
             param_names.push_back(clone param_name);
             
-            if(*info->p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
-                info->p++;
+            if(*info->p.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 
-                char* p = info->p;
+                char* p = info->p.p;
                 
                 bool no_comma = info.no_comma;
                 info.no_comma = true;
@@ -199,7 +199,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
                 
                 info.no_comma = no_comma;
                 
-                char* p2 = info->p;
+                char* p2 = info->p.p;
                 
                 char buf[p2 -p +1];
                 memcpy(buf, p, p2 -p);
@@ -213,12 +213,12 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
             
             skip_spaces_and_lf();
             
-            if(*info->p == ',') {
-                info->p++;
+            if(*info->p.p == ',') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 if(parsecmp("...")) {
-                    info->p += strlen("...");
+                    info->p.p += strlen("...");
                     skip_spaces_and_lf();
                     var_args = true;
                     
@@ -226,8 +226,8 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
                     break;
                 }
             }
-            else if(*info->p == ')') {
-                info->p++;
+            else if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
@@ -247,36 +247,36 @@ bool parse_common_attribute_keyword(buffer* result, sInfo* info=info, bool allow
 string parse_square_attribute(sInfo* info=info)
 {
     skip_spaces_and_lf();
-    if(!(*info->p == '[' && *(info->p+1) == '[')) {
+    if(!(*info->p.p == '[' && *(info->p.p+1) == '[')) {
         return s"";
     }
     
-    info->p += 2;
+    info->p.p += 2;
     skip_spaces_and_lf();
     
     buffer*% result = new buffer();
     
-    while(*info->p) {
-        if(*info->p == ']' && *(info->p+1) == ']') {
-            info->p += 2;
+    while(*info->p.p) {
+        if(*info->p.p == ']' && *(info->p.p+1) == ']') {
+            info->p.p += 2;
             skip_spaces_and_lf();
             break;
         }
         
-        if(!(xisalpha(*info->p) || *info->p == '_')) {
-            info->p++;
+        if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
+            info->p.p++;
             continue;
         }
         
         string ns = s"";
         string keyword = parse_word();
         
-        if(*info->p == ':' && *(info->p+1) == ':') {
+        if(*info->p.p == ':' && *(info->p.p+1) == ':') {
             ns = keyword;
-            info->p += 2;
+            info->p.p += 2;
             skip_spaces_and_lf();
             
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 keyword = parse_word();
             }
             else {
@@ -286,10 +286,10 @@ string parse_square_attribute(sInfo* info=info)
         
         char* arg_head = null;
         char* arg_tail = null;
-        if(*info->p == '(') {
-            arg_head = info.p;
+        if(*info->p.p == '(') {
+            arg_head = info.p.p;
             skip_paren(info);
-            arg_tail = info.p;
+            arg_tail = info.p.p;
         }
         
         bool gnu_ns = ns === "gnu" || ns === "__gnu__";
@@ -377,8 +377,8 @@ string parse_square_attribute(sInfo* info=info)
         }
         
         skip_spaces_and_lf();
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
     }
@@ -388,28 +388,28 @@ string parse_square_attribute(sInfo* info=info)
 
 string parse_declspec_attribute(sInfo* info=info)
 {
-    char* p = info.p;
+    char* p = info.p.p;
     int sline = info.sline;
     
     if(parsecmp("__declspec")) {
-        info->p += strlen("__declspec");
+        info->p.p += strlen("__declspec");
         skip_spaces_and_lf();
     }
     
-    if(*info->p != '(') {
-        info.p = p;
+    if(*info->p.p != '(') {
+        info.p.p = p;
         info.sline = sline;
         return s"";
     }
     
-    info->p++;
+    info->p.p++;
     skip_spaces_and_lf();
     
     buffer*% result = new buffer();
     
-    while(*info->p && *info->p != ')') {
-        if(!(xisalpha(*info->p) || *info->p == '_')) {
-            info->p++;
+    while(*info->p.p && *info->p.p != ')') {
+        if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
+            info->p.p++;
             continue;
         }
         
@@ -417,10 +417,10 @@ string parse_declspec_attribute(sInfo* info=info)
         skip_spaces_and_lf();
         
         if(keyword === "align") {
-            if(*info->p == '(') {
-                char* arg_head = info.p;
+            if(*info->p.p == '(') {
+                char* arg_head = info.p.p;
                 skip_paren(info);
-                char* arg_tail = info.p;
+                char* arg_tail = info.p.p;
                 
                 if(result.length() > 0) {
                     result.append_str(" ");
@@ -446,7 +446,7 @@ string parse_declspec_attribute(sInfo* info=info)
             }
             result.append_format("__attribute__((%s))", keyword);
             
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 skip_paren(info);
             }
         }
@@ -456,31 +456,31 @@ string parse_declspec_attribute(sInfo* info=info)
             }
             result.append_str("__attribute__((deprecated");
             
-            if(*info->p == '(') {
-                char* arg_head = info.p;
+            if(*info->p.p == '(') {
+                char* arg_head = info.p.p;
                 skip_paren(info);
-                char* arg_tail = info.p;
+                char* arg_tail = info.p.p;
                 result.append(arg_head, arg_tail-arg_head);
             }
             
             result.append_str("))");
         }
         else {
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 skip_paren(info);
             }
         }
         
         skip_spaces_and_lf();
         
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
     }
     
-    if(*info->p == ')') {
-        info->p++;
+    if(*info->p.p == ')') {
+        info->p.p++;
         skip_spaces_and_lf();
     }
     
@@ -494,31 +494,31 @@ string,string parse_attribute(sInfo* info=info)
     
     while(true) {
         if(parsecmp("__attribute_pure__")) {
-            info->p += strlen("__attribute_pure__");
+            info->p.p += strlen("__attribute_pure__");
             skip_spaces_and_lf();
         }
         else if(parsecmp("__malloc_like")) {
-            info->p += strlen("__malloc_like");
+            info->p.p += strlen("__malloc_like");
             skip_spaces_and_lf();
         }
         else if(parsecmp("__result_use_check")) {
-            info->p += strlen("__result_use_check");
+            info->p.p += strlen("__result_use_check");
             skip_spaces_and_lf();
         }
         else if(parsecmp("__alloc_size2")) {
-            info->p += strlen("__alloc_size2");
+            info->p.p += strlen("__alloc_size2");
             skip_spaces_and_lf();
             
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 int nest = 0;
                 while(1) {
-                    if(*info->p == '(') {
-                        info->p++;
+                    if(*info->p.p == '(') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         nest++;
                     }
-                    else if(*info->p == ')') {
-                        info->p++
+                    else if(*info->p.p == ')') {
+                        info->p.p++
                         skip_spaces_and_lf();
                         
                         nest--;
@@ -526,29 +526,29 @@ string,string parse_attribute(sInfo* info=info)
                             break;
                         }
                     }
-                    else if(*info->p == '\0') {
+                    else if(*info->p.p == '\0') {
                         break;
                     }
                     else {
-                        info->p++;
+                        info->p.p++;
                     }
                 }
             }
         }
         else if(parsecmp("__alloc_size")) {
-            info->p += strlen("__alloc_size");
+            info->p.p += strlen("__alloc_size");
             skip_spaces_and_lf();
             
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 int nest = 0;
                 while(1) {
-                    if(*info->p == '(') {
-                        info->p++;
+                    if(*info->p.p == '(') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         nest++;
                     }
-                    else if(*info->p == ')') {
-                        info->p++
+                    else if(*info->p.p == ')') {
+                        info->p.p++
                         skip_spaces_and_lf();
                         
                         nest--;
@@ -556,29 +556,29 @@ string,string parse_attribute(sInfo* info=info)
                             break;
                         }
                     }
-                    else if(*info->p == '\0') {
+                    else if(*info->p.p == '\0') {
                         break;
                     }
                     else {
-                        info->p++;
+                        info->p.p++;
                     }
                 }
             }
         }
         else if(parsecmp("__nonnull")) {
-            info->p += strlen("__nonnull");
+            info->p.p += strlen("__nonnull");
             skip_spaces_and_lf();
             
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 int nest = 0;
                 while(1) {
-                    if(*info->p == '(') {
-                        info->p++;
+                    if(*info->p.p == '(') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         nest++;
                     }
-                    else if(*info->p == ')') {
-                        info->p++
+                    else if(*info->p.p == ')') {
+                        info->p.p++
                         skip_spaces_and_lf();
                         
                         nest--;
@@ -586,29 +586,29 @@ string,string parse_attribute(sInfo* info=info)
                             break;
                         }
                     }
-                    else if(*info->p == '\0') {
+                    else if(*info->p.p == '\0') {
                         break;
                     }
                     else {
-                        info->p++;
+                        info->p.p++;
                     }
                 }
             }
         }
         else if(parsecmp("_Nonnull")) {
-            info->p += strlen("_Nonnull");
+            info->p.p += strlen("_Nonnull");
             skip_spaces_and_lf();
             
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 int nest = 0;
                 while(1) {
-                    if(*info->p == '(') {
-                        info->p++;
+                    if(*info->p.p == '(') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         nest++;
                     }
-                    else if(*info->p == ')') {
-                        info->p++
+                    else if(*info->p.p == ')') {
+                        info->p.p++
                         skip_spaces_and_lf();
                         
                         nest--;
@@ -616,29 +616,29 @@ string,string parse_attribute(sInfo* info=info)
                             break;
                         }
                     }
-                    else if(*info->p == '\0') {
+                    else if(*info->p.p == '\0') {
                         break;
                     }
                     else {
-                        info->p++;
+                        info->p.p++;
                     }
                 }
             }
         }
         else if(parsecmp("__alloc_align")) {
-            info->p += strlen("__alloc_align");
+            info->p.p += strlen("__alloc_align");
             skip_spaces_and_lf();
             
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 int nest = 0;
                 while(1) {
-                    if(*info->p == '(') {
-                        info->p++;
+                    if(*info->p.p == '(') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         nest++;
                     }
-                    else if(*info->p == ')') {
-                        info->p++
+                    else if(*info->p.p == ')') {
+                        info->p.p++
                         skip_spaces_and_lf();
                         
                         nest--;
@@ -646,37 +646,37 @@ string,string parse_attribute(sInfo* info=info)
                             break;
                         }
                     }
-                    else if(*info->p == '\0') {
+                    else if(*info->p.p == '\0') {
                         break;
                     }
                     else {
-                        info->p++;
+                        info->p.p++;
                     }
                 }
             }
         }
         else if(parsecmp("__attribute_malloc__")) {
-            info->p += strlen("__attribute_malloc__");
+            info->p.p += strlen("__attribute_malloc__");
             skip_spaces_and_lf();
         }
         else if(parsecmp("__attr_dealloc_fclose")) {
-            info->p += strlen("__attr_dealloc_fclose");
+            info->p.p += strlen("__attr_dealloc_fclose");
             skip_spaces_and_lf();
         }
         else if(parsecmp("__wur")) {
-            info->p += strlen("__wur");
+            info->p.p += strlen("__wur");
             skip_spaces_and_lf();
         }
         else if(parsecmp("__pure2")) {
-            info->p += strlen("__pure2");
+            info->p.p += strlen("__pure2");
             skip_spaces_and_lf();
         }
         else if(parsecmp("__pure")) {
-            info->p += strlen("__pure");
+            info->p.p += strlen("__pure");
             skip_spaces_and_lf();
         }
         else if(parsecmp("__noreturn")) {
-            info->p += strlen("__noreturn");
+            info->p.p += strlen("__noreturn");
             skip_spaces_and_lf();
         }
         else if(parsecmp("__attribute__")) {
@@ -694,7 +694,7 @@ string,string parse_attribute(sInfo* info=info)
                 attribute.append_str(attr);
             }
         }
-        else if(*info->p == '[' && *(info->p+1) == '[') {
+        else if(*info->p.p == '[' && *(info->p.p+1) == '[') {
             string attr = parse_square_attribute();
             if(attr !== "") {
                 if(attribute.length() > 0) {
@@ -704,35 +704,35 @@ string,string parse_attribute(sInfo* info=info)
             }
         }
         else if(parsecmp("__asm__")) {
-            info->p += strlen("__asm__");
+            info->p.p += strlen("__asm__");
             skip_spaces_and_lf();
             
-            if((info->end - info->p) >= strlen("__ASMNAME") && memcmp(info->p, "__ASMNAME", strlen("__ASMNAME")) == 0) {
-                info->p += strlen("__ASMNAME");
+            if((info->end - info->p.p) >= strlen("__ASMNAME") && memcmp(info->p.p, "__ASMNAME", strlen("__ASMNAME")) == 0) {
+                info->p.p += strlen("__ASMNAME");
                 skip_spaces_and_lf();
             }
 
             int len = 0;
 
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 bool in_dquort = false;
                 int brace_num = 0;
-                while(*info->p) {
-                    if(*info->p == '"') {
-                        info->p++;
+                while(*info->p.p) {
+                    if(*info->p.p == '"') {
+                        info->p.p++;
     
                         in_dquort = !in_dquort;
                     }
                     else if(in_dquort) {
-                        asm_fun_name.append_char(*info->p);
-                        info->p++;
+                        asm_fun_name.append_char(*info->p.p);
+                        info->p.p++;
                     }
-                    else if(*info->p == '(') {
-                        info->p++;
+                    else if(*info->p.p == '(') {
+                        info->p.p++;
                         brace_num++;
                     }
-                    else if(*info->p == ')') {
-                        info->p++;
+                    else if(*info->p.p == ')') {
+                        info->p.p++;
                         brace_num--;
     
                         if(brace_num == 0) {
@@ -740,7 +740,7 @@ string,string parse_attribute(sInfo* info=info)
                         }
                     }
                     else {
-                        info->p++;
+                        info->p.p++;
                     }
                 }
             }
@@ -748,18 +748,18 @@ string,string parse_attribute(sInfo* info=info)
             skip_spaces_and_lf();
         }
         else if(parsecmp("__asm")) {
-            info->p += strlen("__asm");
+            info->p.p += strlen("__asm");
             skip_spaces_and_lf();
 
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 int brace_num = 0;
-                while(*info->p) {
-                    if(*info->p == '(') {
-                        info->p++;
+                while(*info->p.p) {
+                    if(*info->p.p == '(') {
+                        info->p.p++;
                         brace_num++;
                     }
-                    else if(*info->p == ')') {
-                        info->p++;
+                    else if(*info->p.p == ')') {
+                        info->p.p++;
                         brace_num--;
     
                         if(brace_num == 0) {
@@ -767,7 +767,7 @@ string,string parse_attribute(sInfo* info=info)
                         }
                     }
                     else {
-                        info->p++;
+                        info->p.p++;
                     }
                 }
             }
@@ -787,16 +787,16 @@ string,string parse_attribute(sInfo* info=info)
 void parse_struct_attribute_skip_paren(sInfo* info)
 {
     skip_spaces_and_lf();
-    if(*info->p == '(') {
+    if(*info->p.p == '(') {
         int nest = 0;
         while(1) {
-            if(*info->p == '(') {
-                info->p++;
+            if(*info->p.p == '(') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 nest++;
             }
-            else if(*info->p == ')') {
-                info->p++
+            else if(*info->p.p == ')') {
+                info->p.p++
                 skip_spaces_and_lf();
                 
                 nest--;
@@ -804,11 +804,11 @@ void parse_struct_attribute_skip_paren(sInfo* info)
                     break;
                 }
             }
-            else if(*info->p == '\0') {
+            else if(*info->p.p == '\0') {
                 break;
             }
             else {
-                info->p++;
+                info->p.p++;
             }
         }
     }
@@ -818,7 +818,7 @@ void parse_struct_attribute_skip_paren(sInfo* info)
 bool parse_attribute_keyword(buffer* result, const char* keyword, bool allow_end, sInfo* info=info)
 {
     if(parsecmp(keyword)) {
-        char* p = info.p + strlen(keyword);
+        char* p = info.p.p + strlen(keyword);
         while(*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') {
             p++;
         }
@@ -828,12 +828,12 @@ bool parse_attribute_keyword(buffer* result, const char* keyword, bool allow_end
             }
         }
         
-        char* head = info.p;
-        info->p += strlen(keyword);
+        char* head = info.p.p;
+        info->p.p += strlen(keyword);
         
         parse_struct_attribute_skip_paren(info);
         
-        char* tail = info.p;
+        char* tail = info.p.p;
         result.append(head, tail-head);
         
         return true;
@@ -1031,13 +1031,13 @@ string parse_struct_attribute(sInfo* info=info, bool allow_end=true)
     buffer*% result = new buffer();
     while(1) {
         if(parsecmp("__attribute__")) {
-            char* head = info.p;
+            char* head = info.p.p;
             
-            info->p += strlen("__attribute__");
+            info->p.p += strlen("__attribute__");
             skip_spaces_and_lf();
             skip_paren(info);
             
-            char* tail = info->p;
+            char* tail = info->p.p;
             
             result.append(head, tail-head);
         }
@@ -1051,7 +1051,7 @@ string parse_struct_attribute(sInfo* info=info, bool allow_end=true)
                 result.append_str(attr);
             }
         }
-        else if(*info->p == '[' && *(info->p+1) == '[') {
+        else if(*info->p.p == '[' && *(info->p.p+1) == '[') {
             string attr = parse_square_attribute();
             
             if(attr !== "") {
@@ -1096,79 +1096,79 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
     string var_name = null;
     
     {
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
     
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             string word = parse_word();
             
             if(word === "const" || word === "__restrict" || word === "restrict" || word === "__user" || word === "volatile" || word === "__volatile__" || word === "_Nonnull" || word === "_Nullable" || word === "_Null_unspecified" || word === "__user" || word === "_Addr") {
             }
             else {
-                info.p = p;
+                info.p.p = p;
                 info.sline = sline;
             }
         }
         else {
-            info.p = p;
+            info.p.p = p;
             info.sline = sline;
         }
     }
     
     bool between_brace = false;
     {
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
             
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 string word = parse_word();
                 
                 if(is_type_name(word)) {
                 }
-                else if(*info->p == ')') {
-                    info->p++;
+                else if(*info->p.p == ')') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
-                    if(*info->p != '(') {
+                    if(*info->p.p != '(') {
                         between_brace = true;
                     }
                 }
             }
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     bool lambda_ = false;
     {
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
             
-            if(*info->p == '*') {
-                info->p++
+            if(*info->p.p == '*') {
+                info->p.p++
                 skip_spaces_and_lf();
                 
-                if(xisalpha(*info->p) || *info->p == '_') {
+                if(xisalpha(*info->p.p) || *info->p.p == '_') {
                     string word = parse_word();
                     
                     if(is_type_name(word)) {
                     }
-                    else if(*info->p == '[') {
+                    else if(*info->p.p == '[') {
                         lambda_ = true;
                     }
-                    else if(*info->p == ')') {
-                        info->p++;
+                    else if(*info->p.p == ')') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         
-                        if(*info->p == '(') {
+                        if(*info->p.p == '(') {
                             lambda_ = true;
                         }
                     }
@@ -1176,13 +1176,13 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
             }
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
     skip_spaces_and_lf();
-    while(*info->p == '*') {
-        info->p++;
+    while(*info->p.p == '*') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         skip_pointer_attribute();
@@ -1191,8 +1191,8 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
     }
     skip_spaces_and_lf();
     
-    if(between_brace && *info->p == '(') {
-        info->p++;
+    if(between_brace && *info->p.p == '(') {
+        info->p.p++;
         skip_spaces_and_lf();
     }
     
@@ -1204,8 +1204,8 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
         
         sType*% result_type2 = new sType(s"lambda");
         
-        if(*info->p == '[') {
-            info->p++;
+        if(*info->p.p == '[') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             sNode*% node = expression();
@@ -1226,7 +1226,7 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
         
         result_type = result_type2;
     }
-    else if(xisalnum(*info.p) || *info->p == '_') {
+    else if(xisalnum(*info.p.p) || *info->p.p == '_') {
         var_name = parse_word();
     }
     else {
@@ -1235,13 +1235,13 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
         var_name = xsprintf("anonymous_var_nameYYY%d", num_anonymous_var_name);
     }
     
-    if(between_brace && *info->p == ')') {
-        info->p++;
+    if(between_brace && *info->p.p == ')') {
+        info->p.p++;
         skip_spaces_and_lf();
     }
     
-    if(*info->p == ':') {
-        info->p++;
+    if(*info->p.p == ':') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         bool no_comma = info->no_comma;
@@ -1252,32 +1252,32 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
         result_type->mSizeNum = node;
     }
     
-    while(*info->p == '[') {
-        info->p++;
+    while(*info->p.p == '[') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         {
-            char* p = info.p;
+            char* p = info.p.p;
             int sline = info.sline;
         
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 string word = parse_word();
                 
                 if(word === "const" || word === "__restrict" || word === "restrict" || word === "__user" || word === "volatile" || word === "__volatile__" || word === "_Nonnull" || word === "_Nullable" || word === "_Null_unspecified" || word === "__user" || word === "_Addr") {
                 }
                 else {
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                 }
             }
             else {
-                info.p = p;
+                info.p.p = p;
                 info.sline = sline;
             }
         }
         
-        if(*info->p == ']') {
-            info->p++;
+        if(*info->p.p == ']') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             result_type->mArrayPointerType = true;
@@ -1302,27 +1302,27 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
 
 bool skip_pointer_attribute(sInfo* info=info)
 {
-    char* p = info.p;
+    char* p = info.p.p;
     int sline = info.sline;
     
-    if(*info->p == '[' && *(info->p+1) == '[') {
+    if(*info->p.p == '[' && *(info->p.p+1) == '[') {
         (void)parse_square_attribute();
         return true;
     }
 
-    if(xisalpha(*info->p) || *info->p == '_') {
+    if(xisalpha(*info->p.p) || *info->p.p == '_') {
         string word = parse_word();
         
-        if((word === "__attribute" || word === "__attribute__") && *info->p == '(') {
+        if((word === "__attribute" || word === "__attribute__") && *info->p.p == '(') {
             int nest = 0;
             while(1) {
-                if(*info->p == '(') {
-                    info->p++;
+                if(*info->p.p == '(') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     nest++;
                 }
-                else if(*info->p == ')') {
-                    info->p++
+                else if(*info->p.p == ')') {
+                    info->p.p++
                     skip_spaces_and_lf();
                     
                     nest--;
@@ -1330,17 +1330,17 @@ bool skip_pointer_attribute(sInfo* info=info)
                         break;
                     }
                 }
-                else if(*info->p == '\0') {
+                else if(*info->p.p == '\0') {
                     break;
                 }
                 else {
-                    info->p++;
+                    info->p.p++;
                 }
             }
             
             return true;
         }
-        else if(word === "__declspec" && *info->p == '(') {
+        else if(word === "__declspec" && *info->p.p == '(') {
             skip_paren(info);
             return true;
         }
@@ -1348,12 +1348,12 @@ bool skip_pointer_attribute(sInfo* info=info)
             return true;
         }
         else {
-            info.p = p;
+            info.p.p = p;
             info.sline = sline;
         }
     }
     else {
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
@@ -1365,30 +1365,30 @@ string parse_pointer_qualifier(sInfo* info=info)
     buffer*% result = new buffer();
     
     while(1) {
-        if(*info->p == '[' && *(info->p+1) == '[') {
+        if(*info->p.p == '[' && *(info->p.p+1) == '[') {
             (void)parse_square_attribute();
             continue;
         }
         
-        if(!(xisalpha(*info->p) || *info->p == '_')) {
+        if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
             break;
         }
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
         string word = parse_word();
         
-        if((word === "__attribute" || word === "__attribute__") && *info->p == '(') {
+        if((word === "__attribute" || word === "__attribute__") && *info->p.p == '(') {
             int nest = 0;
             while(1) {
-                if(*info->p == '(') {
-                    info->p++;
+                if(*info->p.p == '(') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     nest++;
                 }
-                else if(*info->p == ')') {
-                    info->p++;
+                else if(*info->p.p == ')') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
                     nest--;
@@ -1396,16 +1396,16 @@ string parse_pointer_qualifier(sInfo* info=info)
                         break;
                     }
                 }
-                else if(*info->p == '\0') {
+                else if(*info->p.p == '\0') {
                     break;
                 }
                 else {
-                    info->p++;
+                    info->p.p++;
                 }
             }
             continue;
         }
-        else if(word === "__declspec" && *info->p == '(') {
+        else if(word === "__declspec" && *info->p.p == '(') {
             skip_paren(info);
             continue;
         }
@@ -1422,7 +1422,7 @@ string parse_pointer_qualifier(sInfo* info=info)
             continue;
         }
         else {
-            info.p = p;
+            info.p.p = p;
             info.sline = sline;
             break;
         }
@@ -1454,12 +1454,12 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
     bool union_ = false;
     bool enum_ = false;
     {
-        char* head = info->p;
+        char* head = info->p.p;
         int head_sline = info->sline;
    
         parse_attribute();
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             string declare_name = parse_word();
             
             if(declare_name === "struct") {
@@ -1477,7 +1477,7 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
         }
         parse_attribute();
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             string struct_name = parse_word();
         }
         else {
@@ -1486,16 +1486,16 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
         
         parse_attribute();
         
-        if(*info->p == '<') {
+        if(*info->p.p == '<') {
             int nest = 0;
             while(true) {
-                if(*info->p == '<') {
-                    info->p++;
+                if(*info->p.p == '<') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     nest++;
                 }
-                else if(*info->p == '>') {
-                    info->p++;
+                else if(*info->p.p == '>') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
                     nest--;
@@ -1503,12 +1503,12 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
                         break;
                     }
                 }
-                else if(*info->p == '\0') {
+                else if(*info->p.p == '\0') {
                     err_msg(info, "unexpected source end");
                     exit(1);
                 }
                 else {
-                    *info->p++;
+                    *info->p.p++;
                     skip_spaces_and_lf();
                 }
             }
@@ -1516,12 +1516,12 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
         
         parse_attribute();
         
-        if(*info->p == '{') {
+        if(*info->p.p == '{') {
             skip_block(info);
             
             parse_attribute();
             
-            if(*info->p == ';') {
+            if(*info->p.p == ';') {
                 define_only = true;
             }
             else {
@@ -1529,7 +1529,7 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
             }
         }
         
-        info.p = head;
+        info.p.p = head;
         info.sline = head_sline;
     }
     
@@ -1540,8 +1540,8 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
 {
     sType*% tmp_ = null;
     while(1) {
-        if(*info->p == '*') {
-            info->p++;
+        if(*info->p.p == '*') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             type->mPointerNum++;
@@ -1558,8 +1558,8 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 }
             }
         }
-        else if(*info->p == '%') {
-            info->p++;
+        else if(*info->p.p == '%') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             type->mHeap = true;
@@ -1567,15 +1567,15 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 type->mNoSolvedGenericsType.mHeap = true;
             }
         }
-        else if(*info->p == '@') {
-            info->p++;
-            while(xisalnum(*info->p) || *info->p == '_') {
-                info->p++;
+        else if(*info->p.p == '@') {
+            info->p.p++;
+            while(xisalnum(*info->p.p) || *info->p.p == '_') {
+                info->p.p++;
             }
             skip_spaces_and_lf();
         }
-        else if(*info->p == '^') {
-            info->p++;
+        else if(*info->p.p == '^') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             type->mNoHeap = true;
@@ -1584,8 +1584,8 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 type->mNoSolvedGenericsType.mNoHeap = false;
             }
         }
-        else if(*info->p == ']') {
-            info->p++;
+        else if(*info->p.p == ']') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             type->mMinusPointerNum++;
@@ -1594,8 +1594,8 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 type->mNoSolvedGenericsType.mMinusPointerNum++;
             }
         }
-        else if(*info->p == '&') {
-            info->p++;
+        else if(*info->p.p == '&') {
+            info->p.p++;
             skip_spaces_and_lf();
           
             // `T&` wraps an addressable view of `T`.
@@ -1620,8 +1620,8 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             type2->mPointerNum = 1;
             tmp_ = clone type2;
         }
-        else if(*info->p == '?') {
-            info->p++;
+        else if(*info->p.p == '?') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             if(tmp_) {
@@ -1652,8 +1652,8 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             
             tmp_ = clone type2;
         }
-        else if(memcmp(info->p, "{}", 2) == 0) {
-            info->p+=2;
+        else if(memcmp(info->p.p, "{}", 2) == 0) {
+            info->p.p+=2;
             skip_spaces_and_lf();
             
             if(tmp_) {
@@ -1684,8 +1684,8 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             
             tmp_ = clone type2;
         }
-        else if(*info->p == '/') {
-            info->p++;
+        else if(*info->p.p == '/') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             type->mNoCallingDestructor = true;
@@ -1693,8 +1693,8 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 type->mNoSolvedGenericsType.mNoCallingDestructor = true;
             }
         }
-        else if(gComePthread && *info->p == '|') {
-            info->p++;
+        else if(gComePthread && *info->p.p == '|') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             type->mChannel = true;
@@ -1702,8 +1702,8 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 type->mNoSolvedGenericsType.mChannel = true;
             }
         }
-        else if(*info->p == '~') {
-            info->p++;
+        else if(*info->p.p == '~') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             type->mDefferRightValue = true;
@@ -1711,11 +1711,11 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 type->mNoSolvedGenericsType.mDefferRightValue = true;
             }
         }
-        else if(xisalpha(*info->p) || *info->p == '_') {
-            char* p = info.p;
+        else if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            char* p = info.p.p;
             int sline = info.sline;
             string pointer_attr = parse_pointer_qualifier();
-            if(info.p != p) {
+            if(info.p.p != p) {
                 if(pointer_attr !== "") {
                     if(type->mPointerAttribute == null || type->mPointerAttribute === "") {
                         type->mPointerAttribute = pointer_attr;
@@ -1726,7 +1726,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 }
             }
             else {
-                info.p = p;
+                info.p.p = p;
                 info.sline = sline;
                 break;
             }
@@ -1830,12 +1830,12 @@ void merge_pointer_attribute_to_type(sType* type, string pointer_attribute)
 string parse_variable_name_fun(sType* type, bool anonymous_name, bool var_name_between_brace, string attribute, sInfo* info=info)
 {
     string var_name = s"";
-    if(var_name_between_brace && *info->p == '(') {
-        info->p++;
+    if(var_name_between_brace && *info->p.p == '(') {
+        info->p.p++;
         skip_spaces_and_lf();
     }
     
-    if(*info->p == ':') {
+    if(*info->p.p == ':') {
         var_name = string("");
     }
     else if(anonymous_name) {
@@ -1844,7 +1844,7 @@ string parse_variable_name_fun(sType* type, bool anonymous_name, bool var_name_b
         var_name = xsprintf("anonymous_var_nameXYZ%d", num_anonymous_var_name);
         type->mAnonymousVarName = true;
     }
-    else if(xisalnum(*info.p) || *info->p == '_') {
+    else if(xisalnum(*info.p.p) || *info->p.p == '_') {
         var_name = parse_word();
     }
     else {
@@ -1854,13 +1854,13 @@ string parse_variable_name_fun(sType* type, bool anonymous_name, bool var_name_b
         type->mAnonymousVarName = true;
     }
             
-    if(var_name_between_brace && *info->p == ')') {
-        info->p++;
+    if(var_name_between_brace && *info->p.p == ')') {
+        info->p.p++;
         skip_spaces_and_lf();
     }
     
-    if(*info->p == ':') {
-        info->p++;
+    if(*info->p.p == ':') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         bool no_comma = info->no_comma;
@@ -1881,7 +1881,7 @@ string parse_variable_name_fun(sType* type, bool anonymous_name, bool var_name_b
 
 tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_name=false, bool parse_multiple_type=true, bool in_function_parametor=false)
 {
-    char* head = info.p;
+    char* head = info.p.p;
     int head_sline = info.sline;
     
     string attribute_before = parse_struct_attribute();
@@ -1924,21 +1924,21 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool thread_ = false;
     while(true) {
         if(type_name === "__type__") {
-            if(*info->p == '(') {
-                info->p++;
+            if(*info->p.p == '(') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             
             var buf = new buffer();
-            while(*info->p) {
-                if(*info->p == ')') {
-                    info->p++;
+            while(*info->p.p) {
+                if(*info->p.p == ')') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     break;
                 }
                 else {
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
             }
             type_name = buf.to_string();
@@ -1962,7 +1962,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             thread_ = true;
         }
         else if(type_name === "_Atomic") {
-            if(*info->p == '(') {
+            if(*info->p.p == '(') {
                 expected_next_character('(');
             }
             type_name = parse_word();
@@ -1977,10 +1977,10 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             skip_spaces_and_lf();
             
-            if(*info->p == '(') {
-                char* p = info.p;
+            if(*info->p.p == '(') {
+                char* p = info.p.p;
                 skip_paren(info);
-                char* tail = info.p;
+                char* tail = info.p.p;
                 
                 attr.append(p, tail - p);
             }
@@ -2026,7 +2026,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         else if(type_name === "_Alignas") {
             expected_next_character('(');
             
-            if((info->end - info->p) > strlen("double") && memcmp(info->p, "double", strlen("double")) == 0)
+            if((info->end - info->p.p) > strlen("double") && memcmp(info->p.p, "double", strlen("double")) == 0)
             {
                 (void)parse_word();
                 alignas_double = true;
@@ -2079,17 +2079,17 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             struct_ = true;
             tag_attribute = merge_tag_attribute(tag_attribute, parse_struct_attribute());
             
-            if(*info->p == '{') {
-                char* p = info.p;
+            if(*info->p.p == '{') {
+                char* p = info.p.p;
                 int sline = info.sline;
                 
                 skip_block(info);
                 
-                if(*info->p == ';') {
+                if(*info->p.p == ';') {
                     anonymous_name = true;
                     anonymous_type = true;
                     type_name = string("");
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     struct_define_parsed = true;
                     break;
@@ -2097,7 +2097,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 else {
                     anonymous_type = true;
                     type_name = string("");
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     struct_define_parsed = true;
                     break;
@@ -2106,7 +2106,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
 
             skip_spaces_and_lf();
             
-            if(*info->p != '>') {
+            if(*info->p.p != '>') {
                 type_name = parse_word();
                 
                 skip_spaces_and_lf();
@@ -2114,32 +2114,32 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 string struct_attribute_after_name = parse_struct_attribute();
                 tag_attribute = merge_tag_attribute(tag_attribute, struct_attribute_after_name);
                 
-                if(*info->p == '<') {
-                    char* p = info.p;
+                if(*info->p.p == '<') {
+                    char* p = info.p.p;
                     int sline = info.sline;
                     
-                    info->p++;
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
                     while(true) {
-                        if(*info->p == '>') {
-                            info->p++;
+                        if(*info->p.p == '>') {
+                            info->p.p++;
                             skip_spaces_and_lf();
                             
-                            if(*info->p == '{') {
+                            if(*info->p.p == '{') {
                             }
                             else {
-                                info.p = p;
+                                info.p.p = p;
                                 info.sline = sline;
                             }
                             break;
                         }
-                        else if(*info->p == '\0') {
+                        else if(*info->p.p == '\0') {
                             err_msg(info, "invalid struct definition");
                             return t((sType*%)null, (string)null, false);
                         }
                         else {
-                            info->p++;
+                            info->p.p++;
                         }
                     }
                 }
@@ -2147,21 +2147,21 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 string struct_attribute_after_generics = parse_struct_attribute();
                 tag_attribute = merge_tag_attribute(tag_attribute, struct_attribute_after_generics);
                 
-                if(*info->p == '{') {
-                    char* p = info.p;
+                if(*info->p.p == '{') {
+                    char* p = info.p.p;
                     int sline = info.sline;
                     
                     skip_block(info);
                     
                     (void)parse_struct_attribute();
                     
-                    if(*info->p == ';') {
-                        info.p = head;
+                    if(*info->p.p == ';') {
+                        info.p.p = head;
                         info.sline = head_sline;
                         return t((sType*%)null, (string)null, false);
                     }
                     else {
-                        info.p = p;
+                        info.p.p = p;
                         info.sline = sline;
                         
                         sNode*% node = parse_struct(type_name, tag_attribute, info);
@@ -2179,29 +2179,29 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             union_ = true;
             tag_attribute = merge_tag_attribute(tag_attribute, parse_struct_attribute());
            
-            if(*info->p == '{') {
-                char* p = info.p;
+            if(*info->p.p == '{') {
+                char* p = info.p.p;
                 int sline = info.sline;
                 
                 skip_block(info);
                 
-                if((info->end - info->p) >= strlen("__attribute__") && memcmp(info->p, "__attribute__", strlen("__attribute__")) == 0) {
+                if((info->end - info->p.p) >= strlen("__attribute__") && memcmp(info->p.p, "__attribute__", strlen("__attribute__")) == 0) {
                     parse_attribute();
                 }
                 
-                if(*info->p == ';') {
-                    info.p = head;
+                if(*info->p.p == ';') {
+                    info.p.p = head;
                     info.sline = head_sline;
                     anonymous_type = true;
                     type_name = string("");
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     break;
                 }
                 else {
                     anonymous_type = true;
                     type_name = string("");
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     break;
                 }
@@ -2213,20 +2213,20 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
 
             skip_spaces_and_lf();
             
-            if(*info->p == '{') {
-                char* p = info.p;
+            if(*info->p.p == '{') {
+                char* p = info.p.p;
                 int sline = info.sline;
                 
                 skip_block(info);
                 
-                if(*info->p == ';') {
-                    info.p = head;
+                if(*info->p.p == ';') {
+                    info.p.p = head;
                     info.sline = head_sline;
                     return t((sType*%)null, (string)null, false);
                 } 
                 else {
                     anonymous_type = true;
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     break;
                 }
@@ -2240,8 +2240,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             var asm_name, enum_attribute = parse_attribute();
             tag_attribute = merge_tag_attribute(tag_attribute, enum_attribute);
             
-            if(*info->p == ':') {
-                info->p++;
+            if(*info->p.p == ':') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 var type,name,err = parse_type();
@@ -2249,25 +2249,25 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
 
             skip_spaces_and_lf();
             
-            if(*info->p == '{') {
-                char* p = info.p;
+            if(*info->p.p == '{') {
+                char* p = info.p.p;
                 int sline = info.sline;
                 
                 skip_block(info);
                 
-                if((info->end - info->p) >= strlen("__attribute__") && memcmp(info->p, "__attribute__", strlen("__attribute__")) == 0) {
+                if((info->end - info->p.p) >= strlen("__attribute__") && memcmp(info->p.p, "__attribute__", strlen("__attribute__")) == 0) {
                     parse_attribute();
                 }
                 
-                if(*info->p == ';') {
-                    info.p = head;
+                if(*info->p.p == ';') {
+                    info.p.p = head;
                     info.sline = head_sline;
                     return t((sType*%)null, (string)null, false);
                 }
                 else {
                     anonymous_type = true;
                     type_name = string("");
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     struct_define_parsed = true;
                     break;
@@ -2283,8 +2283,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             string enum_attribute_after_name = parse_struct_attribute();
             tag_attribute = merge_tag_attribute(tag_attribute, enum_attribute_after_name);
             
-            if(*info->p == ':') {
-                info->p++;
+            if(*info->p.p == ':') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 var type,name,err = parse_type();
@@ -2295,20 +2295,20 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             string enum_attribute_after_type = parse_struct_attribute();
             tag_attribute = merge_tag_attribute(tag_attribute, enum_attribute_after_type);
             
-            if(*info->p == '{') {
-                char* p = info.p;
+            if(*info->p.p == '{') {
+                char* p = info.p.p;
                 int sline = info.sline;
                 
                 skip_block(info);
                 
-                if(*info->p == ';') {
-                    info.p = head;
+                if(*info->p.p == ';') {
+                    info.p.p = head;
                     info.sline = head_sline;
                     return t((sType*%)null, (string)null, false);
                 }
                 else {
                     anonymous_type = true;
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     struct_define_parsed = true;
                     break;
@@ -2318,15 +2318,15 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         else if(type_name === "long") {
             /// backtrace ///
             {
-                char* p = info.p;
+                char* p = info.p.p;
                 int sline = info.sline;
                 
-                if(!(xisalpha(*info->p) || *info->p == '_')) {
+                if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
                     type_name = string("long");
                     break;
                 }
                 else {
-                    char* p2 = info.p;
+                    char* p2 = info.p.p;
                     int sline2 = info.sline;
                     
                     type_name = parse_word();
@@ -2354,15 +2354,15 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         }
                     }
                     else if(type_name === "long") {
-                        p = info.p;
+                        p = info.p.p;
                         sline = info.sline;
-                        if(xisalpha(*info->p) || *info->p == '_') {
+                        if(xisalpha(*info->p.p) || *info->p.p == '_') {
                             long_long = true;
                             type_name = parse_word();
                         }
-                        else if(*info->p == ':') {
+                        else if(*info->p.p == ':') {
                             type_name = string("long");
-                            info.p = p2;
+                            info.p.p = p2;
                             info.sline = sline2;
                             break;
                         }
@@ -2378,7 +2378,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         else if(!is_type_name(type_name)) {
                             type_name = string("long");
                             long_long = true;
-                            info.p = p;
+                            info.p.p = p;
                             info.sline = sline;
                             break;
                         }
@@ -2394,7 +2394,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         break;
                     }
                     else {
-                        info.p = p;
+                        info.p.p = p;
                         info.sline = sline;
                         
                         type_name = string("long");
@@ -2406,8 +2406,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         else if(type_name === "signed") {
             unsigned_ = false;
             
-            if(xisalpha(*info->p) || *info->p == '_') {
-                char* p = info.p;
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                char* p = info.p.p;
                 int sline = info.sline;
                 
                 type_name = parse_word();
@@ -2416,7 +2416,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
                 else {
                     type_name = s"int";
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     break;
                 }
@@ -2429,15 +2429,15 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         else if(type_name === "unsigned") {
             unsigned_ = true;
             
-            if(xisalpha(*info->p) || *info->p == '_') {
-                char* p = info.p;
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                char* p = info.p.p;
                 int sline = info.sline;
                 
                 type_name = parse_word();
                 
                 if(type_name === "short") {
-                    if(xisalpha(*info->p) || *info->p == '_') {
-                        char* p = info.p;
+                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                        char* p = info.p.p;
                         int sline = info.sline;
                         
                         type_name = parse_word();
@@ -2449,7 +2449,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                             short_ = true;
                             type_name = string("int");
                             
-                            info.p = p;
+                            info.p.p = p;
                             info.sline = sline;
                         }
                     }
@@ -2460,8 +2460,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     }
                 }
                 else if(type_name === "long") {
-                    if(xisalpha(*info->p) || *info->p == '_') {
-                        char* p = info.p;
+                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                        char* p = info.p.p;
                         int sline = info.sline;
                         
                         type_name = parse_word();
@@ -2473,7 +2473,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                             long_ = true;
                             type_name = string("int");
                             
-                            info.p = p;
+                            info.p.p = p;
                             info.sline = sline;
                         }
                     }
@@ -2485,7 +2485,7 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 }
                 else if(!is_type_name(type_name)) {
                     type_name = string("int");
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     break;
                 }
@@ -2498,14 +2498,14 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         else if(type_name === "signed" || type_name === "__signed__") {
             unsigned_ = false;
             
-            char* p = info.p;
+            char* p = info.p.p;
             int sline = info.sline;
             
             type_name = parse_word();
             
-            if(*info->p == ':' && *(info->p+1) == ':') {
+            if(*info->p.p == ':' && *(info->p.p+1) == ':') {
                 type_name = string("int");
-                info.p = p;
+                info.p.p = p;
                 info.sline = sline;
                 break;
             }
@@ -2535,17 +2535,17 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         else if(type_name === "short") {
             short_ = false;
             
-            if(*info->p == ':') {
+            if(*info->p.p == ':') {
                 break;
             }
-            else if(xisalnum(*info.p)) {
-                char* p = info.p;
+            else if(xisalnum(*info.p.p)) {
+                char* p = info.p.p;
                 int sline = info.sline;
                 type_name = parse_word();
                 
-                if(*info->p == ':' && *(info->p+1) == ':') {
+                if(*info->p.p == ':' && *(info->p.p+1) == ':') {
                     type_name = string("short");
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     break;
                 }
@@ -2559,12 +2559,12 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                     break;
                 }
                 else if(is_type_name(type_name)) {
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                 }
                 else {
                     type_name = string("short");
-                    info.p = p;
+                    info.p.p = p;
                     info.sline = sline;
                     break;
                 }
@@ -2578,8 +2578,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
     }
     
-    if((type_name === "typeof" || type_name === "__typeof__") && *info->p == '(') {
-        info->p++;
+    if((type_name === "typeof" || type_name === "__typeof__") && *info->p.p == '(') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         bool no_comma = info.no_comma;
@@ -2630,8 +2630,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool any_class = false;
     bool vtable = false;
     while(1) {
-        if(*info->p == '*') {
-            info->p++;
+        if(*info->p.p == '*') {
+            info->p.p++;
             skip_spaces_and_lf();
             string pointer_attr = parse_pointer_qualifier();
             if(pointer_attr !== "") {
@@ -2645,22 +2645,22 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             pointer_num++;
         }
-        else if(*info->p == '%') {
-            info->p++;
+        else if(*info->p.p == '%') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             heap = true;
         }
-        else if(gComePthread && *info->p == '|') {
-            info->p++;
+        else if(gComePthread && *info->p.p == '|') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             channel = true;
         }
-        else if(*info->p == '@') {
-            info->p++;
-            while(xisalnum(*info->p) || *info->p == '_') {
-                info->p++;
+        else if(*info->p.p == '@') {
+            info->p.p++;
+            while(xisalnum(*info->p.p) || *info->p.p == '_') {
+                info->p.p++;
             }
             skip_spaces_and_lf();
         }
@@ -2672,31 +2672,31 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     skip_pointer_attribute();
     
     string tuple_name = null;
-    if(*info->p == ':' && *(info->p+1) != ':' && tuple_) {
-        info->p++;
+    if(*info->p.p == ':' && *(info->p.p+1) != ':' && tuple_) {
+        info->p.p++;
         skip_spaces_and_lf();
         
         tuple_name = parse_word();
     }
     
-    if(atomic_ && *info->p == ')') {
+    if(atomic_ && *info->p.p == ')') {
         expected_next_character(')');
     }
     
     bool lambda_flag = false;
     {
-        char* pX = info.p;
+        char* pX = info.p.p;
         int slineX = info.sline;
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             (void)parse_word();
             
-            if(*info->p == '(' && info.in_typedef) {
+            if(*info->p.p == '(' && info.in_typedef) {
                 lambda_flag = true;
             }
         }
         
-        info.p = pX;
+        info.p.p = pX;
         info.sline = slineX;
     }
     
@@ -2706,41 +2706,41 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
     bool function_pointer_flag = false;
     bool pointer_to_array_flag = false;
     {
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         
             skip_pointer_attribute();
             
-            if(*info->p == '(') {
-                info->p++;
+            if(*info->p.p == '(') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             
-            if(*info->p == '*' || *info->p == '^') {
-                while(*info->p == '*' || *info->p == '^') {
-                    info->p++;
+            if(*info->p.p == '*' || *info->p.p == '^') {
+                while(*info->p.p == '*' || *info->p.p == '^') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
                 
                 function_pointer_flag = true;
                 
                 string word = null;
-                if(xisalpha(*info->p) || *info->p == '_') {
+                if(xisalpha(*info->p.p) || *info->p.p == '_') {
                     word = parse_word();
                 }
                 
-                if(*info->p == '[') {
+                if(*info->p.p == '[') {
                     pointer_to_array_flag = true;
-                    while(*info->p == '[') {
-                        info->p++;
+                    while(*info->p.p == '[') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         
-                        if(*info->p == ']') {
-                            info->p++;
+                        if(*info->p.p == ']') {
+                            info->p.p++;
                             skip_spaces_and_lf();
                             break;
                         }
@@ -2749,97 +2749,97 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                         sNode*% exp = expression();
                         info.no_output_come_code = no_output_come_code;
                         
-                        if(*info->p == ']') {
-                            info->p++;
+                        if(*info->p.p == ']') {
+                            info->p.p++;
                             skip_spaces_and_lf();
                         }
                     }
                     
-                    if(*info->p == ')') {
-                        info->p++;
+                    if(*info->p.p == ')') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         
-                        if(*info->p == '(') {
+                        if(*info->p.p == '(') {
                             function_pointer_flag = true;
                             pointer_to_array_flag = false;
                         }
-                        else if(*info->p == '[') {
+                        else if(*info->p.p == '[') {
                             function_pointer_flag = false;
                             pointer_to_array_flag = true;
                         }
                     }
                 }
-                else if(*info->p == ')') {
-                    info->p++;
+                else if(*info->p.p == ')') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
-                    if(*info->p == ')') {
-                        info->p++;
+                    if(*info->p.p == ')') {
+                        info->p.p++;
                         skip_spaces_and_lf();
                         pointer_to_array_flag = true;
                         function_pointer_flag = false;
                     }
                     
-                    if(*info->p == '[') {
+                    if(*info->p.p == '[') {
                         pointer_to_array_flag = true;
                         function_pointer_flag = false;
                     }
-                    else if(*info->p == '(') {
+                    else if(*info->p.p == '(') {
                         function_pointer_flag = true;
                     }
                 }
             }
-            else if(xisalpha(*info->p) || *info->p == '_') {
+            else if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 string word = parse_word();
                 
-                if(*info->p == ')') {
-                    info->p++;
+                if(*info->p.p == ')') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
-                    if(*info->p == '(') {
+                    if(*info->p.p == '(') {
                         function_pointer_flag = true;
                     }
                 }
             }
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
     bool var_name_between_brace = false;
     {
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         
             skip_pointer_attribute();
             
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 string word = parse_word();
                 
                 if(is_type_name(word)) {
                 }
-                else if(*info->p == ')') {
-                    info->p++;
+                else if(*info->p.p == ')') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
-                    if(*info->p != '(') {
+                    if(*info->p.p != '(') {
                         var_name_between_brace = true;
                     }
                 }
             }
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
     
-    if(anonymous_type && *info->p == '{') {
+    if(anonymous_type && *info->p.p == '{') {
         static int anonymous_num = 0;
         if(struct_) {
             bool anonymous = false;
@@ -2856,8 +2856,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
             
             int pointer_num = 0;
-            while(*info->p == '*') {
-                info->p++
+            while(*info->p.p == '*') {
+                info->p.p++
                 skip_spaces_and_lf(info);
                 
                 skip_pointer_attribute();
@@ -2919,8 +2919,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
             
             int pointer_num = 0;
-            while(*info->p == '*') {
-                info->p++
+            while(*info->p.p == '*') {
+                info->p.p++
                 skip_spaces_and_lf(info);
                 
                 skip_pointer_attribute();
@@ -3014,16 +3014,16 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         
         bool pointer_paren = false;
         int paren_num = 1;
-        if(*info->p == '(') {
+        if(*info->p.p == '(') {
             pointer_paren = true;
-            info->p++;
+            info->p.p++;
             skip_spaces_and_lf();
             paren_num++;
         }
         
         int array_pointer_num = 0;
-        while(*info->p == '*' || *info->p == '^') {
-            info->p++;
+        while(*info->p.p == '*' || *info->p.p == '^') {
+            info->p.p++;
             skip_spaces_and_lf();
             skip_pointer_attribute();
             array_pointer_num++;
@@ -3046,34 +3046,34 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         type->mDefferRightValue = type->mDefferRightValue || deffer_;
         merge_pointer_attribute_to_type(type, pointer_attribute);
         
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             var_name = parse_word();
         }
         else {
             var_name = s"";
         }
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
             paren_num--;
         }
         list<sNode*%>*% array = new list<sNode*%>();
-        while(*info->p == '[') {
-            info->p++;
+        while(*info->p.p == '[') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             sNode*% node = expression();
             
             array.add(node);
             
-            if(*info->p == ']') {
-                info->p++;
+            if(*info->p.p == ']') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
         }
-        if(paren_num > 0 && *info->p == ')') {
-            info->p++;
+        if(paren_num > 0 && *info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             type.mVarNameArrayNum = array;
@@ -3084,12 +3084,12 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             }
         }
         
-        while(*info->p == '[') {
-            info->p++;
+        while(*info->p.p == '[') {
+            info->p.p++;
             skip_spaces_and_lf();
             
-            if(*info->p == ']') {
-                info->p++;
+            if(*info->p.p == ']') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 type->mArrayPointerType = true;
                 break;
@@ -3099,8 +3099,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             type.mArrayNum.add(node);
             
-            if(*info->p == ']') {
-                info->p++;
+            if(*info->p.p == ']') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
         }
@@ -3109,15 +3109,15 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         type->mPointerParen = pointer_paren;
     }
     else if(function_pointer_flag) {
-        info->p++;
+        info->p.p++;
         skip_spaces_and_lf();
         
         skip_pointer_attribute();
         string function_pointer_attribute = s"";
         
         int function_pointer_num = 0;
-        while(*info->p == '*' || *info->p == '^') {
-            info->p++;
+        while(*info->p.p == '*' || *info->p.p == '^') {
+            info->p.p++;
             skip_spaces_and_lf();
             string pointer_attr = parse_pointer_qualifier();
             if(pointer_attr !== "") {
@@ -3177,22 +3177,22 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         merge_pointer_attribute_to_type(result_type, pointer_attribute);
         
         int paren_flag = false;
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
             paren_flag = true;
         }
             
         int array_pointer = 0;
-        while(*info->p == '*') {
-            info->p++;
+        while(*info->p.p == '*') {
+            info->p.p++;
             skip_spaces_and_lf();
             array_pointer++;
         }
     
-        if(xisalnum(*info.p) || *info->p == '_') {
+        if(xisalnum(*info.p.p) || *info->p.p == '_') {
             var_name = parse_word();
-            if(!paren_flag && *info->p == '(') { // function pointer result function
+            if(!paren_flag && *info->p.p == '(') { // function pointer result function
                 return t(result_type,var_name, false);
             }
         }
@@ -3203,12 +3203,12 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         
         type = new sType(s"lambda");
-        while(*info->p == '[') {
-            info->p++;
+        while(*info->p.p == '[') {
+            info->p.p++;
             skip_spaces_and_lf();
             
-            if(*info->p == ']') {
-                info->p++;
+            if(*info->p.p == ']') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 type->mArrayPointerType = true;
@@ -3219,28 +3219,28 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 
                 type.mArrayNum.add(node);
                 
-                if(*info->p == ']') {
-                    info->p++;
+                if(*info->p.p == ']') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
             }
         }
         
-        if(paren_flag && *info->p == ')') {
-            info->p++;
+        if(paren_flag && *info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
-        while(*info->p == '[') {
-            info->p++;
+        while(*info->p.p == '[') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             sNode*% node = expression();
             
             type.mArrayNum.add(node);
             
-            if(*info->p == ']') {
-                info->p++;
+            if(*info->p.p == ']') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
         }
@@ -3325,8 +3325,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             type = parse_pointer_attribute(type);
         }
-        else if(*info->p == '<') {
-            info->p++;
+        else if(*info->p.p == '<') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             if(info.generics_classes[string(type_name)] == null)
@@ -3351,18 +3351,18 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 
                 type->mGenericsTypes.push_back(generics_type);
                 
-                if(*info->p == ',') {
-                    info->p++;
+                if(*info->p.p == ',') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
-                else if(*info->p == '>') {
-                    info->p++;
+                else if(*info->p.p == '>') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
                     break;
                 }
                 else {
-                    err_msg(info, "invalid generics type(%c)(%c)(%c)", *info->p, *(info->p+1), *(info->p+2));
+                    err_msg(info, "invalid generics type(%c)(%c)(%c)", *info->p.p, *(info->p.p+1), *(info->p.p+2));
                     return t((sType*%)null, (string)null, false);
                 }
             }
@@ -3405,14 +3405,14 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             if(struct_) {
                 sClass* klass = borrow info.classes[type_name];
                 
-                if(klass == null && *info->p != '<') {
+                if(klass == null && *info->p.p != '<') {
                     info.classes.insert(string(type_name), new sClass(name:string(type_name), struct_:true));
                 }
             }
             if(union_) {
                 sClass* klass = borrow info.classes[type_name];
                 
-                if(klass == null && *info->p != '<') {
+                if(klass == null && *info->p.p != '<') {
                     info.classes.insert(string(type_name), new sClass(name:string(type_name), union_:true));
                 }
             }
@@ -3438,13 +3438,13 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         
         type = parse_pointer_attribute(type);
         
-        if(parse_multiple_type && *info->p == ',' && !info.in_offsetof) {
+        if(parse_multiple_type && *info->p.p == ',' && !info.in_offsetof) {
             list<sType*%>*% types = new list<sType*%>();
             
             types.push_back(clone type);
             
-            while(*info->p == ',') {
-                info->p++;
+            while(*info->p.p == ',') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 var type2, name, err = parse_type(parse_multiple_type:false);
@@ -3456,8 +3456,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
                 types.push_back(clone type2);
             }
             
-            if(*info->p == ')') {
-                info->p++;
+            if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             
@@ -3516,21 +3516,21 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         type->mArrayNum.reset();
     }
     
-    while(*info->p == '[') {
-        info->p++;
+    while(*info->p.p == '[') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         bool array_static = false;
         bool array_restrict = false;
         while(1) {
             if(parsecmp("static")) {
-                info->p += strlen("static");
+                info->p.p += strlen("static");
                 skip_spaces_and_lf();
                 
                 array_static = true;
             }
             else if(parsecmp("restrict")) {
-                info->p += strlen("restrict");
+                info->p.p += strlen("restrict");
                 skip_spaces_and_lf();
                 
                 array_restrict = true;
@@ -3542,8 +3542,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         
         skip_pointer_attribute();
         
-        if(*info->p == ']') {
-            info->p++;
+        if(*info->p.p == ']') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             type->mArrayPointerType = true;

@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -5407,11 +5418,11 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
     struct sGlobalVariable* _inf_obj_value4;
     multiple_declare=(_Bool)0;
     {
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         no_output_come_code=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        if(xisalpha(*info->p)||*info->p==95) {
+        if(xisalpha(*info->p->p)||*info->p->p==95) {
             skip_spaces_and_lf(info);
             multiple_assign_var3=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
             type=(struct sType* )come_increment_ref_count(multiple_assign_var3->v1, "13gvar.nc", 139);
@@ -5427,10 +5438,10 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
                 name_33=(char* )come_increment_ref_count(multiple_assign_var4->v2, "13gvar.nc", 144);
                 come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 144);
                 skip_spaces_and_lf(info);
-                if(*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62) {
-                    info->p++;
+                if(*info->p->p==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
-                    if(*info->p==123) {
+                    if(*info->p->p==123) {
                         __right_value0 = (void*)0;
                         ((char* )(__right_value0=skip_block(info,(_Bool)0)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 152));
@@ -5444,7 +5455,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
                         ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "13gvar.nc", 164):(void*)0);
                     }
                 }
-                if(!is_type_name(name_33,info)&&*info->p==44) {
+                if(!is_type_name(name_33,info)&&*info->p->p==44) {
                     multiple_declare=(_Bool)1;
                 }
                 come_call_finalizer(sType_finalize, type_32, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13gvar.nc}", 170);
@@ -5454,7 +5465,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "13gvar.nc", 172));
         }
         info->no_output_come_code=no_output_come_code;
-        info->p=p;
+        info->p->p=p;
         info->sline=sline;
     }
     if(multiple_declare) {
@@ -5479,11 +5490,11 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
         var_name=(char* )come_increment_ref_count(multiple_assign_var6->v2, "13gvar.nc", 190);
         come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 190);
         skip_spaces_and_lf(info);
-        if(*info->p==61&&*(info->p+1)!=61) {
-            info->p++;
+        if(*info->p->p==61&&*(info->p->p+1)!=61) {
+            info->p->p++;
             skip_spaces_and_lf(info);
-            head=info->p;
-            if(*info->p==123) {
+            head=info->p->p;
+            if(*info->p->p==123) {
                 __right_value0 = (void*)0;
                 ((char* )(__right_value0=skip_block(info,(_Bool)0)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 200));
@@ -5499,7 +5510,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
                 info->no_output_come_code=no_output_come_code_38;
                 ((exp_39) ? exp_39 = come_decrement_ref_count(exp_39, ((struct sNode*)exp_39)->finalize, ((struct sNode*)exp_39)->_protocol_obj, 0, 0,(void*)0, "13gvar.nc", 215):(void*)0);
             }
-            tail=info->p;
+            tail=info->p->p;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "13gvar.nc", 217, "struct buffer* "), "13gvar.nc", 217)), "13gvar.nc", 217);
@@ -5517,19 +5528,19 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
             __right_value1 = (void*)0;
             list$1tuple3$3sType$phchar$phchar$ph$ph_push_back(multiple_declare_34,(struct tuple3$3sType$phchar$phchar$ph*)come_increment_ref_count(tuple3$3sType$phchar$phchar$ph_initialize((struct tuple3$3sType$phchar$phchar$ph*)come_increment_ref_count((struct tuple3$3sType$phchar$phchar$ph*)come_calloc(1, sizeof(struct tuple3$3sType$phchar$phchar$ph)*(1), "13gvar.nc", 226, "struct tuple3$3sType$phchar$phchar$ph"), "13gvar.nc", 226),(struct sType* )come_increment_ref_count(type2, "13gvar.nc", 226),(char* )come_increment_ref_count(var_name, "13gvar.nc", 226),(char* )come_increment_ref_count((char* )((void*)0), "13gvar.nc", 226)), "13gvar.nc", 226));
         }
-        while(*info->p==44) {
-            info->p++;
+        while(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             multiple_assign_var7=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare(base_type,(_Bool)0,info)));
             type2_42=(struct sType* )come_increment_ref_count(multiple_assign_var7->v1, "13gvar.nc", 233);
             var_name_43=(char* )come_increment_ref_count(multiple_assign_var7->v2, "13gvar.nc", 233);
             come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13gvar.nc}", 233);
-            if(*info->p==61&&*(info->p+1)!=61) {
-                info->p++;
+            if(*info->p->p==61&&*(info->p->p+1)!=61) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
-                head_44=info->p;
-                if(*info->p==123) {
+                head_44=info->p->p;
+                if(*info->p->p==123) {
                     __right_value0 = (void*)0;
                     ((char* )(__right_value0=skip_block(info,(_Bool)0)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13gvar.nc", 242));
@@ -5545,7 +5556,7 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
                     info->no_output_come_code=no_output_come_code_46;
                     ((exp_47) ? exp_47 = come_decrement_ref_count(exp_47, ((struct sNode*)exp_47)->finalize, ((struct sNode*)exp_47)->_protocol_obj, 0, 0,(void*)0, "13gvar.nc", 257):(void*)0);
                 }
-                tail_48=info->p;
+                tail_48=info->p->p;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 buf_49=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "13gvar.nc", 259, "struct buffer* "), "13gvar.nc", 259)), "13gvar.nc", 259);
@@ -5662,71 +5673,71 @@ struct sNode* parse_global_variable(struct sInfo*  info  )
         }
         right_node_54=((void*)0);
         array_initializer_55=((void*)0);
-        if(*info->p==61&&*(info->p+1)!=61) {
-            info->p++;
+        if(*info->p->p==61&&*(info->p->p+1)!=61) {
+            info->p->p++;
             skip_spaces_and_lf(info);
-            if(*info->p==123) {
+            if(*info->p->p==123) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 buf_56=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "13gvar.nc", 308, "struct buffer* "), "13gvar.nc", 308)), "13gvar.nc", 308);
-                buffer_append_char(buf_56,*info->p);
-                info->p++;
+                buffer_append_char(buf_56,*info->p->p);
+                info->p->p++;
                 squort=(_Bool)0;
                 dquort=(_Bool)0;
                 nest=1;
                 while(1) {
-                    if(*info->p==0) {
+                    if(*info->p->p==0) {
                         err_msg(info,"unexpected source end in array initiailizer");
                         exit(2);
                     }
-                    else if(*info->p==92) {
-                        buffer_append_char(buf_56,*info->p);
-                        info->p++;
-                        if(*info->p==10) {
+                    else if(*info->p->p==92) {
+                        buffer_append_char(buf_56,*info->p->p);
+                        info->p->p++;
+                        if(*info->p->p==10) {
                             info->sline++;
                         }
-                        buffer_append_char(buf_56,*info->p);
-                        info->p++;
+                        buffer_append_char(buf_56,*info->p->p);
+                        info->p->p++;
                     }
-                    else if(!squort&&*info->p==34) {
-                        buffer_append_char(buf_56,*info->p);
-                        info->p++;
+                    else if(!squort&&*info->p->p==34) {
+                        buffer_append_char(buf_56,*info->p->p);
+                        info->p->p++;
                         dquort=!dquort;
                     }
-                    else if(!dquort&&*info->p==39) {
-                        buffer_append_char(buf_56,*info->p);
-                        info->p++;
+                    else if(!dquort&&*info->p->p==39) {
+                        buffer_append_char(buf_56,*info->p->p);
+                        info->p->p++;
                         squort=!squort;
                     }
                     else if(squort||dquort) {
-                        if(*info->p==10) {
+                        if(*info->p->p==10) {
                             info->sline++;
                         }
-                        buffer_append_char(buf_56,*info->p);
-                        info->p++;
+                        buffer_append_char(buf_56,*info->p->p);
+                        info->p->p++;
                     }
-                    else if(*info->p==123) {
+                    else if(*info->p->p==123) {
                         nest++;
-                        buffer_append_char(buf_56,*info->p);
-                        info->p++;
+                        buffer_append_char(buf_56,*info->p->p);
+                        info->p->p++;
                     }
-                    else if(*info->p==125) {
+                    else if(*info->p->p==125) {
                         nest--;
-                        buffer_append_char(buf_56,*info->p);
-                        info->p++;
+                        buffer_append_char(buf_56,*info->p->p);
+                        info->p->p++;
                         if(nest==0) {
                             skip_spaces_and_lf(info);
                             break;
                         }
                     }
-                    else if(*info->p==10) {
+                    else if(*info->p->p==10) {
                         info->sline++;
-                        buffer_append_char(buf_56,*info->p);
-                        info->p++;
+                        buffer_append_char(buf_56,*info->p->p);
+                        info->p->p++;
                     }
                     else {
-                        buffer_append_char(buf_56,*info->p);
-                        info->p++;
+                        buffer_append_char(buf_56,*info->p->p);
+                        info->p->p++;
                     }
                 }
                 __right_value0 = (void*)0;

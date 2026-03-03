@@ -486,7 +486,7 @@ struct sRightValueObject
 
 struct sInfo
 {
-    char* p;
+    char{} p;
     char* head;
     buffer*% source;
     char* end;

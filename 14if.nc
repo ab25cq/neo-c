@@ -345,17 +345,17 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         sBlock*% else_block = null;
     
         while(1) {
-            char* saved_p = info->p;
+            char* saved_p = info->p.p;
             int saved_sline = info->sline;
             skip_spaces_and_lf();
             
-            if(*info->p == ';') {
-                info->p++;
+            if(*info->p.p == ';') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
     
             /// else ///
-            if(!(xisalpha(*info->p) || *info->p == '_')) {
+            if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
                 break;
             }
             skip_spaces_and_lf();
@@ -367,7 +367,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 info.sline_real = info.sline;
                 if(parsecmp("if", info)) {
                     skip_spaces_and_lf();
-                    info->p+=strlen("if");
+                    info->p.p+=strlen("if");
                     skip_spaces_and_lf();
     
                     expected_next_character('(');
@@ -402,7 +402,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 info.sline_real = sline_real;
             }
             else {
-                info->p = saved_p;
+                info->p.p = saved_p;
                 info->sline = saved_sline;
                 break;
             }
@@ -472,7 +472,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
     while(true) {
         skip_spaces_and_lf();
         if(parsecmp("else")) {
-            info->p += strlen("else");
+            info->p.p += strlen("else");
             skip_spaces_and_lf();
             
             else_block = parse_block();
@@ -481,8 +481,8 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
             }
         }
         else {
-            if(*info->p == '}') {
-                info->p++;
+            if(*info->p.p == '}') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
@@ -506,8 +506,8 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
             elif_num++;
         }
         
-        if(*info->p == '}') {
-            info->p++;
+        if(*info->p.p == '}') {
+            info->p.p++;
             skip_spaces_and_lf();
             break;
         }
@@ -572,17 +572,17 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
     sBlock*% else_block = null;
 
     while(1) {
-        char* saved_p = info->p;
+        char* saved_p = info->p.p;
         int saved_sline = info->sline;
         skip_spaces_and_lf();
         
-        if(*info->p == ';') {
-            info->p++;
+        if(*info->p.p == ';') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
 
         /// else ///
-        if(!(xisalpha(*info->p) || *info->p == '_')) {
+        if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
             break;
         }
         skip_spaces_and_lf();
@@ -592,7 +592,7 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
         if(buf === "else") {
             if(parsecmp("if", info)) {
                 skip_spaces_and_lf();
-                info->p+=strlen("if");
+                info->p.p+=strlen("if");
                 skip_spaces_and_lf();
 
                 expected_next_character('(');
@@ -624,7 +624,7 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
             }
         }
         else {
-            info->p = saved_p;
+            info->p.p = saved_p;
             info->sline = saved_sline;
             break;
         }
@@ -663,17 +663,17 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
     sBlock*% else_block = null;
 
     while(1) {
-        char* saved_p = info->p;
+        char* saved_p = info->p.p;
         int saved_sline = info->sline;
         skip_spaces_and_lf();
         
-        if(*info->p == ';') {
-            info->p++;
+        if(*info->p.p == ';') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
 
         /// else ///
-        if(!(xisalpha(*info->p) || *info->p == '_')) {
+        if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
             break;
         }
         skip_spaces_and_lf();
@@ -683,7 +683,7 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
         if(buf === "else") {
             if(parsecmp("if", info)) {
                 skip_spaces_and_lf();
-                info->p+=strlen("if");
+                info->p.p+=strlen("if");
                 skip_spaces_and_lf();
 
                 expected_next_character('(');
@@ -715,7 +715,7 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
             }
         }
         else {
-            info->p = saved_p;
+            info->p.p = saved_p;
             info->sline = saved_sline;
             break;
         }
@@ -754,17 +754,17 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
     sBlock*% else_block = null;
 
     while(1) {
-        char* saved_p = info->p;
+        char* saved_p = info->p.p;
         int saved_sline = info->sline;
         skip_spaces_and_lf();
         
-        if(*info->p == ';') {
-            info->p++;
+        if(*info->p.p == ';') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
 
         /// else ///
-        if(!(xisalpha(*info->p) || *info->p == '_')) {
+        if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
             break;
         }
         skip_spaces_and_lf();
@@ -774,7 +774,7 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
         if(buf === "else") {
             if(parsecmp("if", info)) {
                 skip_spaces_and_lf();
-                info->p+=strlen("if");
+                info->p.p+=strlen("if");
                 skip_spaces_and_lf();
 
                 expected_next_character('(');
@@ -806,7 +806,7 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
             }
         }
         else {
-            info->p = saved_p;
+            info->p.p = saved_p;
             info->sline = saved_sline;
             break;
         }

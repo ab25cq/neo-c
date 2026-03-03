@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -7531,10 +7542,10 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
     while((_Bool)1) {
         range_array=(_Bool)0;
         {
-            p=info->p;
+            p=info->p->p;
             sline=info->sline;
-            if(*info->p==91) {
-                info->p++;
+            if(*info->p->p==91) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 no_comma=info->no_comma;
                 no_output_come_code=info->no_output_come_code;
@@ -7543,20 +7554,20 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                 exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1158);
                 info->no_comma=no_comma;
                 info->no_output_come_code=no_output_come_code;
-                if(*info->p==46&&*(info->p+1)==46) {
+                if(*info->p->p==46&&*(info->p->p+1)==46) {
                     range_array=(_Bool)1;
                 }
                 ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1167):(void*)0);
             }
-            info->p=p;
+            info->p->p=p;
             info->sline=sline;
         }
-        if(!node->terminated(node->_protocol_obj)&&range_array&&(*info->p==92&&*(info->p+1)==91||*info->p==91)) {
-            quote=*info->p==92;
+        if(!node->terminated(node->_protocol_obj)&&range_array&&(*info->p->p==92&&*(info->p->p+1)==91||*info->p->p==91)) {
+            quote=*info->p->p==92;
             if(quote) {
-                info->p++;
+                info->p->p++;
             }
-            info->p++;
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             array_num=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "23field.nc", 1179, "struct list$1sNode$ph*"), "23field.nc", 1179)), "23field.nc", 1179);
@@ -7564,8 +7575,8 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             __right_value0 = (void*)0;
             node2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1183);
             list$1sNode$ph_push_back(array_num,(struct sNode*)come_increment_ref_count(node2, "23field.nc", 1185));
-            if(*info->p==46&&*(info->p+1)==46) {
-                info->p+=2;
+            if(*info->p->p==46&&*(info->p->p+1)==46) {
+                info->p->p+=2;
                 skip_spaces_and_lf(info);
                 skip_pointer_attribute(info);
                 __right_value0 = (void*)0;
@@ -7607,8 +7618,8 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             come_call_finalizer(list$1sNode$ph$p_finalize, array_num, (void*)0, (void*)0, 0, 0, 0, (void*)0, "23field.nc}", 1431);
             ((node2_60) ? node2_60 = come_decrement_ref_count(node2_60, ((struct sNode*)node2_60)->finalize, ((struct sNode*)node2_60)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1431):(void*)0);
         }
-        else if(!node->terminated(node->_protocol_obj)&&*info->p==33&&*(info->p+1)!=61) {
-            info->p++;
+        else if(!node->terminated(node->_protocol_obj)&&*info->p->p==33&&*(info->p->p+1)!=61) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
@@ -7630,11 +7641,11 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             (__dec_obj171 ? __dec_obj171 = come_decrement_ref_count(__dec_obj171, ((struct sNode*)__dec_obj171)->finalize, ((struct sNode*)__dec_obj171)->_protocol_obj, 0,0, (void*)0, "23field.nc", 1213) :0);
             come_call_finalizer(sUnwrapNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "23field.nc}", 1213);
         }
-        else if(!node->terminated(node->_protocol_obj)&&(*info->p==46&&*(info->p+1)==96)) {
+        else if(!node->terminated(node->_protocol_obj)&&(*info->p->p==46&&*(info->p->p+1)==96)) {
             obj=(struct sNode*)come_increment_ref_count(node, "23field.nc", 1217);
             node_before=((void*)0);
-            while(*info->p==46&&*(info->p+1)==96) {
-                info->p+=2;
+            while(*info->p->p==46&&*(info->p->p+1)==96) {
+                info->p->p+=2;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 field_name2=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "23field.nc", 1223);
@@ -7650,10 +7661,10 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             ((obj) ? obj = come_decrement_ref_count(obj, ((struct sNode*)obj)->finalize, ((struct sNode*)obj)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1431):(void*)0);
             ((node_before) ? node_before = come_decrement_ref_count(node_before, ((struct sNode*)node_before)->finalize, ((struct sNode*)node_before)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1431):(void*)0);
         }
-        else if(!node->terminated(node->_protocol_obj)&&!range_array&&(*info->p==92&&*(info->p+1)==91||*info->p==91)) {
-            quote_61=*info->p==92;
+        else if(!node->terminated(node->_protocol_obj)&&!range_array&&(*info->p->p==92&&*(info->p->p+1)==91||*info->p->p==91)) {
+            quote_61=*info->p->p==92;
             if(quote_61) {
-                info->p++;
+                info->p->p++;
             }
             range=(_Bool)0;
             __right_value0 = (void*)0;
@@ -7662,10 +7673,10 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             while(1) {
                 range_array2=(_Bool)0;
                 {
-                    p_63=info->p;
+                    p_63=info->p->p;
                     sline_64=info->sline;
-                    if(*info->p==91) {
-                        info->p++;
+                    if(*info->p->p==91) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
                         no_comma_65=info->no_comma;
                         no_output_come_code_66=info->no_output_come_code;
@@ -7675,26 +7686,26 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                         exp_67=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1251);
                         info->no_comma=no_comma_65;
                         info->no_output_come_code=no_output_come_code_66;
-                        if(*info->p==46&&*(info->p+1)==46) {
+                        if(*info->p->p==46&&*(info->p->p+1)==46) {
                             range_array2=(_Bool)1;
                         }
                         ((exp_67) ? exp_67 = come_decrement_ref_count(exp_67, ((struct sNode*)exp_67)->finalize, ((struct sNode*)exp_67)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1260):(void*)0);
                     }
-                    info->p=p_63;
+                    info->p->p=p_63;
                     info->sline=sline_64;
                 }
                 if(range_array2) {
                     break;
                 }
-                else if(*info->p==91) {
-                    info->p++;
+                else if(*info->p->p==91) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                     skip_pointer_attribute(info);
                     __right_value0 = (void*)0;
                     node2_68=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1273);
                     list$1sNode$ph_push_back(array_num_62,(struct sNode*)come_increment_ref_count(node2_68, "23field.nc", 1275));
-                    if(*info->p==93) {
-                        info->p++;
+                    if(*info->p->p==93) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
                     }
                     else {
@@ -7707,8 +7718,8 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                     break;
                 }
             }
-            if(!info->no_assign&&*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62) {
-                info->p++;
+            if(!info->no_assign&&*info->p->p==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 right_node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1296);
@@ -7781,19 +7792,19 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             }
             come_call_finalizer(list$1sNode$ph$p_finalize, array_num_62, (void*)0, (void*)0, 0, 0, 0, (void*)0, "23field.nc}", 1431);
         }
-        else if((*info->p==92&&*(info->p+1)==46)||(*info->p==92&&*(info->p+1)==45&&*(info->p+2)==62)||(*info->p==46&&*(info->p+1)!=46)||(*info->p==45&&*(info->p+1)==62)) {
-            quote_71=*info->p==92;
+        else if((*info->p->p==92&&*(info->p->p+1)==46)||(*info->p->p==92&&*(info->p->p+1)==45&&*(info->p->p+2)==62)||(*info->p->p==46&&*(info->p->p+1)!=46)||(*info->p->p==45&&*(info->p->p+1)==62)) {
+            quote_71=*info->p->p==92;
             if(quote_71) {
-                info->p++;
+                info->p->p++;
             }
             arrow_=(_Bool)0;
-            if(*info->p==46) {
-                info->p++;
+            if(*info->p->p==46) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
             else {
                 arrow_=(_Bool)1;
-                info->p+=2;
+                info->p->p+=2;
                 skip_spaces_and_lf(info);
             }
             skip_spaces_and_lf(info);
@@ -7802,12 +7813,12 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
             skip_spaces_and_lf(info);
             parse_method_generics_type=(_Bool)0;
             {
-                p_72=info->p;
+                p_72=info->p->p;
                 sline_73=info->sline;
-                if(*info->p==60) {
-                    info->p++;
+                if(*info->p->p==60) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
-                    if(xisalpha(*info->p)||*info->p==95) {
+                    if(xisalpha(*info->p->p)||*info->p->p==95) {
                         __right_value0 = (void*)0;
                         word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "23field.nc", 1352);
                         if(is_type_name(word,info)) {
@@ -7816,11 +7827,11 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                         (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "23field.nc", 1358));
                     }
                 }
-                info->p=p_72;
+                info->p->p=p_72;
                 info->sline=sline_73;
             }
-            if(!info->no_assign&&*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62) {
-                info->p++;
+            if(!info->no_assign&&*info->p->p==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 right_node_74=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "23field.nc", 1369);
@@ -7857,7 +7868,7 @@ struct sNode* post_position_operator_v99(struct sNode* node, struct sInfo*  info
                 ((right_node_74) ? right_node_74 = come_decrement_ref_count(right_node_74, ((struct sNode*)right_node_74)->finalize, ((struct sNode*)right_node_74)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1421):(void*)0);
                 ((node2_75) ? node2_75 = come_decrement_ref_count(node2_75, ((struct sNode*)node2_75)->finalize, ((struct sNode*)node2_75)->_protocol_obj, 0, 0,(void*)0, "23field.nc", 1421):(void*)0);
             }
-            else if(!gComeC&&(*info->p==40||*info->p==123||parse_method_generics_type)) {
+            else if(!gComeC&&(*info->p->p==40||*info->p->p==123||parse_method_generics_type)) {
                 if(string_operator_equals(field_name,"if")) {
                     __right_value0 = (void*)0;
                     __dec_obj190=node,

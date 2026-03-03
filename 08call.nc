@@ -1366,12 +1366,12 @@ class sFunCallNode extends sNodeBase
                 
                 if(default_param && default_param !== "" && come_params[i] == null) {
                     buffer*% source = info.source;
-                    char* p = info.p;
+                    char* p = info.p.p;
                     char* head = info.head;
                     int sline = info.sline;
                     
                     info.source = default_param.to_buffer();
-                    info.p = borrow info.source.buf;
+                    info.p.p = borrow info.source.buf;
                     info.head = borrow info.source.buf;
                     
                     bool no_output_come_code = info.no_output_come_code;
@@ -1386,7 +1386,7 @@ class sFunCallNode extends sNodeBase
                     info.no_output_come_code = no_output_come_code;
                     
                     info.source = source;
-                    info.p = p;
+                    info.p.p = p;
                     info.head = head;
                     info.sline = sline;
             
@@ -1507,12 +1507,12 @@ class sFunCallNode extends sNodeBase
             method_block2.append_str(method_block.to_string());
             
             buffer*% source3 = info.source;
-            char* p = info.p;
+            char* p = info.p.p;
             char* head = info.head;
             int sline = info.sline;
             
             info.source = method_block2;
-            info.p = borrow info.source.buf;
+            info.p.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
             info.sline = method_block_sline;
            
@@ -1542,7 +1542,7 @@ class sFunCallNode extends sNodeBase
             come_params.push_back(come_value2);
             
             info.source = source3;
-            info.p = p;
+            info.p.p = p;
             info.head = head;
             info.sline = sline;
             
@@ -1698,12 +1698,12 @@ class sComeCallNode extends sNodeBase
         info->current_stack_frame_struct = borrow info.classes[class_name];
         
         buffer*% source3 = info.source;
-        char* p = info.p;
+        char* p = info.p.p;
         char* head = info.head;
         int sline = info.sline;
         
         info.source = come_block2;
-        info.p = borrow info.source.buf;
+        info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         info.sline = come_block_sline;
        
@@ -1717,7 +1717,7 @@ class sComeCallNode extends sNodeBase
         info.in_method_block = in_method_block;
         
         info.source = source3;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.sline = sline;
         
@@ -2105,22 +2105,22 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
 {
     list<sType*%>*% method_generics_types = new list<sType*%>();
     
-    if(*info->p == '<') {
-        info->p++;
+    if(*info->p.p == '<') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         while(true) {
-            if(*info->p == '\0') {
+            if(*info->p.p == '\0') {
                 err_msg(info, "unexpected source end");
                 exit(2);
             }
-            else if(*info->p == '>') {
-                info->p++;
+            else if(*info->p.p == '>') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
-            else if(*info->p == ',') {
-                info->p++;
+            else if(*info->p.p == ',') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             else {
@@ -2148,30 +2148,30 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
     }
     
     while(true) {
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
             break;
         }
         
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
         bool err_flag = false;
         string label = string("");
-        if(xisalpha(*info->p) || *info->p == '_') {
+        if(xisalpha(*info->p.p) || *info->p.p == '_') {
             label = parse_word();
             err_flag = true;
         }
         
-        if(err_flag == true && *info->p == ':') {
-            info->p++;
+        if(err_flag == true && *info->p.p == ':') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         else {
             label = null;
             
-            info->p = p;
+            info->p.p = p;
             info->sline = sline;
         }
         
@@ -2198,12 +2198,12 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
         
         skip_spaces_and_lf();
         
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
-        else if(*info->p == ')') {
-            info->p++;
+        else if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             break;
@@ -2216,13 +2216,13 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
     
     buffer*% method_block = null;
     int method_block_sline = 0;
-    if(*info->p == '{') {
-        char* head = info.p;
+    if(*info->p.p == '{') {
+        char* head = info.p.p;
         method_block_sline = info.sline;
         
         skip_block(info);
         
-        char* tail = info.p;
+        char* tail = info.p.p;
         
         method_block = new buffer();
         
@@ -2256,7 +2256,7 @@ sNode*% expression_node(sInfo* info=info) version 1
 {
     skip_spaces_and_lf();
     
-    err_msg(info, "invalid character(1)(%d)(%c)", *info->p, *info->p);
+    err_msg(info, "invalid character(1)(%d)(%c)", *info->p.p, *info->p.p);
     //stackframe();
     exit(3);
     return (sNode*%)null;
@@ -2264,26 +2264,26 @@ sNode*% expression_node(sInfo* info=info) version 1
 
 string parse_inner_attribute(sInfo* info=info)
 {
-    char* head = info.p;
+    char* head = info.p.p;
     
-    if(*info->p == '(') {
+    if(*info->p.p == '(') {
         bool in_dquort = false;
         int brace_num = 0;
-        while(*info->p) {
-            if(*info->p == '"') {
-                info->p++;
+        while(*info->p.p) {
+            if(*info->p.p == '"') {
+                info->p.p++;
 
                 in_dquort = !in_dquort;
             }
             else if(in_dquort) {
-                info->p++;
+                info->p.p++;
             }
-            else if(*info->p == '(') {
-                info->p++;
+            else if(*info->p.p == '(') {
+                info->p.p++;
                 brace_num++;
             }
-            else if(*info->p == ')') {
-                info->p++;
+            else if(*info->p.p == ')') {
+                info->p.p++;
                 brace_num--;
 
                 if(brace_num == 0) {
@@ -2291,13 +2291,13 @@ string parse_inner_attribute(sInfo* info=info)
                 }
             }
             else {
-                info->p++;
+                info->p.p++;
             }
         }
     }
     skip_spaces_and_lf();
     
-    char* tail = info.p;
+    char* tail = info.p.p;
     
     var buf = new buffer();
     
@@ -2311,10 +2311,10 @@ sNode*% expression_node(sInfo* info=info) version 98
     skip_spaces_and_lf();
     
     if(parsecmp("return", info)) {
-        info->p += strlen("return");
+        info->p.p += strlen("return");
         skip_spaces_and_lf();
         
-        if(*info->p == ';') {
+        if(*info->p.p == ';') {
             return new sReturnNode(null, info) implements sNode;
         }
         else {
@@ -2325,50 +2325,50 @@ sNode*% expression_node(sInfo* info=info) version 98
         }
     }
     /// comment
-    else if(*info->p == '/' && *(info->p+1) == '*') {
+    else if(*info->p.p == '/' && *(info->p.p+1) == '*') {
         int nest = 0;
         while(1) {
-            if(*info->p == '/' && *(info->p+1) == '*') {
-                info->p +=2;
+            if(*info->p.p == '/' && *(info->p.p+1) == '*') {
+                info->p.p +=2;
                 nest++;
             }
-            else if(*info->p == '*' && *(info->p+1) == '/') {
-                info->p +=2;
+            else if(*info->p.p == '*' && *(info->p.p+1) == '/') {
+                info->p.p +=2;
                 nest--;
                 
                 if(nest == 0) {
                     break;
                 }
             }
-            else if(*info->p == '\n') {
-                info->p++;
+            else if(*info->p.p == '\n') {
+                info->p.p++;
                 info->sline++;
             }
             else {
-                info->p++;
+                info->p.p++;
             }
         }
     }
     /// comment
-    else if(*info->p == '/' && *(info->p+1) == '/') {
-        info->p+=2;
+    else if(*info->p.p == '/' && *(info->p.p+1) == '/') {
+        info->p.p+=2;
         
         while(1) {
-            if(*info->p == '\n') {
-                info->p++;
+            if(*info->p.p == '\n') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
-            else if(*info->p == '\0') {
+            else if(*info->p.p == '\0') {
                 break;
             }
             else { 
-                info->p++;
+                info->p.p++;
             }
         }
     }
-    else if(!gComeC && *info->p == 't' && *(info->p+1) == '(') {
-        info->p+=2;
+    else if(!gComeC && *info->p.p == 't' && *(info->p.p+1) == '(') {
+        info->p.p+=2;
         skip_spaces_and_lf();
         
         sNode*% node = parse_tuple(info, false@named_tuple_expression_flag);
@@ -2377,8 +2377,8 @@ sNode*% expression_node(sInfo* info=info) version 98
         
         return node;
     }
-    else if(!gComeC && *info->p == 'v' && *(info->p+1) == '[') {
-        info->p+=2;
+    else if(!gComeC && *info->p.p == 'v' && *(info->p.p+1) == '[') {
+        info->p.p+=2;
         skip_spaces_and_lf();
         
         sNode*% node = parse_vector(info);
@@ -2387,14 +2387,14 @@ sNode*% expression_node(sInfo* info=info) version 98
         
         return node;
     }
-    else if(!gComeC && (info->end - info->p) >= strlen("`it") && memcmp(info->p, "`it", strlen("`it")) == 0) 
+    else if(!gComeC && (info->end - info->p.p) >= strlen("`it") && memcmp(info->p.p, "`it", strlen("`it")) == 0) 
     {
         sNode*% node = parse_iterator_it(info);
         
         return node;
     }
-    else if((xisalpha(*info->p) || *info->p == '_' ) && !(((*info->p == 'L' || *info->p == 'l' || *info->p == 's' || *info->p == 'S' || *info->p == 'b' || *info->p == 'B' || *info->p == 'h' || *info->p == 'H' || *info->p == 'u' || *info->p == 'U') && *(info->p+1) == '"') || ((*info->p == 'L' || *info->p == 'u' || *info->p == 'U') && *(info->p+1) == '\'') || (*info->p == 'u' && *(info->p+1) == '8' && *(info->p+2) == '"'))) {
-        char* head = info.p;
+    else if((xisalpha(*info->p.p) || *info->p.p == '_' ) && !(((*info->p.p == 'L' || *info->p.p == 'l' || *info->p.p == 's' || *info->p.p == 'S' || *info->p.p == 'b' || *info->p.p == 'B' || *info->p.p == 'h' || *info->p.p == 'H' || *info->p.p == 'u' || *info->p.p == 'U') && *(info->p.p+1) == '"') || ((*info->p.p == 'L' || *info->p.p == 'u' || *info->p.p == 'U') && *(info->p.p+1) == '\'') || (*info->p.p == 'u' && *(info->p.p+1) == '8' && *(info->p.p+2) == '"'))) {
+        char* head = info.p.p;
         int head_sline = info.sline;
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
@@ -2412,23 +2412,23 @@ sNode*% expression_node(sInfo* info=info) version 98
         
         /// backtrace ///
         bool define_function_pointer_flag = false;
-        if(!is_special_word && *info->p == '(' && *(info->p+1) != '*')
+        if(!is_special_word && *info->p.p == '(' && *(info->p.p+1) != '*')
         {
             backtrace_parse_type();
             
-            if(*info->p == '(') {
-                info->p++;
+            if(*info->p.p == '(') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
-                if(*info->p == '*') {
-                    info->p++;
+                if(*info->p.p == '*') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     
                     define_function_pointer_flag = true;
                 }
             }
             
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
         }
         
@@ -2436,7 +2436,7 @@ sNode*% expression_node(sInfo* info=info) version 98
         bool lambda_flag = false;
         if(!is_special_word && is_type_name_)
         {
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
             
             backtrace_parse_type();
@@ -2447,7 +2447,7 @@ sNode*% expression_node(sInfo* info=info) version 98
                 lambda_flag = true;
             }
             
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
         }
         
@@ -2455,36 +2455,36 @@ sNode*% expression_node(sInfo* info=info) version 98
         bool fun_name_with_type_name = false;
         if(!is_special_word)
         {
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
             
             bool no_output_come_code = info.no_output_come_code;
             info.no_output_come_code = true;
             
             bool flag = false
-            while(xisalpha(*info.p) || *info.p == '_') {
+            while(xisalpha(*info.p.p) || *info.p.p == '_') {
                 flag = true;
                 var word2 = parse_word();
             }
-            while(*info->p == '*' || *info->p == '%') {
-                info->p++;
+            while(*info->p.p == '*' || *info->p.p == '%') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
-            while(*info->p == '[' && *(info->p+1) == ']') {
-                info->p+=2;
+            while(*info->p.p == '[' && *(info->p.p+1) == ']') {
+                info->p.p+=2;
                 skip_spaces_and_lf();
             }
-            if(flag && *info->p == ':' && *(info->p+1) == ':') {
-                info->p += 2;
+            if(flag && *info->p.p == ':' && *(info->p.p+1) == ':') {
+                info->p.p += 2;
                 skip_spaces_and_lf();
-                if(xisalpha(*info->p) || *info.p == '_') {
+                if(xisalpha(*info->p.p) || *info.p.p == '_') {
                     fun_name_with_type_name = true;
                 }
             }
             
             info.no_output_come_code = no_output_come_code;
             
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
         }
         
@@ -2492,41 +2492,41 @@ sNode*% expression_node(sInfo* info=info) version 98
         bool call_method_generics_fun_call = false;
         if(!is_special_word)
         {
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
             
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 buf = parse_word();
             }
             
-            if(!is_type_name(buf) && info.lv_table.mVars[string(buf)] == null && info.gv_table.mVars[string(buf)] == null && *info->p == '<') {
+            if(!is_type_name(buf) && info.lv_table.mVars[string(buf)] == null && info.gv_table.mVars[string(buf)] == null && *info->p.p == '<') {
                 int nest = 0;
-                while(*info->p) {
-                    if(*info->p == '<') {
-                        info->p++;
+                while(*info->p.p) {
+                    if(*info->p.p == '<') {
+                        info->p.p++;
                         nest++;
                     }
-                    else if(*info->p == '>') {
-                        info->p++;
+                    else if(*info->p.p == '>') {
+                        info->p.p++;
                         
                         if(nest == 0) {
                             break;
                         }
                     }
-                    else if(*info->p == '\n' || *info->p == ';') {
+                    else if(*info->p.p == '\n' || *info->p.p == ';') {
                         break;
                     }
                     else {
-                        info->p++;
+                        info->p.p++;
                     }
                 }
                 
-                if(*info->p == '(') {
+                if(*info->p.p == '(') {
                     call_method_generics_fun_call = true;
                 }
             }
             
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
         }
         /// backtrace ///
@@ -2534,27 +2534,27 @@ sNode*% expression_node(sInfo* info=info) version 98
         bool inline_asm = false;
         if(!is_special_word)
         {
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
             
             buf = parse_word();
             
             if(buf === "asm" || buf === "__asm" || buf === "__asm__") {
-                if(*info->p == '(') {
+                if(*info->p.p == '(') {
                     inline_asm = true;
                 }
                 else {
-                    if(xisalpha(*info->p) || *info->p == '_') {
+                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
                         buf = parse_word();
                         
-                        if(*info->p == '(') {
+                        if(*info->p.p == '(') {
                             inline_asm = true;
                         }
                     }
                 }
             }
             
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
         }
         
@@ -2565,14 +2565,14 @@ sNode*% expression_node(sInfo* info=info) version 98
         skip_spaces_and_lf();
         
         if(lambda_flag) {
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
             
             sNode*% node =  parse_function(info);
             info.sline_real = sline_real;
             return node;
         }
-        else if((buf === "_Static_assert" || buf === "static_assert") && *info->p == '(') 
+        else if((buf === "_Static_assert" || buf === "static_assert") && *info->p.p == '(') 
         {
             expected_next_character('(');
             
@@ -2589,13 +2589,13 @@ sNode*% expression_node(sInfo* info=info) version 98
             
             return static_assert_node(exp, exp2);
         }
-        else if(buf === "__attribute__" && *info->p == '(') 
+        else if(buf === "__attribute__" && *info->p.p == '(') 
         {
             string attr = parse_inner_attribute();
             
             return new sInnerAttribute(attr, info) implements sNode;
         }
-        else if(buf === "__c__" && *info->p == '{') 
+        else if(buf === "__c__" && *info->p.p == '{') 
         {
             string block_text = skip_block();
             
@@ -2608,7 +2608,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             
             return node;
         }
-        else if(!gComeC && (buf === "string" || buf === "wstring") && *info->p == '(') {
+        else if(!gComeC && (buf === "string" || buf === "wstring") && *info->p.p == '(') {
             sNode*% node = parse_function_call(buf, info);
             
             info.sline_real = sline_real;
@@ -2624,13 +2624,13 @@ sNode*% expression_node(sInfo* info=info) version 98
             buffer*% come_block = null;
             int come_block_sline = 0;
             
-            if(*info->p == '{') {
-                char* head = info.p;
+            if(*info->p.p == '{') {
+                char* head = info.p.p;
                 come_block_sline = info.sline;
                 
                 skip_block(info);
                 
-                char* tail = info.p;
+                char* tail = info.p.p;
                 
                 come_block = new buffer();
                 
@@ -2643,7 +2643,7 @@ sNode*% expression_node(sInfo* info=info) version 98
                 come_block.append_str("\n");
             }
             else {
-                char* head = info.p;
+                char* head = info.p.p;
                 come_block_sline = info.sline;
                 
                 bool no_output_come_code = info.no_output_come_code;
@@ -2651,7 +2651,7 @@ sNode*% expression_node(sInfo* info=info) version 98
                 expression(info);
                 info.no_output_come_code = no_output_come_code;
                 
-                char* tail = info.p;
+                char* tail = info.p.p;
                 
                 come_block = new buffer();
                 
@@ -2672,7 +2672,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.sline_real = sline_real;
             return node;
         }
-        else if(gComePthread && buf === "come_join" && *info->p == '(') {
+        else if(gComePthread && buf === "come_join" && *info->p.p == '(') {
             buffer*% come_block = null;
             int come_block_sline = 0;
             
@@ -2684,14 +2684,14 @@ sNode*% expression_node(sInfo* info=info) version 98
             return new sComeJoinNode(node, info) implements sNode;
         }
 #if defined(__linux__) || defined(__APPLE__) || defined(__ANDROID__)
-        else if(gComePthread && buf === "come_poll" && (*info->p == '(' || *info->p == '{')) {
+        else if(gComePthread && buf === "come_poll" && (*info->p.p == '(' || *info->p.p == '{')) {
             int time_out = 1;
-            if(*info->p == '(') {
-                info->p++;
+            if(*info->p.p == '(') {
+                info->p.p++;
                 
-                while(xisdigit(*info->p)) {
-                    time_out = time_out * 10 + (*info->p - '0');
-                    info->p++;
+                while(xisdigit(*info->p.p)) {
+                    time_out = time_out * 10 + (*info->p.p - '0');
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
                 
@@ -2703,13 +2703,13 @@ sNode*% expression_node(sInfo* info=info) version 98
             list<sBlock*%>*% blocks = new list<sBlock*%>();
             sBlock*% else_block = new sBlock();
             while(1) {
-                if(((info->end - info->p) >= strlen("else")) && memcmp(info->p, "else", strlen("else")) == 0) {
-                    info->p += strlen("else");
+                if(((info->end - info->p.p) >= strlen("else")) && memcmp(info->p.p, "else", strlen("else")) == 0) {
+                    info->p.p += strlen("else");
                     skip_spaces_and_lf();
                     
                     else_block = parse_block();
                     
-                    if(*info->p == '}') {
+                    if(*info->p.p == '}') {
                         break;
                     }
                 }
@@ -2722,7 +2722,7 @@ sNode*% expression_node(sInfo* info=info) version 98
                     
                     blocks.add(block);
                     
-                    if(*info->p == '}') {
+                    if(*info->p.p == '}') {
                         break;
                     }
                 }
@@ -2759,7 +2759,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             return new sCallerSNameNode(info) implements sNode;
         }
         else if(info->va_arg && is_type_name(buf)) {
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
             
             var type, name, err = parse_type(parse_variable_name:false, parse_multiple_type:false);
@@ -2777,7 +2777,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             bool volatile_ = false;
             var buf2 = new buffer();
             
-            if(*info->p != '(') {
+            if(*info->p.p != '(') {
                 string word = parse_word(); // volatile
                 
                 if(word === "volatile") {
@@ -2792,44 +2792,44 @@ sNode*% expression_node(sInfo* info=info) version 98
             bool dquort = false;
             while(true) {
                 if(dquort) {
-                    if(*info->p == '\\') {
-                        buf2.append_char(*info->p);
-                        info->p++;
+                    if(*info->p.p == '\\') {
+                        buf2.append_char(*info->p.p);
+                        info->p.p++;
                     
-                        if(*info->p == '\0') {
+                        if(*info->p.p == '\0') {
                             err_msg(info, "invalid source end");
                             return null;
                         }
                         else {
-                            buf2.append_char(*info->p);
-                            info->p++;
+                            buf2.append_char(*info->p.p);
+                            info->p.p++;
                         }
                     }
-                    else if(*info->p == '"') {
-                        buf2.append_char(*info->p);
-                        info->p++;
+                    else if(*info->p.p == '"') {
+                        buf2.append_char(*info->p.p);
+                        info->p.p++;
                         buf2.append_char('\n');
                         skip_spaces_and_lf();
                         
                         dquort = false;
                     }
                     else {
-                        buf2.append_char(*info->p);
-                        info->p++;
+                        buf2.append_char(*info->p.p);
+                        info->p.p++;
                     }
                 }
-                else if(*info->p == '"') {
+                else if(*info->p.p == '"') {
                     dquort = true;
                     
                     for(int i=0; i<info->block_level+1; i++) {
                         buf2.append_str("    ");
                     }
-                    buf2.append_char(*info->p);
-                    info->p++;
+                    buf2.append_char(*info->p.p);
+                    info->p.p++;
                 }
-                else if(*info->p == '(') {
+                else if(*info->p.p == '(') {
                     buf2.append_char('(');
-                    info->p++;
+                    info->p.p++;
                     
                     sNode*% exp = expression();
                     
@@ -2844,43 +2844,43 @@ sNode*% expression_node(sInfo* info=info) version 98
                     expected_next_character(')');
                     buf2.append_char(')');
                 }
-                else if(*info->p == ')') {
+                else if(*info->p.p == ')') {
                     for(int i=0; i<info->block_level; i++) {
                         buf2.append_str("    ");
                     }
                     buf2.append_char(')');
-                    info->p++;
+                    info->p.p++;
                     skip_spaces_and_lf();
                     break;
                 }
-                else if(*info->p == '\n') {
+                else if(*info->p.p == '\n') {
                     info->sline++;
-                    buf2.append_char(*info->p);
-                    info->p++;
+                    buf2.append_char(*info->p.p);
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
-                else if(*info->p == ':') {
+                else if(*info->p.p == ':') {
                     for(int i=0; i<info->block_level+1; i++) {
                         buf2.append_str("    ");
                     }
-                    buf2.append_char(*info->p);
-                    info->p++;
+                    buf2.append_char(*info->p.p);
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
-                else if(*info->p == ',') {
+                else if(*info->p.p == ',') {
                     for(int i=0; i<info->block_level+1; i++) {
                         buf2.append_str("    ");
                     }
-                    buf2.append_char(*info->p);
-                    info->p++;
+                    buf2.append_char(*info->p.p);
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
-                else if(*info->p == '\0') {
+                else if(*info->p.p == '\0') {
                     err_msg(info, "invalid source end at inline assembler");
                     exit(2);
                 }
                 else {
-                    err_msg(info, "unexpected character(%c)", *info->p);
+                    err_msg(info, "unexpected character(%c)", *info->p.p);
                     exit(2);
                 }
             }
@@ -2890,7 +2890,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             return new sInlineAssembler(buf2.to_string(), volatile_, info) implements sNode;
         }
         else if(fun_name_with_type_name) {
-            info.p = head;
+            info.p.p = head;
             info.sline = head_sline;
             
             var type,name,err = parse_type();
@@ -2907,8 +2907,8 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.sline_real = sline_real;
             return node;
         }
-        else if(*info->p == ':' && *(info->p+1) == ':') {
-            info->p+=2;
+        else if(*info->p.p == ':' && *(info->p.p+1) == ':') {
+            info->p.p+=2;
             skip_spaces_and_lf();
             
             buffer*% fun_name = new buffer();
@@ -2932,7 +2932,7 @@ sNode*% expression_node(sInfo* info=info) version 98
             info.sline_real = sline_real;
             return node;
         }
-        else if(!is_special_word && *info->p == '(' && !is_type_name_ || (is_portable_symbol && *info->p == '('))
+        else if(!is_special_word && *info->p.p == '(' && !is_type_name_ || (is_portable_symbol && *info->p.p == '('))
         {
             sNode*% node = parse_function_call(buf, info);
             
@@ -2952,7 +2952,7 @@ sNode*% expression_node(sInfo* info=info) version 98
         return node;
     }
     
-    err_msg(info, "unexpected operator(%c)", *info->p);
+    err_msg(info, "unexpected operator(%c)", *info->p.p);
     exit(2);
     
     return (sNode*%)null;
@@ -2966,7 +2966,7 @@ sNode*% expression(sInfo* info=info) version 5
 static sNode*% post_position_operator_of_statment(sNode*% node, sInfo* info)
 {
     if(!node->terminated() && parsecmp("or")) {
-        info->p += strlen("or");
+        info->p.p += strlen("or");
         skip_spaces_and_lf();
         
         node = parse_or_statment(clone node, info);
@@ -2974,7 +2974,7 @@ static sNode*% post_position_operator_of_statment(sNode*% node, sInfo* info)
         return node;
     }
     else if(!node->terminated() && parsecmp("and")) {
-        info->p += strlen("and");
+        info->p.p += strlen("and");
         skip_spaces_and_lf();
         
         node = parse_and_statment(clone node, info);
@@ -3202,8 +3202,8 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
 {
     skip_spaces_and_lf();
     
-    if(!node->terminated() && *info->p == '(') {
-        info->p++;
+    if(!node->terminated() && *info->p.p == '(') {
+        info->p.p++;
         skip_spaces_and_lf(info);
         
         skip_spaces_and_lf();
@@ -3211,30 +3211,30 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
         list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         while(true) {
-            if(*info->p == ')') {
-                info->p++;
+            if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 break;
             }
             
-            char* p = info.p;
+            char* p = info.p.p;
             int sline = info.sline;
             
             bool err_flag = false;
             string label = string("");
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 label = parse_word();
                 err_flag = true;
             }
             
-            if(err_flag == true && *info->p == ':') {
-                info->p++;
+            if(err_flag == true && *info->p.p == ':') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
             else {
                 label = null;
                 
-                info->p = p;
+                info->p.p = p;
                 info->sline = sline;
             }
             
@@ -3255,12 +3255,12 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
             
             skip_spaces_and_lf();
             
-            if(*info->p == ',') {
-                info->p++;
+            if(*info->p.p == ',') {
+                info->p.p++;
                 skip_spaces_and_lf();
             }
-            else if(*info->p == ')') {
-                info->p++;
+            else if(*info->p.p == ')') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 break;

@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2741,16 +2752,16 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
     memset(&word, 0, sizeof(word));
     memset(&buf_3, 0, sizeof(buf_3));
     if(!gComeC&&charp_operator_equals(buf,"impl")) {
-        source_head=info->p;
-        if(*info->p==95||xisalpha(*info->p)) {
+        source_head=info->p->p;
+        if(*info->p->p==95||xisalpha(*info->p->p)) {
             __dec_obj1=word,
             word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "27impl.nc", 10);
             __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "27impl.nc", 10);
         }
         has_generics_args=(_Bool)0;
-        if(*info->p==60) {
+        if(*info->p->p==60) {
             has_generics_args=(_Bool)1;
-            info->p++;
+            info->p->p++;
             skip_spaces_and_lf(info);
             list$1char$ph_reset(info->generics_type_names);
             while((_Bool)1) {
@@ -2758,18 +2769,18 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
                 generics_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "27impl.nc", 21);
                 __right_value0 = (void*)0;
                 list$1char$ph_push_back(info->generics_type_names,(char* )come_increment_ref_count((char* )come_memdup(generics_name, "27impl.nc", 23, "char* "), "27impl.nc", 23));
-                if(*info->p==44) {
-                    info->p++;
+                if(*info->p->p==44) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                 }
-                else if(*info->p==62) {
-                    info->p++;
+                else if(*info->p->p==62) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                     (generics_name = come_decrement_ref_count(generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "27impl.nc", 32));
                     break;
                 }
                 else {
-                    err_msg(info,"invalid character on impl (%c)",*info->p);
+                    err_msg(info,"invalid character on impl (%c)",*info->p->p);
                     exit(2);
                 }
                 (generics_name = come_decrement_ref_count(generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "27impl.nc", 39));
@@ -2790,8 +2801,8 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
             }
         }
         pointer_num=0;
-        while(*info->p==42) {
-            info->p++;
+        while(*info->p->p==42) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             pointer_num++;
         }
@@ -2802,10 +2813,10 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
         info->impl_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "27impl.nc", 63, "struct sType* "), "27impl.nc", 63),(char* )come_increment_ref_count(word, "27impl.nc", 63),(_Bool)0,info,(_Bool)0,0), "27impl.nc", 63);
         come_call_finalizer(sType_finalize, __dec_obj5,(void*)0, (void*)0, 0, 0, 0, (void*)0, "27impl.nc", 63);
         info->impl_type->mPointerNum=pointer_num;
-        while(*info->p!=125) {
+        while(*info->p->p!=125) {
             skip_spaces_and_lf(info);
-            head_2=info->p;
-            if(*info->p==95||xisalpha(*info->p)) {
+            head_2=info->p->p;
+            if(*info->p->p==95||xisalpha(*info->p->p)) {
                 __right_value0 = (void*)0;
                 __dec_obj6=buf_3,
                 buf_3=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "27impl.nc", 73);
@@ -2815,8 +2826,8 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
             __right_value0 = (void*)0;
             node=(struct sNode*)come_increment_ref_count(top_level_v99(buf_3,head_2,head_sline,info), "27impl.nc", 78);
             parse_sharp_v5(info);
-            while(*info->p==59) {
-                info->p++;
+            while(*info->p->p==59) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
             parse_sharp_v5(info);
@@ -2845,7 +2856,7 @@ struct sNode* top_level_v93(char* buf, char* head, int head_sline, struct sInfo*
         __dec_obj9=info->impl_type,
         info->impl_type=((void*)0);
         come_call_finalizer(sType_finalize, __dec_obj9,(void*)0, (void*)0, 0, 0, 0, (void*)0, "27impl.nc", 105);
-        source_tail=info->p;
+        source_tail=info->p->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "27impl.nc", 109, "struct buffer* "), "27impl.nc", 109)), "27impl.nc", 109);

@@ -773,105 +773,105 @@ sNode*% pre_position_operator(sInfo* info=info)
     
     bool refference = false;
     {
-        char* p = info.p;
+        char* p = info.p.p;
         int sline = info.sline;
         
-        if(*info->p == '&' && *(info->p+1) != '&') {
-            info->p++;
+        if(*info->p.p == '&' && *(info->p.p+1) != '&') {
+            info->p.p++;
             skip_spaces_and_lf();
             
-            if(*info->p == '"') {
+            if(*info->p.p == '"') {
                 refference = true;
             }
-            else if(xisalpha(*info->p) || *info->p == '_') {
+            else if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 refference = true;
             }
-            else if(*info->p == '(' || *info->p == '*') {
-                while(*info->p == '(' || *info->p == '*') {
-                    info->p++
+            else if(*info->p.p == '(' || *info->p.p == '*') {
+                while(*info->p.p == '(' || *info->p.p == '*') {
+                    info->p.p++
                     skip_spaces_and_lf();
                 }
                 
-                if(*info->p == '&') {
+                if(*info->p.p == '&') {
                     refference = true;
                 }
-                else if(xisalpha(*info->p) || *info->p == '_') {
+                else if(xisalpha(*info->p.p) || *info->p.p == '_') {
                     refference = true;
                 }
             }
         }
         
-        info.p = p;
+        info.p.p = p;
         info.sline = sline;
     }
     
     
     skip_spaces_and_lf();
     
-    if(*info->p == '{') {
+    if(*info->p.p == '{') {
         if(info.array_initializer) {
             buffer*% buf = new buffer();
             
-            buf.append_char(*info->p);
-            info->p++;
+            buf.append_char(*info->p.p);
+            info->p.p++;
             
             bool squort = false;
             bool dquort = false;
             int nest = 1;
             while(1) {
-                if(*info->p == '\0') {
+                if(*info->p.p == '\0') {
                     err_msg(info, "unexpected source end in array initiailizer");
                     exit(2);
                 }
-                else if(*info->p == '\\') {
-                    buf.append_char(*info->p);
-                    info->p++;
-                    if(*info->p == '\n') {
+                else if(*info->p.p == '\\') {
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
+                    if(*info->p.p == '\n') {
                         info->sline++;
                     }
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
-                else if(!squort && *info->p == '"') {
-                    buf.append_char(*info->p);
-                    info->p++;
+                else if(!squort && *info->p.p == '"') {
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                     dquort = !dquort;
                 }
-                else if(!dquort && *info->p == '\'') {
-                    buf.append_char(*info->p);
-                    info->p++;
+                else if(!dquort && *info->p.p == '\'') {
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                     squort = !squort;
                 }
                 else if(squort || dquort) {
-                    if(*info->p == '\n') {
+                    if(*info->p.p == '\n') {
                         info->sline++;
                     }
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
-                else if(*info->p == '{') {
+                else if(*info->p.p == '{') {
                     nest++;
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
-                else if(*info->p == '}') {
+                else if(*info->p.p == '}') {
                     nest--;
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                     
                     if(nest == 0) {
                         skip_spaces_and_lf();
                         break;
                     }
                 }
-                else if(*info->p == '\n') {
+                else if(*info->p.p == '\n') {
                     info->sline++;
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
                 else {
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
             }
             return new sArrayInitializer(null, buf.to_string(), info) implements sNode;
@@ -880,63 +880,63 @@ sNode*% pre_position_operator(sInfo* info=info)
             return parse_normal_block();
         }
     }
-    else if(*info->p == '!' && *(info->p+1) != '!' && *(info->p+1) != '{') {
-        info->p++;
+    else if(*info->p.p == '!' && *(info->p.p+1) != '!' && *(info->p.p+1) != '{') {
+        info->p.p++;
         skip_spaces_and_lf();
 
         sNode*% node = expression_node();
 
         return new sLogicalDenial(node, info) implements sNode;
     }
-    else if(*info->p == '!' && *(info->p+1) == '!') {
-        info->p+=2;
+    else if(*info->p.p == '!' && *(info->p.p+1) == '!') {
+        info->p.p+=2;
         skip_spaces_and_lf();
 
         sNode*% node = expression_node();
 
         return new sLogicalDenial2(node, info) implements sNode;
     }
-    else if(*info->p == '-' && *(info->p+1) == '-') {
-        info->p+=2;
+    else if(*info->p.p == '-' && *(info->p.p+1) == '-') {
+        info->p.p+=2;
         skip_spaces_and_lf();
 
         sNode*% node = expression_node();
 
         return new sMinusMinusNode2(node, info) implements sNode;
     }
-    else if(*info->p == '-' && !xisdigit(*(info->p+1))) {
-        info->p++;
+    else if(*info->p.p == '-' && !xisdigit(*(info->p.p+1))) {
+        info->p.p++;
         skip_spaces_and_lf();
 
         sNode*% node = expression_node();
 
         return new sMinusNode2(node, info) implements sNode;
     }
-    else if(*info->p == '+' && *(info->p+1) == '+') {
-        info->p+=2;
+    else if(*info->p.p == '+' && *(info->p.p+1) == '+') {
+        info->p.p+=2;
         skip_spaces_and_lf();
 
         sNode*% node = expression_node();
 
         return new sPlusPlusNode2(node, info) implements sNode;
     }
-    else if(*info->p == '~') {
-        info->p++;
+    else if(*info->p.p == '~') {
+        info->p.p++;
         skip_spaces_and_lf();
 
         sNode*% node = expression_node();
 
         return new sComplement(node, info) implements sNode;
     }
-    else if((*info->p == '\\' && *(info->p+1) == '*') || *info->p == '*') {
+    else if((*info->p.p == '\\' && *(info->p.p+1) == '*') || *info->p.p == '*') {
         bool quote;
-        if(*info->p == '\\') {
-            info->p += 2;
+        if(*info->p.p == '\\') {
+            info->p.p += 2;
             skip_spaces_and_lf();
             quote = true;
         }
         else {
-            info->p ++;
+            info->p.p ++;
             skip_spaces_and_lf();
             quote = false;
         }
@@ -948,8 +948,8 @@ sNode*% pre_position_operator(sInfo* info=info)
         
         return new sDerefferenceNode(value, quote, info) implements sNode;
     }
-    else if(*info->p == '&' && refference) {
-        info->p ++;
+    else if(*info->p.p == '&' && refference) {
+        info->p.p ++;
         skip_spaces_and_lf();
         
         sNode*% value = expression_node();
@@ -957,8 +957,8 @@ sNode*% pre_position_operator(sInfo* info=info)
         return new sRefferenceNode(value, info) implements sNode;
     }
 /*
-    else if(*info->p == '&' && *(info->p+1) == '&') {
-        info->p ++;
+    else if(*info->p.p == '&' && *(info->p.p+1) == '&') {
+        info->p.p ++;
         skip_spaces_and_lf();
         
         sNode*% value = expression_node();
@@ -966,43 +966,43 @@ sNode*% pre_position_operator(sInfo* info=info)
         return new sRawPtrNode(value, info) implements sNode;
     }
 */
-    else if(*info->p == '!' && *(info->p+1) != '!' && *(info->p+1) != '{') {
-        info->p ++;
+    else if(*info->p.p == '!' && *(info->p.p+1) != '!' && *(info->p.p+1) != '{') {
+        info->p.p ++;
         skip_spaces_and_lf();
         
         sNode*% value = expression_node();
         
         return new sReverseNode(value, info) implements sNode;
     }
-    else if(*info->p == '(') {
-        info->p++;
+    else if(*info->p.p == '(') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         /// backtrace ///
         bool cast_expression_flag = false;
         bool struct_initializer_flag = false;
         {
-            char* p = info.p;
+            char* p = info.p.p;
             int sline = info.sline;
             
             skip_spaces_and_lf();
             
-            char* p2 = info.p;
+            char* p2 = info.p.p;
             int sline2 = info.sline;
             
             string word = string("");
-            if(xisalpha(*info->p) || *info->p == '_') {
+            if(xisalpha(*info->p.p) || *info->p.p == '_') {
                 word = parse_word();
                 if(is_type_name(word)) {
-                    info.p = p2;
+                    info.p.p = p2;
                     info.sline = sline2;
                     
                     parse_type();
                     
-                    if(*info->p == ')') {
-                        info->p++;
+                    if(*info->p.p == ')') {
+                        info->p.p++;
                         skip_spaces_and_lf();
-                        if(*info->p == '{') {
+                        if(*info->p.p == '{') {
                             struct_initializer_flag = true;
                         }
                         else {
@@ -1014,7 +1014,7 @@ sNode*% pre_position_operator(sInfo* info=info)
             
             skip_spaces_and_lf();
             
-            info.p = p;
+            info.p.p = p;
             info.sline = sline;
         }
         
@@ -1024,25 +1024,25 @@ sNode*% pre_position_operator(sInfo* info=info)
         /*
         if(!gComeC && !cast_expression_flag && !struct_initializer_flag)
         {
-            char* p = info.p;
+            char* p = info.p.p;
             int sline = info.sline;
             
             skip_spaces_and_lf();
             
             {
-                char* p = info.p;
+                char* p = info.p.p;
                 int sline = info.sline;
-                if(*info->p == '_' || xisalpha(*info->p)) {
+                if(*info->p.p == '_' || xisalpha(*info->p.p)) {
                     parse_word();
                 }
                 
-                if(*info->p == ':') {
-                    info->p++;
+                if(*info->p.p == ':') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     named_tuple_expression_flag = true;
                 }
                 else {
-                    info->p = p;
+                    info->p.p = p;
                     info->sline = sline;
                 }
             }
@@ -1060,20 +1060,20 @@ sNode*% pre_position_operator(sInfo* info=info)
             info.no_comma = no_comma;
             info.no_output_come_code = no_output_come_code;
             
-            if(*info->p == ',') {
+            if(*info->p.p == ',') {
                 tuple_expression_flag = true;
             }
             
             skip_spaces_and_lf();
             
-            info.p = p;
+            info.p.p = p;
             info.sline = sline;
         }
         tuple_expression_flag = false;
         */
         
-        if(*info->p == '{') {
-            info->p++;
+        if(*info->p.p == '{') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             list<sNode*%>*% paren_block = new list<sNode*%>();
@@ -1087,17 +1087,17 @@ sNode*% pre_position_operator(sInfo* info=info)
                 
                 paren_block.add(node2);
                 
-                while(*info->p == ';') {
-                    info->p++;
+                while(*info->p.p == ';') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
                 
-                if(*info->p == '}') {
-                    info->p++;
+                if(*info->p.p == '}') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                     break;
                 }
-                else if(*info->p == '\0') {
+                else if(*info->p.p == '\0') {
                     err_msg(info, "invalid source end in paren block");
                     exit(0);
                 }
@@ -1136,66 +1136,66 @@ sNode*% pre_position_operator(sInfo* info=info)
             
             buffer*% buf = new buffer();
             
-            buf.append_char(*info->p);
-            info->p++;
+            buf.append_char(*info->p.p);
+            info->p.p++;
             
             bool squort = false;
             bool dquort = false;
             int nest = 1;
             while(1) {
-                if(*info->p == '\0') {
+                if(*info->p.p == '\0') {
                     err_msg(info, "unexpected source end in array initiailizer");
                     exit(2);
                 }
-                else if(*info->p == '\\') {
-                    buf.append_char(*info->p);
-                    info->p++;
-                    if(*info->p == '\n') {
+                else if(*info->p.p == '\\') {
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
+                    if(*info->p.p == '\n') {
                         info->sline++;
                     }
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
-                else if(!squort && *info->p == '"') {
-                    buf.append_char(*info->p);
-                    info->p++;
+                else if(!squort && *info->p.p == '"') {
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                     dquort = !dquort;
                 }
-                else if(!dquort && *info->p == '\'') {
-                    buf.append_char(*info->p);
-                    info->p++;
+                else if(!dquort && *info->p.p == '\'') {
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                     squort = !squort;
                 }
                 else if(squort || dquort) {
-                    if(*info->p == '\n') {
+                    if(*info->p.p == '\n') {
                         info->sline++;
                     }
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
-                else if(*info->p == '{') {
+                else if(*info->p.p == '{') {
                     nest++;
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
-                else if(*info->p == '}') {
+                else if(*info->p.p == '}') {
                     nest--;
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                     
                     if(nest == 0) {
                         skip_spaces_and_lf();
                         break;
                     }
                 }
-                else if(*info->p == '\n') {
+                else if(*info->p.p == '\n') {
                     info->sline++;
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
                 else {
-                    buf.append_char(*info->p);
-                    info->p++;
+                    buf.append_char(*info->p.p);
+                    info->p.p++;
                 }
             }
             return new sArrayInitializer(type, buf.to_string(), info) implements sNode;

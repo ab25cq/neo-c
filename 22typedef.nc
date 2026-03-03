@@ -106,7 +106,7 @@ class sTypedefNode extends sNodeBase
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
 {
-    char* source_head = info.p;
+    char* source_head = info.p.p;
     
     if(buf === "typedef") {
         bool in_typedef = info.in_typedef;
@@ -118,8 +118,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
         }
         info.in_typedef = in_typedef;
         
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             sType*% base_type = clone type;
@@ -132,8 +132,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
             tuple2<sType*%, string>*% variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
             multiple_declare.push_back(variable_name2);
             
-            while(*info->p == ',') {
-                info->p++;
+            while(*info->p.p == ',') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 tuple2<sType*%, string>*% variable_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
@@ -141,7 +141,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
                 multiple_declare.push_back(variable_name);
             }
             
-            char* source_tail = info.p;
+            char* source_tail = info.p.p;
             
             buffer*% header = new buffer();
             header.append_str("typedef ");
@@ -156,7 +156,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 95
             return create_nothing_node();
         }
         else {
-            char* source_tail = info.p;
+            char* source_tail = info.p.p;
             
             buffer*% header = new buffer();
             header.append_str("typedef ");
@@ -194,8 +194,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
         info.in_typedef = in_typedef;
         
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
             
             sType*% base_type = clone type;
@@ -208,8 +208,8 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             tuple2<sType*%, string>*% variable_name2 = parse_variable_name_on_multiple_declare(base_type, true@first, info);
             multiple_declare.push_back(variable_name2);
             
-            while(*info->p == ',') {
-                info->p++;
+            while(*info->p.p == ',') {
+                info->p.p++;
                 skip_spaces_and_lf();
                 
                 tuple2<sType*%, string>*% variable_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
@@ -217,7 +217,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 multiple_declare.push_back(variable_name);
             }
             
-            char* source_tail = info.p;
+            char* source_tail = info.p.p;
             
             buffer*% header = new buffer();
             header.append_str("typedef ");
@@ -232,7 +232,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             return create_nothing_node();
         }
         else {
-            char* source_tail = info.p;
+            char* source_tail = info.p.p;
             
             buffer*% header = new buffer();
             header.append_str("typedef ");

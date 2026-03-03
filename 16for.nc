@@ -128,7 +128,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         /// expression ///
         skip_spaces_and_lf();
         sNode*% expression_node;
-        if(*info->p == ';') {
+        if(*info->p.p == ';') {
             expression_node = null;
         }
         else {
@@ -137,7 +137,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         expected_next_character(';');
         skip_spaces_and_lf();
         sNode*% expression_node2;
-        if(*info->p == ';') {
+        if(*info->p.p == ';') {
             expression_node2 = null;
         }
         else {
@@ -146,7 +146,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         expected_next_character(';');
         skip_spaces_and_lf();
         sNode*% expression_node3;
-        if(*info->p == ')') {
+        if(*info->p.p == ')') {
             expression_node3 = null;
         }
         else {

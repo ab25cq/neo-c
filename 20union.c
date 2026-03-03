@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -5301,10 +5312,10 @@ _conditional_value_X0;})) {
             printf("%s %d: parse_type failed\n",info->sname,info->sline);
             exit(2);
         }
-        if(*info->p==44) {
+        if(*info->p->p==44) {
             skip_spaces_and_lf(info);
-            while(*info->p==44) {
-                info->p++;
+            while(*info->p->p==44) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 name2=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "20union.nc", 175);
@@ -5323,8 +5334,8 @@ _conditional_value_X0;})) {
             list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "20union.nc", 186, "struct tuple2$2char$phsType$ph"), "20union.nc", 186),(char* )come_increment_ref_count(name, "20union.nc", 186),(struct sType* )come_increment_ref_count(type2, "20union.nc", 186)), "20union.nc", 186));
         }
         skip_spaces_and_lf(info);
-        if(*info->p==125) {
-            info->p++;
+        if(*info->p->p==125) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20union.nc}", 194);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "20union.nc", 194));
@@ -5874,7 +5885,7 @@ struct sNode* top_level_v97(char* buf, char* head, int head_sline, struct sInfo*
     memset(&klass, 0, sizeof(klass));
     if(charp_operator_equals(buf,"union")) {
         info->parse_struct_recursive_count++;
-        source_head=info->p;
+        source_head=info->p->p;
         struct_attribute=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1), "20union.nc", 230);
         __right_value0 = (void*)0;
         type_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "20union.nc", 232);
@@ -5938,9 +5949,9 @@ _conditional_value_X0;})) {
                 exit(2);
             }
             skip_spaces_and_lf(info);
-            if(*info->p==44) {
-                while(*info->p==44) {
-                    info->p++;
+            if(*info->p->p==44) {
+                while(*info->p->p==44) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                     __right_value0 = (void*)0;
                     name2=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "20union.nc", 280);
@@ -5959,8 +5970,8 @@ _conditional_value_X0;})) {
                 __right_value1 = (void*)0;
                 list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "20union.nc", 294, "struct tuple2$2char$phsType$ph"), "20union.nc", 294),(char* )come_increment_ref_count(name, "20union.nc", 294),(struct sType* )come_increment_ref_count(type2, "20union.nc", 294)), "20union.nc", 294));
             }
-            if(*info->p==125) {
-                info->p++;
+            if(*info->p->p==125) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20union.nc}", 300);
                 (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "20union.nc", 300));
@@ -5971,7 +5982,7 @@ _conditional_value_X0;})) {
         }
         __right_value0 = (void*)0;
         struct_attribute2=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1), "20union.nc", 304);
-        source_tail=info->p;
+        source_tail=info->p->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "20union.nc", 308, "struct buffer* "), "20union.nc", 308)), "20union.nc", 308);
@@ -6072,26 +6083,26 @@ struct sNode* string_node_v15(char* buf, char* head, int head_sline, struct sInf
     union_attribute=(char*)come_increment_ref_count(xsprintf(""), "20union.nc", 341);
     define_union=(_Bool)0;
     {
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         no_output_come_code=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
         if(charp_operator_equals(buf,"union")) {
-            if(*info->p==95||xisalpha(*info->p)) {
+            if(*info->p->p==95||xisalpha(*info->p->p)) {
                 __right_value0 = (void*)0;
                 __dec_obj58=union_attribute,
                 union_attribute=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1), "20union.nc", 352);
                 __dec_obj58 = come_decrement_ref_count(__dec_obj58, (void*)0, (void*)0, 0,0, (void*)0, "20union.nc", 352);
-                if(*info->p==95||xisalpha(*info->p)) {
+                if(*info->p->p==95||xisalpha(*info->p->p)) {
                     __right_value0 = (void*)0;
                     __dec_obj59=type_name,
                     type_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "20union.nc", 355);
                     __dec_obj59 = come_decrement_ref_count(__dec_obj59, (void*)0, (void*)0, 0,0, (void*)0, "20union.nc", 355);
-                    if(*info->p==123) {
+                    if(*info->p->p==123) {
                         __right_value0 = (void*)0;
                         ((char* )(__right_value0=skip_block(info,(_Bool)0)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20union.nc", 358));
-                        if(*info->p==59) {
+                        if(*info->p->p==59) {
                             define_union=(_Bool)1;
                         }
                     }
@@ -6100,7 +6111,7 @@ struct sNode* string_node_v15(char* buf, char* head, int head_sline, struct sInf
             (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "20union.nc", 368));
         }
         info->no_output_come_code=no_output_come_code;
-        info->p=p;
+        info->p->p=p;
         info->sline=sline;
     }
     if(define_union) {

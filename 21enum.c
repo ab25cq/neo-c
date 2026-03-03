@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -4327,8 +4338,8 @@ _conditional_value_X0;})) {
         come_call_finalizer(sClass_finalize, __dec_obj19,(void*)0, (void*)0, 0, 0, 0, (void*)0, "21enum.nc", 143);
     }
     type_elements=((void*)0);
-    if(*info->p==58) {
-        info->p++;
+    if(*info->p->p==58) {
+        info->p->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         multiple_assign_var2=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
@@ -4368,8 +4379,8 @@ _conditional_value_X0;})) {
     __right_value1 = (void*)0;
     elements=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(list$1tuple3$3char$phsNode$phchar$ph$ph_initialize((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_calloc(1, sizeof(struct list$1tuple3$3char$phsNode$phchar$ph$ph)*(1), "21enum.nc", 170, "struct list$1tuple3$3char$phsNode$phchar$ph$ph*"), "21enum.nc", 170)), "21enum.nc", 170);
     while((_Bool)1) {
-        if(*info->p==125) {
-            info->p++;
+        if(*info->p->p==125) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             break;
         }
@@ -4380,8 +4391,8 @@ _conditional_value_X0;})) {
         element_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "21enum.nc", 181);
         __right_value0 = (void*)0;
         attribute_22=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1), "21enum.nc", 183);
-        if(*info->p==61&&*(info->p+1)!=61) {
-            info->p++;
+        if(*info->p->p==61&&*(info->p->p+1)!=61) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
@@ -4404,15 +4415,15 @@ _conditional_value_X0;})) {
         __right_value0 = (void*)0;
         ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "21enum.nc", 203));
-        if(*info->p==44) {
-            info->p++;
+        if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "21enum.nc", 210));
-        if(*info->p==125) {
-            info->p++;
+        if(*info->p->p==125) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             (element_name = come_decrement_ref_count(element_name, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 215));
             (attribute_22 = come_decrement_ref_count(attribute_22, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 215));
@@ -5793,12 +5804,12 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
     struct sEnumNode* _inf_obj_value2;
     struct sNode* __result_obj__0;
     if(charp_operator_equals(buf,"enum")) {
-        source_head=info->p;
+        source_head=info->p->p;
         type_name=((void*)0);
         type_elements=((void*)0);
         attribute=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1), "21enum.nc", 243);
-        if(*info->p==58) {
-            info->p++;
+        if(*info->p->p==58) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             multiple_assign_var3=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
@@ -5815,7 +5826,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "21enum.nc}", 254);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 254));
         }
-        if(*info->p==123) {
+        if(*info->p->p==123) {
             __right_value0 = (void*)0;
             __dec_obj71=type_name,
             type_name=(char* )come_increment_ref_count(__builtin_string(""), "21enum.nc", 255);
@@ -5864,8 +5875,8 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
                     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "21enum.nc", 278));
                 }
             }
-            if(*info->p==58) {
-                info->p++;
+            if(*info->p->p==58) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 multiple_assign_var4=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
@@ -5911,8 +5922,8 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
         __right_value1 = (void*)0;
         elements=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(list$1tuple3$3char$phsNode$phchar$ph$ph_initialize((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count((struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_calloc(1, sizeof(struct list$1tuple3$3char$phsNode$phchar$ph$ph)*(1), "21enum.nc", 305, "struct list$1tuple3$3char$phsNode$phchar$ph$ph*"), "21enum.nc", 305)), "21enum.nc", 305);
         while((_Bool)1) {
-            if(*info->p==125) {
-                info->p++;
+            if(*info->p->p==125) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
@@ -5923,8 +5934,8 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             element_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "21enum.nc", 315);
             __right_value0 = (void*)0;
             attribute_36=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1), "21enum.nc", 316);
-            if(*info->p==61&&*(info->p+1)!=61) {
-                info->p++;
+            if(*info->p->p==61&&*(info->p->p+1)!=61) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 no_comma=info->no_comma;
                 info->no_comma=(_Bool)1;
@@ -5944,15 +5955,15 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "21enum.nc", 333));
-            if(*info->p==44) {
-                info->p++;
+            if(*info->p->p==44) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "21enum.nc", 339));
-            if(*info->p==125) {
-                info->p++;
+            if(*info->p->p==125) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 (element_name = come_decrement_ref_count(element_name, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 344));
                 (attribute_36 = come_decrement_ref_count(attribute_36, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 344));
@@ -5961,7 +5972,7 @@ struct sNode* top_level_v96(char* buf, char* head, int head_sline, struct sInfo*
             (element_name = come_decrement_ref_count(element_name, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 348));
             (attribute_36 = come_decrement_ref_count(attribute_36, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 348));
         }
-        source_tail=info->p;
+        source_tail=info->p->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "21enum.nc", 350, "struct buffer* "), "21enum.nc", 350)), "21enum.nc", 350);
@@ -6043,28 +6054,28 @@ struct sNode* string_node_v16(char* buf, char* head, int head_sline, struct sInf
     struct sNode* __result_obj__0;
     define_enum=(_Bool)0;
     {
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
         no_output_come_code=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
         if(charp_operator_equals(buf,"enum")) {
-            if(xisalpha(*info->p)||*info->p==95) {
+            if(xisalpha(*info->p->p)||*info->p->p==95) {
                 type_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "21enum.nc", 384);
                 __right_value0 = (void*)0;
                 (void)((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "21enum.nc", 386));
-                if(*info->p==123) {
+                if(*info->p->p==123) {
                     __right_value0 = (void*)0;
                     ((char* )(__right_value0=skip_block(info,(_Bool)0)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "21enum.nc", 389));
-                    if(*info->p==59) {
+                    if(*info->p->p==59) {
                         define_enum=(_Bool)1;
                     }
                 }
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 396));
             }
         }
-        info->p=p;
+        info->p->p=p;
         info->sline=sline;
         info->no_output_come_code=no_output_come_code;
     }

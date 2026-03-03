@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -7616,10 +7627,10 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
     memset(&c_99, 0, sizeof(c_99));
     memset(&quote, 0, sizeof(quote));
     memset(&size_105, 0, sizeof(size_105));
-    if(*info->p==34&&*(info->p+1)==34&&*(info->p+2)==34&&*(info->p+3)==10) {
+    if(*info->p->p==34&&*(info->p->p+1)==34&&*(info->p->p+2)==34&&*(info->p->p+3)==10) {
         sline_real=info->sline_real;
         info->sline_real=info->sline;
-        info->p+=4;
+        info->p->p+=4;
         info->sline++;
         sline=info->sline;
         exps=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "10str.nc", 1142, "struct list$1sNode$ph*"), "10str.nc", 1142)), "10str.nc", 1142);
@@ -7628,113 +7639,113 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         value=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 1143, "struct buffer* "), "10str.nc", 1143)), "10str.nc", 1143);
         head_of_last_line=((void*)0);
         while(1) {
-            if(*info->p==34&&*(info->p+1)==34&&*(info->p+2)==34) {
-                info->p+=3;
+            if(*info->p->p==34&&*(info->p->p+1)==34&&*(info->p->p+2)==34) {
+                info->p->p+=3;
                 skip_spaces_and_lf(info);
                 break;
             }
-            else if(*info->p==37) {
+            else if(*info->p->p==37) {
                 buffer_append_char(value,37);
                 buffer_append_char(value,37);
-                info->p++;
+                info->p->p++;
             }
-            else if(*info->p==34) {
+            else if(*info->p->p==34) {
                 buffer_append_char(value,92);
                 buffer_append_char(value,34);
-                info->p++;
+                info->p->p++;
             }
-            else if(*info->p==92) {
+            else if(*info->p->p==92) {
                 buffer_append_char(value,92);
-                info->p++;
-                if(xisdigit(*info->p)) {
+                info->p->p++;
+                if(xisdigit(*info->p->p)) {
                     len=0;
-                    while(xisdigit(*info->p)&&len<3) {
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                    while(xisdigit(*info->p->p)&&len<3) {
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         len++;
                     }
                 }
-                else if(*info->p==120||*info->p==88) {
-                    buffer_append_char(value,*info->p);
-                    info->p++;
-                    while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                else if(*info->p->p==120||*info->p->p==88) {
+                    buffer_append_char(value,*info->p->p);
+                    info->p->p++;
+                    while(*info->p->p>=48&&*info->p->p<=57||*info->p->p>=97&&*info->p->p<=102||*info->p->p>=65&&*info->p->p<=70) {
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                     }
                 }
-                else if(*info->p==123) {
-                    info->p++;
+                else if(*info->p->p==123) {
+                    info->p->p++;
                     __right_value0 = (void*)0;
                     exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "10str.nc", 1189);
                     list$1sNode$ph_add(exps,(struct sNode*)come_increment_ref_count(exp, "10str.nc", 1191));
-                    if(*info->p==125) {
-                        info->p++;
+                    if(*info->p->p==125) {
+                        info->p->p++;
                     }
                     buffer_append_str(value,"%s");
                     ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 1252):(void*)0);
                 }
                 else {
-                    switch (                    *info->p) {
+                    switch (                    *info->p->p) {
                         case 48:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                         case 110:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                         case 116:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                         case 114:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                         case 118:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                         case 102:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                         case 97:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                         case 98:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                         case 92:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                         default:
-                        buffer_append_char(value,*info->p);
-                        info->p++;
+                        buffer_append_char(value,*info->p->p);
+                        info->p->p++;
                         break;
                     }
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 sline2=info->sline;
                 info->sline=sline;
                 err_msg(info,"close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(*info->p==10) {
+                if(*info->p->p==10) {
                     buffer_append_char(value,92);
                     buffer_append_char(value,110);
-                    info->p++;
+                    info->p->p++;
                     info->sline++;
-                    head_of_last_line=info->p;
+                    head_of_last_line=info->p->p;
                 }
                 else {
-                    buffer_append_char(value,*info->p);
-                    info->p++;
+                    buffer_append_char(value,*info->p->p);
+                    info->p->p++;
                 }
             }
         }
@@ -7765,43 +7776,43 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sNode$ph$p_finalize, exps, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
         come_call_finalizer(buffer_finalize, value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
     }
-    else if(*info->p==117&&*(info->p+1)==56&&*(info->p+2)==34) {
+    else if(*info->p->p==117&&*(info->p->p+1)==56&&*(info->p->p+2)==34) {
         sline_real_45=info->sline_real;
         info->sline_real=info->sline;
-        info->p+=3;
+        info->p->p+=3;
         sline_46=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_47=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 1289, "struct buffer* "), "10str.nc", 1289)), "10str.nc", 1289);
         while(1) {
-            if(*info->p==34) {
-                info->p++;
-                p=info->p;
+            if(*info->p->p==34) {
+                info->p->p++;
+                p=info->p->p;
                 sline_48=info->sline;
                 skip_spaces_and_lf(info);
                 parse_sharp_v5(info);
-                if(*info->p==117&&*(info->p+1)==56&&*(info->p+2)==34) {
-                    info->p+=3;
+                if(*info->p->p==117&&*(info->p->p+1)==56&&*(info->p->p+2)==34) {
+                    info->p->p+=3;
                 }
                 else {
-                    info->p=p;
+                    info->p->p=p;
                     info->sline=sline_48;
                     break;
                 }
             }
-            else if(*info->p==92) {
+            else if(*info->p->p==92) {
                 buffer_append_char(value_47,92);
-                info->p++;
-                if(*info->p==34) {
+                info->p->p++;
+                if(*info->p->p==34) {
                     buffer_append_char(value_47,34);
-                    info->p++;
+                    info->p->p++;
                 }
                 else {
-                    buffer_append_char(value_47,*info->p);
-                    info->p++;
+                    buffer_append_char(value_47,*info->p->p);
+                    info->p->p++;
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 sline2_49=info->sline;
                 info->sline=sline_46;
                 err_msg(info,"close \" to make c string value");
@@ -7809,11 +7820,11 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 exit(2);
             }
             else {
-                if(*info->p==10) {
+                if(*info->p->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_47,*info->p);
-                info->p++;
+                buffer_append_char(value_47,*info->p->p);
+                info->p->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -7843,44 +7854,44 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_47, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
     }
-    else if((*info->p==117||*info->p==85)&&*(info->p+1)==34) {
+    else if((*info->p->p==117||*info->p->p==85)&&*(info->p->p+1)==34) {
         sline_real_50=info->sline_real;
         info->sline_real=info->sline;
-        prefix=*info->p;
-        info->p+=2;
+        prefix=*info->p->p;
+        info->p->p+=2;
         sline_51=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_52=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 1354, "struct buffer* "), "10str.nc", 1354)), "10str.nc", 1354);
         while(1) {
-            if(*info->p==34) {
-                info->p++;
-                p_53=info->p;
+            if(*info->p->p==34) {
+                info->p->p++;
+                p_53=info->p->p;
                 sline_54=info->sline;
                 skip_spaces_and_lf(info);
                 parse_sharp_v5(info);
-                if(*info->p==prefix&&*(info->p+1)==34) {
-                    info->p+=2;
+                if(*info->p->p==prefix&&*(info->p->p+1)==34) {
+                    info->p->p+=2;
                 }
                 else {
-                    info->p=p_53;
+                    info->p->p=p_53;
                     info->sline=sline_54;
                     break;
                 }
             }
-            else if(*info->p==92) {
+            else if(*info->p->p==92) {
                 buffer_append_char(value_52,92);
-                info->p++;
-                if(*info->p==34) {
+                info->p->p++;
+                if(*info->p->p==34) {
                     buffer_append_char(value_52,34);
-                    info->p++;
+                    info->p->p++;
                 }
                 else {
-                    buffer_append_char(value_52,*info->p);
-                    info->p++;
+                    buffer_append_char(value_52,*info->p->p);
+                    info->p->p++;
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 sline2_55=info->sline;
                 info->sline=sline_51;
                 err_msg(info,"close \" to make c string value");
@@ -7888,11 +7899,11 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 exit(2);
             }
             else {
-                if(*info->p==10) {
+                if(*info->p->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_52,*info->p);
-                info->p++;
+                buffer_append_char(value_52,*info->p->p);
+                info->p->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -7923,43 +7934,43 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_52, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
     }
-    else if(*info->p==34) {
+    else if(*info->p->p==34) {
         sline_real_56=info->sline_real;
         info->sline_real=info->sline;
-        info->p++;
+        info->p->p++;
         sline_57=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_58=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 1417, "struct buffer* "), "10str.nc", 1417)), "10str.nc", 1417);
         while(1) {
-            if(*info->p==34) {
-                info->p++;
-                p_59=info->p;
+            if(*info->p->p==34) {
+                info->p->p++;
+                p_59=info->p->p;
                 sline_60=info->sline;
                 skip_spaces_and_lf(info);
                 parse_sharp_v5(info);
-                if(*info->p==34) {
-                    info->p++;
+                if(*info->p->p==34) {
+                    info->p->p++;
                 }
                 else {
-                    info->p=p_59;
+                    info->p->p=p_59;
                     info->sline=sline_60;
                     break;
                 }
             }
-            else if(*info->p==92) {
+            else if(*info->p->p==92) {
                 buffer_append_char(value_58,92);
-                info->p++;
-                if(*info->p==34) {
+                info->p->p++;
+                if(*info->p->p==34) {
                     buffer_append_char(value_58,34);
-                    info->p++;
+                    info->p->p++;
                 }
                 else {
-                    buffer_append_char(value_58,*info->p);
-                    info->p++;
+                    buffer_append_char(value_58,*info->p->p);
+                    info->p->p++;
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 sline2_61=info->sline;
                 info->sline=sline_57;
                 err_msg(info,"close \" to make c string value");
@@ -7967,11 +7978,11 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 exit(2);
             }
             else {
-                if(*info->p==10) {
+                if(*info->p->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_58,*info->p);
-                info->p++;
+                buffer_append_char(value_58,*info->p->p);
+                info->p->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -8001,118 +8012,118 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_58, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
     }
-    else if((*info->p==98||*info->p==66)&&*(info->p+1)==34) {
+    else if((*info->p->p==98||*info->p->p==66)&&*(info->p->p+1)==34) {
         sline_real_62=info->sline_real;
         info->sline_real=info->sline;
-        info->p+=2;
+        info->p->p+=2;
         sline_63=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_64=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 1480, "struct buffer* "), "10str.nc", 1480)), "10str.nc", 1480);
         size=0;
         while(1) {
-            if(*info->p==34) {
-                info->p++;
-                p_65=info->p;
+            if(*info->p->p==34) {
+                info->p->p++;
+                p_65=info->p->p;
                 sline_66=info->sline;
                 skip_spaces_and_lf(info);
-                if(*info->p==34) {
-                    info->p++;
+                if(*info->p->p==34) {
+                    info->p->p++;
                 }
                 else {
-                    info->p=p_65;
+                    info->p->p=p_65;
                     info->sline=sline_66;
                     break;
                 }
             }
-            else if(*info->p==92) {
+            else if(*info->p->p==92) {
                 buffer_append_char(value_64,92);
-                info->p++;
-                if(xisdigit(*info->p)) {
+                info->p->p++;
+                if(xisdigit(*info->p->p)) {
                     len_67=0;
-                    while(xisdigit(*info->p)&&len_67<3) {
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                    while(xisdigit(*info->p->p)&&len_67<3) {
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         len_67++;
                     }
                     size++;
                 }
-                else if(*info->p==120||*info->p==88) {
-                    buffer_append_char(value_64,*info->p);
-                    info->p++;
-                    while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                else if(*info->p->p==120||*info->p->p==88) {
+                    buffer_append_char(value_64,*info->p->p);
+                    info->p->p++;
+                    while(*info->p->p>=48&&*info->p->p<=57||*info->p->p>=97&&*info->p->p<=102||*info->p->p>=65&&*info->p->p<=70) {
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                     }
                     size++;
                 }
                 else {
-                    switch (                    *info->p) {
+                    switch (                    *info->p->p) {
                         case 48:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                         case 110:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                         case 116:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                         case 114:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                         case 118:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                         case 102:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                         case 97:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                         case 98:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                         case 92:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                         default:
-                        buffer_append_char(value_64,*info->p);
-                        info->p++;
+                        buffer_append_char(value_64,*info->p->p);
+                        info->p->p++;
                         size++;
                         break;
                     }
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 sline2_68=info->sline;
                 info->sline=sline_63;
                 err_msg(info,"close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(*info->p==10) {
+                if(*info->p->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_64,*info->p);
-                info->p++;
+                buffer_append_char(value_64,*info->p->p);
+                info->p->p++;
                 size++;
             }
         }
@@ -8142,42 +8153,42 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_64, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
     }
-    else if(*info->p==47&&*(info->p-1)!=42&&*(info->p+1)!=42) {
+    else if(*info->p->p==47&&*(info->p->p-1)!=42&&*(info->p->p+1)!=42) {
         sline_real_69=info->sline_real;
         info->sline_real=info->sline;
-        info->p++;
+        info->p->p++;
         sline_70=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 1616, "struct buffer* "), "10str.nc", 1616)), "10str.nc", 1616);
         while((_Bool)1) {
-            if(*info->p==92&&*(info->p+1)==47) {
-                info->p++;
-                buffer_append_char(buf,*info->p);
-                info->p++;
+            if(*info->p->p==92&&*(info->p->p+1)==47) {
+                info->p->p++;
+                buffer_append_char(buf,*info->p->p);
+                info->p->p++;
             }
-            else if(*info->p==47) {
-                info->p++;
+            else if(*info->p->p==47) {
+                info->p->p++;
                 break;
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 err_msg(info,"require closing / for regex");
                 exit(5);
             }
             else {
-                buffer_append_char(buf,*info->p);
-                info->p++;
+                buffer_append_char(buf,*info->p->p);
+                info->p->p++;
             }
         }
         global=(_Bool)0;
         ignore_case=(_Bool)0;
-        while(*info->p==103||*info->p==105) {
-            if(*info->p==103) {
-                info->p++;
+        while(*info->p->p==103||*info->p->p==105) {
+            if(*info->p->p==103) {
+                info->p->p++;
                 global=(_Bool)1;
             }
-            else if(*info->p==105) {
-                info->p++;
+            else if(*info->p->p==105) {
+                info->p->p++;
                 ignore_case=(_Bool)1;
             }
             else {
@@ -8287,116 +8298,116 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sType$ph$p_finalize, method_generics_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2627):(void*)0);
     }
-    else if((*info->p==82||*info->p==114)&&*(info->p+1)==34) {
+    else if((*info->p->p==82||*info->p->p==114)&&*(info->p->p+1)==34) {
         sline_real_71=info->sline_real;
         info->sline_real=info->sline;
-        info->p+=2;
+        info->p->p+=2;
         sline_72=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_73=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 1687, "struct buffer* "), "10str.nc", 1687)), "10str.nc", 1687);
         while(1) {
-            if(*info->p==34) {
-                info->p++;
-                p_74=info->p;
+            if(*info->p->p==34) {
+                info->p->p++;
+                p_74=info->p->p;
                 sline_75=info->sline;
                 skip_spaces_and_lf(info);
-                if(*info->p==34) {
-                    info->p++;
+                if(*info->p->p==34) {
+                    info->p->p++;
                 }
                 else {
-                    info->p=p_74;
+                    info->p->p=p_74;
                     info->sline=sline_75;
                     break;
                 }
             }
-            else if(*info->p==92) {
+            else if(*info->p->p==92) {
                 buffer_append_char(value_73,92);
-                info->p++;
-                if(xisdigit(*info->p)) {
+                info->p->p++;
+                if(xisdigit(*info->p->p)) {
                     len_76=0;
-                    while(xisdigit(*info->p)&&len_76<3) {
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                    while(xisdigit(*info->p->p)&&len_76<3) {
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         len_76++;
                     }
                 }
-                else if(*info->p==120||*info->p==88) {
-                    buffer_append_char(value_73,*info->p);
-                    info->p++;
-                    while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                else if(*info->p->p==120||*info->p->p==88) {
+                    buffer_append_char(value_73,*info->p->p);
+                    info->p->p++;
+                    while(*info->p->p>=48&&*info->p->p<=57||*info->p->p>=97&&*info->p->p<=102||*info->p->p>=65&&*info->p->p<=70) {
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                     }
                 }
                 else {
-                    switch (                    *info->p) {
+                    switch (                    *info->p->p) {
                         case 48:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                         case 110:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                         case 116:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                         case 114:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                         case 118:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                         case 102:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                         case 97:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                         case 98:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                         case 92:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                         default:
-                        buffer_append_char(value_73,*info->p);
-                        info->p++;
+                        buffer_append_char(value_73,*info->p->p);
+                        info->p->p++;
                         break;
                     }
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 sline2_77=info->sline;
                 info->sline=sline_72;
                 err_msg(info,"close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(*info->p==10) {
+                if(*info->p->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_73,*info->p);
-                info->p++;
+                buffer_append_char(value_73,*info->p->p);
+                info->p->p++;
             }
         }
         global_78=(_Bool)0;
         ignore_case_79=(_Bool)0;
-        while(*info->p==103||*info->p==105) {
-            if(*info->p==103) {
-                info->p++;
+        while(*info->p->p==103||*info->p->p==105) {
+            if(*info->p->p==103) {
+                info->p->p++;
                 global_78=(_Bool)1;
             }
-            else if(*info->p==105) {
-                info->p++;
+            else if(*info->p->p==105) {
+                info->p->p++;
                 ignore_case_79=(_Bool)1;
             }
             else {
@@ -8508,63 +8519,63 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sType$ph$p_finalize, method_generics_types_84, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
         ((node_85) ? node_85 = come_decrement_ref_count(node_85, ((struct sNode*)node_85)->finalize, ((struct sNode*)node_85)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2627):(void*)0);
     }
-    else if((*info->p==117||*info->p==85)&&*(info->p+1)==39) {
+    else if((*info->p->p==117||*info->p->p==85)&&*(info->p->p+1)==39) {
         sline_real_86=info->sline_real;
         info->sline_real=info->sline;
-        prefix_87=*info->p;
-        info->p+=2;
-        if(*info->p==92) {
-            info->p++;
-            if(xisdigit(*info->p)) {
+        prefix_87=*info->p->p;
+        info->p->p+=2;
+        if(*info->p->p==92) {
+            info->p->p++;
+            if(xisdigit(*info->p->p)) {
                 n=0;
-                while(xisdigit(*info->p)) {
-                    n=n*8+*info->p-48;
-                    info->p++;
+                while(xisdigit(*info->p->p)) {
+                    n=n*8+*info->p->p-48;
+                    info->p->p++;
                 }
                 c=n;
             }
             else {
-                switch (                *info->p) {
+                switch (                *info->p->p) {
                     case 110:
                     c=10;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 116:
                     c=9;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 114:
                     c=13;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 97:
                     c=7;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 102:
                     c=12;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 118:
                     c=11;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 98:
                     c=8;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 92:
                     c=92;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 48:
                     c=0;
-                    info->p++;
-                    if(xisdigit(*info->p)) {
+                    info->p->p++;
+                    if(xisdigit(*info->p->p)) {
                         n_88=0;
-                        while(xisdigit(*info->p)) {
-                            n_88=n_88*8+*info->p-48;
-                            info->p++;
+                        while(xisdigit(*info->p->p)) {
+                            n_88=n_88*8+*info->p->p-48;
+                            info->p->p++;
                             skip_spaces_and_lf(info);
                         }
                         c=n_88;
@@ -8573,16 +8584,16 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     case 120:
                     case 88:
                     {
-                        info->p++;
+                        info->p->p++;
                         char buf_89[128];
                         memset(&buf_89, 0, sizeof(buf_89));
                         strncpy(buf_89,"0x",128);
-                        while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        while(*info->p->p>=48&&*info->p->p<=57||*info->p->p>=97&&*info->p->p<=102||*info->p->p>=65&&*info->p->p<=70) {
                             char buf2[2];
                             memset(&buf2, 0, sizeof(buf2));
-                            buf2[0]=*info->p;
+                            buf2[0]=*info->p->p;
                             buf2[1]=0;
-                            info->p++;
+                            info->p->p++;
                             strncat(buf_89,buf2,128);
                         }
                         n_90=strtoll(buf_89,((void*)0),0);
@@ -8590,22 +8601,22 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     }
                     break;
                     default:
-                    c=*info->p;
-                    info->p++;
+                    c=*info->p->p;
+                    info->p->p++;
                     break;
                 }
             }
         }
         else {
-            c=*info->p;
-            info->p++;
+            c=*info->p->p;
+            info->p->p++;
         }
-        if(*info->p!=39) {
+        if(*info->p->p!=39) {
             err_msg(info,"close \' to make character value");
             exit(1);
         }
         else {
-            info->p++;
+            info->p->p++;
             skip_spaces_and_lf(info);
             info->sline_real=sline_real_86;
                         __right_value0 = (void*)0;
@@ -8632,62 +8643,62 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             return __result_obj__0;
         }
     }
-    else if(*info->p==39) {
+    else if(*info->p->p==39) {
         sline_real_91=info->sline_real;
         info->sline_real=info->sline;
-        info->p++;
-        if(*info->p==92) {
-            info->p++;
-            if(xisdigit(*info->p)) {
+        info->p->p++;
+        if(*info->p->p==92) {
+            info->p->p++;
+            if(xisdigit(*info->p->p)) {
                 n_93=0;
-                while(xisdigit(*info->p)) {
-                    n_93=n_93*8+*info->p-48;
-                    info->p++;
+                while(xisdigit(*info->p->p)) {
+                    n_93=n_93*8+*info->p->p-48;
+                    info->p->p++;
                 }
                 c_92=n_93;
             }
             else {
-                switch (                *info->p) {
+                switch (                *info->p->p) {
                     case 110:
                     c_92=10;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 116:
                     c_92=9;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 114:
                     c_92=13;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 97:
                     c_92=7;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 102:
                     c_92=12;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 118:
                     c_92=11;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 98:
                     c_92=8;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 92:
                     c_92=92;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 48:
                     c_92=0;
-                    info->p++;
-                    if(xisdigit(*info->p)) {
+                    info->p->p++;
+                    if(xisdigit(*info->p->p)) {
                         n_94=0;
-                        while(xisdigit(*info->p)) {
-                            n_94=n_94*8+*info->p-48;
-                            info->p++;
+                        while(xisdigit(*info->p->p)) {
+                            n_94=n_94*8+*info->p->p-48;
+                            info->p->p++;
                             skip_spaces_and_lf(info);
                         }
                         c_92=n_94;
@@ -8696,16 +8707,16 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     case 120:
                     case 88:
                     {
-                        info->p++;
+                        info->p->p++;
                         char buf_95[128];
                         memset(&buf_95, 0, sizeof(buf_95));
                         strncpy(buf_95,"0x",128);
-                        while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        while(*info->p->p>=48&&*info->p->p<=57||*info->p->p>=97&&*info->p->p<=102||*info->p->p>=65&&*info->p->p<=70) {
                             char buf2_96[2];
                             memset(&buf2_96, 0, sizeof(buf2_96));
-                            buf2_96[0]=*info->p;
+                            buf2_96[0]=*info->p->p;
                             buf2_96[1]=0;
-                            info->p++;
+                            info->p->p++;
                             strncat(buf_95,buf2_96,128);
                         }
                         n_97=strtoll(buf_95,((void*)0),0);
@@ -8713,22 +8724,22 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     }
                     break;
                     default:
-                    c_92=*info->p;
-                    info->p++;
+                    c_92=*info->p->p;
+                    info->p->p++;
                     break;
                 }
             }
         }
         else {
-            c_92=*info->p;
-            info->p++;
+            c_92=*info->p->p;
+            info->p->p++;
         }
-        if(*info->p!=39) {
+        if(*info->p->p!=39) {
             err_msg(info,"close \' to make character value");
             exit(1);
         }
         else {
-            info->p++;
+            info->p->p++;
             skip_spaces_and_lf(info);
             info->sline_real=sline_real_91;
                         __right_value0 = (void*)0;
@@ -8754,51 +8765,51 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             return __result_obj__0;
         }
     }
-    else if(*info->p==76&&*(info->p+1)==39) {
+    else if(*info->p->p==76&&*(info->p->p+1)==39) {
         sline_real_98=info->sline_real;
         info->sline_real=info->sline;
-        info->p+=2;
-        if(*info->p==92) {
+        info->p->p+=2;
+        if(*info->p->p==92) {
             quote=(_Bool)1;
-            info->p++;
-            if(xisdigit(*info->p)) {
+            info->p->p++;
+            if(xisdigit(*info->p->p)) {
                 n_100=0;
-                while(xisdigit(*info->p)) {
-                    n_100=n_100*8+*info->p-48;
-                    info->p++;
+                while(xisdigit(*info->p->p)) {
+                    n_100=n_100*8+*info->p->p-48;
+                    info->p->p++;
                 }
                 c_99=n_100;
             }
             else {
-                switch (                *info->p) {
+                switch (                *info->p->p) {
                     case 110:
                     c_99=10;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 116:
                     c_99=9;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 114:
                     c_99=13;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 97:
                     c_99=7;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 92:
                     c_99=92;
-                    info->p++;
+                    info->p->p++;
                     break;
                     case 48:
                     c_99=0;
-                    info->p++;
-                    if(xisdigit(*info->p)) {
+                    info->p->p++;
+                    if(xisdigit(*info->p->p)) {
                         n_101=0;
-                        while(xisdigit(*info->p)) {
-                            n_101=n_101*8+*info->p-48;
-                            info->p++;
+                        while(xisdigit(*info->p->p)) {
+                            n_101=n_101*8+*info->p->p-48;
+                            info->p->p++;
                             skip_spaces_and_lf(info);
                         }
                         c_99=n_101;
@@ -8807,16 +8818,16 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     case 120:
                     case 88:
                     {
-                        info->p++;
+                        info->p->p++;
                         char buf_102[128];
                         memset(&buf_102, 0, sizeof(buf_102));
                         strncpy(buf_102,"0x",128);
-                        while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        while(*info->p->p>=48&&*info->p->p<=57||*info->p->p>=97&&*info->p->p<=102||*info->p->p>=65&&*info->p->p<=70) {
                             char buf2_103[2];
                             memset(&buf2_103, 0, sizeof(buf2_103));
-                            buf2_103[0]=*info->p;
+                            buf2_103[0]=*info->p->p;
                             buf2_103[1]=0;
-                            info->p++;
+                            info->p->p++;
                             strncat(buf_102,buf2_103,128);
                         }
                         n_104=strtoll(buf_102,((void*)0),0);
@@ -8824,15 +8835,15 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     }
                     break;
                     default:
-                    c_99=*info->p;
-                    info->p++;
+                    c_99=*info->p->p;
+                    info->p->p++;
                     break;
                 }
             }
         }
         else {
             quote=(_Bool)0;
-            p2=*(unsigned char*)info->p;
+            p2=*(unsigned char*)info->p->p;
             if(p2>127) {
                 char str[16+1];
                 memset(&str, 0, sizeof(str));
@@ -8843,7 +8854,7 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     exit(2);
                 }
                 else {
-                    memcpy(str,info->p,size_105);
+                    memcpy(str,info->p->p,size_105);
                     str[size_105]=0;
                     if(mbtowc(&c_99,str,size_105)<0) {
                         perror("mbtowc");
@@ -8852,22 +8863,22 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                         exit(2);
                     }
                     else {
-                        info->p+=size_105;
+                        info->p->p+=size_105;
                     }
                 }
             }
             else {
-                c_99=*info->p;
-                info->p++;
+                c_99=*info->p->p;
+                info->p->p++;
             }
         }
-        if(*info->p!=39) {
+        if(*info->p->p!=39) {
             err_msg(info,"close \' to make character value");
             info->err_num++;
             exit(2);
         }
         else {
-            info->p++;
+            info->p->p++;
             skip_spaces_and_lf(info);
             info->sline_real=sline_real_98;
                         __right_value0 = (void*)0;
@@ -8893,53 +8904,53 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             return __result_obj__0;
         }
     }
-    else if(*info->p==76&&*(info->p+1)==34) {
+    else if(*info->p->p==76&&*(info->p->p+1)==34) {
         sline_real_106=info->sline_real;
         info->sline_real=info->sline;
-        info->p+=2;
+        info->p->p+=2;
         sline_107=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_108=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 2238, "struct buffer* "), "10str.nc", 2238)), "10str.nc", 2238);
         while(1) {
-            if(*info->p==34) {
-                info->p++;
-                p_109=info->p;
+            if(*info->p->p==34) {
+                info->p->p++;
+                p_109=info->p->p;
                 sline_110=info->sline;
                 skip_spaces_and_lf(info);
-                if(*info->p==34) {
-                    info->p++;
+                if(*info->p->p==34) {
+                    info->p->p++;
                 }
                 else {
-                    info->p=p_109;
+                    info->p->p=p_109;
                     info->sline=sline_110;
                     break;
                 }
             }
-            else if(*info->p==92) {
+            else if(*info->p->p==92) {
                 buffer_append_char(value_108,92);
-                info->p++;
-                if(*info->p==34) {
+                info->p->p++;
+                if(*info->p->p==34) {
                     buffer_append_char(value_108,34);
-                    info->p++;
+                    info->p->p++;
                 }
                 else {
-                    buffer_append_char(value_108,*info->p);
-                    info->p++;
+                    buffer_append_char(value_108,*info->p->p);
+                    info->p->p++;
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 sline2_111=info->sline;
                 info->sline=sline_107;
                 err_msg(info,"close \" to make c string value");
                 exit(2);
             }
             else {
-                if(*info->p==10) {
+                if(*info->p->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_108,*info->p);
-                info->p++;
+                buffer_append_char(value_108,*info->p->p);
+                info->p->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -8979,10 +8990,10 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(buffer_finalize, value_108, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
         (wstr = come_decrement_ref_count(wstr, (void*)0, (void*)0, 0, 0, (void*)0, "10str.nc", 2627));
     }
-    else if((*info->p==115||*info->p==83)&&*(info->p+1)==34) {
+    else if((*info->p->p==115||*info->p->p==83)&&*(info->p->p+1)==34) {
         sline_real_114=info->sline_real;
         info->sline_real=info->sline;
-        info->p+=2;
+        info->p->p+=2;
         sline_115=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
@@ -8991,112 +9002,112 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         __right_value1 = (void*)0;
         value_117=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 2313, "struct buffer* "), "10str.nc", 2313)), "10str.nc", 2313);
         while(1) {
-            if(*info->p==34) {
-                info->p++;
-                p_118=info->p;
+            if(*info->p->p==34) {
+                info->p->p++;
+                p_118=info->p->p;
                 sline_119=info->sline;
                 skip_spaces_and_lf(info);
-                if(*info->p==34) {
-                    info->p++;
+                if(*info->p->p==34) {
+                    info->p->p++;
                 }
                 else {
-                    info->p=p_118;
+                    info->p->p=p_118;
                     info->sline=sline_119;
                     break;
                 }
             }
-            else if(*info->p==37) {
+            else if(*info->p->p==37) {
                 buffer_append_char(value_117,37);
                 buffer_append_char(value_117,37);
-                info->p++;
+                info->p->p++;
             }
-            else if(*info->p==92) {
+            else if(*info->p->p==92) {
                 buffer_append_char(value_117,92);
-                info->p++;
-                if(xisdigit(*info->p)) {
+                info->p->p++;
+                if(xisdigit(*info->p->p)) {
                     len_120=0;
-                    while(xisdigit(*info->p)&&len_120<3) {
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                    while(xisdigit(*info->p->p)&&len_120<3) {
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         len_120++;
                     }
                 }
-                else if(*info->p==120||*info->p==88) {
-                    buffer_append_char(value_117,*info->p);
-                    info->p++;
-                    while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                else if(*info->p->p==120||*info->p->p==88) {
+                    buffer_append_char(value_117,*info->p->p);
+                    info->p->p++;
+                    while(*info->p->p>=48&&*info->p->p<=57||*info->p->p>=97&&*info->p->p<=102||*info->p->p>=65&&*info->p->p<=70) {
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                     }
                 }
-                else if(*info->p==123) {
-                    info->p++;
+                else if(*info->p->p==123) {
+                    info->p->p++;
                     __right_value0 = (void*)0;
                     exp_121=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "10str.nc", 2380);
                     list$1sNode$ph_add(exps_116,(struct sNode*)come_increment_ref_count(exp_121, "10str.nc", 2382));
-                    if(*info->p==125) {
-                        info->p++;
+                    if(*info->p->p==125) {
+                        info->p->p++;
                     }
                     buffer_append_str(value_117,"%s");
                     ((exp_121) ? exp_121 = come_decrement_ref_count(exp_121, ((struct sNode*)exp_121)->finalize, ((struct sNode*)exp_121)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2443):(void*)0);
                 }
                 else {
-                    switch (                    *info->p) {
+                    switch (                    *info->p->p) {
                         case 48:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                         case 110:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                         case 116:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                         case 114:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                         case 118:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                         case 102:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                         case 97:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                         case 98:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                         case 92:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                         default:
-                        buffer_append_char(value_117,*info->p);
-                        info->p++;
+                        buffer_append_char(value_117,*info->p->p);
+                        info->p->p++;
                         break;
                     }
                 }
             }
-            else if(*info->p==0) {
+            else if(*info->p->p==0) {
                 sline2_122=info->sline;
                 info->sline=sline_115;
                 err_msg(info,"close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(*info->p==10) {
+                if(*info->p->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_117,*info->p);
-                info->p++;
+                buffer_append_char(value_117,*info->p->p);
+                info->p->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -9128,18 +9139,18 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sNode$ph$p_finalize, exps_116, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
         come_call_finalizer(buffer_finalize, value_117, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
     }
-    else if(*info->p==91) {
+    else if(*info->p->p==91) {
         sline_real_123=info->sline_real;
         info->sline_real=info->sline;
-        info->p++;
+        info->p->p++;
         skip_spaces_and_lf(info);
-        p_124=info->p;
+        p_124=info->p->p;
         no_comma=info->no_comma;
         info->no_comma=(_Bool)1;
         __right_value0 = (void*)0;
         node_125=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "10str.nc", 2474);
         info->no_comma=no_comma;
-        p2_126=info->p;
+        p2_126=info->p->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         first_element_source=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 2480, "struct buffer* "), "10str.nc", 2480)), "10str.nc", 2480);
@@ -9154,8 +9165,8 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         map_elements=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "10str.nc", 2488, "struct list$1sNode$ph*"), "10str.nc", 2488)), "10str.nc", 2488);
-        if(*info->p==58) {
-            info->p++;
+        if(*info->p->p==58) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             list$1sNode$ph_push_back(map_keys,(struct sNode*)come_increment_ref_count(node_125, "10str.nc", 2495));
             no_comma_127=info->no_comma;
@@ -9164,8 +9175,8 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             node2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "10str.nc", 2501);
             info->no_comma=no_comma_127;
             list$1sNode$ph_push_back(map_elements,(struct sNode*)come_increment_ref_count(node2, "10str.nc", 2505));
-            if(*info->p==93) {
-                info->p++;
+            if(*info->p->p==93) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
@@ -9211,23 +9222,23 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     node3=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "10str.nc", 2531);
                     info->no_comma=no_comma_128;
                     list$1sNode$ph_push_back(map_elements,(struct sNode*)come_increment_ref_count(node3, "10str.nc", 2535));
-                    if(*info->p==0) {
+                    if(*info->p->p==0) {
                         err_msg(info,"invalid source end");
                         exit(2);
                     }
-                    else if(*info->p==44) {
-                        info->p++;
+                    else if(*info->p->p==44) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
                     }
-                    else if(*info->p==93) {
-                        info->p++;
+                    else if(*info->p->p==93) {
+                        info->p->p++;
                         skip_spaces_and_lf(info);
                         ((node2_129) ? node2_129 = come_decrement_ref_count(node2_129, ((struct sNode*)node2_129)->finalize, ((struct sNode*)node2_129)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2548):(void*)0);
                         ((node3) ? node3 = come_decrement_ref_count(node3, ((struct sNode*)node3)->finalize, ((struct sNode*)node3)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2548):(void*)0);
                         break;
                     }
                     else {
-                        err_msg(info,"invalid character(3)(%c)",*info->p);
+                        err_msg(info,"invalid character(3)(%c)",*info->p->p);
                         exit(2);
                     }
                     ((node2_129) ? node2_129 = come_decrement_ref_count(node2_129, ((struct sNode*)node2_129)->finalize, ((struct sNode*)node2_129)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2556):(void*)0);
@@ -9263,13 +9274,13 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             }
             ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2606):(void*)0);
         }
-        else if(*info->p==93) {
-            info->p++;
+        else if(*info->p->p==93) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node_125, "10str.nc", 2564));
         }
-        else if(*info->p==44) {
-            info->p++;
+        else if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node_125, "10str.nc", 2570));
             while((_Bool)1) {
@@ -9279,29 +9290,29 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 node2_131=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "10str.nc", 2576);
                 info->no_comma=no_comma_130;
                 list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node2_131, "10str.nc", 2580));
-                if(*info->p==0) {
+                if(*info->p->p==0) {
                     err_msg(info,"invalid source end");
                     exit(2);
                 }
-                else if(*info->p==44) {
-                    info->p++;
+                else if(*info->p->p==44) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                 }
-                else if(*info->p==93) {
-                    info->p++;
+                else if(*info->p->p==93) {
+                    info->p->p++;
                     skip_spaces_and_lf(info);
                     ((node2_131) ? node2_131 = come_decrement_ref_count(node2_131, ((struct sNode*)node2_131)->finalize, ((struct sNode*)node2_131)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2593):(void*)0);
                     break;
                 }
                 else {
-                    err_msg(info,"invalid character(4)(%c)",*info->p);
+                    err_msg(info,"invalid character(4)(%c)",*info->p->p);
                     exit(2);
                 }
                 ((node2_131) ? node2_131 = come_decrement_ref_count(node2_131, ((struct sNode*)node2_131)->finalize, ((struct sNode*)node2_131)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2600):(void*)0);
             }
         }
         else {
-            err_msg(info,"invalid character(5)(%c)",*info->p);
+            err_msg(info,"invalid character(5)(%c)",*info->p->p);
             exit(2);
         }
         if(list$1sNode$ph_length(list_elements)>0) {
@@ -9351,10 +9362,10 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sNode$ph$p_finalize, map_keys, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
         come_call_finalizer(list$1sNode$ph$p_finalize, map_elements, (void*)0, (void*)0, 0, 0, 0, (void*)0, "10str.nc}", 2627);
     }
-    else if(*info->p==118&&*(info->p+1)==40) {
+    else if(*info->p->p==118&&*(info->p->p+1)==40) {
         sline_real_132=info->sline_real;
         info->sline_real=info->sline;
-        info->p+=2;
+        info->p->p+=2;
         skip_spaces_and_lf(info);
     }
     else {
@@ -9794,7 +9805,7 @@ struct sNode* parse_tuple(struct sInfo*  info  , _Bool named_tuple)
     memset(&name, 0, sizeof(name));
     tuple_elements=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "10str.nc", 2632, "struct list$1tuple2$2char$phsNode$ph$ph*"), "10str.nc", 2632)), "10str.nc", 2632);
     while((_Bool)1) {
-        p=info->p;
+        p=info->p->p;
         if(named_tuple) {
             __right_value0 = (void*)0;
             __dec_obj147=name,
@@ -9814,19 +9825,19 @@ struct sNode* parse_tuple(struct sInfo*  info  , _Bool named_tuple)
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_push_back(tuple_elements,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "10str.nc", 2651, "struct tuple2$2char$phsNode$ph"), "10str.nc", 2651),(char* )come_increment_ref_count((char* )come_memdup(name, "10str.nc", 2651, "char* "), "10str.nc", 2651),(struct sNode*)come_increment_ref_count(node, "10str.nc", 2651)), "10str.nc", 2651));
-        if(*info->p==44) {
-            info->p++;
+        if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
         }
-        else if(*info->p==41) {
-            info->p++;
+        else if(*info->p->p==41) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "10str.nc", 2660));
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2660):(void*)0);
             break;
         }
         else {
-            err_msg(info,"invalid character in tuple expression (%c)",*info->p);
+            err_msg(info,"invalid character in tuple expression (%c)",*info->p->p);
             exit(2);
         }
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "10str.nc", 2668));
@@ -10050,13 +10061,13 @@ struct sNode* parse_vector(struct sInfo*  info  )
     struct sVectorNode* _inf_obj_value17;
     void* __right_value2 = (void*)0;
     struct sNode* __result_obj__0;
-    p=info->p;
+    p=info->p->p;
     sline_real=info->sline;
     no_comma=info->no_comma;
     info->no_comma=(_Bool)1;
     node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "10str.nc", 2680);
     info->no_comma=no_comma;
-    p2=info->p;
+    p2=info->p->p;
     __right_value0 = (void*)0;
     first_element_source=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "10str.nc", 2686, "struct buffer* "), "10str.nc", 2686)), "10str.nc", 2686);
     buffer_append(first_element_source,p,p2-p);
@@ -10070,13 +10081,13 @@ struct sNode* parse_vector(struct sInfo*  info  )
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     map_elements=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "10str.nc", 2694, "struct list$1sNode$ph*"), "10str.nc", 2694)), "10str.nc", 2694);
-    if(*info->p==93) {
-        info->p++;
+    if(*info->p->p==93) {
+        info->p->p++;
         skip_spaces_and_lf(info);
         list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node, "10str.nc", 2701));
     }
-    else if(*info->p==44) {
-        info->p++;
+    else if(*info->p->p==44) {
+        info->p->p++;
         skip_spaces_and_lf(info);
         list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node, "10str.nc", 2707));
         while((_Bool)1) {
@@ -10086,29 +10097,29 @@ struct sNode* parse_vector(struct sInfo*  info  )
             node2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "10str.nc", 2713);
             info->no_comma=no_comma_136;
             list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node2, "10str.nc", 2717));
-            if(*info->p==0) {
+            if(*info->p->p==0) {
                 err_msg(info,"invalid source end");
                 exit(2);
             }
-            else if(*info->p==44) {
-                info->p++;
+            else if(*info->p->p==44) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p==93) {
-                info->p++;
+            else if(*info->p->p==93) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2730):(void*)0);
                 break;
             }
             else {
-                err_msg(info,"invalid character(4)(%c)",*info->p);
+                err_msg(info,"invalid character(4)(%c)",*info->p->p);
                 exit(2);
             }
             ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "10str.nc", 2737):(void*)0);
         }
     }
     else {
-        err_msg(info,"invalid character(5)(%c)",*info->p);
+        err_msg(info,"invalid character(5)(%c)",*info->p->p);
         exit(2);
     }
     if(list$1sNode$ph_length(list_elements)>0) {

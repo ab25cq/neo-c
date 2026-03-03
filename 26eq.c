@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -5978,14 +5989,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
     memset(&quote_40, 0, sizeof(quote_40));
     memset(&quote_42, 0, sizeof(quote_42));
     memset(&quote_44, 0, sizeof(quote_44));
-    if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==43&&*(info->p+2)==43)||(*info->p==43&&*(info->p+1)==43))) {
-        if(*info->p==92) {
-            info->p+=3;
+    if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==43&&*(info->p->p+2)==43)||(*info->p->p==43&&*(info->p->p+1)==43))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote=(_Bool)0;
         }
@@ -6009,14 +6020,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "26eq.nc", 877):(void*)0);
         return __result_obj__0;
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==45&&*(info->p+2)==45)||(*info->p==45&&*(info->p+1)==45))) {
-        if(*info->p==92) {
-            info->p+=3;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==45&&*(info->p->p+2)==45)||(*info->p->p==45&&*(info->p->p+1)==45))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_24=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_24=(_Bool)0;
         }
@@ -6052,14 +6063,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "26eq.nc", 895):(void*)0);
         return __result_obj__0;
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==43&&*(info->p+2)==61)||(*info->p==43&&*(info->p+1)==61))) {
-        if(*info->p==92) {
-            info->p+=3;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==43&&*(info->p->p+2)==61)||(*info->p->p==43&&*(info->p->p+1)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_25=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_25=(_Bool)0;
         }
@@ -6090,14 +6101,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node) ? right_node = come_decrement_ref_count(right_node, ((struct sNode*)right_node)->finalize, ((struct sNode*)right_node)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==45&&*(info->p+2)==61)||(*info->p==45&&*(info->p+1)==61))) {
-        if(*info->p==92) {
-            info->p+=3;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==45&&*(info->p->p+2)==61)||(*info->p->p==45&&*(info->p->p+1)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_26=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_26=(_Bool)0;
         }
@@ -6128,14 +6139,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node_27) ? right_node_27 = come_decrement_ref_count(right_node_27, ((struct sNode*)right_node_27)->finalize, ((struct sNode*)right_node_27)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==42&&*(info->p+2)==61)||(*info->p==42&&*(info->p+1)==61))) {
-        if(*info->p==92) {
-            info->p+=3;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==42&&*(info->p->p+2)==61)||(*info->p->p==42&&*(info->p->p+1)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_28=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_28=(_Bool)0;
         }
@@ -6166,14 +6177,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node_29) ? right_node_29 = come_decrement_ref_count(right_node_29, ((struct sNode*)right_node_29)->finalize, ((struct sNode*)right_node_29)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==47&&*(info->p+2)==61)||(*info->p==47&&*(info->p+1)==61))) {
-        if(*info->p==92) {
-            info->p+=3;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==47&&*(info->p->p+2)==61)||(*info->p->p==47&&*(info->p->p+1)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_30=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_30=(_Bool)0;
         }
@@ -6204,14 +6215,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node_31) ? right_node_31 = come_decrement_ref_count(right_node_31, ((struct sNode*)right_node_31)->finalize, ((struct sNode*)right_node_31)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==37&&*(info->p+2)==61)||(*info->p==37&&*(info->p+1)==61))) {
-        if(*info->p==92) {
-            info->p+=3;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==37&&*(info->p->p+2)==61)||(*info->p->p==37&&*(info->p->p+1)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_32=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_32=(_Bool)0;
         }
@@ -6242,14 +6253,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node_33) ? right_node_33 = come_decrement_ref_count(right_node_33, ((struct sNode*)right_node_33)->finalize, ((struct sNode*)right_node_33)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==60&&*(info->p+2)==60&&*(info->p+3)==61)||(*info->p==60&&*(info->p+1)==60&&*(info->p+2)==61))) {
-        if(*info->p==92) {
-            info->p+=4;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==60&&*(info->p->p+2)==60&&*(info->p->p+3)==61)||(*info->p->p==60&&*(info->p->p+1)==60&&*(info->p->p+2)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=4;
             skip_spaces_and_lf(info);
             quote_34=(_Bool)1;
         }
         else {
-            info->p+=3;
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_34=(_Bool)0;
         }
@@ -6280,14 +6291,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node_35) ? right_node_35 = come_decrement_ref_count(right_node_35, ((struct sNode*)right_node_35)->finalize, ((struct sNode*)right_node_35)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==62&&*(info->p+2)==62&&*(info->p+3)==61)||(*info->p==62&&*(info->p+1)==62&&*(info->p+2)==61))) {
-        if(*info->p==92) {
-            info->p+=4;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==62&&*(info->p->p+2)==62&&*(info->p->p+3)==61)||(*info->p->p==62&&*(info->p->p+1)==62&&*(info->p->p+2)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=4;
             skip_spaces_and_lf(info);
             quote_36=(_Bool)1;
         }
         else {
-            info->p+=3;
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_36=(_Bool)0;
         }
@@ -6318,14 +6329,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node_37) ? right_node_37 = come_decrement_ref_count(right_node_37, ((struct sNode*)right_node_37)->finalize, ((struct sNode*)right_node_37)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==94&&*(info->p+2)==61)||(*info->p==94&&*(info->p+1)==61))) {
-        if(*info->p==92) {
-            info->p+=3;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==94&&*(info->p->p+2)==61)||(*info->p->p==94&&*(info->p->p+1)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_38=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_38=(_Bool)0;
         }
@@ -6356,14 +6367,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node_39) ? right_node_39 = come_decrement_ref_count(right_node_39, ((struct sNode*)right_node_39)->finalize, ((struct sNode*)right_node_39)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==38&&*(info->p+2)==61)||(*info->p==38&&*(info->p+1)==61))) {
-        if(*info->p==92) {
-            info->p+=3;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==38&&*(info->p->p+2)==61)||(*info->p->p==38&&*(info->p->p+1)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_40=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_40=(_Bool)0;
         }
@@ -6394,14 +6405,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node_41) ? right_node_41 = come_decrement_ref_count(right_node_41, ((struct sNode*)right_node_41)->finalize, ((struct sNode*)right_node_41)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==124&&*(info->p+2)==61)||(*info->p==124&&*(info->p+1)==61))) {
-        if(*info->p==92) {
-            info->p+=3;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==124&&*(info->p->p+2)==61)||(*info->p->p==124&&*(info->p->p+1)==61))) {
+        if(*info->p->p==92) {
+            info->p->p+=3;
             skip_spaces_and_lf(info);
             quote_42=(_Bool)1;
         }
         else {
-            info->p+=2;
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_42=(_Bool)0;
         }
@@ -6432,14 +6443,14 @@ struct sNode* post_position_operator_v19(struct sNode* node, struct sInfo*  info
         return __result_obj__0;
         ((right_node_43) ? right_node_43 = come_decrement_ref_count(right_node_43, ((struct sNode*)right_node_43)->finalize, ((struct sNode*)right_node_43)->_protocol_obj, 0, 0,(void*)0, "26eq.nc", 1094):(void*)0);
     }
-    else if(!node->terminated(node->_protocol_obj)&&((*info->p==92&&*(info->p+1)==61&&*(info->p+2)!=61&&*(info->p+2)!=62)||(*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62))) {
-        if(*info->p==92) {
-            info->p+=2;
+    else if(!node->terminated(node->_protocol_obj)&&((*info->p->p==92&&*(info->p->p+1)==61&&*(info->p->p+2)!=61&&*(info->p->p+2)!=62)||(*info->p->p==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62))) {
+        if(*info->p->p==92) {
+            info->p->p+=2;
             skip_spaces_and_lf(info);
             quote_44=(_Bool)1;
         }
         else {
-            info->p++;
+            info->p->p++;
             skip_spaces_and_lf(info);
             quote_44=(_Bool)0;
         }

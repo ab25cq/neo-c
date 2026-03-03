@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -5485,7 +5496,7 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
     struct sTypedefNode* _inf_obj_value2;
     struct sNode* node_39;
     _Bool Value_40;
-    source_head=info->p;
+    source_head=info->p->p;
     if(charp_operator_equals(buf,"typedef")) {
         in_typedef=info->in_typedef;
         info->in_typedef=(_Bool)1;
@@ -5499,8 +5510,8 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
             exit(2);
         }
         info->in_typedef=in_typedef;
-        if(*info->p==44) {
-            info->p++;
+        if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             base_type=(struct sType* )come_increment_ref_count(sType_clone(type), "22typedef.nc", 125);
@@ -5513,15 +5524,15 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
             __right_value0 = (void*)0;
             variable_name2=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(parse_variable_name_on_multiple_declare(base_type,(_Bool)1,info), "22typedef.nc", 132);
             list$1tuple2$2sType$phchar$ph$ph_push_back(multiple_declare,(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(variable_name2, "22typedef.nc", 133));
-            while(*info->p==44) {
-                info->p++;
+            while(*info->p->p==44) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 variable_name_36=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(parse_variable_name_on_multiple_declare(base_type,(_Bool)0,info), "22typedef.nc", 139);
                 list$1tuple2$2sType$phchar$ph$ph_push_back(multiple_declare,(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(variable_name_36, "22typedef.nc", 141));
                 come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, variable_name_36, (void*)0, (void*)0, 0, 0, 0, (void*)0, "22typedef.nc}", 144);
             }
-            source_tail=info->p;
+            source_tail=info->p->p;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "22typedef.nc", 146, "struct buffer* "), "22typedef.nc", 146)), "22typedef.nc", 146);
@@ -5580,7 +5591,7 @@ struct sNode* top_level_v95(char* buf, char* head, int head_sline, struct sInfo*
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "22typedef.nc", 173):(void*)0);
         }
         else {
-            source_tail_37=info->p;
+            source_tail_37=info->p->p;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             header_38=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "22typedef.nc", 161, "struct buffer* "), "22typedef.nc", 161)), "22typedef.nc", 161);
@@ -5852,8 +5863,8 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
             exit(2);
         }
         info->in_typedef=in_typedef;
-        if(*info->p==44) {
-            info->p++;
+        if(*info->p->p==44) {
+            info->p->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             base_type=(struct sType* )come_increment_ref_count(sType_clone(type), "22typedef.nc", 201);
@@ -5866,15 +5877,15 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
             __right_value0 = (void*)0;
             variable_name2=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(parse_variable_name_on_multiple_declare(base_type,(_Bool)1,info), "22typedef.nc", 208);
             list$1tuple2$2sType$phchar$ph$ph_push_back(multiple_declare,(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(variable_name2, "22typedef.nc", 209));
-            while(*info->p==44) {
-                info->p++;
+            while(*info->p->p==44) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 variable_name_41=(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(parse_variable_name_on_multiple_declare(base_type,(_Bool)0,info), "22typedef.nc", 215);
                 list$1tuple2$2sType$phchar$ph$ph_push_back(multiple_declare,(struct tuple2$2sType$phchar$ph*)come_increment_ref_count(variable_name_41, "22typedef.nc", 217));
                 come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, variable_name_41, (void*)0, (void*)0, 0, 0, 0, (void*)0, "22typedef.nc}", 220);
             }
-            source_tail=info->p;
+            source_tail=info->p->p;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "22typedef.nc", 222, "struct buffer* "), "22typedef.nc", 222)), "22typedef.nc", 222);
@@ -5933,7 +5944,7 @@ struct sNode* string_node_v17(char* buf, char* head, int head_sline, struct sInf
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "22typedef.nc", 249):(void*)0);
         }
         else {
-            source_tail_42=info->p;
+            source_tail_42=info->p->p;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             header_43=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "22typedef.nc", 237, "struct buffer* "), "22typedef.nc", 237)), "22typedef.nc", 237);

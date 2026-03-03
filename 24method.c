@@ -1276,6 +1276,17 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
+struct span$1char$p
+{
+    char* memory;
+    char* p;
+    unsigned long  len  ;
+    _Bool local;
+    _Bool heap;
+    _Bool global;
+    void* stacktop;
+};
+
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1363,7 +1374,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    char* p;
+    struct span$1char$p* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -4385,13 +4396,13 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
     buffer_append_str(method_block2,((char* )(__right_value0=buffer_to_string(method_block))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 142));
     source3=(struct buffer* )come_increment_ref_count(info->source, "24method.nc", 144);
-    p_16=info->p;
+    p_16=info->p->p;
     head=info->head;
     sline=info->sline;
     __dec_obj45=info->source,
     info->source=(struct buffer* )come_increment_ref_count(method_block2, "24method.nc", 149);
     come_call_finalizer(buffer_finalize, __dec_obj45,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 149);
-    info->p=info->source->buf;
+    info->p->p=info->source->buf;
     info->head=info->source->buf;
     info->sline=method_block_sline;
     __right_value0 = (void*)0;
@@ -4464,7 +4475,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
     __dec_obj48=info->source,
     info->source=(struct buffer* )come_increment_ref_count(source3, "24method.nc", 182);
     come_call_finalizer(buffer_finalize, __dec_obj48,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 182);
-    info->p=p_16;
+    info->p->p=p_16;
     info->head=head;
     info->sline=sline;
     info->current_stack_frame_struct=current_stack_frame_struct;
@@ -7150,14 +7161,14 @@ _conditional_value_X8;})) {
 ({(_conditional_value_X9=(default_param&&string_operator_not_equals(default_param,"")&&((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(come_params_88,i_102)))==((void*)0)));                come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 876);
 _conditional_value_X9;})) {
                     source=(struct buffer* )come_increment_ref_count(info->source, "24method.nc", 877);
-                    p=info->p;
+                    p=info->p->p;
                     head=info->head;
                     sline=info->sline;
                     __right_value0 = (void*)0;
                     __dec_obj98=info->source,
                     info->source=(struct buffer* )come_increment_ref_count(charp_to_buffer(default_param), "24method.nc", 882);
                     come_call_finalizer(buffer_finalize, __dec_obj98,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 882);
-                    info->p=info->source->buf;
+                    info->p->p=info->source->buf;
                     info->head=info->source->buf;
                     no_output_come_code_110=info->no_output_come_code;
                     info->no_output_come_code=(_Bool)1;
@@ -7192,7 +7203,7 @@ _conditional_value_X9;})) {
                     __dec_obj99=info->source,
                     info->source=(struct buffer* )come_increment_ref_count(source, "24method.nc", 897);
                     come_call_finalizer(buffer_finalize, __dec_obj99,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 897);
-                    info->p=p;
+                    info->p->p=p;
                     info->head=head;
                     info->sline=sline;
                     __right_value0 = (void*)0;
@@ -8148,7 +8159,7 @@ struct sNode* parse_iterator_it(struct sInfo*  info  )
     void* __right_value1 = (void*)0;
     struct sNode* node;
     struct sNode* __result_obj__0;
-    info->p+=strlen("`it");
+    info->p->p+=strlen("`it");
     skip_spaces_and_lf(info);
     expected_next_character(61,info);
     right_value=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "24method.nc", 1039);
@@ -8632,7 +8643,7 @@ _conditional_value_X1;})) {
         all_code2=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value1=charp_operator_add("{",all_code))),"}"), "24method.nc", 1253);
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1253));
         source=(struct buffer* )come_increment_ref_count(info->source, "24method.nc", 1258);
-        p_129=info->p;
+        p_129=info->p->p;
         head=info->head;
         end_130=info->end;
         generics_type=(struct sType* )come_increment_ref_count(info->generics_type, "24method.nc", 1263);
@@ -8651,7 +8662,7 @@ _conditional_value_X1;})) {
         __dec_obj129=info->source,
         info->source=(struct buffer* )come_increment_ref_count(charp_to_buffer(all_code2), "24method.nc", 1270);
         come_call_finalizer(buffer_finalize, __dec_obj129,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 1270);
-        info->p=info->source->buf;
+        info->p->p=info->source->buf;
         info->head=info->source->buf;
         info->end=info->source->buf+info->source->len;
         if(obj_type->mNoSolvedGenericsType) {
@@ -8687,7 +8698,7 @@ _conditional_value_X1;})) {
         __dec_obj133=info->source,
         info->source=(struct buffer* )come_increment_ref_count(charp_to_buffer(all_code2_131), "24method.nc", 1297);
         come_call_finalizer(buffer_finalize, __dec_obj133,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 1297);
-        info->p=info->source->buf;
+        info->p->p=info->source->buf;
         info->head=info->source->buf;
         info->end=info->source->buf+info->source->len;
         __dec_obj134=info->generics_type_names,
@@ -8700,7 +8711,7 @@ _conditional_value_X1;})) {
         __dec_obj135=info->source,
         info->source=(struct buffer* )come_increment_ref_count(source, "24method.nc", 1308);
         come_call_finalizer(buffer_finalize, __dec_obj135,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 1308);
-        info->p=p_129;
+        info->p->p=p_129;
         info->head=head;
         info->end=end_130;
         __dec_obj136=info->generics_type,
@@ -9087,12 +9098,12 @@ struct sNode* parse_method_call_v20(struct sNode* obj, char*  fun_name  , struct
     list$1tuple2$2char$phsNode$ph$ph_push_back(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "24method.nc", 1397, "struct tuple2$2char$phsNode$ph"), "24method.nc", 1397),(char* )come_increment_ref_count((char* )((void*)0), "24method.nc", 1397),(struct sNode*)come_increment_ref_count(sNode_clone(obj), "24method.nc", 1397)), "24method.nc", 1397));
     parse_method_generics_type=(_Bool)0;
     {
-        p=info->p;
+        p=info->p->p;
         sline=info->sline;
-        if(*info->p==60) {
-            info->p++;
+        if(*info->p->p==60) {
+            info->p->p++;
             skip_spaces_and_lf(info);
-            if(xisalpha(*info->p)||*info->p==95) {
+            if(xisalpha(*info->p->p)||*info->p->p==95) {
                 __right_value0 = (void*)0;
                 word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "24method.nc", 1410);
                 if(is_type_name(word,info)) {
@@ -9101,27 +9112,27 @@ struct sNode* parse_method_call_v20(struct sNode* obj, char*  fun_name  , struct
                 (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 1416));
             }
         }
-        info->p=p;
+        info->p->p=p;
         info->sline=sline;
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     method_generics_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "24method.nc", 1422, "struct list$1sType$ph*"), "24method.nc", 1422)), "24method.nc", 1422);
-    if(parse_method_generics_type&&*info->p==60) {
-        info->p++;
+    if(parse_method_generics_type&&*info->p->p==60) {
+        info->p->p++;
         skip_spaces_and_lf(info);
         while((_Bool)1) {
-            if(*info->p==0) {
+            if(*info->p->p==0) {
                 err_msg(info,"unexpected source end");
                 exit(2);
             }
-            else if(*info->p==62) {
-                info->p++;
+            else if(*info->p->p==62) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
-            else if(*info->p==44) {
-                info->p++;
+            else if(*info->p->p==44) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
             else {
@@ -9142,35 +9153,35 @@ struct sNode* parse_method_call_v20(struct sNode* obj, char*  fun_name  , struct
             }
         }
     }
-    if(*info->p!=123) {
+    if(*info->p->p!=123) {
         expected_next_character(40,info);
         while((_Bool)1) {
-            if(*info->p==41) {
-                info->p++;
+            if(*info->p->p==41) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
-            p_143=info->p;
+            p_143=info->p->p;
             sline_144=info->sline;
             err_flag=(_Bool)0;
             __right_value0 = (void*)0;
             label=(char* )come_increment_ref_count(__builtin_string(""), "24method.nc", 1468);
-            if(xisalpha(*info->p)||*info->p==95) {
+            if(xisalpha(*info->p->p)||*info->p->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj156=label,
                 label=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "24method.nc", 1470);
                 __dec_obj156 = come_decrement_ref_count(__dec_obj156, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 1470);
                 err_flag=(_Bool)1;
             }
-            if(err_flag==(_Bool)1&&*info->p==58) {
-                info->p++;
+            if(err_flag==(_Bool)1&&*info->p->p==58) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
             else {
                 __dec_obj157=label,
                 label=((void*)0);
                 __dec_obj157 = come_decrement_ref_count(__dec_obj157, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 1479);
-                info->p=p_143;
+                info->p->p=p_143;
                 info->sline=sline_144;
             }
             no_comma=info->no_comma;
@@ -9189,12 +9200,12 @@ struct sNode* parse_method_call_v20(struct sNode* obj, char*  fun_name  , struct
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             list$1tuple2$2char$phsNode$ph$ph_push_back(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "24method.nc", 1500, "struct tuple2$2char$phsNode$ph"), "24method.nc", 1500),(char* )come_increment_ref_count(label, "24method.nc", 1500),(struct sNode*)come_increment_ref_count(node, "24method.nc", 1500)), "24method.nc", 1500));
-            if(*info->p==44) {
-                info->p++;
+            if(*info->p->p==44) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p==41) {
-                info->p++;
+            else if(*info->p->p==41) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 (label = come_decrement_ref_count(label, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 1509));
                 ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "24method.nc", 1509):(void*)0);
@@ -9206,13 +9217,13 @@ struct sNode* parse_method_call_v20(struct sNode* obj, char*  fun_name  , struct
     }
     method_block=((void*)0);
     method_block_sline=0;
-    if(*info->p==123) {
-        head=info->p;
+    if(*info->p->p==123) {
+        head=info->p->p;
         method_block_sline=info->sline;
         __right_value0 = (void*)0;
         ((char* )(__right_value0=skip_block(info,(_Bool)0)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1520));
-        tail=info->p;
+        tail=info->p->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj159=method_block,
@@ -9380,35 +9391,35 @@ struct sNode* parse_iter_call_v20(struct sNode* obj, char*  fun_name  , struct s
     struct sNode* node_146;
     struct sNode* __result_obj__0;
     params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "24method.nc", 1546, "struct list$1tuple2$2char$phsNode$ph$ph*"), "24method.nc", 1546)), "24method.nc", 1546);
-    if(*info->p!=123) {
+    if(*info->p->p!=123) {
         expected_next_character(40,info);
         while((_Bool)1) {
-            if(*info->p==41) {
-                info->p++;
+            if(*info->p->p==41) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
-            p=info->p;
+            p=info->p->p;
             sline=info->sline;
             err_flag=(_Bool)0;
             __right_value0 = (void*)0;
             label=(char* )come_increment_ref_count(__builtin_string(""), "24method.nc", 1562);
-            if(xisalpha(*info->p)||*info->p==95) {
+            if(xisalpha(*info->p->p)||*info->p->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj161=label,
                 label=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "24method.nc", 1564);
                 __dec_obj161 = come_decrement_ref_count(__dec_obj161, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 1564);
                 err_flag=(_Bool)1;
             }
-            if(err_flag==(_Bool)1&&*info->p==58) {
-                info->p++;
+            if(err_flag==(_Bool)1&&*info->p->p==58) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
             else {
                 __dec_obj162=label,
                 label=((void*)0);
                 __dec_obj162 = come_decrement_ref_count(__dec_obj162, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 1573);
-                info->p=p;
+                info->p->p=p;
                 info->sline=sline;
             }
             no_comma=info->no_comma;
@@ -9427,12 +9438,12 @@ struct sNode* parse_iter_call_v20(struct sNode* obj, char*  fun_name  , struct s
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             list$1tuple2$2char$phsNode$ph$ph_push_back(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "24method.nc", 1594, "struct tuple2$2char$phsNode$ph"), "24method.nc", 1594),(char* )come_increment_ref_count(label, "24method.nc", 1594),(struct sNode*)come_increment_ref_count(node, "24method.nc", 1594)), "24method.nc", 1594));
-            if(*info->p==44) {
-                info->p++;
+            if(*info->p->p==44) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p==41) {
-                info->p++;
+            else if(*info->p->p==41) {
+                info->p->p++;
                 skip_spaces_and_lf(info);
                 (label = come_decrement_ref_count(label, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 1603));
                 ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "24method.nc", 1603):(void*)0);
@@ -9444,13 +9455,13 @@ struct sNode* parse_iter_call_v20(struct sNode* obj, char*  fun_name  , struct s
     }
     method_block=((void*)0);
     method_block_sline=0;
-    if(*info->p==123) {
-        head=info->p;
+    if(*info->p->p==123) {
+        head=info->p->p;
         method_block_sline=info->sline;
         __right_value0 = (void*)0;
         ((char* )(__right_value0=skip_block(info,(_Bool)0)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1614));
-        tail=info->p;
+        tail=info->p->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj164=method_block,

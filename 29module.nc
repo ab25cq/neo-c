@@ -232,15 +232,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -265,15 +265,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -298,15 +298,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -341,15 +341,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -369,15 +369,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -403,22 +403,22 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         string args = s"";
         
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
             args = reflection_expression();
         }
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -444,25 +444,25 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
-        if(*info->p == '"') {
-            info->p++;
+        if(*info->p.p == '"') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == '"') {
-            info->p++;
+        if(*info->p.p == '"') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -480,15 +480,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -506,15 +506,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -532,15 +532,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -558,15 +558,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -590,15 +590,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -626,15 +626,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -658,22 +658,22 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp2 = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -700,22 +700,22 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp2 = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -739,15 +739,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -771,15 +771,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -805,22 +805,22 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp2 = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -852,15 +852,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -886,15 +886,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -920,15 +920,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -954,15 +954,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -988,15 +988,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -1022,15 +1022,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -1057,15 +1057,15 @@ string reflection_node(sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -1081,41 +1081,41 @@ string reflection_node(sInfo* info=info)
         }
     }
 */
-    else if(*info->p == '"') 
+    else if(*info->p.p == '"') 
     {
         int sline_real = info.sline_real;
         info.sline_real = info.sline;
-        info->p++;
+        info->p.p++;
 
         int sline = info->sline;
 
         buffer*% value = new buffer();
 
         while(1) {
-            if(*info->p == '"') {
-                info->p++;
+            if(*info->p.p == '"') {
+                info->p.p++;
                 
-                char* p = info->p;
+                char* p = info->p.p;
                 int sline = info->sline;
                 
                 skip_spaces_and_lf();
                 
                 parse_sharp()
                 
-                if(*info->p == '"') {
-                    info->p++;
+                if(*info->p.p == '"') {
+                    info->p.p++;
                 }
                 else {
-                    info->p = p;
+                    info->p.p = p;
                     info->sline = sline;
                     break;
                 }
             }
-            else if(*info->p == '\\') {
-                info->p++;
+            else if(*info->p.p == '\\') {
+                info->p.p++;
                 
-                if(*info->p == '{') {
-                    info->p++;
+                if(*info->p.p == '{') {
+                    info->p.p++;
                     
                     string exp = reflection_expression();
                     
@@ -1123,18 +1123,18 @@ string reflection_node(sInfo* info=info)
                     
                     value.append_str(exp);
                 }
-                else if(*info->p == '"') {
+                else if(*info->p.p == '"') {
                     value.append_char('\\');
                     value.append_char('"');
-                    info->p++;
+                    info->p.p++;
                 }
                 else {
                     value.append_char('\\');
-                    value.append_char(*info->p);
-                    info->p++;
+                    value.append_char(*info->p.p);
+                    info->p.p++;
                 }
             }
-            else if(*info->p == '\0') {
+            else if(*info->p.p == '\0') {
                 int sline2 = info->sline;
                 info->sline = sline;
                 err_msg(info, "close \" to make c string value");
@@ -1142,10 +1142,10 @@ string reflection_node(sInfo* info=info)
                 exit(2);
             }
             else {
-                if(*info->p == '\n') info->sline++;
+                if(*info->p.p == '\n') info->sline++;
 
-                value.append_char(*info->p);
-                info->p++;
+                value.append_char(*info->p.p);
+                info->p.p++;
             }
         }
 
@@ -1154,8 +1154,8 @@ string reflection_node(sInfo* info=info)
         info.sline_real = sline_real;
         return value.to_string();
     }
-    else if(*info->p == '$') {
-        info->p++;
+    else if(*info->p.p == '$') {
+        info->p.p++;
         string var_name = parse_word();
         
         string value = info.reflection_vars[var_name];
@@ -1167,36 +1167,36 @@ string reflection_node(sInfo* info=info)
         
         return value;
     }
-    else if(xisalpha(*info->p) || *info->p == '_') {
+    else if(xisalpha(*info->p.p) || *info->p.p == '_') {
         buffer*% buf = new buffer();
-        while(xisalnum(*info->p) || *info->p == '_' || *info->p == '*' || *info->p == '%' || *info->p == '<' || *info->p == '>')
+        while(xisalnum(*info->p.p) || *info->p.p == '_' || *info->p.p == '*' || *info->p.p == '%' || *info->p.p == '<' || *info->p.p == '>')
         {
-            buf.append_char(*info->p);
-            info->p++;
+            buf.append_char(*info->p.p);
+            info->p.p++;
         }
         skip_spaces_and_lf();
         return buf.to_string();
     }
-    else if(*info->p == '-' && xisdigit(*(info->p+1))) {
+    else if(*info->p.p == '-' && xisdigit(*(info->p.p+1))) {
         int n = 0;
-        while(xisdigit(*info->p)) {
-            n = n * 10 + (*info.p - '0');
-            info.p++;
+        while(xisdigit(*info->p.p)) {
+            n = n * 10 + (*info.p.p - '0');
+            info.p.p++;
         }
         skip_spaces_and_lf();
         return xsprintf("-%d", n);
     }
-    else if(xisdigit(*info->p)) {
+    else if(xisdigit(*info->p.p)) {
         int n = 0;
-        while(xisdigit(*info->p)) {
-            n = n * 10 + (*info.p - '0');
-            info.p++;
+        while(xisdigit(*info->p.p)) {
+            n = n * 10 + (*info.p.p - '0');
+            info.p.p++;
         }
         skip_spaces_and_lf();
         return xsprintf("%d", n);
     }
-    else if(*info->p == '!') {
-        info->p++;
+    else if(*info->p.p == '!') {
+        info->p.p++;
         skip_spaces_and_lf();
         
         string exp = reflection_expression();
@@ -1209,10 +1209,10 @@ string reflection_node(sInfo* info=info)
         }
     }
     else {
-        err_msg(info, "invalid character(%c)", *info->p);
+        err_msg(info, "invalid character(%c)", *info->p.p);
     }
     
-    err_msg(info, "invalid character(%c)", *info->p);
+    err_msg(info, "invalid character(%c)", *info->p.p);
     
     return s"";
 }
@@ -1223,25 +1223,25 @@ string reflection_expression_mult(sInfo* info=info)
     
     skip_spaces_and_lf();
     
-    while(*info->p) {
-        if(*info->p == '*') {
-            info->p ++;
+    while(*info->p.p) {
+        if(*info->p.p == '*') {
+            info->p.p ++;
             skip_spaces_and_lf();
             
             string right = reflection_node();
             
             return (atoi(node) * atoi(right)).to_string();
         }
-        else if(*info->p == '/') {
-            info->p ++;
+        else if(*info->p.p == '/') {
+            info->p.p ++;
             skip_spaces_and_lf();
             
             string right = reflection_node();
             
             return (atoi(node) / atoi(right)).to_string();
         }
-        else if(*info->p == '%') {
-            info->p ++;
+        else if(*info->p.p == '%') {
+            info->p.p ++;
             skip_spaces_and_lf();
             
             string right = reflection_node();
@@ -1262,25 +1262,25 @@ string reflection_expression_add(sInfo* info=info)
     
     skip_spaces_and_lf();
     
-    while(*info->p) {
-        if(*info->p == '.') {
-            info->p ++;
+    while(*info->p.p) {
+        if(*info->p.p == '.') {
+            info->p.p ++;
             skip_spaces_and_lf();
             
             string right = reflection_expression_mult();
             
             return node + right;
         }
-        else if(*info->p == '+') {
-            info->p ++;
+        else if(*info->p.p == '+') {
+            info->p.p ++;
             skip_spaces_and_lf();
             
             string right = reflection_expression_mult();
             
             return (atoi(node) + atoi(right)).to_string();
         }
-        else if(*info->p == '-') {
-            info->p ++;
+        else if(*info->p.p == '-') {
+            info->p.p ++;
             skip_spaces_and_lf();
             
             string right = reflection_expression_mult();
@@ -1301,9 +1301,9 @@ string reflection_expression_comp(sInfo* info=info)
     
     skip_spaces_and_lf();
     
-    while(*info->p) {
-        if(*info->p == '>' && *(info->p+1) == '=') {
-            info->p += 2;
+    while(*info->p.p) {
+        if(*info->p.p == '>' && *(info->p.p+1) == '=') {
+            info->p.p += 2;
             skip_spaces_and_lf();
             
             string right = reflection_expression_add();
@@ -1315,8 +1315,8 @@ string reflection_expression_comp(sInfo* info=info)
                 return s"false";
             }
         }
-        else if(*info->p == '<' && *(info->p+1) == '=') {
-            info->p += 2;
+        else if(*info->p.p == '<' && *(info->p.p+1) == '=') {
+            info->p.p += 2;
             skip_spaces_and_lf();
             
             string right = reflection_expression_add();
@@ -1328,8 +1328,8 @@ string reflection_expression_comp(sInfo* info=info)
                 return s"false";
             }
         }
-        else if(*info->p == '>') {
-            info->p += 1;
+        else if(*info->p.p == '>') {
+            info->p.p += 1;
             skip_spaces_and_lf();
             
             string right = reflection_expression_add();
@@ -1341,8 +1341,8 @@ string reflection_expression_comp(sInfo* info=info)
                 return s"false";
             }
         }
-        else if(*info->p == '<') {
-            info->p += 1;
+        else if(*info->p.p == '<') {
+            info->p.p += 1;
             skip_spaces_and_lf();
             
             string right = reflection_expression_add();
@@ -1368,9 +1368,9 @@ string reflection_expression_eq(sInfo* info=info)
     
     skip_spaces_and_lf();
     
-    while(*info->p) {
-        if(*info->p == '=' && *(info->p+1) == '=' && *(info->p+2) != '=') {
-            info->p += 2;
+    while(*info->p.p) {
+        if(*info->p.p == '=' && *(info->p.p+1) == '=' && *(info->p.p+2) != '=') {
+            info->p.p += 2;
             skip_spaces_and_lf();
             
             string right = reflection_expression_comp();
@@ -1382,8 +1382,8 @@ string reflection_expression_eq(sInfo* info=info)
                 return s"false";
             }
         }
-        else if(*info->p == '!' && *(info->p+1) == '=' && *(info->p+2) != '=') {
-            info->p += 2;
+        else if(*info->p.p == '!' && *(info->p.p+1) == '=' && *(info->p.p+2) != '=') {
+            info->p.p += 2;
             skip_spaces_and_lf();
             
             string right = reflection_expression_comp();
@@ -1409,9 +1409,9 @@ string reflection_expression_oror(sInfo* info=info)
     
     skip_spaces_and_lf();
     
-    while(*info->p) {
-        if(*info->p == '|' && *(info->p+1) == '|') {
-            info->p += 2;
+    while(*info->p.p) {
+        if(*info->p.p == '|' && *(info->p.p+1) == '|') {
+            info->p.p += 2;
             skip_spaces_and_lf();
             
             string right = reflection_expression_eq();
@@ -1437,9 +1437,9 @@ string reflection_expression_andand(sInfo* info=info)
     
     skip_spaces_and_lf();
     
-    while(*info->p) {
-        if(*info->p == '&' && *(info->p+1) == '&') {
-            info->p += 2;
+    while(*info->p.p) {
+        if(*info->p.p == '&' && *(info->p.p+1) == '&') {
+            info->p.p += 2;
             skip_spaces_and_lf();
             
             string right = reflection_expression_oror();
@@ -1466,7 +1466,7 @@ string reflection_expression(sInfo* info=info)
 
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
 {
-    if(buf === "__c__" && *info->p == '{') {
+    if(buf === "__c__" && *info->p.p == '{') {
         string block_text = skip_block();
         
         char* p = block_text + strlen(block_text);
@@ -1485,7 +1485,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         return new sNothingNode(info) implements sNode;
     }
-    else if(buf === "c_include" && *info->p == '{') {
+    else if(buf === "c_include" && *info->p.p == '{') {
         string block_text = skip_block();
         
         char* p = block_text + strlen(block_text);
@@ -1523,8 +1523,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
     else if(buf === "undef") {
         string word = parse_word();
         
-        if(*info->p == ';') {
-            info->p++;
+        if(*info->p.p == ';') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -1532,32 +1532,32 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
     }
     else if(buf === "macro_include") {
         int quoted = 0;
-        if(*info->p == '"') {
+        if(*info->p.p == '"') {
             quoted = 1;
-            info->p++;
+            info->p.p++;
         }
-        else if(*info->p == '<') {
-            info->p++;
+        else if(*info->p.p == '<') {
+            info->p.p++;
         }
         
         var buf = new buffer();
-        while(*info->p) {
-            if(*info->p == '\\') {
-                info->p++;
-                buf.append_char(*info->p);
-                info->p++;
+        while(*info->p.p) {
+            if(*info->p.p == '\\') {
+                info->p.p++;
+                buf.append_char(*info->p.p);
+                info->p.p++;
             }
-            else if(*info->p == '"') {
-                info->p++;
+            else if(*info->p.p == '"') {
+                info->p.p++;
                 break;
             }
-            else if(*info->p == '>') {
-                info->p++;
+            else if(*info->p.p == '>') {
+                info->p.p++;
                 break;
             }
             else {
-                buf.append_char(*info->p);
-                info->p++;
+                buf.append_char(*info->p.p);
+                info->p.p++;
             }
         }
         
@@ -1582,14 +1582,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         }
         
         buffer*% source = info.source;
-        char* p = info.p;
+        char* p = info.p.p;
         char* head = info.head;
         char* end = info.end;
         string sname = info.sname;
         int sline = info.sline;
         
         info.source = "__ccpp_tmp".read();
-        info.p = borrow info.source.buf;
+        info.p.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         info.end = info.source.buf + info.source.len;
         info.sname = string(path);
@@ -1598,7 +1598,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         transpile_toplevel(block:false);
         
         info.source = source;
-        info.p = p;
+        info.p.p = p;
         info.head = head;
         info.end = end;
         info.sname = sname;
@@ -1609,13 +1609,13 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         return new sNothingNode(info) implements sNode;
     }
     else if(buf === "if") {
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         string reflection_condtional = reflection_expression();
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -1636,15 +1636,15 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
             if(parsecmp("elif")) {
                 (void)parse_word();
                 
-                if(*info->p == '(') {
-                    info->p++;
+                if(*info->p.p == '(') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
                 
                 string reflection_condtional = reflection_expression();
                 
-                if(*info->p == ')') {
-                    info->p++;
+                if(*info->p.p == ')') {
+                    info->p.p++;
                     skip_spaces_and_lf();
                 }
                 
@@ -1683,14 +1683,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         buffer*% source2 = value.to_buffer();
         
-        char* p = info.p;
+        char* p = info.p.p;
         buffer*% source = info.source;
         char* head = info.head;
         char* end = info.end;
         string sname = info.sname;
         int sline = info.sline;
         
-        info.p = borrow source2.buf;
+        info.p.p = borrow source2.buf;
         info.source = source2;
         info.head = borrow source2.buf;
         info.end = source2.buf + source2.len;
@@ -1700,7 +1700,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         transpile_toplevel();
         
-        info.p = p;
+        info.p.p = p;
         info.source = source;
         info.head = head;
         info.end = end;
@@ -1722,8 +1722,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         return new sNothingNode(info) implements sNode;
     }
     else if(buf === "puts") {
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -1731,30 +1731,30 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         
         puts(exp);
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         return new sNothingNode(info) implements sNode;
     }
     else if(buf === "macro_define") {
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         string exp2 = null;
         
-        if(*info->p == ',') {
-            info->p++;
+        if(*info->p.p == ',') {
+            info->p.p++;
             skip_spaces_and_lf();
             exp2 = reflection_expression();
         }
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
@@ -1772,15 +1772,15 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         return new sNothingNode(info) implements sNode;
     }
     else if(buf === "macro_undef") {
-        if(*info->p == '(') {
-            info->p++;
+        if(*info->p.p == '(') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
         string exp = reflection_expression();
         
-        if(*info->p == ')') {
-            info->p++;
+        if(*info->p.p == ')') {
+            info->p.p++;
             skip_spaces_and_lf();
         }
         
