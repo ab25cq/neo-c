@@ -571,6 +571,16 @@ class sLoadFieldNode extends sNodeBase
     }
 };
 
+bool in_the_fun(string fun_name, sInfo* info=info)
+{
+    if(info.come_fun && ((strlen(info.come_fun.mName) > strlen(fun_name) && memcmp(info.come_fun.mName, fun_name, strlen(fun_name)) == 0)))
+    {
+        return true;
+    }
+    
+    return false;
+}
+
 class sAutomaticallyUnwrapNode extends sNodeBase
 {
     new(sNode*% node, sInfo* info=info)
@@ -595,13 +605,13 @@ class sAutomaticallyUnwrapNode extends sNodeBase
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        if(info.come_fun && ((strlen(info.come_fun.mName) > strlen("ref$") && memcmp(info.come_fun.mName, "ref$", strlen("ref$")) == 0) || (strlen(info.come_fun.mName) > strlen("optional$") && memcmp(info.come_fun.mName, "optional$", strlen("optional$")) == 0)))
+        if(in_the_fun(s"ref$", info) || in_the_fun(s"optional$", info)) // || in_the_fun(s"span$", info))
         {
             info.stack.push_back(come_value);
         }
         else if(come_value.type.mNoSolvedGenericsType) {
-            if(come_value.type.mNoSolvedGenericsType.mClass.mName === "ref" || come_value.type.mNoSolvedGenericsType.mClass.mName === "optional")
-            {
+            if(come_value.type.mNoSolvedGenericsType.mClass.mName === "ref" || come_value.type.mNoSolvedGenericsType.mClass.mName === "optional") {
+            // || come_value.type.mNoSolvedGenericsType.mClass.mName === "span")
                 sNode*% obj = node;
                 list<tuple2<string, sNode*%>*%>*% params =  new list<tuple2<string, sNode*%>*%>();
                 

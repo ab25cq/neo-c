@@ -20,8 +20,7 @@ int main(int argc, char** argv)
 {
     var p = fun();
     
-    printf("%d %d %d\n", p.a, p.b, p.c);
+    printf("%d %d %d\n", p!.a, p!.b, p!.c);
                                    
     return 0;
 }
-
