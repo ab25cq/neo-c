@@ -349,6 +349,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                         buf.append_str("*");
                     }
                 }
+/*
                 foreach(it, type->mVarNameArrayNum) {
                     if(!node_compile(it)) {
                         err_msg(info, "invalid array number");
@@ -358,7 +359,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                 
                     buf.append_format("[%s]", cvalue.c_value);
                 }
+*/
                 if(!nullchecker) buf.append_str(")");
+/*
                 foreach(it, type->mArrayNum) {
                     if(!node_compile(it)) {
                         err_msg(info, "invalid array number");
@@ -373,6 +376,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                         buf.append_format("[%s]", cvalue.c_value);
                     }
                 }
+*/
                 eval_pointer_num = true;
             }
             else if(type->mPointerNum > 0 && type->mArrayNum.length()>0) {
