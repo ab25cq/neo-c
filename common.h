@@ -1194,6 +1194,7 @@ sBlock*% parse_come_block(sInfo* info=info);
 
 sNode*% create_new_object(sType* type, sInfo* info=info);
 sNode*% create_null_checker(sNode*% node, sInfo* info=info);
+sNode*% create_heap_checker(sNode*% node, sInfo* info=info);
 
 uniq class sNullChecker extends sNodeBase
 {
@@ -1242,6 +1243,80 @@ uniq class sNullChecker extends sNodeBase
         }
 
         if(!gComeC && gComeDebug && pointer_type) {
+            string type_name = make_type_name_string(type, no_static:true, cast_type:true, nullchecker:true);
+            
+            CVALUE*% come_value2 = new CVALUE();
+            
+            come_value2.c_value = xsprintf("((%s)come_null_checker(%s, \"%s\", %d))", type_name, come_value.c_value, info.sname, info.sline);
+            come_value2.type = clone type;
+            come_value2.var = come_value.var;
+            
+            info.stack.push_back(come_value2);
+        }
+        else {
+            info.stack.push_back(come_value);
+        }
+    
+        return true;
+    }
+};
+
+uniq class sHeapChecker extends sNodeBase
+{
+    sNode*% value;
+    
+    new(sNode*% value, sInfo* info=info)
+    {
+        self.super();
+    
+        self.value = clone value;
+    }
+    
+    string kind()
+    {
+        return string("sHeapChecker");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% value = self.value;
+        
+        node_compile(value).elif {
+            return false;
+        }
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        
+        sType*% type__ = clone come_value.type;
+        sType*% type_ = solve_generics(type__, info.generics_type, info);
+        sType*% type = solve_method_generics(type_, info);
+        
+        sType*% original_type = type__->mOriginalLoadVarType;
+        
+        bool pointer_type = type->mPointerNum > 0
+            || type->mArrayPointerNum > 0
+            || type->mFunctionPointerNum > 0;
+            
+        bool heap_type = pointer_type && type->mHeap;
+
+        if(original_type) {
+            if(original_type->mHeap) {
+                heap_type = true;
+            }
+        }
+
+        if(!gComeC && gComeDebug && heap_type) {
+            string type_name = make_type_name_string(type, no_static:true, cast_type:true, nullchecker:true);
+            
+            CVALUE*% come_value2 = new CVALUE();
+            
+            come_value2.c_value = xsprintf("((%s)come_heap_checker(%s, \"%s\", %d))", type_name, come_value.c_value, info.sname, info.sline);
+            come_value2.type = clone type;
+            come_value2.var = come_value.var;
+            
+            info.stack.push_back(come_value2);
+        }
+        else if(!gComeC && gComeDebug && pointer_type) {
             string type_name = make_type_name_string(type, no_static:true, cast_type:true, nullchecker:true);
             
             CVALUE*% come_value2 = new CVALUE();

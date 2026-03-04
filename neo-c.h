@@ -697,6 +697,24 @@ uniq void* come_null_checker(void* mem, const char* sname, int sline)
     exit(1);
 }
 
+uniq void* come_heap_checker(void* mem, const char* sname, int sline)
+{
+    if(mem) {
+        if(come_is_alive(mem)) {
+            return mem;
+        }
+        else {
+            puts(s"heap pointer exception \{sname} \{sline}");
+            stackframe();
+            exit(1);
+        }
+    }
+    
+    puts(s"null pointer exception \{sname} \{sline}");
+    stackframe();
+    exit(1);
+}
+
 uniq string __builtin_string(const char* str)
 {
     if(str == null) {

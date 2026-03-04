@@ -5,6 +5,11 @@ sNode*% create_null_checker(sNode*% node, sInfo* info=info)
     return new sNullChecker(node, info) implements sNode;
 }
 
+sNode*% create_heap_checker(sNode*% node, sInfo* info=info)
+{
+    return new sHeapChecker(node, info) implements sNode;
+}
+
 string,sGenericsFun* make_generics_function(sType* type, string fun_name, sInfo* info, bool array_equal_pointer=true)
 {
     string none_generics_name = get_none_generics_name(type.mClass.mName);
