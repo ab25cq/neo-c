@@ -389,6 +389,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                         buf.append_str("*");
                     }
                 }
+/*
                 foreach(it, type->mVarNameArrayNum) {
                     if(!node_compile(it)) {
                         err_msg(info, "invalid array number");
@@ -398,6 +399,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                 
                     buf.append_format("[%s]", cvalue.c_value);
                 }
+*/
                 if(!nullchecker) buf.append_str(")");
 /*
                 foreach(it, type->mArrayNum) {
