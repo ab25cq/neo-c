@@ -411,6 +411,7 @@ uniq class CVALUE
     bool mLoadField;
     bool mCastValue;
     bool mNullValue;
+    string c_value_without_null_checker;
     
     new() {
     }
@@ -640,6 +641,7 @@ struct sInfo
     bool use_iter_next;
     
     sType*% iter_type;
+    int id;
 };
 
 uniq class sNodeBase
@@ -1231,6 +1233,8 @@ uniq class sNullChecker extends sNodeBase
         bool pointer_type = type->mPointerNum > 0
             || type->mArrayPointerNum > 0
             || type->mFunctionPointerNum > 0;
+            
+        bool heap_type = pointer_type && type->mHeap;
 
         if(original_type) {
             if(original_type->mArrayNum.length() == 1 && type->mArrayPointerNum == 1) {
@@ -1242,14 +1246,23 @@ uniq class sNullChecker extends sNodeBase
             }
         }
 
-        if(!gComeC && gComeDebug && pointer_type) {
+        if(!gComeC && pointer_type && !info.in_refference) {
             string type_name = make_type_name_string(type, no_static:true, cast_type:true, nullchecker:true);
             
             CVALUE*% come_value2 = new CVALUE();
             
-            come_value2.c_value = xsprintf("((%s)come_null_checker(%s, \"%s\", %d))", type_name, come_value.c_value, info.sname, info.sline);
+            come_value2.c_value = xsprintf("((%s)come_null_checker(%s, \"%s\", %d, %d))", type_name, come_value.c_value, info.sname, info.sline, ++info.id);
             come_value2.type = clone type;
             come_value2.var = come_value.var;
+            if(come_value.c_value_without_null_checker) {
+                come_value2.c_value_without_null_checker = come_value.c_value_without_null_checker;
+            }
+            else if(come_value.c_value_without_cast_object_value) {
+                come_value2.c_value_without_null_checker = come_value.c_value_without_cast_object_value;
+            }
+            else {
+                come_value2.c_value_without_null_checker = come_value.c_value;
+            }
             
             info.stack.push_back(come_value2);
         }
@@ -1305,25 +1318,44 @@ uniq class sHeapChecker extends sNodeBase
             }
         }
 
-        if(!gComeC && gComeDebug && heap_type) {
+        info.in_refference = true;
+        if(!gComeC && heap_type && !info.in_refference) {
             string type_name = make_type_name_string(type, no_static:true, cast_type:true, nullchecker:true);
             
             CVALUE*% come_value2 = new CVALUE();
             
-            come_value2.c_value = xsprintf("((%s)come_heap_checker(%s, \"%s\", %d))", type_name, come_value.c_value, info.sname, info.sline);
+            come_value2.c_value = xsprintf("((%s)come_heap_checker(%s, \"%s\", %d, %d))", type_name, come_value.c_value, info.sname, info.sline, ++info.id);
             come_value2.type = clone type;
             come_value2.var = come_value.var;
+            if(come_value.c_value_without_null_checker) {
+                come_value2.c_value_without_null_checker = come_value.c_value_without_null_checker;
+            }
+            else if(come_value.c_value_without_cast_object_value) {
+                come_value2.c_value_without_null_checker = come_value.c_value_without_cast_object_value;
+            }
+            else {
+                come_value2.c_value_without_null_checker = come_value.c_value;
+            }
             
             info.stack.push_back(come_value2);
         }
-        else if(!gComeC && gComeDebug && pointer_type) {
+        else if(!gComeC && pointer_type && !info.in_refference) {
             string type_name = make_type_name_string(type, no_static:true, cast_type:true, nullchecker:true);
             
             CVALUE*% come_value2 = new CVALUE();
             
-            come_value2.c_value = xsprintf("((%s)come_null_checker(%s, \"%s\", %d))", type_name, come_value.c_value, info.sname, info.sline);
+            come_value2.c_value = xsprintf("((%s)come_null_checker(%s, \"%s\", %d, %d))", type_name, come_value.c_value, info.sname, info.sline, ++info.id);
             come_value2.type = clone type;
             come_value2.var = come_value.var;
+            if(come_value.c_value_without_null_checker) {
+                come_value2.c_value_without_null_checker = come_value.c_value_without_null_checker;
+            }
+            else if(come_value.c_value_without_cast_object_value) {
+                come_value2.c_value_without_null_checker = come_value.c_value_without_cast_object_value;
+            }
+            else {
+                come_value2.c_value_without_null_checker = come_value.c_value;
+            }
             
             info.stack.push_back(come_value2);
         }

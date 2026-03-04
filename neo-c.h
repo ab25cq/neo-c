@@ -184,14 +184,13 @@ uniq void stackframe()
 
 bool come_is_alive(void* mem);
 
-uniq void stackframe2(void* mem, char* sname=null, int sline=0)
+uniq void stackframe2(void* mem)
 {
     if(come_is_alive(mem) && mem) {
         sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
         
-        printf("allocated at %s %d. type is %s.\n", it->sname, it->sline, it->class_name);
+        printf("allocated at %s %d #%d. type is %s.\n", it->sname, it->sline, it->id, it->class_name);
     }
-    if(sname) printf("Source Point %s %d\n", sname, sline);
     
     neo_frame *f = neo_current_frame;
     while(f) {
@@ -231,6 +230,7 @@ struct sMemHeader
     
     const char* sname;
     int sline;
+    int id;
 };
 
 using unsafe {
@@ -338,7 +338,7 @@ uniq void come_free_mem_of_heap_pool(void* mem)
     }
 }
 
-uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, const char* sname=null, int sline=0, const char* class_name="")
+uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, const char* sname=null, int sline=0, int id=0, const char* class_name="")
 {
     using unsafe; 
     
@@ -376,6 +376,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, c
     it->class_name = class_name; 
     it->sname = sname;
     it->sline = sline;
+    it->id = id;
     
     if(gAllocMem) {
         gAllocMem->prev = it;
@@ -388,13 +389,13 @@ uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, c
     return (char*)result + sizeof(sMemHeader);
 }
 
-uniq char* come_dynamic_typeof(void* mem, char* sname, int sline)
+uniq char* come_dynamic_typeof(void* mem)
 {
     using unsafe; 
     
     if(!come_is_alive(mem)) {
         puts("invalid heap object");
-        stackframe2(mem, sname, sline);
+        stackframe2(mem);
         exit(3);
     }
     
@@ -402,20 +403,20 @@ uniq char* come_dynamic_typeof(void* mem, char* sname, int sline)
     
     if(it->allocated != ALLOCATED_MAGIC_NUM) {
         printf("invalid heap object(%p)(1)\n", it);
-        stackframe2(mem, sname, sline);
+        stackframe2(mem);
         exit(2);
     }
     
     return (char*)it->class_name;
 }
 
-uniq size_t dynamic_sizeof(void* mem, char* sname, int sline)
+uniq size_t dynamic_sizeof(void* mem)
 {
     using unsafe; 
     
     if(!come_is_alive(mem)) {
         puts("invalid heap object");
-        stackframe2(mem, sname, sline);
+        stackframe2(mem);
         exit(3);
     }
     
@@ -423,7 +424,7 @@ uniq size_t dynamic_sizeof(void* mem, char* sname, int sline)
     
     if(it->allocated != ALLOCATED_MAGIC_NUM) {
         printf("invalid heap object(%p)(1)\n", it);
-        stackframe2(mem, sname, sline);
+        stackframe2(mem);
         exit(2);
     }
     size_t size = it->compiletime_size;
@@ -436,11 +437,11 @@ uniq int gComeDebugLib = 0;
 uniq int gNumAlloc = 0;
 uniq int gNumFree = 0;
 
-uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sline=0, const char* class_name="")
+uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sline=0, int id=0, const char* class_name="")
 {
     using unsafe; 
     
-    char* mem = come_alloc_mem_from_heap_pool(count*size, sizeof(size_t)+sizeof(size_t)+count*size, sname, sline, class_name);
+    char* mem = come_alloc_mem_from_heap_pool(count*size, sizeof(size_t)+sizeof(size_t)+count*size, sname, sline, id, class_name);
     
     size_t* ref_count = (size_t*)mem;
 
@@ -463,7 +464,7 @@ uniq bool come_is_alive(void* mem)
     return it->alive;
 }
 
-uniq void come_free(void* mem, char* sname=null, int sline=0)
+uniq void come_free(void* mem)
 {
     using unsafe; 
     
@@ -473,7 +474,7 @@ uniq void come_free(void* mem, char* sname=null, int sline=0)
     
     if(!come_is_alive(mem)) {
         puts("invalid heap object");
-        stackframe2(mem, sname, sline);
+        stackframe2(mem);
         exit(3);
     }
     
@@ -482,7 +483,7 @@ uniq void come_free(void* mem, char* sname=null, int sline=0)
     come_free_mem_of_heap_pool((char*)ref_count);
 }
 
-uniq void* come_memdup(void* block, char* sname=null, int sline=0, const char* class_name=null)
+uniq void* come_memdup(void* block, char* sname=null, int sline=0, int id=0, const char* class_name=null)
 {
     using unsafe; 
     
@@ -491,8 +492,8 @@ uniq void* come_memdup(void* block, char* sname=null, int sline=0, const char* c
     }
     
     if(!come_is_alive(block)) {
-        puts("invalid heap object");
-        stackframe2(block, sname, sline);
+        puts(s"invalid heap object. \{sname} \{sline} #\{id}");
+        stackframe2(block);
         exit(3);
     }
 
@@ -502,14 +503,14 @@ uniq void* come_memdup(void* block, char* sname=null, int sline=0, const char* c
 
     size_t size = *size_p - sizeof(size_t) - sizeof(size_t);
     
-    void* result = come_calloc(1, size, sname, sline, class_name);
+    void* result = come_calloc(1, size, sname, sline, id, class_name);
 
     memcpy(result, block, size);
     
     return result;
 }
 
-uniq void* come_increment_ref_count(void* mem, char* sname, int sline)
+uniq void* come_increment_ref_count(void* mem, char* sname, int sline, int id)
 {
     using unsafe; 
     
@@ -517,8 +518,8 @@ uniq void* come_increment_ref_count(void* mem, char* sname, int sline)
         return mem;
     }
     if(!come_is_alive(mem)) {
-        puts("invalid heap object");
-        stackframe2(mem, sname, sline);
+        puts(s"invalid heap object \{sname} \{sline} #\{id}");
+        stackframe2(mem);
         exit(3);
     }
     
@@ -538,7 +539,7 @@ uniq void* come_print_ref_count(void* mem)
     }
     if(!come_is_alive(mem)) {
         puts("invalid heap object");
-        stackframe2(mem);
+        stackframe();
         exit(3);
     }
     
@@ -558,7 +559,7 @@ uniq int come_get_ref_count(void* mem)
     }
     if(!come_is_alive(mem)) {
         puts("invalid heap object");
-        stackframe2(mem);
+        stackframe();
         exit(3);
     }
     
@@ -567,7 +568,7 @@ uniq int come_get_ref_count(void* mem)
     return *ref_count;
 }
 
-uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj, bool no_decrement, bool no_free, void* result_obj, char* sname, int sline)
+uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj, bool no_decrement, bool no_free, void* result_obj, char* sname, int sline, int id)
 {
     using unsafe; 
     
@@ -580,8 +581,8 @@ uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protoco
         return NULL;
     }
     if(!come_is_alive(mem)) {
-        puts("invalid heap object");
-        stackframe2(mem, sname, sline);
+        puts(s"invalid heap object \{sname} \{sline} #\{id}");
+        stackframe2(mem);
         exit(3);
     }
     
@@ -597,16 +598,16 @@ uniq void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protoco
             void (*finalizer)(void*) = (void (*)(void*))protocol_fun;
             finalizer(protocol_obj);
             
-            come_free(protocol_obj, sname, sline);
+            come_free(protocol_obj);
         }
-        come_free(mem, sname, sline);
+        come_free(mem);
         return NULL;
     }
     
     return mem;
 }
 
-uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, void* result_obj, char* sname, int sline)
+uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protocol_obj, int call_finalizer_only, int no_decrement, int no_free, void* result_obj, char* sname, int sline, int id)
 {
     using unsafe;
     
@@ -637,8 +638,8 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
     }
     else {
         if(!come_is_alive(mem)) {
-            puts("invalid heap object");
-            stackframe2(mem, sname, sline);
+            puts(s"invalid heap object. \{sname} \{sline} #\{id}");
+            stackframe2(mem);
             exit(3);
         }
         
@@ -655,7 +656,7 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
                     if(protocol_obj && protocol_fun) {
                         void (*finalizer)(void*) = (void (*)(void*))protocol_fun;
                         finalizer(protocol_obj);
-                        come_free(protocol_obj, sname, sline);
+                        come_free(protocol_obj);
                     }
                     if(fun) {
                         void (*finalizer)(void*) = (void (*)(void*))fun;
@@ -666,10 +667,10 @@ uniq void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* pr
                     if(protocol_obj && protocol_fun) {
                         void (*finalizer)(void*) = (void (*)(void*))protocol_fun;
                         finalizer(protocol_obj);
-                        come_free(protocol_obj, sname, sline);
+                        come_free(protocol_obj);
                     }
                 }
-                come_free(mem, sname, sline);
+                come_free(mem);
             }
         }
     }
@@ -686,31 +687,31 @@ uniq void xassert(const char* msg, bool test)
     puts("ok");
 }
         
-uniq void* come_null_checker(void* mem, const char* sname, int sline)
+uniq void* come_null_checker(void* mem, const char* sname, int sline, int id)
 {
     if(mem) {
         return mem;
     }
     
-    puts(s"null pointer exception \{sname} \{sline}");
+    puts(s"null pointer exception \{sname} \{sline} #\{id}");
     stackframe();
     exit(1);
 }
 
-uniq void* come_heap_checker(void* mem, const char* sname, int sline)
+uniq void* come_heap_checker(void* mem, const char* sname, int sline, int id)
 {
     if(mem) {
         if(come_is_alive(mem)) {
             return mem;
         }
         else {
-            puts(s"heap pointer exception \{sname} \{sline}");
+            puts(s"heap pointer exception \{sname} \{sline} #\{id}");
             stackframe();
             exit(1);
         }
     }
     
-    puts(s"null pointer exception \{sname} \{sline}");
+    puts(s"null pointer exception \{sname} \{sline} \{id}");
     stackframe();
     exit(1);
 }
@@ -735,14 +736,14 @@ uniq string __builtin_string(const char* str)
         inherit();
     }
     
-    uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sline=0, const char* class_name="") version 2
+    uniq void* come_calloc(size_t count, size_t size, const char* sname=null, int sline=0, int id=0, const char* class_name="") version 2
     {
-        return inherit(count, size, sname, sline, class_name);
+        return inherit(count, size, sname, sline, id, class_name);
     }
     
-    uniq void come_free(void* mem, char* sname, int sline) version 2
+    uniq void come_free(void* mem) version 2
     {
-        inherit(mem, sname, sline);
+        inherit(mem);
     }
 #endif
 

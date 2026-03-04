@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 0.9.2.6
+version 0.9.2.8
 
 ``` C
 #include <neo-c.h>
@@ -94,6 +94,8 @@ sh all_build.sh
 # Histories
 
 ```
+0.9.2.8 heap checker is allways enabled. It's guaranteed the heap memories are alive.
+0.9.2.7 heap checker is allways enabled. It's guaranteed the heap memories are alive.
 0.9.2.6 opt is ownd and heap only. DSL pipe filter with zero cost like rust.
 0.9.2.5 I'm adding to zero cost iterator like rust.
 0.9.2.4 refference count cycle checker is refined.

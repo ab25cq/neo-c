@@ -474,7 +474,7 @@ class sMethodCallNode extends sNodeBase
     {
         string fun_name = self.fun_name;
         list<tuple2<string, sNode*%>*%>*% params = self.params;
-        sNode*% obj = create_null_checker(self.obj);
+        sNode*% obj = create_heap_checker(self.obj);
         buffer*% method_block = self.method_block;
         int method_block_sline = self.method_block_sline;
         list<sType*%>*% method_generics_types = self.method_generics_types;
@@ -1278,9 +1278,6 @@ class sIterCallNode extends sNodeBase
             string all_code = info.iter_buffer;
             
             string all_code2 = "{" + all_code + "}"; //trim_last_bracket(all_code);
-/*
-puts(all_code2);
-*/
 
             buffer*% source = info.source;
             char* p = info.p.p;

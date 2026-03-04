@@ -7,20 +7,29 @@ struct sData
     int c;
 };
 
-sData gData = { 1, 2, 3 };
-
-sData{} fun()
+impl sData
 {
-    sData{} p = span &gData;
+    void fun(sData* self) {
+        puts("AAA");
+    }
+}
+
+sData%* fun()
+{
+    sData*% data = new sData { a:111, b:222, c:333 };
     
-    return p;
+    return data;
 }    
 
 int main(int argc, char** argv) 
 {
     var p = fun();
     
-    printf("%d %d %d\n", p!.a, p!.b, p!.c);
+    delete p;
+    
+    p.a = 111;
+    
+    printf("%d\n", p.a);
                                    
     return 0;
 }

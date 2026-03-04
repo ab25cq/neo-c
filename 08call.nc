@@ -71,7 +71,7 @@ class sReturnNode extends sNodeBase
                 if(!info.come_fun.mNoResultType) {
                     if(result_type2.mHeap) {
                         string type_name = make_type_name_string(result_type2);
-                        add_come_code(info, s"__result_obj__\{000} = (%s)come_increment_ref_count(%s, \"%s\", %d);\n", type_name, come_value.c_value, info->sname, info->sline);
+                        add_come_code(info, s"__result_obj__\{000} = (%s)come_increment_ref_count(%s, \"%s\", %d, %d);\n", type_name, come_value.c_value, info->sname, info->sline, ++info.id);
                     }
                     else {
                         add_come_code(info, s"__result_obj__\{000} = %s;\n", come_value.c_value);
@@ -2436,7 +2436,7 @@ sNode*% expression_node(sInfo* info=info) version 98
         
         bool is_type_name_ = is_type_name(buf);
         
-        static const char* is_special_word_array[25] = { "if", "while", "for", "switch", "return", "sizeof", "offsetof", "isheap", "ispointer", "__typeof__"
+        const char* is_special_word_array[25] = { "if", "while", "for", "switch", "return", "sizeof", "offsetof", "isheap", "ispointer", "__typeof__"
                                     , "dynamic_typeof", "typeof", "gc_inc", "gc_dec", "gc_dec_nofree", "case", "_Alignof"
                                     , "_Alignas", "__alignof__", "_Atomic", "borrow", "dupe", "clone", "__builtin_offsetof", "_Generic" }
                                     

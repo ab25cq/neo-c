@@ -489,7 +489,7 @@ string increment_ref_count_object(sType* type, char* obj, sInfo* info)
     
     string type_name = make_type_name_string(type);
     
-    return xsprintf("(%s)come_increment_ref_count(%s, \"%s\", %d)", type_name, obj, info->sname, info->sline);
+    return xsprintf("(%s)come_increment_ref_count(%s, \"%s\", %d, %d)", type_name, obj, info->sname, info->sline, ++info.id);
 }
 
 void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool no_free=false)
@@ -582,23 +582,23 @@ void decrement_ref_count_object(sType* type, char* obj, sInfo* info, bool no_fre
             if(klass->mProtocol && type_->mPointerNum == 1) {
                 string type_name = make_type_name_string(type_);
                 if(c_value) {
-                    add_come_last_code2(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, \{c_value} ? ((\{type_name})\{c_value})->finalize:(void*)0, \{c_value} ? ((\{type_name})\{c_value})->_protocol_obj:(void*)0, \{type_->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname}\", \{info->sline})");
+                    add_come_last_code2(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, \{c_value} ? ((\{type_name})\{c_value})->finalize:(void*)0, \{c_value} ? ((\{type_name})\{c_value})->_protocol_obj:(void*)0, \{type_->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname}\", \{info->sline}, \{++info->id})");
                 }
             }
             else {
                 if(c_value) {
-                    add_come_last_code2(info, s"come_call_finalizer(\{fun_name2}, \{c_value},(void*)0, (void*)0, \{type_->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname}\", \{info->sline})");
+                    add_come_last_code2(info, s"come_call_finalizer(\{fun_name2}, \{c_value},(void*)0, (void*)0, \{type_->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname}\", \{info->sline}, \{++info->id})");
                 }
             }
         }
         else {
             if(klass->mProtocol && type_->mPointerNum == 1) {
                 string type_name = make_type_name_string(type_);
-                string str = s"(\{name} ? \{name} = come_decrement_ref_count(\{name}, ((\{type_name})\{name})->finalize, ((\{type_name})\{name})->_protocol_obj, 0,\{no_free ? 1:0}, (void*)0, \"\{info->sname}\", \{info->sline}) :0)";
+                string str = s"(\{name} ? \{name} = come_decrement_ref_count(\{name}, ((\{type_name})\{name})->finalize, ((\{type_name})\{name})->_protocol_obj, 0,\{no_free ? 1:0}, (void*)0, \"\{info->sname}\", \{info->sline}, \{++info->id}) :0)";
                 add_come_last_code2(info, str);
             }
             else {
-                string str = xsprintf(s"%s = come_decrement_ref_count(%s, (void*)0, (void*)0, 0,\{no_free ? 1:0}, (void*)0, \"\{info->sname}\", \{info->sline})", name, name);
+                string str = xsprintf(s"%s = come_decrement_ref_count(%s, (void*)0, (void*)0, 0,\{no_free ? 1:0}, (void*)0, \"\{info->sname}\", \{info->sline}, \{++info.id})", name, name);
                 add_come_last_code2(info, str);
             }
         }
@@ -762,12 +762,12 @@ void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo*
             if(klass->mProtocol && type_->mPointerNum == 1) {
                 string type_name = make_type_name_string(type_);
                 if(c_value) {
-                    add_come_code(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, \{c_value} ? ((\{type_name})\{c_value})->finalize :(void*)0, \{c_value} ? ((\{type_name})\{c_value})->_protocol_obj :(void*)0, \{type_->mAllocaValue?1:0} , \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname}\", \{info->sline})\{(info->in_conditional ? ";" : ";\n")}");
+                    add_come_code(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, \{c_value} ? ((\{type_name})\{c_value})->finalize :(void*)0, \{c_value} ? ((\{type_name})\{c_value})->_protocol_obj :(void*)0, \{type_->mAllocaValue?1:0} , \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname}\", \{info->sline}, \{++info->id})\{(info->in_conditional ? ";" : ";\n")}");
                 }
             }
             else {
                 if(c_value) {
-                    add_come_code(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, (void*)0, (void*)0, \{type_->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname\}\", \{info->sline})\{(info->in_conditional ? ";" : ";\n")}");
+                    add_come_code(info, s"come_call_finalizer(\{fun_name2}, \{c_value}, (void*)0, (void*)0, \{type_->mAllocaValue?1:0}, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname\}\", \{info->sline}, \{++info->id})\{(info->in_conditional ? ";" : ";\n")}");
                 }
             }
         }
@@ -800,12 +800,12 @@ void free_object(sType* type, char* obj, bool no_decrement, bool no_free, sInfo*
                 if(klass->mProtocol && type_->mPointerNum == 1) {
                     if(c_value) {
                         string type_name = make_type_name_string(type_);
-                        add_come_code(info, s"((\{c_value}) ? \{c_value} = come_decrement_ref_count(\{c_value}, ((\{type_name})\{c_value})->finalize, ((\{type_name})\{c_value})->_protocol_obj, \{no_decrement?1:0}, \{no_free?1:0},(void*)0, \"\{info->sname}\", \{info->sline}):(void*)0)\{(";\n")}");
+                        add_come_code(info, s"((\{c_value}) ? \{c_value} = come_decrement_ref_count(\{c_value}, ((\{type_name})\{c_value})->finalize, ((\{type_name})\{c_value})->_protocol_obj, \{no_decrement?1:0}, \{no_free?1:0},(void*)0, \"\{info->sname}\", \{info->sline}, \{++info.id}):(void*)0)\{(";\n")}");
                     }
                 }
                 else {
                     if(c_value) {
-                        add_come_code(info, s"(\{c_value} = come_decrement_ref_count(\{c_value}, (void*)0, (void*)0, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname}\", \{info->sline}))\{(";\n")}");
+                        add_come_code(info, s"(\{c_value} = come_decrement_ref_count(\{c_value}, (void*)0, (void*)0, \{no_decrement?1:0}, \{no_free?1:0}, (void*)0, \"\{info->sname}\", \{info->sline}, \{++info->id}))\{(";\n")}");
                     }
                 }
             }
@@ -901,7 +901,7 @@ tuple2<sType*%, string>*% clone_object(sType* type, char* obj, sInfo* info)
         type2->mHeap = true;
         string type_name = make_type_name_string(type2);
         
-        result = xsprintf("(%s)come_memdup(%s, \"%s\", %d, \"%s\")", type_name, c_value, info.sname, info.sline, type_name);
+        result = xsprintf("(%s)come_memdup(%s, \"%s\", %d, %d, \"%s\")", type_name, c_value, info.sname, info.sline, ++info.id, type_name);
     }
     
     info.right_value_objects = dummy_heap right_value_objects;

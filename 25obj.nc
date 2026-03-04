@@ -71,10 +71,10 @@ class sNewNode extends sNodeBase
             
             string obj;
             if(info.funcs[s"come_calloc_v2"]) {
-                obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
+                obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name3);
             }
             else {
-                obj = xsprintf("%s = (%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
+                obj = xsprintf("%s = (%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name3);
             }
             
             buf.append_str(obj);
@@ -136,10 +136,10 @@ class sNewNode extends sNodeBase
             
             string obj;
             if(info.funcs[s"come_calloc_v2"]) {
-                obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
+                obj = xsprintf("%s = (%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name3);
             }
             else {
-                obj = xsprintf("%s = (%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
+                obj = xsprintf("%s = (%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", var_name, type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name3);
             }
             
             buf.append_str(obj);
@@ -226,10 +226,10 @@ class sNewNode extends sNodeBase
             string type_name3 = make_type_name_string(type3);
             
             if(info.funcs[s"come_calloc_v2"]) {
-                come_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
+                come_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name3);
             }
             else {
-                come_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name3);
+                come_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name3);
             }
             
             type2->mHeap = true;
@@ -338,10 +338,10 @@ class sImplementsNode extends sNodeBase
         add_come_code_at_function_head(info, buf2);
         
         if(info.funcs[s"come_calloc_v2"]) {
-            add_come_code(info, "_inf_value%d=(%s*)come_calloc_v2(1, sizeof(%s), \"%s\", %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sname, info.sline, type_name);
+            add_come_code(info, "_inf_value%d=(%s*)come_calloc_v2(1, sizeof(%s), \"%s\", %d, %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sname, info.sline, ++info.id, type_name);
         }
         else {
-            add_come_code(info, "_inf_value%d=(%s*)come_calloc(1, sizeof(%s), \"%s\", %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sname, info.sline, type_name);
+            add_come_code(info, "_inf_value%d=(%s*)come_calloc(1, sizeof(%s), \"%s\", %d, %d, \"%s\");\n", inf_num_stack, type_name, type_name, info.sname, info.sline, ++info.id, type_name);
         }
         
         string c_value = increment_ref_count_object(come_value.type, come_value.c_value, info);

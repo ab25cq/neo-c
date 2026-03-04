@@ -90,7 +90,10 @@ class sRefferenceNode extends sNodeBase
         
         CVALUE*% come_value = new CVALUE();
         
-        if(left_value.c_value_without_cast_object_value) {
+        if(left_value.c_value_without_null_checker) {
+            come_value.c_value = xsprintf("&%s", left_value.c_value_without_null_checker);
+        }
+        else if(left_value.c_value_without_cast_object_value) {
             come_value.c_value = xsprintf("&%s", left_value.c_value_without_cast_object_value);
         }
         else {

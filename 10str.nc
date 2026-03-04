@@ -65,10 +65,10 @@ class sBufferNode extends sNodeBase
         any_type->mHeap = true;
         
         if(info.funcs[s"come_calloc_v2"]) {
-            buf.append_format("buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc_v2(1, sizeof(struct buffer), \"%s\", %d, \"buffer\"), \"%s\", %d), \"%s\", %ld)", info->sname, info->sline, info->sname, info->sline, value.to_string(), size);
+            buf.append_format("buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc_v2(1, sizeof(struct buffer), \"%s\", %d, %d, \"buffer\"), \"%s\", %d, %d), \"%s\", %ld)", info->sname, info->sline, ++info->id, info->sname, info->sline, ++info->id, value.to_string(), size);
         }
         else {
-            buf.append_format("buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), \"%s\", %d, \"buffer\"), \"%s\", %d), \"%s\", %ld)", info->sname, info->sline, info->sname, info->sline, value.to_string(), size);
+            buf.append_format("buffer_initialize_with_value((struct buffer*)come_increment_ref_count(come_calloc(1, sizeof(struct buffer), \"%s\", %d, %d, \"buffer\"), \"%s\", %d, %d), \"%s\", %ld)", info->sname, info->sline, ++info->id, info->sname, info->sline, ++info.id, value.to_string(), size);
         }
         
         sType*% type2 = new sType(s"buffer*");
@@ -438,10 +438,10 @@ class sListNode extends sNodeBase
         any_type->mHeap = true;
         
         if(info.funcs[s"come_calloc_v2"]) {
-            obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+            obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name);
         }
         else {
-            obj_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+            obj_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name);
         }
         
         sType*% type3 = clone type2;
@@ -643,10 +643,10 @@ class sVectorNode extends sNodeBase
         any_type->mHeap = true;
         
         if(info.funcs[s"come_calloc_v2"]) {
-            obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+            obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name);
         }
         else {
-            obj_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+            obj_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name);
         }
         
         sType*% type3 = clone type2;
@@ -788,10 +788,10 @@ class sTupleNode extends sNodeBase
         any_type->mHeap = true;
         
         if(info.funcs[s"come_calloc_v2"]) {
-            obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+            obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name);
         }
         else {
-            obj_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+            obj_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name);
         }
         
         sType*% type3 = clone type2;
@@ -1044,10 +1044,10 @@ class sMapNode extends sNodeBase
         any_type->mHeap = true;
         
         if(info.funcs[s"come_calloc_v2"]) {
-            obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+            obj_value.c_value = xsprintf("(%s*)come_calloc_v2(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name);
         }
         else {
-            obj_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, type_name);
+            obj_value.c_value = xsprintf("(%s*)come_calloc(1, sizeof(%s)*(%s), \"%s\", %d, %d, \"%s\")", type_name, type_name, num_string.to_string(), info.sname, info.sline, ++info.id, type_name);
         }
         
         sType*% type3 = clone type2;
