@@ -102,7 +102,7 @@ sh all_build.sh
 # Histories
 
 ```
-0.9.2.9 checked arm and x86_64 on linux and mac. If you don't have enough memory, you can use sh fast_build.sh to install neo-c
+0.9.2.9 checked arm and x86_64 on linux and mac. If you don't have enough memory, you can use sh fast_build.sh to install neo-c. I can't support on alpine linux on arm and x86_64, I don't know why it can't be worked.
 0.9.2.8 heap checker is allways enabled. It's guaranteed the heap memories are alive.
 0.9.2.7 heap checker is allways enabled. It's guaranteed the heap memories are alive.
 0.9.2.6 opt is ownd and heap only. DSL pipe filter with zero cost like rust.
