@@ -8915,4 +8915,53 @@ impl list<T>
     }
 }
 
+impl vector<T>
+{
+    iter_begin iter() {
+        ({
+            var _li = new vector<T>();
+            int i = 0;
+            foreach(it, `self) \{
+                `next();
+                i++;
+            \};
+            _li
+        })
+    }
+    iter filter() {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+        \}
+    }
+    iter take(int n) {
+        if(i < n) \{
+            `next();
+        \}
+    }
+    iter map() {
+        `it = `block();
+    }
+    iter enumerate() {
+        `it = t(i, it);
+    }
+    iter find() {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+            break;
+        \}
+    }
+    iter_end each() {
+        `block();
+    }
+    iter_end collect() {
+        _li.add(it);
+    }
+    iter_end end() {
+    }
+}
+
 #endif

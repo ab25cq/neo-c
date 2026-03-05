@@ -1,13 +1,12 @@
 #include <neo-c.h>
 
-struct stat {
-^Ilong __unused[3];
-};
-
-
 int main(int argc, char** argv) 
 {
-    struct xxxx aaa;
+    var v = v[1,2,3,4,5];
+    
+    v.`iter().`filter() { it > 3 }.`filter() { it == 4 }.`each() {
+        printf("%d\n", it);
+    }
                                    
     return 0;
 }
