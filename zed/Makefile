@@ -18,8 +18,8 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -g -Og #-O1 -fsanitize=address,undefined -fno-omit-frame-pointer
-CFLAGS_DEBUG= -gdwarf-4 -cg 
+CFLAGS= -O2 #-g -Og #-O1 -fsanitize=address,undefined -fno-omit-frame-pointer
+CFLAGS_DEBUG= -Og -g #-gdwarf-4 -cg 
 LIBS=
 OS=linux
 DESTDIR=/usr/local/

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.0.1
+version 1.0.0.2
 
 ``` C
 #include <neo-c.h>
@@ -102,6 +102,7 @@ sh all_build.sh
 # Histories
 
 ```
+1.0.0.2 optimize enabled.
 1.0.0.1 checked alpine on arm and amd64. all ok
 1.0.0.0 I can't continue to deep docus on this system. I sometimes to use this to check the functions and to be more better than to be perfect.
 0.9.2.9 checked arm and x86_64 on linux and mac. If you don't have enough memory, you can use sh fast_build.sh to install neo-c. I can't support on alpine linux on arm and x86_64, I don't know why it can't be worked.
