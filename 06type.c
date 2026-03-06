@@ -5684,7 +5684,7 @@ _Bool parse_attribute_keyword(struct buffer*  result  , const char* keyword, _Bo
             p++;
         }
         if(!allow_end&&*p!=40) {
-            if(*p==59||*p==44||*p==41||*p==93||*p==61||*p==58) {
+            if(*p==59||*p==44||*p==41||*p==93||*p==61||*p==58||*p==91) {
                                 neo_current_frame = fr.prev;
                 return (_Bool)0;
             }

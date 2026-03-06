@@ -823,7 +823,7 @@ bool parse_attribute_keyword(buffer* result, const char* keyword, bool allow_end
             p++;
         }
         if(!allow_end && *p != '(') {
-            if(*p == ';' || *p == ',' || *p == ')' || *p == ']' || *p == '=' || *p == ':') {
+            if(*p == ';' || *p == ',' || *p == ')' || *p == ']' || *p == '=' || *p == ':' || *p == '[') {
                 return false;
             }
         }
