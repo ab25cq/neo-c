@@ -424,6 +424,9 @@ class sFunCallNode extends sNodeBase
         buffer* method_block = borrow self.method_block;
         int method_block_sline = self.method_block_sline;
         
+        info.caller_sname = string(info->sname);
+        info.caller_line = info->sline;
+        
         sVar* var_ = get_variable_from_table(info.lv_table, fun_name);
         
         if(var_ == null) {

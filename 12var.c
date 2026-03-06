@@ -1396,7 +1396,7 @@ struct sInfo
     struct sFun*  come_fun  ;
     struct sFun*  caller_fun  ;
     int caller_line;
-    char* caller_sname;
+    char*  caller_sname  ;
     int block_level;
     struct map$2char$phsFun$ph* funcs;
     struct map$2char$phsFun$ph* uniq_funcs;
@@ -2074,7 +2074,7 @@ void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line,
 void __assert(const char* __assertion, const char* __file, int __line) __attribute__ ((__noreturn__)) ;
 void stackframe();
 void stackframe2(void* mem);
-_Bool die(const char* msg);
+_Bool die(const char* msg, char* sname, int sline);
 void come_heap_final();
 void* alloc_from_pages(unsigned long  size  );
 void come_free_mem_of_heap_pool(void* mem);

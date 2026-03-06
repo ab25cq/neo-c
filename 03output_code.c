@@ -1396,7 +1396,7 @@ struct sInfo
     struct sFun*  come_fun  ;
     struct sFun*  caller_fun  ;
     int caller_line;
-    char* caller_sname;
+    char*  caller_sname  ;
     int block_level;
     struct map$2char$phsFun$ph* funcs;
     struct map$2char$phsFun$ph* uniq_funcs;
@@ -2060,7 +2060,7 @@ void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line,
 void __assert(const char* __assertion, const char* __file, int __line) __attribute__ ((__noreturn__)) ;
 void stackframe();
 void stackframe2(void* mem);
-_Bool die(const char* msg);
+_Bool die(const char* msg, char* sname, int sline);
 void come_heap_final();
 void* alloc_from_pages(unsigned long  size  );
 void come_free_mem_of_heap_pool(void* mem);
@@ -7133,7 +7133,7 @@ _Bool output_source_file(struct sInfo*  info  )
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1891, 955));
     f=fopen(output_file_name,"w");
     if(f==((void*)0)) {
-        die("fopen");
+        die("fopen","(null)",0);
     }
     fprintf(f,"/// c_include definition ///\n");
     for(_o2_saved_22=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->c_include_definition, "03output_code.nc", 1897, 956),it_107=map$2char$phbuffer$ph_begin(_o2_saved_22)    ;!map$2char$phbuffer$ph_end(_o2_saved_22);it_107=map$2char$phbuffer$ph_next(_o2_saved_22)){
@@ -7277,7 +7277,7 @@ _Bool output_source_file(struct sInfo*  info  )
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1996, 1053));
         f2=fopen(output_file_name,"w");
         if(f2==((void*)0)) {
-            die("fopen");
+            die("fopen","(null)",0);
         }
         fwrite(normalized,1,string_length(normalized),f2);
         fclose(f2);

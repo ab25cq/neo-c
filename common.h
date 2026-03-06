@@ -509,7 +509,7 @@ struct sInfo
     
     sFun* caller_fun;
     int caller_line;
-    char* caller_sname;
+    string caller_sname;
     
     int block_level;
 

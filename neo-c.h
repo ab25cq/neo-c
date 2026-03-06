@@ -201,9 +201,9 @@ uniq void stackframe2(void* mem)
     }
 }
 
-uniq bool die(const char* msg)
+uniq bool die(const char* msg, char* sname=__caller_sname__, int sline=__caller_line__)
 {
-    puts(msg);
+    puts(s"\{sname} \{sline} : " + msg);
     stackframe();
     exit(4);
     

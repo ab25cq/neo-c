@@ -1396,7 +1396,7 @@ struct sInfo
     struct sFun*  come_fun  ;
     struct sFun*  caller_fun  ;
     int caller_line;
-    char* caller_sname;
+    char*  caller_sname  ;
     int block_level;
     struct map$2char$phsFun$ph* funcs;
     struct map$2char$phsFun$ph* uniq_funcs;
@@ -1701,8 +1701,6 @@ struct __current_stack1__
     struct sInfo**  info  ;
     struct sClass**  current_stack_frame_struct  ;
     struct sFun**  caller_fun  ;
-    int* caller_line;
-    char** caller_sname;
     struct buffer**  if_expression_buffer  ;
     struct buffer**  loop_expression_buffer  ;
     struct buffer**  paren_block_buffer  ;
@@ -2106,7 +2104,7 @@ void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line,
 void __assert(const char* __assertion, const char* __file, int __line) __attribute__ ((__noreturn__)) ;
 void stackframe();
 void stackframe2(void* mem);
-_Bool die(const char* msg);
+_Bool die(const char* msg, char* sname, int sline);
 void come_heap_final();
 void* alloc_from_pages(unsigned long  size  );
 void come_free_mem_of_heap_pool(void* mem);
@@ -10395,8 +10393,6 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_generics_fun"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj162  ;
@@ -10490,10 +10486,6 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 2692, 1783);
     __dec_obj162=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -10548,8 +10540,6 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
         info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 2697, 1803);
         __dec_obj169 = come_decrement_ref_count(__dec_obj169, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 2697, 1802);
         info->caller_fun=caller_fun;
-        info->caller_line=caller_line;
-        info->caller_sname=caller_sname;
         info->right_value_max=right_value_max;
         info->right_value_num=right_value_num;
         info->num_conditional=num_conditional;
@@ -10725,8 +10715,6 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
         info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 2784, 1914);
         __dec_obj187 = come_decrement_ref_count(__dec_obj187, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 2784, 1913);
         info->caller_fun=caller_fun;
-        info->caller_line=caller_line;
-        info->caller_sname=caller_sname;
         info->right_value_max=right_value_max;
         info->right_value_num=right_value_num;
         info->num_conditional=num_conditional;
@@ -10802,8 +10790,6 @@ struct tuple2$2char$ph_Bool$* create_generics_fun(char*  fun_name  , struct sGen
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 2795, 1964);
     __dec_obj197 = come_decrement_ref_count(__dec_obj197, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 2795, 1963);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -10991,8 +10977,6 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_method_generics_fun"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj203  ;
@@ -11079,10 +11063,6 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 2805, 2005);
     __dec_obj203=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -11139,8 +11119,6 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
         info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 2809, 2025);
         __dec_obj210 = come_decrement_ref_count(__dec_obj210, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 2809, 2024);
         info->caller_fun=caller_fun;
-        info->caller_line=caller_line;
-        info->caller_sname=caller_sname;
         info->right_value_max=right_value_max;
         info->right_value_num=right_value_num;
         info->num_conditional=num_conditional;
@@ -11295,8 +11273,6 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
         info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 2883, 2110);
         __dec_obj226 = come_decrement_ref_count(__dec_obj226, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 2883, 2109);
         info->caller_fun=caller_fun;
-        info->caller_line=caller_line;
-        info->caller_sname=caller_sname;
         info->right_value_max=right_value_max;
         info->right_value_num=right_value_num;
         info->num_conditional=num_conditional;
@@ -11359,8 +11335,6 @@ _Bool create_method_generics_fun(char*  fun_name  , struct sGenericsFun*  generi
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 2891, 2148);
     __dec_obj235 = come_decrement_ref_count(__dec_obj235, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 2891, 2147);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -11661,8 +11635,6 @@ struct tuple2$2sFun$pchar$ph* create_finalizer_automatically(struct sType*  type
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_finalizer_automatically"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj241  ;
@@ -11763,10 +11735,6 @@ struct tuple2$2sFun$pchar$ph* create_finalizer_automatically(struct sType*  type
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 2970, 2232);
     __dec_obj241=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -11931,8 +11899,6 @@ __right_value1 = (void*)0,
                         __current_stack1__.info = &info;
                         __current_stack1__.current_stack_frame_struct = &current_stack_frame_struct;
                         __current_stack1__.caller_fun = &caller_fun;
-                        __current_stack1__.caller_line = &caller_line;
-                        __current_stack1__.caller_sname = &caller_sname;
                         __current_stack1__.if_expression_buffer = &if_expression_buffer;
                         __current_stack1__.loop_expression_buffer = &loop_expression_buffer;
                         __current_stack1__.paren_block_buffer = &paren_block_buffer;
@@ -12125,8 +12091,6 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3181, 2444);
     __dec_obj260 = come_decrement_ref_count(__dec_obj260, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3181, 2443);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -12519,8 +12483,6 @@ struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType*  type  ,
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_equals_automatically"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj267  ;
@@ -12595,10 +12557,6 @@ struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType*  type  ,
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3192, 2480);
     __dec_obj267=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -12812,8 +12770,6 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3301, 2581);
     __dec_obj280 = come_decrement_ref_count(__dec_obj280, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3301, 2580);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -12858,8 +12814,6 @@ struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sT
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_operator_not_equals_automatically"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj286  ;
@@ -12935,10 +12889,6 @@ struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sT
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3311, 2607);
     __dec_obj286=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -13171,8 +13121,6 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3439, 2708);
     __dec_obj299 = come_decrement_ref_count(__dec_obj299, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3439, 2707);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -13229,8 +13177,6 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType*  typ
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_not_equals_automatically"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj305  ;
@@ -13306,10 +13252,6 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType*  typ
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3449, 2734);
     __dec_obj305=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -13540,8 +13482,6 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3574, 2835);
     __dec_obj318 = come_decrement_ref_count(__dec_obj318, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3574, 2834);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -13586,8 +13526,6 @@ struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType*
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_operator_equals_automatically"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj324  ;
@@ -13662,10 +13600,6 @@ struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType*
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3584, 2861);
     __dec_obj324=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -13881,8 +13815,6 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3694, 2962);
     __dec_obj337 = come_decrement_ref_count(__dec_obj337, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3694, 2961);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -13930,8 +13862,6 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
     struct tuple2$2sFun$pchar$ph* __result_obj__0;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj343  ;
     struct buffer*  loop_expression_buffer  ;
@@ -14041,10 +13971,6 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     __right_value0 = (void*)0;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3708, 2994);
     __dec_obj343=info->if_expression_buffer,
@@ -14123,8 +14049,6 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
                     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3736, 3021);
                     __dec_obj351 = come_decrement_ref_count(__dec_obj351, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3736, 3020);
                     info->caller_fun=caller_fun;
-                    info->caller_line=caller_line;
-                    info->caller_sname=caller_sname;
                     info->right_value_max=right_value_max;
                     info->right_value_num=right_value_num;
                     info->num_conditional=num_conditional;
@@ -14428,8 +14352,6 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3923, 3160);
     __dec_obj369 = come_decrement_ref_count(__dec_obj369, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3923, 3159);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -14475,8 +14397,6 @@ struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType*  type
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_to_string_automatically"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj375  ;
@@ -14550,10 +14470,6 @@ struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType*  type
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3933, 3187);
     __dec_obj375=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -14772,8 +14688,6 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4062, 3286);
     __dec_obj388 = come_decrement_ref_count(__dec_obj388, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4062, 3285);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -14818,8 +14732,6 @@ struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType*  t
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_get_hash_key_automatically"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj394  ;
@@ -14903,10 +14815,6 @@ struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType*  t
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 4072, 3312);
     __dec_obj394=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -15158,8 +15066,6 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4216, 3424);
     __dec_obj408 = come_decrement_ref_count(__dec_obj408, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4216, 3423);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -15204,8 +15110,6 @@ struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType*  type  
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "create_compare_automatically"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj414  ;
@@ -15289,10 +15193,6 @@ struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType*  type  
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 4226, 3450);
     __dec_obj414=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -15551,8 +15451,6 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4372, 3581);
     __dec_obj428 = come_decrement_ref_count(__dec_obj428, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4372, 3580);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -15677,8 +15575,6 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "compile_uniq_function"; neo_current_frame = &fr;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     void* __right_value0 = (void*)0;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj434  ;
@@ -15748,10 +15644,6 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  )
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 4382, 3607);
     __dec_obj434=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
@@ -15883,8 +15775,6 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  )
         info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4438, 3670);
         __dec_obj447 = come_decrement_ref_count(__dec_obj447, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4438, 3669);
         info->caller_fun=caller_fun;
-        info->caller_line=caller_line;
-        info->caller_sname=caller_sname;
         info->right_value_max=right_value_max;
         info->right_value_num=right_value_num;
         info->num_conditional=num_conditional;
@@ -15941,8 +15831,6 @@ struct sFun*  compile_uniq_function(struct sFun*  fun  , struct sInfo*  info  )
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4442, 3705);
     __dec_obj455 = come_decrement_ref_count(__dec_obj455, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4442, 3704);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -15995,8 +15883,6 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
     char*  result  ;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj461  ;
     struct buffer*  loop_expression_buffer  ;
@@ -16064,10 +15950,6 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     __right_value0 = (void*)0;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 4455, 3736);
     __dec_obj461=info->if_expression_buffer,
@@ -16144,8 +16026,6 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
                 info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4479, 3763);
                 __dec_obj469 = come_decrement_ref_count(__dec_obj469, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4479, 3762);
                 info->caller_fun=caller_fun;
-                info->caller_line=caller_line;
-                info->caller_sname=caller_sname;
                 info->right_value_max=right_value_max;
                 info->right_value_num=right_value_num;
                 info->num_conditional=num_conditional;
@@ -16251,8 +16131,6 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4517, 3811);
     __dec_obj480 = come_decrement_ref_count(__dec_obj480, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4517, 3810);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -16299,8 +16177,6 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
     char*  result  ;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj486  ;
     struct buffer*  loop_expression_buffer  ;
@@ -16368,10 +16244,6 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     __right_value0 = (void*)0;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 4530, 3835);
     __dec_obj486=info->if_expression_buffer,
@@ -16448,8 +16320,6 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
                 info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4554, 3862);
                 __dec_obj494 = come_decrement_ref_count(__dec_obj494, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4554, 3861);
                 info->caller_fun=caller_fun;
-                info->caller_line=caller_line;
-                info->caller_sname=caller_sname;
                 info->right_value_max=right_value_max;
                 info->right_value_num=right_value_num;
                 info->num_conditional=num_conditional;
@@ -16553,8 +16423,6 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4590, 3910);
     __dec_obj505 = come_decrement_ref_count(__dec_obj505, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4590, 3909);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
@@ -16601,8 +16469,6 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
     char*  result  ;
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
-    int caller_line;
-    char* caller_sname;
     struct buffer*  if_expression_buffer  ;
     struct buffer*  __dec_obj511  ;
     struct buffer*  loop_expression_buffer  ;
@@ -16670,10 +16536,6 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
-    caller_line=info->caller_line;
-    info->caller_line=info->sline;
-    caller_sname=info->caller_sname;
-    info->caller_sname=info->sname;
     __right_value0 = (void*)0;
     if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 4603, 3934);
     __dec_obj511=info->if_expression_buffer,
@@ -16750,8 +16612,6 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
                 info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4627, 3961);
                 __dec_obj519 = come_decrement_ref_count(__dec_obj519, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4627, 3960);
                 info->caller_fun=caller_fun;
-                info->caller_line=caller_line;
-                info->caller_sname=caller_sname;
                 info->right_value_max=right_value_max;
                 info->right_value_num=right_value_num;
                 info->num_conditional=num_conditional;
@@ -16855,8 +16715,6 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
     info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 4663, 4009);
     __dec_obj530 = come_decrement_ref_count(__dec_obj530, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 4663, 4008);
     info->caller_fun=caller_fun;
-    info->caller_line=caller_line;
-    info->caller_sname=caller_sname;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;

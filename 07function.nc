@@ -2619,10 +2619,10 @@ sNode*% parse_function(sInfo* info)
     info->current_stack_frame_struct = null;
     sFun* caller_fun = info->caller_fun;
     info->caller_fun = info->come_fun;
-    int caller_line = info->caller_line;
-    info->caller_line = info->sline;
-    char* caller_sname = info->caller_sname;
-    info->caller_sname = borrow info->sname;
+    //int caller_line = info->caller_line;
+    //info->caller_line = info->sline;
+    //char* caller_sname = borrow info->caller_sname;
+    //info->caller_sname = borrow info->sname;
     buffer*% if_expression_buffer = clone info.if_expression_buffer;
     info.if_expression_buffer = null;
     buffer*% loop_expression_buffer = clone info.loop_expression_buffer;
@@ -2662,8 +2662,8 @@ sNode*% parse_function(sInfo* info)
     info.module.mLastCode2 = last_code2;
     
     info->caller_fun = caller_fun;
-    info->caller_line = caller_line;
-    info->caller_sname = caller_sname;
+    //info->caller_line = caller_line;
+    //info->caller_sname = string(caller_sname);
     
     info->right_value_max = right_value_max;
     info->right_value_num = right_value_num;
