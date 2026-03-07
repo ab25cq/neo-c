@@ -2048,7 +2048,7 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline, int id);
 void* come_heap_checker(void* mem, const char* sname, int sline, int id);
-char*  __builtin_string(const char* str);
+char*  __builtin_string(const char* str, char* sname, int line);
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2363,7 +2363,7 @@ unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , cons
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str);
+int*  __builtin_wstring(const char* str, char* sname, int sline);
 int wchar_tp_length(const int*  str  );
 int wchar_ta_length(const int*  str  );
 int wstring_length(const int*  str  );
@@ -2827,7 +2827,7 @@ struct sInterfaceNode* sInterfaceNode_initialize(struct sInterfaceNode* self, ch
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 7, 3);
     __right_value0 = (void*)0;
     __dec_obj1=self->name,
-    self->name=(char* )come_increment_ref_count(__builtin_string(name), "28interface.nc", 9, 5);
+    self->name=(char* )come_increment_ref_count(__builtin_string(name,"28interface.nc",9), "28interface.nc", 9, 5);
     __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "28interface.nc", 9, 4);
     __dec_obj2=self->klass,
     self->klass=(struct sClass* )come_increment_ref_count(klass, "28interface.nc", 10, 47);
@@ -2847,7 +2847,7 @@ char*  sInterfaceNode_kind(struct sInterfaceNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sInterfaceNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sInterfaceNode"))), "28interface.nc", 17, 56);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sInterfaceNode","28interface.nc",17))), "28interface.nc", 17, 56);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "28interface.nc", 17, 57));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "28interface.nc", 17, 58));
@@ -2868,7 +2868,7 @@ _Bool sInterfaceNode_compile(struct sInterfaceNode* self, struct sInfo*  info  )
 ;    char*  name_2  =0;
     struct sType*  type  =0;
     _Bool __result_obj__0;
-    name=(char* )come_increment_ref_count(__builtin_string(self->name), "28interface.nc", 22, 59);
+    name=(char* )come_increment_ref_count(__builtin_string(self->name,"28interface.nc",22), "28interface.nc", 22, 59);
     klass=(struct sClass* )come_increment_ref_count(self->klass, "28interface.nc", 23, 60);
     klass->mProtocol=(_Bool)1;
     __right_value0 = (void*)0;
@@ -2889,7 +2889,7 @@ _Bool sInterfaceNode_compile(struct sInterfaceNode* self, struct sInfo*  info  )
     buffer_append_str(buf,"};\n");
     if(self->mOutput) {
         __right_value0 = (void*)0;
-        map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(name), "28interface.nc", 41, 128),(struct buffer* )come_increment_ref_count(buf, "28interface.nc", 41, 129),(_Bool)0);
+        map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(name,"28interface.nc",41), "28interface.nc", 41, 128),(struct buffer* )come_increment_ref_count(buf, "28interface.nc", 41, 129),(_Bool)0);
     }
         __result_obj__0 = (_Bool)1;
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "28interface.nc", 44, 130));
@@ -3816,7 +3816,7 @@ struct tuple2$2sType$phchar$ph* parse_interface_function(struct sInfo*  info  )
     __right_value0 = (void*)0;
     list$1sType$ph_insert(param_types,0,(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "28interface.nc", 60, 179, "struct sType* "), "28interface.nc", 60, 180),(char*)come_increment_ref_count(xsprintf("void*"), "28interface.nc", 60, 181),(_Bool)0,info,(_Bool)0,0), "28interface.nc", 60, 182));
     __right_value0 = (void*)0;
-    list$1char$ph_insert(param_names,0,(char* )come_increment_ref_count(__builtin_string("self"), "28interface.nc", 61, 201));
+    list$1char$ph_insert(param_names,0,(char* )come_increment_ref_count(__builtin_string("self","28interface.nc",61), "28interface.nc", 61, 201));
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __right_value2 = (void*)0;
@@ -5130,7 +5130,7 @@ _conditional_value_X0;})) {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "28interface.nc", 95, 535, "struct tuple2$2char$phsType$ph"), "28interface.nc", 95, 545),(char* )come_increment_ref_count(__builtin_string("_protocol_obj"), "28interface.nc", 95, 546),(struct sType* )come_increment_ref_count(voidp, "28interface.nc", 95, 547)), "28interface.nc", 95, 548));
+        list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "28interface.nc", 95, 535, "struct tuple2$2char$phsType$ph"), "28interface.nc", 95, 545),(char* )come_increment_ref_count(__builtin_string("_protocol_obj","28interface.nc",95), "28interface.nc", 95, 546),(struct sType* )come_increment_ref_count(voidp, "28interface.nc", 95, 547)), "28interface.nc", 95, 548));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -5147,7 +5147,7 @@ list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __dec_obj60=finalizer->mParamNames,
-        finalizer->mParamNames=(struct list$1char$ph*)come_increment_ref_count((__list_values2__[0]=((char* )(__right_value0=__builtin_string("self"))),
+        finalizer->mParamNames=(struct list$1char$ph*)come_increment_ref_count((__list_values2__[0]=((char* )(__right_value0=__builtin_string("self","28interface.nc",100))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "28interface.nc", 100, 566, "struct list$1char$ph"), "28interface.nc", 100, 567),1,__list_values2__)), "28interface.nc", 100, 569);
         come_call_finalizer(list$1char$ph_finalize, __dec_obj60,(void*)0, (void*)0, 0, 0, 0, (void*)0, "28interface.nc", 100, 568);
         finalizer->mVarArgs=(_Bool)0;
@@ -5160,7 +5160,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "28interface.nc", 104, 575, "struct tuple2$2char$phsType$ph"), "28interface.nc", 104, 576),(char* )come_increment_ref_count(__builtin_string("finalize"), "28interface.nc", 104, 577),(struct sType* )come_increment_ref_count(finalizer, "28interface.nc", 104, 578)), "28interface.nc", 104, 579));
+        list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "28interface.nc", 104, 575, "struct tuple2$2char$phsType$ph"), "28interface.nc", 104, 576),(char* )come_increment_ref_count(__builtin_string("finalize","28interface.nc",104), "28interface.nc", 104, 577),(struct sType* )come_increment_ref_count(finalizer, "28interface.nc", 104, 578)), "28interface.nc", 104, 579));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -5177,7 +5177,7 @@ list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __dec_obj63=cloner->mParamNames,
-        cloner->mParamNames=(struct list$1char$ph*)come_increment_ref_count((__list_values4__[0]=((char* )(__right_value0=__builtin_string("self"))),
+        cloner->mParamNames=(struct list$1char$ph*)come_increment_ref_count((__list_values4__[0]=((char* )(__right_value0=__builtin_string("self","28interface.nc",109))),
 list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "28interface.nc", 109, 589, "struct list$1char$ph"), "28interface.nc", 109, 590),1,__list_values4__)), "28interface.nc", 109, 592);
         come_call_finalizer(list$1char$ph_finalize, __dec_obj63,(void*)0, (void*)0, 0, 0, 0, (void*)0, "28interface.nc", 109, 591);
         cloner->mVarArgs=(_Bool)0;
@@ -5188,7 +5188,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "28interface.nc", 113, 595, "struct tuple2$2char$phsType$ph"), "28interface.nc", 113, 596),(char* )come_increment_ref_count(__builtin_string("clone"), "28interface.nc", 113, 597),(struct sType* )come_increment_ref_count(cloner, "28interface.nc", 113, 598)), "28interface.nc", 113, 599));
+        list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "28interface.nc", 113, 595, "struct tuple2$2char$phsType$ph"), "28interface.nc", 113, 596),(char* )come_increment_ref_count(__builtin_string("clone","28interface.nc",113), "28interface.nc", 113, 597),(struct sType* )come_increment_ref_count(cloner, "28interface.nc", 113, 598)), "28interface.nc", 113, 599));
         while((_Bool)1) {
             if(span$1char$p_operator_derefference(info->p)==125) {
                 info->p->p++;
@@ -5227,7 +5227,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         _inf_value1=(struct sNode*)come_calloc(1, sizeof(struct sNode), "28interface.nc", 143, 619, "struct sNode");
-        _inf_obj_value1=(struct sInterfaceNode*)come_increment_ref_count(((struct sInterfaceNode*)(__right_value2=sInterfaceNode_initialize((struct sInterfaceNode* )come_increment_ref_count((struct sInterfaceNode *)come_calloc(1, sizeof(struct sInterfaceNode )*(1), "28interface.nc", 143, 615, "struct sInterfaceNode* "), "28interface.nc", 143, 616),(char* )come_increment_ref_count(__builtin_string(type_name), "28interface.nc", 143, 617),(struct sClass* )come_increment_ref_count(klass, "28interface.nc", 143, 618),output,info))), "28interface.nc", 143, 620);
+        _inf_obj_value1=(struct sInterfaceNode*)come_increment_ref_count(((struct sInterfaceNode*)(__right_value2=sInterfaceNode_initialize((struct sInterfaceNode* )come_increment_ref_count((struct sInterfaceNode *)come_calloc(1, sizeof(struct sInterfaceNode )*(1), "28interface.nc", 143, 615, "struct sInterfaceNode* "), "28interface.nc", 143, 616),(char* )come_increment_ref_count(__builtin_string(type_name,"28interface.nc",143), "28interface.nc", 143, 617),(struct sClass* )come_increment_ref_count(klass, "28interface.nc", 143, 618),output,info))), "28interface.nc", 143, 620);
         _inf_value1->_protocol_obj=_inf_obj_value1;
         _inf_value1->finalize=(void*)sInterfaceNode_finalize;
         _inf_value1->clone=(void*)sInterfaceNode_clone;

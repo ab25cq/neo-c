@@ -2140,7 +2140,7 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline, int id);
 void* come_heap_checker(void* mem, const char* sname, int sline, int id);
-char*  __builtin_string(const char* str);
+char*  __builtin_string(const char* str, char* sname, int line);
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2455,7 +2455,7 @@ unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , cons
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str);
+int*  __builtin_wstring(const char* str, char* sname, int sline);
 int wchar_tp_length(const int*  str  );
 int wchar_ta_length(const int*  str  );
 int wstring_length(const int*  str  );
@@ -2973,7 +2973,7 @@ struct sStrNode* sStrNode_initialize(struct sStrNode* self, char*  value  , int 
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "10str.nc}", 7, 3);
     __right_value0 = (void*)0;
     __dec_obj1=self->value,
-    self->value=(char* )come_increment_ref_count(__builtin_string(value), "10str.nc", 9, 5);
+    self->value=(char* )come_increment_ref_count(__builtin_string(value,"10str.nc",9), "10str.nc", 9, 5);
     __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "10str.nc", 9, 4);
         __result_obj__0 = (struct sStrNode*)come_increment_ref_count(self, "10str.nc", 12, 6);
     come_call_finalizer(sStrNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "10str.nc}", 12, 9);
@@ -2988,7 +2988,7 @@ char*  sStrNode_kind(struct sStrNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sStrNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sStrNode"))), "10str.nc", 14, 12);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sStrNode","10str.nc",14))), "10str.nc", 14, 12);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 14, 13));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 14, 14));
@@ -3336,7 +3336,7 @@ char*  sBufferNode_kind(struct sBufferNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sBufferNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sBufferNode"))), "10str.nc", 48, 88);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sBufferNode","10str.nc",48))), "10str.nc", 48, 88);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 48, 89));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 48, 90));
@@ -4523,7 +4523,7 @@ struct sSStringNode* sSStringNode_initialize(struct sSStringNode* self, char*  v
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "10str.nc}", 95, 359);
     __right_value0 = (void*)0;
     __dec_obj44=self->value,
-    self->value=(char* )come_increment_ref_count(__builtin_string(value), "10str.nc", 97, 361);
+    self->value=(char* )come_increment_ref_count(__builtin_string(value,"10str.nc",97), "10str.nc", 97, 361);
     __dec_obj44 = come_decrement_ref_count(__dec_obj44, (void*)0, (void*)0, 0,0, (void*)0, "10str.nc", 97, 360);
     __right_value0 = (void*)0;
     __dec_obj45=self->exps,
@@ -4543,7 +4543,7 @@ char*  sSStringNode_kind(struct sSStringNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sSStringNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sSStringNode"))), "10str.nc", 103, 372);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sSStringNode","10str.nc",103))), "10str.nc", 103, 372);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 103, 373));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 103, 374));
@@ -4871,7 +4871,7 @@ char*  sCharNode_kind(struct sCharNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sCharNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sCharNode"))), "10str.nc", 166, 453);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sCharNode","10str.nc",166))), "10str.nc", 166, 453);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 166, 454));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 166, 455));
@@ -4937,7 +4937,7 @@ char*  sWCharNode_kind(struct sWCharNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sWCharNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sWCharNode"))), "10str.nc", 197, 474);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sWCharNode","10str.nc",197))), "10str.nc", 197, 474);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 197, 475));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 197, 476));
@@ -5015,7 +5015,7 @@ char*  sWStringNode_kind(struct sWStringNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sWStringNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sWStringNode"))), "10str.nc", 232, 501);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sWStringNode","10str.nc",232))), "10str.nc", 232, 501);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 232, 502));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 232, 503));
@@ -5074,7 +5074,7 @@ struct sPrefixedCharNode* sPrefixedCharNode_initialize(struct sPrefixedCharNode*
     self->value=value;
     __right_value0 = (void*)0;
     __dec_obj61=self->prefix,
-    self->prefix=(char* )come_increment_ref_count(__builtin_string(prefix), "10str.nc", 258, 519);
+    self->prefix=(char* )come_increment_ref_count(__builtin_string(prefix,"10str.nc",258), "10str.nc", 258, 519);
     __dec_obj61 = come_decrement_ref_count(__dec_obj61, (void*)0, (void*)0, 0,0, (void*)0, "10str.nc", 258, 518);
         __result_obj__0 = (struct sPrefixedCharNode*)come_increment_ref_count(self, "10str.nc", 261, 520);
     come_call_finalizer(sPrefixedCharNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "10str.nc}", 261, 523);
@@ -5089,7 +5089,7 @@ char*  sPrefixedCharNode_kind(struct sPrefixedCharNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sPrefixedCharNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sPrefixedCharNode"))), "10str.nc", 263, 526);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sPrefixedCharNode","10str.nc",263))), "10str.nc", 263, 526);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 263, 527));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 263, 528));
@@ -5148,11 +5148,11 @@ struct sPrefixedStringNode* sPrefixedStringNode_initialize(struct sPrefixedStrin
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "10str.nc}", 286, 542);
     __right_value0 = (void*)0;
     __dec_obj64=self->value,
-    self->value=(char* )come_increment_ref_count(__builtin_string(value), "10str.nc", 288, 544);
+    self->value=(char* )come_increment_ref_count(__builtin_string(value,"10str.nc",288), "10str.nc", 288, 544);
     __dec_obj64 = come_decrement_ref_count(__dec_obj64, (void*)0, (void*)0, 0,0, (void*)0, "10str.nc", 288, 543);
     __right_value0 = (void*)0;
     __dec_obj65=self->prefix,
-    self->prefix=(char* )come_increment_ref_count(__builtin_string(prefix), "10str.nc", 289, 546);
+    self->prefix=(char* )come_increment_ref_count(__builtin_string(prefix,"10str.nc",289), "10str.nc", 289, 546);
     __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0, "10str.nc", 289, 545);
         __result_obj__0 = (struct sPrefixedStringNode*)come_increment_ref_count(self, "10str.nc", 292, 547);
     come_call_finalizer(sPrefixedStringNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "10str.nc}", 292, 551);
@@ -5168,7 +5168,7 @@ char*  sPrefixedStringNode_kind(struct sPrefixedStringNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sPrefixedStringNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sPrefixedStringNode"))), "10str.nc", 294, 555);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sPrefixedStringNode","10str.nc",294))), "10str.nc", 294, 555);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 294, 556));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 294, 557));
@@ -5243,7 +5243,7 @@ char*  sListNode_kind(struct sListNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sListNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sListNode"))), "10str.nc", 324, 580);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sListNode","10str.nc",324))), "10str.nc", 324, 580);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 324, 581));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 324, 582));
@@ -5396,7 +5396,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo*  info  )
     const char* fun_name="initialize_with_values";
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    multiple_assign_var1=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name), "10str.nc", 404, 667),info,(_Bool)1)));
+    multiple_assign_var1=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name,"10str.nc",404), "10str.nc", 404, 667),info,(_Bool)1)));
     name=(char* )come_increment_ref_count(multiple_assign_var1->v1, "10str.nc", 404, 668);
     generics_fun=multiple_assign_var1->v2;
     come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "10str.nc}", 404, 670);
@@ -5407,7 +5407,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj76=generics_fun_name,
-        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "10str.nc", 410, 688);
+        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name,"10str.nc",410))),info,(_Bool)1), "10str.nc", 410, 688);
         __dec_obj76 = come_decrement_ref_count(__dec_obj76, (void*)0, (void*)0, 0,0, (void*)0, "10str.nc", 410, 687);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 410, 689));
         __right_value0 = (void*)0;
@@ -6052,7 +6052,7 @@ char*  sVectorNode_kind(struct sVectorNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sVectorNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sVectorNode"))), "10str.nc", 529, 804);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sVectorNode","10str.nc",529))), "10str.nc", 529, 804);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 529, 805));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 529, 806));
@@ -6205,7 +6205,7 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
     const char* fun_name="initialize_with_values";
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    multiple_assign_var2=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name), "10str.nc", 609, 840),info,(_Bool)1)));
+    multiple_assign_var2=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name,"10str.nc",609), "10str.nc", 609, 840),info,(_Bool)1)));
     name=(char* )come_increment_ref_count(multiple_assign_var2->v1, "10str.nc", 609, 841);
     generics_fun=multiple_assign_var2->v2;
     come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "10str.nc}", 609, 842);
@@ -6216,7 +6216,7 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj88=generics_fun_name,
-        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "10str.nc", 615, 845);
+        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name,"10str.nc",615))),info,(_Bool)1), "10str.nc", 615, 845);
         __dec_obj88 = come_decrement_ref_count(__dec_obj88, (void*)0, (void*)0, 0,0, (void*)0, "10str.nc", 615, 844);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 615, 846));
         __right_value0 = (void*)0;
@@ -6420,7 +6420,7 @@ char*  sTupleNode_kind(struct sTupleNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sTupleNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sTupleNode"))), "10str.nc", 734, 944);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sTupleNode","10str.nc",734))), "10str.nc", 734, 944);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 734, 945));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 734, 946));
@@ -6591,7 +6591,7 @@ _conditional_value_X0;})) {
     const char* fun_name="initialize";
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    multiple_assign_var4=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name), "10str.nc", 810, 1026),info,(_Bool)1)));
+    multiple_assign_var4=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name,"10str.nc",810), "10str.nc", 810, 1026),info,(_Bool)1)));
     name_36=(char* )come_increment_ref_count(multiple_assign_var4->v1, "10str.nc", 810, 1027);
     generics_fun=multiple_assign_var4->v2;
     come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "10str.nc}", 810, 1028);
@@ -6602,7 +6602,7 @@ _conditional_value_X0;})) {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj108=generics_fun_name,
-        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "10str.nc", 816, 1031);
+        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name,"10str.nc",816))),info,(_Bool)1), "10str.nc", 816, 1031);
         __dec_obj108 = come_decrement_ref_count(__dec_obj108, (void*)0, (void*)0, 0,0, (void*)0, "10str.nc", 816, 1030);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 816, 1032));
         __right_value0 = (void*)0;
@@ -6973,7 +6973,7 @@ char*  sMapNode_kind(struct sMapNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sMapNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sMapNode"))), "10str.nc", 897, 1111);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sMapNode","10str.nc",897))), "10str.nc", 897, 1111);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 897, 1112));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "10str.nc", 897, 1113));
@@ -7197,7 +7197,7 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo*  info  )
     const char* fun_name="initialize_with_values";
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    multiple_assign_var5=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name), "10str.nc", 1010, 1195),info,(_Bool)1)));
+    multiple_assign_var5=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name,"10str.nc",1010), "10str.nc", 1010, 1195),info,(_Bool)1)));
     name=(char* )come_increment_ref_count(multiple_assign_var5->v1, "10str.nc", 1010, 1196);
     generics_fun=multiple_assign_var5->v2;
     come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "10str.nc}", 1010, 1197);
@@ -7208,7 +7208,7 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj115=generics_fun_name,
-        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "10str.nc", 1016, 1200);
+        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name,"10str.nc",1016))),info,(_Bool)1), "10str.nc", 1016, 1200);
         __dec_obj115 = come_decrement_ref_count(__dec_obj115, (void*)0, (void*)0, 0,0, (void*)0, "10str.nc", 1016, 1199);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10str.nc", 1016, 1201));
         __right_value0 = (void*)0;

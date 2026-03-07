@@ -2038,7 +2038,7 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline, int id);
 void* come_heap_checker(void* mem, const char* sname, int sline, int id);
-char*  __builtin_string(const char* str);
+char*  __builtin_string(const char* str, char* sname, int line);
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2353,7 +2353,7 @@ unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , cons
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str);
+int*  __builtin_wstring(const char* str, char* sname, int sline);
 int wchar_tp_length(const int*  str  );
 int wchar_ta_length(const int*  str  );
 int wstring_length(const int*  str  );
@@ -4932,7 +4932,7 @@ void append_object_to_right_values(struct CVALUE*  come_value  , struct sType*  
         come_call_finalizer(sType_finalize, __dec_obj59,(void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc", 405, 462);
         __right_value0 = (void*)0;
         __dec_obj60=new_value->mObjValue,
-        new_value->mObjValue=(char* )come_increment_ref_count(__builtin_string(obj_value), "04heap.nc", 406, 465);
+        new_value->mObjValue=(char* )come_increment_ref_count(__builtin_string(obj_value,"04heap.nc",406), "04heap.nc", 406, 465);
         __dec_obj60 = come_decrement_ref_count(__dec_obj60, (void*)0, (void*)0, 0,0, (void*)0, "04heap.nc", 406, 464);
         new_value->mObjVar=obj_var;
         if(!type->mHeap) {
@@ -5246,7 +5246,7 @@ char*  increment_ref_count_object(struct sType*  type  , char* obj, struct sInfo
     struct sClass*  klass  ;
     char*  type_name  ;
     if(gComeC) {
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(obj))), "04heap.nc", 483, 497);
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(obj,"04heap.nc",483))), "04heap.nc", 483, 497);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04heap.nc", 483, 498));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "04heap.nc", 483, 499));
@@ -5254,7 +5254,7 @@ char*  increment_ref_count_object(struct sType*  type  , char* obj, struct sInfo
     }
     if(info->no_output_come_code) {
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(obj))), "04heap.nc", 486, 500);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(obj,"04heap.nc",486))), "04heap.nc", 486, 500);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04heap.nc", 486, 501));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "04heap.nc", 486, 502));
@@ -5343,7 +5343,7 @@ void decrement_ref_count_object(struct sType*  type  , char* obj, struct sInfo* 
     no_decrement=(_Bool)0;
     if(type->mPointerNum>0||type->mArrayPointerNum) {
         __right_value0 = (void*)0;
-        c_value=(char* )come_increment_ref_count(__builtin_string(obj), "04heap.nc", 519, 511);
+        c_value=(char* )come_increment_ref_count(__builtin_string(obj,"04heap.nc",519), "04heap.nc", 519, 511);
         klass_59=type->mClass;
         class_name=klass_59->mName;
         const char* fun_name="finalize";
@@ -5392,7 +5392,7 @@ void decrement_ref_count_object(struct sType*  type  , char* obj, struct sInfo* 
                 if(finalizer) {
                     __right_value0 = (void*)0;
                     __dec_obj66=fun_name2,
-                    fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name), "04heap.nc", 562, 622);
+                    fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name,"04heap.nc",562), "04heap.nc", 562, 622);
                     __dec_obj66 = come_decrement_ref_count(__dec_obj66, (void*)0, (void*)0, 0,0, (void*)0, "04heap.nc", 562, 621);
                     (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "04heap.nc", 563, 623));
                     break;
@@ -6008,7 +6008,7 @@ void on_drop_object(struct sType*  type  , char* obj, struct sInfo*  info  )
     type_=(struct sType* )come_increment_ref_count(get_no_solved_type2(type), "04heap.nc", 620, 693);
     if(type_->mClass->mStruct||list$1sType$ph_length(type_->mGenericsTypes)>0) {
         __right_value0 = (void*)0;
-        c_value=(char* )come_increment_ref_count(__builtin_string(obj), "04heap.nc", 624, 694);
+        c_value=(char* )come_increment_ref_count(__builtin_string(obj,"04heap.nc",624), "04heap.nc", 624, 694);
         const char* fun_name="on_drop";
         __right_value0 = (void*)0;
         type2=(struct sType* )come_increment_ref_count(sType_clone(type_), "04heap.nc", 628, 695);
@@ -6053,7 +6053,7 @@ void on_drop_object(struct sType*  type  , char* obj, struct sInfo*  info  )
                 if(dropper) {
                     __right_value0 = (void*)0;
                     __dec_obj70=fun_name2,
-                    fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name), "04heap.nc", 661, 707);
+                    fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name,"04heap.nc",661), "04heap.nc", 661, 707);
                     __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0, "04heap.nc", 661, 706);
                     (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "04heap.nc", 662, 708));
                     break;
@@ -6158,7 +6158,7 @@ void free_object(struct sType*  type  , char* obj, _Bool no_decrement, _Bool no_
     type_=(struct sType* )come_increment_ref_count(get_no_solved_type2(type), "04heap.nc", 696, 718);
     if(type_->mPointerNum>0||type_->mClass->mProtocol||list$1sType$ph_length(type_->mGenericsTypes)>0) {
         __right_value0 = (void*)0;
-        c_value=(char* )come_increment_ref_count(__builtin_string(obj), "04heap.nc", 700, 719);
+        c_value=(char* )come_increment_ref_count(__builtin_string(obj,"04heap.nc",700), "04heap.nc", 700, 719);
         klass=type_->mClass;
         class_name=klass->mName;
         const char* fun_name="finalize";
@@ -6205,7 +6205,7 @@ void free_object(struct sType*  type  , char* obj, _Bool no_decrement, _Bool no_
                 if(finalizer) {
                     __right_value0 = (void*)0;
                     __dec_obj71=fun_name2,
-                    fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name), "04heap.nc", 742, 732);
+                    fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name,"04heap.nc",742), "04heap.nc", 742, 732);
                     __dec_obj71 = come_decrement_ref_count(__dec_obj71, (void*)0, (void*)0, 0,0, (void*)0, "04heap.nc", 742, 731);
                     (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "04heap.nc", 743, 733));
                     break;
@@ -6548,7 +6548,7 @@ struct tuple2$2sType$phchar$ph* clone_object(struct sType*  type  , char* obj, s
     stack_saved=(struct list$1CVALUE$ph*)come_increment_ref_count(info->stack, "04heap.nc", 830, 826);
     right_value_objects=info->right_value_objects;
     __right_value0 = (void*)0;
-    c_value=(char* )come_increment_ref_count(__builtin_string(obj), "04heap.nc", 833, 827);
+    c_value=(char* )come_increment_ref_count(__builtin_string(obj,"04heap.nc",833), "04heap.nc", 833, 827);
     klass=type_->mClass;
     class_name=klass->mName;
     const char* fun_name="clone";
@@ -6568,14 +6568,14 @@ struct tuple2$2sType$phchar$ph* clone_object(struct sType*  type  , char* obj, s
         generics_fun=((struct sGenericsFun* )(__right_value0=map$2char$phsGenericsFun$ph_at(info->generics_funcs,fun_name3,((void*)0),(_Bool)0)));
         if(generics_fun) {
             __right_value0 = (void*)0;
-            multiple_assign_var8=((struct tuple2$2char$ph_Bool$*)(__right_value1=create_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name2), "04heap.nc", 854, 848),generics_fun,obj_type,info)));
+            multiple_assign_var8=((struct tuple2$2char$ph_Bool$*)(__right_value1=create_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name2,"04heap.nc",854), "04heap.nc", 854, 848),generics_fun,obj_type,info)));
             name=(char* )come_increment_ref_count(multiple_assign_var8->v1, "04heap.nc", 854, 849);
             err=multiple_assign_var8->v2;
             come_call_finalizer(tuple2$2char$ph_Bool$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "04heap.nc}", 854, 850);
             if(!err) {
                                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                __result_obj__0 = (struct tuple2$2sType$phchar$ph*)come_increment_ref_count(((struct tuple2$2sType$phchar$ph*)(__right_value5=tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "04heap.nc", 857, 854, "struct tuple2$2sType$phchar$ph"), "04heap.nc", 857, 866),(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "04heap.nc", 857, 851, "struct sType* "), "04heap.nc", 857, 852),(char*)come_increment_ref_count(xsprintf("void"), "04heap.nc", 857, 853),(_Bool)0,info,(_Bool)0,0), "04heap.nc", 857, 867),(char* )come_increment_ref_count(__builtin_string(""), "04heap.nc", 857, 868)))), "04heap.nc", 857, 869);
+                __result_obj__0 = (struct tuple2$2sType$phchar$ph*)come_increment_ref_count(((struct tuple2$2sType$phchar$ph*)(__right_value5=tuple2$2sType$phchar$ph_initialize((struct tuple2$2sType$phchar$ph*)come_increment_ref_count((struct tuple2$2sType$phchar$ph*)come_calloc(1, sizeof(struct tuple2$2sType$phchar$ph)*(1), "04heap.nc", 857, 854, "struct tuple2$2sType$phchar$ph"), "04heap.nc", 857, 866),(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "04heap.nc", 857, 851, "struct sType* "), "04heap.nc", 857, 852),(char*)come_increment_ref_count(xsprintf("void"), "04heap.nc", 857, 853),(_Bool)0,info,(_Bool)0,0), "04heap.nc", 857, 867),(char* )come_increment_ref_count(__builtin_string("","04heap.nc",857), "04heap.nc", 857, 868)))), "04heap.nc", 857, 869);
                 (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "04heap.nc", 857, 870));
                 (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "04heap.nc", 857, 871));
                 come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 857, 872);
@@ -6617,7 +6617,7 @@ struct tuple2$2sType$phchar$ph* clone_object(struct sType*  type  , char* obj, s
             if(cloner) {
                 __right_value0 = (void*)0;
                 __dec_obj79=fun_name2,
-                fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name), "04heap.nc", 874, 891);
+                fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name,"04heap.nc",874), "04heap.nc", 874, 891);
                 __dec_obj79 = come_decrement_ref_count(__dec_obj79, (void*)0, (void*)0, 0,0, (void*)0, "04heap.nc", 874, 890);
                 (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "04heap.nc", 875, 892));
                 break;
@@ -6835,11 +6835,11 @@ void free_right_value_objects(struct sInfo*  info  )
                     come_call_finalizer(sType_finalize, __dec_obj88,(void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc", 950, 932);
                 }
                 __right_value0 = (void*)0;
-                sname_saved=(char* )come_increment_ref_count(__builtin_string(info->sname), "04heap.nc", 953, 934);
+                sname_saved=(char* )come_increment_ref_count(__builtin_string(info->sname,"04heap.nc",953), "04heap.nc", 953, 934);
                 sline_saved=info->sline;
                 __right_value0 = (void*)0;
                 __dec_obj89=info->sname,
-                info->sname=(char* )come_increment_ref_count(__builtin_string(it_76->mSName), "04heap.nc", 955, 936);
+                info->sname=(char* )come_increment_ref_count(__builtin_string(it_76->mSName,"04heap.nc",955), "04heap.nc", 955, 936);
                 __dec_obj89 = come_decrement_ref_count(__dec_obj89, (void*)0, (void*)0, 0,0, (void*)0, "04heap.nc", 955, 935);
                 info->sline=it_76->mSLine;
                 free_object(type,it_76->mVarName,!it_76->mDecrementRefCount,(_Bool)0,info,(_Bool)0);
@@ -6880,7 +6880,7 @@ struct sVar*  get_variable_from_table(struct sVarTable*  table  , char* name)
     struct sVar*  __result_obj__0  ;
     it=table;
     while(it) {
-        var_=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(it->mVars,((char* )(__right_value1=__builtin_string(name))))));
+        var_=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(it->mVars,((char* )(__right_value1=__builtin_string(name,"04heap.nc",986))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "04heap.nc", 986, 972));
         if(var_) {
                         __result_obj__0 = var_;
@@ -7858,7 +7858,7 @@ void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct 
         return;
     }
     for(_o2_saved_12=(struct map$2char$phsVar$ph*)come_increment_ref_count(table->mVars, "04heap.nc", 1006, 973),it=map$2char$phsVar$ph_begin(_o2_saved_12)    ;!map$2char$phsVar$ph_end(_o2_saved_12);it=map$2char$phsVar$ph_next(_o2_saved_12)){
-        p=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(table->mVars,((char* )(__right_value1=__builtin_string(it))))));
+        p=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(table->mVars,((char* )(__right_value1=__builtin_string(it,"04heap.nc",1007))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "04heap.nc", 1007, 974));
         type=p->mType;
         klass=type->mClass;
@@ -8842,7 +8842,7 @@ _Bool existance_free_objects(struct sVarTable*  table  , struct sVar*  ret_value
         return (_Bool)1;
     }
     for(_o2_saved_13=(struct map$2char$phsVar$ph*)come_increment_ref_count(table->mVars, "04heap.nc", 1202, 1494),it=map$2char$phsVar$ph_begin(_o2_saved_13)    ;!map$2char$phsVar$ph_end(_o2_saved_13);it=map$2char$phsVar$ph_next(_o2_saved_13)){
-        p=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(table->mVars,((char* )(__right_value1=__builtin_string(it))))));
+        p=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(table->mVars,((char* )(__right_value1=__builtin_string(it,"04heap.nc",1203))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "04heap.nc", 1203, 1495));
         type=p->mType;
         klass=type->mClass;

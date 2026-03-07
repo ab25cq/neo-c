@@ -2079,7 +2079,7 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline, int id);
 void* come_heap_checker(void* mem, const char* sname, int sline, int id);
-char*  __builtin_string(const char* str);
+char*  __builtin_string(const char* str, char* sname, int line);
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2394,7 +2394,7 @@ unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , cons
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str);
+int*  __builtin_wstring(const char* str, char* sname, int sline);
 int wchar_tp_length(const int*  str  );
 int wchar_ta_length(const int*  str  );
 int wstring_length(const int*  str  );
@@ -3135,7 +3135,7 @@ struct tuple2$2char$phsGenericsFun$p* make_generics_function(struct sType*  type
         fun_name2=(char* )come_increment_ref_count(create_method_name(type2,(_Bool)0,fun_name,info,array_equal_pointer), "24method.nc", 28, 277);
         __dec_obj39 = come_decrement_ref_count(__dec_obj39, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 28, 276);
         __right_value0 = (void*)0;
-        multiple_assign_var1=((struct tuple2$2char$ph_Bool$*)(__right_value1=create_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name2), "24method.nc", 30, 278),generics_fun,type2,info)));
+        multiple_assign_var1=((struct tuple2$2char$ph_Bool$*)(__right_value1=create_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name2,"24method.nc",30), "24method.nc", 30, 278),generics_fun,type2,info)));
         name=(char* )come_increment_ref_count(multiple_assign_var1->v1, "24method.nc", 30, 279);
         err=multiple_assign_var1->v2;
         come_call_finalizer(tuple2$2char$ph_Bool$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 30, 281);
@@ -3143,7 +3143,7 @@ struct tuple2$2char$phsGenericsFun$p* make_generics_function(struct sType*  type
             err_msg(info,"%s not found",fun_name3);
                         __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            __result_obj__0 = (struct tuple2$2char$phsGenericsFun$p*)come_increment_ref_count(((struct tuple2$2char$phsGenericsFun$p*)(__right_value2=tuple2$2char$phsGenericsFun$p_initialize((struct tuple2$2char$phsGenericsFun$p*)come_increment_ref_count((struct tuple2$2char$phsGenericsFun$p*)come_calloc(1, sizeof(struct tuple2$2char$phsGenericsFun$p)*(1), "24method.nc", 34, 282, "struct tuple2$2char$phsGenericsFun$p"), "24method.nc", 34, 290),(char* )come_increment_ref_count(__builtin_string(""), "24method.nc", 34, 291),(struct sGenericsFun* )((void*)0)))), "24method.nc", 34, 292);
+            __result_obj__0 = (struct tuple2$2char$phsGenericsFun$p*)come_increment_ref_count(((struct tuple2$2char$phsGenericsFun$p*)(__right_value2=tuple2$2char$phsGenericsFun$p_initialize((struct tuple2$2char$phsGenericsFun$p*)come_increment_ref_count((struct tuple2$2char$phsGenericsFun$p*)come_calloc(1, sizeof(struct tuple2$2char$phsGenericsFun$p)*(1), "24method.nc", 34, 282, "struct tuple2$2char$phsGenericsFun$p"), "24method.nc", 34, 290),(char* )come_increment_ref_count(__builtin_string("","24method.nc",34), "24method.nc", 34, 291),(struct sGenericsFun* )((void*)0)))), "24method.nc", 34, 292);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc}", 34, 293);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 34, 294));
             (fun_name = come_decrement_ref_count(fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 34, 295));
@@ -4313,10 +4313,10 @@ struct tuple2$2char$phsGenericsFun$p* make_method_generics_function(char*  fun_n
     generics_fun=((struct sGenericsFun* )(__right_value0=map$2char$phsGenericsFun$ph_at(info->generics_funcs,fun_name,((void*)0),(_Bool)0)));
     if(generics_fun) {
         if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(!create_method_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name3), "24method.nc", 54, 320),generics_fun,info)));_conditional_value_X0;})) {
+({(_conditional_value_X0=(!create_method_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name3,"24method.nc",54), "24method.nc", 54, 320),generics_fun,info)));_conditional_value_X0;})) {
             err_msg(info,"%s not found",fun_name3);
                         __right_value0 = (void*)0;
-            __result_obj__0 = (struct tuple2$2char$phsGenericsFun$p*)come_increment_ref_count(((struct tuple2$2char$phsGenericsFun$p*)(__right_value2=tuple2$2char$phsGenericsFun$p_initialize((struct tuple2$2char$phsGenericsFun$p*)come_increment_ref_count((struct tuple2$2char$phsGenericsFun$p*)come_calloc(1, sizeof(struct tuple2$2char$phsGenericsFun$p)*(1), "24method.nc", 56, 321, "struct tuple2$2char$phsGenericsFun$p"), "24method.nc", 56, 322),(char* )come_increment_ref_count(__builtin_string(""), "24method.nc", 56, 323),(struct sGenericsFun* )((void*)0)))), "24method.nc", 56, 324);
+            __result_obj__0 = (struct tuple2$2char$phsGenericsFun$p*)come_increment_ref_count(((struct tuple2$2char$phsGenericsFun$p*)(__right_value2=tuple2$2char$phsGenericsFun$p_initialize((struct tuple2$2char$phsGenericsFun$p*)come_increment_ref_count((struct tuple2$2char$phsGenericsFun$p*)come_calloc(1, sizeof(struct tuple2$2char$phsGenericsFun$p)*(1), "24method.nc", 56, 321, "struct tuple2$2char$phsGenericsFun$p"), "24method.nc", 56, 322),(char* )come_increment_ref_count(__builtin_string("","24method.nc",56), "24method.nc", 56, 323),(struct sGenericsFun* )((void*)0)))), "24method.nc", 56, 324);
             (fun_name = come_decrement_ref_count(fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 56, 325));
             (fun_name3 = come_decrement_ref_count(fun_name3, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 56, 326));
             come_call_finalizer(list$1sType$ph$p_finalize, method_generics_types_before, (void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc}", 56, 327);
@@ -4562,7 +4562,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
     come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "24method.nc", 175, 495, "struct CVALUE* "), "24method.nc", 175, 496)), "24method.nc", 175, 497);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    fun2=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(method_block_name))),((void*)0),(_Bool)0)));
+    fun2=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(method_block_name,"24method.nc",177))),((void*)0),(_Bool)0)));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 177, 539));
     if(fun2==((void*)0)) {
         err_msg(info,"method block function not found(%s)",method_block_name);
@@ -4619,7 +4619,7 @@ _Bool compile_method_block(struct buffer*  method_block  , struct list$1CVALUE$p
     come_call_finalizer(sType_finalize, __dec_obj53,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 204, 566);
     if(info->no_output_come_code) {
         __right_value0 = (void*)0;
-        map$2char$phsFun$ph_remove(info->funcs,(char* )come_increment_ref_count(__builtin_string(method_block_name), "24method.nc", 207, 576),(_Bool)0);
+        map$2char$phsFun$ph_remove(info->funcs,(char* )come_increment_ref_count(__builtin_string(method_block_name,"24method.nc",207), "24method.nc", 207, 576),(_Bool)0);
     }
         __result_obj__0 = (_Bool)1;
     ((current_stack_frame_node) ? current_stack_frame_node = come_decrement_ref_count(current_stack_frame_node, ((struct sNode*)current_stack_frame_node)->finalize, ((struct sNode*)current_stack_frame_node)->_protocol_obj, 0, 0,(void*)0, "24method.nc", 210, 577):(void*)0);
@@ -5576,7 +5576,7 @@ _conditional_value_X0;})) {
             generics_fun_name=(char* )come_increment_ref_count(create_method_name_using_class(klass,fun_name2,info), "24method.nc", 225, 595);
             __dec_obj54 = come_decrement_ref_count(__dec_obj54, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 225, 594);
             __right_value0 = (void*)0;
-            fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
+            fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name,"24method.nc",227))),((void*)0),(_Bool)0)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 227, 596));
             if(fun) {
                 break;
@@ -5594,7 +5594,7 @@ _conditional_value_X0;})) {
             else {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                multiple_assign_var2=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name), "24method.nc", 240, 599),info,(_Bool)1)));
+                multiple_assign_var2=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name,"24method.nc",240), "24method.nc", 240, 599),info,(_Bool)1)));
                 name=(char* )come_increment_ref_count(multiple_assign_var2->v1, "24method.nc", 240, 600);
                 gfun=multiple_assign_var2->v2;
                 come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 240, 601);
@@ -5612,7 +5612,7 @@ _conditional_value_X0;})) {
             fun_name3=(char* )come_increment_ref_count(xsprintf("%s_%s",none_generics_name,fun_name), "24method.nc", 247, 606);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            multiple_assign_var3=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_method_generics_function((char* )come_increment_ref_count(__builtin_string(fun_name3), "24method.nc", 248, 607),info->method_generics_types,info)));
+            multiple_assign_var3=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_method_generics_function((char* )come_increment_ref_count(__builtin_string(fun_name3,"24method.nc",248), "24method.nc", 248, 607),info->method_generics_types,info)));
             name_24=(char* )come_increment_ref_count(multiple_assign_var3->v1, "24method.nc", 248, 608);
             gfun_25=multiple_assign_var3->v2;
             come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 248, 609);
@@ -5633,7 +5633,7 @@ _conditional_value_X0;})) {
             else {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                multiple_assign_var4=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name), "24method.nc", 257, 616),info,(_Bool)1)));
+                multiple_assign_var4=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(obj_type,(char* )come_increment_ref_count(__builtin_string(fun_name,"24method.nc",257), "24method.nc", 257, 616),info,(_Bool)1)));
                 name_26=(char* )come_increment_ref_count(multiple_assign_var4->v1, "24method.nc", 257, 617);
                 gfun_27=multiple_assign_var4->v2;
                 come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 257, 618);
@@ -5649,12 +5649,12 @@ _conditional_value_X0;})) {
             new_fun_name=(char* )come_increment_ref_count(xsprintf("%s_v%d",generics_fun_name,i), "24method.nc", 264, 622);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            fun=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(new_fun_name))))));
+            fun=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(new_fun_name,"24method.nc",266))))));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 266, 653));
             if(fun!=((void*)0)) {
                 __right_value0 = (void*)0;
                 __dec_obj60=generics_fun_name,
-                generics_fun_name=(char* )come_increment_ref_count(__builtin_string(new_fun_name), "24method.nc", 269, 655);
+                generics_fun_name=(char* )come_increment_ref_count(__builtin_string(new_fun_name,"24method.nc",269), "24method.nc", 269, 655);
                 __dec_obj60 = come_decrement_ref_count(__dec_obj60, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 269, 654);
                 (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "24method.nc", 270, 656));
                 break;
@@ -5670,29 +5670,29 @@ _conditional_value_X0;})) {
                 come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 278, 659);
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(array_method_name))),((void*)0),(_Bool)0)));
+                fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(array_method_name,"24method.nc",280))),((void*)0),(_Bool)0)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 280, 660));
                 if(fun) {
                     __right_value0 = (void*)0;
                     __dec_obj61=generics_fun_name,
-                    generics_fun_name=(char* )come_increment_ref_count(__builtin_string(array_method_name), "24method.nc", 283, 662);
+                    generics_fun_name=(char* )come_increment_ref_count(__builtin_string(array_method_name,"24method.nc",283), "24method.nc", 283, 662);
                     __dec_obj61 = come_decrement_ref_count(__dec_obj61, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 283, 661);
                 }
                 else {
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
-                    fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
+                    fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name,"24method.nc",286))),((void*)0),(_Bool)0)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 286, 663));
                     if(fun==((void*)0)) {
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj62=generics_fun_name,
-                        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "24method.nc", 289, 665);
+                        generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name,"24method.nc",289))),info,(_Bool)1), "24method.nc", 289, 665);
                         __dec_obj62 = come_decrement_ref_count(__dec_obj62, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 289, 664);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 289, 666));
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
-                        fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
+                        fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name,"24method.nc",290))),((void*)0),(_Bool)0)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 290, 667));
                         if(fun==((void*)0)) {
                                                         __right_value0 = (void*)0;
@@ -5712,18 +5712,18 @@ _conditional_value_X0;})) {
             else {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
+                fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name,"24method.nc",298))),((void*)0),(_Bool)0)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 298, 684));
                 if(fun==((void*)0)) {
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj64=generics_fun_name,
-                    generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "24method.nc", 301, 686);
+                    generics_fun_name=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name,"24method.nc",301))),info,(_Bool)1), "24method.nc", 301, 686);
                     __dec_obj64 = come_decrement_ref_count(__dec_obj64, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 301, 685);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 301, 687));
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
-                    fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
+                    fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name,"24method.nc",303))),((void*)0),(_Bool)0)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 303, 688));
                     if(fun==((void*)0)) {
                         klass_28=obj_type->mClass;
@@ -5738,7 +5738,7 @@ _conditional_value_X1;})) {
                             __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 309, 690);
                             __right_value0 = (void*)0;
                             __right_value1 = (void*)0;
-                            fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name))),((void*)0),(_Bool)0)));
+                            fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(generics_fun_name,"24method.nc",311))),((void*)0),(_Bool)0)));
                             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 311, 692));
                             if(fun) {
                                 break;
@@ -5798,11 +5798,11 @@ _conditional_value_X1;})) {
                     if(fun==((void*)0)) {
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
-                        original_obj_type_fun_name=(char* )come_increment_ref_count(create_method_name_original_obj_type(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name))),info,(_Bool)1), "24method.nc", 344, 714);
+                        original_obj_type_fun_name=(char* )come_increment_ref_count(create_method_name_original_obj_type(obj_type,(_Bool)0,((char* )(__right_value0=__builtin_string(fun_name,"24method.nc",344))),info,(_Bool)1), "24method.nc", 344, 714);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 344, 715));
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
-                        fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(original_obj_type_fun_name))),((void*)0),(_Bool)0)));
+                        fun=((struct sFun* )(__right_value1=map$2char$phsFun$ph_at(info->funcs,((char* )(__right_value0=__builtin_string(original_obj_type_fun_name,"24method.nc",345))),((void*)0),(_Bool)0)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 345, 716));
                         if(fun) {
                             __dec_obj70=generics_fun_name,
@@ -6348,7 +6348,7 @@ struct sMethodCallNode* sMethodCallNode_initialize(struct sMethodCallNode* self,
     (__dec_obj73 ? __dec_obj73 = come_decrement_ref_count(__dec_obj73, ((struct sNode*)__dec_obj73)->finalize, ((struct sNode*)__dec_obj73)->_protocol_obj, 0,0, (void*)0, "24method.nc", 446, 799) :0);
     __right_value0 = (void*)0;
     __dec_obj74=self->fun_name,
-    self->fun_name=(char* )come_increment_ref_count(__builtin_string(fun_name), "24method.nc", 447, 802);
+    self->fun_name=(char* )come_increment_ref_count(__builtin_string(fun_name,"24method.nc",447), "24method.nc", 447, 802);
     __dec_obj74 = come_decrement_ref_count(__dec_obj74, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 447, 801);
     __right_value0 = (void*)0;
     __dec_obj80=self->params,
@@ -6394,7 +6394,7 @@ char*  sMethodCallNode_kind(struct sMethodCallNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sMethodCallNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sMethodCallNode"))), "24method.nc", 470, 861);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sMethodCallNode","24method.nc",470))), "24method.nc", 470, 861);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 470, 862));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "24method.nc", 470, 863));
@@ -6610,7 +6610,7 @@ _Bool sMethodCallNode_compile(struct sMethodCallNode* self, struct sInfo*  info 
     come_call_finalizer(list$1sType$ph_finalize, __dec_obj83,(void*)0, (void*)0, 0, 0, 0, (void*)0, "24method.nc", 486, 872);
     __right_value0 = (void*)0;
     __dec_obj84=info->caller_sname,
-    info->caller_sname=(char* )come_increment_ref_count(__builtin_string(info->sname), "24method.nc", 488, 875);
+    info->caller_sname=(char* )come_increment_ref_count(__builtin_string(info->sname,"24method.nc",488), "24method.nc", 488, 875);
     __dec_obj84 = come_decrement_ref_count(__dec_obj84, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 488, 874);
     info->caller_line=info->sline;
     Value=node_compile(obj,info);
@@ -6657,7 +6657,7 @@ _Bool sMethodCallNode_compile(struct sMethodCallNode* self, struct sInfo*  info 
             method_generics=list$1char$ph_length(generics_fun->mMethodGenericsTypeNames)>0;
             if(method_generics&&list$1sType$ph_length(info->method_generics_types)==0) {
                 __right_value0 = (void*)0;
-                multiple_assign_var10=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(type,(char* )come_increment_ref_count(__builtin_string(fun_name), "24method.nc", 521, 897),info,(_Bool)1)));
+                multiple_assign_var10=((struct tuple2$2char$phsGenericsFun$p*)(__right_value1=make_generics_function(type,(char* )come_increment_ref_count(__builtin_string(fun_name,"24method.nc",521), "24method.nc", 521, 897),info,(_Bool)1)));
                 name=(char* )come_increment_ref_count(multiple_assign_var10->v1, "24method.nc", 521, 898);
                 gfun=multiple_assign_var10->v2;
                 come_call_finalizer(tuple2$2char$phsGenericsFun$p$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "24method.nc}", 521, 899);
@@ -8394,7 +8394,7 @@ struct sIterCallNode* sIterCallNode_initialize(struct sIterCallNode* self, const
     (__dec_obj113 ? __dec_obj113 = come_decrement_ref_count(__dec_obj113, ((struct sNode*)__dec_obj113)->finalize, ((struct sNode*)__dec_obj113)->_protocol_obj, 0,0, (void*)0, "24method.nc", 1084, 1460) :0);
     __right_value0 = (void*)0;
     __dec_obj114=self->fun_name,
-    self->fun_name=(char* )come_increment_ref_count(__builtin_string(fun_name), "24method.nc", 1085, 1463);
+    self->fun_name=(char* )come_increment_ref_count(__builtin_string(fun_name,"24method.nc",1085), "24method.nc", 1085, 1463);
     __dec_obj114 = come_decrement_ref_count(__dec_obj114, (void*)0, (void*)0, 0,0, (void*)0, "24method.nc", 1085, 1462);
     __right_value0 = (void*)0;
     __dec_obj115=self->params,
@@ -8436,7 +8436,7 @@ char*  sIterCallNode_kind(struct sIterCallNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sIterCallNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sIterCall"))), "24method.nc", 1109, 1479);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sIterCall","24method.nc",1109))), "24method.nc", 1109, 1479);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "24method.nc", 1109, 1480));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "24method.nc", 1109, 1481));
@@ -8705,7 +8705,7 @@ _conditional_value_X1;})) {
     i_124=0;
     for(_o2_saved_21=(struct list$1char$ph*)come_increment_ref_count(generics_fun->mParamNames, "24method.nc", 1194, 1562),it_125=list$1char$ph_begin(_o2_saved_21)    ;!list$1char$ph_end(_o2_saved_21);it_125=list$1char$ph_next(_o2_saved_21)){
         __right_value0 = (void*)0;
-        name=(char* )come_increment_ref_count(__builtin_string(it_125), "24method.nc", 1195, 1563);
+        name=(char* )come_increment_ref_count(__builtin_string(it_125,"24method.nc",1195), "24method.nc", 1195, 1563);
         __right_value0 = (void*)0;
         come_value_126=(struct CVALUE* )come_increment_ref_count(list$1CVALUE$ph_operator_load_element(come_params,i_124), "24method.nc", 1196, 1564);
         __right_value0 = (void*)0;
@@ -9395,7 +9395,7 @@ struct sNode* parse_method_call_v20(struct sNode* obj, char*  fun_name  , struct
             sline_144=info->sline;
             err_flag=(_Bool)0;
             __right_value0 = (void*)0;
-            label=(char* )come_increment_ref_count(__builtin_string(""), "24method.nc", 1511, 1790);
+            label=(char* )come_increment_ref_count(__builtin_string("","24method.nc",1511), "24method.nc", 1511, 1790);
             if(xisalpha(*info->p->p)||*info->p->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj166=label,
@@ -9633,7 +9633,7 @@ struct sNode* parse_iter_call_v20(struct sNode* obj, char*  fun_name  , struct s
             sline=info->sline;
             err_flag=(_Bool)0;
             __right_value0 = (void*)0;
-            label=(char* )come_increment_ref_count(__builtin_string(""), "24method.nc", 1605, 1836);
+            label=(char* )come_increment_ref_count(__builtin_string("","24method.nc",1605), "24method.nc", 1605, 1836);
             if(xisalpha(*info->p->p)||*info->p->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj171=label,

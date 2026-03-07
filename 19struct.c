@@ -2082,7 +2082,7 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline, int id);
 void* come_heap_checker(void* mem, const char* sname, int sline, int id);
-char*  __builtin_string(const char* str);
+char*  __builtin_string(const char* str, char* sname, int line);
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2397,7 +2397,7 @@ unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , cons
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str);
+int*  __builtin_wstring(const char* str, char* sname, int sline);
 int wchar_tp_length(const int*  str  );
 int wchar_ta_length(const int*  str  );
 int wstring_length(const int*  str  );
@@ -2964,7 +2964,7 @@ void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buf
             }
             else {
                 __right_value0 = (void*)0;
-                map$2char$phsType$ph_insert(info->named_child_struct,(char* )come_increment_ref_count(__builtin_string(type2->mInnerStructName), "19struct.nc", 64, 135),(struct sType* )come_increment_ref_count(sType_clone(type2), "19struct.nc", 64, 313),(_Bool)0);
+                map$2char$phsType$ph_insert(info->named_child_struct,(char* )come_increment_ref_count(__builtin_string(type2->mInnerStructName,"19struct.nc",64), "19struct.nc", 64, 135),(struct sType* )come_increment_ref_count(sType_clone(type2), "19struct.nc", 64, 313),(_Bool)0);
                 map$2char$phbuffer$ph_remove(info->struct_definition,(char* )come_increment_ref_count(type2->mInnerStructName, "19struct.nc", 65, 318),(_Bool)0);
                 output_aggregate_field(type2,(char* )come_increment_ref_count(type2->mInnerStructName, "19struct.nc", 66, 319),buf,existance_generics,(char* )come_increment_ref_count(name2, "19struct.nc", 66, 320),indent,info,named_child);
             }
@@ -4912,7 +4912,7 @@ void output_struct(struct sClass*  klass  , char*  pragma  , struct sInfo*  info
             else {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                map$2char$phsType$ph_insert(info->named_child_struct,(char* )come_increment_ref_count(__builtin_string(type->mInnerStructName), "19struct.nc", 138, 348),(struct sType* )come_increment_ref_count(sType_clone(type), "19struct.nc", 138, 349),(_Bool)0);
+                map$2char$phsType$ph_insert(info->named_child_struct,(char* )come_increment_ref_count(__builtin_string(type->mInnerStructName,"19struct.nc",138), "19struct.nc", 138, 348),(struct sType* )come_increment_ref_count(sType_clone(type), "19struct.nc", 138, 349),(_Bool)0);
                 map$2char$phbuffer$ph_remove(info->struct_definition,(char* )come_increment_ref_count(type->mInnerStructName, "19struct.nc", 139, 350),(_Bool)0);
                 output_aggregate_field(type,(char* )come_increment_ref_count(type->mInnerStructName, "19struct.nc", 140, 351),buf,&existance_generics,(char* )come_increment_ref_count(name_24, "19struct.nc", 140, 352),1,info,&named_child);
             }
@@ -4947,11 +4947,11 @@ void output_struct(struct sClass*  klass  , char*  pragma  , struct sInfo*  info
     }
     if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X0=(((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char* )(__right_value1=__builtin_string(name))))))==((void*)0)&&!existance_generics));    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 163, 390));
+({(_conditional_value_X0=(((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char* )(__right_value1=__builtin_string(name,"19struct.nc",163))))))==((void*)0)&&!existance_generics));    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 163, 390));
     come_call_finalizer(buffer_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "19struct.nc}", 163, 391);
 _conditional_value_X0;})) {
         __right_value0 = (void*)0;
-        map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(name), "19struct.nc", 164, 432),(struct buffer* )come_increment_ref_count(buf, "19struct.nc", 164, 433),(_Bool)0);
+        map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(name,"19struct.nc",164), "19struct.nc", 164, 432),(struct buffer* )come_increment_ref_count(buf, "19struct.nc", 164, 433),(_Bool)0);
     }
     (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0, "19struct.nc", 168, 434));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "19struct.nc}", 168, 435);
@@ -5359,7 +5359,7 @@ _Bool output_generics_struct(struct sType*  type  , struct sType*  generics_type
     new_name=(char* )come_increment_ref_count(create_generics_name(type,info), "19struct.nc", 170, 437);
     if(!map$2char$phsClass$ph_find(info->classes,new_name,(_Bool)0)) {
         __right_value0 = (void*)0;
-        generics_class=(struct sClass* )come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->generics_classes,((char* )(__right_value1=__builtin_string(type->mClass->mName)))), "19struct.nc", 173, 472);
+        generics_class=(struct sClass* )come_increment_ref_count(map$2char$phsClass$ph_operator_load_element(info->generics_classes,((char* )(__right_value1=__builtin_string(type->mClass->mName,"19struct.nc",173)))), "19struct.nc", 173, 472);
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 173, 473));
         if(generics_class==((void*)0)) {
             err_msg(info,"generics_class(%s) is null",type->mClass->mName);
@@ -5372,10 +5372,10 @@ _Bool output_generics_struct(struct sType*  type  , struct sType*  generics_type
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(new_name), "19struct.nc", 180, 516),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "19struct.nc", 180, 517, "struct sClass* "), "19struct.nc", 180, 519),(char* )come_increment_ref_count(new_name, "19struct.nc", 180, 518),(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "19struct.nc", 180, 520),(_Bool)0);
+        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(new_name,"19struct.nc",180), "19struct.nc", 180, 516),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "19struct.nc", 180, 517, "struct sClass* "), "19struct.nc", 180, 519),(char* )come_increment_ref_count(new_name, "19struct.nc", 180, 518),(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "19struct.nc", 180, 520),(_Bool)0);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        new_class=((struct sClass* )(__right_value1=map$2char$phsClass$ph_at(info->classes,((char* )(__right_value0=__builtin_string(new_name))),((void*)0),(_Bool)0)));
+        new_class=((struct sClass* )(__right_value1=map$2char$phsClass$ph_at(info->classes,((char* )(__right_value0=__builtin_string(new_name,"19struct.nc",182))),((void*)0),(_Bool)0)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 182, 521));
         i=0;
         for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(generics_class->mFields, "19struct.nc", 185, 522),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)        ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
@@ -5417,7 +5417,7 @@ _Bool output_generics_struct(struct sType*  type  , struct sType*  generics_type
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        type->mClass=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(new_name))))));
+        type->mClass=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(new_name,"19struct.nc",207))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 207, 567));
         list$1sType$ph_reset(type->mGenericsTypes);
     }
@@ -5970,7 +5970,7 @@ struct sStructNode* sStructNode_initialize(struct sStructNode* self, char*  name
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "19struct.nc}", 218, 571);
     __right_value0 = (void*)0;
     __dec_obj45=self->mName,
-    self->mName=(char* )come_increment_ref_count(__builtin_string(name), "19struct.nc", 220, 573);
+    self->mName=(char* )come_increment_ref_count(__builtin_string(name,"19struct.nc",220), "19struct.nc", 220, 573);
     __dec_obj45 = come_decrement_ref_count(__dec_obj45, (void*)0, (void*)0, 0,0, (void*)0, "19struct.nc", 220, 572);
     self->mClass=klass;
     __dec_obj46=self->pragma,
@@ -5998,7 +5998,7 @@ char*  sStructNode_kind(struct sStructNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sStructNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sStructNode"))), "19struct.nc", 233, 583);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sStructNode","19struct.nc",233))), "19struct.nc", 233, 583);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 233, 584));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "19struct.nc", 233, 585));
@@ -6015,7 +6015,7 @@ _Bool sStructNode_compile(struct sStructNode* self, struct sInfo*  info  )
     _Bool anonymous;
     _Bool __result_obj__0;
     klass=self->mClass;
-    name=(char* )come_increment_ref_count(__builtin_string(self->mName), "19struct.nc", 239, 586);
+    name=(char* )come_increment_ref_count(__builtin_string(self->mName,"19struct.nc",239), "19struct.nc", 239, 586);
     pragma=(char* )come_increment_ref_count(self->pragma, "19struct.nc", 240, 587);
     anonymous=self->anonymous;
     output_struct(klass,(char* )come_increment_ref_count(pragma, "19struct.nc", 243, 588),info,anonymous);
@@ -6082,7 +6082,7 @@ char*  sStructNobodyNode_kind(struct sStructNobodyNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sStructNobodyNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sStructNobodyNode"))), "19struct.nc", 265, 601);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sStructNobodyNode","19struct.nc",265))), "19struct.nc", 265, 601);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 265, 602));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "19struct.nc", 265, 603));
@@ -6098,7 +6098,7 @@ _Bool sStructNobodyNode_compile(struct sStructNobodyNode* self, struct sInfo*  i
     void* __right_value2 = (void*)0;
     _Bool __result_obj__0;
     name=(char* )come_increment_ref_count(self->mName, "19struct.nc", 270, 604);
-    map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char* )come_increment_ref_count(__builtin_string(name), "19struct.nc", 272, 605),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value1=xsprintf("struct %s;\n",name)))), "19struct.nc", 272, 606),(_Bool)0);
+    map$2char$phbuffer$ph_insert(info->previous_struct_definition,(char* )come_increment_ref_count(__builtin_string(name,"19struct.nc",272), "19struct.nc", 272, 605),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value1=xsprintf("struct %s;\n",name)))), "19struct.nc", 272, 606),(_Bool)0);
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 272, 607));
         __result_obj__0 = (_Bool)1;
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "19struct.nc", 274, 608));
@@ -6199,7 +6199,7 @@ struct sClassNode* sClassNode_initialize(struct sClassNode* self, char*  name  ,
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "19struct.nc}", 288, 625);
     __right_value0 = (void*)0;
     __dec_obj49=self->mName,
-    self->mName=(char* )come_increment_ref_count(__builtin_string(name), "19struct.nc", 290, 627);
+    self->mName=(char* )come_increment_ref_count(__builtin_string(name,"19struct.nc",290), "19struct.nc", 290, 627);
     __dec_obj49 = come_decrement_ref_count(__dec_obj49, (void*)0, (void*)0, 0,0, (void*)0, "19struct.nc", 290, 626);
     __right_value0 = (void*)0;
     __dec_obj59=self->mClass,
@@ -6231,7 +6231,7 @@ char*  sClassNode_kind(struct sClassNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sClassNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sClassNode"))), "19struct.nc", 303, 702);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sClassNode","19struct.nc",303))), "19struct.nc", 303, 702);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 303, 703));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "19struct.nc", 303, 704));
@@ -6255,7 +6255,7 @@ _Bool sClassNode_compile(struct sClassNode* self, struct sInfo*  info  )
     _Bool Value;
     _Bool __result_obj__0;
     klass=(struct sClass* )come_increment_ref_count(self->mClass, "19struct.nc", 308, 705);
-    name=(char* )come_increment_ref_count(__builtin_string(self->mName), "19struct.nc", 309, 706);
+    name=(char* )come_increment_ref_count(__builtin_string(self->mName,"19struct.nc",309), "19struct.nc", 309, 706);
     if(__right_value0 = (void*)0,
 ({(_conditional_value_X0=(((struct sClass* )(__right_value0=map$2char$phsClass$ph_at(info->classes,name,((void*)0),(_Bool)0)))==((void*)0)));    come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "19struct.nc}", 311, 707);
 _conditional_value_X0;})) {
@@ -6279,7 +6279,7 @@ _conditional_value_X0;})) {
     type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "19struct.nc", 320, 716, "struct sType* "), "19struct.nc", 320, 717),(char* )come_increment_ref_count(name, "19struct.nc", 320, 718),(_Bool)0,info,(_Bool)0,0), "19struct.nc", 320, 719);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    override_=((struct sType* )(__right_value1=map$2char$phsType$ph_at(info->types,((char* )(__right_value0=__builtin_string(name))),((void*)0),(_Bool)0)));
+    override_=((struct sType* )(__right_value1=map$2char$phsType$ph_at(info->types,((char* )(__right_value0=__builtin_string(name,"19struct.nc",321))),((void*)0),(_Bool)0)));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 321, 720));
     if(override_) {
         if(override_->mTypedef) {
@@ -6288,7 +6288,7 @@ _conditional_value_X0;})) {
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(name), "19struct.nc", 327, 721),(struct sType* )come_increment_ref_count(sType_clone(type), "19struct.nc", 327, 722),(_Bool)0);
+    map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(name,"19struct.nc",327), "19struct.nc", 327, 721),(struct sType* )come_increment_ref_count(sType_clone(type), "19struct.nc", 327, 722),(_Bool)0);
     output_struct(klass,((void*)0),info,(_Bool)0);
     for(_o2_saved_4=(struct list$1sNode$ph*)come_increment_ref_count(self->mMethods, "19struct.nc", 331, 723),it=list$1sNode$ph_begin(_o2_saved_4)    ;!list$1sNode$ph_end(_o2_saved_4);it=list$1sNode$ph_next(_o2_saved_4)){
         Value=node_compile(it,info);
@@ -6701,10 +6701,10 @@ _conditional_value_X0;})) {
         __right_value0 = (void*)0;
         klass_=(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "19struct.nc", 347, 733, "struct sClass* "), "19struct.nc", 347, 735),(char* )come_increment_ref_count(type_name, "19struct.nc", 347, 734),(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "19struct.nc", 347, 736);
         __right_value0 = (void*)0;
-        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(type_name), "19struct.nc", 348, 737),(struct sClass* )come_increment_ref_count(klass_, "19struct.nc", 348, 738),(_Bool)0);
+        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(type_name,"19struct.nc",348), "19struct.nc", 348, 737),(struct sClass* )come_increment_ref_count(klass_, "19struct.nc", 348, 738),(_Bool)0);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        klass=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(type_name))))));
+        klass=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(type_name,"19struct.nc",350))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 350, 739));
         come_call_finalizer(sClass_finalize, klass_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "19struct.nc}", 357, 740);
     }
@@ -6720,7 +6720,7 @@ _conditional_value_X0;})) {
         type->mInnerStruct=(_Bool)1;
         __right_value0 = (void*)0;
         __dec_obj62=type->mInnerStructName,
-        type->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name), "19struct.nc", 360, 747);
+        type->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name,"19struct.nc",360), "19struct.nc", 360, 747);
         __dec_obj62 = come_decrement_ref_count(__dec_obj62, (void*)0, (void*)0, 0,0, (void*)0, "19struct.nc", 360, 746);
     }
     __right_value0 = (void*)0;
@@ -6889,7 +6889,7 @@ _conditional_value_X0;})) {
     __right_value1 = (void*)0;
     __right_value2 = (void*)0;
     _inf_value2=(struct sNode*)come_calloc(1, sizeof(struct sNode), "19struct.nc", 482, 817, "struct sNode");
-    _inf_obj_value2=(struct sStructNode*)come_increment_ref_count(((struct sStructNode*)(__right_value2=sStructNode_initialize((struct sStructNode* )come_increment_ref_count((struct sStructNode *)come_calloc(1, sizeof(struct sStructNode )*(1), "19struct.nc", 482, 814, "struct sStructNode* "), "19struct.nc", 482, 815),(char* )come_increment_ref_count(__builtin_string(type_name), "19struct.nc", 482, 816),klass,info,anonymous))), "19struct.nc", 482, 818);
+    _inf_obj_value2=(struct sStructNode*)come_increment_ref_count(((struct sStructNode*)(__right_value2=sStructNode_initialize((struct sStructNode* )come_increment_ref_count((struct sStructNode *)come_calloc(1, sizeof(struct sStructNode )*(1), "19struct.nc", 482, 814, "struct sStructNode* "), "19struct.nc", 482, 815),(char* )come_increment_ref_count(__builtin_string(type_name,"19struct.nc",482), "19struct.nc", 482, 816),klass,info,anonymous))), "19struct.nc", 482, 818);
     _inf_value2->_protocol_obj=_inf_obj_value2;
     _inf_value2->finalize=(void*)sStructNode_finalize;
     _inf_value2->clone=(void*)sStructNode_clone;
@@ -7326,7 +7326,7 @@ _conditional_value_X0;})) {
                 type->mInnerStruct=(_Bool)1;
                 __right_value0 = (void*)0;
                 __dec_obj76=type->mInnerStructName,
-                type->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name), "19struct.nc", 530, 881);
+                type->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name,"19struct.nc",530), "19struct.nc", 530, 881);
                 __dec_obj76 = come_decrement_ref_count(__dec_obj76, (void*)0, (void*)0, 0,0, (void*)0, "19struct.nc", 530, 880);
             }
             __right_value0 = (void*)0;
@@ -7367,7 +7367,7 @@ _conditional_value_X0;})) {
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             _inf_value4=(struct sNode*)come_calloc(1, sizeof(struct sNode), "19struct.nc", 558, 895, "struct sNode");
-            _inf_obj_value4=(struct sStructNobodyNode*)come_increment_ref_count(((struct sStructNobodyNode*)(__right_value2=sStructNobodyNode_initialize((struct sStructNobodyNode* )come_increment_ref_count((struct sStructNobodyNode *)come_calloc(1, sizeof(struct sStructNobodyNode )*(1), "19struct.nc", 558, 892, "struct sStructNobodyNode* "), "19struct.nc", 558, 893),(char* )come_increment_ref_count(__builtin_string(type_name), "19struct.nc", 558, 894),info))), "19struct.nc", 558, 896);
+            _inf_obj_value4=(struct sStructNobodyNode*)come_increment_ref_count(((struct sStructNobodyNode*)(__right_value2=sStructNobodyNode_initialize((struct sStructNobodyNode* )come_increment_ref_count((struct sStructNobodyNode *)come_calloc(1, sizeof(struct sStructNobodyNode )*(1), "19struct.nc", 558, 892, "struct sStructNobodyNode* "), "19struct.nc", 558, 893),(char* )come_increment_ref_count(__builtin_string(type_name,"19struct.nc",558), "19struct.nc", 558, 894),info))), "19struct.nc", 558, 896);
             _inf_value4->_protocol_obj=_inf_obj_value4;
             _inf_value4->finalize=(void*)sStructNobodyNode_finalize;
             _inf_value4->clone=(void*)sStructNobodyNode_clone;
@@ -7421,7 +7421,7 @@ _conditional_value_X0;})) {
             }
             if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X1=(((struct sClass* )(__right_value1=map$2char$phsClass$ph_at(info->generics_classes,((char* )(__right_value0=__builtin_string(type_name))),((void*)0),(_Bool)0)))!=((void*)0)));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 585, 924));
+({(_conditional_value_X1=(((struct sClass* )(__right_value1=map$2char$phsClass$ph_at(info->generics_classes,((char* )(__right_value0=__builtin_string(type_name,"19struct.nc",585))),((void*)0),(_Bool)0)))!=((void*)0)));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 585, 924));
             come_call_finalizer(sClass_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "19struct.nc}", 585, 925);
 _conditional_value_X1;})) {
                 err_msg(info,"redefined generics struct(%s)",type_name);
@@ -7432,7 +7432,7 @@ _conditional_value_X1;})) {
             __right_value1 = (void*)0;
             generics_class=(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "19struct.nc", 591, 926, "struct sClass* "), "19struct.nc", 591, 928),(char* )come_increment_ref_count(type_name, "19struct.nc", 591, 927),(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,generics_num,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "19struct.nc", 591, 929);
             __right_value0 = (void*)0;
-            map$2char$phsClass$ph_insert(info->generics_classes,(char* )come_increment_ref_count(__builtin_string(type_name), "19struct.nc", 593, 930),(struct sClass* )come_increment_ref_count(generics_class, "19struct.nc", 593, 931),(_Bool)0);
+            map$2char$phsClass$ph_insert(info->generics_classes,(char* )come_increment_ref_count(__builtin_string(type_name,"19struct.nc",593), "19struct.nc", 593, 930),(struct sClass* )come_increment_ref_count(generics_class, "19struct.nc", 593, 931),(_Bool)0);
             expected_next_character(123,info);
             while((_Bool)1) {
                 skip_spaces_and_lf(info);
@@ -7552,7 +7552,7 @@ _conditional_value_X2;})) {
                 struct_class_48=(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "19struct.nc", 676, 981, "struct sClass* "), "19struct.nc", 676, 983),(char* )come_increment_ref_count(type_name, "19struct.nc", 676, 982),(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "19struct.nc", 676, 985);
                 come_call_finalizer(sClass_finalize, __dec_obj82,(void*)0, (void*)0, 0, 0, 0, (void*)0, "19struct.nc", 676, 984);
                 __right_value0 = (void*)0;
-                map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(type_name), "19struct.nc", 677, 986),(struct sClass* )come_increment_ref_count(struct_class_48, "19struct.nc", 677, 987),(_Bool)0);
+                map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(type_name,"19struct.nc",677), "19struct.nc", 677, 986),(struct sClass* )come_increment_ref_count(struct_class_48, "19struct.nc", 677, 987),(_Bool)0);
             }
             else {
                 __right_value0 = (void*)0;
@@ -7568,7 +7568,7 @@ _conditional_value_X2;})) {
                 type_49->mInnerStruct=(_Bool)1;
                 __right_value0 = (void*)0;
                 __dec_obj84=type_49->mInnerStructName,
-                type_49->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name), "19struct.nc", 687, 995);
+                type_49->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name,"19struct.nc",687), "19struct.nc", 687, 995);
                 __dec_obj84 = come_decrement_ref_count(__dec_obj84, (void*)0, (void*)0, 0,0, (void*)0, "19struct.nc", 687, 994);
             }
             __right_value0 = (void*)0;
@@ -7724,7 +7724,7 @@ _conditional_value_X2;})) {
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
             _inf_value6=(struct sNode*)come_calloc(1, sizeof(struct sNode), "19struct.nc", 804, 1058, "struct sNode");
-            _inf_obj_value6=(struct sStructNode*)come_increment_ref_count(((struct sStructNode*)(__right_value2=sStructNode_initialize((struct sStructNode* )come_increment_ref_count((struct sStructNode *)come_calloc(1, sizeof(struct sStructNode )*(1), "19struct.nc", 804, 1055, "struct sStructNode* "), "19struct.nc", 804, 1056),(char* )come_increment_ref_count(__builtin_string(type_name), "19struct.nc", 804, 1057),struct_class_48,info,(_Bool)0))), "19struct.nc", 804, 1059);
+            _inf_obj_value6=(struct sStructNode*)come_increment_ref_count(((struct sStructNode*)(__right_value2=sStructNode_initialize((struct sStructNode* )come_increment_ref_count((struct sStructNode *)come_calloc(1, sizeof(struct sStructNode )*(1), "19struct.nc", 804, 1055, "struct sStructNode* "), "19struct.nc", 804, 1056),(char* )come_increment_ref_count(__builtin_string(type_name,"19struct.nc",804), "19struct.nc", 804, 1057),struct_class_48,info,(_Bool)0))), "19struct.nc", 804, 1059);
             _inf_value6->_protocol_obj=_inf_obj_value6;
             _inf_value6->finalize=(void*)sStructNode_finalize;
             _inf_value6->clone=(void*)sStructNode_clone;
@@ -7798,7 +7798,7 @@ _conditional_value_X3;})) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
-                parent_class2=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(parent_class_67->mParentClassName))))));
+                parent_class2=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(parent_class_67->mParentClassName,"19struct.nc",841))))));
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19struct.nc", 841, 1097));
             }
             else {
@@ -8030,7 +8030,7 @@ _conditional_value_X4;})) {
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         _inf_value7=(struct sNode*)come_calloc(1, sizeof(struct sNode), "19struct.nc", 1031, 1210, "struct sNode");
-        _inf_obj_value7=(struct sClassNode*)come_increment_ref_count(((struct sClassNode*)(__right_value2=sClassNode_initialize((struct sClassNode* )come_increment_ref_count((struct sClassNode *)come_calloc(1, sizeof(struct sClassNode )*(1), "19struct.nc", 1031, 1205, "struct sClassNode* "), "19struct.nc", 1031, 1206),(char* )come_increment_ref_count(__builtin_string(type_name_66), "19struct.nc", 1031, 1207),(struct sClass* )come_increment_ref_count(struct_class_71, "19struct.nc", 1031, 1208),(struct list$1sNode$ph*)come_increment_ref_count(methods, "19struct.nc", 1031, 1209),info))), "19struct.nc", 1031, 1211);
+        _inf_obj_value7=(struct sClassNode*)come_increment_ref_count(((struct sClassNode*)(__right_value2=sClassNode_initialize((struct sClassNode* )come_increment_ref_count((struct sClassNode *)come_calloc(1, sizeof(struct sClassNode )*(1), "19struct.nc", 1031, 1205, "struct sClassNode* "), "19struct.nc", 1031, 1206),(char* )come_increment_ref_count(__builtin_string(type_name_66,"19struct.nc",1031), "19struct.nc", 1031, 1207),(struct sClass* )come_increment_ref_count(struct_class_71, "19struct.nc", 1031, 1208),(struct list$1sNode$ph*)come_increment_ref_count(methods, "19struct.nc", 1031, 1209),info))), "19struct.nc", 1031, 1211);
         _inf_value7->_protocol_obj=_inf_obj_value7;
         _inf_value7->finalize=(void*)sClassNode_finalize;
         _inf_value7->clone=(void*)sClassNode_clone;

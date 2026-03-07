@@ -2049,7 +2049,7 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline, int id);
 void* come_heap_checker(void* mem, const char* sname, int sline, int id);
-char*  __builtin_string(const char* str);
+char*  __builtin_string(const char* str, char* sname, int line);
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2364,7 +2364,7 @@ unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , cons
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str);
+int*  __builtin_wstring(const char* str, char* sname, int sline);
 int wchar_tp_length(const int*  str  );
 int wchar_ta_length(const int*  str  );
 int wstring_length(const int*  str  );
@@ -2873,7 +2873,7 @@ static void output_union(struct sClass*  klass  , char*  pragma  , struct sInfo*
             else {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                map$2char$phsType$ph_insert(info->named_child_struct,(char* )come_increment_ref_count(__builtin_string(type->mInnerStructName), "20union.nc", 51, 135),(struct sType* )come_increment_ref_count(sType_clone(type), "20union.nc", 51, 313),(_Bool)0);
+                map$2char$phsType$ph_insert(info->named_child_struct,(char* )come_increment_ref_count(__builtin_string(type->mInnerStructName,"20union.nc",51), "20union.nc", 51, 135),(struct sType* )come_increment_ref_count(sType_clone(type), "20union.nc", 51, 313),(_Bool)0);
                 map$2char$phbuffer$ph_remove(info->struct_definition,(char* )come_increment_ref_count(type->mInnerStructName, "20union.nc", 52, 318),(_Bool)0);
                 output_aggregate_field(type,(char* )come_increment_ref_count(type->mInnerStructName, "20union.nc", 53, 319),buf,&existance_generics,(char* )come_increment_ref_count(name_2, "20union.nc", 53, 320),1,info,&named_child);
             }
@@ -2908,12 +2908,12 @@ static void output_union(struct sClass*  klass  , char*  pragma  , struct sInfo*
     }
     if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X0=(((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char* )(__right_value1=__builtin_string(name))))))==((void*)0)));    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "20union.nc", 75, 363));
+({(_conditional_value_X0=(((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char* )(__right_value1=__builtin_string(name,"20union.nc",75))))))==((void*)0)));    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "20union.nc", 75, 363));
     come_call_finalizer(buffer_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "20union.nc}", 75, 364);
 _conditional_value_X0;})) {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(name), "20union.nc", 76, 405),(struct buffer* )come_increment_ref_count(buffer_clone(buf), "20union.nc", 76, 406),(_Bool)0);
+        map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(name,"20union.nc",76), "20union.nc", 76, 405),(struct buffer* )come_increment_ref_count(buffer_clone(buf), "20union.nc", 76, 406),(_Bool)0);
     }
     (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0, "20union.nc", 80, 407));
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "20union.nc", 80, 408));
@@ -5180,7 +5180,7 @@ char*  sUnionNode_kind(struct sUnionNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sUnionNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sUnionNode"))), "20union.nc", 99, 425);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sUnionNode","20union.nc",99))), "20union.nc", 99, 425);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20union.nc", 99, 426));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "20union.nc", 99, 427));
@@ -5197,7 +5197,7 @@ _Bool sUnionNode_compile(struct sUnionNode* self, struct sInfo*  info  )
     _Bool anonymous;
     _Bool __result_obj__0;
     klass=self->klass;
-    name=(char* )come_increment_ref_count(__builtin_string(self->name), "20union.nc", 105, 428);
+    name=(char* )come_increment_ref_count(__builtin_string(self->name,"20union.nc",105), "20union.nc", 105, 428);
     pragma=(char* )come_increment_ref_count(self->pragma, "20union.nc", 106, 429);
     anonymous=self->anonymous;
     output_union(klass,(char* )come_increment_ref_count(pragma, "20union.nc", 109, 430),info,anonymous);
@@ -5266,7 +5266,7 @@ struct sNode* parse_union(char*  type_name  , char*  union_attribute  , struct s
     if(({(_conditional_value_X0=(((struct sClass* )(__right_value0=map$2char$phsClass$ph_at(info->classes,type_name,((void*)0),(_Bool)0)))==((void*)0)));    come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "20union.nc}", 119, 452);
 _conditional_value_X0;})) {
         __right_value0 = (void*)0;
-        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(type_name), "20union.nc", 120, 478),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "20union.nc", 120, 479, "struct sClass* "), "20union.nc", 120, 481),(char* )come_increment_ref_count(__builtin_string(type_name), "20union.nc", 120, 480),(_Bool)0,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "20union.nc", 120, 482),(_Bool)0);
+        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(type_name,"20union.nc",120), "20union.nc", 120, 478),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "20union.nc", 120, 479, "struct sClass* "), "20union.nc", 120, 481),(char* )come_increment_ref_count(__builtin_string(type_name,"20union.nc",120), "20union.nc", 120, 480),(_Bool)0,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "20union.nc", 120, 482),(_Bool)0);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "20union.nc", 122, 483, "struct sType* "), "20union.nc", 122, 484),(char* )come_increment_ref_count(type_name, "20union.nc", 122, 485),(_Bool)0,info,(_Bool)0,0), "20union.nc", 122, 486);
@@ -5274,7 +5274,7 @@ _conditional_value_X0;})) {
             type->mInnerStruct=(_Bool)1;
             __right_value0 = (void*)0;
             __dec_obj40=type->mInnerStructName,
-            type->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name), "20union.nc", 125, 488);
+            type->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name,"20union.nc",125), "20union.nc", 125, 488);
             __dec_obj40 = come_decrement_ref_count(__dec_obj40, (void*)0, (void*)0, 0,0, (void*)0, "20union.nc", 125, 487);
         }
         __right_value0 = (void*)0;
@@ -5300,7 +5300,7 @@ _conditional_value_X0;})) {
             type_30->mInnerStruct=(_Bool)1;
             __right_value0 = (void*)0;
             __dec_obj41=type_30->mInnerStructName,
-            type_30->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name), "20union.nc", 143, 498);
+            type_30->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name,"20union.nc",143), "20union.nc", 143, 498);
             __dec_obj41 = come_decrement_ref_count(__dec_obj41, (void*)0, (void*)0, 0,0, (void*)0, "20union.nc", 143, 497);
         }
         if(typedef_) {
@@ -5994,7 +5994,7 @@ struct sNode* top_level_v97(char* buf, char* head, int head_sline, struct sInfo*
 ({(_conditional_value_X0=(((struct sClass* )(__right_value0=map$2char$phsClass$ph_at(info->classes,type_name,((void*)0),(_Bool)0)))==((void*)0)));        come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "20union.nc}", 235, 588);
 _conditional_value_X0;})) {
             __right_value0 = (void*)0;
-            map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(type_name), "20union.nc", 236, 589),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "20union.nc", 236, 590, "struct sClass* "), "20union.nc", 236, 592),(char* )come_increment_ref_count(__builtin_string(type_name), "20union.nc", 236, 591),(_Bool)0,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "20union.nc", 236, 593),(_Bool)0);
+            map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(type_name,"20union.nc",236), "20union.nc", 236, 589),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "20union.nc", 236, 590, "struct sClass* "), "20union.nc", 236, 592),(char* )come_increment_ref_count(__builtin_string(type_name,"20union.nc",236), "20union.nc", 236, 591),(_Bool)0,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "20union.nc", 236, 593),(_Bool)0);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "20union.nc", 237, 594, "struct sType* "), "20union.nc", 237, 595),(char* )come_increment_ref_count(type_name, "20union.nc", 237, 596),(_Bool)0,info,(_Bool)0,0), "20union.nc", 237, 597);
@@ -6002,7 +6002,7 @@ _conditional_value_X0;})) {
                 type->mInnerStruct=(_Bool)1;
                 __right_value0 = (void*)0;
                 __dec_obj53=type->mInnerStructName,
-                type->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name), "20union.nc", 240, 599);
+                type->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name,"20union.nc",240), "20union.nc", 240, 599);
                 __dec_obj53 = come_decrement_ref_count(__dec_obj53, (void*)0, (void*)0, 0,0, (void*)0, "20union.nc", 240, 598);
             }
             __right_value0 = (void*)0;
@@ -6027,7 +6027,7 @@ _conditional_value_X0;})) {
                 type_33->mInnerStruct=(_Bool)1;
                 __right_value0 = (void*)0;
                 __dec_obj54=type_33->mInnerStructName,
-                type_33->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name), "20union.nc", 256, 608);
+                type_33->mInnerStructName=(char* )come_increment_ref_count(__builtin_string(type_name,"20union.nc",256), "20union.nc", 256, 608);
                 __dec_obj54 = come_decrement_ref_count(__dec_obj54, (void*)0, (void*)0, 0,0, (void*)0, "20union.nc", 256, 607);
             }
             if(typedef_) {

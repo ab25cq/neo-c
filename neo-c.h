@@ -716,7 +716,7 @@ uniq void* come_heap_checker(void* mem, const char* sname, int sline, int id)
     exit(1);
 }
 
-uniq string __builtin_string(const char* str)
+uniq string __builtin_string(const char* str, char* sname=__caller_sname__, int line=__caller_line__)
 {
     if(str == null) {
         return null;
@@ -7858,7 +7858,7 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
     
     typedef wchar_t*% wstring;
     
-    uniq wstring __builtin_wstring(const char* str)
+    uniq wstring __builtin_wstring(const char* str, char* sname=__caller_sname__, int sline=__caller_line__)
     {
         if(str == null) {
             return null;

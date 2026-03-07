@@ -2079,7 +2079,7 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline, int id);
 void* come_heap_checker(void* mem, const char* sname, int sline, int id);
-char*  __builtin_string(const char* str);
+char*  __builtin_string(const char* str, char* sname, int line);
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2394,7 +2394,7 @@ unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , cons
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str);
+int*  __builtin_wstring(const char* str, char* sname, int sline);
 int wchar_tp_length(const int*  str  );
 int wchar_ta_length(const int*  str  );
 int wstring_length(const int*  str  );
@@ -2937,7 +2937,7 @@ _Bool is_portable_libc_symbol(const char* sym)
     void* __right_value70 = (void*)0;
     void* __right_value71 = (void*)0;
     _Bool __result_obj__0;
-        __result_obj__0 = string_operator_equals(((char* )(__right_value1=__builtin_string(sym))),"fopen")||string_operator_equals(((char* )(__right_value3=__builtin_string(sym))),"freopen")||string_operator_equals(((char* )(__right_value5=__builtin_string(sym))),"fclose")||string_operator_equals(((char* )(__right_value7=__builtin_string(sym))),"fread")||string_operator_equals(((char* )(__right_value9=__builtin_string(sym))),"fwrite")||string_operator_equals(((char* )(__right_value11=__builtin_string(sym))),"fflush")||string_operator_equals(((char* )(__right_value13=__builtin_string(sym))),"fprintf")||string_operator_equals(((char* )(__right_value15=__builtin_string(sym))),"printf")||string_operator_equals(((char* )(__right_value17=__builtin_string(sym))),"snprintf")||string_operator_equals(((char* )(__right_value19=__builtin_string(sym))),"vsnprintf")||string_operator_equals(((char* )(__right_value21=__builtin_string(sym))),"vfprintf")||string_operator_equals(((char* )(__right_value23=__builtin_string(sym))),"puts")||string_operator_equals(((char* )(__right_value25=__builtin_string(sym))),"fputs")||string_operator_equals(((char* )(__right_value27=__builtin_string(sym))),"system")||string_operator_equals(((char* )(__right_value29=__builtin_string(sym))),"realpath")||string_operator_equals(((char* )(__right_value31=__builtin_string(sym))),"popen")||string_operator_equals(((char* )(__right_value33=__builtin_string(sym))),"pclose")||string_operator_equals(((char* )(__right_value35=__builtin_string(sym))),"remove")||string_operator_equals(((char* )(__right_value37=__builtin_string(sym))),"rename")||string_operator_equals(((char* )(__right_value39=__builtin_string(sym))),"unlink")||string_operator_equals(((char* )(__right_value41=__builtin_string(sym))),"access")||string_operator_equals(((char* )(__right_value43=__builtin_string(sym))),"stat")||string_operator_equals(((char* )(__right_value45=__builtin_string(sym))),"lstat")||string_operator_equals(((char* )(__right_value47=__builtin_string(sym))),"fstat")||string_operator_equals(((char* )(__right_value49=__builtin_string(sym))),"open")||string_operator_equals(((char* )(__right_value51=__builtin_string(sym))),"close")||string_operator_equals(((char* )(__right_value53=__builtin_string(sym))),"read")||string_operator_equals(((char* )(__right_value55=__builtin_string(sym))),"write")||string_operator_equals(((char* )(__right_value57=__builtin_string(sym))),"lseek")||string_operator_equals(((char* )(__right_value59=__builtin_string(sym))),"mkdir")||string_operator_equals(((char* )(__right_value61=__builtin_string(sym))),"rmdir")||string_operator_equals(((char* )(__right_value63=__builtin_string(sym))),"opendir")||string_operator_equals(((char* )(__right_value65=__builtin_string(sym))),"readdir")||string_operator_equals(((char* )(__right_value67=__builtin_string(sym))),"closedir")||string_operator_equals(((char* )(__right_value69=__builtin_string(sym))),"getcwd")||string_operator_equals(((char* )(__right_value71=__builtin_string(sym))),"chdir");
+        __result_obj__0 = string_operator_equals(((char* )(__right_value1=__builtin_string(sym,"03output_code.nc",5))),"fopen")||string_operator_equals(((char* )(__right_value3=__builtin_string(sym,"03output_code.nc",6))),"freopen")||string_operator_equals(((char* )(__right_value5=__builtin_string(sym,"03output_code.nc",7))),"fclose")||string_operator_equals(((char* )(__right_value7=__builtin_string(sym,"03output_code.nc",8))),"fread")||string_operator_equals(((char* )(__right_value9=__builtin_string(sym,"03output_code.nc",9))),"fwrite")||string_operator_equals(((char* )(__right_value11=__builtin_string(sym,"03output_code.nc",10))),"fflush")||string_operator_equals(((char* )(__right_value13=__builtin_string(sym,"03output_code.nc",11))),"fprintf")||string_operator_equals(((char* )(__right_value15=__builtin_string(sym,"03output_code.nc",12))),"printf")||string_operator_equals(((char* )(__right_value17=__builtin_string(sym,"03output_code.nc",13))),"snprintf")||string_operator_equals(((char* )(__right_value19=__builtin_string(sym,"03output_code.nc",14))),"vsnprintf")||string_operator_equals(((char* )(__right_value21=__builtin_string(sym,"03output_code.nc",15))),"vfprintf")||string_operator_equals(((char* )(__right_value23=__builtin_string(sym,"03output_code.nc",16))),"puts")||string_operator_equals(((char* )(__right_value25=__builtin_string(sym,"03output_code.nc",17))),"fputs")||string_operator_equals(((char* )(__right_value27=__builtin_string(sym,"03output_code.nc",18))),"system")||string_operator_equals(((char* )(__right_value29=__builtin_string(sym,"03output_code.nc",19))),"realpath")||string_operator_equals(((char* )(__right_value31=__builtin_string(sym,"03output_code.nc",20))),"popen")||string_operator_equals(((char* )(__right_value33=__builtin_string(sym,"03output_code.nc",21))),"pclose")||string_operator_equals(((char* )(__right_value35=__builtin_string(sym,"03output_code.nc",22))),"remove")||string_operator_equals(((char* )(__right_value37=__builtin_string(sym,"03output_code.nc",23))),"rename")||string_operator_equals(((char* )(__right_value39=__builtin_string(sym,"03output_code.nc",24))),"unlink")||string_operator_equals(((char* )(__right_value41=__builtin_string(sym,"03output_code.nc",25))),"access")||string_operator_equals(((char* )(__right_value43=__builtin_string(sym,"03output_code.nc",26))),"stat")||string_operator_equals(((char* )(__right_value45=__builtin_string(sym,"03output_code.nc",27))),"lstat")||string_operator_equals(((char* )(__right_value47=__builtin_string(sym,"03output_code.nc",28))),"fstat")||string_operator_equals(((char* )(__right_value49=__builtin_string(sym,"03output_code.nc",29))),"open")||string_operator_equals(((char* )(__right_value51=__builtin_string(sym,"03output_code.nc",30))),"close")||string_operator_equals(((char* )(__right_value53=__builtin_string(sym,"03output_code.nc",31))),"read")||string_operator_equals(((char* )(__right_value55=__builtin_string(sym,"03output_code.nc",32))),"write")||string_operator_equals(((char* )(__right_value57=__builtin_string(sym,"03output_code.nc",33))),"lseek")||string_operator_equals(((char* )(__right_value59=__builtin_string(sym,"03output_code.nc",34))),"mkdir")||string_operator_equals(((char* )(__right_value61=__builtin_string(sym,"03output_code.nc",35))),"rmdir")||string_operator_equals(((char* )(__right_value63=__builtin_string(sym,"03output_code.nc",36))),"opendir")||string_operator_equals(((char* )(__right_value65=__builtin_string(sym,"03output_code.nc",37))),"readdir")||string_operator_equals(((char* )(__right_value67=__builtin_string(sym,"03output_code.nc",38))),"closedir")||string_operator_equals(((char* )(__right_value69=__builtin_string(sym,"03output_code.nc",39))),"getcwd")||string_operator_equals(((char* )(__right_value71=__builtin_string(sym,"03output_code.nc",40))),"chdir");
     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 5, 1));
     (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 6, 2));
     (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 7, 3));
@@ -3022,11 +3022,11 @@ _Bool should_strip_portable_asm_alias(const char* source, int* consumed)
     memset(&token, 0, sizeof(token));
     memcpy(token,source,len);
     token[len]=0;
-    has_darwin_suffix=string_index(((char* )(__right_value0=__builtin_string(token))),"$",-1)>=0;
+    has_darwin_suffix=string_index(((char* )(__right_value0=__builtin_string(token,"03output_code.nc",80))),"$",-1)>=0;
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 80, 37));
     __right_value0 = (void*)0;
-    has_underscore_alias=string_index(((char* )(__right_value0=__builtin_string(token))),"\"_",-1)>=0;
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "", 81, 38));
+    has_underscore_alias=string_index(((char* )(__right_value0=__builtin_string(token,"03output_code.nc",81))),"\"_",-1)>=0;
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 81, 38));
     if(!has_darwin_suffix&&!has_underscore_alias) {
                 neo_current_frame = fr.prev;
         return (_Bool)0;
@@ -3049,7 +3049,7 @@ char*  normalize_portable_c_source(char* source)
     char* out;
     int pos;
     if(source==((void*)0)) {
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 94, 39);
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",94))), "03output_code.nc", 94, 39);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 94, 40));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "03output_code.nc", 94, 41));
@@ -3057,7 +3057,7 @@ char*  normalize_portable_c_source(char* source)
     }
     if(!gPortableC) {
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(source))), "03output_code.nc", 97, 42);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(source,"03output_code.nc",97))), "03output_code.nc", 97, 42);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 97, 43));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "03output_code.nc", 97, 44));
@@ -3084,8 +3084,8 @@ char*  normalize_portable_c_source(char* source)
             token[len]=0;
             out=token;
             __right_value0 = (void*)0;
-            pos=string_index(((char* )(__right_value0=__builtin_string(token))),"$",-1);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "", 122, 48));
+            pos=string_index(((char* )(__right_value0=__builtin_string(token,"03output_code.nc",122))),"$",-1);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 122, 48));
             if(pos>=0&&token[0]==95&&token[1]!=95&&token[1]!=0&&token[pos+1]>=65&&token[pos+1]<=90) {
                 token[pos]=0;
                 out=token+1;
@@ -3152,7 +3152,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
         if(!node_compile(type->mAlignas,info)) {
             printf("_Alignas error\n");
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 155, 57);
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",155))), "03output_code.nc", 155, 57);
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 155, 58);
             (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 155, 59));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 155, 60));
@@ -3337,7 +3337,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
         if(class_name==((void*)0)) {
             err_msg(info,"class name is null");
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 338, 129);
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",338))), "03output_code.nc", 338, 129);
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 338, 130);
             (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 338, 131));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 338, 132));
@@ -5190,7 +5190,7 @@ static char*  make_lambda_type_name_string(struct sType*  type  , char* var_name
     if(type->mResultType==((void*)0)) {
         err_msg(info,"invalid lambda type");
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 711, 414);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",711))), "03output_code.nc", 711, 414);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 711, 415);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 711, 416));
         neo_current_frame = fr.prev;
@@ -5396,7 +5396,7 @@ char*  output_lambda_original_type(struct sType*  type2  , char* name, struct sI
                 if(!node_compile(it,info)) {
                     err_msg(info,"invalid array number");
                                         __right_value0 = (void*)0;
-                    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 873, 462);
+                    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",873))), "03output_code.nc", 873, 462);
                     come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 873, 463);
                     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 873, 464);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 873, 465));
@@ -5655,7 +5655,7 @@ char*  make_define_var(struct sType*  type  , char* name, struct sInfo*  info  ,
             if(!node_compile(type2->mSizeNum,info)) {
                 err_msg(info,"invalid bit field number");
                                 __right_value0 = (void*)0;
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 972, 488);
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",972))), "03output_code.nc", 972, 488);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 972, 489));
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 972, 490);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 972, 491);
@@ -5676,7 +5676,7 @@ char*  make_define_var(struct sType*  type  , char* name, struct sInfo*  info  ,
             if(!node_compile(it,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 986, 497);
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",986))), "03output_code.nc", 986, 497);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 986, 498));
                 come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 986, 499);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 986, 500);
@@ -5699,7 +5699,7 @@ char*  make_define_var(struct sType*  type  , char* name, struct sInfo*  info  ,
             if(!node_compile(it_54,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1001, 507);
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1001))), "03output_code.nc", 1001, 507);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1001, 508));
                 come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1001, 509);
                 come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1001, 510);
@@ -5794,7 +5794,7 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
     }
     if(string_operator_equals(type2->mClass->mName,"lambda")&&type2->mAsmName!=((void*)0)&&string_operator_not_equals(type2->mAsmName,"")) {
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(name))), "03output_code.nc", 1052, 530);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(name,"03output_code.nc",1052))), "03output_code.nc", 1052, 530);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1052, 531);
         come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1052, 532);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1052, 533));
@@ -5804,7 +5804,7 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
     }
     else if(string_operator_equals(type2->mClass->mName,"lambda")) {
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(name))), "03output_code.nc", 1055, 535);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(name,"03output_code.nc",1055))), "03output_code.nc", 1055, 535);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1055, 536);
         come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1055, 537);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1055, 538));
@@ -5830,7 +5830,7 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
             if(!node_compile(it,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1070, 542);
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1070))), "03output_code.nc", 1070, 542);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1070, 543));
                 come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1070, 544);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1070, 545);
@@ -5871,7 +5871,7 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
         if(!node_compile(type2->mSizeNum,info)) {
             err_msg(info,"invalid bit field number");
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1102, 553);
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1102))), "03output_code.nc", 1102, 553);
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1102, 554);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1102, 555);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1102, 556));
@@ -5903,7 +5903,7 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
             if(!node_compile(it_58,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1130, 561);
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1130))), "03output_code.nc", 1130, 561);
                 come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1130, 562);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1130, 563);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1130, 564);
@@ -6044,7 +6044,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
             if(!node_compile(it,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1223, 587);
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1223))), "03output_code.nc", 1223, 587);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1223, 588));
                 come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1223, 589);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1223, 590);
@@ -6075,7 +6075,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
         if(!node_compile(type2->mSizeNum,info)) {
             err_msg(info,"invalid bit field number");
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1245, 598);
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1245))), "03output_code.nc", 1245, 598);
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1245, 599);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1245, 600);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1245, 601));
@@ -6112,7 +6112,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
             if(!node_compile(it_63,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1275, 611);
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1275))), "03output_code.nc", 1275, 611);
                 (type_str_62 = come_decrement_ref_count(type_str_62, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1275, 612));
                 come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_12, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1275, 613);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1275, 614);
@@ -6146,7 +6146,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
         __dec_obj46 = come_decrement_ref_count(__dec_obj46, (void*)0, (void*)0, 0,0, (void*)0, "03output_code.nc", 1296, 622);
         if(string_operator_equals(type_str_65,"")) {
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1299, 624);
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1299))), "03output_code.nc", 1299, 624);
             (type_str_65 = come_decrement_ref_count(type_str_65, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1299, 625));
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1299, 626);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1299, 627);
@@ -6336,7 +6336,7 @@ char*  output_function(struct sFun*  fun  , struct sInfo*  info  )
         if(!node_compile(node,info)) {
             err_msg(info,"invalid array number");
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1428, 685);
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1428))), "03output_code.nc", 1428, 685);
             come_call_finalizer(sType_finalize, base_result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1428, 686);
             (result_type_str = come_decrement_ref_count(result_type_str, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1428, 687));
             come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_14, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1428, 688);
@@ -6669,7 +6669,7 @@ char*  header_function(struct sFun*  fun  , struct sInfo*  info  )
         if(!node_compile(node,info)) {
             err_msg(info,"invalid array number");
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(""))), "03output_code.nc", 1601, 747);
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1601))), "03output_code.nc", 1601, 747);
             come_call_finalizer(sType_finalize, base_result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1601, 748);
             (result_type_str = come_decrement_ref_count(result_type_str, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1601, 749));
             come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_17, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1601, 750);
@@ -7113,7 +7113,7 @@ _Bool output_source_file(struct sInfo*  info  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            it2=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->uniq_funcs,((char* )(__right_value1=__builtin_string(it))))));
+            it2=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->uniq_funcs,((char* )(__right_value1=__builtin_string(it,"03output_code.nc",1878))))));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1878, 886));
             __right_value0 = (void*)0;
             new_fun=(struct sFun* )come_increment_ref_count(compile_uniq_function(it2,info), "03output_code.nc", 1879, 887);
@@ -7122,7 +7122,7 @@ _Bool output_source_file(struct sInfo*  info  )
                 exit(3);
             }
             __right_value0 = (void*)0;
-            map$2char$phsFun$ph_put(info->funcs,(char* )come_increment_ref_count(__builtin_string(it), "03output_code.nc", 1886, 946),(struct sFun* )come_increment_ref_count(new_fun, "03output_code.nc", 1886, 947),(_Bool)0);
+            map$2char$phsFun$ph_put(info->funcs,(char* )come_increment_ref_count(__builtin_string(it,"03output_code.nc",1886), "03output_code.nc", 1886, 946),(struct sFun* )come_increment_ref_count(new_fun, "03output_code.nc", 1886, 947),(_Bool)0);
             come_call_finalizer(sFun_finalize, new_fun, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1888, 948);
         }
         come_call_finalizer(map$2char$phsFun$ph$p_finalize, _o2_saved_21, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1891, 953);
@@ -7133,14 +7133,14 @@ _Bool output_source_file(struct sInfo*  info  )
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1891, 955));
     f=fopen(output_file_name,"w");
     if(f==((void*)0)) {
-        die("fopen","(null)",0);
+        die("fopen","03output_code.nc",1894);
     }
     fprintf(f,"/// c_include definition ///\n");
     for(_o2_saved_22=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->c_include_definition, "03output_code.nc", 1897, 956),it_107=map$2char$phbuffer$ph_begin(_o2_saved_22)    ;!map$2char$phbuffer$ph_end(_o2_saved_22);it_107=map$2char$phbuffer$ph_next(_o2_saved_22)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        buf=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->c_include_definition,((char* )(__right_value1=__builtin_string(it_107))))));
+        buf=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->c_include_definition,((char* )(__right_value1=__builtin_string(it_107,"03output_code.nc",1898))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1898, 987));
         __right_value0 = (void*)0;
         fprintf(f,"%s\n",((char* )(__right_value0=buffer_to_string(buf))));
@@ -7151,7 +7151,7 @@ _Bool output_source_file(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        buf_110=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->typedef_definition,((char* )(__right_value1=__builtin_string(it_109))))));
+        buf_110=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->typedef_definition,((char* )(__right_value1=__builtin_string(it_109,"03output_code.nc",1904))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1904, 990));
         __right_value0 = (void*)0;
         fprintf(f,"%s\n",((char* )(__right_value0=buffer_to_string(buf_110))));
@@ -7162,7 +7162,7 @@ _Bool output_source_file(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        buf_112=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->previous_struct_definition,((char* )(__right_value1=__builtin_string(it_111))))));
+        buf_112=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->previous_struct_definition,((char* )(__right_value1=__builtin_string(it_111,"03output_code.nc",1910))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1910, 993));
         __right_value0 = (void*)0;
         fprintf(f,"%s\n",((char* )(__right_value0=buffer_to_string(buf_112))));
@@ -7173,7 +7173,7 @@ _Bool output_source_file(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        buf_114=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char* )(__right_value1=__builtin_string(it_113))))));
+        buf_114=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char* )(__right_value1=__builtin_string(it_113,"03output_code.nc",1916))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1916, 996));
         __right_value0 = (void*)0;
         fprintf(f,"%s\n",((char* )(__right_value0=buffer_to_string(buf_114))));
@@ -7184,7 +7184,7 @@ _Bool output_source_file(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        buf_116=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->var_definition,((char* )(__right_value1=__builtin_string(it_115))))));
+        buf_116=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->var_definition,((char* )(__right_value1=__builtin_string(it_115,"03output_code.nc",1922))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1922, 999));
         __right_value0 = (void*)0;
         fprintf(f,"%s\n",((char* )(__right_value0=buffer_to_string(buf_116))));
@@ -7199,7 +7199,7 @@ _Bool output_source_file(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        it2_118=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_117))))));
+        it2_118=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_117,"03output_code.nc",1931))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1931, 1003));
         contained_generics=is_contained_generics_funcstion(it2_118,info);
         if(!contained_generics) {
@@ -7219,7 +7219,7 @@ _Bool output_source_file(struct sInfo*  info  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            str=((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(info->uniq_definition,((char* )(__right_value1=__builtin_string(it_120))))));
+            str=((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(info->uniq_definition,((char* )(__right_value1=__builtin_string(it_120,"03output_code.nc",1949))))));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1949, 1037));
             fprintf(f,"%s\n",str);
         }
@@ -7230,7 +7230,7 @@ _Bool output_source_file(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        it2_124=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_123))))));
+        it2_124=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_123,"03output_code.nc",1956))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1956, 1044));
         contained_generics_125=is_contained_generics_funcstion(it2_124,info);
         if(contained_generics_125) {
@@ -7248,7 +7248,7 @@ _Bool output_source_file(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        it2_127=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_126))))));
+        it2_127=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_126,"03output_code.nc",1971))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1971, 1048));
         contained_generics_128=is_contained_generics_funcstion(it2_127,info);
         if(contained_generics_128) {
@@ -7277,7 +7277,7 @@ _Bool output_source_file(struct sInfo*  info  )
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1996, 1053));
         f2=fopen(output_file_name,"w");
         if(f2==((void*)0)) {
-            die("fopen","(null)",0);
+            die("fopen","03output_code.nc",1999);
         }
         fwrite(normalized,1,string_length(normalized),f2);
         fclose(f2);
@@ -8559,7 +8559,7 @@ void add_come_last_code(struct sInfo*  info  , const char* msg, ...)
     len=vasprintf(&msg2,msg,args);
     __builtin_va_end(args);
     __dec_obj56=info->module->mLastCode,
-    info->module->mLastCode=(char* )come_increment_ref_count(__builtin_string(msg2), "03output_code.nc", 2075, 1072);
+    info->module->mLastCode=(char* )come_increment_ref_count(__builtin_string(msg2,"03output_code.nc",2075), "03output_code.nc", 2075, 1072);
     __dec_obj56 = come_decrement_ref_count(__dec_obj56, (void*)0, (void*)0, 0,0, (void*)0, "03output_code.nc", 2075, 1071);
     free(msg2);
     neo_current_frame = fr.prev;
@@ -8582,7 +8582,7 @@ void add_come_last_code2(struct sInfo*  info  , const char* msg, ...)
     len=vasprintf(&msg2,msg,args);
     __builtin_va_end(args);
     __dec_obj57=info->module->mLastCode2,
-    info->module->mLastCode2=(char* )come_increment_ref_count(__builtin_string(msg2), "03output_code.nc", 2092, 1074);
+    info->module->mLastCode2=(char* )come_increment_ref_count(__builtin_string(msg2,"03output_code.nc",2092), "03output_code.nc", 2092, 1074);
     __dec_obj57 = come_decrement_ref_count(__dec_obj57, (void*)0, (void*)0, 0,0, (void*)0, "03output_code.nc", 2092, 1073);
     free(msg2);
     neo_current_frame = fr.prev;

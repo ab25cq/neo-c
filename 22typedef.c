@@ -2063,7 +2063,7 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline, int id);
 void* come_heap_checker(void* mem, const char* sname, int sline, int id);
-char*  __builtin_string(const char* str);
+char*  __builtin_string(const char* str, char* sname, int line);
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2378,7 +2378,7 @@ unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , cons
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str);
+int*  __builtin_wstring(const char* str, char* sname, int sline);
 int wchar_tp_length(const int*  str  );
 int wchar_ta_length(const int*  str  );
 int wstring_length(const int*  str  );
@@ -2851,7 +2851,7 @@ struct sTypedefNode* sTypedefNode_initialize(struct sTypedefNode* self, char*  t
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "22typedef.nc}", 23, 4);
     __right_value0 = (void*)0;
     __dec_obj1=self->mTypeName,
-    self->mTypeName=(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 25, 6);
+    self->mTypeName=(char* )come_increment_ref_count(__builtin_string(type_name,"22typedef.nc",25), "22typedef.nc", 25, 6);
     __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "22typedef.nc", 25, 5);
     __right_value0 = (void*)0;
     __dec_obj36=self->mType,
@@ -2882,7 +2882,7 @@ char*  sTypedefNode_kind(struct sTypedefNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sTypedefNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sTypedefNode"))), "22typedef.nc", 38, 270);
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sTypedefNode","22typedef.nc",38))), "22typedef.nc", 38, 270);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 38, 271));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "22typedef.nc", 38, 272));
@@ -2908,31 +2908,31 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
     struct sType*  type_33  ;
     char*  __dec_obj48  ;
     _Bool __result_obj__0;
-    type_name=(char* )come_increment_ref_count(__builtin_string(self->mTypeName), "22typedef.nc", 43, 273);
+    type_name=(char* )come_increment_ref_count(__builtin_string(self->mTypeName,"22typedef.nc",43), "22typedef.nc", 43, 273);
     if(string_operator_equals(type_name,"__darwin_va_list")) {
         __right_value0 = (void*)0;
-        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string("__darwin_va_list"), "22typedef.nc", 46, 340),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "22typedef.nc", 46, 341, "struct sClass* "), "22typedef.nc", 46, 342),(char*)come_increment_ref_count(xsprintf("__darwin_va_list"), "22typedef.nc", 46, 343),(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "22typedef.nc", 46, 344),(_Bool)0);
+        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string("__darwin_va_list","22typedef.nc",46), "22typedef.nc", 46, 340),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "22typedef.nc", 46, 341, "struct sClass* "), "22typedef.nc", 46, 342),(char*)come_increment_ref_count(xsprintf("__darwin_va_list"), "22typedef.nc", 46, 343),(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "22typedef.nc", 46, 344),(_Bool)0);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "22typedef.nc", 48, 345, "struct sType* "), "22typedef.nc", 48, 346),(char*)come_increment_ref_count(xsprintf("__darwin_va_list"), "22typedef.nc", 48, 347),(_Bool)0,info,(_Bool)0,0), "22typedef.nc", 48, 348);
         __right_value0 = (void*)0;
         __dec_obj46=type->mOriginalTypeName,
-        type->mOriginalTypeName=(char* )come_increment_ref_count(__builtin_string("__darwin_va_list"), "22typedef.nc", 49, 350);
+        type->mOriginalTypeName=(char* )come_increment_ref_count(__builtin_string("__darwin_va_list","22typedef.nc",49), "22typedef.nc", 49, 350);
         __dec_obj46 = come_decrement_ref_count(__dec_obj46, (void*)0, (void*)0, 0,0, (void*)0, "22typedef.nc", 49, 349);
         type->mTypedef=(_Bool)1;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 52, 391),(struct sType* )come_increment_ref_count(sType_clone(type), "22typedef.nc", 52, 392),(_Bool)0);
+        map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(type_name,"22typedef.nc",52), "22typedef.nc", 52, 391),(struct sType* )come_increment_ref_count(sType_clone(type), "22typedef.nc", 52, 392),(_Bool)0);
         if(list$1sNode$ph_length(type->mArrayNum)>0||type->mAtomic) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 55, 433),(struct buffer* )come_increment_ref_count(charp_to_buffer("typedef __builtin_va_list __darwin_va_list;\n"), "22typedef.nc", 55, 434),(_Bool)0);
+            map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(type_name,"22typedef.nc",55), "22typedef.nc", 55, 433),(struct buffer* )come_increment_ref_count(charp_to_buffer("typedef __builtin_va_list __darwin_va_list;\n"), "22typedef.nc", 55, 434),(_Bool)0);
         }
         else {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            map$2char$phbuffer$ph_insert(info->typedef_definition,(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 58, 435),(struct buffer* )come_increment_ref_count(charp_to_buffer("typedef __builtin_va_list __darwin_va_list;\n"), "22typedef.nc", 58, 436),(_Bool)0);
+            map$2char$phbuffer$ph_insert(info->typedef_definition,(char* )come_increment_ref_count(__builtin_string(type_name,"22typedef.nc",58), "22typedef.nc", 58, 435),(struct buffer* )come_increment_ref_count(charp_to_buffer("typedef __builtin_va_list __darwin_va_list;\n"), "22typedef.nc", 58, 436),(_Bool)0);
         }
         come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "22typedef.nc}", 103, 437);
     }
@@ -2944,20 +2944,20 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
             if(string_operator_not_equals(type_name_32,"va_list")) {
                 __right_value0 = (void*)0;
                 __dec_obj47=type_31->mOriginalTypeName,
-                type_31->mOriginalTypeName=(char* )come_increment_ref_count(__builtin_string(type_name_32), "22typedef.nc", 66, 442);
+                type_31->mOriginalTypeName=(char* )come_increment_ref_count(__builtin_string(type_name_32,"22typedef.nc",66), "22typedef.nc", 66, 442);
                 __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0, "22typedef.nc", 66, 441);
             }
             type_31->mTypedef=(_Bool)1;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(type_name_32), "22typedef.nc", 70, 443),(struct sType* )come_increment_ref_count(sType_clone(type_31), "22typedef.nc", 70, 444),(_Bool)0);
+            map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(type_name_32,"22typedef.nc",70), "22typedef.nc", 70, 443),(struct sType* )come_increment_ref_count(sType_clone(type_31), "22typedef.nc", 70, 444),(_Bool)0);
             if(!is_gcc_builtin_float_typedef((char* )come_increment_ref_count(type_name_32, "22typedef.nc", 73, 445),info)) {
                 if(list$1sNode$ph_length(type_31->mArrayNum)>0||type_31->mAtomic) {
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
-                    map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(type_name_32), "22typedef.nc", 75, 446),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_31,type_name_32,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 75, 447),(_Bool)0);
+                    map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(type_name_32,"22typedef.nc",75), "22typedef.nc", 75, 446),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_31,type_name_32,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 75, 447),(_Bool)0);
                     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 75, 448));
                     (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 75, 449));
                 }
@@ -2966,7 +2966,7 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
                     __right_value3 = (void*)0;
-                    map$2char$phbuffer$ph_insert(info->typedef_definition,(char* )come_increment_ref_count(__builtin_string(type_name_32), "22typedef.nc", 78, 450),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_31,type_name_32,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 78, 451),(_Bool)0);
+                    map$2char$phbuffer$ph_insert(info->typedef_definition,(char* )come_increment_ref_count(__builtin_string(type_name_32,"22typedef.nc",78), "22typedef.nc", 78, 450),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_31,type_name_32,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 78, 451),(_Bool)0);
                     (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 78, 452));
                     (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 78, 453));
                 }
@@ -2982,20 +2982,20 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
         if(string_operator_not_equals(type_name,"va_list")) {
             __right_value0 = (void*)0;
             __dec_obj48=type_33->mOriginalTypeName,
-            type_33->mOriginalTypeName=(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 87, 459);
+            type_33->mOriginalTypeName=(char* )come_increment_ref_count(__builtin_string(type_name,"22typedef.nc",87), "22typedef.nc", 87, 459);
             __dec_obj48 = come_decrement_ref_count(__dec_obj48, (void*)0, (void*)0, 0,0, (void*)0, "22typedef.nc", 87, 458);
         }
         type_33->mTypedef=(_Bool)1;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 91, 460),(struct sType* )come_increment_ref_count(sType_clone(type_33), "22typedef.nc", 91, 461),(_Bool)0);
+        map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(type_name,"22typedef.nc",91), "22typedef.nc", 91, 460),(struct sType* )come_increment_ref_count(sType_clone(type_33), "22typedef.nc", 91, 461),(_Bool)0);
         if(!is_gcc_builtin_float_typedef((char* )come_increment_ref_count(type_name, "22typedef.nc", 93, 462),info)) {
             if(list$1sNode$ph_length(type_33->mArrayNum)>0||type_33->mAtomic) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
-                map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 95, 463),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_33,type_name,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 95, 464),(_Bool)0);
+                map$2char$phbuffer$ph_insert(info->struct_definition,(char* )come_increment_ref_count(__builtin_string(type_name,"22typedef.nc",95), "22typedef.nc", 95, 463),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_33,type_name,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 95, 464),(_Bool)0);
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 95, 465));
                 (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 95, 466));
             }
@@ -3004,7 +3004,7 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __right_value3 = (void*)0;
-                map$2char$phbuffer$ph_insert(info->typedef_definition,(char* )come_increment_ref_count(__builtin_string(type_name), "22typedef.nc", 98, 467),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_33,type_name,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 98, 468),(_Bool)0);
+                map$2char$phbuffer$ph_insert(info->typedef_definition,(char* )come_increment_ref_count(__builtin_string(type_name,"22typedef.nc",98), "22typedef.nc", 98, 467),(struct buffer* )come_increment_ref_count(charp_to_buffer(((char* )(__right_value2=xsprintf("typedef %s;\n",((char* )(__right_value1=make_define_var(type_33,type_name,info,(_Bool)0,(_Bool)1))))))), "22typedef.nc", 98, 468),(_Bool)0);
                 (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 98, 469));
                 (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "22typedef.nc", 98, 470));
             }
