@@ -1959,7 +1959,7 @@ void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line,
 void __assert(const char* __assertion, const char* __file, int __line) __attribute__ ((__noreturn__)) ;
 void stackframe();
 void stackframe2(void* mem);
-_Bool die(const char* msg);
+_Bool die(const char* msg, char* sname, int sline);
 void come_heap_final();
 void* alloc_from_pages(unsigned long  size  );
 void come_free_mem_of_heap_pool(void* mem);
@@ -1978,7 +1978,7 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
 void xassert(const char* msg, _Bool test);
 void* come_null_checker(void* mem, const char* sname, int sline, int id);
 void* come_heap_checker(void* mem, const char* sname, int sline, int id);
-char*  __builtin_string(const char* str);
+char*  __builtin_string(const char* str, char* sname, int sline);
 struct buffer*  buffer_initialize(struct buffer*  self  );
 struct buffer*  buffer_initialize_with_value(struct buffer*  self  , const char* mem, unsigned long  size  );
 void buffer_finalize(struct buffer*  self  );
@@ -2293,7 +2293,7 @@ unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , cons
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* dirname(char* __path);
 char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str);
+int*  __builtin_wstring(const char* str, char* sname, int sline);
 int wchar_tp_length(const int*  str  );
 int wchar_ta_length(const int*  str  );
 int wstring_length(const int*  str  );
@@ -3392,7 +3392,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
     int*  __dec_obj12  ;
     int*  __dec_obj13  ;
     int*  __dec_obj14  ;
-    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 5, 7);
+    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",5)))), "04word.nc", 5, 7);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 5, 8));
     p=line+self->cursorX;
     if(self->cursorX==wcslen(line)) {
@@ -3401,7 +3401,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj1=line,
-        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 15, 10);
+        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",15)))), "04word.nc", 15, 10);
         __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 15, 9);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 15, 11));
         self->cursorX=0;
@@ -3416,7 +3416,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj2=line,
-            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 31, 13);
+            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",31)))), "04word.nc", 31, 13);
             __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 31, 12);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 31, 14));
         }
@@ -3434,7 +3434,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj3=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 51, 16);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",51)))), "04word.nc", 51, 16);
                     __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 51, 15);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 51, 17));
                     self->cursorX=wstring_length(line)-1;
@@ -3444,7 +3444,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj4=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 58, 19);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",58)))), "04word.nc", 58, 19);
                 __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 58, 18);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 58, 20));
                 p=line;
@@ -3464,7 +3464,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj5=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 79, 22);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",79)))), "04word.nc", 79, 22);
                     __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 79, 21);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 79, 23));
                     self->cursorX=wstring_length(line)-1;
@@ -3474,7 +3474,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj6=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 86, 25);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",86)))), "04word.nc", 86, 25);
                 __dec_obj6 = come_decrement_ref_count(__dec_obj6, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 86, 24);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 86, 26));
                 p=line;
@@ -3494,7 +3494,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj7=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 105, 28);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",105)))), "04word.nc", 105, 28);
                     __dec_obj7 = come_decrement_ref_count(__dec_obj7, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 105, 27);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 105, 29));
                     self->cursorX=wstring_length(line)-1;
@@ -3504,7 +3504,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj8=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 112, 31);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",112)))), "04word.nc", 112, 31);
                 __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 112, 30);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 112, 32));
                 p=line;
@@ -3524,7 +3524,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj9=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 131, 34);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",131)))), "04word.nc", 131, 34);
                     __dec_obj9 = come_decrement_ref_count(__dec_obj9, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 131, 33);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 131, 35));
                     self->cursorX=wstring_length(line)-1;
@@ -3534,7 +3534,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj10=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 138, 37);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",138)))), "04word.nc", 138, 37);
                 __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 138, 36);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 138, 38));
                 p=line;
@@ -3554,7 +3554,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj11=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 157, 40);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",157)))), "04word.nc", 157, 40);
                     __dec_obj11 = come_decrement_ref_count(__dec_obj11, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 157, 39);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 157, 41));
                     self->cursorX=wstring_length(line)-1;
@@ -3564,7 +3564,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj12=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 164, 43);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",164)))), "04word.nc", 164, 43);
                 __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 164, 42);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 164, 44));
                 p=line;
@@ -3584,7 +3584,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj13=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 184, 46);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",184)))), "04word.nc", 184, 46);
                     __dec_obj13 = come_decrement_ref_count(__dec_obj13, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 184, 45);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 184, 47));
                     self->cursorX=wstring_length(line)-1;
@@ -3594,7 +3594,7 @@ void ViWin_forwardWord(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj14=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 191, 49);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",191)))), "04word.nc", 191, 49);
                 __dec_obj14 = come_decrement_ref_count(__dec_obj14, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 191, 48);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 191, 50));
                 p=line;
@@ -3613,9 +3613,9 @@ static int*  list$1int$ph_item(struct list$1int$ph* self, int position, int*  de
     struct list_item$1int$ph* it;
     int i;
     if(self==((void*)0)) {
-                __result_obj__0 = (int* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1745, 1);
+                __result_obj__0 = (int* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1746, 1);
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1745, 2));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1746, 2));
         return __result_obj__0;
     }
     if(position<0) {
@@ -3625,17 +3625,17 @@ static int*  list$1int$ph_item(struct list$1int$ph* self, int position, int*  de
     i=0;
     while(it!=((void*)0)) {
         if(position==i) {
-                        __result_obj__0 = (int* )come_increment_ref_count(it->item, "/usr/local/include/neo-c.h", 1756, 3);
+                        __result_obj__0 = (int* )come_increment_ref_count(it->item, "/usr/local/include/neo-c.h", 1757, 3);
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1756, 4));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1757, 4));
             return __result_obj__0;
         }
         it=it->next;
         i++;
     }
-        __result_obj__0 = (int* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1762, 5);
+        __result_obj__0 = (int* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1763, 5);
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1762, 6));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1763, 6));
     return __result_obj__0;
 }
 
@@ -3668,7 +3668,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
     int*  __dec_obj22  ;
     int*  __dec_obj23  ;
     int*  __dec_obj24  ;
-    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 201, 52);
+    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",201)))), "04word.nc", 201, 52);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 201, 53));
     p=line+self->cursorX;
     if(self->cursorX==wcslen(line)) {
@@ -3677,7 +3677,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj15=line,
-        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 211, 55);
+        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",211)))), "04word.nc", 211, 55);
         __dec_obj15 = come_decrement_ref_count(__dec_obj15, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 211, 54);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 211, 56));
         self->cursorX=0;
@@ -3692,7 +3692,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj16=line,
-            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 227, 58);
+            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",227)))), "04word.nc", 227, 58);
             __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 227, 57);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 227, 59));
         }
@@ -3713,7 +3713,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj17=line,
-                        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 252, 61);
+                        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",252)))), "04word.nc", 252, 61);
                         __dec_obj17 = come_decrement_ref_count(__dec_obj17, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 252, 60);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 252, 62));
                         self->cursorX=wstring_length(line)-1;
@@ -3723,7 +3723,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj18=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 259, 64);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",259)))), "04word.nc", 259, 64);
                     __dec_obj18 = come_decrement_ref_count(__dec_obj18, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 259, 63);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 259, 65));
                     p=line;
@@ -3747,7 +3747,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj19=line,
-                        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 285, 67);
+                        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",285)))), "04word.nc", 285, 67);
                         __dec_obj19 = come_decrement_ref_count(__dec_obj19, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 285, 66);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 285, 68));
                         self->cursorX=wstring_length(line)-1;
@@ -3757,7 +3757,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj20=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 292, 70);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",292)))), "04word.nc", 292, 70);
                     __dec_obj20 = come_decrement_ref_count(__dec_obj20, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 292, 69);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 292, 71));
                     p=line;
@@ -3781,7 +3781,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj21=line,
-                        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 316, 73);
+                        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",316)))), "04word.nc", 316, 73);
                         __dec_obj21 = come_decrement_ref_count(__dec_obj21, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 316, 72);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 316, 74));
                         self->cursorX=wstring_length(line)-1;
@@ -3791,7 +3791,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj22=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 323, 76);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",323)))), "04word.nc", 323, 76);
                     __dec_obj22 = come_decrement_ref_count(__dec_obj22, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 323, 75);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 323, 77));
                     p=line;
@@ -3811,7 +3811,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj23=line,
-                        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 342, 79);
+                        line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",342)))), "04word.nc", 342, 79);
                         __dec_obj23 = come_decrement_ref_count(__dec_obj23, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 342, 78);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 342, 80));
                         self->cursorX=wstring_length(line)-1;
@@ -3821,7 +3821,7 @@ void ViWin_forwardWord2(struct ViWin*  self  )
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj24=line,
-                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 349, 82);
+                    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",349)))), "04word.nc", 349, 82);
                     __dec_obj24 = come_decrement_ref_count(__dec_obj24, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 349, 81);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 349, 83));
                     p=line;
@@ -3851,7 +3851,7 @@ void ViWin_backwardWord_v4(struct ViWin*  self  )
     int*  __dec_obj27  ;
     int*  __dec_obj28  ;
     int*  __dec_obj29  ;
-    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 365, 85);
+    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",365)))), "04word.nc", 365, 85);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 365, 86));
     p=line+self->cursorX;
     if(self->cursorX==wcslen(line)) {
@@ -3872,13 +3872,13 @@ void ViWin_backwardWord_v4(struct ViWin*  self  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj25=line,
-            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 391, 88);
+            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",391)))), "04word.nc", 391, 88);
             __dec_obj25 = come_decrement_ref_count(__dec_obj25, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 391, 87);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 391, 89));
         }
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        self->cursorX=wcslen(((int* )(__right_value1=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))))))-1;
+        self->cursorX=wcslen(((int* )(__right_value1=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",394)))))))-1;
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 394, 90));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 394, 91));
         if(self->cursorX<0) {
@@ -3904,7 +3904,7 @@ void ViWin_backwardWord_v4(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj26=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 424, 93);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",424)))), "04word.nc", 424, 93);
                 __dec_obj26 = come_decrement_ref_count(__dec_obj26, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 424, 92);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 424, 94));
                 if(wcslen(line)==0) {
@@ -3937,7 +3937,7 @@ void ViWin_backwardWord_v4(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj27=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 463, 96);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",463)))), "04word.nc", 463, 96);
                 __dec_obj27 = come_decrement_ref_count(__dec_obj27, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 463, 95);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 463, 97));
                 if(wcslen(line)==0) {
@@ -3967,7 +3967,7 @@ void ViWin_backwardWord_v4(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj28=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 497, 99);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",497)))), "04word.nc", 497, 99);
                 __dec_obj28 = come_decrement_ref_count(__dec_obj28, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 497, 98);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 497, 100));
                 if(wcslen(line)==0) {
@@ -3997,7 +3997,7 @@ void ViWin_backwardWord_v4(struct ViWin*  self  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj29=line,
-                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("")))), "04word.nc", 531, 102);
+                line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",531)))), "04word.nc", 531, 102);
                 __dec_obj29 = come_decrement_ref_count(__dec_obj29, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 531, 101);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 531, 103));
                 if(wcslen(line)==0) {
@@ -4144,7 +4144,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
         return __result_obj__0;
     }
     if(self->len==0) {
-        litem=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1617, 107, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1617, 108);
+        litem=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1618, 107, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1618, 108);
         litem->prev=((void*)0);
         litem->next=((void*)0);
         litem->item=item;
@@ -4153,7 +4153,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
     }
     else if(self->len==1) {
         __right_value0 = (void*)0;
-        litem_0=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1627, 109, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1627, 110);
+        litem_0=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1628, 109, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1628, 110);
         litem_0->prev=self->head;
         litem_0->next=((void*)0);
         litem_0->item=item;
@@ -4162,7 +4162,7 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
     }
     else {
         __right_value0 = (void*)0;
-        litem_1=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1637, 111, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1637, 112);
+        litem_1=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1638, 111, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1638, 112);
         litem_1->prev=self->tail;
         litem_1->next=((void*)0);
         litem_1->item=item;
@@ -4206,7 +4206,7 @@ static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self)
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1504, 145);
+        come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1505, 145);
     }
             neo_current_frame = fr.prev;
 }
@@ -4284,7 +4284,7 @@ static void list$1int$ph$p_finalize(struct list$1int$ph* self)
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1int$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1504, 115);
+        come_call_finalizer(list_item$1int$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1505, 115);
     }
             neo_current_frame = fr.prev;
 }
@@ -4311,7 +4311,7 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1int$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1504, 117);
+        come_call_finalizer(list_item$1int$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1505, 117);
     }
             neo_current_frame = fr.prev;
 }
@@ -4341,7 +4341,7 @@ static void list$1tuple3$3int$int$int$$ph$p_finalize(struct list$1tuple3$3int$in
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1tuple3$3int$int$int$$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1504, 121);
+        come_call_finalizer(list_item$1tuple3$3int$int$int$$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1505, 121);
     }
             neo_current_frame = fr.prev;
 }
@@ -4368,7 +4368,7 @@ static void list$1list$1int$ph$ph$p_finalize(struct list$1list$1int$ph$ph* self)
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1list$1int$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1504, 124);
+        come_call_finalizer(list_item$1list$1int$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1505, 124);
     }
             neo_current_frame = fr.prev;
 }
@@ -4390,7 +4390,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3047, 134);
+                come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3048, 134);
             }
         }
     }
@@ -4402,8 +4402,8 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->keys);
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3062, 135);
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3064, 136));
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3063, 135);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3065, 136));
             neo_current_frame = fr.prev;
 }
 
@@ -4420,7 +4420,7 @@ static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self)
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1list$1int$$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1504, 133);
+        come_call_finalizer(list_item$1list$1int$$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1505, 133);
     }
                     neo_current_frame = fr.prev;
 }
@@ -4442,7 +4442,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3047, 140);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3048, 140);
             }
         }
     }
@@ -4454,8 +4454,8 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->keys);
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3062, 141);
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3064, 142));
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3063, 141);
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3065, 142));
             neo_current_frame = fr.prev;
 }
 
@@ -4472,7 +4472,7 @@ static void list$1lambda$$p_finalize(struct list$1lambda$* self)
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1lambda$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1504, 147);
+        come_call_finalizer(list_item$1lambda$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1505, 147);
     }
             neo_current_frame = fr.prev;
 }

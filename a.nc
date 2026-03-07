@@ -1,8 +1,13 @@
 #include <neo-c.h>
 
+void fun()
+{
+    list<int>* a = borrow new list<int>();
+}
+
 int main(int argc, char** argv) 
 {
-    FILE* f = fopen("XXX", "r") or die("XXX");
+    fun();
                                    
     return 0;
 }

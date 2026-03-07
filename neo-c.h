@@ -716,18 +716,19 @@ uniq void* come_heap_checker(void* mem, const char* sname, int sline, int id)
     exit(1);
 }
 
-uniq string __builtin_string(const char* str, char* sname=__caller_sname__, int line=__caller_line__)
+uniq string __builtin_string(const char* str, char* sname=__caller_sname__, int sline=__caller_line__)
 {
     if(str == null) {
         return null;
     }
     int len = strlen(str) + 1;
     
-    char*% result = new char[len];
+    char* result = come_calloc(1, sizeof(char)*(len), sname, sline, 0, "string");
+    //char*% result = new char[len];
 
     strncpy(result, str, len);
 
-    return result;
+    return dummy_heap result;
 }
 
 #ifndef UNIX
@@ -7865,7 +7866,8 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
         }
         int len = strlen(str);
     
-        wstring wstr = new wchar_t[len+1];
+        wchar_t* wstr = come_calloc(1, sizeof(wchar_t)*(len+1), sname, sline, 0, "wstring");
+        //new wchar_t[len+1];
     
         int ret = mbstowcs(wstr, str, len+1);
         wstr[ret] = '\0';
@@ -7874,7 +7876,7 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
             wstr[0] = 0;
         }
     
-        return wstr;
+        return dummy_heap wstr;
     }
     
     uniq int wchar_t*::length(const wchar_t* str)
