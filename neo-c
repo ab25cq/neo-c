@@ -48,6 +48,9 @@ for arg in "$@"; do
       opts+=("-uniq")
       m5stack=true
       ;;
+    -uniq)
+        opts+=("-uniq")
+        ;;
     -cpp)
       CC=clang++
       ;;
@@ -123,7 +126,9 @@ then
     exit 0
 elif [ "$all_object_file" = true ]
 then
-    $CC "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${obj_files[@]}" "${libs[@]}"
+    $NCC_BIN /usr/local
+    $CC "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${obj_files[@]}" "${libs[@]} /usr/local/lib/neo-c-str.o"
+    echo $CC "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${obj_files[@]}" "${libs[@]} /usr/local/lib/neo-c-str.o"
 elif test $transpile_ok = 0
 then
     if test $compile_only = true
@@ -133,7 +138,8 @@ then
             target=${base}.o
         fi
 
-        if $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -o "${target}" "${cbase}.c" "${libs[@]}" 2> "${base}.c.error"
+        echo $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -o "${target}" "${cbase}.c" "${libs[@]}" /usr/local/lib/neo-c-str.o
+        if $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -o "${target}" "${cbase}.c" "${libs[@]}" /usr/local/lib/neo-c-str.o 2> "${base}.c.error"
         then
             rm -f "${base}.c.error"
             if test $no_rm_pp = true
@@ -149,7 +155,8 @@ then
             target=${base}
         fi
 
-        if $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -L/opt/homebrew/opt/ncurses/lib -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" 2> "${base}.c.error"
+        echo $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -L/opt/homebrew/opt/ncurses/lib -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" /usr/local/lib/neo-c-str.o
+        if $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -L/opt/homebrew/opt/ncurses/lib -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" /usr/local/lib/neo-c-str.o 2> "${base}.c.error"
         then
             rm -f "${base}.c.error"
             if test $no_rm_pp = true
