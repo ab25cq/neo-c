@@ -5,7 +5,7 @@ DESTDIR=/usr/local
 CFLAGS_OPT=
 CC=clang
 INSTALL=/usr/bin/install -c
-CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_OPT) -std=c11 -g # -O2 #-g -Og
+CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_OPT) -std=c11 # -O2 #-g -Og
 LIBS= -lutil -ldl -lm -lrt
 UNAME_S=$(shell uname -s)
 NCC_FLAGS=
@@ -23,7 +23,7 @@ all: ncc
 #########################################
 # make c source
 #########################################
-self-host: 01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31type2.o 32function2.o neo-c-str.o
+self-host: 01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o neo-c-str.o
 
 neo-c-str.o: neo-c-str.nc
 	./ncc -c -uniq neo-c-str.nc
@@ -124,12 +124,45 @@ neo-c-str.o: neo-c-str.nc
 32function2.c: 32function2.nc
 	./ncc $(NCC_FLAGS) -c 32function2.nc
 
+33output_code2.c: 33output_code2.nc
+	./ncc $(NCC_FLAGS) -c 33output_code2.nc
+
+34heap2.c: 34heap2.nc
+	./ncc $(NCC_FLAGS) -c 34heap2.nc
+
+35call2.c: 35call2.nc
+	./ncc $(NCC_FLAGS) -c 35call2.nc
+
+36str2.c: 36str2.nc
+	./ncc $(NCC_FLAGS) -c 36str2.nc
+
+37var2.c: 37var2.nc
+	./ncc $(NCC_FLAGS) -c 37var2.nc
+
+38struct2.c: 38struct2.nc
+	./ncc $(NCC_FLAGS) -c 38struct2.nc
+
+39method2.c: 39method2.nc
+	./ncc $(NCC_FLAGS) -c 39method2.nc
+
+40obj2.c: 40obj2.nc
+	./ncc $(NCC_FLAGS) -c 40obj2.nc
+
+41module2.c: 41module2.nc
+	./ncc $(NCC_FLAGS) -c 41module2.nc
+
+42op2.c: 42op2.nc
+	./ncc $(NCC_FLAGS) -c 42op2.nc
+
+43function3.c: 43function3.nc
+	./ncc $(NCC_FLAGS) -c 43function3.nc
+
 
 #########################################
 # compile c source
 #########################################
-ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o ccpp.o neo-c-str.o
-	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o ccpp.o 
+ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o ccpp.o neo-c-str.o
+	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o ccpp.o 
 
 neo-c-str.o: neo-c-str.c neo-c-str.h
 	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS) 2>&1 | grep error || true
@@ -229,6 +262,39 @@ neo-c-str.o: neo-c-str.c neo-c-str.h
 
 32function2.o: 32function2.c
 	$(CC) -o 32function2.o -c 32function2.c $(CFLAGS) 2>&1 | grep error || true
+
+33output_code2.o: 33output_code2.c
+	$(CC) -o 33output_code2.o -c 33output_code2.c $(CFLAGS) 2>&1 | grep error || true
+
+34heap2.o: 34heap2.c
+	$(CC) -o 34heap2.o -c 34heap2.c $(CFLAGS) 2>&1 | grep error || true
+
+35call2.o: 35call2.c
+	$(CC) -o 35call2.o -c 35call2.c $(CFLAGS) 2>&1 | grep error || true
+
+36str2.o: 36str2.c
+	$(CC) -o 36str2.o -c 36str2.c $(CFLAGS) 2>&1 | grep error || true
+
+37var2.o: 37var2.c
+	$(CC) -o 37var2.o -c 37var2.c $(CFLAGS) 2>&1 | grep error || true
+
+38struct2.o: 38struct2.c
+	$(CC) -o 38struct2.o -c 38struct2.c $(CFLAGS) 2>&1 | grep error || true
+
+39method2.o: 39method2.c
+	$(CC) -o 39method2.o -c 39method2.c $(CFLAGS) 2>&1 | grep error || true
+
+40obj2.o: 40obj2.c
+	$(CC) -o 40obj2.o -c 40obj2.c $(CFLAGS) 2>&1 | grep error || true
+
+41module2.o: 41module2.c
+	$(CC) -o 41module2.o -c 41module2.c $(CFLAGS) 2>&1 | grep error || true
+
+42op2.o: 42op2.c
+	$(CC) -o 42op2.o -c 42op2.c $(CFLAGS) 2>&1 | grep error || true
+
+43function3.o: 43function3.c
+	$(CC) -o 43function3.o -c 43function3.c $(CFLAGS) 2>&1 | grep error || true
 
 ccpp.o: ccpp.c
 	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS)
