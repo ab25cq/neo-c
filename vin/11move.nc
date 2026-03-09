@@ -1,5 +1,42 @@
 #include "common.h"
 
+static bool line_is_function_top(char* line)
+{
+    return line != null && line[0] == '{';
+}
+
+static bool line_is_method_top(char* line)
+{
+    if(line == null) {
+        return false;
+    }
+
+    int head = 0;
+    while(line[head] == ' ' || line[head] == '\t') {
+        head++;
+    }
+
+    if(line[head] == '{') {
+        return true;
+    }
+
+    if(!(xisalpha(line[head]) || line[head] == '_')) {
+        return false;
+    }
+
+    int tail = strlen(line) - 1;
+    while(tail >= head && xisspace(line[tail])) {
+        tail--;
+    }
+
+    return tail >= head && line[tail] == '{';
+}
+
+static bool line_is_function_bottom(char* line)
+{
+    return line != null && line[0] == '}';
+}
+
 void ViWin*::toggleBraceForward(ViWin* self, wchar_t head, wchar_t tail) 
 {
     int cursor_y = self.scroll + self.cursorY;
@@ -284,8 +321,7 @@ void ViWin*::gotoFunctionTop(ViWin* self, Vi* nvi)
 {
     int it2 = 0;
     foreach(it, self.texts.sublist(0, self.scroll+self.cursorY).reverse()) {
-        if(it.to_string().match("^{"))
-//            || it.to_string().match("^[a-zA-Z].*{$")) 
+        if(line_is_function_top(it.to_string()))
         {
             self.saveReturnPoint();
 
@@ -304,16 +340,7 @@ void ViWin*::gotoMethodTop(ViWin* self, Vi* nvi)
 {
     int it2 = 0;
     foreach(it, self.texts.sublist(0, self.scroll+self.cursorY).reverse()) {
-        const char* reg = "^ +{";
-        const char* reg2 = "^ +[a-zA-Z].*{$";
-        const char* reg3 = "^{";
-        const char* reg4 = "^[a-zA-Z].*{$";
-        
-        if(reg && reg2 && reg3 && reg4 && 
-            ((it.to_string().match(reg))
-            || (it.to_string().match(reg2))
-            || (it.to_string().match(reg3))
-            || (it.to_string().match(reg4))))
+        if(line_is_method_top(it.to_string()))
         {
             self.saveReturnPoint();
 
@@ -334,7 +361,7 @@ void ViWin*::gotoFunctionBottom(ViWin* self, Vi* nvi)
 
     int it2 = 0;
     foreach(it, self.texts.sublist(self.scroll+self.cursorY+1, -1)) {
-        if(it.to_string().match("^}")) 
+        if(line_is_function_bottom(it.to_string())) 
         {
             self.saveReturnPoint();
 

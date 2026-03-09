@@ -82,6 +82,16 @@ if [ ! -f "$cfile" ]; then
   exit 2
 fi
 
+link_neo_c_str=false
+if rg -q 'string_scan|string_match|charp_scan|charp_match|charp_index_regex|string_index_regex|charp_split|string_split|re_match' "$cfile"; then
+  link_neo_c_str=true
+fi
+
+neo_c_str_flag=""
+if [ "$link_neo_c_str" = true ]; then
+  neo_c_str_flag="/usr/local/lib/neo-c-str.o"
+fi
+
 # shellcheck disable=SC2086
 # extra_flags contains safely single-quoted tokens.
-eval "clang '$cfile' -o '$out' $extra_flags"
+eval "clang '$cfile' -o '$out' $extra_flags $neo_c_str_flag"

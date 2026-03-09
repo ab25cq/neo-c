@@ -83,6 +83,8 @@ test: *.nc
 	./test_array_pointer_matrix
 	$(NEO_C) test_pointer_qualifiers.nc
 	./test_pointer_qualifiers
+	$(NEO_C) test_regex_runtime.nc
+	./test_regex_runtime
 	$(NEO_C) test_c_compat.nc
 	./test_c_compat
 	$(NEO_C) test_typedefs.nc

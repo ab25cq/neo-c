@@ -14,6 +14,37 @@ static bool is_directory_path(char* path)
     }
 }
 
+static string parse_sp_path(char* command_string)
+{
+    if(strncmp(command_string, "sp", 2) != 0) {
+        return null;
+    }
+
+    char* p = command_string + 2;
+    while(*p == ' ' || *p == '\t') {
+        p++;
+    }
+
+    if(*p == '\0') {
+        return null;
+    }
+
+    char* tail = command_string + strlen(command_string);
+    while(tail > p && (tail[-1] == ' ' || tail[-1] == '\t')) {
+        tail--;
+    }
+
+    if(tail <= p) {
+        return null;
+    }
+
+    char buf[tail-p+1];
+    memcpy(buf, p, tail-p);
+    buf[tail-p] = '\0';
+
+    return string(buf);
+}
+
 void ViWin*::commandModeView(ViWin* self, Vi* nvi) 
 {
     werase(self.win);
@@ -402,9 +433,9 @@ void Vi*::enterComandMode(Vi* self)
 void Vi*::exitFromComandMode(Vi* self) 
 {
     if(strncmp(self.commandString, "sp", 2) == 0 && (self.commandString[2] == ' ' || self.commandString[2] == '\t' || self.commandString[2] == '\0')) {
-        var m = string(self.commandString).scan(s"^sp[ \t]+([A-Za-z0-9_./~:@%+=,-]+)$").item(0, null);
-        if(m) {
-            self.openNewFile(m.to_string());
+        var path = parse_sp_path(self.commandString);
+        if(path) {
+            self.openNewFile(path);
         }
     }
     else if(string(self.commandString).index("paste", -1) == 0) {
