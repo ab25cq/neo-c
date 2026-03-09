@@ -3,7 +3,6 @@
 // src/01init.c
 ////////////////////////////
 #include <neo-c.h> 
-#include <neo-c-str.h> 
 #include <curses.h>
 #include <unistd.h>
 

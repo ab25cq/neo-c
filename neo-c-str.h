@@ -1,14 +1,34 @@
 #ifndef NEO_C_STR_H
 #define NEO_C_STR_H
 
+#define UNIX 1
+
 using neo-c;
 
 typedef char*% string;
 
 
 #ifndef NEO_C_H
-#include <string.h>
+using C;
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+#undef va_start
+#define va_start(ap, last)  __builtin_va_start(ap, last)
+#include <limits.h>
+#include <locale.h>
+#include <errno.h>
+#include <assert.h>
+#include <stdbool.h>
+
+#ifndef NULL
+#define NULL ((void*)0)
+#endif
+
+using neo-c;
+using unsafe;
 
 extern string __builtin_string(const char* str, char* sname=__caller_sname__, int sline=__caller_line__);
 
@@ -1378,6 +1398,11 @@ uniq int re_matchp_ex(re_t pattern, const char* text, int* matchlength, re_captu
   }
 
   return -1;
+}
+
+uniq int re_matchp_ex(re_t pattern, const char* text, int* matchlength, re_capture* captures, int max_captures, bool ignore_case)
+{
+  return re_matchp_ex(pattern, text, matchlength, captures, max_captures, false);
 }
 
 uniq int re_matchp(re_t pattern, const char* text, int* matchlength, re_capture* captures, int max_captures)

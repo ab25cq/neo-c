@@ -326,22 +326,6 @@ typedef __builtin_va_list va_list;
 
 typedef int error_t;
 
-typedef struct re_program*  re_t  ;
-
-typedef struct re_capture  re_capture  ;
-
-typedef struct regex_t regex_t;
-
-typedef struct re_program  regex_program_t  ;
-
-typedef struct anonymous_typeX24 compiler_state;
-
-typedef struct anonymous_typeX25 match_context;
-
-typedef unsigned int wint_t;
-
-typedef struct anonymous_typeX1  mbstate_t  ;
-
 typedef int*  wstring  ;
 
 typedef unsigned char  uint8_t  ;
@@ -398,7 +382,7 @@ typedef unsigned int  mmask_t  ;
 
 typedef long ptrdiff_t;
 
-typedef struct anonymous_typeX26 max_align_t;
+typedef struct anonymous_typeX20 max_align_t;
 
 typedef unsigned char NCURSES_BOOL;
 
@@ -408,7 +392,11 @@ typedef struct _win_st WINDOW;
 
 typedef unsigned int  attr_t  ;
 
-typedef struct anonymous_typeX27 cchar_t;
+typedef unsigned int wint_t;
+
+typedef struct anonymous_typeX1  mbstate_t  ;
+
+typedef struct anonymous_typeX21 cchar_t;
 
 typedef int (*NCURSES_OUTC)(int);
 
@@ -418,7 +406,7 @@ typedef int (*NCURSES_SCREEN_CB)(struct screen* ,void*);
 
 typedef int (*NCURSES_OUTC_sp)(struct screen* ,int);
 
-typedef struct anonymous_typeX28 MEVENT;
+typedef struct anonymous_typeX22 MEVENT;
 
 typedef unsigned int  socklen_t  ;
 
@@ -434,8 +422,6 @@ struct _IO_codecvt;
 struct _IO_wide_data;
 
 struct obstack;
-
-struct re_program;
 
 struct tm;
 
@@ -924,123 +910,20 @@ struct list$1char$ph
     struct list_item$1char$ph* it;
 };
 
-struct re_capture
-{
-    int start;
-    int length;
-};
-
-enum { RE_UNUSED 
-,RE_DOT 
-,RE_BEGIN 
-,RE_END 
-,RE_QUESTIONMARK 
-,RE_STAR 
-,RE_PLUS 
-,RE_CHAR 
-,RE_CHAR_CLASS 
-,RE_INV_CHAR_CLASS 
-,RE_DIGIT 
-,RE_NOT_DIGIT 
-,RE_ALPHA 
-,RE_NOT_ALPHA 
-,RE_WHITESPACE 
-,RE_NOT_WHITESPACE 
-,RE_GROUP 
-,RE_GROUP_END 
-};
-
-struct anonymous_typeX21
-{
-    struct regex_t*  first  ;
-    struct regex_t*  last  ;
-    int id;
-};
-
-union anonymous_typeZ20
-{
-unsigned char ch;
-unsigned char* ccl;
-    struct {
-        struct regex_t*  first  ;
-        struct regex_t*  last  ;
-        int id;
-    } group;
-};
-
-struct anonymous_typeX23
-{
-    struct regex_t*  first  ;
-    struct regex_t*  last  ;
-    int id;
-};
-
-union anonymous_typeZ22
-{
-unsigned char ch;
-unsigned char* ccl;
-    struct {
-        struct regex_t*  first  ;
-        struct regex_t*  last  ;
-        int id;
-    } group;
-};
-
-struct regex_t
-{
-    unsigned char type;
-    union {
-        unsigned char ch;
-        unsigned char* ccl;
-        struct {
-            struct regex_t*  first  ;
-            struct regex_t*  last  ;
-            int id;
-        } group;
-    } u;
-    struct regex_t*  next  ;
-};
-
-struct re_program
-{
-    struct regex_t*  start  ;
-    int group_count;
-};
-
-struct anonymous_typeX24
-{
-    struct regex_t*  pool  ;
-    int pool_capacity;
-    int pool_size;
-    unsigned char* ccl_buf;
-    int ccl_capacity;
-    int ccl_idx;
-    int group_count;
-};
-
-struct anonymous_typeX25
-{
-    const char* base;
-    struct re_capture*  captures  ;
-    int capture_capacity;
-    int total_groups;
-    _Bool ignore_case;
-};
-
-struct anonymous_typeX26
+struct anonymous_typeX20
 {
     long long __attribute__((__aligned__(__alignof__(long long)))) __clang_max_align_nonce1 __attribute__((__aligned__(__alignof__(long long))));
     long  double __attribute__((__aligned__(__alignof__(long double)))) __clang_max_align_nonce2 __attribute__((__aligned__(__alignof__(long double))));
 };
 
-struct anonymous_typeX27
+struct anonymous_typeX21
 {
     unsigned int  attr  ;
     int  chars[5]  ;
     int ext_color;
 };
 
-struct anonymous_typeX28
+struct anonymous_typeX22
 {
     short id;
     int x;
@@ -1631,7 +1514,7 @@ extern int COLS;
 extern int ESCDELAY;
 extern int LINES;
 extern int TABSIZE;
-extern struct anonymous_typeX27*  _nc_wacs  ;
+extern struct anonymous_typeX21*  _nc_wacs  ;
 extern char** __environ;
 extern char** environ;
 extern char* optarg;
@@ -2156,36 +2039,18 @@ char*  charp_printf(char* self, ...);
 int int_printf(int self, char* msg);
 long long_printf(long self, char* msg);
 void int_times(int self, void* parent, void (*block)(void*,int));
-int re_matchp_ex(struct re_program*  pattern  , const char* text, int* matchlength, struct re_capture*  captures  , int max_captures, _Bool ignore_case);
-int re_matchp(struct re_program*  pattern  , const char* text, int* matchlength, struct re_capture*  captures  , int max_captures);
-int re_match(const char* pattern, const char* text, int* matchlength);
-struct re_program*  re_compile(const char* pattern);
-void re_print(struct re_program*  pattern  );
-void clear_captures(struct anonymous_typeX25*  ctx  );
-void snapshot_captures(const struct anonymous_typeX25*  ctx  , struct re_capture*  buffer_  );
-void restore_captures(struct anonymous_typeX25*  ctx  , const struct re_capture*  buffer_  );
-int re_unescape_literal_char(char escaped, unsigned char* out_char);
-struct regex_t*  new_token(struct anonymous_typeX24*  st  );
-int append_token(struct regex_t**  head  , struct regex_t**  tail  , struct regex_t*  token  );
-struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* pattern, int* pos, int in_group);
-const char* matchpattern(struct regex_t*  pattern  , const char* text, struct anonymous_typeX25*  ctx  );
-const char* matchgroup(struct regex_t*  token  , struct regex_t*  rest  , const char* text, struct anonymous_typeX25*  ctx  );
-const char* matchstar(struct regex_t*  token  , struct regex_t*  rest  , const char* text, struct anonymous_typeX25*  ctx  );
-const char* matchplus(struct regex_t*  token  , struct regex_t*  rest  , const char* text, struct anonymous_typeX25*  ctx  );
-const char* matchquestion(struct regex_t*  token  , struct regex_t*  rest  , const char* text, struct anonymous_typeX25*  ctx  );
-unsigned char re_fold_char(unsigned char c, _Bool ignore_case);
-const char* matchtoken(struct regex_t*  token  , const char* text, struct anonymous_typeX25*  ctx  );
-int matchdigit(char c);
-int matchalpha(char c);
-int matchwhitespace(char c);
-int matchalphanum(char c);
-int matchrange(char c, const char* str, _Bool ignore_case);
-int matchdot(char c);
-int ismetachar(char c);
-int matchmetachar(char c, const char* str);
-int matchcharclass(char c, const char* str, _Bool ignore_case);
-void re_print_internal(struct regex_t*  pattern  , int depth);
-int re_get_group_count(struct re_program*  pattern  );
+struct buffer*  FILE_read(struct _IO_FILE*  f  );
+int FILE_write(struct _IO_FILE*  f  , const char* str);
+int FILE_fclose(struct _IO_FILE*  f  );
+struct _IO_FILE*  FILE_fprintf(struct _IO_FILE*  f  , const char* msg, ...);
+int charp_write(const char* self, const char* file_name, _Bool append);
+struct buffer*  charp_read(const char* file_name);
+struct list$1char$ph* FILE_readlines(struct _IO_FILE*  f  );
+_Bool xiswalpha(int  c  );
+_Bool xiswblank(int  c  );
+_Bool xiswdigit(int  c  );
+_Bool xiswalnum(int  c  );
+_Bool xiswascii(int  c  );
 int charp_index_regex(const char* self, const char* reg, int default_value, _Bool ignore_case);
 int charp_rindex_regex(const char* self, const char* reg, int default_value, _Bool ignore_case);
 char*  string_chomp(const char* str);
@@ -2202,6 +2067,72 @@ char*  charp_sub(char* self, const char* reg, const char* replace, _Bool global,
 char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
 struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
 char*  string_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_case, void* parent, char* (*block)(void*,char*,struct list$1char$ph*));
+int*  __builtin_wstring(const char* str, char* sname, int sline);
+int wchar_tp_length(const int*  str  );
+int wchar_ta_length(const int*  str  );
+int wstring_length(const int*  str  );
+char*  string_lower_case(char* str);
+char*  string_upper_case(char* str);
+int*  wchar_tp_substring(const int*  str  , int head, int tail);
+int charp_index_count(const char* str, const char* search_str, int count, int default_value);
+int charp_rindex(const char* str, const char* search_str, int default_value);
+int charp_rindex_count(const char* str, const char* search_str, int count, int default_value);
+char*  charp_strip(const char* self);
+char*  wchar_tp_to_string(const int*  wstr  );
+char*  wchar_ta_to_string(const int*  wstr  );
+int*  charp_to_wstring(const char* str);
+int*  chara_to_wstring(char* str);
+int*  wchar_tp_delete(int*  str  , int head, int tail);
+int wchar_tp_index(const int*  str  , const int*  search_str  , int default_value);
+int wchar_tp_rindex(const int*  str  , const int*  search_str  , int default_value);
+int*  wchar_tp_reverse(const int*  str  );
+int*  wchar_tp_multiply(const int*  str  , int n);
+int*  wchar_tp_printable(const int*  str  );
+int wchar_tp_compare(const int*  left  , int*  right  );
+int wstring_compare(const int*  left  , const int*  right  );
+int*  wchar_tp_operator_mult(const int*  str  , int n);
+int*  wstring_operator_mult(const int*  str  , int n);
+_Bool wstring_operator_equals(const int*  left  , const int*  right  );
+_Bool wstring_operator_not_equals(const int*  left  , const int*  right  );
+int*  wchar_tp_operator_add(const int*  left  , const int*  right  );
+int*  wstring_operator_add(const int*  left  , const int*  right  );
+int charp_index(const char* str, const char* search_str, int default_value);
+char*  charp_replace(char* self, int index, char c);
+char*  charp_multiply(const char* str, int n);
+struct list$1char$ph* charp_split_str(const char* self, const char* str);
+unsigned int wchar_tp_get_hash_key(const int*  value  );
+_Bool wstring_equals(const int*  left  , const int*  right  );
+_Bool wchar_t_operator_equals(int  left  , int  right  );
+_Bool wchar_t_operator_not_equals(int  left  , int  right  );
+unsigned int wchar_t_get_hash_key(int  value  );
+_Bool wchar_t_equals(int  left  , int  right  );
+char*  wchar_t_to_string(int  wc  );
+char*  xrealpath(const char* path);
+char*  xdirname(const char* path);
+unsigned long  xwcslen(const int*  wstr  );
+int*  wstring_substring(const int*  str  , int head, int tail);
+int string_index_count(const char* str, const char* search_str, int count, int default_value);
+int string_rindex(const char* str, const char* search_str, int default_value);
+int string_rindex_count(const char* str, const char* search_str, int count, int default_value);
+char*  string_strip(const char* self);
+char*  wstring_to_string(const int*  wstr  );
+int*  int_to_wstring(int self);
+int*  wstring_delete(int*  str  , int head, int tail);
+int wstring_index(const int*  str  , const int*  search_str  , int default_value);
+int wstring_rindex(const int*  str  , const int*  search_str  , int default_value);
+int*  wstring_reverse(const int*  str  );
+int*  wstring_multiply(const int*  str  , int n);
+int*  wstring_printable(const int*  str  );
+unsigned int wstring_get_hash_key(const int*  value  );
+int string_index(const char* str, const char* search_str, int default_value);
+char*  string_replace(char* self, int index, char c);
+char*  string_multiply(const char* str, int n);
+struct list$1char$ph* string_split_str(const char* self, const char* str);
+int*  string_to_wstring(const char* str);
+char*  charp_chomp(const char* str);
+_Bool wchar_tp_equals(const int*  left  , const int*  right  );
+_Bool wchar_tp_operator_equals(const int*  left  , const int*  right  );
+_Bool wchar_tp_operator_not_equals(const int*  left  , const int*  right  );
 int*  wcscpy(int* __restrict  __dest  , const int* __restrict  __src  );
 int*  wcsncpy(int* __restrict  __dest  , const int* __restrict  __src  , unsigned long  __n  );
 unsigned long  wcslcpy(int* __restrict  __dest  , const int* __restrict  __src  , unsigned long  __n  );
@@ -2322,86 +2253,6 @@ int*  fgetws_unlocked(int* __restrict  __ws  , int __n, struct _IO_FILE* __restr
 int fputws_unlocked(const int* __restrict  __ws  , struct _IO_FILE* __restrict  __stream  );
 unsigned long  wcsftime(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  );
 unsigned long  wcsftime_l(int* __restrict  __s  , unsigned long  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
-char* dirname(char* __path);
-char* __xpg_basename(char* __path);
-int*  __builtin_wstring(const char* str, char* sname, int sline);
-int wchar_tp_length(const int*  str  );
-int wchar_ta_length(const int*  str  );
-int wstring_length(const int*  str  );
-char*  string_lower_case(char* str);
-char*  string_upper_case(char* str);
-int*  wchar_tp_substring(const int*  str  , int head, int tail);
-int charp_index_count(const char* str, const char* search_str, int count, int default_value);
-int charp_rindex(const char* str, const char* search_str, int default_value);
-int charp_rindex_count(const char* str, const char* search_str, int count, int default_value);
-char*  charp_strip(const char* self);
-char*  wchar_tp_to_string(const int*  wstr  );
-char*  wchar_ta_to_string(const int*  wstr  );
-int*  charp_to_wstring(const char* str);
-int*  chara_to_wstring(char* str);
-int*  wchar_tp_delete(int*  str  , int head, int tail);
-int wchar_tp_index(const int*  str  , const int*  search_str  , int default_value);
-int wchar_tp_rindex(const int*  str  , const int*  search_str  , int default_value);
-int*  wchar_tp_reverse(const int*  str  );
-int*  wchar_tp_multiply(const int*  str  , int n);
-int*  wchar_tp_printable(const int*  str  );
-int wchar_tp_compare(const int*  left  , int*  right  );
-int wstring_compare(const int*  left  , const int*  right  );
-int*  wchar_tp_operator_mult(const int*  str  , int n);
-int*  wstring_operator_mult(const int*  str  , int n);
-_Bool wstring_operator_equals(const int*  left  , const int*  right  );
-_Bool wstring_operator_not_equals(const int*  left  , const int*  right  );
-int*  wchar_tp_operator_add(const int*  left  , const int*  right  );
-int*  wstring_operator_add(const int*  left  , const int*  right  );
-int charp_index(const char* str, const char* search_str, int default_value);
-char*  charp_replace(char* self, int index, char c);
-char*  charp_multiply(const char* str, int n);
-struct list$1char$ph* charp_split_str(const char* self, const char* str);
-unsigned int wchar_tp_get_hash_key(const int*  value  );
-_Bool wstring_equals(const int*  left  , const int*  right  );
-_Bool wchar_t_operator_equals(int  left  , int  right  );
-_Bool wchar_t_operator_not_equals(int  left  , int  right  );
-unsigned int wchar_t_get_hash_key(int  value  );
-_Bool wchar_t_equals(int  left  , int  right  );
-char*  wchar_t_to_string(int  wc  );
-char*  xrealpath(const char* path);
-char*  xdirname(const char* path);
-unsigned long  xwcslen(const int*  wstr  );
-int*  wstring_substring(const int*  str  , int head, int tail);
-int string_index_count(const char* str, const char* search_str, int count, int default_value);
-int string_rindex(const char* str, const char* search_str, int default_value);
-int string_rindex_count(const char* str, const char* search_str, int count, int default_value);
-char*  string_strip(const char* self);
-char*  wstring_to_string(const int*  wstr  );
-int*  int_to_wstring(int self);
-int*  wstring_delete(int*  str  , int head, int tail);
-int wstring_index(const int*  str  , const int*  search_str  , int default_value);
-int wstring_rindex(const int*  str  , const int*  search_str  , int default_value);
-int*  wstring_reverse(const int*  str  );
-int*  wstring_multiply(const int*  str  , int n);
-int*  wstring_printable(const int*  str  );
-unsigned int wstring_get_hash_key(const int*  value  );
-int string_index(const char* str, const char* search_str, int default_value);
-char*  string_replace(char* self, int index, char c);
-char*  string_multiply(const char* str, int n);
-struct list$1char$ph* string_split_str(const char* self, const char* str);
-int*  string_to_wstring(const char* str);
-char*  charp_chomp(const char* str);
-_Bool wchar_tp_equals(const int*  left  , const int*  right  );
-_Bool wchar_tp_operator_equals(const int*  left  , const int*  right  );
-_Bool wchar_tp_operator_not_equals(const int*  left  , const int*  right  );
-struct buffer*  FILE_read(struct _IO_FILE*  f  );
-int FILE_write(struct _IO_FILE*  f  , const char* str);
-int FILE_fclose(struct _IO_FILE*  f  );
-struct _IO_FILE*  FILE_fprintf(struct _IO_FILE*  f  , const char* msg, ...);
-int charp_write(const char* self, const char* file_name, _Bool append);
-struct buffer*  charp_read(const char* file_name);
-struct list$1char$ph* FILE_readlines(struct _IO_FILE*  f  );
-_Bool xiswalpha(int  c  );
-_Bool xiswblank(int  c  );
-_Bool xiswdigit(int  c  );
-_Bool xiswalnum(int  c  );
-_Bool xiswascii(int  c  );
 int addch(const unsigned int    );
 int addchnstr(const unsigned int*    , int );
 int addchstr(const unsigned int*    );
@@ -2834,119 +2685,119 @@ int set_escdelay_sp(struct screen*    , int );
 int set_tabsize_sp(struct screen*    , int );
 int use_default_colors_sp(struct screen*    );
 int use_legacy_coding_sp(struct screen*    , int );
-int add_wch(const struct anonymous_typeX27*    );
-int add_wchnstr(const struct anonymous_typeX27*    , int );
-int add_wchstr(const struct anonymous_typeX27*    );
+int add_wch(const struct anonymous_typeX21*    );
+int add_wchnstr(const struct anonymous_typeX21*    , int );
+int add_wchstr(const struct anonymous_typeX21*    );
 int addnwstr(const int*    , int );
 int addwstr(const int*    );
-int bkgrnd(const struct anonymous_typeX27*    );
-void bkgrndset(const struct anonymous_typeX27*    );
-int border_set(const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    );
-int box_set(struct _win_st*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    );
-int echo_wchar(const struct anonymous_typeX27*    );
+int bkgrnd(const struct anonymous_typeX21*    );
+void bkgrndset(const struct anonymous_typeX21*    );
+int border_set(const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    );
+int box_set(struct _win_st*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    );
+int echo_wchar(const struct anonymous_typeX21*    );
 int erasewchar(int*    );
 int get_wch(unsigned int*    );
 int get_wstr(unsigned int*    );
-int getbkgrnd(struct anonymous_typeX27*    );
-int getcchar(const struct anonymous_typeX27*    , int*    , unsigned int*    , short* , void* );
+int getbkgrnd(struct anonymous_typeX21*    );
+int getcchar(const struct anonymous_typeX21*    , int*    , unsigned int*    , short* , void* );
 int getn_wstr(unsigned int*    , int );
-int hline_set(const struct anonymous_typeX27*    , int );
-int in_wch(struct anonymous_typeX27*    );
-int in_wchnstr(struct anonymous_typeX27*    , int );
-int in_wchstr(struct anonymous_typeX27*    );
+int hline_set(const struct anonymous_typeX21*    , int );
+int in_wch(struct anonymous_typeX21*    );
+int in_wchnstr(struct anonymous_typeX21*    , int );
+int in_wchstr(struct anonymous_typeX21*    );
 int innwstr(int*    , int );
 int ins_nwstr(const int*    , int );
-int ins_wch(const struct anonymous_typeX27*    );
+int ins_wch(const struct anonymous_typeX21*    );
 int ins_wstr(const int*    );
 int inwstr(int*    );
 const char* key_name(int    );
 int killwchar(int*    );
-int mvadd_wch(int , int , const struct anonymous_typeX27*    );
-int mvadd_wchnstr(int , int , const struct anonymous_typeX27*    , int );
-int mvadd_wchstr(int , int , const struct anonymous_typeX27*    );
+int mvadd_wch(int , int , const struct anonymous_typeX21*    );
+int mvadd_wchnstr(int , int , const struct anonymous_typeX21*    , int );
+int mvadd_wchstr(int , int , const struct anonymous_typeX21*    );
 int mvaddnwstr(int , int , const int*    , int );
 int mvaddwstr(int , int , const int*    );
 int mvget_wch(int , int , unsigned int*    );
 int mvget_wstr(int , int , unsigned int*    );
 int mvgetn_wstr(int , int , unsigned int*    , int );
-int mvhline_set(int , int , const struct anonymous_typeX27*    , int );
-int mvin_wch(int , int , struct anonymous_typeX27*    );
-int mvin_wchnstr(int , int , struct anonymous_typeX27*    , int );
-int mvin_wchstr(int , int , struct anonymous_typeX27*    );
+int mvhline_set(int , int , const struct anonymous_typeX21*    , int );
+int mvin_wch(int , int , struct anonymous_typeX21*    );
+int mvin_wchnstr(int , int , struct anonymous_typeX21*    , int );
+int mvin_wchstr(int , int , struct anonymous_typeX21*    );
 int mvinnwstr(int , int , int*    , int );
 int mvins_nwstr(int , int , const int*    , int );
-int mvins_wch(int , int , const struct anonymous_typeX27*    );
+int mvins_wch(int , int , const struct anonymous_typeX21*    );
 int mvins_wstr(int , int , const int*    );
 int mvinwstr(int , int , int*    );
-int mvvline_set(int , int , const struct anonymous_typeX27*    , int );
-int mvwadd_wch(struct _win_st*    , int , int , const struct anonymous_typeX27*    );
-int mvwadd_wchnstr(struct _win_st*    , int , int , const struct anonymous_typeX27*    , int );
-int mvwadd_wchstr(struct _win_st*    , int , int , const struct anonymous_typeX27*    );
+int mvvline_set(int , int , const struct anonymous_typeX21*    , int );
+int mvwadd_wch(struct _win_st*    , int , int , const struct anonymous_typeX21*    );
+int mvwadd_wchnstr(struct _win_st*    , int , int , const struct anonymous_typeX21*    , int );
+int mvwadd_wchstr(struct _win_st*    , int , int , const struct anonymous_typeX21*    );
 int mvwaddnwstr(struct _win_st*    , int , int , const int*    , int );
 int mvwaddwstr(struct _win_st*    , int , int , const int*    );
 int mvwget_wch(struct _win_st*    , int , int , unsigned int*    );
 int mvwget_wstr(struct _win_st*    , int , int , unsigned int*    );
 int mvwgetn_wstr(struct _win_st*    , int , int , unsigned int*    , int );
-int mvwhline_set(struct _win_st*    , int , int , const struct anonymous_typeX27*    , int );
-int mvwin_wch(struct _win_st*    , int , int , struct anonymous_typeX27*    );
-int mvwin_wchnstr(struct _win_st*    , int , int , struct anonymous_typeX27*    , int );
-int mvwin_wchstr(struct _win_st*    , int , int , struct anonymous_typeX27*    );
+int mvwhline_set(struct _win_st*    , int , int , const struct anonymous_typeX21*    , int );
+int mvwin_wch(struct _win_st*    , int , int , struct anonymous_typeX21*    );
+int mvwin_wchnstr(struct _win_st*    , int , int , struct anonymous_typeX21*    , int );
+int mvwin_wchstr(struct _win_st*    , int , int , struct anonymous_typeX21*    );
 int mvwinnwstr(struct _win_st*    , int , int , int*    , int );
 int mvwins_nwstr(struct _win_st*    , int , int , const int*    , int );
-int mvwins_wch(struct _win_st*    , int , int , const struct anonymous_typeX27*    );
+int mvwins_wch(struct _win_st*    , int , int , const struct anonymous_typeX21*    );
 int mvwins_wstr(struct _win_st*    , int , int , const int*    );
 int mvwinwstr(struct _win_st*    , int , int , int*    );
-int mvwvline_set(struct _win_st*    , int , int , const struct anonymous_typeX27*    , int );
-int pecho_wchar(struct _win_st*    , const struct anonymous_typeX27*    );
-int setcchar(struct anonymous_typeX27*    , const int*    , const unsigned int    , short , const void* );
+int mvwvline_set(struct _win_st*    , int , int , const struct anonymous_typeX21*    , int );
+int pecho_wchar(struct _win_st*    , const struct anonymous_typeX21*    );
+int setcchar(struct anonymous_typeX21*    , const int*    , const unsigned int    , short , const void* );
 int slk_wset(int , const int*    , int );
 unsigned int  term_attrs();
 int unget_wch(const int    );
 int vid_attr(unsigned int    , short , void* );
 int vid_puts(unsigned int    , short , void* , int (*anonymous_var_nameY1052)(int)  );
-int vline_set(const struct anonymous_typeX27*    , int );
-int wadd_wch(struct _win_st*    , const struct anonymous_typeX27*    );
-int wadd_wchnstr(struct _win_st*    , const struct anonymous_typeX27*    , int );
-int wadd_wchstr(struct _win_st*    , const struct anonymous_typeX27*    );
+int vline_set(const struct anonymous_typeX21*    , int );
+int wadd_wch(struct _win_st*    , const struct anonymous_typeX21*    );
+int wadd_wchnstr(struct _win_st*    , const struct anonymous_typeX21*    , int );
+int wadd_wchstr(struct _win_st*    , const struct anonymous_typeX21*    );
 int waddnwstr(struct _win_st*    , const int*    , int );
 int waddwstr(struct _win_st*    , const int*    );
-int wbkgrnd(struct _win_st*    , const struct anonymous_typeX27*    );
-void wbkgrndset(struct _win_st*    , const struct anonymous_typeX27*    );
-int wborder_set(struct _win_st*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    , const struct anonymous_typeX27*    );
-int wecho_wchar(struct _win_st*    , const struct anonymous_typeX27*    );
+int wbkgrnd(struct _win_st*    , const struct anonymous_typeX21*    );
+void wbkgrndset(struct _win_st*    , const struct anonymous_typeX21*    );
+int wborder_set(struct _win_st*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    , const struct anonymous_typeX21*    );
+int wecho_wchar(struct _win_st*    , const struct anonymous_typeX21*    );
 int wget_wch(struct _win_st*    , unsigned int*    );
 int wget_wstr(struct _win_st*    , unsigned int*    );
-int wgetbkgrnd(struct _win_st*    , struct anonymous_typeX27*    );
+int wgetbkgrnd(struct _win_st*    , struct anonymous_typeX21*    );
 int wgetn_wstr(struct _win_st*    , unsigned int*    , int );
-int whline_set(struct _win_st*    , const struct anonymous_typeX27*    , int );
-int win_wch(struct _win_st*    , struct anonymous_typeX27*    );
-int win_wchnstr(struct _win_st*    , struct anonymous_typeX27*    , int );
-int win_wchstr(struct _win_st*    , struct anonymous_typeX27*    );
+int whline_set(struct _win_st*    , const struct anonymous_typeX21*    , int );
+int win_wch(struct _win_st*    , struct anonymous_typeX21*    );
+int win_wchnstr(struct _win_st*    , struct anonymous_typeX21*    , int );
+int win_wchstr(struct _win_st*    , struct anonymous_typeX21*    );
 int winnwstr(struct _win_st*    , int*    , int );
 int wins_nwstr(struct _win_st*    , const int*    , int );
-int wins_wch(struct _win_st*    , const struct anonymous_typeX27*    );
+int wins_wch(struct _win_st*    , const struct anonymous_typeX21*    );
 int wins_wstr(struct _win_st*    , const int*    );
 int winwstr(struct _win_st*    , int*    );
-int*  wunctrl(struct anonymous_typeX27*    );
-int wvline_set(struct _win_st*    , const struct anonymous_typeX27*    , int );
+int*  wunctrl(struct anonymous_typeX21*    );
+int wvline_set(struct _win_st*    , const struct anonymous_typeX21*    , int );
 unsigned int  term_attrs_sp(struct screen*    );
 int erasewchar_sp(struct screen*    , int*    );
 int killwchar_sp(struct screen*    , int*    );
 int unget_wch_sp(struct screen*    , const int    );
 int vid_attr_sp(struct screen*    , unsigned int    , short , void* );
 int vid_puts_sp(struct screen*    , unsigned int    , short , void* , int (*anonymous_var_nameY1132)(struct screen* ,int)  );
-int*  wunctrl_sp(struct screen*    , struct anonymous_typeX27*    );
+int*  wunctrl_sp(struct screen*    , struct anonymous_typeX21*    );
 _Bool has_mouse();
-int getmouse(struct anonymous_typeX28*    );
-int ungetmouse(struct anonymous_typeX28*    );
+int getmouse(struct anonymous_typeX22*    );
+int ungetmouse(struct anonymous_typeX22*    );
 unsigned int  mousemask(unsigned int    , unsigned int*    );
 _Bool wenclose(const struct _win_st*    , int , int );
 int mouseinterval(int );
 _Bool wmouse_trafo(const struct _win_st*    , int* , int* , _Bool );
 _Bool mouse_trafo(int* , int* , _Bool );
 _Bool has_mouse_sp(struct screen*    );
-int getmouse_sp(struct screen*    , struct anonymous_typeX28*    );
-int ungetmouse_sp(struct screen*    , struct anonymous_typeX28*    );
+int getmouse_sp(struct screen*    , struct anonymous_typeX22*    );
+int ungetmouse_sp(struct screen*    , struct anonymous_typeX22*    );
 unsigned int  mousemask_sp(struct screen*    , unsigned int    , unsigned int*    );
 int mouseinterval_sp(struct screen*    , int );
 int mcprint(char* , int );
@@ -2959,8 +2810,8 @@ char* _traceattr2(int , unsigned int    );
 char* _tracechar(int );
 char* _tracechtype(unsigned int    );
 char* _tracechtype2(int , unsigned int    );
-char* _tracecchar_t(const struct anonymous_typeX27*    );
-char* _tracecchar_t2(int , const struct anonymous_typeX27*    );
+char* _tracecchar_t(const struct anonymous_typeX21*    );
+char* _tracecchar_t2(int , const struct anonymous_typeX21*    );
 void trace(const unsigned int ) __attribute__((deprecated));
 unsigned int curses_trace(const unsigned int );
 void exit_curses(int );
@@ -3338,6 +3189,8 @@ void ViWin_binaryModeView(struct ViWin*  self  , struct Vi*  nvi  );
 int xgetmaxx();
 int xgetmaxy();
 int main(int argc, char** argv);
+char* dirname(char* __path);
+char* __xpg_basename(char* __path);
 int closedir(struct __dirstream*  __dirp  );
 struct __dirstream*  opendir(const char* __name) __attribute__ ((__malloc__)) ;
 struct __dirstream*  fdopendir(int __fd) __attribute__ ((__malloc__)) ;
