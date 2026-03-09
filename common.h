@@ -1373,4 +1373,68 @@ sNode*% parse_vector(sInfo* info=info);
 bool is_portable_libc_symbol(const char* sym);
 sNode*% add_node(sNode*% node, sNode*% right, sInfo* info=info);
 
+
+bool is_arithmetic_type(sType* type, sInfo* info=info);
+bool is_integer_type(sType* type, sInfo* info=info);
+bool is_null_pointer_constant(CVALUE* come_value, sInfo* info=info);
+bool is_generic_void_pointer_compatible(sType* left_type, sType* right_type, sInfo* info=info);
+bool is_span_class_name(const char* class_name, sInfo* info=info);
+bool is_generic_placeholder_class_name(const char* class_name, sInfo* info=info);
+bool is_generic_placeholder_type(sType* type, sInfo* info=info);
+bool is_span_wrapper_compatible(sType* left_type, sType* right_type, sInfo* info=info);
+bool is_transparent_union_type(sType* type, sInfo* info=info);
+bool pointer_attr_has_word(sType* type, const char* word, sInfo* info=info);
+void append_attribute_to_type(sType* type, string attribute, bool for_variable, sInfo* info=info);
+
+bool is_type_name(char* buf, sInfo* info=info);
+bool is_contained_generics_class(sType* type, sInfo* info);
+bool is_contained_generics_placeholder(sType* type, sInfo* info);
+tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sInfo* info, bool in_constructor_=false);
+bool parse_common_attribute_keyword(buffer* result, sInfo* info=info, bool allow_end=true);
+string parse_square_attribute(sInfo* info=info);
+string parse_declspec_attribute(sInfo* info=info);
+string,string parse_attribute(sInfo* info=info);
+void parse_struct_attribute_skip_paren(sInfo* info);
+bool parse_attribute_keyword(buffer* result, const char* keyword, bool allow_end, sInfo* info=info);
+bool parse_common_attribute_keyword(buffer* result, sInfo* info=info, bool allow_end=true);
+string parse_struct_attribute(sInfo* info=info, bool allow_end=true);
+string merge_tag_attribute(string current, string attribute);
+void append_attribute_to_type(sType* type, string attribute, bool for_variable, sInfo* info=info);
+tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_type_name, bool first, sInfo* info);
+bool skip_pointer_attribute(sInfo* info=info);
+string parse_pointer_qualifier(sInfo* info=info);
+tuple3<sType*%,string,bool>*% backtrace_parse_type(bool parse_variable_name=false,sInfo* info=info);
+bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backtrace_struct_union_enum(sInfo* info=info);
+sType*% parse_pointer_attribute(sType*% type, sInfo* info=info);
+void append_attribute_to_type(sType* type, string attribute, bool for_variable, sInfo* info=info);
+void apply_type_qualifiers(
+    sType* type,
+    bool constant,
+    bool complex_,
+    bool atomic_,
+    bool thread_local,
+    bool thread_,
+    bool alignas_double,
+    bool register_,
+    bool unsigned_,
+    bool noreturn_,
+    bool volatile_,
+    bool uniq_,
+    bool static_,
+    bool extern_,
+    bool inline_,
+    bool restrict_,
+    bool long_long,
+    bool long_,
+    bool short_,
+    bool norecord,
+    bool weak_
+    );
+void merge_pointer_attribute_to_type(sType* type, string pointer_attribute);
+string parse_variable_name_fun(sType* type, bool anonymous_name, bool var_name_between_brace, string attribute, sInfo* info=info);
+void show_type(sType* type, sInfo* info=info);
+bool is_pointer_type(sType* type, sInfo* info=info);
+
+
+
 #endif
