@@ -236,12 +236,6 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
     
     return t(param_types, param_names, param_default_parametors, var_args);
 }
-
-
-tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sInfo* info, bool in_constructor_=false)
-{
-}
-
 bool parse_common_attribute_keyword(buffer* result, sInfo* info=info, bool allow_end=true);
 
 string parse_square_attribute(sInfo* info=info)

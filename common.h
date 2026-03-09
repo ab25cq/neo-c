@@ -935,7 +935,7 @@ sNode*% get_number(bool minus, sInfo* info);
 sNode*% get_oct_number(sInfo* info);
 sNode*% get_hex_number(bool minus, sInfo* info);
 sNode*% create_int_node(string value, sInfo* info);
-list<sType*%>*%, list<string>*%, list<string>*%, bool parse_params(sInfo* info, bool in_constructor_=false);
+tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sInfo* info, bool in_constructor_=false);
 sFun*,string create_pthread_fun(sType* type, char* fun_name, sInfo* info);
 sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, sInfo* info);
 sFun*,string create_to_string_automatically(sType* type, const char* fun_name, sInfo* info);
