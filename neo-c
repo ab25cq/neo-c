@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 CC=clang
+CFLAGS=-Os
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 NCC_BIN="ncc"
 if [ -x "$SCRIPT_DIR/ncc" ]; then
@@ -122,7 +123,7 @@ then
     exit 0
 elif [ "$all_object_file" = true ]
 then
-    $CC "${opts[@]}" -o "${target}" "${files[@]}" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${obj_files[@]}" "${libs[@]}"
+    $CC "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${obj_files[@]}" "${libs[@]}"
 elif test $transpile_ok = 0
 then
     if test $compile_only = true
@@ -132,7 +133,7 @@ then
             target=${base}.o
         fi
 
-        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -o "${target}" "${cbase}.c" "${libs[@]}" 2> "${base}.c.error"
+        if $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -o "${target}" "${cbase}.c" "${libs[@]}" 2> "${base}.c.error"
         then
             rm -f "${base}.c.error"
             if test $no_rm_pp = true
@@ -148,7 +149,7 @@ then
             target=${base}
         fi
 
-        if $CC -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -L/opt/homebrew/opt/ncurses/lib -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" 2> "${base}.c.error"
+        if $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -L/opt/homebrew/opt/ncurses/lib -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" 2> "${base}.c.error"
         then
             rm -f "${base}.c.error"
             if test $no_rm_pp = true
