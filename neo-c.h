@@ -103,6 +103,7 @@ typedef char*% string;
     #include <errno.h>
     #include <assert.h>
     #include <stdbool.h>
+    #include <wchar.h>
 
     #ifndef NULL
     #define NULL ((void*)0)
@@ -6361,6 +6362,7 @@ uniq int char*::index(const char* str, const char* search_str, int default_value
     return head - str;
 }
 
+
 typedef wchar_t*% wstring;
 
 extern string string::lower_case(const char* str);
@@ -6424,7 +6426,6 @@ extern bool wchar_t*::operator_not_equals(const wchar_t* left, const wchar_t* ri
 extern bool wstring::operator_not_equals(const wchar_t* left, const wchar_t* right);
 extern wstring wchar_t*::operator_add(const wchar_t* left, const wchar_t* right);
 extern wstring wstring::operator_add(const wchar_t* left, const wchar_t* right);
-extern int char*::index(const char* str, const char* search_str, int default_value);
 extern string char*::replace(char* self, int index, char c);
 extern string char*::multiply(const char* str, int n);
 extern list<string>*% char*::split_str(const char* self, const char* str) ;
@@ -6454,7 +6455,6 @@ extern wstring wstring::reverse(const wchar_t* str);
 extern wstring wstring::multiply(const wchar_t* str, int n);
 extern wstring wstring::printable(const wchar_t* str);
 extern unsigned int wstring::get_hash_key(const wchar_t* value);
-extern int string::index(const char* str, const char* search_str, int default_value=-1);
 extern string string::replace(char* self, int index, char c);
 extern string string::multiply(const char* str, int n);
 extern list<string>*% string::split_str(const char* self, const char* str);

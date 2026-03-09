@@ -125,7 +125,7 @@ neo-c-str.o: neo-c-str.nc
 ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o ccpp.o neo-c-str.o
 	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o ccpp.o 
 
-neo-c-str.o: neo-c-str.c
+neo-c-str.o: neo-c-str.c neo-c-str.h
 	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS) 2>&1 | grep error || true
 
 01main.o: 01main.c

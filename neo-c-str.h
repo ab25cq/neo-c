@@ -3507,19 +3507,6 @@ uniq wstring wchar_t*::delete(wchar_t* str, int head, int tail)
         return result;
     }
     
-    uniq int char*::index(const char* str, const char* search_str, int default_value)
-    {
-        if(str == null || search_str == null) {
-            return default_value;
-        }
-        char* head = strstr(str, search_str);
-    
-        if(head == null) {
-            return default_value;
-        }
-    
-        return head - str;
-    }
     
     uniq string char*::replace(char* self, int index, char c)
     {
@@ -3770,10 +3757,6 @@ uniq wstring wstring::delete(wchar_t* str, int head, int tail)
     }
     
     
-    uniq int string::index(const char* str, const char* search_str, int default_value=-1)
-    {
-        return char*::index(str, search_str, default_value);
-    }
     
     uniq string string::replace(char* self, int index, char c)
     {
