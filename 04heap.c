@@ -1522,6 +1522,14 @@ struct sHeapChecker
     struct sNode* value;
 };
 
+struct sFunNode
+{
+    int sline;
+    char*  sname  ;
+    int sline_real;
+    struct sFun*  mFun  ;
+};
+
 /// variable definition ///
 extern struct _IO_FILE*  stdin  ;
 extern struct _IO_FILE*  stdout  ;
@@ -2550,6 +2558,10 @@ void merge_pointer_attribute_to_type(struct sType*  type  , char*  pointer_attri
 char*  parse_variable_name_fun(struct sType*  type  , _Bool anonymous_name, _Bool var_name_between_brace, char*  attribute  , struct sInfo*  info  );
 void show_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_pointer_type(struct sType*  type  , struct sInfo*  info  );
+_Bool is_owned_main(struct sType*  type_  , struct sClass*  klass  , struct sType*  field_type  , struct sType*  owner  , struct sInfo*  info  );
+struct sFunNode* sFunNode_initialize(struct sFunNode* self, struct sFun*  fun  , struct sInfo*  info  );
+char*  sFunNode_kind(struct sFunNode* self);
+_Bool sFunNode_compile(struct sFunNode* self, struct sInfo*  info  );
 void std_move(struct sType*  left_type  , struct sType*  right_type  , struct CVALUE*  right_value  , struct sInfo*  info  );
 static struct sRightValueObject*  list$1sRightValueObject$ph_begin(struct list$1sRightValueObject$ph* self);
 static _Bool list$1sRightValueObject$ph_end(struct list$1sRightValueObject$ph* self);

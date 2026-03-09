@@ -1522,6 +1522,14 @@ struct sHeapChecker
     struct sNode* value;
 };
 
+struct sFunNode
+{
+    int sline;
+    char*  sname  ;
+    int sline_real;
+    struct sFun*  mFun  ;
+};
+
 struct sStructNode
 {
     int sline;
@@ -2605,6 +2613,10 @@ void merge_pointer_attribute_to_type(struct sType*  type  , char*  pointer_attri
 char*  parse_variable_name_fun(struct sType*  type  , _Bool anonymous_name, _Bool var_name_between_brace, char*  attribute  , struct sInfo*  info  );
 void show_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_pointer_type(struct sType*  type  , struct sInfo*  info  );
+_Bool is_owned_main(struct sType*  type_  , struct sClass*  klass  , struct sType*  field_type  , struct sType*  owner  , struct sInfo*  info  );
+struct sFunNode* sFunNode_initialize(struct sFunNode* self, struct sFun*  fun  , struct sInfo*  info  );
+char*  sFunNode_kind(struct sFunNode* self);
+_Bool sFunNode_compile(struct sFunNode* self, struct sInfo*  info  );
 void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buffer*  buf  , _Bool* existance_generics, char*  field_name  , int indent, struct sInfo*  info  , _Bool* named_child);
 static struct tuple2$2char$phsType$ph* list$1tuple2$2char$phsType$ph$ph_begin(struct list$1tuple2$2char$phsType$ph$ph* self);
 static _Bool list$1tuple2$2char$phsType$ph$ph_end(struct list$1tuple2$2char$phsType$ph$ph* self);

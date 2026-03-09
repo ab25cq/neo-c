@@ -1522,6 +1522,14 @@ struct sHeapChecker
     struct sNode* value;
 };
 
+struct sFunNode
+{
+    int sline;
+    char*  sname  ;
+    int sline_real;
+    struct sFun*  mFun  ;
+};
+
 struct __current_stack1__
 {
     struct sType**  type2  ;
@@ -2589,6 +2597,10 @@ void merge_pointer_attribute_to_type(struct sType*  type  , char*  pointer_attri
 char*  parse_variable_name_fun(struct sType*  type  , _Bool anonymous_name, _Bool var_name_between_brace, char*  attribute  , struct sInfo*  info  );
 void show_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_pointer_type(struct sType*  type  , struct sInfo*  info  );
+_Bool is_owned_main(struct sType*  type_  , struct sClass*  klass  , struct sType*  field_type  , struct sType*  owner  , struct sInfo*  info  );
+struct sFunNode* sFunNode_initialize(struct sFunNode* self, struct sFun*  fun  , struct sInfo*  info  );
+char*  sFunNode_kind(struct sFunNode* self);
+_Bool sFunNode_compile(struct sFunNode* self, struct sInfo*  info  );
 _Bool is_portable_libc_symbol(const char* sym);
 _Bool should_strip_portable_asm_alias(const char* source, int* consumed);
 char*  normalize_portable_c_source(char* source);

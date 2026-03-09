@@ -1522,6 +1522,14 @@ struct sHeapChecker
     struct sNode* value;
 };
 
+struct sFunNode
+{
+    int sline;
+    char*  sname  ;
+    int sline_real;
+    struct sFun*  mFun  ;
+};
+
 struct sStoreFieldNode
 {
     int sline;
@@ -2633,6 +2641,10 @@ void merge_pointer_attribute_to_type(struct sType*  type  , char*  pointer_attri
 char*  parse_variable_name_fun(struct sType*  type  , _Bool anonymous_name, _Bool var_name_between_brace, char*  attribute  , struct sInfo*  info  );
 void show_type(struct sType*  type  , struct sInfo*  info  );
 _Bool is_pointer_type(struct sType*  type  , struct sInfo*  info  );
+_Bool is_owned_main(struct sType*  type_  , struct sClass*  klass  , struct sType*  field_type  , struct sType*  owner  , struct sInfo*  info  );
+struct sFunNode* sFunNode_initialize(struct sFunNode* self, struct sFun*  fun  , struct sInfo*  info  );
+char*  sFunNode_kind(struct sFunNode* self);
+_Bool sFunNode_compile(struct sFunNode* self, struct sInfo*  info  );
 static struct sType*  expand_typedef_for_load_element(struct sType*  type  );
 static struct sType*  sType_clone(struct sType*  self  );
 static void sType_finalize(struct sType*  self  );
@@ -4535,7 +4547,7 @@ _conditional_value_X0;})) {
         else {
             __right_value0 = (void*)0;
             __dec_obj59=come_value->c_value,
-            come_value->c_value=(char* )come_increment_ref_count(xsprintf("%s.%s=%s",left_value->c_value,name,right_value->c_value), "23field.nc", 227, 445);
+            come_value->c_value=(char* )come_increment_ref_count(xsprintf("%s.%s/* aaa */=%s",left_value->c_value,name,right_value->c_value), "23field.nc", 227, 445);
             __dec_obj59 = come_decrement_ref_count(__dec_obj59, (void*)0, (void*)0, 0,0, (void*)0, "23field.nc", 227, 444);
         }
         __right_value0 = (void*)0;

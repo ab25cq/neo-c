@@ -12,14 +12,14 @@ then
         make DESTDIR=$HOME install
     elif uname -a | grep Darwin
     then
-        make ncc
+        make self-host
         sudo make install
     elif test -f /proc/device-tree/model && cat /proc/device-tree/model | grep "Raspberry Pi"
     then
-        make ncc
+        make self-host
         sudo make install
     else # Linux
-        make ncc
+        make self-host
         sudo make install
     fi
 else 
@@ -27,18 +27,18 @@ else
     
     if uname -a | grep Android
     then
-        make ncc
+        make self-host
         make DESTDIR=$HOME install
     elif uname -a | grep Darwin
     then
-        make ncc
+        make self-host
         sudo make install
     elif test -f /proc/device-tree/model && cat /proc/device-tree/model | grep "Raspberry Pi"
     then
-        make ncc
+        make self-host
         sudo make install
     else # Linux
-        make ncc
+        make self-host
         sudo make install
     fi
 fi

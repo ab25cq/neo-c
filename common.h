@@ -1435,6 +1435,144 @@ string parse_variable_name_fun(sType* type, bool anonymous_name, bool var_name_b
 void show_type(sType* type, sInfo* info=info);
 bool is_pointer_type(sType* type, sInfo* info=info);
 
+bool is_owned_main(sType*% type_, sClass* klass, sType*% field_type, sType*% owner, sInfo* info=info);
+
+#module MSaveState
+{
+    sClass* current_stack_frame_struct = info->current_stack_frame_struct;
+    info->current_stack_frame_struct = null;
+    sFun* caller_fun = info->caller_fun;
+    info->caller_fun = info->come_fun;
+    //int caller_line = info->caller_line;
+    //info->caller_line = info->sline;
+    //char* caller_sname = borrow info->caller_sname;
+    //info->caller_sname = borrow info->sname;
+    buffer*% if_expression_buffer = clone info.if_expression_buffer;
+    info.if_expression_buffer = null;
+    buffer*% loop_expression_buffer = clone info.loop_expression_buffer;
+    info.loop_expression_buffer = null;
+    buffer*% paren_block_buffer = clone info.paren_block_buffer;
+    info.paren_block_buffer = null;
+    
+    int right_value_max = info->right_value_max;
+    int right_value_num = info->right_value_num;
+    int max_conditional = info->max_conditional;
+    int num_conditional = info->num_conditional;
+    bool in_conditional = info->in_conditional;
+    info.in_conditional = false;
+    
+    string last_code = info.module.mLastCode;
+    info.module.mLastCode = null;
+    string last_code2 = info.module.mLastCode2;
+    info.module.mLastCode2 = null;
+    
+    string sname_top = string(info->sname);
+    int sline_top = info->sline;
+    
+    var stack_saved = info.stack;
+    list<sRightValueObject*%>* right_value_objects = borrow info.right_value_objects;
+    
+    bool no_output_come_code = info.no_output_come_code;
+    info.no_output_come_code = false;
+}
+
+#module MRestoreState
+{
+    info.no_output_come_code = no_output_come_code;
+    info->sname = string(sname_top);
+    info->sline = sline_top;
+    
+    info.module.mLastCode = last_code;
+    info.module.mLastCode2 = last_code2;
+    
+    info->caller_fun = caller_fun;
+    //info->caller_line = caller_line;
+    //info->caller_sname = string(caller_sname);
+    
+    info->right_value_max = right_value_max;
+    info->right_value_num = right_value_num;
+    info->num_conditional = num_conditional;
+    info->max_conditional = max_conditional;
+    info.in_conditional = in_conditional;
+    info.if_expression_buffer = if_expression_buffer;
+    info.loop_expression_buffer = loop_expression_buffer;
+    info.paren_block_buffer = paren_block_buffer;
+    info->current_stack_frame_struct = current_stack_frame_struct;
+    info.right_value_objects = dummy_heap right_value_objects;
+    info.stack = stack_saved;
+}
+
+
+uniq class sFunNode extends sNodeBase
+{
+    sFun*% mFun;
+    
+    new(sFun*% fun, sInfo* info)
+    {
+        self.super();
+        
+        self.mFun = fun;
+    }
+    
+    string kind()
+    {
+        return string("sFunNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sFun* come_fun = info.come_fun;
+        info.come_fun = borrow self.mFun;
+        
+        info.come_fun.mDefineReturnVar = false;
+        
+        int right_value_num = info->right_value_num;
+        info->right_value_num = 0;
+        int right_value_max = info->right_value_max;
+        info->right_value_max = 0;
+        int max_conditional = info->max_conditional;
+        info->max_conditional = 0;
+        
+        //string come_fun_name = info.come_fun_name;
+        //info.come_fun_name = string(info.come_fun.mName);
+        
+        bool unsafe_mode = gComeSafe;
+        
+        if(self.mFun.mBlock) {
+            if(!gComeC && !info.come_fun.mResultType.mNorecord) {
+                add_come_code_at_function_head(info, s"struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
+            }
+            
+            int block_level = info->block_level;
+            info->block_level = 0;
+            
+            transpile_block(self.mFun.mBlock, self.mFun.mParamTypes, self.mFun.mParamNames, info);
+            
+            info->block_level = block_level;
+            
+            if(!gComeC && !info.inhibits_output_code2 && !info.come_fun.mResultType.mNorecord) {
+                add_come_code(info, "%s", self.mFun.mSourceEnd.to_string());
+                add_come_code_no_indent(info, "neo_current_frame = fr.prev;\n");
+            }
+            
+            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs[s"come_heap_final"]) {
+                free_objects(info->gv_table, null@ret_value, info);
+                add_come_code(info, xsprintf("come_heap_final();\n"));
+            }
+        }
+        
+        gComeSafe = unsafe_mode;
+        
+        info.come_fun = come_fun;
+        //info.come_fun_name = come_fun_name;
+        
+        info->right_value_max = right_value_max;
+        info->right_value_num = right_value_num;
+        info->max_conditional = max_conditional;
+        
+        return true;
+    }
+};
 
 
 #endif

@@ -224,7 +224,7 @@ class sStoreFieldNode extends sNodeBase
                 come_value.c_value = xsprintf("%s->%s=%s", left_value.c_value, name, right_value.c_value);
             }
             else {
-                come_value.c_value = xsprintf("%s.%s=%s", left_value.c_value, name, right_value.c_value);
+                come_value.c_value = xsprintf("%s.%s/* aaa */=%s", left_value.c_value, name, right_value.c_value);
             }
             come_value.type = clone right_value.type;
             come_value.var = right_value.var;
