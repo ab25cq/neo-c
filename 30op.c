@@ -1559,6 +1559,7 @@ extern _Bool gComeCPlusPlus;
 extern _Bool gComelang;
 extern _Bool gComeSafe;
 extern _Bool gPortableC;
+extern _Bool gComeLowMemory;
 // source head
 
 // header function
@@ -2350,6 +2351,7 @@ void std_move(struct sType*  left_type  , struct sType*  right_type  , struct CV
 _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  );
 _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  );
 _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  info  );
+_Bool require_explicit_method_in_low_memory_mode(struct sType*  type  , const char* fun_name, struct sInfo*  info  );
 struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_type  , struct sInfo*  info  );
 struct sVar*  get_variable_from_table(struct sVarTable*  table  , char* name);
 void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block, _Bool ret_value_is_field);

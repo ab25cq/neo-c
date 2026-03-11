@@ -9,6 +9,10 @@ CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_OPT) -std=c11 # 
 LIBS= -lutil -ldl -lm -lrt
 UNAME_S=$(shell uname -s)
 NCC_FLAGS=
+LOWMEM?=0
+ifeq ($(LOWMEM),1)
+NCC_FLAGS+=-lowmem
+endif
 ifeq ($(UNAME_S),Darwin)
 ifneq ($(NO_PORTABLE_C),1)
 NCC_FLAGS+=-portable-c
@@ -26,7 +30,7 @@ all: ncc
 self-host: 01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o neo-c-str.o
 
 neo-c-str.o: neo-c-str.nc
-	./ncc -c -uniq neo-c-str.nc
+	./ncc $(NCC_FLAGS) -c -uniq neo-c-str.nc
 
 01main.c: 01main.nc
 	./ncc $(NCC_FLAGS) -c 01main.nc 

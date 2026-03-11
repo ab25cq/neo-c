@@ -365,6 +365,10 @@ class sImplementsNode extends sNodeBase
                 sType*% type2 = clone type;
                 type2->mPointerNum++;
                 
+                if(require_explicit_method_in_low_memory_mode(type2, name, info)) {
+                    return false;
+                }
+                
                 var fun2, real_fun_name = create_to_string_automatically(type2, name, info);
                 
                 fun = fun2;
@@ -373,6 +377,10 @@ class sImplementsNode extends sNodeBase
             if(fun == null && name === "equals") {
                 sType*% type2 = clone type;
                 type2->mPointerNum++;
+                
+                if(require_explicit_method_in_low_memory_mode(type2, name, info)) {
+                    return false;
+                }
                 
                 var fun2, real_fun_name = create_equals_automatically(type2, name, info);
                 

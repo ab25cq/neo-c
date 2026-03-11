@@ -1593,6 +1593,7 @@ extern _Bool gComeCPlusPlus;
 extern _Bool gComelang;
 extern _Bool gComeSafe;
 extern _Bool gPortableC;
+extern _Bool gComeLowMemory;
 // source head
 
 // header function
@@ -2381,6 +2382,7 @@ struct sType*  solve_method_generics(struct sType*  type  , struct sInfo*  info 
 _Bool existance_free_right_value_objects(struct sInfo*  info  );
 _Bool existance_free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block);
 void std_move(struct sType*  left_type  , struct sType*  right_type  , struct CVALUE*  right_value  , struct sInfo*  info  );
+_Bool require_explicit_method_in_low_memory_mode(struct sType*  type  , const char* fun_name, struct sInfo*  info  );
 struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_type  , struct sInfo*  info  );
 struct sVar*  get_variable_from_table(struct sVarTable*  table  , char* name);
 void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block, _Bool ret_value_is_field);
@@ -11895,18 +11897,26 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
     int i;
     char*  new_fun_name  ;
     char*  __dec_obj288  ;
-    struct tuple2$2sFun$pchar$ph* multiple_assign_var18
-;    struct sFun*  fun  =0;
-    char*  new_fun_name_181  =0;
     char*  __dec_obj289  ;
     char*  __dec_obj290  ;
     char*  __dec_obj291  ;
-    char*  __dec_obj292  ;
+    struct buffer*  __dec_obj292  ;
     struct buffer*  __dec_obj293  ;
     struct buffer*  __dec_obj294  ;
-    struct buffer*  __dec_obj295  ;
-    struct list$1sRightValueObject$ph* __dec_obj296;
-    struct list$1CVALUE$ph* __dec_obj297;
+    struct list$1sRightValueObject$ph* __dec_obj295;
+    struct list$1CVALUE$ph* __dec_obj296;
+    struct tuple2$2sFun$pchar$ph* multiple_assign_var18
+;    struct sFun*  fun  =0;
+    char*  new_fun_name_181  =0;
+    char*  __dec_obj297  ;
+    char*  __dec_obj298  ;
+    char*  __dec_obj299  ;
+    char*  __dec_obj300  ;
+    struct buffer*  __dec_obj301  ;
+    struct buffer*  __dec_obj302  ;
+    struct buffer*  __dec_obj303  ;
+    struct list$1sRightValueObject$ph* __dec_obj304;
+    struct list$1CVALUE$ph* __dec_obj305;
     memset(&fun_name2, 0, sizeof(fun_name2));
     memset(&i, 0, sizeof(i));
     type_=(struct sType* )come_increment_ref_count(get_no_solved_type(type), "07function.nc", 2945, 2384);
@@ -12072,64 +12082,115 @@ _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  )
         }
     }
     if(cloner==((void*)0)&&!type_->mClass->mProtocol&&!type_->mClass->mNumber) {
+        if(require_explicit_method_in_low_memory_mode(type_,fun_name,info)) {
+            info->no_output_come_code=no_output_come_code;
+            __right_value0 = (void*)0;
+            __dec_obj289=info->sname,
+            info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3010), "07function.nc", 3010, 2451);
+            __dec_obj289 = come_decrement_ref_count(__dec_obj289, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3010, 2450);
+            info->sline=sline_top;
+            __dec_obj290=info->module->mLastCode,
+            info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3013, 2453);
+            __dec_obj290 = come_decrement_ref_count(__dec_obj290, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3013, 2452);
+            __dec_obj291=info->module->mLastCode2,
+            info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3014, 2455);
+            __dec_obj291 = come_decrement_ref_count(__dec_obj291, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3014, 2454);
+            info->caller_fun=caller_fun;
+            info->right_value_max=right_value_max;
+            info->right_value_num=right_value_num;
+            info->num_conditional=num_conditional;
+            info->max_conditional=max_conditional;
+            info->in_conditional=in_conditional;
+            __dec_obj292=info->if_expression_buffer,
+            info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3025, 2457);
+            come_call_finalizer(buffer_finalize, __dec_obj292,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3025, 2456);
+            __dec_obj293=info->loop_expression_buffer,
+            info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3026, 2459);
+            come_call_finalizer(buffer_finalize, __dec_obj293,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3026, 2458);
+            __dec_obj294=info->paren_block_buffer,
+            info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3027, 2461);
+            come_call_finalizer(buffer_finalize, __dec_obj294,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3027, 2460);
+            info->current_stack_frame_struct=current_stack_frame_struct;
+            __dec_obj295=info->right_value_objects,
+            info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3029, 2463);
+            come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj295,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3029, 2462);
+            __dec_obj296=info->stack,
+            info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3030, 2465);
+            come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj296,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3030, 2464);
+                        __result_obj__0 = (_Bool)0;
+            come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3009, 2466);
+            (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3009, 2467));
+            come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3009, 2468);
+            come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3009, 2469);
+            come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3009, 2470);
+            (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3009, 2471));
+            (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3009, 2472));
+            (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3009, 2473));
+            come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3009, 2474);
+            (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3009, 2475));
+            come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3009, 2476);
+            (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3009, 2477));
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
+        }
         __right_value0 = (void*)0;
         multiple_assign_var18=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_equals_automatically(type_,fun_name,info)));
         fun=multiple_assign_var18->v1;
-        new_fun_name_181=(char* )come_increment_ref_count(multiple_assign_var18->v2, "07function.nc", 3007, 2450);
-        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3007, 2452);
-        __dec_obj289=fun_name2,
-        fun_name2=(char* )come_increment_ref_count(new_fun_name_181, "07function.nc", 3009, 2454);
-        __dec_obj289 = come_decrement_ref_count(__dec_obj289, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3009, 2453);
+        new_fun_name_181=(char* )come_increment_ref_count(multiple_assign_var18->v2, "07function.nc", 3012, 2478);
+        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3012, 2480);
+        __dec_obj297=fun_name2,
+        fun_name2=(char* )come_increment_ref_count(new_fun_name_181, "07function.nc", 3014, 2482);
+        __dec_obj297 = come_decrement_ref_count(__dec_obj297, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3014, 2481);
         cloner=fun;
-        (new_fun_name_181 = come_decrement_ref_count(new_fun_name_181, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3014, 2455));
+        (new_fun_name_181 = come_decrement_ref_count(new_fun_name_181, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3019, 2483));
     }
     info->no_output_come_code=no_output_come_code;
     __right_value0 = (void*)0;
-    __dec_obj290=info->sname,
-    info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3015), "07function.nc", 3015, 2457);
-    __dec_obj290 = come_decrement_ref_count(__dec_obj290, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3015, 2456);
+    __dec_obj298=info->sname,
+    info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3020), "07function.nc", 3020, 2485);
+    __dec_obj298 = come_decrement_ref_count(__dec_obj298, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3020, 2484);
     info->sline=sline_top;
-    __dec_obj291=info->module->mLastCode,
-    info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3018, 2459);
-    __dec_obj291 = come_decrement_ref_count(__dec_obj291, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3018, 2458);
-    __dec_obj292=info->module->mLastCode2,
-    info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3019, 2461);
-    __dec_obj292 = come_decrement_ref_count(__dec_obj292, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3019, 2460);
+    __dec_obj299=info->module->mLastCode,
+    info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3023, 2487);
+    __dec_obj299 = come_decrement_ref_count(__dec_obj299, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3023, 2486);
+    __dec_obj300=info->module->mLastCode2,
+    info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3024, 2489);
+    __dec_obj300 = come_decrement_ref_count(__dec_obj300, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3024, 2488);
     info->caller_fun=caller_fun;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
     info->max_conditional=max_conditional;
     info->in_conditional=in_conditional;
-    __dec_obj293=info->if_expression_buffer,
-    info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3030, 2463);
-    come_call_finalizer(buffer_finalize, __dec_obj293,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3030, 2462);
-    __dec_obj294=info->loop_expression_buffer,
-    info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3031, 2465);
-    come_call_finalizer(buffer_finalize, __dec_obj294,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3031, 2464);
-    __dec_obj295=info->paren_block_buffer,
-    info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3032, 2467);
-    come_call_finalizer(buffer_finalize, __dec_obj295,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3032, 2466);
+    __dec_obj301=info->if_expression_buffer,
+    info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3035, 2491);
+    come_call_finalizer(buffer_finalize, __dec_obj301,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3035, 2490);
+    __dec_obj302=info->loop_expression_buffer,
+    info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3036, 2493);
+    come_call_finalizer(buffer_finalize, __dec_obj302,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3036, 2492);
+    __dec_obj303=info->paren_block_buffer,
+    info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3037, 2495);
+    come_call_finalizer(buffer_finalize, __dec_obj303,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3037, 2494);
     info->current_stack_frame_struct=current_stack_frame_struct;
-    __dec_obj296=info->right_value_objects,
-    info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3034, 2469);
-    come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj296,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3034, 2468);
-    __dec_obj297=info->stack,
-    info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3035, 2471);
-    come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj297,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3035, 2470);
+    __dec_obj304=info->right_value_objects,
+    info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3039, 2497);
+    come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj304,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3039, 2496);
+    __dec_obj305=info->stack,
+    info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3040, 2499);
+    come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj305,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3040, 2498);
         __result_obj__0 = (_Bool)1;
-    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3015, 2472);
-    (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3015, 2473));
-    come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3015, 2474);
-    come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3015, 2475);
-    come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3015, 2476);
-    (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3015, 2477));
-    (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3015, 2478));
-    (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3015, 2479));
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3015, 2480);
-    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3015, 2481));
-    come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3015, 2482);
-    (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3015, 2483));
+    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3020, 2500);
+    (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3020, 2501));
+    come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3020, 2502);
+    come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3020, 2503);
+    come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3020, 2504);
+    (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3020, 2505));
+    (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3020, 2506));
+    (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3020, 2507));
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3020, 2508);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3020, 2509));
+    come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3020, 2510);
+    (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3020, 2511));
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -12138,7 +12199,7 @@ static void tuple2$2sFun$pchar$ph$p_finalize(struct tuple2$2sFun$pchar$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple2$2sFun$pchar$ph$p_finalize"; neo_current_frame = &fr;
     if(self!=((void*)0)&&self->v2!=((void*)0)) {
-        (self->v2 = come_decrement_ref_count(self->v2, (void*)0, (void*)0, 0, 0, (void*)0, "tuple2$2sFun$pchar$ph$p_finalize", 2, 2451));
+        (self->v2 = come_decrement_ref_count(self->v2, (void*)0, (void*)0, 0, 0, (void*)0, "tuple2$2sFun$pchar$ph$p_finalize", 2, 2479));
     }
             neo_current_frame = fr.prev;
 }
@@ -12152,20 +12213,20 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
     struct buffer*  if_expression_buffer  ;
-    struct buffer*  __dec_obj298  ;
+    struct buffer*  __dec_obj306  ;
     struct buffer*  loop_expression_buffer  ;
-    struct buffer*  __dec_obj299  ;
+    struct buffer*  __dec_obj307  ;
     struct buffer*  paren_block_buffer  ;
-    struct buffer*  __dec_obj300  ;
+    struct buffer*  __dec_obj308  ;
     int right_value_max;
     int right_value_num;
     int max_conditional;
     int num_conditional;
     _Bool in_conditional;
     char*  last_code  ;
-    char*  __dec_obj301  ;
+    char*  __dec_obj309  ;
     char*  last_code2  ;
-    char*  __dec_obj302  ;
+    char*  __dec_obj310  ;
     char*  sname_top  ;
     int sline_top;
     struct list$1CVALUE$ph* stack_saved;
@@ -12178,194 +12239,202 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
     char*  fun_name2  ;
     char*  none_generics_name  ;
     struct sType*  obj_type  ;
-    char*  __dec_obj303  ;
+    char*  __dec_obj311  ;
     char*  fun_name3  ;
     struct sGenericsFun*  generics_fun  ;
     void* __right_value1 = (void*)0;
     struct tuple2$2char$ph_Bool$* multiple_assign_var19
 ;    char*  name  =0;
     _Bool err=0;
-    char*  __dec_obj304  ;
-    char*  __dec_obj305  ;
-    char*  __dec_obj306  ;
-    struct buffer*  __dec_obj307  ;
-    struct buffer*  __dec_obj308  ;
-    struct buffer*  __dec_obj309  ;
-    struct list$1sRightValueObject$ph* __dec_obj310;
-    struct list$1CVALUE$ph* __dec_obj311;
-    _Bool __result_obj__0;
     char*  __dec_obj312  ;
+    char*  __dec_obj313  ;
+    char*  __dec_obj314  ;
+    struct buffer*  __dec_obj315  ;
+    struct buffer*  __dec_obj316  ;
+    struct buffer*  __dec_obj317  ;
+    struct list$1sRightValueObject$ph* __dec_obj318;
+    struct list$1CVALUE$ph* __dec_obj319;
+    _Bool __result_obj__0;
+    char*  __dec_obj320  ;
     int i;
     char*  new_fun_name  ;
-    char*  __dec_obj313  ;
+    char*  __dec_obj321  ;
+    char*  __dec_obj322  ;
+    char*  __dec_obj323  ;
+    char*  __dec_obj324  ;
+    struct buffer*  __dec_obj325  ;
+    struct buffer*  __dec_obj326  ;
+    struct buffer*  __dec_obj327  ;
+    struct list$1sRightValueObject$ph* __dec_obj328;
+    struct list$1CVALUE$ph* __dec_obj329;
     struct tuple2$2sFun$pchar$ph* multiple_assign_var20
 ;    struct sFun*  fun  =0;
     char*  new_fun_name_182  =0;
-    char*  __dec_obj314  ;
-    char*  __dec_obj315  ;
-    char*  __dec_obj316  ;
-    char*  __dec_obj317  ;
-    struct buffer*  __dec_obj318  ;
-    struct buffer*  __dec_obj319  ;
-    struct buffer*  __dec_obj320  ;
-    struct list$1sRightValueObject$ph* __dec_obj321;
-    struct list$1CVALUE$ph* __dec_obj322;
+    char*  __dec_obj330  ;
+    char*  __dec_obj331  ;
+    char*  __dec_obj332  ;
+    char*  __dec_obj333  ;
+    struct buffer*  __dec_obj334  ;
+    struct buffer*  __dec_obj335  ;
+    struct buffer*  __dec_obj336  ;
+    struct list$1sRightValueObject$ph* __dec_obj337;
+    struct list$1CVALUE$ph* __dec_obj338;
     memset(&fun_name2, 0, sizeof(fun_name2));
     memset(&i, 0, sizeof(i));
-    type_=(struct sType* )come_increment_ref_count(get_no_solved_type2(type), "07function.nc", 3020, 2484);
+    type_=(struct sType* )come_increment_ref_count(get_no_solved_type2(type), "07function.nc", 3025, 2512);
     result=((void*)0);
     current_stack_frame_struct=info->current_stack_frame_struct;
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
     __right_value0 = (void*)0;
-    if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3032, 2485);
-    __dec_obj298=info->if_expression_buffer,
+    if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3037, 2513);
+    __dec_obj306=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
-    come_call_finalizer(buffer_finalize, __dec_obj298,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3033, 2486);
+    come_call_finalizer(buffer_finalize, __dec_obj306,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3038, 2514);
     __right_value0 = (void*)0;
-    loop_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->loop_expression_buffer), "07function.nc", 3034, 2487);
-    __dec_obj299=info->loop_expression_buffer,
+    loop_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->loop_expression_buffer), "07function.nc", 3039, 2515);
+    __dec_obj307=info->loop_expression_buffer,
     info->loop_expression_buffer=((void*)0);
-    come_call_finalizer(buffer_finalize, __dec_obj299,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3035, 2488);
+    come_call_finalizer(buffer_finalize, __dec_obj307,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3040, 2516);
     __right_value0 = (void*)0;
-    paren_block_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->paren_block_buffer), "07function.nc", 3036, 2489);
-    __dec_obj300=info->paren_block_buffer,
+    paren_block_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->paren_block_buffer), "07function.nc", 3041, 2517);
+    __dec_obj308=info->paren_block_buffer,
     info->paren_block_buffer=((void*)0);
-    come_call_finalizer(buffer_finalize, __dec_obj300,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3037, 2490);
+    come_call_finalizer(buffer_finalize, __dec_obj308,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3042, 2518);
     right_value_max=info->right_value_max;
     right_value_num=info->right_value_num;
     max_conditional=info->max_conditional;
     num_conditional=info->num_conditional;
     in_conditional=info->in_conditional;
     info->in_conditional=(_Bool)0;
-    last_code=(char* )come_increment_ref_count(info->module->mLastCode, "07function.nc", 3046, 2491);
-    __dec_obj301=info->module->mLastCode,
+    last_code=(char* )come_increment_ref_count(info->module->mLastCode, "07function.nc", 3051, 2519);
+    __dec_obj309=info->module->mLastCode,
     info->module->mLastCode=((void*)0);
-    __dec_obj301 = come_decrement_ref_count(__dec_obj301, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3047, 2492);
-    last_code2=(char* )come_increment_ref_count(info->module->mLastCode2, "07function.nc", 3048, 2493);
-    __dec_obj302=info->module->mLastCode2,
+    __dec_obj309 = come_decrement_ref_count(__dec_obj309, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3052, 2520);
+    last_code2=(char* )come_increment_ref_count(info->module->mLastCode2, "07function.nc", 3053, 2521);
+    __dec_obj310=info->module->mLastCode2,
     info->module->mLastCode2=((void*)0);
-    __dec_obj302 = come_decrement_ref_count(__dec_obj302, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3049, 2494);
+    __dec_obj310 = come_decrement_ref_count(__dec_obj310, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3054, 2522);
     __right_value0 = (void*)0;
-    sname_top=(char* )come_increment_ref_count(__builtin_string(info->sname,"07function.nc",3051), "07function.nc", 3051, 2495);
+    sname_top=(char* )come_increment_ref_count(__builtin_string(info->sname,"07function.nc",3056), "07function.nc", 3056, 2523);
     sline_top=info->sline;
-    stack_saved=(struct list$1CVALUE$ph*)come_increment_ref_count(info->stack, "07function.nc", 3054, 2496);
+    stack_saved=(struct list$1CVALUE$ph*)come_increment_ref_count(info->stack, "07function.nc", 3059, 2524);
     right_value_objects=info->right_value_objects;
     no_output_come_code=info->no_output_come_code;
     info->no_output_come_code=(_Bool)0;
     klass=type_->mClass;
-    class_name=(char* )come_increment_ref_count(klass->mName, "07function.nc", 3027, 2497);
+    class_name=(char* )come_increment_ref_count(klass->mName, "07function.nc", 3032, 2525);
     const char* fun_name="operator_equals";
     __right_value0 = (void*)0;
-    type2=(struct sType* )come_increment_ref_count(sType_clone(type_), "07function.nc", 3031, 2498);
+    type2=(struct sType* )come_increment_ref_count(sType_clone(type_), "07function.nc", 3036, 2526);
     type2->mHeap=(_Bool)0;
     cloner=((void*)0);
     if(list$1sType$ph_length(type_->mGenericsTypes)>0) {
         __right_value0 = (void*)0;
-        none_generics_name=(char* )come_increment_ref_count(get_none_generics_name(type_->mClass->mName), "07function.nc", 3037, 2499);
+        none_generics_name=(char* )come_increment_ref_count(get_none_generics_name(type_->mClass->mName), "07function.nc", 3042, 2527);
         __right_value0 = (void*)0;
-        obj_type=(struct sType* )come_increment_ref_count(solve_generics(type_,info->generics_type,info), "07function.nc", 3039, 2500);
+        obj_type=(struct sType* )come_increment_ref_count(solve_generics(type_,info->generics_type,info), "07function.nc", 3044, 2528);
         __right_value0 = (void*)0;
-        __dec_obj303=fun_name2,
-        fun_name2=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,fun_name,info,(_Bool)1), "07function.nc", 3041, 2502);
-        __dec_obj303 = come_decrement_ref_count(__dec_obj303, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3041, 2501);
+        __dec_obj311=fun_name2,
+        fun_name2=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,fun_name,info,(_Bool)1), "07function.nc", 3046, 2530);
+        __dec_obj311 = come_decrement_ref_count(__dec_obj311, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3046, 2529);
         __right_value0 = (void*)0;
-        fun_name3=(char* )come_increment_ref_count(xsprintf("%s_%s",none_generics_name,fun_name), "07function.nc", 3042, 2503);
+        fun_name3=(char* )come_increment_ref_count(xsprintf("%s_%s",none_generics_name,fun_name), "07function.nc", 3047, 2531);
         __right_value0 = (void*)0;
         generics_fun=((struct sGenericsFun* )(__right_value0=map$2char$phsGenericsFun$ph_at(info->generics_funcs,fun_name3,((void*)0),(_Bool)0)));
         if(generics_fun) {
             __right_value0 = (void*)0;
-            multiple_assign_var19=((struct tuple2$2char$ph_Bool$*)(__right_value1=create_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name2,"07function.nc",3047), "07function.nc", 3047, 2504),generics_fun,obj_type,info)));
-            name=(char* )come_increment_ref_count(multiple_assign_var19->v1, "07function.nc", 3047, 2505);
+            multiple_assign_var19=((struct tuple2$2char$ph_Bool$*)(__right_value1=create_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name2,"07function.nc",3052), "07function.nc", 3052, 2532),generics_fun,obj_type,info)));
+            name=(char* )come_increment_ref_count(multiple_assign_var19->v1, "07function.nc", 3052, 2533);
             err=multiple_assign_var19->v2;
-            come_call_finalizer(tuple2$2char$ph_Bool$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3047, 2506);
+            come_call_finalizer(tuple2$2char$ph_Bool$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3052, 2534);
             if(!err) {
                 info->no_output_come_code=no_output_come_code;
                 __right_value0 = (void*)0;
-                __dec_obj304=info->sname,
-                info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3052), "07function.nc", 3052, 2508);
-                __dec_obj304 = come_decrement_ref_count(__dec_obj304, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3052, 2507);
+                __dec_obj312=info->sname,
+                info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3057), "07function.nc", 3057, 2536);
+                __dec_obj312 = come_decrement_ref_count(__dec_obj312, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3057, 2535);
                 info->sline=sline_top;
-                __dec_obj305=info->module->mLastCode,
-                info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3055, 2510);
-                __dec_obj305 = come_decrement_ref_count(__dec_obj305, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3055, 2509);
-                __dec_obj306=info->module->mLastCode2,
-                info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3056, 2512);
-                __dec_obj306 = come_decrement_ref_count(__dec_obj306, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3056, 2511);
+                __dec_obj313=info->module->mLastCode,
+                info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3060, 2538);
+                __dec_obj313 = come_decrement_ref_count(__dec_obj313, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3060, 2537);
+                __dec_obj314=info->module->mLastCode2,
+                info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3061, 2540);
+                __dec_obj314 = come_decrement_ref_count(__dec_obj314, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3061, 2539);
                 info->caller_fun=caller_fun;
                 info->right_value_max=right_value_max;
                 info->right_value_num=right_value_num;
                 info->num_conditional=num_conditional;
                 info->max_conditional=max_conditional;
                 info->in_conditional=in_conditional;
-                __dec_obj307=info->if_expression_buffer,
-                info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3067, 2514);
-                come_call_finalizer(buffer_finalize, __dec_obj307,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3067, 2513);
-                __dec_obj308=info->loop_expression_buffer,
-                info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3068, 2516);
-                come_call_finalizer(buffer_finalize, __dec_obj308,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3068, 2515);
-                __dec_obj309=info->paren_block_buffer,
-                info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3069, 2518);
-                come_call_finalizer(buffer_finalize, __dec_obj309,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3069, 2517);
+                __dec_obj315=info->if_expression_buffer,
+                info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3072, 2542);
+                come_call_finalizer(buffer_finalize, __dec_obj315,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3072, 2541);
+                __dec_obj316=info->loop_expression_buffer,
+                info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3073, 2544);
+                come_call_finalizer(buffer_finalize, __dec_obj316,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3073, 2543);
+                __dec_obj317=info->paren_block_buffer,
+                info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3074, 2546);
+                come_call_finalizer(buffer_finalize, __dec_obj317,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3074, 2545);
                 info->current_stack_frame_struct=current_stack_frame_struct;
-                __dec_obj310=info->right_value_objects,
-                info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3071, 2520);
-                come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj310,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3071, 2519);
-                __dec_obj311=info->stack,
-                info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3072, 2522);
-                come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj311,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3072, 2521);
+                __dec_obj318=info->right_value_objects,
+                info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3076, 2548);
+                come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj318,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3076, 2547);
+                __dec_obj319=info->stack,
+                info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3077, 2550);
+                come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj319,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3077, 2549);
                                 __result_obj__0 = (_Bool)0;
-                (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3051, 2523));
-                (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3051, 2524));
-                come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3051, 2525);
-                (fun_name3 = come_decrement_ref_count(fun_name3, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3051, 2526));
-                come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3051, 2527);
-                (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3051, 2528));
-                come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3051, 2529);
-                come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3051, 2530);
-                come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3051, 2531);
-                (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3051, 2532));
-                (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3051, 2533));
-                (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3051, 2534));
-                come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3051, 2535);
-                (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3051, 2536));
-                come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3051, 2537);
-                (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3051, 2538));
+                (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3056, 2551));
+                (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3056, 2552));
+                come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3056, 2553);
+                (fun_name3 = come_decrement_ref_count(fun_name3, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3056, 2554));
+                come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3056, 2555);
+                (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3056, 2556));
+                come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3056, 2557);
+                come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3056, 2558);
+                come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3056, 2559);
+                (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3056, 2560));
+                (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3056, 2561));
+                (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3056, 2562));
+                come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3056, 2563);
+                (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3056, 2564));
+                come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3056, 2565);
+                (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3056, 2566));
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
             __right_value0 = (void*)0;
             cloner=((struct sFun* )(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,name)));
-            (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3058, 2539));
+            (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3063, 2567));
         }
         else {
             __right_value0 = (void*)0;
             cloner=((struct sFun* )(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,fun_name2)));
         }
-        (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3078, 2540));
-        come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3078, 2541);
-        (fun_name3 = come_decrement_ref_count(fun_name3, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3078, 2542));
+        (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3083, 2568));
+        come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3083, 2569);
+        (fun_name3 = come_decrement_ref_count(fun_name3, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3083, 2570));
     }
     else {
         __right_value0 = (void*)0;
-        __dec_obj312=fun_name2,
-        fun_name2=(char* )come_increment_ref_count(create_method_name(type_,(_Bool)0,fun_name,info,(_Bool)1), "07function.nc", 3060, 2544);
-        __dec_obj312 = come_decrement_ref_count(__dec_obj312, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3060, 2543);
+        __dec_obj320=fun_name2,
+        fun_name2=(char* )come_increment_ref_count(create_method_name(type_,(_Bool)0,fun_name,info,(_Bool)1), "07function.nc", 3065, 2572);
+        __dec_obj320 = come_decrement_ref_count(__dec_obj320, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3065, 2571);
         for(i=128-1        ;i>=1;i--){
             __right_value0 = (void*)0;
-            new_fun_name=(char* )come_increment_ref_count(xsprintf("%s_v%d",fun_name2,i), "07function.nc", 3064, 2545);
+            new_fun_name=(char* )come_increment_ref_count(xsprintf("%s_v%d",fun_name2,i), "07function.nc", 3069, 2573);
             __right_value0 = (void*)0;
             cloner=((struct sFun* )(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,new_fun_name)));
             if(cloner) {
                 __right_value0 = (void*)0;
-                __dec_obj313=fun_name2,
-                fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name,"07function.nc",3068), "07function.nc", 3068, 2547);
-                __dec_obj313 = come_decrement_ref_count(__dec_obj313, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3068, 2546);
-                (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3069, 2548));
+                __dec_obj321=fun_name2,
+                fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name,"07function.nc",3073), "07function.nc", 3073, 2575);
+                __dec_obj321 = come_decrement_ref_count(__dec_obj321, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3073, 2574);
+                (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3074, 2576));
                 break;
             }
-            (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3073, 2549));
+            (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3078, 2577));
         }
         if(cloner==((void*)0)) {
             __right_value0 = (void*)0;
@@ -12373,64 +12442,115 @@ _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  
         }
     }
     if(cloner==((void*)0)&&!type_->mClass->mProtocol&&!type_->mClass->mNumber) {
+        if(require_explicit_method_in_low_memory_mode(type_,fun_name,info)) {
+            info->no_output_come_code=no_output_come_code;
+            __right_value0 = (void*)0;
+            __dec_obj322=info->sname,
+            info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3088), "07function.nc", 3088, 2579);
+            __dec_obj322 = come_decrement_ref_count(__dec_obj322, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3088, 2578);
+            info->sline=sline_top;
+            __dec_obj323=info->module->mLastCode,
+            info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3091, 2581);
+            __dec_obj323 = come_decrement_ref_count(__dec_obj323, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3091, 2580);
+            __dec_obj324=info->module->mLastCode2,
+            info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3092, 2583);
+            __dec_obj324 = come_decrement_ref_count(__dec_obj324, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3092, 2582);
+            info->caller_fun=caller_fun;
+            info->right_value_max=right_value_max;
+            info->right_value_num=right_value_num;
+            info->num_conditional=num_conditional;
+            info->max_conditional=max_conditional;
+            info->in_conditional=in_conditional;
+            __dec_obj325=info->if_expression_buffer,
+            info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3103, 2585);
+            come_call_finalizer(buffer_finalize, __dec_obj325,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3103, 2584);
+            __dec_obj326=info->loop_expression_buffer,
+            info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3104, 2587);
+            come_call_finalizer(buffer_finalize, __dec_obj326,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3104, 2586);
+            __dec_obj327=info->paren_block_buffer,
+            info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3105, 2589);
+            come_call_finalizer(buffer_finalize, __dec_obj327,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3105, 2588);
+            info->current_stack_frame_struct=current_stack_frame_struct;
+            __dec_obj328=info->right_value_objects,
+            info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3107, 2591);
+            come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj328,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3107, 2590);
+            __dec_obj329=info->stack,
+            info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3108, 2593);
+            come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj329,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3108, 2592);
+                        __result_obj__0 = (_Bool)0;
+            come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3087, 2594);
+            (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3087, 2595));
+            come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3087, 2596);
+            come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3087, 2597);
+            come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3087, 2598);
+            (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3087, 2599));
+            (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3087, 2600));
+            (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3087, 2601));
+            come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3087, 2602);
+            (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3087, 2603));
+            come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3087, 2604);
+            (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3087, 2605));
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
+        }
         __right_value0 = (void*)0;
         multiple_assign_var20=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_operator_equals_automatically(type_,fun_name,info)));
         fun=multiple_assign_var20->v1;
-        new_fun_name_182=(char* )come_increment_ref_count(multiple_assign_var20->v2, "07function.nc", 3080, 2550);
-        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3080, 2551);
-        __dec_obj314=fun_name2,
-        fun_name2=(char* )come_increment_ref_count(new_fun_name_182, "07function.nc", 3082, 2553);
-        __dec_obj314 = come_decrement_ref_count(__dec_obj314, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3082, 2552);
+        new_fun_name_182=(char* )come_increment_ref_count(multiple_assign_var20->v2, "07function.nc", 3090, 2606);
+        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3090, 2607);
+        __dec_obj330=fun_name2,
+        fun_name2=(char* )come_increment_ref_count(new_fun_name_182, "07function.nc", 3092, 2609);
+        __dec_obj330 = come_decrement_ref_count(__dec_obj330, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3092, 2608);
         cloner=fun;
-        (new_fun_name_182 = come_decrement_ref_count(new_fun_name_182, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3087, 2554));
+        (new_fun_name_182 = come_decrement_ref_count(new_fun_name_182, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3097, 2610));
     }
     info->no_output_come_code=no_output_come_code;
     __right_value0 = (void*)0;
-    __dec_obj315=info->sname,
-    info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3088), "07function.nc", 3088, 2556);
-    __dec_obj315 = come_decrement_ref_count(__dec_obj315, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3088, 2555);
+    __dec_obj331=info->sname,
+    info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3098), "07function.nc", 3098, 2612);
+    __dec_obj331 = come_decrement_ref_count(__dec_obj331, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3098, 2611);
     info->sline=sline_top;
-    __dec_obj316=info->module->mLastCode,
-    info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3091, 2558);
-    __dec_obj316 = come_decrement_ref_count(__dec_obj316, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3091, 2557);
-    __dec_obj317=info->module->mLastCode2,
-    info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3092, 2560);
-    __dec_obj317 = come_decrement_ref_count(__dec_obj317, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3092, 2559);
+    __dec_obj332=info->module->mLastCode,
+    info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3101, 2614);
+    __dec_obj332 = come_decrement_ref_count(__dec_obj332, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3101, 2613);
+    __dec_obj333=info->module->mLastCode2,
+    info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3102, 2616);
+    __dec_obj333 = come_decrement_ref_count(__dec_obj333, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3102, 2615);
     info->caller_fun=caller_fun;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
     info->max_conditional=max_conditional;
     info->in_conditional=in_conditional;
-    __dec_obj318=info->if_expression_buffer,
-    info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3103, 2562);
-    come_call_finalizer(buffer_finalize, __dec_obj318,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3103, 2561);
-    __dec_obj319=info->loop_expression_buffer,
-    info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3104, 2564);
-    come_call_finalizer(buffer_finalize, __dec_obj319,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3104, 2563);
-    __dec_obj320=info->paren_block_buffer,
-    info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3105, 2566);
-    come_call_finalizer(buffer_finalize, __dec_obj320,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3105, 2565);
+    __dec_obj334=info->if_expression_buffer,
+    info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3113, 2618);
+    come_call_finalizer(buffer_finalize, __dec_obj334,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3113, 2617);
+    __dec_obj335=info->loop_expression_buffer,
+    info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3114, 2620);
+    come_call_finalizer(buffer_finalize, __dec_obj335,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3114, 2619);
+    __dec_obj336=info->paren_block_buffer,
+    info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3115, 2622);
+    come_call_finalizer(buffer_finalize, __dec_obj336,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3115, 2621);
     info->current_stack_frame_struct=current_stack_frame_struct;
-    __dec_obj321=info->right_value_objects,
-    info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3107, 2568);
-    come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj321,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3107, 2567);
-    __dec_obj322=info->stack,
-    info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3108, 2570);
-    come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj322,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3108, 2569);
+    __dec_obj337=info->right_value_objects,
+    info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3117, 2624);
+    come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj337,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3117, 2623);
+    __dec_obj338=info->stack,
+    info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3118, 2626);
+    come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj338,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3118, 2625);
         __result_obj__0 = (_Bool)1;
-    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3088, 2571);
-    (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3088, 2572));
-    come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3088, 2573);
-    come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3088, 2574);
-    come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3088, 2575);
-    (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3088, 2576));
-    (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3088, 2577));
-    (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3088, 2578));
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3088, 2579);
-    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3088, 2580));
-    come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3088, 2581);
-    (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3088, 2582));
+    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3098, 2627);
+    (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3098, 2628));
+    come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3098, 2629);
+    come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3098, 2630);
+    come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3098, 2631);
+    (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3098, 2632));
+    (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3098, 2633));
+    (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3098, 2634));
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3098, 2635);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3098, 2636));
+    come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3098, 2637);
+    (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3098, 2638));
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -12444,20 +12564,20 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
     struct sClass*  current_stack_frame_struct  ;
     struct sFun*  caller_fun  ;
     struct buffer*  if_expression_buffer  ;
-    struct buffer*  __dec_obj323  ;
+    struct buffer*  __dec_obj339  ;
     struct buffer*  loop_expression_buffer  ;
-    struct buffer*  __dec_obj324  ;
+    struct buffer*  __dec_obj340  ;
     struct buffer*  paren_block_buffer  ;
-    struct buffer*  __dec_obj325  ;
+    struct buffer*  __dec_obj341  ;
     int right_value_max;
     int right_value_num;
     int max_conditional;
     int num_conditional;
     _Bool in_conditional;
     char*  last_code  ;
-    char*  __dec_obj326  ;
+    char*  __dec_obj342  ;
     char*  last_code2  ;
-    char*  __dec_obj327  ;
+    char*  __dec_obj343  ;
     char*  sname_top  ;
     int sline_top;
     struct list$1CVALUE$ph* stack_saved;
@@ -12470,194 +12590,202 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
     char*  fun_name2  ;
     char*  none_generics_name  ;
     struct sType*  obj_type  ;
-    char*  __dec_obj328  ;
+    char*  __dec_obj344  ;
     char*  fun_name3  ;
     struct sGenericsFun*  generics_fun  ;
     void* __right_value1 = (void*)0;
     struct tuple2$2char$ph_Bool$* multiple_assign_var21
 ;    char*  name  =0;
     _Bool err=0;
-    char*  __dec_obj329  ;
-    char*  __dec_obj330  ;
-    char*  __dec_obj331  ;
-    struct buffer*  __dec_obj332  ;
-    struct buffer*  __dec_obj333  ;
-    struct buffer*  __dec_obj334  ;
-    struct list$1sRightValueObject$ph* __dec_obj335;
-    struct list$1CVALUE$ph* __dec_obj336;
+    char*  __dec_obj345  ;
+    char*  __dec_obj346  ;
+    char*  __dec_obj347  ;
+    struct buffer*  __dec_obj348  ;
+    struct buffer*  __dec_obj349  ;
+    struct buffer*  __dec_obj350  ;
+    struct list$1sRightValueObject$ph* __dec_obj351;
+    struct list$1CVALUE$ph* __dec_obj352;
     _Bool __result_obj__0;
-    char*  __dec_obj337  ;
+    char*  __dec_obj353  ;
     int i;
     char*  new_fun_name  ;
-    char*  __dec_obj338  ;
+    char*  __dec_obj354  ;
+    char*  __dec_obj355  ;
+    char*  __dec_obj356  ;
+    char*  __dec_obj357  ;
+    struct buffer*  __dec_obj358  ;
+    struct buffer*  __dec_obj359  ;
+    struct buffer*  __dec_obj360  ;
+    struct list$1sRightValueObject$ph* __dec_obj361;
+    struct list$1CVALUE$ph* __dec_obj362;
     struct tuple2$2sFun$pchar$ph* multiple_assign_var22
 ;    struct sFun*  fun  =0;
     char*  new_fun_name_183  =0;
-    char*  __dec_obj339  ;
-    char*  __dec_obj340  ;
-    char*  __dec_obj341  ;
-    char*  __dec_obj342  ;
-    struct buffer*  __dec_obj343  ;
-    struct buffer*  __dec_obj344  ;
-    struct buffer*  __dec_obj345  ;
-    struct list$1sRightValueObject$ph* __dec_obj346;
-    struct list$1CVALUE$ph* __dec_obj347;
+    char*  __dec_obj363  ;
+    char*  __dec_obj364  ;
+    char*  __dec_obj365  ;
+    char*  __dec_obj366  ;
+    struct buffer*  __dec_obj367  ;
+    struct buffer*  __dec_obj368  ;
+    struct buffer*  __dec_obj369  ;
+    struct list$1sRightValueObject$ph* __dec_obj370;
+    struct list$1CVALUE$ph* __dec_obj371;
     memset(&fun_name2, 0, sizeof(fun_name2));
     memset(&i, 0, sizeof(i));
-    type_=(struct sType* )come_increment_ref_count(get_no_solved_type2(type), "07function.nc", 3093, 2583);
+    type_=(struct sType* )come_increment_ref_count(get_no_solved_type2(type), "07function.nc", 3103, 2639);
     result=((void*)0);
     current_stack_frame_struct=info->current_stack_frame_struct;
     info->current_stack_frame_struct=((void*)0);
     caller_fun=info->caller_fun;
     info->caller_fun=info->come_fun;
     __right_value0 = (void*)0;
-    if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3105, 2584);
-    __dec_obj323=info->if_expression_buffer,
+    if_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->if_expression_buffer), "07function.nc", 3115, 2640);
+    __dec_obj339=info->if_expression_buffer,
     info->if_expression_buffer=((void*)0);
-    come_call_finalizer(buffer_finalize, __dec_obj323,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3106, 2585);
+    come_call_finalizer(buffer_finalize, __dec_obj339,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3116, 2641);
     __right_value0 = (void*)0;
-    loop_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->loop_expression_buffer), "07function.nc", 3107, 2586);
-    __dec_obj324=info->loop_expression_buffer,
+    loop_expression_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->loop_expression_buffer), "07function.nc", 3117, 2642);
+    __dec_obj340=info->loop_expression_buffer,
     info->loop_expression_buffer=((void*)0);
-    come_call_finalizer(buffer_finalize, __dec_obj324,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3108, 2587);
+    come_call_finalizer(buffer_finalize, __dec_obj340,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3118, 2643);
     __right_value0 = (void*)0;
-    paren_block_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->paren_block_buffer), "07function.nc", 3109, 2588);
-    __dec_obj325=info->paren_block_buffer,
+    paren_block_buffer=(struct buffer* )come_increment_ref_count(buffer_clone(info->paren_block_buffer), "07function.nc", 3119, 2644);
+    __dec_obj341=info->paren_block_buffer,
     info->paren_block_buffer=((void*)0);
-    come_call_finalizer(buffer_finalize, __dec_obj325,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3110, 2589);
+    come_call_finalizer(buffer_finalize, __dec_obj341,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3120, 2645);
     right_value_max=info->right_value_max;
     right_value_num=info->right_value_num;
     max_conditional=info->max_conditional;
     num_conditional=info->num_conditional;
     in_conditional=info->in_conditional;
     info->in_conditional=(_Bool)0;
-    last_code=(char* )come_increment_ref_count(info->module->mLastCode, "07function.nc", 3119, 2590);
-    __dec_obj326=info->module->mLastCode,
+    last_code=(char* )come_increment_ref_count(info->module->mLastCode, "07function.nc", 3129, 2646);
+    __dec_obj342=info->module->mLastCode,
     info->module->mLastCode=((void*)0);
-    __dec_obj326 = come_decrement_ref_count(__dec_obj326, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3120, 2591);
-    last_code2=(char* )come_increment_ref_count(info->module->mLastCode2, "07function.nc", 3121, 2592);
-    __dec_obj327=info->module->mLastCode2,
+    __dec_obj342 = come_decrement_ref_count(__dec_obj342, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3130, 2647);
+    last_code2=(char* )come_increment_ref_count(info->module->mLastCode2, "07function.nc", 3131, 2648);
+    __dec_obj343=info->module->mLastCode2,
     info->module->mLastCode2=((void*)0);
-    __dec_obj327 = come_decrement_ref_count(__dec_obj327, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3122, 2593);
+    __dec_obj343 = come_decrement_ref_count(__dec_obj343, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3132, 2649);
     __right_value0 = (void*)0;
-    sname_top=(char* )come_increment_ref_count(__builtin_string(info->sname,"07function.nc",3124), "07function.nc", 3124, 2594);
+    sname_top=(char* )come_increment_ref_count(__builtin_string(info->sname,"07function.nc",3134), "07function.nc", 3134, 2650);
     sline_top=info->sline;
-    stack_saved=(struct list$1CVALUE$ph*)come_increment_ref_count(info->stack, "07function.nc", 3127, 2595);
+    stack_saved=(struct list$1CVALUE$ph*)come_increment_ref_count(info->stack, "07function.nc", 3137, 2651);
     right_value_objects=info->right_value_objects;
     no_output_come_code=info->no_output_come_code;
     info->no_output_come_code=(_Bool)0;
     klass=type_->mClass;
-    class_name=(char* )come_increment_ref_count(klass->mName, "07function.nc", 3100, 2596);
+    class_name=(char* )come_increment_ref_count(klass->mName, "07function.nc", 3110, 2652);
     const char* fun_name="operator_not_equals";
     __right_value0 = (void*)0;
-    type2=(struct sType* )come_increment_ref_count(sType_clone(type_), "07function.nc", 3104, 2597);
+    type2=(struct sType* )come_increment_ref_count(sType_clone(type_), "07function.nc", 3114, 2653);
     type2->mHeap=(_Bool)0;
     cloner=((void*)0);
     if(list$1sType$ph_length(type_->mGenericsTypes)>0) {
         __right_value0 = (void*)0;
-        none_generics_name=(char* )come_increment_ref_count(get_none_generics_name(type_->mClass->mName), "07function.nc", 3110, 2598);
+        none_generics_name=(char* )come_increment_ref_count(get_none_generics_name(type_->mClass->mName), "07function.nc", 3120, 2654);
         __right_value0 = (void*)0;
-        obj_type=(struct sType* )come_increment_ref_count(solve_generics(type_,info->generics_type,info), "07function.nc", 3112, 2599);
+        obj_type=(struct sType* )come_increment_ref_count(solve_generics(type_,info->generics_type,info), "07function.nc", 3122, 2655);
         __right_value0 = (void*)0;
-        __dec_obj328=fun_name2,
-        fun_name2=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,fun_name,info,(_Bool)1), "07function.nc", 3114, 2601);
-        __dec_obj328 = come_decrement_ref_count(__dec_obj328, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3114, 2600);
+        __dec_obj344=fun_name2,
+        fun_name2=(char* )come_increment_ref_count(create_method_name(obj_type,(_Bool)0,fun_name,info,(_Bool)1), "07function.nc", 3124, 2657);
+        __dec_obj344 = come_decrement_ref_count(__dec_obj344, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3124, 2656);
         __right_value0 = (void*)0;
-        fun_name3=(char* )come_increment_ref_count(xsprintf("%s_%s",none_generics_name,fun_name), "07function.nc", 3115, 2602);
+        fun_name3=(char* )come_increment_ref_count(xsprintf("%s_%s",none_generics_name,fun_name), "07function.nc", 3125, 2658);
         __right_value0 = (void*)0;
         generics_fun=((struct sGenericsFun* )(__right_value0=map$2char$phsGenericsFun$ph_at(info->generics_funcs,fun_name3,((void*)0),(_Bool)0)));
         if(generics_fun) {
             __right_value0 = (void*)0;
-            multiple_assign_var21=((struct tuple2$2char$ph_Bool$*)(__right_value1=create_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name2,"07function.nc",3120), "07function.nc", 3120, 2603),generics_fun,obj_type,info)));
-            name=(char* )come_increment_ref_count(multiple_assign_var21->v1, "07function.nc", 3120, 2604);
+            multiple_assign_var21=((struct tuple2$2char$ph_Bool$*)(__right_value1=create_generics_fun((char* )come_increment_ref_count(__builtin_string(fun_name2,"07function.nc",3130), "07function.nc", 3130, 2659),generics_fun,obj_type,info)));
+            name=(char* )come_increment_ref_count(multiple_assign_var21->v1, "07function.nc", 3130, 2660);
             err=multiple_assign_var21->v2;
-            come_call_finalizer(tuple2$2char$ph_Bool$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3120, 2605);
+            come_call_finalizer(tuple2$2char$ph_Bool$$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3130, 2661);
             if(!err) {
                 info->no_output_come_code=no_output_come_code;
                 __right_value0 = (void*)0;
-                __dec_obj329=info->sname,
-                info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3125), "07function.nc", 3125, 2607);
-                __dec_obj329 = come_decrement_ref_count(__dec_obj329, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3125, 2606);
+                __dec_obj345=info->sname,
+                info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3135), "07function.nc", 3135, 2663);
+                __dec_obj345 = come_decrement_ref_count(__dec_obj345, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3135, 2662);
                 info->sline=sline_top;
-                __dec_obj330=info->module->mLastCode,
-                info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3128, 2609);
-                __dec_obj330 = come_decrement_ref_count(__dec_obj330, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3128, 2608);
-                __dec_obj331=info->module->mLastCode2,
-                info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3129, 2611);
-                __dec_obj331 = come_decrement_ref_count(__dec_obj331, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3129, 2610);
+                __dec_obj346=info->module->mLastCode,
+                info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3138, 2665);
+                __dec_obj346 = come_decrement_ref_count(__dec_obj346, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3138, 2664);
+                __dec_obj347=info->module->mLastCode2,
+                info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3139, 2667);
+                __dec_obj347 = come_decrement_ref_count(__dec_obj347, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3139, 2666);
                 info->caller_fun=caller_fun;
                 info->right_value_max=right_value_max;
                 info->right_value_num=right_value_num;
                 info->num_conditional=num_conditional;
                 info->max_conditional=max_conditional;
                 info->in_conditional=in_conditional;
-                __dec_obj332=info->if_expression_buffer,
-                info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3140, 2613);
-                come_call_finalizer(buffer_finalize, __dec_obj332,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3140, 2612);
-                __dec_obj333=info->loop_expression_buffer,
-                info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3141, 2615);
-                come_call_finalizer(buffer_finalize, __dec_obj333,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3141, 2614);
-                __dec_obj334=info->paren_block_buffer,
-                info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3142, 2617);
-                come_call_finalizer(buffer_finalize, __dec_obj334,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3142, 2616);
+                __dec_obj348=info->if_expression_buffer,
+                info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3150, 2669);
+                come_call_finalizer(buffer_finalize, __dec_obj348,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3150, 2668);
+                __dec_obj349=info->loop_expression_buffer,
+                info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3151, 2671);
+                come_call_finalizer(buffer_finalize, __dec_obj349,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3151, 2670);
+                __dec_obj350=info->paren_block_buffer,
+                info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3152, 2673);
+                come_call_finalizer(buffer_finalize, __dec_obj350,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3152, 2672);
                 info->current_stack_frame_struct=current_stack_frame_struct;
-                __dec_obj335=info->right_value_objects,
-                info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3144, 2619);
-                come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj335,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3144, 2618);
-                __dec_obj336=info->stack,
-                info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3145, 2621);
-                come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj336,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3145, 2620);
+                __dec_obj351=info->right_value_objects,
+                info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3154, 2675);
+                come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj351,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3154, 2674);
+                __dec_obj352=info->stack,
+                info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3155, 2677);
+                come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj352,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3155, 2676);
                                 __result_obj__0 = (_Bool)0;
-                (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3124, 2622));
-                (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3124, 2623));
-                come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3124, 2624);
-                (fun_name3 = come_decrement_ref_count(fun_name3, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3124, 2625));
-                come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3124, 2626);
-                (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3124, 2627));
-                come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3124, 2628);
-                come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3124, 2629);
-                come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3124, 2630);
-                (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3124, 2631));
-                (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3124, 2632));
-                (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3124, 2633));
-                come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3124, 2634);
-                (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3124, 2635));
-                come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3124, 2636);
-                (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3124, 2637));
+                (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3134, 2678));
+                (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3134, 2679));
+                come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3134, 2680);
+                (fun_name3 = come_decrement_ref_count(fun_name3, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3134, 2681));
+                come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3134, 2682);
+                (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3134, 2683));
+                come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3134, 2684);
+                come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3134, 2685);
+                come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3134, 2686);
+                (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3134, 2687));
+                (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3134, 2688));
+                (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3134, 2689));
+                come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3134, 2690);
+                (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3134, 2691));
+                come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3134, 2692);
+                (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3134, 2693));
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
             __right_value0 = (void*)0;
             cloner=((struct sFun* )(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,name)));
-            (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3131, 2638));
+            (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3141, 2694));
         }
         else {
             __right_value0 = (void*)0;
             cloner=((struct sFun* )(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,fun_name2)));
         }
-        (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3151, 2639));
-        come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3151, 2640);
-        (fun_name3 = come_decrement_ref_count(fun_name3, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3151, 2641));
+        (none_generics_name = come_decrement_ref_count(none_generics_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3161, 2695));
+        come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3161, 2696);
+        (fun_name3 = come_decrement_ref_count(fun_name3, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3161, 2697));
     }
     else {
         __right_value0 = (void*)0;
-        __dec_obj337=fun_name2,
-        fun_name2=(char* )come_increment_ref_count(create_method_name(type_,(_Bool)0,fun_name,info,(_Bool)1), "07function.nc", 3133, 2643);
-        __dec_obj337 = come_decrement_ref_count(__dec_obj337, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3133, 2642);
+        __dec_obj353=fun_name2,
+        fun_name2=(char* )come_increment_ref_count(create_method_name(type_,(_Bool)0,fun_name,info,(_Bool)1), "07function.nc", 3143, 2699);
+        __dec_obj353 = come_decrement_ref_count(__dec_obj353, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3143, 2698);
         for(i=128-1        ;i>=1;i--){
             __right_value0 = (void*)0;
-            new_fun_name=(char* )come_increment_ref_count(xsprintf("%s_v%d",fun_name2,i), "07function.nc", 3137, 2644);
+            new_fun_name=(char* )come_increment_ref_count(xsprintf("%s_v%d",fun_name2,i), "07function.nc", 3147, 2700);
             __right_value0 = (void*)0;
             cloner=((struct sFun* )(__right_value0=map$2char$phsFun$ph_operator_load_element(info->funcs,new_fun_name)));
             if(cloner) {
                 __right_value0 = (void*)0;
-                __dec_obj338=fun_name2,
-                fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name,"07function.nc",3141), "07function.nc", 3141, 2646);
-                __dec_obj338 = come_decrement_ref_count(__dec_obj338, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3141, 2645);
-                (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3142, 2647));
+                __dec_obj354=fun_name2,
+                fun_name2=(char* )come_increment_ref_count(__builtin_string(new_fun_name,"07function.nc",3151), "07function.nc", 3151, 2702);
+                __dec_obj354 = come_decrement_ref_count(__dec_obj354, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3151, 2701);
+                (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3152, 2703));
                 break;
             }
-            (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3146, 2648));
+            (new_fun_name = come_decrement_ref_count(new_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3156, 2704));
         }
         if(cloner==((void*)0)) {
             __right_value0 = (void*)0;
@@ -12665,64 +12793,115 @@ _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  in
         }
     }
     if(cloner==((void*)0)&&!type_->mClass->mProtocol&&!type_->mClass->mNumber) {
+        if(require_explicit_method_in_low_memory_mode(type_,fun_name,info)) {
+            info->no_output_come_code=no_output_come_code;
+            __right_value0 = (void*)0;
+            __dec_obj355=info->sname,
+            info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3166), "07function.nc", 3166, 2706);
+            __dec_obj355 = come_decrement_ref_count(__dec_obj355, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3166, 2705);
+            info->sline=sline_top;
+            __dec_obj356=info->module->mLastCode,
+            info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3169, 2708);
+            __dec_obj356 = come_decrement_ref_count(__dec_obj356, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3169, 2707);
+            __dec_obj357=info->module->mLastCode2,
+            info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3170, 2710);
+            __dec_obj357 = come_decrement_ref_count(__dec_obj357, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3170, 2709);
+            info->caller_fun=caller_fun;
+            info->right_value_max=right_value_max;
+            info->right_value_num=right_value_num;
+            info->num_conditional=num_conditional;
+            info->max_conditional=max_conditional;
+            info->in_conditional=in_conditional;
+            __dec_obj358=info->if_expression_buffer,
+            info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3181, 2712);
+            come_call_finalizer(buffer_finalize, __dec_obj358,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3181, 2711);
+            __dec_obj359=info->loop_expression_buffer,
+            info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3182, 2714);
+            come_call_finalizer(buffer_finalize, __dec_obj359,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3182, 2713);
+            __dec_obj360=info->paren_block_buffer,
+            info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3183, 2716);
+            come_call_finalizer(buffer_finalize, __dec_obj360,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3183, 2715);
+            info->current_stack_frame_struct=current_stack_frame_struct;
+            __dec_obj361=info->right_value_objects,
+            info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3185, 2718);
+            come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj361,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3185, 2717);
+            __dec_obj362=info->stack,
+            info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3186, 2720);
+            come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj362,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3186, 2719);
+                        __result_obj__0 = (_Bool)0;
+            come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3165, 2721);
+            (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3165, 2722));
+            come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3165, 2723);
+            come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3165, 2724);
+            come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3165, 2725);
+            (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3165, 2726));
+            (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3165, 2727));
+            (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3165, 2728));
+            come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3165, 2729);
+            (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3165, 2730));
+            come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3165, 2731);
+            (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3165, 2732));
+            neo_current_frame = fr.prev;
+            return __result_obj__0;
+        }
         __right_value0 = (void*)0;
         multiple_assign_var22=((struct tuple2$2sFun$pchar$ph*)(__right_value0=create_operator_not_equals_automatically(type_,fun_name,info)));
         fun=multiple_assign_var22->v1;
-        new_fun_name_183=(char* )come_increment_ref_count(multiple_assign_var22->v2, "07function.nc", 3153, 2649);
-        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3153, 2650);
-        __dec_obj339=fun_name2,
-        fun_name2=(char* )come_increment_ref_count(new_fun_name_183, "07function.nc", 3155, 2652);
-        __dec_obj339 = come_decrement_ref_count(__dec_obj339, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3155, 2651);
+        new_fun_name_183=(char* )come_increment_ref_count(multiple_assign_var22->v2, "07function.nc", 3168, 2733);
+        come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 3168, 2734);
+        __dec_obj363=fun_name2,
+        fun_name2=(char* )come_increment_ref_count(new_fun_name_183, "07function.nc", 3170, 2736);
+        __dec_obj363 = come_decrement_ref_count(__dec_obj363, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3170, 2735);
         cloner=fun;
-        (new_fun_name_183 = come_decrement_ref_count(new_fun_name_183, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3160, 2653));
+        (new_fun_name_183 = come_decrement_ref_count(new_fun_name_183, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3175, 2737));
     }
     info->no_output_come_code=no_output_come_code;
     __right_value0 = (void*)0;
-    __dec_obj340=info->sname,
-    info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3161), "07function.nc", 3161, 2655);
-    __dec_obj340 = come_decrement_ref_count(__dec_obj340, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3161, 2654);
+    __dec_obj364=info->sname,
+    info->sname=(char* )come_increment_ref_count(__builtin_string(sname_top,"07function.nc",3176), "07function.nc", 3176, 2739);
+    __dec_obj364 = come_decrement_ref_count(__dec_obj364, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3176, 2738);
     info->sline=sline_top;
-    __dec_obj341=info->module->mLastCode,
-    info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3164, 2657);
-    __dec_obj341 = come_decrement_ref_count(__dec_obj341, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3164, 2656);
-    __dec_obj342=info->module->mLastCode2,
-    info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3165, 2659);
-    __dec_obj342 = come_decrement_ref_count(__dec_obj342, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3165, 2658);
+    __dec_obj365=info->module->mLastCode,
+    info->module->mLastCode=(char* )come_increment_ref_count(last_code, "07function.nc", 3179, 2741);
+    __dec_obj365 = come_decrement_ref_count(__dec_obj365, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3179, 2740);
+    __dec_obj366=info->module->mLastCode2,
+    info->module->mLastCode2=(char* )come_increment_ref_count(last_code2, "07function.nc", 3180, 2743);
+    __dec_obj366 = come_decrement_ref_count(__dec_obj366, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 3180, 2742);
     info->caller_fun=caller_fun;
     info->right_value_max=right_value_max;
     info->right_value_num=right_value_num;
     info->num_conditional=num_conditional;
     info->max_conditional=max_conditional;
     info->in_conditional=in_conditional;
-    __dec_obj343=info->if_expression_buffer,
-    info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3176, 2661);
-    come_call_finalizer(buffer_finalize, __dec_obj343,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3176, 2660);
-    __dec_obj344=info->loop_expression_buffer,
-    info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3177, 2663);
-    come_call_finalizer(buffer_finalize, __dec_obj344,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3177, 2662);
-    __dec_obj345=info->paren_block_buffer,
-    info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3178, 2665);
-    come_call_finalizer(buffer_finalize, __dec_obj345,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3178, 2664);
+    __dec_obj367=info->if_expression_buffer,
+    info->if_expression_buffer=(struct buffer* )come_increment_ref_count(if_expression_buffer, "07function.nc", 3191, 2745);
+    come_call_finalizer(buffer_finalize, __dec_obj367,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3191, 2744);
+    __dec_obj368=info->loop_expression_buffer,
+    info->loop_expression_buffer=(struct buffer* )come_increment_ref_count(loop_expression_buffer, "07function.nc", 3192, 2747);
+    come_call_finalizer(buffer_finalize, __dec_obj368,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3192, 2746);
+    __dec_obj369=info->paren_block_buffer,
+    info->paren_block_buffer=(struct buffer* )come_increment_ref_count(paren_block_buffer, "07function.nc", 3193, 2749);
+    come_call_finalizer(buffer_finalize, __dec_obj369,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3193, 2748);
     info->current_stack_frame_struct=current_stack_frame_struct;
-    __dec_obj346=info->right_value_objects,
-    info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3180, 2667);
-    come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj346,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3180, 2666);
-    __dec_obj347=info->stack,
-    info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3181, 2669);
-    come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj347,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3181, 2668);
+    __dec_obj370=info->right_value_objects,
+    info->right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(right_value_objects, "07function.nc", 3195, 2751);
+    come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj370,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3195, 2750);
+    __dec_obj371=info->stack,
+    info->stack=(struct list$1CVALUE$ph*)come_increment_ref_count(stack_saved, "07function.nc", 3196, 2753);
+    come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj371,(void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc", 3196, 2752);
         __result_obj__0 = (_Bool)1;
-    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3161, 2670);
-    (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3161, 2671));
-    come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3161, 2672);
-    come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3161, 2673);
-    come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3161, 2674);
-    (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3161, 2675));
-    (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3161, 2676));
-    (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3161, 2677));
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3161, 2678);
-    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3161, 2679));
-    come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3161, 2680);
-    (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3161, 2681));
+    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3176, 2754);
+    (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3176, 2755));
+    come_call_finalizer(buffer_finalize, if_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3176, 2756);
+    come_call_finalizer(buffer_finalize, loop_expression_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3176, 2757);
+    come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3176, 2758);
+    (last_code = come_decrement_ref_count(last_code, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3176, 2759));
+    (last_code2 = come_decrement_ref_count(last_code2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3176, 2760));
+    (sname_top = come_decrement_ref_count(sname_top, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3176, 2761));
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, stack_saved, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3176, 2762);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3176, 2763));
+    come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 3176, 2764);
+    (fun_name2 = come_decrement_ref_count(fun_name2, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 3176, 2765));
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }

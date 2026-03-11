@@ -10,6 +10,40 @@ bool gComeCPlusPlus = false;
 bool gComelang = false;
 bool gComeSafe = false;
 bool gPortableC = false;
+bool gComeLowMemory = false;
+
+bool require_explicit_method_in_low_memory_mode(sType* type, const char* fun_name, sInfo* info=info)
+{
+    if(!gComeLowMemory || type == null || type->mClass == null) {
+        return false;
+    }
+    
+    sType* type2 = type;
+    if(type->mNoSolvedGenericsType && type->mNoSolvedGenericsType.mClass) {
+        type2 = borrow type->mNoSolvedGenericsType;
+    }
+    
+    sClass* klass = type2->mClass;
+    bool generated_automatically = type2->mPointerNum > 0 && !klass->mNumber;
+    
+    if(fun_name === "compare" || fun_name === "get_hash_key") {
+        generated_automatically = generated_automatically && !klass->mProtocol;
+    }
+    else if(fun_name !== "equals" && fun_name !== "operator_equals"
+        && fun_name !== "operator_not_equals" && fun_name !== "to_string")
+    {
+        generated_automatically = false;
+    }
+    
+    if(!generated_automatically) {
+        return false;
+    }
+    
+    string type_name = make_type_name_string(type2, no_static:true);
+    err_msg(info, "lowmem mode disables automatic %s generation for %s. Define %s explicitly or compile without -lowmem", fun_name, type_name, fun_name);
+    
+    return true;
+}
 
 static void write_source_file_position_to_source(sInfo* info=info)
 {
@@ -297,6 +331,9 @@ static void init_classes(sInfo* info)
         }
         else if(argv[i] === "-portable-c") {
             gPortableC = true;
+        }
+        else if(argv[i] === "-lowmem") {
+            gComeLowMemory = true;
         }
         else if(ext_name === "nc") {
             files.push_back(string(argv[i]));

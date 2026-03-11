@@ -3004,6 +3004,11 @@ bool create_equals_method(sType* type, sInfo* info)
     
     if(cloner == null && !type_->mClass->mProtocol && !type_->mClass->mNumber)
     {
+        if(require_explicit_method_in_low_memory_mode(type_, fun_name, info)) {
+            MRestoreState;
+            return false;
+        }
+        
         var fun,new_fun_name = create_equals_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;
@@ -3077,6 +3082,11 @@ bool create_operator_equals_method(sType* type, sInfo* info)
     
     if(cloner == null && !type_->mClass->mProtocol && !type_->mClass->mNumber)
     {
+        if(require_explicit_method_in_low_memory_mode(type_, fun_name, info)) {
+            MRestoreState;
+            return false;
+        }
+        
         var fun,new_fun_name = create_operator_equals_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;
@@ -3150,6 +3160,11 @@ bool create_operator_not_equals_method(sType* type, sInfo* info)
     
     if(cloner == null && !type_->mClass->mProtocol && !type_->mClass->mNumber)
     {
+        if(require_explicit_method_in_low_memory_mode(type_, fun_name, info)) {
+            MRestoreState;
+            return false;
+        }
+        
         var fun,new_fun_name = create_operator_not_equals_automatically(type_, fun_name, info);
         
         fun_name2 = new_fun_name;

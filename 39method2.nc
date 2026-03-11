@@ -317,24 +317,40 @@ string, sFun*,sGenericsFun* get_method(const char* fun_name, sType* obj_type, sI
                     }
                     
                     if(fun == null && fun_name === "to_string") {
+                        if(require_explicit_method_in_low_memory_mode(obj_type, fun_name, info)) {
+                            return t(generics_fun_name, (sFun*)null, (sGenericsFun*)null);
+                        }
+                        
                         var fun2, real_fun_name = create_to_string_automatically(obj_type, fun_name, info);
                         
                         fun = fun2;
                         generics_fun_name = real_fun_name;
                     }
                     if(fun == null && fun_name === "get_hash_key") {
+                        if(require_explicit_method_in_low_memory_mode(obj_type, fun_name, info)) {
+                            return t(generics_fun_name, (sFun*)null, (sGenericsFun*)null);
+                        }
+                        
                         var fun2, real_fun_name = create_get_hash_key_automatically(obj_type, fun_name, info);
                         
                         fun = fun2;
                         generics_fun_name = real_fun_name;
                     }
                     if(fun == null && fun_name === "equals") {
+                        if(require_explicit_method_in_low_memory_mode(obj_type, fun_name, info)) {
+                            return t(generics_fun_name, (sFun*)null, (sGenericsFun*)null);
+                        }
+                        
                         var fun2, real_fun_name = create_equals_automatically(obj_type, fun_name, info);
                         
                         fun = borrow info.funcs[real_fun_name];
                         generics_fun_name = real_fun_name;
                     }
                     if(fun == null && fun_name === "compare") {
+                        if(require_explicit_method_in_low_memory_mode(obj_type, fun_name, info)) {
+                            return t(generics_fun_name, (sFun*)null, (sGenericsFun*)null);
+                        }
+                        
                         var fun2, real_fun_name = create_compare_automatically(obj_type, fun_name, info);
                         
                         fun = borrow info.funcs[real_fun_name];

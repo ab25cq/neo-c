@@ -998,6 +998,10 @@ class sEq2Node extends sNodeBase
         }
         
         if(!calling_fun) {
+            if(!self.mQuote && require_explicit_method_in_low_memory_mode(type, fun_name, info)) {
+                return false;
+            }
+            
             CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s==%s", left_value.c_value, right_value.c_value);
@@ -1060,6 +1064,10 @@ class sNotEq2Node extends sNodeBase
         }
         
         if(!calling_fun) {
+            if(!self.mQuote && require_explicit_method_in_low_memory_mode(type, fun_name, info)) {
+                return false;
+            }
+            
             CVALUE*% come_value = new CVALUE();
             
             come_value.c_value = xsprintf("%s!=%s", left_value.c_value, right_value.c_value);

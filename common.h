@@ -18,6 +18,7 @@ extern bool gComeCPlusPlus;
 extern bool gComelang;
 extern bool gComeSafe;
 extern bool gPortableC;
+extern bool gComeLowMemory;
 
 struct sType;
 struct sClass;
@@ -886,6 +887,7 @@ void std_move(sType* left_type, sType* right_type, CVALUE* right_value, sInfo* i
 bool create_equals_method(sType* type, sInfo* info);
 bool create_operator_equals_method(sType* type, sInfo* info);
 bool create_operator_not_equals_method(sType* type, sInfo* info);
+bool require_explicit_method_in_low_memory_mode(sType* type, const char* fun_name, sInfo* info=info);
 sType*% solve_generics(sType* type, sType* generics_type, sInfo* info);
 sVar* get_variable_from_table(sVarTable* table, char* name);
 void free_objects_on_return(sBlock* current_block, sInfo* info, sVar* ret_value, bool top_block, bool ret_value_is_field=false);

@@ -1559,6 +1559,7 @@ extern _Bool gComeCPlusPlus;
 extern _Bool gComelang;
 extern _Bool gComeSafe;
 extern _Bool gPortableC;
+extern _Bool gComeLowMemory;
 // source head
 
 // header function
@@ -2148,6 +2149,7 @@ void std_move(struct sType*  left_type  , struct sType*  right_type  , struct CV
 _Bool create_equals_method(struct sType*  type  , struct sInfo*  info  );
 _Bool create_operator_equals_method(struct sType*  type  , struct sInfo*  info  );
 _Bool create_operator_not_equals_method(struct sType*  type  , struct sInfo*  info  );
+_Bool require_explicit_method_in_low_memory_mode(struct sType*  type  , const char* fun_name, struct sInfo*  info  );
 struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_type  , struct sInfo*  info  );
 struct sVar*  get_variable_from_table(struct sVarTable*  table  , char* name);
 void free_objects_on_return(struct sBlock*  current_block  , struct sInfo*  info  , struct sVar*  ret_value  , _Bool top_block, _Bool ret_value_is_field);
@@ -7317,20 +7319,20 @@ struct sClass* sClass_initialize(struct sClass* self, char*  name  , _Bool numbe
     self->mTypeName=typename;
     self->mUniq=uniq_;
     __dec_obj16=self->mName,
-    self->mName=(char* )come_increment_ref_count(__builtin_string(name,"./common.h",82), "./common.h", 82, 640);
-    __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 82, 639);
+    self->mName=(char* )come_increment_ref_count(__builtin_string(name,"./common.h",83), "./common.h", 83, 640);
+    __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 83, 639);
     self->mGenericsNum=generics_num;
     self->mMethodGenericsNum=method_generics_num;
     __right_value0 = (void*)0;
     __dec_obj17=self->mFields,
-    self->mFields=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsType$ph$ph_initialize((struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsType$ph$ph)*(1), "./common.h", 87, 641, "struct list$1tuple2$2char$phsType$ph$ph*"), "./common.h", 87, 678)), "./common.h", 87, 681);
-    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph_finalize, __dec_obj17,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 87, 680);
+    self->mFields=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsType$ph$ph_initialize((struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsType$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsType$ph$ph)*(1), "./common.h", 88, 641, "struct list$1tuple2$2char$phsType$ph$ph*"), "./common.h", 88, 678)), "./common.h", 88, 681);
+    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph_finalize, __dec_obj17,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 88, 680);
     self->mIter=iter_;
-        __result_obj__0 = (struct sClass*)come_increment_ref_count(self, "./common.h", 90, 682);
-    come_call_finalizer(sClass_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 90, 687);
-    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 90, 688));
+        __result_obj__0 = (struct sClass*)come_increment_ref_count(self, "./common.h", 91, 682);
+    come_call_finalizer(sClass_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 91, 687);
+    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 91, 688));
     neo_current_frame = fr.prev;
-    come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 90, 689);
+    come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 91, 689);
     return __result_obj__0;
 }
 
@@ -8092,12 +8094,12 @@ struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, st
         pointer_num++;
         p++;
     }
-    name2=(char* )come_increment_ref_count(charp_substring(((char* )(__right_value0=__builtin_string(name,"./common.h",202))),0,-pointer_num+pointer_num_-1), "./common.h", 202, 690);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 202, 691));
+    name2=(char* )come_increment_ref_count(charp_substring(((char* )(__right_value0=__builtin_string(name,"./common.h",203))),0,-pointer_num+pointer_num_-1), "./common.h", 203, 690);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 203, 691));
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    klass=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(name2,"./common.h",203))))));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 203, 722));
+    klass=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(name2,"./common.h",204))))));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 204, 722));
     __right_value0 = (void*)0;
     generics_class=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->generics_classes,name2)));
     if(klass==((void*)0)&&generics_class==((void*)0)) {
@@ -8108,69 +8110,69 @@ struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, st
     }
     else {
         __right_value0 = (void*)0;
-        klass2=(struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "./common.h", 214, 723, "struct sClass* "), "./common.h", 214, 724);
+        klass2=(struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "./common.h", 215, 723, "struct sClass* "), "./common.h", 215, 724);
         __right_value0 = (void*)0;
         __dec_obj18=klass2->mName,
-        klass2->mName=(char* )come_increment_ref_count(__builtin_string(name,"./common.h",215), "./common.h", 215, 726);
-        __dec_obj18 = come_decrement_ref_count(__dec_obj18, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 215, 725);
+        klass2->mName=(char* )come_increment_ref_count(__builtin_string(name,"./common.h",216), "./common.h", 216, 726);
+        __dec_obj18 = come_decrement_ref_count(__dec_obj18, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 216, 725);
         __right_value0 = (void*)0;
-        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(name,"./common.h",217), "./common.h", 217, 771),(struct sClass* )come_increment_ref_count(klass2, "./common.h", 217, 772),(_Bool)0);
+        map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string(name,"./common.h",218), "./common.h", 218, 771),(struct sClass* )come_increment_ref_count(klass2, "./common.h", 218, 772),(_Bool)0);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        self->mClass=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(name,"./common.h",219))))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 219, 773));
-        come_call_finalizer(sClass_finalize, klass2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 222, 774);
+        self->mClass=((struct sClass* )(__right_value2=map$2char$phsClass$ph_operator_load_element(info->classes,((char* )(__right_value1=__builtin_string(name,"./common.h",220))))));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 220, 773));
+        come_call_finalizer(sClass_finalize, klass2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 223, 774);
     }
     __dec_obj19=self->mNoSolvedGenericsType,
     self->mNoSolvedGenericsType=((void*)0);
-    come_call_finalizer(sType_finalize, __dec_obj19,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 222, 775);
+    come_call_finalizer(sType_finalize, __dec_obj19,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 223, 775);
     __dec_obj20=self->mOriginalLoadVarType,
     self->mOriginalLoadVarType=((void*)0);
-    come_call_finalizer(sType_finalize, __dec_obj20,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 223, 776);
+    come_call_finalizer(sType_finalize, __dec_obj20,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 224, 776);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj21=self->mGenericsTypes,
-    self->mGenericsTypes=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "./common.h", 224, 777, "struct list$1sType$ph*"), "./common.h", 224, 781)), "./common.h", 224, 784);
-    come_call_finalizer(list$1sType$ph_finalize, __dec_obj21,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 224, 783);
+    self->mGenericsTypes=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "./common.h", 225, 777, "struct list$1sType$ph*"), "./common.h", 225, 781)), "./common.h", 225, 784);
+    come_call_finalizer(list$1sType$ph_finalize, __dec_obj21,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 225, 783);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj22=self->mArrayNum,
-    self->mArrayNum=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "./common.h", 225, 785, "struct list$1sNode$ph*"), "./common.h", 225, 789)), "./common.h", 225, 792);
-    come_call_finalizer(list$1sNode$ph_finalize, __dec_obj22,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 225, 791);
+    self->mArrayNum=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "./common.h", 226, 785, "struct list$1sNode$ph*"), "./common.h", 226, 789)), "./common.h", 226, 792);
+    come_call_finalizer(list$1sNode$ph_finalize, __dec_obj22,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 226, 791);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj23=self->mVarNameArrayNum,
-    self->mVarNameArrayNum=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "./common.h", 226, 793, "struct list$1sNode$ph*"), "./common.h", 226, 794)), "./common.h", 226, 796);
-    come_call_finalizer(list$1sNode$ph_finalize, __dec_obj23,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 226, 795);
+    self->mVarNameArrayNum=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "./common.h", 227, 793, "struct list$1sNode$ph*"), "./common.h", 227, 794)), "./common.h", 227, 796);
+    come_call_finalizer(list$1sNode$ph_finalize, __dec_obj23,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 227, 795);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj24=self->mArrayStatic,
-    self->mArrayStatic=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "./common.h", 227, 797, "struct list$1int$*"), "./common.h", 227, 801)), "./common.h", 227, 804);
-    come_call_finalizer(list$1int$_finalize, __dec_obj24,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 227, 803);
+    self->mArrayStatic=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "./common.h", 228, 797, "struct list$1int$*"), "./common.h", 228, 801)), "./common.h", 228, 804);
+    come_call_finalizer(list$1int$_finalize, __dec_obj24,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 228, 803);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj25=self->mArrayRestrict,
-    self->mArrayRestrict=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "./common.h", 228, 805, "struct list$1int$*"), "./common.h", 228, 806)), "./common.h", 228, 808);
-    come_call_finalizer(list$1int$_finalize, __dec_obj25,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 228, 807);
+    self->mArrayRestrict=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "./common.h", 229, 805, "struct list$1int$*"), "./common.h", 229, 806)), "./common.h", 229, 808);
+    come_call_finalizer(list$1int$_finalize, __dec_obj25,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 229, 807);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj26=self->mParamTypes,
-    self->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "./common.h", 229, 809, "struct list$1sType$ph*"), "./common.h", 229, 810)), "./common.h", 229, 812);
-    come_call_finalizer(list$1sType$ph_finalize, __dec_obj26,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 229, 811);
+    self->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "./common.h", 230, 809, "struct list$1sType$ph*"), "./common.h", 230, 810)), "./common.h", 230, 812);
+    come_call_finalizer(list$1sType$ph_finalize, __dec_obj26,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 230, 811);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj27=self->mParamNames,
-    self->mParamNames=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "./common.h", 230, 813, "struct list$1char$ph*"), "./common.h", 230, 814)), "./common.h", 230, 817);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj27,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 230, 816);
+    self->mParamNames=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "./common.h", 231, 813, "struct list$1char$ph*"), "./common.h", 231, 814)), "./common.h", 231, 817);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj27,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 231, 816);
     __right_value0 = (void*)0;
     __dec_obj28=self->mOriginalTypeName,
-    self->mOriginalTypeName=(char*)come_increment_ref_count(xsprintf(""), "./common.h", 231, 819);
-    __dec_obj28 = come_decrement_ref_count(__dec_obj28, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 231, 818);
+    self->mOriginalTypeName=(char*)come_increment_ref_count(xsprintf(""), "./common.h", 232, 819);
+    __dec_obj28 = come_decrement_ref_count(__dec_obj28, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 232, 818);
     self->mVarArgs=(_Bool)0;
     __dec_obj29=self->mResultType,
     self->mResultType=((void*)0);
-    come_call_finalizer(sType_finalize, __dec_obj29,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 233, 820);
+    come_call_finalizer(sType_finalize, __dec_obj29,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 234, 820);
     self->mUnsigned=unsigned_;
     self->mConstant=(_Bool)0;
     self->mRegister=(_Bool)0;
@@ -8183,24 +8185,24 @@ struct sType* sType_initialize(struct sType* self, char*  name  , _Bool heap, st
     self->mPointerNum=pointer_num;
     __dec_obj30=self->mSizeNum,
     self->mSizeNum=((void*)0);
-    (__dec_obj30 ? __dec_obj30 = come_decrement_ref_count(__dec_obj30, ((struct sNode*)__dec_obj30)->finalize, ((struct sNode*)__dec_obj30)->_protocol_obj, 0,0, (void*)0, "./common.h", 245, 821) :0);
+    (__dec_obj30 ? __dec_obj30 = come_decrement_ref_count(__dec_obj30, ((struct sNode*)__dec_obj30)->finalize, ((struct sNode*)__dec_obj30)->_protocol_obj, 0,0, (void*)0, "./common.h", 246, 821) :0);
     __dec_obj31=self->mTypeOfNode,
     self->mTypeOfNode=((void*)0);
-    (__dec_obj31 ? __dec_obj31 = come_decrement_ref_count(__dec_obj31, ((struct sNode*)__dec_obj31)->finalize, ((struct sNode*)__dec_obj31)->_protocol_obj, 0,0, (void*)0, "./common.h", 247, 822) :0);
+    (__dec_obj31 ? __dec_obj31 = come_decrement_ref_count(__dec_obj31, ((struct sNode*)__dec_obj31)->finalize, ((struct sNode*)__dec_obj31)->_protocol_obj, 0,0, (void*)0, "./common.h", 248, 822) :0);
     __right_value0 = (void*)0;
     __dec_obj32=self->mMiddleAttribute,
-    self->mMiddleAttribute=(char*)come_increment_ref_count(xsprintf(""), "./common.h", 248, 824);
-    __dec_obj32 = come_decrement_ref_count(__dec_obj32, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 248, 823);
+    self->mMiddleAttribute=(char*)come_increment_ref_count(xsprintf(""), "./common.h", 249, 824);
+    __dec_obj32 = come_decrement_ref_count(__dec_obj32, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 249, 823);
     __right_value0 = (void*)0;
     __dec_obj33=self->mPointerAttribute,
-    self->mPointerAttribute=(char*)come_increment_ref_count(xsprintf(""), "./common.h", 249, 826);
-    __dec_obj33 = come_decrement_ref_count(__dec_obj33, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 249, 825);
-        __result_obj__0 = (struct sType*)come_increment_ref_count(self, "./common.h", 250, 827);
-    come_call_finalizer(sType_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 250, 828);
-    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 250, 829));
-    (name2 = come_decrement_ref_count(name2, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 250, 830));
+    self->mPointerAttribute=(char*)come_increment_ref_count(xsprintf(""), "./common.h", 250, 826);
+    __dec_obj33 = come_decrement_ref_count(__dec_obj33, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 250, 825);
+        __result_obj__0 = (struct sType*)come_increment_ref_count(self, "./common.h", 251, 827);
+    come_call_finalizer(sType_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 251, 828);
+    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 251, 829));
+    (name2 = come_decrement_ref_count(name2, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 251, 830));
     neo_current_frame = fr.prev;
-    come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 250, 831);
+    come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 251, 831);
     return __result_obj__0;
 }
 
@@ -9224,20 +9226,20 @@ struct sFun* sFun_initialize(struct sFun* self, char*  name  , struct sType*  re
     char*  __dec_obj89  ;
     struct sFun* __result_obj__0;
     __dec_obj34=self->mName,
-    self->mName=(char* )come_increment_ref_count(name, "./common.h", 310, 833);
-    __dec_obj34 = come_decrement_ref_count(__dec_obj34, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 310, 832);
+    self->mName=(char* )come_increment_ref_count(name, "./common.h", 311, 833);
+    __dec_obj34 = come_decrement_ref_count(__dec_obj34, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 311, 832);
     __dec_obj35=self->mResultType,
-    self->mResultType=(struct sType* )come_increment_ref_count(result_type, "./common.h", 311, 835);
-    come_call_finalizer(sType_finalize, __dec_obj35,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 311, 834);
+    self->mResultType=(struct sType* )come_increment_ref_count(result_type, "./common.h", 312, 835);
+    come_call_finalizer(sType_finalize, __dec_obj35,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 312, 834);
     __dec_obj36=self->mParamTypes,
-    self->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count(param_types, "./common.h", 312, 837);
-    come_call_finalizer(list$1sType$ph_finalize, __dec_obj36,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 312, 836);
+    self->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count(param_types, "./common.h", 313, 837);
+    come_call_finalizer(list$1sType$ph_finalize, __dec_obj36,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 313, 836);
     __dec_obj37=self->mParamNames,
-    self->mParamNames=(struct list$1char$ph*)come_increment_ref_count(param_names, "./common.h", 313, 839);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj37,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 313, 838);
+    self->mParamNames=(struct list$1char$ph*)come_increment_ref_count(param_names, "./common.h", 314, 839);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj37,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 314, 838);
     __dec_obj38=self->mParamDefaultParametors,
-    self->mParamDefaultParametors=(struct list$1char$ph*)come_increment_ref_count(param_default_parametors, "./common.h", 314, 841);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj38,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 314, 840);
+    self->mParamDefaultParametors=(struct list$1char$ph*)come_increment_ref_count(param_default_parametors, "./common.h", 315, 841);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj38,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 315, 840);
     self->mExternal=external;
     self->mVarArgs=var_args;
     self->mStatic=static_;
@@ -9245,88 +9247,88 @@ struct sFun* sFun_initialize(struct sFun* self, char*  name  , struct sType*  re
     self->mUniq=uniq_;
     self->mConstFun=const_fun;
     __dec_obj39=self->mAllVar,
-    self->mAllVar=(struct list$1sVar$ph*)come_increment_ref_count(list$1sVar$ph_initialize((struct list$1sVar$ph*)come_increment_ref_count((struct list$1sVar$ph*)come_calloc(1, sizeof(struct list$1sVar$ph)*(1), "./common.h", 321, 842, "struct list$1sVar$ph*"), "./common.h", 321, 852)), "./common.h", 321, 855);
-    come_call_finalizer(list$1sVar$ph_finalize, __dec_obj39,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 321, 854);
+    self->mAllVar=(struct list$1sVar$ph*)come_increment_ref_count(list$1sVar$ph_initialize((struct list$1sVar$ph*)come_increment_ref_count((struct list$1sVar$ph*)come_calloc(1, sizeof(struct list$1sVar$ph)*(1), "./common.h", 322, 842, "struct list$1sVar$ph*"), "./common.h", 322, 852)), "./common.h", 322, 855);
+    come_call_finalizer(list$1sVar$ph_finalize, __dec_obj39,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 322, 854);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj40=self->mLambdaType,
-    self->mLambdaType=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "./common.h", 323, 856, "struct sType* "), "./common.h", 323, 857),(char*)come_increment_ref_count(xsprintf("lambda"), "./common.h", 323, 858),(_Bool)0,info,(_Bool)0,0), "./common.h", 323, 860);
-    come_call_finalizer(sType_finalize, __dec_obj40,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 323, 859);
+    self->mLambdaType=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "./common.h", 324, 856, "struct sType* "), "./common.h", 324, 857),(char*)come_increment_ref_count(xsprintf("lambda"), "./common.h", 324, 858),(_Bool)0,info,(_Bool)0,0), "./common.h", 324, 860);
+    come_call_finalizer(sType_finalize, __dec_obj40,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 324, 859);
     __dec_obj41=self->mAsmFun,
-    self->mAsmFun=(char* )come_increment_ref_count(asm_fun, "./common.h", 325, 862);
-    __dec_obj41 = come_decrement_ref_count(__dec_obj41, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 325, 861);
-    for(_o2_saved_3=(struct list$1sType$ph*)come_increment_ref_count(param_types, "./common.h", 327, 863),it=list$1sType$ph_begin(_o2_saved_3)    ;!list$1sType$ph_end(_o2_saved_3);it=list$1sType$ph_next(_o2_saved_3)){
+    self->mAsmFun=(char* )come_increment_ref_count(asm_fun, "./common.h", 326, 862);
+    __dec_obj41 = come_decrement_ref_count(__dec_obj41, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 326, 861);
+    for(_o2_saved_3=(struct list$1sType$ph*)come_increment_ref_count(param_types, "./common.h", 328, 863),it=list$1sType$ph_begin(_o2_saved_3)    ;!list$1sType$ph_end(_o2_saved_3);it=list$1sType$ph_next(_o2_saved_3)){
         __right_value0 = (void*)0;
-        list$1sType$ph_push_back(self->mLambdaType->mParamTypes,(struct sType* )come_increment_ref_count(sType_clone(it), "./common.h", 328, 1035));
+        list$1sType$ph_push_back(self->mLambdaType->mParamTypes,(struct sType* )come_increment_ref_count(sType_clone(it), "./common.h", 329, 1035));
     }
-    for(_o2_saved_4=(struct list$1char$ph*)come_increment_ref_count(param_names, "./common.h", 331, 1036),it_45=list$1char$ph_begin(_o2_saved_4)    ;!list$1char$ph_end(_o2_saved_4);it_45=list$1char$ph_next(_o2_saved_4)){
+    for(_o2_saved_4=(struct list$1char$ph*)come_increment_ref_count(param_names, "./common.h", 332, 1036),it_45=list$1char$ph_begin(_o2_saved_4)    ;!list$1char$ph_end(_o2_saved_4);it_45=list$1char$ph_next(_o2_saved_4)){
         __right_value0 = (void*)0;
-        list$1char$ph_push_back(self->mLambdaType->mParamNames,(char* )come_increment_ref_count((char* )come_memdup(it_45, "./common.h", 332, 1037, "char* "), "./common.h", 332, 1038));
+        list$1char$ph_push_back(self->mLambdaType->mParamNames,(char* )come_increment_ref_count((char* )come_memdup(it_45, "./common.h", 333, 1037, "char* "), "./common.h", 333, 1038));
     }
     __dec_obj79=self->mLambdaType->mResultType,
-    self->mLambdaType->mResultType=(struct sType* )come_increment_ref_count(result_type, "./common.h", 335, 1040);
-    come_call_finalizer(sType_finalize, __dec_obj79,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 335, 1039);
+    self->mLambdaType->mResultType=(struct sType* )come_increment_ref_count(result_type, "./common.h", 336, 1040);
+    come_call_finalizer(sType_finalize, __dec_obj79,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 336, 1039);
     self->mLambdaType->mVarArgs=var_args;
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj80=self->mSource,
-    self->mSource=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 338, 1041, "struct buffer* "), "./common.h", 338, 1042)), "./common.h", 338, 1044);
-    come_call_finalizer(buffer_finalize, __dec_obj80,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 338, 1043);
+    self->mSource=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 339, 1041, "struct buffer* "), "./common.h", 339, 1042)), "./common.h", 339, 1044);
+    come_call_finalizer(buffer_finalize, __dec_obj80,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 339, 1043);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj81=self->mSourceHead,
-    self->mSourceHead=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 339, 1045, "struct buffer* "), "./common.h", 339, 1046)), "./common.h", 339, 1048);
-    come_call_finalizer(buffer_finalize, __dec_obj81,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 339, 1047);
+    self->mSourceHead=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 340, 1045, "struct buffer* "), "./common.h", 340, 1046)), "./common.h", 340, 1048);
+    come_call_finalizer(buffer_finalize, __dec_obj81,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 340, 1047);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj82=self->mSourceHead2,
-    self->mSourceHead2=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 340, 1049, "struct buffer* "), "./common.h", 340, 1050)), "./common.h", 340, 1052);
-    come_call_finalizer(buffer_finalize, __dec_obj82,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 340, 1051);
+    self->mSourceHead2=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 341, 1049, "struct buffer* "), "./common.h", 341, 1050)), "./common.h", 341, 1052);
+    come_call_finalizer(buffer_finalize, __dec_obj82,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 341, 1051);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj83=self->mSourceEnd,
-    self->mSourceEnd=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 341, 1053, "struct buffer* "), "./common.h", 341, 1054)), "./common.h", 341, 1056);
-    come_call_finalizer(buffer_finalize, __dec_obj83,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 341, 1055);
+    self->mSourceEnd=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 342, 1053, "struct buffer* "), "./common.h", 342, 1054)), "./common.h", 342, 1056);
+    come_call_finalizer(buffer_finalize, __dec_obj83,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 342, 1055);
     __dec_obj84=self->mBlock,
-    self->mBlock=(struct sBlock* )come_increment_ref_count(block, "./common.h", 343, 1060);
-    come_call_finalizer(sBlock_finalize, __dec_obj84,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 343, 1059);
+    self->mBlock=(struct sBlock* )come_increment_ref_count(block, "./common.h", 344, 1060);
+    come_call_finalizer(sBlock_finalize, __dec_obj84,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 344, 1059);
     __dec_obj85=self->mTextBlock,
-    self->mTextBlock=(char* )come_increment_ref_count(text_block, "./common.h", 344, 1062);
-    __dec_obj85 = come_decrement_ref_count(__dec_obj85, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 344, 1061);
+    self->mTextBlock=(char* )come_increment_ref_count(text_block, "./common.h", 345, 1062);
+    __dec_obj85 = come_decrement_ref_count(__dec_obj85, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 345, 1061);
     __dec_obj86=self->mTextBlockSName,
-    self->mTextBlockSName=(char* )come_increment_ref_count(generics_sname, "./common.h", 346, 1064);
-    __dec_obj86 = come_decrement_ref_count(__dec_obj86, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 346, 1063);
+    self->mTextBlockSName=(char* )come_increment_ref_count(generics_sname, "./common.h", 347, 1064);
+    __dec_obj86 = come_decrement_ref_count(__dec_obj86, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 347, 1063);
     self->mTextBlockSline=generics_sline;
     if((result_type->mClass->mNumber||string_operator_equals(result_type->mClass->mName,"double")||string_operator_equals(result_type->mClass->mName,"float")||result_type->mClass->mStruct)&&result_type->mPointerNum==0) {
         self->mNoResultType=(_Bool)1;
     }
     __dec_obj87=self->mAttribute,
-    self->mAttribute=(char* )come_increment_ref_count(attribute, "./common.h", 353, 1066);
-    __dec_obj87 = come_decrement_ref_count(__dec_obj87, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 353, 1065);
+    self->mAttribute=(char* )come_increment_ref_count(attribute, "./common.h", 354, 1066);
+    __dec_obj87 = come_decrement_ref_count(__dec_obj87, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 354, 1065);
     __right_value0 = (void*)0;
     __dec_obj88=self->mMiddleAttribute,
-    self->mMiddleAttribute=(char*)come_increment_ref_count(xsprintf(""), "./common.h", 354, 1068);
-    __dec_obj88 = come_decrement_ref_count(__dec_obj88, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 354, 1067);
+    self->mMiddleAttribute=(char*)come_increment_ref_count(xsprintf(""), "./common.h", 355, 1068);
+    __dec_obj88 = come_decrement_ref_count(__dec_obj88, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 355, 1067);
     __dec_obj89=self->mFunAttribute,
-    self->mFunAttribute=(char* )come_increment_ref_count(fun_attribute, "./common.h", 355, 1070);
-    __dec_obj89 = come_decrement_ref_count(__dec_obj89, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 355, 1069);
-        __result_obj__0 = (struct sFun*)come_increment_ref_count(self, "./common.h", 356, 1071);
-    come_call_finalizer(sFun_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 356, 1090);
-    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 356, 1091));
-    come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1092);
-    come_call_finalizer(list$1sType$ph$p_finalize, param_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1093);
-    come_call_finalizer(list$1char$ph$p_finalize, param_names, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1094);
-    come_call_finalizer(list$1char$ph$p_finalize, param_default_parametors, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1095);
-    come_call_finalizer(sBlock_finalize, block, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1096);
-    (attribute = come_decrement_ref_count(attribute, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 356, 1097));
-    (fun_attribute = come_decrement_ref_count(fun_attribute, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 356, 1098));
-    (text_block = come_decrement_ref_count(text_block, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 356, 1099));
-    (generics_sname = come_decrement_ref_count(generics_sname, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 356, 1100));
-    (asm_fun = come_decrement_ref_count(asm_fun, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 356, 1101));
-    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1102);
-    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1103);
+    self->mFunAttribute=(char* )come_increment_ref_count(fun_attribute, "./common.h", 356, 1070);
+    __dec_obj89 = come_decrement_ref_count(__dec_obj89, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 356, 1069);
+        __result_obj__0 = (struct sFun*)come_increment_ref_count(self, "./common.h", 357, 1071);
+    come_call_finalizer(sFun_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 357, 1090);
+    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 357, 1091));
+    come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 357, 1092);
+    come_call_finalizer(list$1sType$ph$p_finalize, param_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 357, 1093);
+    come_call_finalizer(list$1char$ph$p_finalize, param_names, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 357, 1094);
+    come_call_finalizer(list$1char$ph$p_finalize, param_default_parametors, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 357, 1095);
+    come_call_finalizer(sBlock_finalize, block, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 357, 1096);
+    (attribute = come_decrement_ref_count(attribute, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 357, 1097));
+    (fun_attribute = come_decrement_ref_count(fun_attribute, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 357, 1098));
+    (text_block = come_decrement_ref_count(text_block, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 357, 1099));
+    (generics_sname = come_decrement_ref_count(generics_sname, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 357, 1100));
+    (asm_fun = come_decrement_ref_count(asm_fun, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 357, 1101));
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 357, 1102);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 357, 1103);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 356, 1104);
+    come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 357, 1104);
     return __result_obj__0;
 }
 
@@ -9381,50 +9383,50 @@ struct sGenericsFun* sGenericsFun_initialize(struct sGenericsFun* self, struct s
     char*  __dec_obj98  ;
     struct sGenericsFun* __result_obj__0;
     __dec_obj90=self->mGenericsTypeNames,
-    self->mGenericsTypeNames=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(generics_type_names), "./common.h", 384, 1106);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj90,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 384, 1105);
+    self->mGenericsTypeNames=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(generics_type_names), "./common.h", 385, 1106);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj90,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 385, 1105);
     __right_value0 = (void*)0;
     __dec_obj91=self->mMethodGenericsTypeNames,
-    self->mMethodGenericsTypeNames=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(method_generics_type_names), "./common.h", 385, 1108);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj91,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 385, 1107);
+    self->mMethodGenericsTypeNames=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph$p_clone(method_generics_type_names), "./common.h", 386, 1108);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj91,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 386, 1107);
     __dec_obj92=self->mName,
-    self->mName=(char* )come_increment_ref_count(name, "./common.h", 387, 1110);
-    __dec_obj92 = come_decrement_ref_count(__dec_obj92, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 387, 1109);
+    self->mName=(char* )come_increment_ref_count(name, "./common.h", 388, 1110);
+    __dec_obj92 = come_decrement_ref_count(__dec_obj92, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 388, 1109);
     __dec_obj93=self->mResultType,
-    self->mResultType=(struct sType* )come_increment_ref_count(result_type, "./common.h", 388, 1112);
-    come_call_finalizer(sType_finalize, __dec_obj93,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 388, 1111);
+    self->mResultType=(struct sType* )come_increment_ref_count(result_type, "./common.h", 389, 1112);
+    come_call_finalizer(sType_finalize, __dec_obj93,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 389, 1111);
     __dec_obj94=self->mParamTypes,
-    self->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count(param_types, "./common.h", 389, 1114);
-    come_call_finalizer(list$1sType$ph_finalize, __dec_obj94,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 389, 1113);
+    self->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count(param_types, "./common.h", 390, 1114);
+    come_call_finalizer(list$1sType$ph_finalize, __dec_obj94,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 390, 1113);
     __dec_obj95=self->mParamNames,
-    self->mParamNames=(struct list$1char$ph*)come_increment_ref_count(param_names, "./common.h", 390, 1116);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj95,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 390, 1115);
+    self->mParamNames=(struct list$1char$ph*)come_increment_ref_count(param_names, "./common.h", 391, 1116);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj95,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 391, 1115);
     __dec_obj96=self->mParamDefaultParametors,
-    self->mParamDefaultParametors=(struct list$1char$ph*)come_increment_ref_count(param_default_parametors, "./common.h", 391, 1118);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj96,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 391, 1117);
+    self->mParamDefaultParametors=(struct list$1char$ph*)come_increment_ref_count(param_default_parametors, "./common.h", 392, 1118);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj96,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 392, 1117);
     self->mVarArgs=var_args;
     __dec_obj97=self->mBlock,
-    self->mBlock=(char* )come_increment_ref_count(block, "./common.h", 394, 1120);
-    __dec_obj97 = come_decrement_ref_count(__dec_obj97, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 394, 1119);
+    self->mBlock=(char* )come_increment_ref_count(block, "./common.h", 395, 1120);
+    __dec_obj97 = come_decrement_ref_count(__dec_obj97, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 395, 1119);
     self->mSLine=info->sline;
     __right_value0 = (void*)0;
     __dec_obj98=self->mGenericsSName,
-    self->mGenericsSName=(char* )come_increment_ref_count(__builtin_string(generics_sname,"./common.h",397), "./common.h", 397, 1122);
-    __dec_obj98 = come_decrement_ref_count(__dec_obj98, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 397, 1121);
+    self->mGenericsSName=(char* )come_increment_ref_count(__builtin_string(generics_sname,"./common.h",398), "./common.h", 398, 1122);
+    __dec_obj98 = come_decrement_ref_count(__dec_obj98, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 398, 1121);
     self->mGenericsSLine=generics_sline;
     self->mConstFun=const_fun;
-        __result_obj__0 = (struct sGenericsFun*)come_increment_ref_count(self, "./common.h", 400, 1123);
-    come_call_finalizer(sGenericsFun_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 400, 1134);
-    come_call_finalizer(sType_finalize, impl_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 400, 1135);
-    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 400, 1136));
-    come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 400, 1137);
-    come_call_finalizer(list$1sType$ph$p_finalize, param_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 400, 1138);
-    come_call_finalizer(list$1char$ph$p_finalize, param_names, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 400, 1139);
-    come_call_finalizer(list$1char$ph$p_finalize, param_default_parametors, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 400, 1140);
-    (block = come_decrement_ref_count(block, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 400, 1141));
-    (generics_sname = come_decrement_ref_count(generics_sname, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 400, 1142));
+        __result_obj__0 = (struct sGenericsFun*)come_increment_ref_count(self, "./common.h", 401, 1123);
+    come_call_finalizer(sGenericsFun_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 401, 1134);
+    come_call_finalizer(sType_finalize, impl_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 401, 1135);
+    (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 401, 1136));
+    come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 401, 1137);
+    come_call_finalizer(list$1sType$ph$p_finalize, param_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 401, 1138);
+    come_call_finalizer(list$1char$ph$p_finalize, param_names, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 401, 1139);
+    come_call_finalizer(list$1char$ph$p_finalize, param_default_parametors, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 401, 1140);
+    (block = come_decrement_ref_count(block, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 401, 1141));
+    (generics_sname = come_decrement_ref_count(generics_sname, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 401, 1142));
     neo_current_frame = fr.prev;
-    come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 400, 1143);
+    come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 401, 1143);
     return __result_obj__0;
 }
 
@@ -9453,10 +9455,10 @@ struct CVALUE* CVALUE_initialize(struct CVALUE* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "CVALUE_initialize"; neo_current_frame = &fr;
     struct CVALUE* __result_obj__0;
-        __result_obj__0 = (struct CVALUE*)come_increment_ref_count(self, "./common.h", 417, 1144);
-    come_call_finalizer(CVALUE_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 417, 1150);
+        __result_obj__0 = (struct CVALUE*)come_increment_ref_count(self, "./common.h", 418, 1144);
+    come_call_finalizer(CVALUE_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 418, 1150);
     neo_current_frame = fr.prev;
-    come_call_finalizer(CVALUE_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 417, 1151);
+    come_call_finalizer(CVALUE_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 418, 1151);
     return __result_obj__0;
 }
 
@@ -9575,28 +9577,28 @@ struct sModule* sModule_initialize(struct sModule* self)
     struct map$2char$phchar$ph* __dec_obj104;
     struct sModule* __result_obj__0;
     __dec_obj99=self->mSourceHead,
-    self->mSourceHead=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 430, 1152, "struct buffer* "), "./common.h", 430, 1153)), "./common.h", 430, 1155);
-    come_call_finalizer(buffer_finalize, __dec_obj99,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 430, 1154);
+    self->mSourceHead=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 431, 1152, "struct buffer* "), "./common.h", 431, 1153)), "./common.h", 431, 1155);
+    come_call_finalizer(buffer_finalize, __dec_obj99,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 431, 1154);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj100=self->mSource,
-    self->mSource=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 431, 1156, "struct buffer* "), "./common.h", 431, 1157)), "./common.h", 431, 1159);
-    come_call_finalizer(buffer_finalize, __dec_obj100,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 431, 1158);
+    self->mSource=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "./common.h", 432, 1156, "struct buffer* "), "./common.h", 432, 1157)), "./common.h", 432, 1159);
+    come_call_finalizer(buffer_finalize, __dec_obj100,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 432, 1158);
     __dec_obj101=self->mLastCode,
     self->mLastCode=((void*)0);
-    __dec_obj101 = come_decrement_ref_count(__dec_obj101, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 432, 1160);
+    __dec_obj101 = come_decrement_ref_count(__dec_obj101, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 433, 1160);
     __dec_obj102=self->mLastCode2,
     self->mLastCode2=((void*)0);
-    __dec_obj102 = come_decrement_ref_count(__dec_obj102, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 433, 1161);
+    __dec_obj102 = come_decrement_ref_count(__dec_obj102, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 434, 1161);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj104=self->mHeader,
-    self->mHeader=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count((struct map$2char$phchar$ph*)come_calloc(1, sizeof(struct map$2char$phchar$ph)*(1), "./common.h", 434, 1162, "struct map$2char$phchar$ph*"), "./common.h", 434, 1180)), "./common.h", 434, 1186);
-    come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj104,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 434, 1185);
-        __result_obj__0 = (struct sModule*)come_increment_ref_count(self, "./common.h", 435, 1187);
-    come_call_finalizer(sModule_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 435, 1193);
+    self->mHeader=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count((struct map$2char$phchar$ph*)come_calloc(1, sizeof(struct map$2char$phchar$ph)*(1), "./common.h", 435, 1162, "struct map$2char$phchar$ph*"), "./common.h", 435, 1180)), "./common.h", 435, 1186);
+    come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj104,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 435, 1185);
+        __result_obj__0 = (struct sModule*)come_increment_ref_count(self, "./common.h", 436, 1187);
+    come_call_finalizer(sModule_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 436, 1193);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sModule_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 435, 1194);
+    come_call_finalizer(sModule_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 436, 1194);
     return __result_obj__0;
 }
 
@@ -9690,21 +9692,21 @@ struct sVarTable* sVarTable_initialize(struct sVarTable* self, _Bool global, str
     struct map$2char$phsVar$ph* __dec_obj106;
     struct sVarTable* __result_obj__0;
     __dec_obj106=self->mVars,
-    self->mVars=(struct map$2char$phsVar$ph*)come_increment_ref_count(map$2char$phsVar$ph_initialize((struct map$2char$phsVar$ph*)come_increment_ref_count((struct map$2char$phsVar$ph*)come_calloc(1, sizeof(struct map$2char$phsVar$ph)*(1), "./common.h", 446, 1195, "struct map$2char$phsVar$ph*"), "./common.h", 446, 1213)), "./common.h", 446, 1219);
-    come_call_finalizer(map$2char$phsVar$ph_finalize, __dec_obj106,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 446, 1218);
+    self->mVars=(struct map$2char$phsVar$ph*)come_increment_ref_count(map$2char$phsVar$ph_initialize((struct map$2char$phsVar$ph*)come_increment_ref_count((struct map$2char$phsVar$ph*)come_calloc(1, sizeof(struct map$2char$phsVar$ph)*(1), "./common.h", 447, 1195, "struct map$2char$phsVar$ph*"), "./common.h", 447, 1213)), "./common.h", 447, 1219);
+    come_call_finalizer(map$2char$phsVar$ph_finalize, __dec_obj106,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 447, 1218);
     self->mGlobal=global;
     self->mParent=parent;
-        __result_obj__0 = (struct sVarTable*)come_increment_ref_count(self, "./common.h", 449, 1220);
-    come_call_finalizer(sVarTable_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 449, 1221);
+        __result_obj__0 = (struct sVarTable*)come_increment_ref_count(self, "./common.h", 450, 1220);
+    come_call_finalizer(sVarTable_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 450, 1221);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sVarTable_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 449, 1222);
+    come_call_finalizer(sVarTable_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 450, 1222);
     return __result_obj__0;
 }
 
 void sVarTable_finalize(struct sVarTable* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sVarTable_finalize"; neo_current_frame = &fr;
-    come_call_finalizer(map$2char$phsVar$ph$p_finalize, self->mVars, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 453, 1223);
+    come_call_finalizer(map$2char$phsVar$ph$p_finalize, self->mVars, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 454, 1223);
     neo_current_frame = fr.prev;
 }
 
@@ -9716,12 +9718,12 @@ struct sBlock* sBlock_initialize(struct sBlock* self)
     struct list$1sNode$ph* __dec_obj107;
     struct sBlock* __result_obj__0;
     __dec_obj107=self->mNodes,
-    self->mNodes=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "./common.h", 464, 1224, "struct list$1sNode$ph*"), "./common.h", 464, 1225)), "./common.h", 464, 1227);
-    come_call_finalizer(list$1sNode$ph_finalize, __dec_obj107,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 464, 1226);
-        __result_obj__0 = (struct sBlock*)come_increment_ref_count(self, "./common.h", 465, 1228);
-    come_call_finalizer(sBlock_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 465, 1229);
+    self->mNodes=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "./common.h", 465, 1224, "struct list$1sNode$ph*"), "./common.h", 465, 1225)), "./common.h", 465, 1227);
+    come_call_finalizer(list$1sNode$ph_finalize, __dec_obj107,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 465, 1226);
+        __result_obj__0 = (struct sBlock*)come_increment_ref_count(self, "./common.h", 466, 1228);
+    come_call_finalizer(sBlock_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 466, 1229);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sBlock_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 465, 1230);
+    come_call_finalizer(sBlock_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 466, 1230);
     return __result_obj__0;
 }
 
@@ -9742,13 +9744,13 @@ struct sNodeBase* sNodeBase_initialize(struct sNodeBase* self, struct sInfo*  in
     struct sNodeBase* __result_obj__0;
     self->sline=info->sline;
     __dec_obj108=self->sname,
-    self->sname=(char* )come_increment_ref_count(__builtin_string(info->sname,"./common.h",655), "./common.h", 655, 1232);
-    __dec_obj108 = come_decrement_ref_count(__dec_obj108, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 655, 1231);
+    self->sname=(char* )come_increment_ref_count(__builtin_string(info->sname,"./common.h",656), "./common.h", 656, 1232);
+    __dec_obj108 = come_decrement_ref_count(__dec_obj108, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 656, 1231);
     self->sline_real=info->sline_real;
-        __result_obj__0 = (struct sNodeBase*)come_increment_ref_count(self, "./common.h", 657, 1233);
-    come_call_finalizer(sNodeBase_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 657, 1235);
+        __result_obj__0 = (struct sNodeBase*)come_increment_ref_count(self, "./common.h", 658, 1233);
+    come_call_finalizer(sNodeBase_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 658, 1235);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sNodeBase_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 657, 1236);
+    come_call_finalizer(sNodeBase_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 658, 1236);
     return __result_obj__0;
 }
 
@@ -9781,10 +9783,10 @@ char*  sNodeBase_sname(struct sNodeBase* self, struct sInfo*  info  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sNodeBase_sname"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self->sname,"./common.h",671))), "./common.h", 671, 1237);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 671, 1238));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self->sname,"./common.h",672))), "./common.h", 672, 1237);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 672, 1238));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 671, 1239));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 672, 1239));
     return __result_obj__0;
 }
 
@@ -9811,12 +9813,12 @@ struct sCurrentNode* sCurrentNode_initialize(struct sCurrentNode* self, struct s
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sCurrentNode_initialize"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct sCurrentNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sCurrentNode*)come_increment_ref_count(self, "./common.h", 683, 1240),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 683, 1241);
-        __result_obj__0 = (struct sCurrentNode*)come_increment_ref_count(self, "./common.h", 684, 1242);
-    come_call_finalizer(sCurrentNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 684, 1244);
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sCurrentNode*)come_increment_ref_count(self, "./common.h", 684, 1240),info)));
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 684, 1241);
+        __result_obj__0 = (struct sCurrentNode*)come_increment_ref_count(self, "./common.h", 685, 1242);
+    come_call_finalizer(sCurrentNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 685, 1244);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sCurrentNode_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 684, 1245);
+    come_call_finalizer(sCurrentNode_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 685, 1245);
     return __result_obj__0;
 }
 
@@ -9833,10 +9835,10 @@ char*  sCurrentNode_sname(struct sCurrentNode* self, struct sInfo*  info  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sCurrentNode_sname"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self->sname,"./common.h",693))), "./common.h", 693, 1246);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 693, 1247));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(self->sname,"./common.h",694))), "./common.h", 694, 1246);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 694, 1247));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 693, 1248));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 694, 1248));
     return __result_obj__0;
 }
 
@@ -9845,10 +9847,10 @@ char*  sCurrentNode_kind(struct sCurrentNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sCurrentNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sCurrentNode","./common.h",698))), "./common.h", 698, 1249);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 698, 1250));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sCurrentNode","./common.h",699))), "./common.h", 699, 1249);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 699, 1250));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 698, 1251));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 699, 1251));
     return __result_obj__0;
 }
 
@@ -10235,24 +10237,24 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
     struct sType*  __dec_obj117  ;
     _Bool __result_obj__0;
     info->current_stack_num++;
-    class_name=(char* )come_increment_ref_count(xsprintf("__current_stack%d__",info->current_stack_num), "./common.h", 704, 1252);
+    class_name=(char* )come_increment_ref_count(xsprintf("__current_stack%d__",info->current_stack_num), "./common.h", 705, 1252);
     __right_value0 = (void*)0;
-    current_stack=(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "./common.h", 705, 1253, "struct sClass* "), "./common.h", 705, 1255),(char* )come_increment_ref_count(class_name, "./common.h", 705, 1254),(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "./common.h", 705, 1256);
+    current_stack=(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "./common.h", 706, 1253, "struct sClass* "), "./common.h", 706, 1255),(char* )come_increment_ref_count(class_name, "./common.h", 706, 1254),(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "./common.h", 706, 1256);
     vtable=info->lv_table;
     while(vtable) {
-        for(_o2_saved_5=(struct map$2char$phsVar$ph*)come_increment_ref_count(vtable->mVars, "./common.h", 710, 1257),it=map$2char$phsVar$ph_begin(_o2_saved_5)        ;!map$2char$phsVar$ph_end(_o2_saved_5);it=map$2char$phsVar$ph_next(_o2_saved_5)){
+        for(_o2_saved_5=(struct map$2char$phsVar$ph*)come_increment_ref_count(vtable->mVars, "./common.h", 711, 1257),it=map$2char$phsVar$ph_begin(_o2_saved_5)        ;!map$2char$phsVar$ph_end(_o2_saved_5);it=map$2char$phsVar$ph_next(_o2_saved_5)){
             key=it;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            value=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(vtable->mVars,((char* )(__right_value1=__builtin_string(key,"./common.h",712))))));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 712, 1288));
+            value=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(vtable->mVars,((char* )(__right_value1=__builtin_string(key,"./common.h",713))))));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 713, 1288));
             __right_value0 = (void*)0;
-            type2=(struct sType* )come_increment_ref_count(sType_clone(value->mType), "./common.h", 714, 1289);
+            type2=(struct sType* )come_increment_ref_count(sType_clone(value->mType), "./common.h", 715, 1289);
             type2->mPointerNum++;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            item=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "./common.h", 718, 1290, "struct tuple2$2char$phsType$ph"), "./common.h", 718, 1300),(char* )come_increment_ref_count(__builtin_string(value->mCValueName,"./common.h",718), "./common.h", 718, 1301),(struct sType* )come_increment_ref_count(type2, "./common.h", 718, 1302)), "./common.h", 718, 1303);
+            item=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "./common.h", 719, 1290, "struct tuple2$2char$phsType$ph"), "./common.h", 719, 1300),(char* )come_increment_ref_count(__builtin_string(value->mCValueName,"./common.h",719), "./common.h", 719, 1301),(struct sType* )come_increment_ref_count(type2, "./common.h", 719, 1302)), "./common.h", 719, 1303);
             if(value->mCValueName!=((void*)0)) {
                 if(strcmp(value->mCValueName,"__list_values")==0) {
                 }
@@ -10264,59 +10266,59 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
                 }
                 else if(type2->mArrayPointerType) {
                     __right_value0 = (void*)0;
-                    type3=(struct sType* )come_increment_ref_count(sType_clone(type2), "./common.h", 734, 1304);
+                    type3=(struct sType* )come_increment_ref_count(sType_clone(type2), "./common.h", 735, 1304);
                     type3->mPointerNum--;
                     type3->mArrayPointerNum++;
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
-                    item2=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "./common.h", 738, 1305, "struct tuple2$2char$phsType$ph"), "./common.h", 738, 1306),(char* )come_increment_ref_count(__builtin_string(value->mCValueName,"./common.h",738), "./common.h", 738, 1307),(struct sType* )come_increment_ref_count(type3, "./common.h", 738, 1308)), "./common.h", 738, 1309);
+                    item2=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "./common.h", 739, 1305, "struct tuple2$2char$phsType$ph"), "./common.h", 739, 1306),(char* )come_increment_ref_count(__builtin_string(value->mCValueName,"./common.h",739), "./common.h", 739, 1307),(struct sType* )come_increment_ref_count(type3, "./common.h", 739, 1308)), "./common.h", 739, 1309);
                     __right_value0 = (void*)0;
-                    list$1tuple2$2char$phsType$ph$ph_push_back(current_stack->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_clone(item2), "./common.h", 739, 1338));
-                    come_call_finalizer(sType_finalize, type3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 751, 1339);
-                    come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 751, 1340);
+                    list$1tuple2$2char$phsType$ph$ph_push_back(current_stack->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_clone(item2), "./common.h", 740, 1338));
+                    come_call_finalizer(sType_finalize, type3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 752, 1339);
+                    come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 752, 1340);
                 }
                 else if(list$1sNode$ph_length(type2->mArrayNum)>0) {
                     __right_value0 = (void*)0;
-                    type3_54=(struct sType* )come_increment_ref_count(sType_clone(type2), "./common.h", 742, 1341);
+                    type3_54=(struct sType* )come_increment_ref_count(sType_clone(type2), "./common.h", 743, 1341);
                     type3_54->mPointerNum--;
                     type3_54->mArrayPointerNum++;
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __right_value2 = (void*)0;
-                    item2_55=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "./common.h", 745, 1342, "struct tuple2$2char$phsType$ph"), "./common.h", 745, 1343),(char* )come_increment_ref_count(__builtin_string(value->mCValueName,"./common.h",745), "./common.h", 745, 1344),(struct sType* )come_increment_ref_count(type3_54, "./common.h", 745, 1345)), "./common.h", 745, 1346);
+                    item2_55=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "./common.h", 746, 1342, "struct tuple2$2char$phsType$ph"), "./common.h", 746, 1343),(char* )come_increment_ref_count(__builtin_string(value->mCValueName,"./common.h",746), "./common.h", 746, 1344),(struct sType* )come_increment_ref_count(type3_54, "./common.h", 746, 1345)), "./common.h", 746, 1346);
                     __right_value0 = (void*)0;
-                    list$1tuple2$2char$phsType$ph$ph_push_back(current_stack->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_clone(item2_55), "./common.h", 746, 1347));
-                    come_call_finalizer(sType_finalize, type3_54, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 751, 1348);
-                    come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item2_55, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 751, 1349);
+                    list$1tuple2$2char$phsType$ph$ph_push_back(current_stack->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_clone(item2_55), "./common.h", 747, 1347));
+                    come_call_finalizer(sType_finalize, type3_54, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 752, 1348);
+                    come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item2_55, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 752, 1349);
                 }
                 else {
                     __right_value0 = (void*)0;
-                    list$1tuple2$2char$phsType$ph$ph_push_back(current_stack->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_clone(item), "./common.h", 749, 1350));
+                    list$1tuple2$2char$phsType$ph$ph_push_back(current_stack->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_clone(item), "./common.h", 750, 1350));
                 }
             }
-            come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 754, 1351);
-            come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 754, 1352);
+            come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 755, 1351);
+            come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 755, 1352);
         }
         vtable=vtable->mParent;
-        come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 757, 1353);
+        come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 758, 1353);
     }
     output_struct(current_stack,((void*)0),info,(_Bool)0);
-    map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(class_name, "./common.h", 759, 1354),(struct sClass* )come_increment_ref_count(current_stack, "./common.h", 759, 1355),(_Bool)0);
+    map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(class_name, "./common.h", 760, 1354),(struct sClass* )come_increment_ref_count(current_stack, "./common.h", 760, 1355),(_Bool)0);
     add_come_code_at_function_head(info,"struct %s __current_stack%d__;\n",class_name,info->current_stack_num);
     add_come_code_at_function_head2(info,"memset(&__current_stack%d__, 0, sizeof(struct %s));\n",info->current_stack_num,class_name);
     vtable=info->lv_table;
     add_come_code(info,"({");
     while(vtable) {
-        for(_o2_saved_6=(struct map$2char$phsVar$ph*)come_increment_ref_count(vtable->mVars, "./common.h", 769, 1356),it_56=map$2char$phsVar$ph_begin(_o2_saved_6)        ;!map$2char$phsVar$ph_end(_o2_saved_6);it_56=map$2char$phsVar$ph_next(_o2_saved_6)){
+        for(_o2_saved_6=(struct map$2char$phsVar$ph*)come_increment_ref_count(vtable->mVars, "./common.h", 770, 1356),it_56=map$2char$phsVar$ph_begin(_o2_saved_6)        ;!map$2char$phsVar$ph_end(_o2_saved_6);it_56=map$2char$phsVar$ph_next(_o2_saved_6)){
             key_57=it_56;
             __right_value0 = (void*)0;
             value_58=((struct sVar* )(__right_value0=map$2char$phsVar$ph_operator_load_element(vtable->mVars,key_57)));
             __right_value0 = (void*)0;
-            type2_59=(struct sType* )come_increment_ref_count(sType_clone(value_58->mType), "./common.h", 773, 1357);
+            type2_59=(struct sType* )come_increment_ref_count(sType_clone(value_58->mType), "./common.h", 774, 1357);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            item_60=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "./common.h", 775, 1358, "struct tuple2$2char$phsType$ph"), "./common.h", 775, 1359),(char* )come_increment_ref_count(value_58->mCValueName, "./common.h", 775, 1360),(struct sType* )come_increment_ref_count(type2_59, "./common.h", 775, 1361)), "./common.h", 775, 1362);
+            item_60=(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "./common.h", 776, 1358, "struct tuple2$2char$phsType$ph"), "./common.h", 776, 1359),(char* )come_increment_ref_count(value_58->mCValueName, "./common.h", 776, 1360),(struct sType* )come_increment_ref_count(type2_59, "./common.h", 776, 1361)), "./common.h", 776, 1362);
             if(value_58->mCValueName!=((void*)0)) {
                 if(strcmp(value_58->mCValueName,"__list_values")==0) {
                 }
@@ -10345,33 +10347,33 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
                     }
                 }
             }
-            come_call_finalizer(sType_finalize, type2_59, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 811, 1363);
-            come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item_60, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 811, 1364);
+            come_call_finalizer(sType_finalize, type2_59, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 812, 1363);
+            come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item_60, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 812, 1364);
         }
         vtable=vtable->mParent;
-        come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 813, 1365);
+        come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 814, 1365);
     }
     add_come_code(info,"})");
     add_come_code(info,",");
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "./common.h", 823, 1366, "struct CVALUE* "), "./common.h", 823, 1367)), "./common.h", 823, 1368);
+    come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "./common.h", 824, 1366, "struct CVALUE* "), "./common.h", 824, 1367)), "./common.h", 824, 1368);
     __right_value0 = (void*)0;
     __dec_obj116=come_value->c_value,
-    come_value->c_value=(char* )come_increment_ref_count(xsprintf("&__current_stack%d__",info->current_stack_num), "./common.h", 825, 1370);
-    __dec_obj116 = come_decrement_ref_count(__dec_obj116, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 825, 1369);
+    come_value->c_value=(char* )come_increment_ref_count(xsprintf("&__current_stack%d__",info->current_stack_num), "./common.h", 826, 1370);
+    __dec_obj116 = come_decrement_ref_count(__dec_obj116, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 826, 1369);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj117=come_value->type,
-    come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "./common.h", 826, 1371, "struct sType* "), "./common.h", 826, 1372),(char* )come_increment_ref_count(class_name, "./common.h", 826, 1373),(_Bool)0,info,(_Bool)0,0), "./common.h", 826, 1375);
-    come_call_finalizer(sType_finalize, __dec_obj117,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 826, 1374);
+    come_value->type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "./common.h", 827, 1371, "struct sType* "), "./common.h", 827, 1372),(char* )come_increment_ref_count(class_name, "./common.h", 827, 1373),(_Bool)0,info,(_Bool)0,0), "./common.h", 827, 1375);
+    come_call_finalizer(sType_finalize, __dec_obj117,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 827, 1374);
     come_value->var=((void*)0);
     add_come_last_code(info,"%s;\n",come_value->c_value);
-    list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value, "./common.h", 831, 1390));
+    list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value, "./common.h", 832, 1390));
         __result_obj__0 = (_Bool)1;
-    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 833, 1391));
-    come_call_finalizer(sClass_finalize, current_stack, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 833, 1392);
-    come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 833, 1393);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 834, 1391));
+    come_call_finalizer(sClass_finalize, current_stack, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 834, 1392);
+    come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 834, 1393);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -10390,12 +10392,12 @@ struct sNothingNode* sNothingNode_initialize(struct sNothingNode* self, struct s
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sNothingNode_initialize"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct sNothingNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNothingNode*)come_increment_ref_count(self, "./common.h", 1153, 1394),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 1153, 1395);
-        __result_obj__0 = (struct sNothingNode*)come_increment_ref_count(self, "./common.h", 1154, 1396);
-    come_call_finalizer(sNothingNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1154, 1398);
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNothingNode*)come_increment_ref_count(self, "./common.h", 1155, 1394),info)));
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 1155, 1395);
+        __result_obj__0 = (struct sNothingNode*)come_increment_ref_count(self, "./common.h", 1156, 1396);
+    come_call_finalizer(sNothingNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1156, 1398);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sNothingNode_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1154, 1399);
+    come_call_finalizer(sNothingNode_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1156, 1399);
     return __result_obj__0;
 }
 
@@ -10412,10 +10414,10 @@ char*  sNothingNode_kind(struct sNothingNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sNothingNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sNothingNode","./common.h",1163))), "./common.h", 1163, 1400);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1163, 1401));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sNothingNode","./common.h",1165))), "./common.h", 1165, 1400);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1165, 1401));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 1163, 1402));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 1165, 1402));
     return __result_obj__0;
 }
 
@@ -10445,17 +10447,17 @@ struct sNullChecker* sNullChecker_initialize(struct sNullChecker* self, struct s
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj121;
     struct sNullChecker* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNullChecker*)come_increment_ref_count(self, "./common.h", 1207, 1403),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 1207, 1404);
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNullChecker*)come_increment_ref_count(self, "./common.h", 1209, 1403),info)));
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 1209, 1404);
     __right_value0 = (void*)0;
     __dec_obj121=self->value,
-    self->value=(struct sNode*)come_increment_ref_count(sNode_clone(value), "./common.h", 1209, 1406);
-    (__dec_obj121 ? __dec_obj121 = come_decrement_ref_count(__dec_obj121, ((struct sNode*)__dec_obj121)->finalize, ((struct sNode*)__dec_obj121)->_protocol_obj, 0,0, (void*)0, "./common.h", 1209, 1405) :0);
-        __result_obj__0 = (struct sNullChecker*)come_increment_ref_count(self, "./common.h", 1210, 1407);
-    come_call_finalizer(sNullChecker_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1210, 1410);
-    ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1210, 1411):(void*)0);
+    self->value=(struct sNode*)come_increment_ref_count(sNode_clone(value), "./common.h", 1211, 1406);
+    (__dec_obj121 ? __dec_obj121 = come_decrement_ref_count(__dec_obj121, ((struct sNode*)__dec_obj121)->finalize, ((struct sNode*)__dec_obj121)->_protocol_obj, 0,0, (void*)0, "./common.h", 1211, 1405) :0);
+        __result_obj__0 = (struct sNullChecker*)come_increment_ref_count(self, "./common.h", 1212, 1407);
+    come_call_finalizer(sNullChecker_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1212, 1410);
+    ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1212, 1411):(void*)0);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sNullChecker_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1210, 1412);
+    come_call_finalizer(sNullChecker_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1212, 1412);
     return __result_obj__0;
 }
 
@@ -10464,10 +10466,10 @@ char*  sNullChecker_kind(struct sNullChecker* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sNullChecker_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sNullChecker","./common.h",1214))), "./common.h", 1214, 1413);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1214, 1414));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sNullChecker","./common.h",1216))), "./common.h", 1216, 1413);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1216, 1414));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 1214, 1415));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 1216, 1415));
     return __result_obj__0;
 }
 
@@ -10493,22 +10495,22 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  )
     char*  __dec_obj124  ;
     char*  __dec_obj125  ;
     char*  __dec_obj126  ;
-    value=(struct sNode*)come_increment_ref_count(self->value, "./common.h", 1219, 1416);
+    value=(struct sNode*)come_increment_ref_count(self->value, "./common.h", 1221, 1416);
     Value=node_compile(value,info);
     if(!Value) {
                 __result_obj__0 = (_Bool)0;
-        ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1222, 1417):(void*)0);
+        ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1224, 1417):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    come_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info), "./common.h", 1225, 1418);
+    come_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info), "./common.h", 1227, 1418);
     __right_value0 = (void*)0;
-    type__=(struct sType* )come_increment_ref_count(sType_clone(come_value->type), "./common.h", 1227, 1419);
+    type__=(struct sType* )come_increment_ref_count(sType_clone(come_value->type), "./common.h", 1229, 1419);
     __right_value0 = (void*)0;
-    type_=(struct sType* )come_increment_ref_count(solve_generics(type__,info->generics_type,info), "./common.h", 1228, 1420);
+    type_=(struct sType* )come_increment_ref_count(solve_generics(type__,info->generics_type,info), "./common.h", 1230, 1420);
     __right_value0 = (void*)0;
-    type=(struct sType* )come_increment_ref_count(solve_method_generics(type_,info), "./common.h", 1229, 1421);
-    original_type=(struct sType* )come_increment_ref_count(type__->mOriginalLoadVarType, "./common.h", 1231, 1422);
+    type=(struct sType* )come_increment_ref_count(solve_method_generics(type_,info), "./common.h", 1231, 1421);
+    original_type=(struct sType* )come_increment_ref_count(type__->mOriginalLoadVarType, "./common.h", 1233, 1422);
     pointer_type=type->mPointerNum>0||type->mArrayPointerNum>0||type->mFunctionPointerNum>0;
     heap_type=pointer_type&&type->mHeap;
     if(original_type) {
@@ -10521,47 +10523,47 @@ _Bool sNullChecker_compile(struct sNullChecker* self, struct sInfo*  info  )
     }
     if(!gComeC&&pointer_type&&!info->in_refference) {
         __right_value0 = (void*)0;
-        type_name=(char* )come_increment_ref_count(make_type_name_string(type,info,(_Bool)1,(_Bool)1,(_Bool)0,(_Bool)1), "./common.h", 1250, 1423);
+        type_name=(char* )come_increment_ref_count(make_type_name_string(type,info,(_Bool)1,(_Bool)1,(_Bool)0,(_Bool)1), "./common.h", 1252, 1423);
         __right_value0 = (void*)0;
-        come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "./common.h", 1252, 1424, "struct CVALUE* "), "./common.h", 1252, 1425)), "./common.h", 1252, 1426);
+        come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "./common.h", 1254, 1424, "struct CVALUE* "), "./common.h", 1254, 1425)), "./common.h", 1254, 1426);
         __right_value0 = (void*)0;
         __dec_obj122=come_value2->c_value,
-        come_value2->c_value=(char* )come_increment_ref_count(xsprintf("((%s)come_null_checker(%s, \"%s\", %d, %d))",type_name,come_value->c_value,info->sname,info->sline,++info->id), "./common.h", 1254, 1428);
-        __dec_obj122 = come_decrement_ref_count(__dec_obj122, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1254, 1427);
+        come_value2->c_value=(char* )come_increment_ref_count(xsprintf("((%s)come_null_checker(%s, \"%s\", %d, %d))",type_name,come_value->c_value,info->sname,info->sline,++info->id), "./common.h", 1256, 1428);
+        __dec_obj122 = come_decrement_ref_count(__dec_obj122, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1256, 1427);
         __right_value0 = (void*)0;
         __dec_obj123=come_value2->type,
-        come_value2->type=(struct sType* )come_increment_ref_count(sType_clone(type), "./common.h", 1255, 1430);
-        come_call_finalizer(sType_finalize, __dec_obj123,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 1255, 1429);
+        come_value2->type=(struct sType* )come_increment_ref_count(sType_clone(type), "./common.h", 1257, 1430);
+        come_call_finalizer(sType_finalize, __dec_obj123,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 1257, 1429);
         come_value2->var=come_value->var;
         if(come_value->c_value_without_null_checker) {
             __dec_obj124=come_value2->c_value_without_null_checker,
-            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_null_checker, "./common.h", 1258, 1432);
-            __dec_obj124 = come_decrement_ref_count(__dec_obj124, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1258, 1431);
+            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_null_checker, "./common.h", 1260, 1432);
+            __dec_obj124 = come_decrement_ref_count(__dec_obj124, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1260, 1431);
         }
         else if(come_value->c_value_without_cast_object_value) {
             __dec_obj125=come_value2->c_value_without_null_checker,
-            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_cast_object_value, "./common.h", 1261, 1434);
-            __dec_obj125 = come_decrement_ref_count(__dec_obj125, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1261, 1433);
+            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_cast_object_value, "./common.h", 1263, 1434);
+            __dec_obj125 = come_decrement_ref_count(__dec_obj125, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1263, 1433);
         }
         else {
             __dec_obj126=come_value2->c_value_without_null_checker,
-            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value, "./common.h", 1264, 1436);
-            __dec_obj126 = come_decrement_ref_count(__dec_obj126, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1264, 1435);
+            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value, "./common.h", 1266, 1436);
+            __dec_obj126 = come_decrement_ref_count(__dec_obj126, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1266, 1435);
         }
-        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value2, "./common.h", 1267, 1437));
-        (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 1273, 1438));
-        come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1273, 1439);
+        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value2, "./common.h", 1269, 1437));
+        (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 1275, 1438));
+        come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1275, 1439);
     }
     else {
-        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value, "./common.h", 1270, 1440));
+        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value, "./common.h", 1272, 1440));
     }
         __result_obj__0 = (_Bool)1;
-    ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1273, 1441):(void*)0);
-    come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1273, 1442);
-    come_call_finalizer(sType_finalize, type__, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1273, 1443);
-    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1273, 1444);
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1273, 1445);
-    come_call_finalizer(sType_finalize, original_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1273, 1446);
+    ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1275, 1441):(void*)0);
+    come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1275, 1442);
+    come_call_finalizer(sType_finalize, type__, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1275, 1443);
+    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1275, 1444);
+    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1275, 1445);
+    come_call_finalizer(sType_finalize, original_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1275, 1446);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -10584,17 +10586,17 @@ struct sHeapChecker* sHeapChecker_initialize(struct sHeapChecker* self, struct s
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj127;
     struct sHeapChecker* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sHeapChecker*)come_increment_ref_count(self, "./common.h", 1283, 1447),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 1283, 1448);
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sHeapChecker*)come_increment_ref_count(self, "./common.h", 1285, 1447),info)));
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 1285, 1448);
     __right_value0 = (void*)0;
     __dec_obj127=self->value,
-    self->value=(struct sNode*)come_increment_ref_count(sNode_clone(value), "./common.h", 1285, 1450);
-    (__dec_obj127 ? __dec_obj127 = come_decrement_ref_count(__dec_obj127, ((struct sNode*)__dec_obj127)->finalize, ((struct sNode*)__dec_obj127)->_protocol_obj, 0,0, (void*)0, "./common.h", 1285, 1449) :0);
-        __result_obj__0 = (struct sHeapChecker*)come_increment_ref_count(self, "./common.h", 1286, 1451);
-    come_call_finalizer(sHeapChecker_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1286, 1454);
-    ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1286, 1455):(void*)0);
+    self->value=(struct sNode*)come_increment_ref_count(sNode_clone(value), "./common.h", 1287, 1450);
+    (__dec_obj127 ? __dec_obj127 = come_decrement_ref_count(__dec_obj127, ((struct sNode*)__dec_obj127)->finalize, ((struct sNode*)__dec_obj127)->_protocol_obj, 0,0, (void*)0, "./common.h", 1287, 1449) :0);
+        __result_obj__0 = (struct sHeapChecker*)come_increment_ref_count(self, "./common.h", 1288, 1451);
+    come_call_finalizer(sHeapChecker_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1288, 1454);
+    ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1288, 1455):(void*)0);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sHeapChecker_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1286, 1456);
+    come_call_finalizer(sHeapChecker_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1288, 1456);
     return __result_obj__0;
 }
 
@@ -10603,10 +10605,10 @@ char*  sHeapChecker_kind(struct sHeapChecker* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sHeapChecker_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sHeapChecker","./common.h",1290))), "./common.h", 1290, 1457);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1290, 1458));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sHeapChecker","./common.h",1292))), "./common.h", 1292, 1457);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1292, 1458));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 1290, 1459));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 1292, 1459));
     return __result_obj__0;
 }
 
@@ -10639,22 +10641,22 @@ _Bool sHeapChecker_compile(struct sHeapChecker* self, struct sInfo*  info  )
     char*  __dec_obj135  ;
     char*  __dec_obj136  ;
     char*  __dec_obj137  ;
-    value=(struct sNode*)come_increment_ref_count(self->value, "./common.h", 1295, 1460);
+    value=(struct sNode*)come_increment_ref_count(self->value, "./common.h", 1297, 1460);
     Value=node_compile(value,info);
     if(!Value) {
                 __result_obj__0 = (_Bool)0;
-        ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1298, 1461):(void*)0);
+        ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1300, 1461):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    come_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info), "./common.h", 1301, 1462);
+    come_value=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info), "./common.h", 1303, 1462);
     __right_value0 = (void*)0;
-    type__=(struct sType* )come_increment_ref_count(sType_clone(come_value->type), "./common.h", 1303, 1463);
+    type__=(struct sType* )come_increment_ref_count(sType_clone(come_value->type), "./common.h", 1305, 1463);
     __right_value0 = (void*)0;
-    type_=(struct sType* )come_increment_ref_count(solve_generics(type__,info->generics_type,info), "./common.h", 1304, 1464);
+    type_=(struct sType* )come_increment_ref_count(solve_generics(type__,info->generics_type,info), "./common.h", 1306, 1464);
     __right_value0 = (void*)0;
-    type=(struct sType* )come_increment_ref_count(solve_method_generics(type_,info), "./common.h", 1305, 1465);
-    original_type=(struct sType* )come_increment_ref_count(type__->mOriginalLoadVarType, "./common.h", 1307, 1466);
+    type=(struct sType* )come_increment_ref_count(solve_method_generics(type_,info), "./common.h", 1307, 1465);
+    original_type=(struct sType* )come_increment_ref_count(type__->mOriginalLoadVarType, "./common.h", 1309, 1466);
     pointer_type=type->mPointerNum>0||type->mArrayPointerNum>0||type->mFunctionPointerNum>0;
     heap_type=pointer_type&&type->mHeap;
     if(original_type) {
@@ -10665,81 +10667,81 @@ _Bool sHeapChecker_compile(struct sHeapChecker* self, struct sInfo*  info  )
     info->in_refference=(_Bool)1;
     if(!gComeC&&heap_type&&!info->in_refference) {
         __right_value0 = (void*)0;
-        type_name=(char* )come_increment_ref_count(make_type_name_string(type,info,(_Bool)1,(_Bool)1,(_Bool)0,(_Bool)1), "./common.h", 1323, 1467);
+        type_name=(char* )come_increment_ref_count(make_type_name_string(type,info,(_Bool)1,(_Bool)1,(_Bool)0,(_Bool)1), "./common.h", 1325, 1467);
         __right_value0 = (void*)0;
-        come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "./common.h", 1325, 1468, "struct CVALUE* "), "./common.h", 1325, 1469)), "./common.h", 1325, 1470);
+        come_value2=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "./common.h", 1327, 1468, "struct CVALUE* "), "./common.h", 1327, 1469)), "./common.h", 1327, 1470);
         __right_value0 = (void*)0;
         __dec_obj128=come_value2->c_value,
-        come_value2->c_value=(char* )come_increment_ref_count(xsprintf("((%s)come_heap_checker(%s, \"%s\", %d, %d))",type_name,come_value->c_value,info->sname,info->sline,++info->id), "./common.h", 1327, 1472);
-        __dec_obj128 = come_decrement_ref_count(__dec_obj128, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1327, 1471);
+        come_value2->c_value=(char* )come_increment_ref_count(xsprintf("((%s)come_heap_checker(%s, \"%s\", %d, %d))",type_name,come_value->c_value,info->sname,info->sline,++info->id), "./common.h", 1329, 1472);
+        __dec_obj128 = come_decrement_ref_count(__dec_obj128, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1329, 1471);
         __right_value0 = (void*)0;
         __dec_obj129=come_value2->type,
-        come_value2->type=(struct sType* )come_increment_ref_count(sType_clone(type), "./common.h", 1328, 1474);
-        come_call_finalizer(sType_finalize, __dec_obj129,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 1328, 1473);
+        come_value2->type=(struct sType* )come_increment_ref_count(sType_clone(type), "./common.h", 1330, 1474);
+        come_call_finalizer(sType_finalize, __dec_obj129,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 1330, 1473);
         come_value2->var=come_value->var;
         if(come_value->c_value_without_null_checker) {
             __dec_obj130=come_value2->c_value_without_null_checker,
-            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_null_checker, "./common.h", 1331, 1476);
-            __dec_obj130 = come_decrement_ref_count(__dec_obj130, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1331, 1475);
+            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_null_checker, "./common.h", 1333, 1476);
+            __dec_obj130 = come_decrement_ref_count(__dec_obj130, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1333, 1475);
         }
         else if(come_value->c_value_without_cast_object_value) {
             __dec_obj131=come_value2->c_value_without_null_checker,
-            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_cast_object_value, "./common.h", 1334, 1478);
-            __dec_obj131 = come_decrement_ref_count(__dec_obj131, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1334, 1477);
+            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_cast_object_value, "./common.h", 1336, 1478);
+            __dec_obj131 = come_decrement_ref_count(__dec_obj131, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1336, 1477);
         }
         else {
             __dec_obj132=come_value2->c_value_without_null_checker,
-            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value, "./common.h", 1337, 1480);
-            __dec_obj132 = come_decrement_ref_count(__dec_obj132, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1337, 1479);
+            come_value2->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value, "./common.h", 1339, 1480);
+            __dec_obj132 = come_decrement_ref_count(__dec_obj132, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1339, 1479);
         }
-        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value2, "./common.h", 1340, 1481));
-        (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 1366, 1482));
-        come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1366, 1483);
+        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value2, "./common.h", 1342, 1481));
+        (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 1368, 1482));
+        come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1368, 1483);
     }
     else if(!gComeC&&pointer_type&&!info->in_refference) {
         __right_value0 = (void*)0;
-        type_name_63=(char* )come_increment_ref_count(make_type_name_string(type,info,(_Bool)1,(_Bool)1,(_Bool)0,(_Bool)1), "./common.h", 1343, 1484);
+        type_name_63=(char* )come_increment_ref_count(make_type_name_string(type,info,(_Bool)1,(_Bool)1,(_Bool)0,(_Bool)1), "./common.h", 1345, 1484);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        come_value2_64=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "./common.h", 1345, 1485, "struct CVALUE* "), "./common.h", 1345, 1486)), "./common.h", 1345, 1487);
+        come_value2_64=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "./common.h", 1347, 1485, "struct CVALUE* "), "./common.h", 1347, 1486)), "./common.h", 1347, 1487);
         __right_value0 = (void*)0;
         __dec_obj133=come_value2_64->c_value,
-        come_value2_64->c_value=(char* )come_increment_ref_count(xsprintf("((%s)come_null_checker(%s, \"%s\", %d, %d))",type_name_63,come_value->c_value,info->sname,info->sline,++info->id), "./common.h", 1347, 1489);
-        __dec_obj133 = come_decrement_ref_count(__dec_obj133, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1347, 1488);
+        come_value2_64->c_value=(char* )come_increment_ref_count(xsprintf("((%s)come_null_checker(%s, \"%s\", %d, %d))",type_name_63,come_value->c_value,info->sname,info->sline,++info->id), "./common.h", 1349, 1489);
+        __dec_obj133 = come_decrement_ref_count(__dec_obj133, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1349, 1488);
         __right_value0 = (void*)0;
         __dec_obj134=come_value2_64->type,
-        come_value2_64->type=(struct sType* )come_increment_ref_count(sType_clone(type), "./common.h", 1348, 1491);
-        come_call_finalizer(sType_finalize, __dec_obj134,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 1348, 1490);
+        come_value2_64->type=(struct sType* )come_increment_ref_count(sType_clone(type), "./common.h", 1350, 1491);
+        come_call_finalizer(sType_finalize, __dec_obj134,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 1350, 1490);
         come_value2_64->var=come_value->var;
         if(come_value->c_value_without_null_checker) {
             __dec_obj135=come_value2_64->c_value_without_null_checker,
-            come_value2_64->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_null_checker, "./common.h", 1351, 1493);
-            __dec_obj135 = come_decrement_ref_count(__dec_obj135, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1351, 1492);
+            come_value2_64->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_null_checker, "./common.h", 1353, 1493);
+            __dec_obj135 = come_decrement_ref_count(__dec_obj135, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1353, 1492);
         }
         else if(come_value->c_value_without_cast_object_value) {
             __dec_obj136=come_value2_64->c_value_without_null_checker,
-            come_value2_64->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_cast_object_value, "./common.h", 1354, 1495);
-            __dec_obj136 = come_decrement_ref_count(__dec_obj136, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1354, 1494);
+            come_value2_64->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value_without_cast_object_value, "./common.h", 1356, 1495);
+            __dec_obj136 = come_decrement_ref_count(__dec_obj136, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1356, 1494);
         }
         else {
             __dec_obj137=come_value2_64->c_value_without_null_checker,
-            come_value2_64->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value, "./common.h", 1357, 1497);
-            __dec_obj137 = come_decrement_ref_count(__dec_obj137, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1357, 1496);
+            come_value2_64->c_value_without_null_checker=(char* )come_increment_ref_count(come_value->c_value, "./common.h", 1359, 1497);
+            __dec_obj137 = come_decrement_ref_count(__dec_obj137, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 1359, 1496);
         }
-        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value2_64, "./common.h", 1360, 1498));
-        (type_name_63 = come_decrement_ref_count(type_name_63, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 1366, 1499));
-        come_call_finalizer(CVALUE_finalize, come_value2_64, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1366, 1500);
+        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value2_64, "./common.h", 1362, 1498));
+        (type_name_63 = come_decrement_ref_count(type_name_63, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 1368, 1499));
+        come_call_finalizer(CVALUE_finalize, come_value2_64, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1368, 1500);
     }
     else {
-        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value, "./common.h", 1363, 1501));
+        list$1CVALUE$ph_push_back(info->stack,(struct CVALUE* )come_increment_ref_count(come_value, "./common.h", 1365, 1501));
     }
         __result_obj__0 = (_Bool)1;
-    ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1366, 1502):(void*)0);
-    come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1366, 1503);
-    come_call_finalizer(sType_finalize, type__, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1366, 1504);
-    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1366, 1505);
-    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1366, 1506);
-    come_call_finalizer(sType_finalize, original_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1366, 1507);
+    ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "./common.h", 1368, 1502):(void*)0);
+    come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1368, 1503);
+    come_call_finalizer(sType_finalize, type__, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1368, 1504);
+    come_call_finalizer(sType_finalize, type_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1368, 1505);
+    come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1368, 1506);
+    come_call_finalizer(sType_finalize, original_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1368, 1507);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -10762,16 +10764,16 @@ struct sFunNode* sFunNode_initialize(struct sFunNode* self, struct sFun*  fun  ,
     void* __right_value0 = (void*)0;
     struct sFun*  __dec_obj138  ;
     struct sFunNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sFunNode*)come_increment_ref_count(self, "./common.h", 1512, 1508),info)));
-    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 1512, 1509);
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sFunNode*)come_increment_ref_count(self, "./common.h", 1514, 1508),info)));
+    come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "01main.nc}", 1514, 1509);
     __dec_obj138=self->mFun,
-    self->mFun=(struct sFun* )come_increment_ref_count(fun, "./common.h", 1514, 1511);
-    come_call_finalizer(sFun_finalize, __dec_obj138,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 1514, 1510);
-        __result_obj__0 = (struct sFunNode*)come_increment_ref_count(self, "./common.h", 1515, 1512);
-    come_call_finalizer(sFunNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1515, 1515);
-    come_call_finalizer(sFun_finalize, fun, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1515, 1516);
+    self->mFun=(struct sFun* )come_increment_ref_count(fun, "./common.h", 1516, 1511);
+    come_call_finalizer(sFun_finalize, __dec_obj138,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h", 1516, 1510);
+        __result_obj__0 = (struct sFunNode*)come_increment_ref_count(self, "./common.h", 1517, 1512);
+    come_call_finalizer(sFunNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1517, 1515);
+    come_call_finalizer(sFun_finalize, fun, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 1517, 1516);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sFunNode_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1515, 1517);
+    come_call_finalizer(sFunNode_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 1517, 1517);
     return __result_obj__0;
 }
 
@@ -10780,10 +10782,10 @@ char*  sFunNode_kind(struct sFunNode* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sFunNode_kind"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sFunNode","./common.h",1519))), "./common.h", 1519, 1518);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1519, 1519));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("sFunNode","./common.h",1521))), "./common.h", 1521, 1518);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1521, 1519));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 1519, 1520));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "./common.h", 1521, 1520));
     return __result_obj__0;
 }
 
@@ -10919,8 +10921,8 @@ _Bool sFunNode_compile(struct sFunNode* self, struct sInfo*  info  )
     if(self->mFun->mBlock) {
         if(!gComeC&&!info->come_fun->mResultType->mNorecord) {
             add_come_code_at_function_head(info,((char*)(__right_value1=xsprintf("struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = \"\%s\"; neo_current_frame = &fr;\n",((char* )(__right_value0=string_to_string(info->come_fun->mName)))))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1543, 1521));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1543, 1522));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1545, 1521));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1545, 1522));
         }
         block_level=info->block_level;
         info->block_level=0;
@@ -10929,18 +10931,18 @@ _Bool sFunNode_compile(struct sFunNode* self, struct sInfo*  info  )
         if(!gComeC&&!info->inhibits_output_code2&&!info->come_fun->mResultType->mNorecord) {
             __right_value0 = (void*)0;
             add_come_code(info,"%s",((char* )(__right_value0=buffer_to_string(self->mFun->mSourceEnd))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1554, 1523));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1556, 1523));
             add_come_code_no_indent(info,"neo_current_frame = fr.prev;\n");
         }
         if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X0=(!gComeC&&string_operator_equals(info->come_fun->mName,"main")&&!info->inhibits_output_code2&&((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=xsprintf("come_heap_final"))))))));        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1558, 1554));
-        come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "./common.h}", 1558, 1555);
+({(_conditional_value_X0=(!gComeC&&string_operator_equals(info->come_fun->mName,"main")&&!info->inhibits_output_code2&&((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=xsprintf("come_heap_final"))))))));        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1560, 1554));
+        come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "./common.h}", 1560, 1555);
 _conditional_value_X0;})) {
             free_objects(info->gv_table,((void*)0),info,(_Bool)0);
             __right_value0 = (void*)0;
             add_come_code(info,((char* )(__right_value0=xsprintf("come_heap_final();\n"))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1560, 1556));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1562, 1556));
         }
     }
     gComeSafe=unsafe_mode;

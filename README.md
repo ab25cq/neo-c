@@ -91,6 +91,20 @@ cd neo-c
 sh fast_build.sh
 ```
 
+If generated C gets too large to compile on a low-memory system, use `-lowmem` when transpiling your `.nc` file. In this mode, neo-c stops auto-generating helper methods such as `equals`, `operator_equals`, `operator_not_equals`, `to_string`, `compare`, and `get_hash_key`, so you may need to define them explicitly.
+
+```
+ncc -lowmem -c your_source.nc
+```
+
+You can also enable it for project builds:
+
+```
+LOWMEM=1 make self-host
+sh fast_build.sh --lowmem
+sh clean-self-host.sh --lowmem
+```
+
 To install a vi clone called vin, a string processing interpreter called zed, a console filer called mf, and an original shell called shsh, do the following:
 
 vinというviクローン、zedという文字列処理インタプリタ、mfというコンソールファイラ、shshというオリジナルのシェルをインストールするには以下のようにします。
