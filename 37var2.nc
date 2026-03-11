@@ -960,6 +960,23 @@ void add_variable_to_global_table_with_int_value(char* name, sType* type, char* 
     info.gv_table.mVars.insert(string(name), self);
 }
 
+static void add_defining_class_field_if_missing(string name, sType* type, sInfo* info)
+{
+    if(info->defining_class == null) {
+        return;
+    }
+    
+    foreach(it, info.defining_class->mFields) {
+        var field_name, field_type = it;
+        
+        if(field_name === name) {
+            return;
+        }
+    }
+    
+    info.defining_class->mFields.add(t(clone name, clone type));
+}
+
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 7
 {
     int sline_real = info.sline_real;
@@ -1209,7 +1226,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         name = parse_word();
         
         skip_spaces_and_lf();
-        info.defining_class->mFields.add(t(name, type));
+        add_defining_class_field_if_missing(name, type, info);
         
         if(*info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
             info->p.p++;

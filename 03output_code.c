@@ -2973,7 +2973,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
     _Bool Value;
     struct CVALUE*  cvalue  ;
     int j;
-    struct list$1sType$ph* _o2_saved_1;
+    struct list$1sType$ph* _o2_saved_3;
     struct sType*  it  ;
     char*  param_type_str  ;
     int i_7;
@@ -3163,7 +3163,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
         }
         buffer_append_str(buf,")(");
         j=0;
-        for(_o2_saved_1=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "03output_code.nc", 323, 124),it=list$1sType$ph_begin(_o2_saved_1)        ;!list$1sType$ph_end(_o2_saved_1);it=list$1sType$ph_next(_o2_saved_1)){
+        for(_o2_saved_3=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "03output_code.nc", 323, 124),it=list$1sType$ph_begin(_o2_saved_3)        ;!list$1sType$ph_end(_o2_saved_3);it=list$1sType$ph_next(_o2_saved_3)){
             __right_value0 = (void*)0;
             param_type_str=(char* )come_increment_ref_count(make_type_name_string(it,info,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0), "03output_code.nc", 324, 125);
             buffer_append_str(buf,param_type_str);
@@ -3175,7 +3175,7 @@ char*  make_type_name_string(struct sType*  type  , struct sInfo*  info  , _Bool
         }
         buffer_append_str(buf,")");
         (result_type_str = come_decrement_ref_count(result_type_str, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 425, 127));
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 425, 128);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 425, 128);
     }
     else {
         if(class_name==((void*)0)) {
@@ -3658,7 +3658,7 @@ struct sType*  get_no_solved_type(struct sType*  type  )
     struct sType*  __dec_obj35  ;
     struct sType*  __dec_obj36  ;
     int i;
-    struct list$1sType$ph* _o2_saved_2;
+    struct list$1sType$ph* _o2_saved_4;
     struct sType*  it  ;
     void* __right_value1 = (void*)0;
     struct sType*  __result_obj__0  ;
@@ -3675,14 +3675,14 @@ struct sType*  get_no_solved_type(struct sType*  type  )
         come_call_finalizer(sType_finalize, __dec_obj36,(void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc", 483, 323);
     }
     i=0;
-    for(_o2_saved_2=(struct list$1sType$ph*)come_increment_ref_count(type->mGenericsTypes, "03output_code.nc", 487, 325),it=list$1sType$ph_begin(_o2_saved_2)    ;!list$1sType$ph_end(_o2_saved_2);it=list$1sType$ph_next(_o2_saved_2)){
+    for(_o2_saved_4=(struct list$1sType$ph*)come_increment_ref_count(type->mGenericsTypes, "03output_code.nc", 487, 325),it=list$1sType$ph_begin(_o2_saved_4)    ;!list$1sType$ph_end(_o2_saved_4);it=list$1sType$ph_next(_o2_saved_4)){
         __right_value0 = (void*)0;
         list$1sType$ph_operator_store_element(result->mGenericsTypes,i,(struct sType* )come_increment_ref_count(get_no_solved_type(it), "03output_code.nc", 488, 350));
         i++;
     }
         __result_obj__0 = (struct sType* )come_increment_ref_count(result, "03output_code.nc", 492, 351);
     come_call_finalizer(sType_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "03output_code.nc}", 492, 352);
-    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 492, 353);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 492, 353);
     neo_current_frame = fr.prev;
     come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "03output_code.nc}", 492, 354);
     return __result_obj__0;
@@ -4710,7 +4710,7 @@ char*  make_come_type_name_string(struct sType*  type  , struct sInfo*  info  )
     _Bool Value;
     struct CVALUE*  cvalue  ;
     int j;
-    struct list$1sType$ph* _o2_saved_3;
+    struct list$1sType$ph* _o2_saved_5;
     struct sType*  it  ;
     char*  param_type_str  ;
     int i_32;
@@ -4814,7 +4814,7 @@ char*  make_come_type_name_string(struct sType*  type  , struct sInfo*  info  )
         }
         buffer_append_str(buf,")(");
         j=0;
-        for(_o2_saved_3=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "03output_code.nc", 601, 381),it=list$1sType$ph_begin(_o2_saved_3)        ;!list$1sType$ph_end(_o2_saved_3);it=list$1sType$ph_next(_o2_saved_3)){
+        for(_o2_saved_5=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "03output_code.nc", 601, 381),it=list$1sType$ph_begin(_o2_saved_5)        ;!list$1sType$ph_end(_o2_saved_5);it=list$1sType$ph_next(_o2_saved_5)){
             __right_value0 = (void*)0;
             param_type_str=(char* )come_increment_ref_count(make_come_type_name_string(it,info), "03output_code.nc", 602, 382);
             buffer_append_str(buf,param_type_str);
@@ -4826,7 +4826,7 @@ char*  make_come_type_name_string(struct sType*  type  , struct sInfo*  info  )
         }
         buffer_append_str(buf,")");
         (result_type_str = come_decrement_ref_count(result_type_str, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 703, 384));
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 703, 385);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 703, 385);
     }
     else {
         if(type->mStatic) {
@@ -5011,7 +5011,7 @@ static char*  make_lambda_type_name_string(struct sType*  type  , char* var_name
     _Bool Value;
     struct CVALUE*  cvalue  ;
     int i_37;
-    struct list$1sType$ph* _o2_saved_4;
+    struct list$1sType$ph* _o2_saved_6;
     struct sType*  it  ;
     char*  pointer_attr  ;
     void* __right_value2 = (void*)0;
@@ -5028,7 +5028,7 @@ static char*  make_lambda_type_name_string(struct sType*  type  , char* var_name
     _Bool Value_43;
     struct CVALUE*  cvalue_44  ;
     int i_45;
-    struct list$1sType$ph* _o2_saved_5;
+    struct list$1sType$ph* _o2_saved_7;
     struct sType*  it_46  ;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "03output_code.nc", 708, 411, "struct buffer* "), "03output_code.nc", 708, 412)), "03output_code.nc", 708, 413);
     if(type->mResultType==((void*)0)) {
@@ -5063,7 +5063,7 @@ static char*  make_lambda_type_name_string(struct sType*  type  , char* var_name
         }
         buffer_append_format(buf,")(",var_name);
         i_37=0;
-        for(_o2_saved_4=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "03output_code.nc", 737, 422),it=list$1sType$ph_begin(_o2_saved_4)        ;!list$1sType$ph_end(_o2_saved_4);it=list$1sType$ph_next(_o2_saved_4)){
+        for(_o2_saved_6=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "03output_code.nc", 737, 422),it=list$1sType$ph_begin(_o2_saved_6)        ;!list$1sType$ph_end(_o2_saved_6);it=list$1sType$ph_next(_o2_saved_6)){
             __right_value0 = (void*)0;
             buffer_append_str(buf,((char* )(__right_value0=make_come_type_name_string(it,info))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 738, 423));
@@ -5081,14 +5081,14 @@ static char*  make_lambda_type_name_string(struct sType*  type  , char* var_name
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=make_lambda_type_name_string(type->mResultType,((char* )(__right_value0=buffer_to_string(buf))),info))), "03output_code.nc", 752, 425);
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 752, 426);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 752, 426);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 752, 427);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 752, 428));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 752, 429));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "03output_code.nc", 752, 430));
         return __result_obj__0;
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 834, 431);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 834, 431);
     }
     else {
         __right_value0 = (void*)0;
@@ -5163,7 +5163,7 @@ static char*  make_lambda_type_name_string(struct sType*  type  , char* var_name
         }
         buffer_append_format(buf,")(");
         i_45=0;
-        for(_o2_saved_5=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "03output_code.nc", 816, 443),it_46=list$1sType$ph_begin(_o2_saved_5)        ;!list$1sType$ph_end(_o2_saved_5);it_46=list$1sType$ph_next(_o2_saved_5)){
+        for(_o2_saved_7=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "03output_code.nc", 816, 443),it_46=list$1sType$ph_begin(_o2_saved_7)        ;!list$1sType$ph_end(_o2_saved_7);it_46=list$1sType$ph_next(_o2_saved_7)){
             __right_value0 = (void*)0;
             buffer_append_str(buf,((char* )(__right_value0=make_type_name_string(it_46,info,(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 817, 444));
@@ -5181,14 +5181,14 @@ static char*  make_lambda_type_name_string(struct sType*  type  , char* var_name
                 __right_value0 = (void*)0;
         __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))), "03output_code.nc", 831, 446);
         (pointer_attr = come_decrement_ref_count(pointer_attr, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 831, 447));
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 831, 448);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 831, 448);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 831, 449);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 831, 450));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "03output_code.nc", 831, 451));
         return __result_obj__0;
         (pointer_attr = come_decrement_ref_count(pointer_attr, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 834, 452));
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 834, 453);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 834, 453);
     }
         __right_value0 = (void*)0;
     __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))), "03output_code.nc", 834, 454);
@@ -5211,7 +5211,7 @@ static char*  header_lambda(struct sType*  lambda_type  , char*  name  , struct 
     _Bool Value;
     struct CVALUE*  cvalue  ;
     int i_47;
-    struct list$1sType$ph* _o2_saved_6;
+    struct list$1sType$ph* _o2_saved_8;
     struct sType*  it  ;
     char* name_48;
     char*  str  ;
@@ -5243,7 +5243,7 @@ static char*  header_lambda(struct sType*  lambda_type  , char*  name  , struct 
     }
     buffer_append_str(output,"(");
     i_47=0;
-    for(_o2_saved_6=(struct list$1sType$ph*)come_increment_ref_count(lambda_type->mParamTypes, "03output_code.nc", 868, 466),it=list$1sType$ph_begin(_o2_saved_6)    ;!list$1sType$ph_end(_o2_saved_6);it=list$1sType$ph_next(_o2_saved_6)){
+    for(_o2_saved_8=(struct list$1sType$ph*)come_increment_ref_count(lambda_type->mParamTypes, "03output_code.nc", 868, 466),it=list$1sType$ph_begin(_o2_saved_8)    ;!list$1sType$ph_end(_o2_saved_8);it=list$1sType$ph_next(_o2_saved_8)){
         __right_value0 = (void*)0;
         name_48=((char* )(__right_value0=list$1char$ph_operator_load_element(lambda_type->mParamNames,i_47)));
         __right_value0 = (void*)0;
@@ -5275,7 +5275,7 @@ static char*  header_lambda(struct sType*  lambda_type  , char*  name  , struct 
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 892, 490));
     come_call_finalizer(buffer_finalize, output, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 892, 491);
     (result_type_str = come_decrement_ref_count(result_type_str, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 892, 492));
-    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 892, 493);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 892, 493);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 892, 494));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "03output_code.nc", 892, 495));
@@ -5370,7 +5370,7 @@ char*  output_lambda_original_type(struct sType*  type2  , char* name, struct sI
     struct buffer*  buf  ;
     struct __current_stack1__ __current_stack1__;
     int n;
-    struct list$1sNode$ph* _o2_saved_7;
+    struct list$1sNode$ph* _o2_saved_9;
     struct sNode* it;
     char*  __result_obj__0  ;
     struct CVALUE*  cvalue  ;
@@ -5399,12 +5399,12 @@ char*  output_lambda_original_type(struct sType*  type2  , char* name, struct sI
         }
         if(list$1sNode$ph_length(type2->mArrayNum)>0) {
             n=0;
-            for(_o2_saved_7=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 926, 499),it=list$1sNode$ph_begin(_o2_saved_7)            ;!list$1sNode$ph_end(_o2_saved_7);it=list$1sNode$ph_next(_o2_saved_7)){
+            for(_o2_saved_9=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 926, 499),it=list$1sNode$ph_begin(_o2_saved_9)            ;!list$1sNode$ph_end(_o2_saved_9);it=list$1sNode$ph_next(_o2_saved_9)){
                 if(!node_compile(it,info)) {
                     err_msg(info,"invalid array number");
                                         __right_value0 = (void*)0;
                     __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",929))), "03output_code.nc", 929, 500);
-                    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 929, 501);
+                    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 929, 501);
                     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 929, 502);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 929, 503));
                     neo_current_frame = fr.prev;
@@ -5428,7 +5428,7 @@ char*  output_lambda_original_type(struct sType*  type2  , char* name, struct sI
                 n++;
                 come_call_finalizer(CVALUE_finalize, cvalue, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 948, 506);
             }
-            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 950, 507);
+            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 950, 507);
         }
         if(type2->mArrayPointerType) {
             buffer_append_str(buf,"[]");
@@ -5597,11 +5597,11 @@ char*  make_define_var(struct sType*  type  , char* name, struct sInfo*  info  ,
     struct __current_stack2__ __current_stack2__;
     char*  __result_obj__0  ;
     struct CVALUE*  come_value  ;
-    struct list$1sNode$ph* _o2_saved_8;
+    struct list$1sNode$ph* _o2_saved_10;
     struct sNode* it;
     struct CVALUE*  cvalue  ;
     int n;
-    struct list$1sNode$ph* _o2_saved_9;
+    struct list$1sNode$ph* _o2_saved_11;
     struct sNode* it_58;
     struct CVALUE*  cvalue_59  ;
     memset(&__current_stack2__, 0, sizeof(struct __current_stack2__));
@@ -5679,13 +5679,13 @@ char*  make_define_var(struct sType*  type  , char* name, struct sInfo*  info  ,
         if(type->mPointerParen) {
             buffer_append_format(buf,")");
         }
-        for(_o2_saved_8=(struct list$1sNode$ph*)come_increment_ref_count(type2->mVarNameArrayNum, "03output_code.nc", 1039, 534),it=list$1sNode$ph_begin(_o2_saved_8)        ;!list$1sNode$ph_end(_o2_saved_8);it=list$1sNode$ph_next(_o2_saved_8)){
+        for(_o2_saved_10=(struct list$1sNode$ph*)come_increment_ref_count(type2->mVarNameArrayNum, "03output_code.nc", 1039, 534),it=list$1sNode$ph_begin(_o2_saved_10)        ;!list$1sNode$ph_end(_o2_saved_10);it=list$1sNode$ph_next(_o2_saved_10)){
             if(!node_compile(it,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1042))), "03output_code.nc", 1042, 535);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1042, 536));
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1042, 537);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1042, 537);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1042, 538);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1042, 539);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1042, 540));
@@ -5702,14 +5702,14 @@ char*  make_define_var(struct sType*  type  , char* name, struct sInfo*  info  ,
             buffer_append_format(buf,")");
         }
         n=0;
-        for(_o2_saved_9=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1054, 544),it_58=list$1sNode$ph_begin(_o2_saved_9)        ;!list$1sNode$ph_end(_o2_saved_9);it_58=list$1sNode$ph_next(_o2_saved_9)){
+        for(_o2_saved_11=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1054, 544),it_58=list$1sNode$ph_begin(_o2_saved_11)        ;!list$1sNode$ph_end(_o2_saved_11);it_58=list$1sNode$ph_next(_o2_saved_11)){
             if(!node_compile(it_58,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1057))), "03output_code.nc", 1057, 545);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1057, 546));
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1057, 547);
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1057, 548);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1057, 547);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1057, 548);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1057, 549);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1057, 550);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1057, 551));
@@ -5745,8 +5745,8 @@ char*  make_define_var(struct sType*  type  , char* name, struct sInfo*  info  ,
             buffer_append_format(buf,type->mAttribute);
         }
         (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1091, 555));
-        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1091, 556);
-        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1091, 557);
+        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1091, 556);
+        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1091, 557);
     }
     if(type2->mVarAttribute) {
         __right_value0 = (void*)0;
@@ -5781,14 +5781,14 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
     char*  type_name  ;
     struct __current_stack3__ __current_stack3__;
     int n;
-    struct list$1sNode$ph* _o2_saved_10;
+    struct list$1sNode$ph* _o2_saved_12;
     struct sNode* it;
     struct CVALUE*  cvalue  ;
     struct CVALUE*  come_value  ;
     int i;
     int i_60;
     int n_61;
-    struct list$1sNode$ph* _o2_saved_11;
+    struct list$1sNode$ph* _o2_saved_13;
     struct sNode* it_62;
     struct CVALUE*  cvalue_63  ;
     int i_64;
@@ -5833,13 +5833,13 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
         })        ,        int_times(type2->mArrayPointerNum,&__current_stack3__,(void*)method_block3_03outputcodenc);
         buffer_append_format(buf,"%s)",name);
         n=0;
-        for(_o2_saved_10=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1123, 579),it=list$1sNode$ph_begin(_o2_saved_10)        ;!list$1sNode$ph_end(_o2_saved_10);it=list$1sNode$ph_next(_o2_saved_10)){
+        for(_o2_saved_12=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1123, 579),it=list$1sNode$ph_begin(_o2_saved_12)        ;!list$1sNode$ph_end(_o2_saved_12);it=list$1sNode$ph_next(_o2_saved_12)){
             if(!node_compile(it,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1126))), "03output_code.nc", 1126, 580);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1126, 581));
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1126, 582);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_12, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1126, 582);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1126, 583);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1126, 584);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1126, 585));
@@ -5872,7 +5872,7 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
             buffer_append_format(buf,type->mAttribute);
         }
         (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1241, 589));
-        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1241, 590);
+        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_12, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1241, 590);
     }
     else if(type2->mSizeNum!=((void*)0)) {
         if(!node_compile(type2->mSizeNum,info)) {
@@ -5906,12 +5906,12 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
         }
         buffer_append_str(buf,name);
         n_61=0;
-        for(_o2_saved_11=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1183, 598),it_62=list$1sNode$ph_begin(_o2_saved_11)        ;!list$1sNode$ph_end(_o2_saved_11);it_62=list$1sNode$ph_next(_o2_saved_11)){
+        for(_o2_saved_13=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1183, 598),it_62=list$1sNode$ph_begin(_o2_saved_13)        ;!list$1sNode$ph_end(_o2_saved_13);it_62=list$1sNode$ph_next(_o2_saved_13)){
             if(!node_compile(it_62,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1186))), "03output_code.nc", 1186, 599);
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1186, 600);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_13, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1186, 600);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1186, 601);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1186, 602);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1186, 603));
@@ -5945,7 +5945,7 @@ char*  make_var_name(struct sType*  type  , char* name, struct sInfo*  info  , _
         if(type2->mAttribute!=((void*)0)) {
             buffer_append_format(buf," %s",type->mAttribute);
         }
-        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1241, 607);
+        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_13, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1241, 607);
     }
     else {
         if(type2->mAttribute!=((void*)0)) {
@@ -5999,7 +5999,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
     char*  str_65  ;
     char*  type_name  ;
     struct __current_stack4__ __current_stack4__;
-    struct list$1sNode$ph* _o2_saved_12;
+    struct list$1sNode$ph* _o2_saved_14;
     struct sNode* it;
     char*  __result_obj__0  ;
     struct CVALUE*  cvalue  ;
@@ -6008,7 +6008,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
     char*  __dec_obj44  ;
     char*  type_str_66  ;
     char*  __dec_obj45  ;
-    struct list$1sNode$ph* _o2_saved_13;
+    struct list$1sNode$ph* _o2_saved_15;
     struct sNode* it_67;
     struct CVALUE*  cvalue_68  ;
     char*  type_str_69  ;
@@ -6047,13 +6047,13 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
         __current_stack4__.type2 = &type2;
         })        ,        int_times(type2->mArrayPointerNum,&__current_stack4__,(void*)method_block4_03outputcodenc);
         buffer_append_format(buf,"%s)",name);
-        for(_o2_saved_12=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1276, 624),it=list$1sNode$ph_begin(_o2_saved_12)        ;!list$1sNode$ph_end(_o2_saved_12);it=list$1sNode$ph_next(_o2_saved_12)){
+        for(_o2_saved_14=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1276, 624),it=list$1sNode$ph_begin(_o2_saved_14)        ;!list$1sNode$ph_end(_o2_saved_14);it=list$1sNode$ph_next(_o2_saved_14)){
             if(!node_compile(it,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1279))), "03output_code.nc", 1279, 625);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1279, 626));
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_12, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1279, 627);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_14, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1279, 627);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1279, 628);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1279, 629);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1279, 630));
@@ -6076,7 +6076,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
             buffer_append_format(buf," %s",type->mAttribute);
         }
         (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1376, 634));
-        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_12, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1376, 635);
+        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_14, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1376, 635);
     }
     else if(type2->mSizeNum!=((void*)0)) {
         if(!node_compile(type2->mSizeNum,info)) {
@@ -6115,13 +6115,13 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
         buffer_append_str(buf,type_str_66);
         buffer_append_str(buf," ");
         buffer_append_str(buf,name);
-        for(_o2_saved_13=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1328, 648),it_67=list$1sNode$ph_begin(_o2_saved_13)        ;!list$1sNode$ph_end(_o2_saved_13);it_67=list$1sNode$ph_next(_o2_saved_13)){
+        for(_o2_saved_15=(struct list$1sNode$ph*)come_increment_ref_count(type2->mArrayNum, "03output_code.nc", 1328, 648),it_67=list$1sNode$ph_begin(_o2_saved_15)        ;!list$1sNode$ph_end(_o2_saved_15);it_67=list$1sNode$ph_next(_o2_saved_15)){
             if(!node_compile(it_67,info)) {
                 err_msg(info,"invalid array number");
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","03output_code.nc",1331))), "03output_code.nc", 1331, 649);
                 (type_str_66 = come_decrement_ref_count(type_str_66, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1331, 650));
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_13, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1331, 651);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1331, 651);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1331, 652);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1331, 653);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "03output_code.nc", 1331, 654));
@@ -6144,7 +6144,7 @@ char*  make_come_define_var(struct sType*  type  , char* name, struct sInfo*  in
             buffer_append_format(buf," %s",type->mAttribute);
         }
         (type_str_66 = come_decrement_ref_count(type_str_66, (void*)0, (void*)0, 0, 0, (void*)0, "03output_code.nc", 1376, 658));
-        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_13, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1376, 659);
+        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "03output_code.nc}", 1376, 659);
     }
     else {
         __right_value0 = (void*)0;

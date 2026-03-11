@@ -4359,7 +4359,7 @@ int come_main(int argc, char** argv)
     struct list$1char$ph* files;
     int i;
     char*  ext_name  ;
-    struct list$1char$ph* _o2_saved_1;
+    struct list$1char$ph* _o2_saved_3;
     char*  it  ;
     struct sInfo  info  ;
     struct _IO_FILE*  Value  ;
@@ -4426,7 +4426,7 @@ int come_main(int argc, char** argv)
         (ext_name = come_decrement_ref_count(ext_name, (void*)0, (void*)0, 0, 0, (void*)0, "02transpile.nc", 338, 449));
     }
     init_ccpp(argc,argv);
-    for(_o2_saved_1=(struct list$1char$ph*)come_increment_ref_count(files, "02transpile.nc", 318, 450),it=list$1char$ph_begin(_o2_saved_1)    ;!list$1char$ph_end(_o2_saved_1);it=list$1char$ph_next(_o2_saved_1)){
+    for(_o2_saved_3=(struct list$1char$ph*)come_increment_ref_count(files, "02transpile.nc", 318, 450),it=list$1char$ph_begin(_o2_saved_3)    ;!list$1char$ph_end(_o2_saved_3);it=list$1char$ph_next(_o2_saved_3)){
         memset(&info,0,sizeof(struct sInfo ));
         Value=fopen(it,"r");
         if(Value) {
@@ -4596,7 +4596,7 @@ int come_main(int argc, char** argv)
     }
         __result_obj__0 = 0;
     come_call_finalizer(list$1char$ph$p_finalize, files, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 391, 795);
-    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 391, 796);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc}", 391, 796);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }

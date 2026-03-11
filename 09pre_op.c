@@ -4382,7 +4382,7 @@ _Bool sParenBlockNode_compile(struct sParenBlockNode* self, struct sInfo*  info 
     struct buffer*  paren_block_buffer  ;
     struct buffer*  __dec_obj53  ;
     struct sType*  come_type  ;
-    struct list$1sNode$ph* _o2_saved_1;
+    struct list$1sNode$ph* _o2_saved_3;
     struct sNode* it;
     _Bool __result_obj__0;
     struct buffer*  __dec_obj54  ;
@@ -4402,14 +4402,14 @@ _Bool sParenBlockNode_compile(struct sParenBlockNode* self, struct sInfo*  info 
     info->paren_block_buffer=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "09pre_op.nc", 144, 334, "struct buffer* "), "09pre_op.nc", 144, 335)), "09pre_op.nc", 144, 337);
     come_call_finalizer(buffer_finalize, __dec_obj53,(void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc", 144, 336);
     come_type=((void*)0);
-    for(_o2_saved_1=(struct list$1sNode$ph*)come_increment_ref_count(paren_block, "09pre_op.nc", 146, 338),it=list$1sNode$ph_begin(_o2_saved_1)    ;!list$1sNode$ph_end(_o2_saved_1);it=list$1sNode$ph_next(_o2_saved_1)){
+    for(_o2_saved_3=(struct list$1sNode$ph*)come_increment_ref_count(paren_block, "09pre_op.nc", 146, 338),it=list$1sNode$ph_begin(_o2_saved_3)    ;!list$1sNode$ph_end(_o2_saved_3);it=list$1sNode$ph_next(_o2_saved_3)){
         if(!node_compile(it,info)) {
                         __result_obj__0 = (_Bool)0;
             come_call_finalizer(list$1sNode$ph$p_finalize, paren_block, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 148, 339);
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 148, 340);
             come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 148, 341);
             come_call_finalizer(sType_finalize, come_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 148, 342);
-            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 148, 343);
+            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 148, 343);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
@@ -4494,7 +4494,7 @@ _Bool sParenBlockNode_compile(struct sParenBlockNode* self, struct sInfo*  info 
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 205, 369);
     come_call_finalizer(buffer_finalize, paren_block_buffer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 205, 370);
     come_call_finalizer(sType_finalize, come_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 205, 371);
-    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 205, 372);
+    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09pre_op.nc}", 205, 372);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }

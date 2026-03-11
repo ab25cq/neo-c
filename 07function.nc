@@ -2429,6 +2429,46 @@ sNode*% parse_function(sInfo* info)
             
             string block = skip_block(info, return_self_at_last:constructor_);
             
+            if(constructor_ && info.defining_class && info.defining_class.mUniq) {
+                char* p = info.p.p;
+                int sline = info.sline;
+                int sline_real = info.sline_real;
+                int sline_top = info.sline_top;
+                string sname = string(info.sname);
+                char* head = info.head;
+                buffer*% source = info.source;
+                
+                info.source = block.to_buffer();
+                if(info.p == null) {
+                    info.p = span borrow info.source;
+                }
+                info.p.memory = borrow info.source.buf;
+                info.p.len = info.source.len+2;
+                info.p.p = borrow info.source.buf;
+                info.head = borrow info.source.buf;
+                
+                info.sline = generics_sline;
+                info.sline_real = generics_sline;
+                info.sline_top = generics_sline;
+                info.sname = string(generics_sname);
+                
+                parse_block(in_function:true);
+                
+                info.head = head;
+                info.source = source;
+                if(info.p == null) {
+                    info.p = span borrow info.source;
+                }
+                info.p.memory = borrow info.source.buf;
+                info.p.len = info.source.len+2;
+                info.p.p = borrow info.source.buf;
+                info.p.p = p;
+                info.sline = sline;
+                info.sline_real = sline_real;
+                info.sline_top = sline_top;
+                info.sname = string(sname);
+            }
+            
             var fun = new sFun(string(fun_name), result_type, param_types
                                     , param_names
                                     , param_default_parametors
@@ -2855,7 +2895,14 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     info.sline = fun->mTextBlockSline;
     info.sname = fun->mTextBlockSName;
     
+    sClass* defining_class = info.defining_class;
+    if(fun->mParamTypes.length() > 0 && fun->mParamNames.length() > 0 && fun->mParamNames[0] === "self") {
+        info.defining_class = borrow fun->mParamTypes[0].mClass;
+    }
+    
     sBlock*% block = parse_block(in_function:true);
+    
+    info.defining_class = defining_class;
     
     info.head = head;
     info.source = source;

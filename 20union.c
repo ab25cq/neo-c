@@ -2707,7 +2707,7 @@ static void output_union(struct sClass*  klass  , char*  pragma  , struct sInfo*
     struct buffer*  buf  ;
     _Bool existance_generics;
     _Bool named_child;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_1;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_3;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var1
 ;    char*  name_2  =0;
@@ -2728,7 +2728,7 @@ static void output_union(struct sClass*  klass  , char*  pragma  , struct sInfo*
     buffer_append_format(buf,"union %s\n{\n",klass->mName);
     existance_generics=(_Bool)0;
     named_child=(_Bool)0;
-    for(_o2_saved_1=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "20union.nc", 25, 6),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_1)    ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_1);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_1)){
+    for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "20union.nc", 25, 6),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)    ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
         multiple_assign_var1=it;
         name_2=(char* )come_increment_ref_count(multiple_assign_var1->v1, "20union.nc", 26, 7);
         type=(struct sType* )come_increment_ref_count(multiple_assign_var1->v2, "20union.nc", 26, 8);
@@ -2788,7 +2788,7 @@ static void output_union(struct sClass*  klass  , char*  pragma  , struct sInfo*
                 (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0, "20union.nc", 73, 325));
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "20union.nc", 73, 326));
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20union.nc}", 73, 327);
-        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20union.nc}", 73, 332);
+        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20union.nc}", 73, 332);
         neo_current_frame = fr.prev;
         return;
     }
@@ -2804,7 +2804,7 @@ _conditional_value_X0;})) {
     (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0, "20union.nc", 80, 407));
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "20union.nc", 80, 408));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20union.nc}", 80, 409);
-    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20union.nc}", 80, 410);
+    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20union.nc}", 80, 410);
     neo_current_frame = fr.prev;
 }
 

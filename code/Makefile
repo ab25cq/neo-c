@@ -85,6 +85,8 @@ test: *.nc
 	./test_pointer_qualifiers
 	$(NEO_C) test_regex_runtime.nc
 	./test_regex_runtime
+	$(NEO_C) test_uniq_constructor_field.nc
+	./test_uniq_constructor_field
 	$(NEO_C) test_c_compat.nc
 	./test_c_compat
 	$(NEO_C) test_typedefs.nc

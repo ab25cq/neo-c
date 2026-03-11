@@ -2777,12 +2777,12 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
     char*  __dec_obj19  ;
     struct buffer*  source  ;
     struct sType*  type2_0  ;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_1;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_3;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var2
 ;    char*  name_12  =0;
     struct sType*  field_type  =0;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_2;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_4;
     struct tuple2$2char$phsType$ph* it_15;
     struct tuple2$2char$phsType$ph* multiple_assign_var3
 ;    char*  name_16  =0;
@@ -3023,7 +3023,7 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
             buffer_append_str(source,source2);
             __right_value0 = (void*)0;
             klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mName)));
-            for(_o2_saved_1=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "43function3.nc", 94, 432),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_1)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_1);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_1)){
+            for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "43function3.nc", 94, 432),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
                 multiple_assign_var2=it;
                 name_12=(char* )come_increment_ref_count(multiple_assign_var2->v1, "43function3.nc", 95, 433);
                 field_type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v2, "43function3.nc", 95, 434);
@@ -3044,12 +3044,12 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
                 (name_12 = come_decrement_ref_count(name_12, (void*)0, (void*)0, 0, 0, (void*)0, "43function3.nc", 112, 435));
                 come_call_finalizer(sType_finalize, field_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 112, 436);
             }
-            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 139, 437);
+            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 139, 437);
         }
         else {
             __right_value0 = (void*)0;
             klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mName)));
-            for(_o2_saved_2=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "43function3.nc", 115, 438),it_15=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_2)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_2);it_15=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_2)){
+            for(_o2_saved_4=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "43function3.nc", 115, 438),it_15=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_4)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_4);it_15=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_4)){
                 multiple_assign_var3=it_15;
                 name_16=(char* )come_increment_ref_count(multiple_assign_var3->v1, "43function3.nc", 116, 439);
                 field_type_17=(struct sType* )come_increment_ref_count(multiple_assign_var3->v2, "43function3.nc", 116, 440);
@@ -3074,7 +3074,7 @@ struct tuple2$2sFun$pchar$ph* create_cloner_automatically(struct sType*  type  ,
                 (name_16 = come_decrement_ref_count(name_16, (void*)0, (void*)0, 0, 0, (void*)0, "43function3.nc", 137, 441));
                 come_call_finalizer(sType_finalize, field_type_17, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 137, 442);
             }
-            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 139, 443);
+            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 139, 443);
         }
         __right_value0 = (void*)0;
         user_real_fun_name=(char* )come_increment_ref_count(create_method_name(type,(_Bool)0,"user_clone",info,(_Bool)1), "43function3.nc", 139, 444);
@@ -6586,7 +6586,7 @@ struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType*  type
     void* __right_value1 = (void*)0;
     struct buffer*  source  ;
     int i;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_3;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_5;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var4
 ;    char*  name  =0;
@@ -6682,7 +6682,7 @@ struct tuple2$2sFun$pchar$ph* create_to_string_automatically(struct sType*  type
         i=0;
         __right_value0 = (void*)0;
         klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mName)));
-        for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "43function3.nc", 256, 860),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)        ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
+        for(_o2_saved_5=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "43function3.nc", 256, 860),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_5)        ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_5);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_5)){
             multiple_assign_var4=it;
             name=(char* )come_increment_ref_count(multiple_assign_var4->v1, "43function3.nc", 257, 861);
             field_type=(struct sType* )come_increment_ref_count(multiple_assign_var4->v2, "43function3.nc", 257, 862);
@@ -6824,7 +6824,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         info->head=head;
         info->sline=sline;
         come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 367, 925);
-        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 367, 926);
+        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 367, 926);
         (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "43function3.nc", 367, 927));
         come_call_finalizer(buffer_finalize, source3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 367, 928);
         come_call_finalizer(sBlock_finalize, block, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 367, 929);
@@ -6942,7 +6942,7 @@ struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType*  t
     void* __right_value1 = (void*)0;
     struct buffer*  source  ;
     int i_46;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_4;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_6;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var6
 ;    char*  name_47  =0;
@@ -7087,7 +7087,7 @@ struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType*  t
         i_46=0;
         __right_value0 = (void*)0;
         klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mName)));
-        for(_o2_saved_4=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "43function3.nc", 432, 1028),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_4)        ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_4);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_4)){
+        for(_o2_saved_6=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "43function3.nc", 432, 1028),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_6)        ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_6);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_6)){
             multiple_assign_var6=it;
             name_47=(char* )come_increment_ref_count(multiple_assign_var6->v1, "43function3.nc", 433, 1029);
             field_type=(struct sType* )come_increment_ref_count(multiple_assign_var6->v2, "43function3.nc", 433, 1030);
@@ -7214,7 +7214,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         info->head=head;
         info->sline=sline;
         come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 521, 1093);
-        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 521, 1094);
+        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 521, 1094);
         (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "43function3.nc", 521, 1095));
         come_call_finalizer(buffer_finalize, source3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 521, 1096);
         come_call_finalizer(sBlock_finalize, block, (void*)0, (void*)0, 0, 0, 0, (void*)0, "43function3.nc}", 521, 1097);

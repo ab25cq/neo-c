@@ -1539,7 +1539,7 @@ struct __current_stack1__
     struct sType**  Value  ;
     _Bool* owned_cycle;
     struct buffer**  source  ;
-    struct list$1tuple2$2char$phsType$ph$ph** _o2_saved_1;
+    struct list$1tuple2$2char$phsType$ph$ph** _o2_saved_3;
     struct tuple2$2char$phsType$ph** it;
     char**  user_real_fun_name  ;
     struct sFun**  user_finalizer  ;
@@ -2813,7 +2813,7 @@ struct tuple2$2sFun$pchar$ph* create_finalizer_automatically(struct sType*  type
     struct sClass*  klass  ;
     void* __right_value1 = (void*)0;
     struct buffer*  source  ;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_1;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_3;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var2
 ;    char*  name_11  =0;
@@ -2992,7 +2992,7 @@ struct tuple2$2sFun$pchar$ph* create_finalizer_automatically(struct sType*  type
             buffer_append_str(source,"\nusing unsafe;\n");
             __right_value0 = (void*)0;
             klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mName)));
-            for(_o2_saved_1=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 94, 385),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_1)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_1);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_1)){
+            for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 94, 385),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
                 multiple_assign_var2=it;
                 name_11=(char* )come_increment_ref_count(multiple_assign_var2->v1, "32function2.nc", 95, 386);
                 field_type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v2, "32function2.nc", 95, 387);
@@ -3019,7 +3019,7 @@ __right_value1 = (void*)0,
                         __current_stack1__.Value = &Value;
                         __current_stack1__.owned_cycle = &owned_cycle;
                         __current_stack1__.source = &source;
-                        __current_stack1__._o2_saved_1 = &_o2_saved_1;
+                        __current_stack1__._o2_saved_3 = &_o2_saved_3;
                         __current_stack1__.it = &it;
                         __current_stack1__.user_real_fun_name = &user_real_fun_name;
                         __current_stack1__.user_finalizer = &user_finalizer;
@@ -3194,7 +3194,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
             info->sname=(char* )come_increment_ref_count(sname, "32function2.nc", 215, 757);
             __dec_obj89 = come_decrement_ref_count(__dec_obj89, (void*)0, (void*)0, 0,0, (void*)0, "32function2.nc", 215, 756);
             come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 217, 758);
-            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 217, 759);
+            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 217, 759);
             (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "32function2.nc", 217, 760));
             come_call_finalizer(buffer_finalize, source3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 217, 761);
             come_call_finalizer(sBlock_finalize, block, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 217, 762);
@@ -6675,7 +6675,7 @@ struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType*  type  ,
     struct sClass*  klass  ;
     void* __right_value1 = (void*)0;
     struct buffer*  source  ;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_2;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_4;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var3
 ;    char*  name_38  =0;
@@ -6778,7 +6778,7 @@ struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType*  type  ,
         else {
             __right_value0 = (void*)0;
             klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mName)));
-            for(_o2_saved_2=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 253, 845),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_2)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_2);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_2)){
+            for(_o2_saved_4=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 253, 845),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_4)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_4);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_4)){
                 multiple_assign_var3=it;
                 name_38=(char* )come_increment_ref_count(multiple_assign_var3->v1, "32function2.nc", 254, 846);
                 field_type=(struct sType* )come_increment_ref_count(multiple_assign_var3->v2, "32function2.nc", 254, 847);
@@ -6789,7 +6789,7 @@ struct tuple2$2sFun$pchar$ph* create_equals_automatically(struct sType*  type  ,
                 (name_38 = come_decrement_ref_count(name_38, (void*)0, (void*)0, 0, 0, (void*)0, "32function2.nc", 261, 848));
                 come_call_finalizer(sType_finalize, field_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 261, 849);
             }
-            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 263, 850);
+            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 263, 850);
         }
         buffer_append_str(source,"return true;");
         buffer_append_char(source,125);
@@ -7007,7 +7007,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sT
     void* __right_value1 = (void*)0;
     struct buffer*  source  ;
     int i;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_3;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_5;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var4
 ;    char*  name_42  =0;
@@ -7117,7 +7117,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sT
             i=0;
             __right_value0 = (void*)0;
             klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mName)));
-            for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 380, 972),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
+            for(_o2_saved_5=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 380, 972),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_5)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_5);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_5)){
                 multiple_assign_var4=it;
                 name_42=(char* )come_increment_ref_count(multiple_assign_var4->v1, "32function2.nc", 381, 973);
                 field_type=(struct sType* )come_increment_ref_count(multiple_assign_var4->v2, "32function2.nc", 381, 974);
@@ -7141,7 +7141,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_not_equals_automatically(struct sT
                 (name_42 = come_decrement_ref_count(name_42, (void*)0, (void*)0, 0, 0, (void*)0, "32function2.nc", 400, 975));
                 come_call_finalizer(sType_finalize, field_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 400, 976);
             }
-            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 402, 977);
+            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 402, 977);
         }
         buffer_append_char(source,125);
         p=info->p->p;
@@ -7370,7 +7370,7 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType*  typ
     void* __right_value1 = (void*)0;
     struct buffer*  source  ;
     int i;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_4;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_6;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var5
 ;    char*  name_48  =0;
@@ -7478,7 +7478,7 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType*  typ
             i=0;
             __right_value0 = (void*)0;
             klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mName)));
-            for(_o2_saved_4=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 515, 1099),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_4)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_4);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_4)){
+            for(_o2_saved_6=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 515, 1099),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_6)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_6);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_6)){
                 multiple_assign_var5=it;
                 name_48=(char* )come_increment_ref_count(multiple_assign_var5->v1, "32function2.nc", 516, 1100);
                 field_type=(struct sType* )come_increment_ref_count(multiple_assign_var5->v2, "32function2.nc", 516, 1101);
@@ -7502,7 +7502,7 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType*  typ
                 (name_48 = come_decrement_ref_count(name_48, (void*)0, (void*)0, 0, 0, (void*)0, "32function2.nc", 535, 1102));
                 come_call_finalizer(sType_finalize, field_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 535, 1103);
             }
-            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 537, 1104);
+            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 537, 1104);
         }
         buffer_append_char(source,125);
         p=info->p->p;
@@ -7718,7 +7718,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType*
     struct sClass*  klass  ;
     void* __right_value1 = (void*)0;
     struct buffer*  source  ;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_5;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_7;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var6
 ;    char*  name_54  =0;
@@ -7823,7 +7823,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType*
             memset(&source2_53, 0, sizeof(source2_53));
             __right_value0 = (void*)0;
             klass=((struct sClass* )(__right_value0=map$2char$phsClass$ph_operator_load_element(info->classes,klass->mName)));
-            for(_o2_saved_5=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 646, 1226),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_5)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_5);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_5)){
+            for(_o2_saved_7=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "32function2.nc", 646, 1226),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_7)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_7);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_7)){
                 multiple_assign_var6=it;
                 name_54=(char* )come_increment_ref_count(multiple_assign_var6->v1, "32function2.nc", 647, 1227);
                 field_type=(struct sType* )come_increment_ref_count(multiple_assign_var6->v2, "32function2.nc", 647, 1228);
@@ -7834,7 +7834,7 @@ struct tuple2$2sFun$pchar$ph* create_operator_equals_automatically(struct sType*
                 (name_54 = come_decrement_ref_count(name_54, (void*)0, (void*)0, 0, 0, (void*)0, "32function2.nc", 654, 1229));
                 come_call_finalizer(sType_finalize, field_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 654, 1230);
             }
-            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 656, 1231);
+            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "32function2.nc}", 656, 1231);
         }
         buffer_append_str(source,"return true;\n");
         buffer_append_char(source,125);

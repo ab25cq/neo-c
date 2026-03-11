@@ -2797,7 +2797,7 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo*  info  )
     int i;
     int n;
     char*  right_c_value  ;
-    struct list$1tuple3$3char$phsNode$phchar$ph$ph* _o2_saved_1;
+    struct list$1tuple3$3char$phsNode$phchar$ph$ph* _o2_saved_3;
     struct tuple3$3char$phsNode$phchar$ph* it;
     struct tuple3$3char$phsNode$phchar$ph* multiple_assign_var1
 ;    char*  name  =0;
@@ -2859,7 +2859,7 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo*  info  )
     i=0;
     n=0;
     right_c_value=((void*)0);
-    for(_o2_saved_1=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(elements, "21enum.nc", 68, 136),it=list$1tuple3$3char$phsNode$phchar$ph$ph_begin(_o2_saved_1)    ;!list$1tuple3$3char$phsNode$phchar$ph$ph_end(_o2_saved_1);it=list$1tuple3$3char$phsNode$phchar$ph$ph_next(_o2_saved_1)){
+    for(_o2_saved_3=(struct list$1tuple3$3char$phsNode$phchar$ph$ph*)come_increment_ref_count(elements, "21enum.nc", 68, 136),it=list$1tuple3$3char$phsNode$phchar$ph$ph_begin(_o2_saved_3)    ;!list$1tuple3$3char$phsNode$phchar$ph$ph_end(_o2_saved_3);it=list$1tuple3$3char$phsNode$phchar$ph$ph_next(_o2_saved_3)){
         multiple_assign_var1=it;
         name=(char* )come_increment_ref_count(multiple_assign_var1->v1, "21enum.nc", 69, 137);
         value=(struct sNode*)come_increment_ref_count(multiple_assign_var1->v2, "21enum.nc", 69, 138);
@@ -2902,7 +2902,7 @@ _Bool sEnumNode_compile(struct sEnumNode* self, struct sInfo*  info  )
                 (attribute = come_decrement_ref_count(attribute, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 93, 154));
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "21enum.nc}", 93, 155);
                 (right_c_value = come_decrement_ref_count(right_c_value, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 93, 156));
-                come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "21enum.nc}", 93, 157);
+                come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "21enum.nc}", 93, 157);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
@@ -2962,7 +2962,7 @@ _conditional_value_X0;})) {
     (attribute = come_decrement_ref_count(attribute, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 131, 275));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "21enum.nc}", 131, 276);
     (right_c_value = come_decrement_ref_count(right_c_value, (void*)0, (void*)0, 0, 0, (void*)0, "21enum.nc", 131, 277));
-    come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "21enum.nc}", 131, 278);
+    come_call_finalizer(list$1tuple3$3char$phsNode$phchar$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "21enum.nc}", 131, 278);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }

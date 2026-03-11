@@ -4257,13 +4257,13 @@ void free_object(struct sType*  type  , char* obj, _Bool no_decrement, _Bool no_
     void* __right_value13 = (void*)0;
     void* __right_value14 = (void*)0;
     void* __right_value15 = (void*)0;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_1;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_3;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var4
 ;    char*  name_11  =0;
     struct sType*  field_type  =0;
     char*  obj_12  ;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_2;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_4;
     struct tuple2$2char$phsType$ph* it_13;
     struct tuple2$2char$phsType$ph* multiple_assign_var5
 ;    char*  name_14  =0;
@@ -4415,7 +4415,7 @@ void free_object(struct sType*  type  , char* obj, _Bool no_decrement, _Bool no_
         }
         else {
             if(klass->mStruct&&type_->mPointerNum==0) {
-                for(_o2_saved_1=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "34heap2.nc", 169, 383),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_1)                ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_1);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_1)){
+                for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "34heap2.nc", 169, 383),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)                ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
                     multiple_assign_var4=it;
                     name_11=(char* )come_increment_ref_count(multiple_assign_var4->v1, "34heap2.nc", 170, 384);
                     field_type=(struct sType* )come_increment_ref_count(multiple_assign_var4->v2, "34heap2.nc", 170, 385);
@@ -4430,10 +4430,10 @@ void free_object(struct sType*  type  , char* obj, _Bool no_decrement, _Bool no_
                     (name_11 = come_decrement_ref_count(name_11, (void*)0, (void*)0, 0, 0, (void*)0, "34heap2.nc", 177, 389));
                     come_call_finalizer(sType_finalize, field_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 177, 390);
                 }
-                come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 191, 395);
+                come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 191, 395);
             }
             else if(klass->mStruct&&type_->mPointerNum==1) {
-                for(_o2_saved_2=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "34heap2.nc", 180, 396),it_13=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_2)                ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_2);it_13=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_2)){
+                for(_o2_saved_4=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "34heap2.nc", 180, 396),it_13=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_4)                ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_4);it_13=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_4)){
                     multiple_assign_var5=it_13;
                     name_14=(char* )come_increment_ref_count(multiple_assign_var5->v1, "34heap2.nc", 181, 397);
                     field_type_15=(struct sType* )come_increment_ref_count(multiple_assign_var5->v2, "34heap2.nc", 181, 398);
@@ -4448,7 +4448,7 @@ void free_object(struct sType*  type  , char* obj, _Bool no_decrement, _Bool no_
                     (name_14 = come_decrement_ref_count(name_14, (void*)0, (void*)0, 0, 0, (void*)0, "34heap2.nc", 188, 402));
                     come_call_finalizer(sType_finalize, field_type_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 188, 403);
                 }
-                come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 191, 404);
+                come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 191, 404);
             }
             if(!type_->mAllocaValue) {
                 if(klass->mProtocol&&type_->mPointerNum==1) {
@@ -5048,11 +5048,11 @@ void free_right_value_objects(struct sInfo*  info  )
     _Bool free_right_value;
     struct list$1sRightValueObject$ph* right_value_objects;
     int n;
-    struct list$1sRightValueObject$ph* _o2_saved_3;
+    struct list$1sRightValueObject$ph* _o2_saved_5;
     struct sRightValueObject*  it  ;
     struct sVar*  var_  ;
     char*  __dec_obj52  ;
-    struct list$1sRightValueObject$ph* _o2_saved_4;
+    struct list$1sRightValueObject$ph* _o2_saved_6;
     struct sRightValueObject*  it_22  ;
     struct sType*  type  ;
     void* __right_value0 = (void*)0;
@@ -5063,7 +5063,7 @@ void free_right_value_objects(struct sInfo*  info  )
     char*  __dec_obj54  ;
     char*  __dec_obj55  ;
     int max_num;
-    struct list$1sRightValueObject$ph* _o2_saved_5;
+    struct list$1sRightValueObject$ph* _o2_saved_7;
     struct sRightValueObject*  it_23  ;
     if(gComeC) {
                 neo_current_frame = fr.prev;
@@ -5076,7 +5076,7 @@ void free_right_value_objects(struct sInfo*  info  )
     free_right_value=(_Bool)0;
     right_value_objects=info->right_value_objects;
     n=0;
-    for(_o2_saved_3=right_value_objects,it=list$1sRightValueObject$ph_begin(_o2_saved_3)    ;!list$1sRightValueObject$ph_end(_o2_saved_3);it=list$1sRightValueObject$ph_next(_o2_saved_3)){
+    for(_o2_saved_5=right_value_objects,it=list$1sRightValueObject$ph_begin(_o2_saved_5)    ;!list$1sRightValueObject$ph_end(_o2_saved_5);it=list$1sRightValueObject$ph_next(_o2_saved_5)){
         if(it&&!it->mFreed) {
             if(string_operator_equals(it->mFunName,info->come_fun->mName)&&it->mBlockLevel==info->block_level&&!it->mStored) {
                 if(it->mObjType) {
@@ -5090,7 +5090,7 @@ void free_right_value_objects(struct sInfo*  info  )
         }
         n++;
     }
-    for(_o2_saved_4=right_value_objects,it_22=list$1sRightValueObject$ph_begin(_o2_saved_4)    ;!list$1sRightValueObject$ph_end(_o2_saved_4);it_22=list$1sRightValueObject$ph_next(_o2_saved_4)){
+    for(_o2_saved_6=right_value_objects,it_22=list$1sRightValueObject$ph_begin(_o2_saved_6)    ;!list$1sRightValueObject$ph_end(_o2_saved_6);it_22=list$1sRightValueObject$ph_next(_o2_saved_6)){
         if(it_22&&!it_22->mFreed) {
             if(string_operator_equals(it_22->mFunName,info->come_fun->mName)&&it_22->mBlockLevel==info->block_level&&!it_22->mStored&&!it_22->mNoFree) {
                 type=(struct sType* )come_increment_ref_count(it_22->mType, "34heap2.nc", 337, 560);
@@ -5124,7 +5124,7 @@ void free_right_value_objects(struct sInfo*  info  )
         n++;
     }
     max_num=0;
-    for(_o2_saved_5=right_value_objects,it_23=list$1sRightValueObject$ph_begin(_o2_saved_5)    ;!list$1sRightValueObject$ph_end(_o2_saved_5);it_23=list$1sRightValueObject$ph_next(_o2_saved_5)){
+    for(_o2_saved_7=right_value_objects,it_23=list$1sRightValueObject$ph_begin(_o2_saved_7)    ;!list$1sRightValueObject$ph_end(_o2_saved_7);it_23=list$1sRightValueObject$ph_next(_o2_saved_7)){
         if(it_23->mID+1>max_num) {
             max_num=it_23->mID+1;
         }
@@ -5326,7 +5326,7 @@ static struct sVar*  map$2char$phsVar$ph_operator_load_element(struct map$2char$
 void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  , _Bool ret_value_is_field)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "free_objects"; neo_current_frame = &fr;
-    struct map$2char$phsVar$ph* _o2_saved_6;
+    struct map$2char$phsVar$ph* _o2_saved_8;
     char*  it  ;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
@@ -6180,7 +6180,7 @@ void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct 
                 neo_current_frame = fr.prev;
         return;
     }
-    for(_o2_saved_6=(struct map$2char$phsVar$ph*)come_increment_ref_count(table->mVars, "34heap2.nc", 398, 603),it=map$2char$phsVar$ph_begin(_o2_saved_6)    ;!map$2char$phsVar$ph_end(_o2_saved_6);it=map$2char$phsVar$ph_next(_o2_saved_6)){
+    for(_o2_saved_8=(struct map$2char$phsVar$ph*)come_increment_ref_count(table->mVars, "34heap2.nc", 398, 603),it=map$2char$phsVar$ph_begin(_o2_saved_8)    ;!map$2char$phsVar$ph_end(_o2_saved_8);it=map$2char$phsVar$ph_next(_o2_saved_8)){
         p=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(table->mVars,((char* )(__right_value1=__builtin_string(it,"34heap2.nc",399))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "34heap2.nc", 399, 604));
         type=p->mType;
@@ -6904,7 +6904,7 @@ void free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct 
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 540, 1118);
         }
     }
-    come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 543, 1123);
+    come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 543, 1123);
     neo_current_frame = fr.prev;
 }
 
@@ -7151,7 +7151,7 @@ void free_objects_on_break(struct sInfo*  info  )
 _Bool existance_free_objects(struct sVarTable*  table  , struct sVar*  ret_value  , struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "existance_free_objects"; neo_current_frame = &fr;
-    struct map$2char$phsVar$ph* _o2_saved_7;
+    struct map$2char$phsVar$ph* _o2_saved_9;
     char*  it  ;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
@@ -7164,38 +7164,38 @@ _Bool existance_free_objects(struct sVarTable*  table  , struct sVar*  ret_value
                 neo_current_frame = fr.prev;
         return (_Bool)1;
     }
-    for(_o2_saved_7=(struct map$2char$phsVar$ph*)come_increment_ref_count(table->mVars, "34heap2.nc", 594, 1124),it=map$2char$phsVar$ph_begin(_o2_saved_7)    ;!map$2char$phsVar$ph_end(_o2_saved_7);it=map$2char$phsVar$ph_next(_o2_saved_7)){
+    for(_o2_saved_9=(struct map$2char$phsVar$ph*)come_increment_ref_count(table->mVars, "34heap2.nc", 594, 1124),it=map$2char$phsVar$ph_begin(_o2_saved_9)    ;!map$2char$phsVar$ph_end(_o2_saved_9);it=map$2char$phsVar$ph_next(_o2_saved_9)){
         p=((struct sVar* )(__right_value2=map$2char$phsVar$ph_operator_load_element(table->mVars,((char* )(__right_value1=__builtin_string(it,"34heap2.nc",595))))));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "34heap2.nc", 595, 1125));
         type=p->mType;
         klass=type->mClass;
         if(type->mChannel) {
                         __result_obj__0 = (_Bool)1;
-            come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 600, 1126);
+            come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 600, 1126);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
         else if(ret_value!=((void*)0)&&p->mCValueName!=((void*)0)&&string_operator_equals(p->mCValueName,ret_value->mCValueName)&&type->mHeap) {
                         __result_obj__0 = (_Bool)1;
-            come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 604, 1127);
+            come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 604, 1127);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
         else if(type->mHeap&&p->mCValueName) {
                         __result_obj__0 = (_Bool)1;
-            come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 607, 1128);
+            come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 607, 1128);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
         else if(klass->mStruct&&p->mCValueName&&type->mAllocaValue&&!type->mNoCallingDestructor) {
                         __result_obj__0 = (_Bool)1;
-            come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 610, 1129);
+            come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 610, 1129);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
     }
         __result_obj__0 = (_Bool)0;
-    come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 614, 1130);
+    come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "34heap2.nc}", 614, 1130);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -7237,14 +7237,14 @@ _Bool existance_free_right_value_objects(struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "existance_free_right_value_objects"; neo_current_frame = &fr;
     struct list$1sRightValueObject$ph* right_value_objects;
-    struct list$1sRightValueObject$ph* _o2_saved_8;
+    struct list$1sRightValueObject$ph* _o2_saved_10;
     struct sRightValueObject*  it  ;
     if(gComeC) {
                 neo_current_frame = fr.prev;
         return (_Bool)0;
     }
     right_value_objects=info->right_value_objects;
-    for(_o2_saved_8=right_value_objects,it=list$1sRightValueObject$ph_begin(_o2_saved_8)    ;!list$1sRightValueObject$ph_end(_o2_saved_8);it=list$1sRightValueObject$ph_next(_o2_saved_8)){
+    for(_o2_saved_10=right_value_objects,it=list$1sRightValueObject$ph_begin(_o2_saved_10)    ;!list$1sRightValueObject$ph_end(_o2_saved_10);it=list$1sRightValueObject$ph_next(_o2_saved_10)){
         if(it&&!it->mFreed) {
             if(string_operator_equals(it->mFunName,info->come_fun->mName)&&it->mBlockLevel==info->block_level) {
                                 neo_current_frame = fr.prev;

@@ -2676,7 +2676,7 @@ void std_move(struct sType*  left_type  , struct sType*  right_type  , struct CV
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "std_move"; neo_current_frame = &fr;
     struct sRightValueObject*  it  ;
-    struct list$1sRightValueObject$ph* _o2_saved_1;
+    struct list$1sRightValueObject$ph* _o2_saved_3;
     struct sRightValueObject*  it2  ;
     char*  __dec_obj1  ;
     void* __right_value0 = (void*)0;
@@ -2687,13 +2687,13 @@ void std_move(struct sType*  left_type  , struct sType*  right_type  , struct CV
     }
     if(right_value->right_value_objects) {
         it=right_value->right_value_objects;
-        for(_o2_saved_1=(struct list$1sRightValueObject$ph*)come_increment_ref_count(info->right_value_objects, "04heap.nc", 10, 1),it2=list$1sRightValueObject$ph_begin(_o2_saved_1)        ;!list$1sRightValueObject$ph_end(_o2_saved_1);it2=list$1sRightValueObject$ph_next(_o2_saved_1)){
+        for(_o2_saved_3=(struct list$1sRightValueObject$ph*)come_increment_ref_count(info->right_value_objects, "04heap.nc", 10, 1),it2=list$1sRightValueObject$ph_begin(_o2_saved_3)        ;!list$1sRightValueObject$ph_end(_o2_saved_3);it2=list$1sRightValueObject$ph_next(_o2_saved_3)){
             if(it->mID==it2->mID) {
                 it2->mStored=(_Bool)1;
                 break;
             }
         }
-        come_call_finalizer(list$1sRightValueObject$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 17, 41);
+        come_call_finalizer(list$1sRightValueObject$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 17, 41);
     }
     if(right_value->c_value_without_right_value_objects) {
         __dec_obj1=right_value->c_value,
@@ -3012,7 +3012,7 @@ struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_typ
     struct sClass*  klass  ;
     struct sType*  result_type  ;
     struct sType*  __dec_obj38  ;
-    struct list$1sType$ph* _o2_saved_2;
+    struct list$1sType$ph* _o2_saved_4;
     struct sType*  it  ;
     struct sType*  new_param_type  ;
     int generics_number;
@@ -3065,7 +3065,7 @@ struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_typ
     struct sType*  type_40  ;
     struct sType*  type2_41  ;
     struct sType*  __dec_obj49  ;
-    struct list$1sType$ph* _o2_saved_3;
+    struct list$1sType$ph* _o2_saved_5;
     struct sType*  it_42  ;
     struct sType*  type_43  ;
     char*  new_name  ;
@@ -3141,14 +3141,14 @@ struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_typ
         result->mResultType=(struct sType* )come_increment_ref_count(sType_clone(result_type), "04heap.nc", 75, 246);
         come_call_finalizer(sType_finalize, __dec_obj38,(void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc", 75, 245);
         list$1sType$ph_reset(result->mParamTypes);
-        for(_o2_saved_2=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "04heap.nc", 79, 248),it=list$1sType$ph_begin(_o2_saved_2)        ;!list$1sType$ph_end(_o2_saved_2);it=list$1sType$ph_next(_o2_saved_2)){
+        for(_o2_saved_4=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "04heap.nc", 79, 248),it=list$1sType$ph_begin(_o2_saved_4)        ;!list$1sType$ph_end(_o2_saved_4);it=list$1sType$ph_next(_o2_saved_4)){
             __right_value0 = (void*)0;
             new_param_type=(struct sType* )come_increment_ref_count(solve_generics(it,generics_type,info), "04heap.nc", 80, 249);
             list$1sType$ph_push_back(result->mParamTypes,(struct sType* )come_increment_ref_count(new_param_type, "04heap.nc", 82, 264));
             come_call_finalizer(sType_finalize, new_param_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 84, 265);
         }
         come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 274, 266);
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 274, 267);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 274, 267);
     }
     else if(klass->mMethodGenerics&&info->method_generics_types&&list$1sType$ph_length(info->method_generics_types)>0) {
         generics_number=klass->mMethodGenericsNum;
@@ -3375,7 +3375,7 @@ struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_typ
     }
     else {
         list$1sType$ph_reset(result->mGenericsTypes);
-        for(_o2_saved_3=(struct list$1sType$ph*)come_increment_ref_count(type->mGenericsTypes, "04heap.nc", 261, 377),it_42=list$1sType$ph_begin(_o2_saved_3)        ;!list$1sType$ph_end(_o2_saved_3);it_42=list$1sType$ph_next(_o2_saved_3)){
+        for(_o2_saved_5=(struct list$1sType$ph*)come_increment_ref_count(type->mGenericsTypes, "04heap.nc", 261, 377),it_42=list$1sType$ph_begin(_o2_saved_5)        ;!list$1sType$ph_end(_o2_saved_5);it_42=list$1sType$ph_next(_o2_saved_5)){
             __right_value0 = (void*)0;
             type_43=(struct sType* )come_increment_ref_count(solve_generics(it_42,generics_type,info), "04heap.nc", 262, 378);
             list$1sType$ph_push_back(result->mGenericsTypes,(struct sType* )come_increment_ref_count(type_43, "04heap.nc", 263, 379));
@@ -3388,7 +3388,7 @@ struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_typ
             exit(1);
             (new_name = come_decrement_ref_count(new_name, (void*)0, (void*)0, 0, 0, (void*)0, "04heap.nc", 272, 382));
         }
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 274, 383);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 274, 383);
     }
         __result_obj__0 = (struct sType* )come_increment_ref_count(result, "04heap.nc", 274, 384);
     come_call_finalizer(sType_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "04heap.nc}", 274, 385);
@@ -4547,9 +4547,9 @@ struct sType*  solve_method_generics(struct sType*  type  , struct sInfo*  info 
     struct sType*  type2_48  ;
     struct sType*  __dec_obj53  ;
     int i;
-    struct list$1sType$ph* _o2_saved_4;
+    struct list$1sType$ph* _o2_saved_6;
     struct sType*  it  ;
-    struct list$1sType$ph* _o2_saved_5;
+    struct list$1sType$ph* _o2_saved_7;
     struct sType*  it_50  ;
     struct sType*  __dec_obj55  ;
     struct sType*  __result_obj__0  ;
@@ -4662,14 +4662,14 @@ struct sType*  solve_method_generics(struct sType*  type  , struct sInfo*  info 
         come_call_finalizer(list$1sNode$ph$p_finalize, array_num, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 366, 432);
     }
     i=0;
-    for(_o2_saved_4=(struct list$1sType$ph*)come_increment_ref_count(type->mGenericsTypes, "04heap.nc", 367, 433),it=list$1sType$ph_begin(_o2_saved_4)    ;!list$1sType$ph_end(_o2_saved_4);it=list$1sType$ph_next(_o2_saved_4)){
+    for(_o2_saved_6=(struct list$1sType$ph*)come_increment_ref_count(type->mGenericsTypes, "04heap.nc", 367, 433),it=list$1sType$ph_begin(_o2_saved_6)    ;!list$1sType$ph_end(_o2_saved_6);it=list$1sType$ph_next(_o2_saved_6)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         list$1sType$ph_operator_store_element(result->mGenericsTypes,i,(struct sType* )come_increment_ref_count(solve_method_generics(it,info), "04heap.nc", 368, 444));
         i++;
     }
     i=0;
-    for(_o2_saved_5=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "04heap.nc", 372, 445),it_50=list$1sType$ph_begin(_o2_saved_5)    ;!list$1sType$ph_end(_o2_saved_5);it_50=list$1sType$ph_next(_o2_saved_5)){
+    for(_o2_saved_7=(struct list$1sType$ph*)come_increment_ref_count(type->mParamTypes, "04heap.nc", 372, 445),it_50=list$1sType$ph_begin(_o2_saved_7)    ;!list$1sType$ph_end(_o2_saved_7);it_50=list$1sType$ph_next(_o2_saved_7)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         list$1sType$ph_operator_store_element(result->mParamTypes,i,(struct sType* )come_increment_ref_count(solve_method_generics(it_50,info), "04heap.nc", 373, 446));
@@ -4683,8 +4683,8 @@ struct sType*  solve_method_generics(struct sType*  type  , struct sInfo*  info 
     }
         __result_obj__0 = (struct sType* )come_increment_ref_count(result, "04heap.nc", 381, 449);
     come_call_finalizer(sType_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "04heap.nc}", 381, 450);
-    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 381, 451);
-    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 381, 452);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 381, 451);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 381, 452);
     neo_current_frame = fr.prev;
     come_call_finalizer(sType_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "04heap.nc}", 381, 453);
     return __result_obj__0;
@@ -4899,7 +4899,7 @@ void remove_object_from_right_values(int right_value_num, struct sInfo*  info  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "remove_object_from_right_values"; neo_current_frame = &fr;
     int i;
     _Bool found;
-    struct list$1sRightValueObject$ph* _o2_saved_6;
+    struct list$1sRightValueObject$ph* _o2_saved_8;
     struct sRightValueObject*  it  ;
     int id;
     if(gComeC) {
@@ -4912,7 +4912,7 @@ void remove_object_from_right_values(int right_value_num, struct sInfo*  info  )
     }
     i=0;
     found=(_Bool)0;
-    for(_o2_saved_6=(struct list$1sRightValueObject$ph*)come_increment_ref_count(info->right_value_objects, "04heap.nc", 448, 490),it=list$1sRightValueObject$ph_begin(_o2_saved_6)    ;!list$1sRightValueObject$ph_end(_o2_saved_6);it=list$1sRightValueObject$ph_next(_o2_saved_6)){
+    for(_o2_saved_8=(struct list$1sRightValueObject$ph*)come_increment_ref_count(info->right_value_objects, "04heap.nc", 448, 490),it=list$1sRightValueObject$ph_begin(_o2_saved_8)    ;!list$1sRightValueObject$ph_end(_o2_saved_8);it=list$1sRightValueObject$ph_next(_o2_saved_8)){
         if(it->mID==right_value_num) {
             found=(_Bool)1;
             break;
@@ -4920,7 +4920,7 @@ void remove_object_from_right_values(int right_value_num, struct sInfo*  info  )
         i++;
     }
     if(!found) {
-                come_call_finalizer(list$1sRightValueObject$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 456, 491);
+                come_call_finalizer(list$1sRightValueObject$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 456, 491);
         neo_current_frame = fr.prev;
         return;
     }
@@ -4929,7 +4929,7 @@ void remove_object_from_right_values(int right_value_num, struct sInfo*  info  )
         info->right_value_max=id+1;
     }
     list$1sRightValueObject$ph_delete(info->right_value_objects,i,i+1);
-    come_call_finalizer(list$1sRightValueObject$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 466, 496);
+    come_call_finalizer(list$1sRightValueObject$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04heap.nc}", 466, 496);
     neo_current_frame = fr.prev;
 }
 

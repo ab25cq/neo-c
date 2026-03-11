@@ -3194,7 +3194,7 @@ _Bool sNewNode_compile(struct sNewNode* self, struct sInfo*  info  )
     void* __right_value1 = (void*)0;
     struct CVALUE*  come_value  ;
     struct buffer*  num_string  ;
-    struct list$1sNode$ph* _o2_saved_1;
+    struct list$1sNode$ph* _o2_saved_3;
     struct sNode* it;
     _Bool Value;
     _Bool __result_obj__0;
@@ -3241,7 +3241,7 @@ _Bool sNewNode_compile(struct sNewNode* self, struct sInfo*  info  )
     char*  __dec_obj47  ;
     struct sClass*  klass_20  ;
     int i;
-    struct list$1tuple2$2char$phsNode$ph$ph* _o2_saved_2;
+    struct list$1tuple2$2char$phsNode$ph$ph* _o2_saved_4;
     struct tuple2$2char$phsNode$ph* it_22;
     struct tuple2$2char$phsNode$ph* multiple_assign_var1
 ;    char*  name  =0;
@@ -3249,7 +3249,7 @@ _Bool sNewNode_compile(struct sNewNode* self, struct sInfo*  info  )
     _Bool Value_24;
     struct CVALUE*  come_value2_25  ;
     struct sType*  left_type  ;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_3;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_5;
     struct tuple2$2char$phsType$ph* it2;
     struct tuple2$2char$phsType$ph* multiple_assign_var2
 ;    char*  field_name  =0;
@@ -3276,7 +3276,7 @@ _Bool sNewNode_compile(struct sNewNode* self, struct sInfo*  info  )
     __right_value1 = (void*)0;
     num_string=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "40obj2.nc", 27, 238, "struct buffer* "), "40obj2.nc", 27, 239)), "40obj2.nc", 27, 240);
     buffer_append_str(num_string,"1");
-    for(_o2_saved_1=(struct list$1sNode$ph*)come_increment_ref_count(type->mArrayNum, "40obj2.nc", 31, 241),it=list$1sNode$ph_begin(_o2_saved_1)    ;!list$1sNode$ph_end(_o2_saved_1);it=list$1sNode$ph_next(_o2_saved_1)){
+    for(_o2_saved_3=(struct list$1sNode$ph*)come_increment_ref_count(type->mArrayNum, "40obj2.nc", 31, 241),it=list$1sNode$ph_begin(_o2_saved_3)    ;!list$1sNode$ph_end(_o2_saved_3);it=list$1sNode$ph_next(_o2_saved_3)){
         Value=node_compile(it,info);
         if(!Value) {
                         __result_obj__0 = (_Bool)0;
@@ -3285,7 +3285,7 @@ _Bool sNewNode_compile(struct sNewNode* self, struct sInfo*  info  )
             ((initializer_num) ? initializer_num = come_decrement_ref_count(initializer_num, ((struct sNode*)initializer_num)->finalize, ((struct sNode*)initializer_num)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 33, 244):(void*)0);
             come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 33, 250);
             come_call_finalizer(buffer_finalize, num_string, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 33, 251);
-            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 33, 252);
+            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 33, 252);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
@@ -3364,7 +3364,7 @@ _conditional_value_X0;})) {
             ((initializer_num) ? initializer_num = come_decrement_ref_count(initializer_num, ((struct sNode*)initializer_num)->finalize, ((struct sNode*)initializer_num)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 86, 340):(void*)0);
             come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 86, 341);
             come_call_finalizer(buffer_finalize, num_string, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 86, 342);
-            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 86, 343);
+            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 86, 343);
             come_call_finalizer(sType_finalize, type2_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 86, 344);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 86, 345);
             (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 86, 346));
@@ -3462,7 +3462,7 @@ _conditional_value_X1;})) {
         buffer_append_str(buf_18,";");
         klass_20=type3_16->mClass;
         i=0;
-        for(_o2_saved_2=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(initializer, "40obj2.nc", 151, 401),it_22=list$1tuple2$2char$phsNode$ph$ph_begin(_o2_saved_2)        ;!list$1tuple2$2char$phsNode$ph$ph_end(_o2_saved_2);it_22=list$1tuple2$2char$phsNode$ph$ph_next(_o2_saved_2)){
+        for(_o2_saved_4=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(initializer, "40obj2.nc", 151, 401),it_22=list$1tuple2$2char$phsNode$ph$ph_begin(_o2_saved_4)        ;!list$1tuple2$2char$phsNode$ph$ph_end(_o2_saved_4);it_22=list$1tuple2$2char$phsNode$ph$ph_next(_o2_saved_4)){
             multiple_assign_var1=it_22;
             name=(char* )come_increment_ref_count(multiple_assign_var1->v1, "40obj2.nc", 152, 402);
             exp=(struct sNode*)come_increment_ref_count(multiple_assign_var1->v2, "40obj2.nc", 152, 403);
@@ -3476,13 +3476,13 @@ _conditional_value_X1;})) {
                 (type_name3_17 = come_decrement_ref_count(type_name3_17, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 155, 408));
                 come_call_finalizer(buffer_finalize, buf_18, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 409);
                 (obj_19 = come_decrement_ref_count(obj_19, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 155, 410));
-                come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 411);
+                come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 411);
                 come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 412);
                 come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, initializer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 413);
                 ((initializer_num) ? initializer_num = come_decrement_ref_count(initializer_num, ((struct sNode*)initializer_num)->finalize, ((struct sNode*)initializer_num)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 155, 414):(void*)0);
                 come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 415);
                 come_call_finalizer(buffer_finalize, num_string, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 416);
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 417);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 417);
                 come_call_finalizer(sType_finalize, type2_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 418);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 155, 419);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 155, 420));
@@ -3493,7 +3493,7 @@ _conditional_value_X1;})) {
             __right_value0 = (void*)0;
             come_value2_25=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info), "40obj2.nc", 158, 422);
             left_type=((void*)0);
-            for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass_20->mFields, "40obj2.nc", 161, 423),it2=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it2=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
+            for(_o2_saved_5=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass_20->mFields, "40obj2.nc", 161, 423),it2=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_5)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_5);it2=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_5)){
                 multiple_assign_var2=it2;
                 field_name=(char* )come_increment_ref_count(multiple_assign_var2->v1, "40obj2.nc", 162, 424);
                 field_type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v2, "40obj2.nc", 162, 425);
@@ -3516,19 +3516,19 @@ _conditional_value_X1;})) {
                 ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 172, 433):(void*)0);
                 come_call_finalizer(CVALUE_finalize, come_value2_25, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 434);
                 come_call_finalizer(sType_finalize, left_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 435);
-                come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 440);
+                come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 440);
                 (var_name_15 = come_decrement_ref_count(var_name_15, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 172, 441));
                 come_call_finalizer(sType_finalize, type3_16, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 442);
                 (type_name3_17 = come_decrement_ref_count(type_name3_17, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 172, 443));
                 come_call_finalizer(buffer_finalize, buf_18, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 444);
                 (obj_19 = come_decrement_ref_count(obj_19, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 172, 445));
-                come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 446);
+                come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 446);
                 come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 447);
                 come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, initializer, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 448);
                 ((initializer_num) ? initializer_num = come_decrement_ref_count(initializer_num, ((struct sNode*)initializer_num)->finalize, ((struct sNode*)initializer_num)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 172, 449):(void*)0);
                 come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 450);
                 come_call_finalizer(buffer_finalize, num_string, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 451);
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 452);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 452);
                 come_call_finalizer(sType_finalize, type2_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 453);
                 come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 172, 454);
                 (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 172, 455));
@@ -3560,7 +3560,7 @@ _conditional_value_X1;})) {
             ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 194, 465):(void*)0);
             come_call_finalizer(CVALUE_finalize, come_value2_25, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 194, 466);
             come_call_finalizer(sType_finalize, left_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 194, 467);
-            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 194, 468);
+            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 194, 468);
             come_call_finalizer(sType_finalize, right_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 194, 469);
         }
         buffer_append_str(buf_18,var_name_15);
@@ -3588,7 +3588,7 @@ _conditional_value_X1;})) {
         (type_name3_17 = come_decrement_ref_count(type_name3_17, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 253, 477));
         come_call_finalizer(buffer_finalize, buf_18, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 253, 478);
         (obj_19 = come_decrement_ref_count(obj_19, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 253, 479));
-        come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 253, 480);
+        come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 253, 480);
     }
     else {
         __right_value0 = (void*)0;
@@ -3645,7 +3645,7 @@ _conditional_value_X2;})) {
     ((initializer_num) ? initializer_num = come_decrement_ref_count(initializer_num, ((struct sNode*)initializer_num)->finalize, ((struct sNode*)initializer_num)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 253, 498):(void*)0);
     come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 253, 499);
     come_call_finalizer(buffer_finalize, num_string, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 253, 500);
-    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 253, 501);
+    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 253, 501);
     come_call_finalizer(sType_finalize, type2_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 253, 502);
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 253, 503);
     (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 253, 504));
@@ -6450,7 +6450,7 @@ _Bool sGeneric_compile(struct sGeneric* self, struct sInfo*  info  )
     struct CVALUE*  come_value  ;
     struct sType*  result_type  ;
     int n;
-    struct list$1sNode$ph* _o2_saved_4;
+    struct list$1sNode$ph* _o2_saved_6;
     struct sNode* it;
     struct sType*  type  ;
     _Bool Value_40;
@@ -6459,7 +6459,7 @@ _Bool sGeneric_compile(struct sGeneric* self, struct sInfo*  info  )
     _Bool Value_42;
     struct CVALUE*  come_value_43  ;
     int n_44;
-    struct list$1sNode$ph* _o2_saved_5;
+    struct list$1sNode$ph* _o2_saved_7;
     struct sNode* it_45;
     struct sType*  type_46  ;
     _Bool Value_47;
@@ -6490,14 +6490,14 @@ _Bool sGeneric_compile(struct sGeneric* self, struct sInfo*  info  )
     result_type=((void*)0);
     if(default_exp) {
         n=0;
-        for(_o2_saved_4=(struct list$1sNode$ph*)come_increment_ref_count(exps, "40obj2.nc", 527, 839),it=list$1sNode$ph_begin(_o2_saved_4)        ;!list$1sNode$ph_end(_o2_saved_4);it=list$1sNode$ph_next(_o2_saved_4)){
+        for(_o2_saved_6=(struct list$1sNode$ph*)come_increment_ref_count(exps, "40obj2.nc", 527, 839),it=list$1sNode$ph_begin(_o2_saved_6)        ;!list$1sNode$ph_end(_o2_saved_6);it=list$1sNode$ph_next(_o2_saved_6)){
             __right_value0 = (void*)0;
             type=(struct sType* )come_increment_ref_count(list$1sType$ph_operator_load_element(types,n), "40obj2.nc", 528, 858);
             Value_40=node_compile(it,info);
             if(!Value_40) {
                                 __result_obj__0 = (_Bool)0;
                 come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 531, 859);
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 531, 860);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 531, 860);
                 ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 531, 861):(void*)0);
                 come_call_finalizer(list$1sNode$ph$p_finalize, exps, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 531, 862);
                 come_call_finalizer(list$1sType$ph$p_finalize, types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 531, 863);
@@ -6524,7 +6524,7 @@ _Bool sGeneric_compile(struct sGeneric* self, struct sInfo*  info  )
         Value_42=node_compile(default_exp,info);
         if(!Value_42) {
                         __result_obj__0 = (_Bool)0;
-            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 546, 874);
+            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 546, 874);
             ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 546, 875):(void*)0);
             come_call_finalizer(list$1sNode$ph$p_finalize, exps, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 546, 876);
             come_call_finalizer(list$1sType$ph$p_finalize, types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 546, 877);
@@ -6539,19 +6539,19 @@ _Bool sGeneric_compile(struct sGeneric* self, struct sInfo*  info  )
         come_value_43=(struct CVALUE* )come_increment_ref_count(get_value_from_stack(-1,info), "40obj2.nc", 549, 882);
         buffer_append_format(buf,"default: %s",come_value_43->c_value);
         buffer_append_format(buf,")");
-        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 582, 883);
+        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 582, 883);
         come_call_finalizer(CVALUE_finalize, come_value_43, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 582, 884);
     }
     else {
         n_44=0;
-        for(_o2_saved_5=(struct list$1sNode$ph*)come_increment_ref_count(exps, "40obj2.nc", 557, 885),it_45=list$1sNode$ph_begin(_o2_saved_5)        ;!list$1sNode$ph_end(_o2_saved_5);it_45=list$1sNode$ph_next(_o2_saved_5)){
+        for(_o2_saved_7=(struct list$1sNode$ph*)come_increment_ref_count(exps, "40obj2.nc", 557, 885),it_45=list$1sNode$ph_begin(_o2_saved_7)        ;!list$1sNode$ph_end(_o2_saved_7);it_45=list$1sNode$ph_next(_o2_saved_7)){
             __right_value0 = (void*)0;
             type_46=(struct sType* )come_increment_ref_count(list$1sType$ph_operator_load_element(types,n_44), "40obj2.nc", 558, 886);
             Value_47=node_compile(it_45,info);
             if(!Value_47) {
                                 __result_obj__0 = (_Bool)0;
                 come_call_finalizer(sType_finalize, type_46, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 561, 887);
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 561, 888);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 561, 888);
                 ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "40obj2.nc", 561, 889):(void*)0);
                 come_call_finalizer(list$1sNode$ph$p_finalize, exps, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 561, 890);
                 come_call_finalizer(list$1sType$ph$p_finalize, types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 561, 891);
@@ -6580,7 +6580,7 @@ _Bool sGeneric_compile(struct sGeneric* self, struct sInfo*  info  )
             come_call_finalizer(sType_finalize, type_46, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 579, 900);
             come_call_finalizer(CVALUE_finalize, come_value_48, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 579, 901);
         }
-        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 582, 902);
+        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 582, 902);
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
@@ -6763,7 +6763,7 @@ _Bool sHeapSizeOfNode_compile(struct sHeapSizeOfNode* self, struct sInfo*  info 
     struct sType*  type2  ;
     char*  type_name  ;
     struct buffer*  buf  ;
-    struct list$1sNode$ph* _o2_saved_6;
+    struct list$1sNode$ph* _o2_saved_8;
     struct sNode* it;
     _Bool Value;
     _Bool __result_obj__0;
@@ -6784,7 +6784,7 @@ _Bool sHeapSizeOfNode_compile(struct sHeapSizeOfNode* self, struct sInfo*  info 
     __right_value1 = (void*)0;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "40obj2.nc", 623, 938, "struct buffer* "), "40obj2.nc", 623, 939)), "40obj2.nc", 623, 940);
     buffer_append_format(buf,"sizeof(%s)",type_name);
-    for(_o2_saved_6=(struct list$1sNode$ph*)come_increment_ref_count(type->mHeapArrayNum, "40obj2.nc", 625, 941),it=list$1sNode$ph_begin(_o2_saved_6)    ;!list$1sNode$ph_end(_o2_saved_6);it=list$1sNode$ph_next(_o2_saved_6)){
+    for(_o2_saved_8=(struct list$1sNode$ph*)come_increment_ref_count(type->mHeapArrayNum, "40obj2.nc", 625, 941),it=list$1sNode$ph_begin(_o2_saved_8)    ;!list$1sNode$ph_end(_o2_saved_8);it=list$1sNode$ph_next(_o2_saved_8)){
         Value=node_compile(it,info);
         if(!Value) {
                         __result_obj__0 = (_Bool)0;
@@ -6794,7 +6794,7 @@ _Bool sHeapSizeOfNode_compile(struct sHeapSizeOfNode* self, struct sInfo*  info 
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 627, 945);
             (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 627, 946));
             come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 627, 947);
-            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 627, 948);
+            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 627, 948);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
@@ -6823,7 +6823,7 @@ _Bool sHeapSizeOfNode_compile(struct sHeapSizeOfNode* self, struct sInfo*  info 
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 644, 962);
     (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 644, 963));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 644, 964);
-    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 644, 965);
+    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 644, 965);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }

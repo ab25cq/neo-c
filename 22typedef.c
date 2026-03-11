@@ -2785,7 +2785,7 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
     void* __right_value3 = (void*)0;
     struct sType*  type  ;
     char*  __dec_obj46  ;
-    struct list$1tuple2$2sType$phchar$ph$ph* _o2_saved_1;
+    struct list$1tuple2$2sType$phchar$ph$ph* _o2_saved_3;
     struct tuple2$2sType$phchar$ph* it;
     struct tuple2$2sType$phchar$ph* multiple_assign_var1
 ;    struct sType*  type_31  =0;
@@ -2823,7 +2823,7 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
         come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "22typedef.nc}", 103, 437);
     }
     else if(self->multiple_declare) {
-        for(_o2_saved_1=(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare, "22typedef.nc", 62, 438),it=list$1tuple2$2sType$phchar$ph$ph_begin(_o2_saved_1)        ;!list$1tuple2$2sType$phchar$ph$ph_end(_o2_saved_1);it=list$1tuple2$2sType$phchar$ph$ph_next(_o2_saved_1)){
+        for(_o2_saved_3=(struct list$1tuple2$2sType$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare, "22typedef.nc", 62, 438),it=list$1tuple2$2sType$phchar$ph$ph_begin(_o2_saved_3)        ;!list$1tuple2$2sType$phchar$ph$ph_end(_o2_saved_3);it=list$1tuple2$2sType$phchar$ph$ph_next(_o2_saved_3)){
             multiple_assign_var1=it;
             type_31=(struct sType* )come_increment_ref_count(multiple_assign_var1->v1, "22typedef.nc", 63, 439);
             type_name_32=(char* )come_increment_ref_count(multiple_assign_var1->v2, "22typedef.nc", 63, 440);
@@ -2860,7 +2860,7 @@ _Bool sTypedefNode_compile(struct sTypedefNode* self, struct sInfo*  info  )
             come_call_finalizer(sType_finalize, type_31, (void*)0, (void*)0, 0, 0, 0, (void*)0, "22typedef.nc}", 82, 454);
             (type_name_32 = come_decrement_ref_count(type_name_32, (void*)0, (void*)0, 0, 0, (void*)0, "22typedef.nc", 82, 455));
         }
-        come_call_finalizer(list$1tuple2$2sType$phchar$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "22typedef.nc}", 103, 456);
+        come_call_finalizer(list$1tuple2$2sType$phchar$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "22typedef.nc}", 103, 456);
     }
     else {
         __right_value0 = (void*)0;

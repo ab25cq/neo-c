@@ -3233,7 +3233,7 @@ struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo*  info  , _Bool pa
     _Bool err_98=0;
     int num_tuples;
     struct sType*  __dec_obj200  ;
-    struct list$1sType$ph* _o2_saved_1;
+    struct list$1sType$ph* _o2_saved_3;
     struct sType*  it  ;
     struct sType*  __dec_obj201  ;
     struct sType*  __dec_obj202  ;
@@ -5632,7 +5632,7 @@ _conditional_value_X9;})) {
             come_call_finalizer(sType_finalize, __dec_obj200,(void*)0, (void*)0, 0, 0, 0, (void*)0, "31type2.nc", 1587, 1287);
             type_33->mPointerNum++;
             type_33->mHeap=(_Bool)1;
-            for(_o2_saved_1=(struct list$1sType$ph*)come_increment_ref_count(types, "31type2.nc", 1591, 1289),it=list$1sType$ph_begin(_o2_saved_1)            ;!list$1sType$ph_end(_o2_saved_1);it=list$1sType$ph_next(_o2_saved_1)){
+            for(_o2_saved_3=(struct list$1sType$ph*)come_increment_ref_count(types, "31type2.nc", 1591, 1289),it=list$1sType$ph_begin(_o2_saved_3)            ;!list$1sType$ph_end(_o2_saved_3);it=list$1sType$ph_next(_o2_saved_3)){
                 __right_value0 = (void*)0;
                 list$1sType$ph_push_back(type_33->mGenericsTypes,(struct sType* )come_increment_ref_count((((struct sType* )(__right_value0=sType_clone(it)))), "31type2.nc", 1592, 1290));
                 come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 1592, 1291);
@@ -5661,7 +5661,7 @@ _conditional_value_X9;})) {
             type_name=(char* )come_increment_ref_count(type_33->mClass->mName, "31type2.nc", 1610, 1300);
             __dec_obj203 = come_decrement_ref_count(__dec_obj203, (void*)0, (void*)0, 0,0, (void*)0, "31type2.nc", 1610, 1299);
             come_call_finalizer(list$1sType$ph$p_finalize, types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "31type2.nc}", 1613, 1301);
-            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "31type2.nc}", 1613, 1302);
+            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "31type2.nc}", 1613, 1302);
         }
         __right_value0 = (void*)0;
         attribute_102=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)0), "31type2.nc", 1613, 1303);

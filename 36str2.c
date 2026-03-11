@@ -4443,7 +4443,7 @@ _Bool sSStringNode_compile(struct sSStringNode* self, struct sInfo*  info  )
     void* __right_value1 = (void*)0;
     struct CVALUE*  come_value  ;
     struct buffer*  buf  ;
-    struct list$1sNode$ph* _o2_saved_1;
+    struct list$1sNode$ph* _o2_saved_3;
     struct sNode* it;
     struct sNode* obj;
     struct list$1tuple2$2char$phsNode$ph$ph* params;
@@ -4464,7 +4464,7 @@ _Bool sSStringNode_compile(struct sSStringNode* self, struct sInfo*  info  )
     buffer_append_str(buf,self->value);
     buffer_append_str(buf,"\"");
     if(list$1sNode$ph_length(self->exps)>0) {
-        for(_o2_saved_1=(struct list$1sNode$ph*)come_increment_ref_count(self->exps, "36str2.nc", 117, 381),it=list$1sNode$ph_begin(_o2_saved_1)        ;!list$1sNode$ph_end(_o2_saved_1);it=list$1sNode$ph_next(_o2_saved_1)){
+        for(_o2_saved_3=(struct list$1sNode$ph*)come_increment_ref_count(self->exps, "36str2.nc", 117, 381),it=list$1sNode$ph_begin(_o2_saved_3)        ;!list$1sNode$ph_end(_o2_saved_3);it=list$1sNode$ph_next(_o2_saved_3)){
             __right_value0 = (void*)0;
             obj=(struct sNode*)come_increment_ref_count(sNode_clone(it), "36str2.nc", 118, 382);
             __right_value0 = (void*)0;
@@ -4481,7 +4481,7 @@ _Bool sSStringNode_compile(struct sSStringNode* self, struct sInfo*  info  )
                 ((obj) ? obj = come_decrement_ref_count(obj, ((struct sNode*)obj)->finalize, ((struct sNode*)obj)->_protocol_obj, 0, 0,(void*)0, "36str2.nc", 126, 423):(void*)0);
                 come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, params, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 126, 424);
                 ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "36str2.nc", 126, 425):(void*)0);
-                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 126, 426);
+                come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 126, 426);
                 come_call_finalizer(CVALUE_finalize, come_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 126, 427);
                 come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 126, 428);
                 neo_current_frame = fr.prev;
@@ -4496,7 +4496,7 @@ _Bool sSStringNode_compile(struct sSStringNode* self, struct sInfo*  info  )
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "36str2.nc", 134, 432):(void*)0);
             come_call_finalizer(CVALUE_finalize, come_value_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 134, 433);
         }
-        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 136, 434);
+        come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 136, 434);
     }
     buffer_append_str(buf,")");
     __right_value0 = (void*)0;
@@ -5146,7 +5146,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo*  info  )
     struct sType*  list_element_type  ;
     _Bool __result_obj__0;
     int n;
-    struct list$1sNode$ph* _o2_saved_2;
+    struct list$1sNode$ph* _o2_saved_4;
     struct sNode* it;
     _Bool Value;
     struct CVALUE*  come_value  ;
@@ -5156,7 +5156,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo*  info  )
     struct sVar*  var_  ;
     struct buffer*  source  ;
     int i;
-    struct list$1CVALUE$ph* _o2_saved_3;
+    struct list$1CVALUE$ph* _o2_saved_5;
     struct CVALUE*  it_19  ;
     void* __right_value2 = (void*)0;
     struct sType*  list_type  ;
@@ -5188,7 +5188,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo*  info  )
     char*  __dec_obj82  ;
     struct sType*  __dec_obj83  ;
     int j;
-    struct list$1CVALUE$ph* _o2_saved_4;
+    struct list$1CVALUE$ph* _o2_saved_6;
     struct CVALUE*  it_27  ;
     struct CVALUE*  come_value4  ;
     char*  __dec_obj84  ;
@@ -5206,7 +5206,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo*  info  )
     }
     info->exp_value=(_Bool)1;
     n=0;
-    for(_o2_saved_2=list_elements,it=list$1sNode$ph_begin(_o2_saved_2)    ;!list$1sNode$ph_end(_o2_saved_2);it=list$1sNode$ph_next(_o2_saved_2)){
+    for(_o2_saved_4=list_elements,it=list$1sNode$ph_begin(_o2_saved_4)    ;!list$1sNode$ph_end(_o2_saved_4);it=list$1sNode$ph_next(_o2_saved_4)){
         Value=node_compile(it,info);
         if(!Value) {
                         __result_obj__0 = (_Bool)0;
@@ -5258,7 +5258,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo*  info  )
     source=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "36str2.nc", 378, 622, "struct buffer* "), "36str2.nc", 378, 623)), "36str2.nc", 378, 624);
     buffer_append_str(source,"(");
     i=0;
-    for(_o2_saved_3=(struct list$1CVALUE$ph*)come_increment_ref_count(params, "36str2.nc", 383, 625),it_19=list$1CVALUE$ph_begin(_o2_saved_3)    ;!list$1CVALUE$ph_end(_o2_saved_3);it_19=list$1CVALUE$ph_next(_o2_saved_3)){
+    for(_o2_saved_5=(struct list$1CVALUE$ph*)come_increment_ref_count(params, "36str2.nc", 383, 625),it_19=list$1CVALUE$ph_begin(_o2_saved_5)    ;!list$1CVALUE$ph_end(_o2_saved_5);it_19=list$1CVALUE$ph_next(_o2_saved_5)){
         if(list_element_type->mHeap) {
             __right_value0 = (void*)0;
             buffer_append_format(source,"%s[%d]=%s,\n",var_->mCValueName,i,((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(params,i)))->c_value);
@@ -5306,7 +5306,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo*  info  )
             come_call_finalizer(sType_finalize, type_values, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 416, 692);
             (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "36str2.nc", 416, 693));
             come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 416, 694);
-            come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 416, 695);
+            come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 416, 695);
             come_call_finalizer(sType_finalize, list_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 416, 696);
             come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 416, 697);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "36str2.nc", 416, 698));
@@ -5405,7 +5405,7 @@ _conditional_value_X0;})) {
     buffer_append_str(source,generics_fun_name);
     buffer_append_str(source,"(");
     j=0;
-    for(_o2_saved_4=(struct list$1CVALUE$ph*)come_increment_ref_count(come_params, "36str2.nc", 486, 761),it_27=list$1CVALUE$ph_begin(_o2_saved_4)    ;!list$1CVALUE$ph_end(_o2_saved_4);it_27=list$1CVALUE$ph_next(_o2_saved_4)){
+    for(_o2_saved_6=(struct list$1CVALUE$ph*)come_increment_ref_count(come_params, "36str2.nc", 486, 761),it_27=list$1CVALUE$ph_begin(_o2_saved_6)    ;!list$1CVALUE$ph_end(_o2_saved_6);it_27=list$1CVALUE$ph_next(_o2_saved_6)){
         buffer_append_str(source,it_27->c_value);
         if(j!=list$1CVALUE$ph_length(come_params)-1) {
             buffer_append_str(source,",");
@@ -5438,7 +5438,7 @@ _conditional_value_X0;})) {
     come_call_finalizer(sType_finalize, type_values, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 772);
     (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "36str2.nc", 514, 773));
     come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 774);
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 775);
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 775);
     come_call_finalizer(sType_finalize, list_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 776);
     come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 777);
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "36str2.nc", 514, 778));
@@ -5455,7 +5455,7 @@ _conditional_value_X0;})) {
     come_call_finalizer(list$1CVALUE$ph$p_finalize, come_params, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 789);
     come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 790);
     come_call_finalizer(CVALUE_finalize, come_value3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 791);
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 792);
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 792);
     come_call_finalizer(CVALUE_finalize, come_value4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 514, 793);
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -5955,7 +5955,7 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
     struct sType*  list_element_type  ;
     _Bool __result_obj__0;
     int n;
-    struct list$1sNode$ph* _o2_saved_5;
+    struct list$1sNode$ph* _o2_saved_7;
     struct sNode* it;
     _Bool Value;
     struct CVALUE*  come_value  ;
@@ -5965,7 +5965,7 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
     struct sVar*  var_  ;
     struct buffer*  source  ;
     int i;
-    struct list$1CVALUE$ph* _o2_saved_6;
+    struct list$1CVALUE$ph* _o2_saved_8;
     struct CVALUE*  it_28  ;
     void* __right_value2 = (void*)0;
     struct sType*  list_type  ;
@@ -5997,7 +5997,7 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
     char*  __dec_obj94  ;
     struct sType*  __dec_obj95  ;
     int j;
-    struct list$1CVALUE$ph* _o2_saved_7;
+    struct list$1CVALUE$ph* _o2_saved_9;
     struct CVALUE*  it_29  ;
     struct CVALUE*  come_value4  ;
     char*  __dec_obj96  ;
@@ -6015,7 +6015,7 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
     }
     info->exp_value=(_Bool)1;
     n=0;
-    for(_o2_saved_5=list_elements,it=list$1sNode$ph_begin(_o2_saved_5)    ;!list$1sNode$ph_end(_o2_saved_5);it=list$1sNode$ph_next(_o2_saved_5)){
+    for(_o2_saved_7=list_elements,it=list$1sNode$ph_begin(_o2_saved_7)    ;!list$1sNode$ph_end(_o2_saved_7);it=list$1sNode$ph_next(_o2_saved_7)){
         Value=node_compile(it,info);
         if(!Value) {
                         __result_obj__0 = (_Bool)0;
@@ -6067,7 +6067,7 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
     source=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "36str2.nc", 583, 827, "struct buffer* "), "36str2.nc", 583, 828)), "36str2.nc", 583, 829);
     buffer_append_str(source,"({");
     i=0;
-    for(_o2_saved_6=(struct list$1CVALUE$ph*)come_increment_ref_count(params, "36str2.nc", 588, 830),it_28=list$1CVALUE$ph_begin(_o2_saved_6)    ;!list$1CVALUE$ph_end(_o2_saved_6);it_28=list$1CVALUE$ph_next(_o2_saved_6)){
+    for(_o2_saved_8=(struct list$1CVALUE$ph*)come_increment_ref_count(params, "36str2.nc", 588, 830),it_28=list$1CVALUE$ph_begin(_o2_saved_8)    ;!list$1CVALUE$ph_end(_o2_saved_8);it_28=list$1CVALUE$ph_next(_o2_saved_8)){
         if(list_element_type->mHeap) {
             __right_value0 = (void*)0;
             buffer_append_format(source,"%s[%d]=%s;",var_->mCValueName,i,((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(params,i)))->c_value);
@@ -6115,7 +6115,7 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
             come_call_finalizer(sType_finalize, type_values, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 621, 849);
             (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "36str2.nc", 621, 850));
             come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 621, 851);
-            come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 621, 852);
+            come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 621, 852);
             come_call_finalizer(sType_finalize, list_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 621, 853);
             come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 621, 854);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "36str2.nc", 621, 855));
@@ -6214,7 +6214,7 @@ _conditional_value_X0;})) {
     buffer_append_str(source,generics_fun_name);
     buffer_append_str(source,"(");
     j=0;
-    for(_o2_saved_7=(struct list$1CVALUE$ph*)come_increment_ref_count(come_params, "36str2.nc", 691, 900),it_29=list$1CVALUE$ph_begin(_o2_saved_7)    ;!list$1CVALUE$ph_end(_o2_saved_7);it_29=list$1CVALUE$ph_next(_o2_saved_7)){
+    for(_o2_saved_9=(struct list$1CVALUE$ph*)come_increment_ref_count(come_params, "36str2.nc", 691, 900),it_29=list$1CVALUE$ph_begin(_o2_saved_9)    ;!list$1CVALUE$ph_end(_o2_saved_9);it_29=list$1CVALUE$ph_next(_o2_saved_9)){
         buffer_append_str(source,it_29->c_value);
         if(j!=list$1CVALUE$ph_length(come_params)-1) {
             buffer_append_str(source,",");
@@ -6247,7 +6247,7 @@ _conditional_value_X0;})) {
     come_call_finalizer(sType_finalize, type_values, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 911);
     (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "36str2.nc", 719, 912));
     come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 913);
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 914);
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 914);
     come_call_finalizer(sType_finalize, list_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 915);
     come_call_finalizer(sType_finalize, obj_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 916);
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "36str2.nc", 719, 917));
@@ -6264,7 +6264,7 @@ _conditional_value_X0;})) {
     come_call_finalizer(list$1CVALUE$ph$p_finalize, come_params, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 928);
     come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 929);
     come_call_finalizer(CVALUE_finalize, come_value3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 930);
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 931);
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 931);
     come_call_finalizer(CVALUE_finalize, come_value4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 719, 932);
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -6323,7 +6323,7 @@ _Bool sTupleNode_compile(struct sTupleNode* self, struct sInfo*  info  )
     struct list$1CVALUE$ph* tuple_values;
     _Bool __result_obj__0;
     int n;
-    struct list$1tuple2$2char$phsNode$ph$ph* _o2_saved_8;
+    struct list$1tuple2$2char$phsNode$ph$ph* _o2_saved_10;
     struct tuple2$2char$phsNode$ph* it;
     struct tuple2$2char$phsNode$ph* multiple_assign_var3
 ;    char*  name  =0;
@@ -6334,7 +6334,7 @@ _Bool sTupleNode_compile(struct sTupleNode* self, struct sInfo*  info  )
     char*  __dec_obj104  ;
     void* __right_value2 = (void*)0;
     struct sType*  type_32  ;
-    struct list$1sType$ph* _o2_saved_9;
+    struct list$1sType$ph* _o2_saved_11;
     struct sType*  it_34  ;
     struct CVALUE*  obj_value  ;
     struct buffer*  num_string  ;
@@ -6357,12 +6357,12 @@ _Bool sTupleNode_compile(struct sTupleNode* self, struct sInfo*  info  )
     struct sType*  result_type  ;
     struct list$1CVALUE$ph* come_params;
     int i;
-    struct list$1CVALUE$ph* _o2_saved_10;
+    struct list$1CVALUE$ph* _o2_saved_12;
     struct CVALUE*  it_37  ;
     struct CVALUE*  come_value_38  ;
     struct buffer*  buf  ;
     int j;
-    struct list$1CVALUE$ph* _o2_saved_11;
+    struct list$1CVALUE$ph* _o2_saved_13;
     struct CVALUE*  it_39  ;
     struct CVALUE*  come_value2  ;
     char*  __dec_obj109  ;
@@ -6383,7 +6383,7 @@ _Bool sTupleNode_compile(struct sTupleNode* self, struct sInfo*  info  )
     }
     info->exp_value=(_Bool)1;
     n=0;
-    for(_o2_saved_8=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(tuple_elements, "36str2.nc", 750, 957),it=list$1tuple2$2char$phsNode$ph$ph_begin(_o2_saved_8)    ;!list$1tuple2$2char$phsNode$ph$ph_end(_o2_saved_8);it=list$1tuple2$2char$phsNode$ph$ph_next(_o2_saved_8)){
+    for(_o2_saved_10=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(tuple_elements, "36str2.nc", 750, 957),it=list$1tuple2$2char$phsNode$ph$ph_begin(_o2_saved_10)    ;!list$1tuple2$2char$phsNode$ph$ph_end(_o2_saved_10);it=list$1tuple2$2char$phsNode$ph$ph_next(_o2_saved_10)){
         multiple_assign_var3=it;
         name=(char* )come_increment_ref_count(multiple_assign_var3->v1, "36str2.nc", 751, 958);
         node=(struct sNode*)come_increment_ref_count(multiple_assign_var3->v2, "36str2.nc", 751, 959);
@@ -6395,7 +6395,7 @@ _Bool sTupleNode_compile(struct sTupleNode* self, struct sInfo*  info  )
             come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, tuple_elements, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 754, 962);
             come_call_finalizer(list$1sType$ph$p_finalize, tuple_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 754, 963);
             come_call_finalizer(list$1CVALUE$ph$p_finalize, tuple_values, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 754, 964);
-            come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 754, 965);
+            come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 754, 965);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
@@ -6419,7 +6419,7 @@ _Bool sTupleNode_compile(struct sTupleNode* self, struct sInfo*  info  )
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     type_32=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "36str2.nc", 769, 997, "struct sType* "), "36str2.nc", 769, 998),(char* )come_increment_ref_count(xsprintf("tuple%d",list$1sType$ph_length(tuple_types)), "36str2.nc", 769, 999),(_Bool)0,info,(_Bool)0,0), "36str2.nc", 769, 1000);
-    for(_o2_saved_9=(struct list$1sType$ph*)come_increment_ref_count(tuple_types, "36str2.nc", 771, 1001),it_34=list$1sType$ph_begin(_o2_saved_9)    ;!list$1sType$ph_end(_o2_saved_9);it_34=list$1sType$ph_next(_o2_saved_9)){
+    for(_o2_saved_11=(struct list$1sType$ph*)come_increment_ref_count(tuple_types, "36str2.nc", 771, 1001),it_34=list$1sType$ph_begin(_o2_saved_11)    ;!list$1sType$ph_end(_o2_saved_11);it_34=list$1sType$ph_next(_o2_saved_11)){
         __right_value0 = (void*)0;
         list$1sType$ph_push_back(type_32->mGenericsTypes,(struct sType* )come_increment_ref_count((((struct sType* )(__right_value0=sType_clone(it_34)))), "36str2.nc", 772, 1002));
         come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 772, 1003);
@@ -6499,9 +6499,9 @@ _conditional_value_X0;})) {
             come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, tuple_elements, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1033);
             come_call_finalizer(list$1sType$ph$p_finalize, tuple_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1034);
             come_call_finalizer(list$1CVALUE$ph$p_finalize, tuple_values, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1035);
-            come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1036);
+            come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1036);
             come_call_finalizer(sType_finalize, type_32, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1037);
-            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1038);
+            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1038);
             come_call_finalizer(CVALUE_finalize, obj_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1039);
             come_call_finalizer(buffer_finalize, num_string, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1040);
             come_call_finalizer(sType_finalize, type2_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 822, 1041);
@@ -6531,7 +6531,7 @@ _conditional_value_X0;})) {
     }
     list$1CVALUE$ph_push_back(come_params,(struct CVALUE* )come_increment_ref_count(obj_value, "36str2.nc", 834, 1055));
     i=1;
-    for(_o2_saved_10=(struct list$1CVALUE$ph*)come_increment_ref_count(tuple_values, "36str2.nc", 837, 1056),it_37=list$1CVALUE$ph_begin(_o2_saved_10)    ;!list$1CVALUE$ph_end(_o2_saved_10);it_37=list$1CVALUE$ph_next(_o2_saved_10)){
+    for(_o2_saved_12=(struct list$1CVALUE$ph*)come_increment_ref_count(tuple_values, "36str2.nc", 837, 1056),it_37=list$1CVALUE$ph_begin(_o2_saved_12)    ;!list$1CVALUE$ph_end(_o2_saved_12);it_37=list$1CVALUE$ph_next(_o2_saved_12)){
         __right_value0 = (void*)0;
         come_value_38=(struct CVALUE* )come_increment_ref_count(CVALUE_clone(it_37), "36str2.nc", 838, 1057);
         if(__right_value0 = (void*)0,
@@ -6553,7 +6553,7 @@ _conditional_value_X0;})) {
     buffer_append_str(buf,generics_fun_name);
     buffer_append_str(buf,"(");
     j=0;
-    for(_o2_saved_11=(struct list$1CVALUE$ph*)come_increment_ref_count(come_params, "36str2.nc", 854, 1066),it_39=list$1CVALUE$ph_begin(_o2_saved_11)    ;!list$1CVALUE$ph_end(_o2_saved_11);it_39=list$1CVALUE$ph_next(_o2_saved_11)){
+    for(_o2_saved_13=(struct list$1CVALUE$ph*)come_increment_ref_count(come_params, "36str2.nc", 854, 1066),it_39=list$1CVALUE$ph_begin(_o2_saved_13)    ;!list$1CVALUE$ph_end(_o2_saved_13);it_39=list$1CVALUE$ph_next(_o2_saved_13)){
         buffer_append_str(buf,it_39->c_value);
         if(j!=list$1CVALUE$ph_length(come_params)-1) {
             buffer_append_str(buf,",");
@@ -6583,9 +6583,9 @@ _conditional_value_X0;})) {
     come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, tuple_elements, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1075);
     come_call_finalizer(list$1sType$ph$p_finalize, tuple_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1076);
     come_call_finalizer(list$1CVALUE$ph$p_finalize, tuple_values, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1077);
-    come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1078);
+    come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1078);
     come_call_finalizer(sType_finalize, type_32, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1079);
-    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1080);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1080);
     come_call_finalizer(CVALUE_finalize, obj_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1081);
     come_call_finalizer(buffer_finalize, num_string, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1082);
     come_call_finalizer(sType_finalize, type2_, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1083);
@@ -6598,9 +6598,9 @@ _conditional_value_X0;})) {
     (generics_fun_name = come_decrement_ref_count(generics_fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "36str2.nc", 881, 1090));
     come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1091);
     come_call_finalizer(list$1CVALUE$ph$p_finalize, come_params, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1092);
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1093);
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_12, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1093);
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1094);
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_11, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1095);
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_13, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1095);
     come_call_finalizer(CVALUE_finalize, come_value2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 881, 1096);
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -6930,7 +6930,7 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo*  info  )
     char*  __dec_obj123  ;
     struct sType*  __dec_obj124  ;
     int j;
-    struct list$1CVALUE$ph* _o2_saved_12;
+    struct list$1CVALUE$ph* _o2_saved_14;
     struct CVALUE*  it  ;
     struct CVALUE*  come_value5  ;
     char*  __dec_obj125  ;
@@ -7223,7 +7223,7 @@ _conditional_value_X0;})) {
     buffer_append_str(source,generics_fun_name);
     buffer_append_str(source,"(");
     j=0;
-    for(_o2_saved_12=(struct list$1CVALUE$ph*)come_increment_ref_count(come_params, "36str2.nc", 1100, 1267),it=list$1CVALUE$ph_begin(_o2_saved_12)    ;!list$1CVALUE$ph_end(_o2_saved_12);it=list$1CVALUE$ph_next(_o2_saved_12)){
+    for(_o2_saved_14=(struct list$1CVALUE$ph*)come_increment_ref_count(come_params, "36str2.nc", 1100, 1267),it=list$1CVALUE$ph_begin(_o2_saved_14)    ;!list$1CVALUE$ph_end(_o2_saved_14);it=list$1CVALUE$ph_next(_o2_saved_14)){
         buffer_append_str(source,it->c_value);
         if(j!=list$1CVALUE$ph_length(come_params)-1) {
             buffer_append_str(source,",");
@@ -7279,7 +7279,7 @@ _conditional_value_X0;})) {
     come_call_finalizer(CVALUE_finalize, come_value2_44, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 1127, 1301);
     come_call_finalizer(CVALUE_finalize, come_value3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 1127, 1302);
     come_call_finalizer(CVALUE_finalize, come_value4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 1127, 1303);
-    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_12, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 1127, 1304);
+    come_call_finalizer(list$1CVALUE$ph$p_finalize, _o2_saved_14, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 1127, 1304);
     come_call_finalizer(CVALUE_finalize, come_value5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "36str2.nc}", 1127, 1305);
     neo_current_frame = fr.prev;
     return __result_obj__0;

@@ -3335,7 +3335,7 @@ _Bool is_contained_generics_class(struct sType*  type  , struct sInfo*  info  )
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj35  ;
     struct sType*  __dec_obj36  ;
-    struct list$1sType$ph* _o2_saved_1;
+    struct list$1sType$ph* _o2_saved_3;
     struct sType*  it  ;
     _Bool __result_obj__0;
     memset(&type2, 0, sizeof(type2));
@@ -3350,11 +3350,11 @@ _Bool is_contained_generics_class(struct sType*  type  , struct sInfo*  info  )
         type2=(struct sType* )come_increment_ref_count(sType_clone(type), "06type.nc", 71, 284);
         come_call_finalizer(sType_finalize, __dec_obj36,(void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc", 71, 283);
     }
-    for(_o2_saved_1=(struct list$1sType$ph*)come_increment_ref_count(type2->mGenericsTypes, "06type.nc", 73, 285),it=list$1sType$ph_begin(_o2_saved_1)    ;!list$1sType$ph_end(_o2_saved_1);it=list$1sType$ph_next(_o2_saved_1)){
+    for(_o2_saved_3=(struct list$1sType$ph*)come_increment_ref_count(type2->mGenericsTypes, "06type.nc", 73, 285),it=list$1sType$ph_begin(_o2_saved_3)    ;!list$1sType$ph_end(_o2_saved_3);it=list$1sType$ph_next(_o2_saved_3)){
         if(is_contained_generics_class(it,info)) {
                         __result_obj__0 = (_Bool)1;
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 75, 286);
-            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 75, 287);
+            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 75, 287);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
@@ -3362,20 +3362,20 @@ _Bool is_contained_generics_class(struct sType*  type  , struct sInfo*  info  )
     if(type2->mClass->mGenerics) {
                 __result_obj__0 = (_Bool)1;
         come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 80, 288);
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 80, 289);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 80, 289);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     if(type2->mClass->mMethodGenerics) {
                 __result_obj__0 = (_Bool)1;
         come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 83, 290);
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 83, 291);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 83, 291);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
         __result_obj__0 = (_Bool)0;
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 86, 292);
-    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 86, 293);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 86, 293);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -4301,7 +4301,7 @@ _Bool is_contained_generics_placeholder(struct sType*  type  , struct sInfo*  in
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj37  ;
     struct sType*  __dec_obj38  ;
-    struct list$1sType$ph* _o2_saved_2;
+    struct list$1sType$ph* _o2_saved_4;
     struct sType*  it  ;
     _Bool __result_obj__0;
     char*  class_name  ;
@@ -4317,11 +4317,11 @@ _Bool is_contained_generics_placeholder(struct sType*  type  , struct sInfo*  in
         type2=(struct sType* )come_increment_ref_count(sType_clone(type), "06type.nc", 96, 297);
         come_call_finalizer(sType_finalize, __dec_obj38,(void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc", 96, 296);
     }
-    for(_o2_saved_2=(struct list$1sType$ph*)come_increment_ref_count(type2->mGenericsTypes, "06type.nc", 99, 298),it=list$1sType$ph_begin(_o2_saved_2)    ;!list$1sType$ph_end(_o2_saved_2);it=list$1sType$ph_next(_o2_saved_2)){
+    for(_o2_saved_4=(struct list$1sType$ph*)come_increment_ref_count(type2->mGenericsTypes, "06type.nc", 99, 298),it=list$1sType$ph_begin(_o2_saved_4)    ;!list$1sType$ph_end(_o2_saved_4);it=list$1sType$ph_next(_o2_saved_4)){
         if(is_contained_generics_placeholder(it,info)) {
                         __result_obj__0 = (_Bool)1;
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 101, 299);
-            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 101, 300);
+            come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 101, 300);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
@@ -4329,7 +4329,7 @@ _Bool is_contained_generics_placeholder(struct sType*  type  , struct sInfo*  in
     if(type2->mClass==((void*)0)||type2->mClass->mName==((void*)0)) {
                 __result_obj__0 = (_Bool)0;
         come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 106, 301);
-        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 106, 302);
+        come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 106, 302);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -4337,7 +4337,7 @@ _Bool is_contained_generics_placeholder(struct sType*  type  , struct sInfo*  in
     class_name=(char* )come_increment_ref_count(__builtin_string(type2->mClass->mName,"06type.nc",109), "06type.nc", 109, 303);
         __result_obj__0 = string_index(class_name,"__generics_type",-1)>=0||string_index(class_name,"__mgenerics_type",-1)>=0;
     come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 111, 304);
-    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 111, 305);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 111, 305);
     (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 111, 306));
     neo_current_frame = fr.prev;
     return __result_obj__0;

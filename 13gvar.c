@@ -2789,7 +2789,7 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
     char*  name  ;
     struct sNode* right_node;
     char*  array_initializer  ;
-    struct list$1tuple3$3sType$phchar$phchar$ph$ph* _o2_saved_1;
+    struct list$1tuple3$3sType$phchar$phchar$ph$ph* _o2_saved_3;
     struct tuple3$3sType$phchar$phchar$ph* it;
     struct tuple3$3sType$phchar$phchar$ph* multiple_assign_var1
 ;    struct sType*  type_12  =0;
@@ -2808,7 +2808,7 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
     __right_value0 = (void*)0;
     array_initializer=(char* )come_increment_ref_count((char* )come_memdup(self->array_initializer, "13gvar.nc", 27, 289, "char* "), "13gvar.nc", 27, 290);
     if(self->multiple_declare) {
-        for(_o2_saved_1=(struct list$1tuple3$3sType$phchar$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare, "13gvar.nc", 30, 291),it=list$1tuple3$3sType$phchar$phchar$ph$ph_begin(_o2_saved_1)        ;!list$1tuple3$3sType$phchar$phchar$ph$ph_end(_o2_saved_1);it=list$1tuple3$3sType$phchar$phchar$ph$ph_next(_o2_saved_1)){
+        for(_o2_saved_3=(struct list$1tuple3$3sType$phchar$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare, "13gvar.nc", 30, 291),it=list$1tuple3$3sType$phchar$phchar$ph$ph_begin(_o2_saved_3)        ;!list$1tuple3$3sType$phchar$phchar$ph$ph_end(_o2_saved_3);it=list$1tuple3$3sType$phchar$phchar$ph$ph_next(_o2_saved_3)){
             multiple_assign_var1=it;
             type_12=(struct sType* )come_increment_ref_count(multiple_assign_var1->v1, "13gvar.nc", 31, 292);
             name_13=(char* )come_increment_ref_count(multiple_assign_var1->v2, "13gvar.nc", 31, 293);
@@ -2851,7 +2851,7 @@ _Bool sGlobalVariable_compile(struct sGlobalVariable* self, struct sInfo*  info 
             (name_13 = come_decrement_ref_count(name_13, (void*)0, (void*)0, 0, 0, (void*)0, "13gvar.nc", 46, 410));
             (initializer = come_decrement_ref_count(initializer, (void*)0, (void*)0, 0, 0, (void*)0, "13gvar.nc", 46, 411));
         }
-        come_call_finalizer(list$1tuple3$3sType$phchar$phchar$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13gvar.nc}", 85, 412);
+        come_call_finalizer(list$1tuple3$3sType$phchar$phchar$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13gvar.nc}", 85, 412);
     }
     else {
         __right_value0 = (void*)0;
@@ -5188,7 +5188,7 @@ _Bool sExternalGlobalVariable_compile(struct sExternalGlobalVariable* self, stru
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sExternalGlobalVariable_compile"; neo_current_frame = &fr;
     struct sType*  type  ;
     char*  name  ;
-    struct list$1tuple3$3sType$phchar$phchar$ph$ph* _o2_saved_2;
+    struct list$1tuple3$3sType$phchar$phchar$ph$ph* _o2_saved_4;
     struct tuple3$3sType$phchar$phchar$ph* it;
     struct tuple3$3sType$phchar$phchar$ph* multiple_assign_var2
 ;    struct sType*  type_30  =0;
@@ -5202,7 +5202,7 @@ _Bool sExternalGlobalVariable_compile(struct sExternalGlobalVariable* self, stru
     type=self->type;
     name=(char* )come_increment_ref_count(self->name, "13gvar.nc", 109, 480);
     if(self->multiple_declare) {
-        for(_o2_saved_2=(struct list$1tuple3$3sType$phchar$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare, "13gvar.nc", 112, 481),it=list$1tuple3$3sType$phchar$phchar$ph$ph_begin(_o2_saved_2)        ;!list$1tuple3$3sType$phchar$phchar$ph$ph_end(_o2_saved_2);it=list$1tuple3$3sType$phchar$phchar$ph$ph_next(_o2_saved_2)){
+        for(_o2_saved_4=(struct list$1tuple3$3sType$phchar$phchar$ph$ph*)come_increment_ref_count(self->multiple_declare, "13gvar.nc", 112, 481),it=list$1tuple3$3sType$phchar$phchar$ph$ph_begin(_o2_saved_4)        ;!list$1tuple3$3sType$phchar$phchar$ph$ph_end(_o2_saved_4);it=list$1tuple3$3sType$phchar$phchar$ph$ph_next(_o2_saved_4)){
             multiple_assign_var2=it;
             type_30=(struct sType* )come_increment_ref_count(multiple_assign_var2->v1, "13gvar.nc", 113, 482);
             name_31=(char* )come_increment_ref_count(multiple_assign_var2->v2, "13gvar.nc", 113, 483);
@@ -5217,7 +5217,7 @@ _Bool sExternalGlobalVariable_compile(struct sExternalGlobalVariable* self, stru
             (name_31 = come_decrement_ref_count(name_31, (void*)0, (void*)0, 0, 0, (void*)0, "13gvar.nc", 117, 491));
             (initializer = come_decrement_ref_count(initializer, (void*)0, (void*)0, 0, 0, (void*)0, "13gvar.nc", 117, 492));
         }
-        come_call_finalizer(list$1tuple3$3sType$phchar$phchar$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13gvar.nc}", 123, 493);
+        come_call_finalizer(list$1tuple3$3sType$phchar$phchar$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13gvar.nc}", 123, 493);
     }
     else {
         __right_value0 = (void*)0;

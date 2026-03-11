@@ -2776,7 +2776,7 @@ void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buf
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "output_aggregate_field"; neo_current_frame = &fr;
     struct sClass*  klass  ;
     void* __right_value0 = (void*)0;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_1;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_3;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var1
 ;    char*  name2  =0;
@@ -2813,7 +2813,7 @@ void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buf
         }
     }
     indent++;
-    for(_o2_saved_1=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "38struct2.nc", 29, 5),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_1)    ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_1);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_1)){
+    for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "38struct2.nc", 29, 5),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)    ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
         multiple_assign_var1=it;
         name2=(char* )come_increment_ref_count(multiple_assign_var1->v1, "38struct2.nc", 30, 6);
         type2=(struct sType* )come_increment_ref_count(multiple_assign_var1->v2, "38struct2.nc", 30, 7);
@@ -2883,7 +2883,7 @@ void output_aggregate_field(struct sType*  type  , char*  tag_name  , struct buf
     }
     (tag_name = come_decrement_ref_count(tag_name, (void*)0, (void*)0, 0, 0, (void*)0, "38struct2.nc", 88, 328));
     (field_name = come_decrement_ref_count(field_name, (void*)0, (void*)0, 0, 0, (void*)0, "38struct2.nc", 88, 329));
-    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 88, 334);
+    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 88, 334);
     neo_current_frame = fr.prev;
 }
 
@@ -4741,7 +4741,7 @@ void output_struct(struct sClass*  klass  , char*  pragma  , struct sInfo*  info
     struct buffer*  buf  ;
     _Bool existance_generics;
     _Bool named_child;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_2;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_4;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var2
 ;    char*  name_24  =0;
@@ -4763,7 +4763,7 @@ void output_struct(struct sClass*  klass  , char*  pragma  , struct sInfo*  info
     buffer_append_format(buf,"struct %s\n{\n",klass->mName);
     existance_generics=(_Bool)0;
     named_child=(_Bool)0;
-    for(_o2_saved_2=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "38struct2.nc", 106, 339),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_2)    ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_2);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_2)){
+    for(_o2_saved_4=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(klass->mFields, "38struct2.nc", 106, 339),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_4)    ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_4);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_4)){
         multiple_assign_var2=it;
         name_24=(char* )come_increment_ref_count(multiple_assign_var2->v1, "38struct2.nc", 107, 340);
         type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v2, "38struct2.nc", 107, 341);
@@ -4827,7 +4827,7 @@ void output_struct(struct sClass*  klass  , char*  pragma  , struct sInfo*  info
     if(anonymous&&named_child) {
                 (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0, "38struct2.nc", 161, 357));
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 161, 358);
-        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 161, 359);
+        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 161, 359);
         neo_current_frame = fr.prev;
         return;
     }
@@ -4841,7 +4841,7 @@ _conditional_value_X0;})) {
     }
     (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0, "38struct2.nc", 168, 434));
     come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 168, 435);
-    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 168, 436);
+    come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 168, 436);
     neo_current_frame = fr.prev;
 }
 
@@ -5232,7 +5232,7 @@ _Bool output_generics_struct(struct sType*  type  , struct sType*  generics_type
     _Bool __result_obj__0;
     struct sClass*  new_class  ;
     int i;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_3;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_5;
     struct tuple2$2char$phsType$ph* it;
     struct tuple2$2char$phsType$ph* multiple_assign_var3
 ;    char*  name  =0;
@@ -5264,7 +5264,7 @@ _Bool output_generics_struct(struct sType*  type  , struct sType*  generics_type
         new_class=((struct sClass* )(__right_value1=map$2char$phsClass$ph_at(info->classes,((char* )(__right_value0=__builtin_string(new_name,"38struct2.nc",182))),((void*)0),(_Bool)0)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "38struct2.nc", 182, 521));
         i=0;
-        for(_o2_saved_3=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(generics_class->mFields, "38struct2.nc", 185, 522),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_3)        ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_3);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_3)){
+        for(_o2_saved_5=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(generics_class->mFields, "38struct2.nc", 185, 522),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_5)        ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_5);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_5)){
             multiple_assign_var3=it;
             name=(char* )come_increment_ref_count(multiple_assign_var3->v1, "38struct2.nc", 186, 523);
             type_31=(struct sType* )come_increment_ref_count(multiple_assign_var3->v2, "38struct2.nc", 186, 524);
@@ -5290,7 +5290,7 @@ _Bool output_generics_struct(struct sType*  type  , struct sType*  generics_type
         list$1sType$ph_reset(type->mGenericsTypes);
         output_struct(new_class,((void*)0),info,(_Bool)0);
         come_call_finalizer(sClass_finalize, generics_class, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 211, 563);
-        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 211, 564);
+        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 211, 564);
     }
     else {
         if(type->mNoSolvedGenericsType==((void*)0)&&list$1sType$ph_length(type->mGenericsTypes)>0) {
@@ -6136,7 +6136,7 @@ _Bool sClassNode_compile(struct sClassNode* self, struct sInfo*  info  )
     struct list$1tuple2$2char$phsType$ph$ph* __dec_obj61;
     struct sType*  type  ;
     struct sType*  override_  ;
-    struct list$1sNode$ph* _o2_saved_4;
+    struct list$1sNode$ph* _o2_saved_6;
     struct sNode* it;
     _Bool Value;
     _Bool __result_obj__0;
@@ -6176,14 +6176,14 @@ _conditional_value_X0;})) {
     __right_value1 = (void*)0;
     map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(name,"38struct2.nc",327), "38struct2.nc", 327, 721),(struct sType* )come_increment_ref_count(sType_clone(type), "38struct2.nc", 327, 722),(_Bool)0);
     output_struct(klass,((void*)0),info,(_Bool)0);
-    for(_o2_saved_4=(struct list$1sNode$ph*)come_increment_ref_count(self->mMethods, "38struct2.nc", 331, 723),it=list$1sNode$ph_begin(_o2_saved_4)    ;!list$1sNode$ph_end(_o2_saved_4);it=list$1sNode$ph_next(_o2_saved_4)){
+    for(_o2_saved_6=(struct list$1sNode$ph*)come_increment_ref_count(self->mMethods, "38struct2.nc", 331, 723),it=list$1sNode$ph_begin(_o2_saved_6)    ;!list$1sNode$ph_end(_o2_saved_6);it=list$1sNode$ph_next(_o2_saved_6)){
         Value=node_compile(it,info);
         if(!Value) {
                         __result_obj__0 = (_Bool)0;
             come_call_finalizer(sClass_finalize, klass, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 333, 724);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "38struct2.nc", 333, 725));
             come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 333, 726);
-            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 333, 727);
+            come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 333, 727);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
@@ -6192,7 +6192,7 @@ _conditional_value_X0;})) {
     come_call_finalizer(sClass_finalize, klass, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 337, 728);
     (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "38struct2.nc", 337, 729));
     come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 337, 730);
-    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 337, 731);
+    come_call_finalizer(list$1sNode$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 337, 731);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -7110,12 +7110,12 @@ struct sNode* top_level_v98(char* buf, char* head, int head_sline, struct sInfo*
     char*  __dec_obj89  ;
     struct sClass*  defining_class  ;
     _Bool _conditional_value_X4;
-    struct list$1sClass$p* _o2_saved_5;
+    struct list$1sClass$p* _o2_saved_7;
     struct sClass*  parent  ;
     _Bool _conditional_value_X5;
     _Bool _conditional_value_X6;
     _Bool _conditional_value_X7;
-    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_6;
+    struct list$1tuple2$2char$phsType$ph$ph* _o2_saved_8;
     struct tuple2$2char$phsType$ph* it;
     char* head_76;
     struct list$1sNode$ph* methods;
@@ -7714,12 +7714,12 @@ _conditional_value_X4;})) {
             come_call_finalizer(sClass_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "38struct2.nc}", 861, 1108);
         }
         for(__right_value0 = (void*)0,
-({(_conditional_value_X5=(_o2_saved_5=(struct list$1sClass$p*)come_increment_ref_count(list$1sClass$p_reverse(parent_classes), "38struct2.nc", 863, 1124),parent=list$1sClass$p_begin(_o2_saved_5)));_conditional_value_X5;})        ;({(_conditional_value_X6=(!list$1sClass$p_end(_o2_saved_5)));_conditional_value_X6;});({(_conditional_value_X7=(parent=list$1sClass$p_next(_o2_saved_5)));_conditional_value_X7;})){
-            for(_o2_saved_6=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(parent->mFields, "38struct2.nc", 864, 1125),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_6)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_6);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_6)){
+({(_conditional_value_X5=(_o2_saved_7=(struct list$1sClass$p*)come_increment_ref_count(list$1sClass$p_reverse(parent_classes), "38struct2.nc", 863, 1124),parent=list$1sClass$p_begin(_o2_saved_7)));_conditional_value_X5;})        ;({(_conditional_value_X6=(!list$1sClass$p_end(_o2_saved_7)));_conditional_value_X6;});({(_conditional_value_X7=(parent=list$1sClass$p_next(_o2_saved_7)));_conditional_value_X7;})){
+            for(_o2_saved_8=(struct list$1tuple2$2char$phsType$ph$ph*)come_increment_ref_count(parent->mFields, "38struct2.nc", 864, 1125),it=list$1tuple2$2char$phsType$ph$ph_begin(_o2_saved_8)            ;!list$1tuple2$2char$phsType$ph$ph_end(_o2_saved_8);it=list$1tuple2$2char$phsType$ph$ph_next(_o2_saved_8)){
                 __right_value0 = (void*)0;
                 list$1tuple2$2char$phsType$ph$ph_add(struct_class_71->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_clone(it), "38struct2.nc", 865, 1126));
             }
-            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 869, 1127);
+            come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, _o2_saved_8, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 869, 1127);
         }
         expected_next_character(123,info);
         head_76=info->p->p;
@@ -7932,7 +7932,7 @@ _conditional_value_X4;})) {
         (type_name_66 = come_decrement_ref_count(type_name_66, (void*)0, (void*)0, 0, 0, (void*)0, "38struct2.nc", 1031, 1226));
         come_call_finalizer(list$1sClass$p$p_finalize, parent_classes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1031, 1227);
         come_call_finalizer(sClass_finalize, struct_class_71, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1031, 1228);
-        come_call_finalizer(list$1sClass$p$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1031, 1229);
+        come_call_finalizer(list$1sClass$p$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1031, 1229);
         come_call_finalizer(list$1sNode$ph$p_finalize, methods, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1031, 1230);
         come_call_finalizer(sClassNode_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "38struct2.nc}", 1031, 1231);
         ((__right_value3) ? __right_value3 = come_decrement_ref_count(__right_value3, ((struct sNode*)__right_value3)->finalize, ((struct sNode*)__right_value3)->_protocol_obj, 1, 0,(void*)0, "38struct2.nc", 1031, 1232):(void*)0);
@@ -7942,7 +7942,7 @@ _conditional_value_X4;})) {
         (type_name_66 = come_decrement_ref_count(type_name_66, (void*)0, (void*)0, 0, 0, (void*)0, "38struct2.nc", 1034, 1234));
         come_call_finalizer(list$1sClass$p$p_finalize, parent_classes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1034, 1235);
         come_call_finalizer(sClass_finalize, struct_class_71, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1034, 1236);
-        come_call_finalizer(list$1sClass$p$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1034, 1237);
+        come_call_finalizer(list$1sClass$p$p_finalize, _o2_saved_7, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1034, 1237);
         come_call_finalizer(list$1sNode$ph$p_finalize, methods, (void*)0, (void*)0, 0, 0, 0, (void*)0, "38struct2.nc}", 1034, 1238);
     }
         __right_value0 = (void*)0;

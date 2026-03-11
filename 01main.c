@@ -9207,9 +9207,9 @@ struct sFun* sFun_initialize(struct sFun* self, char*  name  , struct sType*  re
     void* __right_value2 = (void*)0;
     struct sType*  __dec_obj40  ;
     char*  __dec_obj41  ;
-    struct list$1sType$ph* _o2_saved_1;
+    struct list$1sType$ph* _o2_saved_3;
     struct sType*  it  ;
-    struct list$1char$ph* _o2_saved_2;
+    struct list$1char$ph* _o2_saved_4;
     char*  it_45  ;
     struct sType*  __dec_obj79  ;
     struct buffer*  __dec_obj80  ;
@@ -9255,11 +9255,11 @@ struct sFun* sFun_initialize(struct sFun* self, char*  name  , struct sType*  re
     __dec_obj41=self->mAsmFun,
     self->mAsmFun=(char* )come_increment_ref_count(asm_fun, "./common.h", 325, 862);
     __dec_obj41 = come_decrement_ref_count(__dec_obj41, (void*)0, (void*)0, 0,0, (void*)0, "./common.h", 325, 861);
-    for(_o2_saved_1=(struct list$1sType$ph*)come_increment_ref_count(param_types, "./common.h", 327, 863),it=list$1sType$ph_begin(_o2_saved_1)    ;!list$1sType$ph_end(_o2_saved_1);it=list$1sType$ph_next(_o2_saved_1)){
+    for(_o2_saved_3=(struct list$1sType$ph*)come_increment_ref_count(param_types, "./common.h", 327, 863),it=list$1sType$ph_begin(_o2_saved_3)    ;!list$1sType$ph_end(_o2_saved_3);it=list$1sType$ph_next(_o2_saved_3)){
         __right_value0 = (void*)0;
         list$1sType$ph_push_back(self->mLambdaType->mParamTypes,(struct sType* )come_increment_ref_count(sType_clone(it), "./common.h", 328, 1035));
     }
-    for(_o2_saved_2=(struct list$1char$ph*)come_increment_ref_count(param_names, "./common.h", 331, 1036),it_45=list$1char$ph_begin(_o2_saved_2)    ;!list$1char$ph_end(_o2_saved_2);it_45=list$1char$ph_next(_o2_saved_2)){
+    for(_o2_saved_4=(struct list$1char$ph*)come_increment_ref_count(param_names, "./common.h", 331, 1036),it_45=list$1char$ph_begin(_o2_saved_4)    ;!list$1char$ph_end(_o2_saved_4);it_45=list$1char$ph_next(_o2_saved_4)){
         __right_value0 = (void*)0;
         list$1char$ph_push_back(self->mLambdaType->mParamNames,(char* )come_increment_ref_count((char* )come_memdup(it_45, "./common.h", 332, 1037, "char* "), "./common.h", 332, 1038));
     }
@@ -9323,8 +9323,8 @@ struct sFun* sFun_initialize(struct sFun* self, char*  name  , struct sType*  re
     (text_block = come_decrement_ref_count(text_block, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 356, 1099));
     (generics_sname = come_decrement_ref_count(generics_sname, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 356, 1100));
     (asm_fun = come_decrement_ref_count(asm_fun, (void*)0, (void*)0, 0, 0, (void*)0, "./common.h", 356, 1101));
-    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1102);
-    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1103);
+    come_call_finalizer(list$1sType$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1102);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 356, 1103);
     neo_current_frame = fr.prev;
     come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./common.h}", 356, 1104);
     return __result_obj__0;
@@ -10213,7 +10213,7 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
     void* __right_value1 = (void*)0;
     struct sClass*  current_stack  ;
     struct sVarTable*  vtable  ;
-    struct map$2char$phsVar$ph* _o2_saved_3;
+    struct map$2char$phsVar$ph* _o2_saved_5;
     char*  it  ;
     char* key;
     void* __right_value2 = (void*)0;
@@ -10224,7 +10224,7 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
     struct tuple2$2char$phsType$ph* item2;
     struct sType*  type3_54  ;
     struct tuple2$2char$phsType$ph* item2_55;
-    struct map$2char$phsVar$ph* _o2_saved_4;
+    struct map$2char$phsVar$ph* _o2_saved_6;
     char*  it_56  ;
     char* key_57;
     struct sVar*  value_58  ;
@@ -10240,7 +10240,7 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
     current_stack=(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "./common.h", 705, 1253, "struct sClass* "), "./common.h", 705, 1255),(char* )come_increment_ref_count(class_name, "./common.h", 705, 1254),(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)1,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "./common.h", 705, 1256);
     vtable=info->lv_table;
     while(vtable) {
-        for(_o2_saved_3=(struct map$2char$phsVar$ph*)come_increment_ref_count(vtable->mVars, "./common.h", 710, 1257),it=map$2char$phsVar$ph_begin(_o2_saved_3)        ;!map$2char$phsVar$ph_end(_o2_saved_3);it=map$2char$phsVar$ph_next(_o2_saved_3)){
+        for(_o2_saved_5=(struct map$2char$phsVar$ph*)come_increment_ref_count(vtable->mVars, "./common.h", 710, 1257),it=map$2char$phsVar$ph_begin(_o2_saved_5)        ;!map$2char$phsVar$ph_end(_o2_saved_5);it=map$2char$phsVar$ph_next(_o2_saved_5)){
             key=it;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
@@ -10299,7 +10299,7 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
             come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 754, 1352);
         }
         vtable=vtable->mParent;
-        come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 757, 1353);
+        come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 757, 1353);
     }
     output_struct(current_stack,((void*)0),info,(_Bool)0);
     map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(class_name, "./common.h", 759, 1354),(struct sClass* )come_increment_ref_count(current_stack, "./common.h", 759, 1355),(_Bool)0);
@@ -10308,7 +10308,7 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
     vtable=info->lv_table;
     add_come_code(info,"({");
     while(vtable) {
-        for(_o2_saved_4=(struct map$2char$phsVar$ph*)come_increment_ref_count(vtable->mVars, "./common.h", 769, 1356),it_56=map$2char$phsVar$ph_begin(_o2_saved_4)        ;!map$2char$phsVar$ph_end(_o2_saved_4);it_56=map$2char$phsVar$ph_next(_o2_saved_4)){
+        for(_o2_saved_6=(struct map$2char$phsVar$ph*)come_increment_ref_count(vtable->mVars, "./common.h", 769, 1356),it_56=map$2char$phsVar$ph_begin(_o2_saved_6)        ;!map$2char$phsVar$ph_end(_o2_saved_6);it_56=map$2char$phsVar$ph_next(_o2_saved_6)){
             key_57=it_56;
             __right_value0 = (void*)0;
             value_58=((struct sVar* )(__right_value0=map$2char$phsVar$ph_operator_load_element(vtable->mVars,key_57)));
@@ -10349,7 +10349,7 @@ _Bool sCurrentNode_compile(struct sCurrentNode* self, struct sInfo*  info  )
             come_call_finalizer(tuple2$2char$phsType$ph$p_finalize, item_60, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 811, 1364);
         }
         vtable=vtable->mParent;
-        come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 813, 1365);
+        come_call_finalizer(map$2char$phsVar$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./common.h}", 813, 1365);
     }
     add_come_code(info,"})");
     add_come_code(info,",");
