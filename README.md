@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.0.3
+version 1.0.0.5
 
 ``` C
 #include <neo-c.h>
@@ -77,19 +77,27 @@ sudoとgitは事前にインストールしてください。
 
 Please install sudo and git before the build.
 
-```
+``` 
 git clone https://github.com/ab25cq/neo-c
 cd neo-c
 sh clean-self-host.sh
 ```
+
+`clean-self-host.sh` and `fast_build.sh` use parallel build by default.
 
 If you don't have enough memory, you can use below to install neo-c.
 
 ```
 git clone https://github.com/ab25cq/neo-c
 cd neo-c
-sh fast_build.sh
+sh fast_build.sh -lowmem
 ```
+
+If you pass `-lowmem`, the build scripts enable low-memory mode and disable parallel build.
+
+`clean-self-host.sh` と `fast_build.sh` はデフォルトで並列ビルドします。
+
+`-lowmem` を付けると low-memory mode を有効にし、並列ビルドを無効にします。
 
 If generated C gets too large to compile on a low-memory system, use `-lowmem` when transpiling your `.nc` file. In this mode, neo-c stops auto-generating helper methods such as `equals`, `operator_equals`, `operator_not_equals`, `to_string`, `compare`, and `get_hash_key`, so you may need to define them explicitly.
 
@@ -100,9 +108,9 @@ ncc -lowmem -c your_source.nc
 You can also enable it for project builds:
 
 ```
-LOWMEM=1 make self-host
-sh fast_build.sh --lowmem
-sh clean-self-host.sh --lowmem
+LOWMEM=1 make -j1 self-host
+sh fast_build.sh -lowmem
+sh clean-self-host.sh -lowmem
 ```
 
 To install a vi clone called vin, a string processing interpreter called zed, a console filer called mf, and an original shell called shsh, do the following:
@@ -116,6 +124,7 @@ sh all_build.sh
 # Histories
 
 ```
+1.0.0.5 can build in 512M memory system. may be build in radpberry pi zero.
 1.0.0.3 more improvement.
 1.0.0.2 optimize enabled.
 1.0.0.1 checked alpine on arm and amd64. all ok
