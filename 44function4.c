@@ -1449,6 +1449,27 @@ struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$
     _Bool v5;
 };
 
+struct tuple2$2char$phsNode$ph
+{
+    char*  v1  ;
+    struct sNode* v2;
+};
+
+struct list_item$1tuple2$2char$phsNode$ph$ph
+{
+    struct tuple2$2char$phsNode$ph* item;
+    struct list_item$1tuple2$2char$phsNode$ph$ph* prev;
+    struct list_item$1tuple2$2char$phsNode$ph$ph* next;
+};
+
+struct list$1tuple2$2char$phsNode$ph$ph
+{
+    struct list_item$1tuple2$2char$phsNode$ph$ph* head;
+    struct list_item$1tuple2$2char$phsNode$ph$ph* tail;
+    int len;
+    struct list_item$1tuple2$2char$phsNode$ph$ph* it;
+};
+
 struct tuple3$3sType$phchar$phsNode$ph
 {
     struct sType*  v1  ;
@@ -1476,27 +1497,6 @@ struct tuple3$3char$phsFun$psGenericsFun$p
     char*  v1  ;
     struct sFun*  v2  ;
     struct sGenericsFun*  v3  ;
-};
-
-struct tuple2$2char$phsNode$ph
-{
-    char*  v1  ;
-    struct sNode* v2;
-};
-
-struct list_item$1tuple2$2char$phsNode$ph$ph
-{
-    struct tuple2$2char$phsNode$ph* item;
-    struct list_item$1tuple2$2char$phsNode$ph$ph* prev;
-    struct list_item$1tuple2$2char$phsNode$ph$ph* next;
-};
-
-struct list$1tuple2$2char$phsNode$ph$ph
-{
-    struct list_item$1tuple2$2char$phsNode$ph$ph* head;
-    struct list_item$1tuple2$2char$phsNode$ph$ph* tail;
-    int len;
-    struct list_item$1tuple2$2char$phsNode$ph$ph* it;
 };
 
 struct sNothingNode
@@ -2436,6 +2436,18 @@ char*  create_non_method_name(struct sType*  obj_type  , _Bool no_pointer_name, 
 char*  create_method_name_using_class(struct sClass*  obj_class  , const char* fun_name, struct sInfo*  info  );
 struct sNode* create_null_return_value(struct sInfo*  info  );
 struct sNode* create_some(struct sNode* exp, struct sInfo*  info  );
+struct sNode* create_str_node(char*  value  , int sline, struct sInfo*  info  );
+struct sNode* create_buffer_node(struct buffer*  value  , unsigned long  size  , struct sInfo*  info  );
+struct sNode* create_sstring_node(char*  value  , struct list$1sNode$ph* exps, int sline, struct sInfo*  info  );
+struct sNode* create_char_node(int value, struct sInfo*  info  );
+struct sNode* create_wchar_node(int  value  , _Bool quote, struct sInfo*  info  );
+struct sNode* create_wstring_node(int*  value  , int sline, struct sInfo*  info  );
+struct sNode* create_prefixed_char_node(int value, char*  prefix  , struct sInfo*  info  );
+struct sNode* create_prefixed_string_node(char*  value  , char*  prefix  , int sline, struct sInfo*  info  );
+struct sNode* create_list_node(struct list$1sNode$ph* list_elements, struct sInfo*  info  );
+struct sNode* create_vector_node(struct list$1sNode$ph* list_elements, struct sInfo*  info  );
+struct sNode* create_tuple_node(struct list$1tuple2$2char$phsNode$ph$ph* tuple_elements, struct sInfo*  info  );
+struct sNode* create_map_node(struct list$1sNode$ph* map_key_elements, struct list$1sNode$ph* map_elements, struct sInfo*  info  );
 struct sNode* expression_node_v96(struct sInfo*  info  );
 struct sNode* parse_tuple(struct sInfo*  info  , _Bool named_tuple);
 struct sNode* parse_some(struct sInfo*  info  );

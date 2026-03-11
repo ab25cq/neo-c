@@ -988,6 +988,18 @@ string create_method_name_using_class(sClass* obj_class, const char* fun_name, s
 bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backtrace_struct_union_enum(sInfo* info=info);
 sNode*% create_null_return_value(sInfo* info=info);
 sNode*% create_some(sNode*% exp, sInfo* info);
+sNode*% create_str_node(string value, int sline, sInfo* info);
+sNode*% create_buffer_node(buffer*% value, size_t size, sInfo* info);
+sNode*% create_sstring_node(string value, list<sNode*%>*% exps, int sline, sInfo* info);
+sNode*% create_char_node(int value, sInfo* info);
+sNode*% create_wchar_node(wchar_t value, bool quote, sInfo* info);
+sNode*% create_wstring_node(wchar_t*% value, int sline, sInfo* info);
+sNode*% create_prefixed_char_node(int value, string prefix, sInfo* info);
+sNode*% create_prefixed_string_node(string value, string prefix, int sline, sInfo* info);
+sNode*% create_list_node(list<sNode*%>*% list_elements, sInfo* info);
+sNode*% create_vector_node(list<sNode*%>*% list_elements, sInfo* info);
+sNode*% create_tuple_node(list<tuple2<string, sNode*%>*%>*% tuple_elements, sInfo* info);
+sNode*% create_map_node(list<sNode*%>*% map_key_elements, list<sNode*%>*% map_elements, sInfo* info);
 sNode*% expression_node(sInfo* info=info) version 96;
 sNode*% parse_tuple(sInfo* info, bool named_tuple=false);
 sNode*% parse_some(sInfo* info);
