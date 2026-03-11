@@ -8,7 +8,7 @@ INSTALL=/usr/bin/install -c
 CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_OPT) -std=c11 # -O2 #-g -Og
 LIBS= -lutil -ldl -lm -lrt
 UNAME_S=$(shell uname -s)
-NCC_FLAGS=
+NCC_FLAGS=-lowmem
 LOWMEM?=0
 ifeq ($(LOWMEM),1)
 NCC_FLAGS+=-lowmem

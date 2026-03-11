@@ -10,8 +10,8 @@ then
     
     if uname -a | grep Android
     then
-        make DESTDIR=$HOME ncc
-        make DESTDIR=$HOME install
+        make $MAKE_OPTS DESTDIR=$HOME ncc
+        make $MAKE_OPTS DESTDIR=$HOME install
     elif uname -a | grep Darwin
     then
         make self-host
@@ -30,7 +30,7 @@ else
     if uname -a | grep Android
     then
         make self-host
-        make DESTDIR=$HOME install
+        make $MAKE_OPTS DESTDIR=$HOME install
     elif uname -a | grep Darwin
     then
         make self-host
