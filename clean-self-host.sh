@@ -16,14 +16,14 @@ then
         make $MAKE_OPTS DESTDIR=$HOME install
     elif uname -a | grep Darwin
     then
-        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host -j$(($(sysctl -n hw.logicalcpu) / 2))
+        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host #-j$(($(sysctl -n hw.logicalcpu) / 2))
         sudo make $MAKE_OPTS install
     elif test -f /proc/device-tree/model && cat /proc/device-tree/model | grep "Raspberry Pi"
     then
-        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host -j$(sysctl -n hw.logicalcpu) 
+        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host #-j$(sysctl -n hw.logicalcpu) 
         sudo make $MAKE_OPTS install
     else # Linux
-        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host -j$(($(nproc) / 2))
+        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host #-j$(($(nproc) / 2))
         sudo make $MAKE_OPTS install
     fi
 else 
@@ -35,14 +35,14 @@ else
         make $MAKE_OPTS DESTDIR=$HOME install
     elif uname -a | grep Darwin
     then
-        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host -j$(($(sysctl -n hw.logicalcpu) / 2))
+        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host #-j$(($(sysctl -n hw.logicalcpu) / 2))
         sudo make $MAKE_OPTS install
     elif test -f /proc/device-tree/model && cat /proc/device-tree/model | grep "Raspberry Pi"
     then
-        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host -j$(sysctl -n hw.logicalcpu) 
+        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host #-j$(sysctl -n hw.logicalcpu) 
         sudo make $MAKE_OPTS install
     else # Linux
-        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host -j$(($(nproc) / 2))
+        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host #-j$(($(nproc) / 2))
         sudo make $MAKE_OPTS install
     fi
     
@@ -54,14 +54,14 @@ else
         make $MAKE_OPTS DESTDIR=$HOME install
     elif uname -a | grep Darwin
     then
-        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host -j$(($(sysctl -n hw.logicalcpu) / 2))
+        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host #-j$(($(sysctl -n hw.logicalcpu) / 2))
         sudo make $MAKE_OPTS install
     elif test -f /proc/device-tree/model && cat /proc/device-tree/model | grep "Raspberry Pi"
     then
-        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host -j$(sysctl -n hw.logicalcpu) 
+        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host #-j$(sysctl -n hw.logicalcpu) 
         sudo make $MAKE_OPTS install
     else # Linux
-        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host -j$(($(nproc) / 2))
+        make $MAKE_OPTS CFLAGS_OPT=" -g" self-host #-j$(($(nproc) / 2))
         sudo make $MAKE_OPTS install
     fi
 fi
