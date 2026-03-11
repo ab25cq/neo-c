@@ -2525,6 +2525,7 @@ _Bool is_function_attribute_word(char* buf);
 int transpile_block(struct sBlock*  block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo*  info  , _Bool no_var_table, _Bool loop_block, _Bool if_result_value, _Bool iter_, _Bool loop_result_type);
 void arrange_stack(struct sInfo*  info  , int top);
 struct sNode* parse_function(struct sInfo*  info  );
+struct sNode* parse_function_call(char* fun_name, struct sInfo*  info  , _Bool come_);
 struct sNode* statment(struct sInfo*  info  );
 struct sNode* top_level_v1(char* buf, char* head, int head_sline, struct sInfo*  info  );
 struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*  info  );

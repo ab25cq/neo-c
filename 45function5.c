@@ -2414,6 +2414,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
 _Bool is_function_attribute_word(char* buf);
 void arrange_stack(struct sInfo*  info  , int top);
 struct sNode* parse_function(struct sInfo*  info  );
+struct sNode* parse_function_call(char* fun_name, struct sInfo*  info  , _Bool come_);
 struct sNode* statment(struct sInfo*  info  );
 struct sNode* top_level_v1(char* buf, char* head, int head_sline, struct sInfo*  info  );
 struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*  info  );

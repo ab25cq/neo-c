@@ -965,6 +965,7 @@ bool is_function_attribute_word(char* buf);
 int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* param_names, sInfo* info, bool no_var_table=false, bool loop_block=false, bool if_result_value=false, bool iter_=false, bool loop_result_type=false);
 void arrange_stack(sInfo* info, int top);
 sNode*% parse_function(sInfo* info);
+sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false);
 
 sNode*% statment(sInfo* info=info);
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 1;
