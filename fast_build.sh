@@ -2,14 +2,7 @@ sh install_pkg.sh
 
 export RM="rm -rf"
 
-MAKE_OPTS=
-for arg in "$@"
-do
-    if [ "$arg" = "--lowmem" ]
-    then
-        MAKE_OPTS="LOWMEM=1"
-    fi
-done
+MAKE_OPTS="LOWMEM=1"
 
 touch *.c
 

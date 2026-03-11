@@ -2,6 +2,8 @@ sh install_pkg.sh
 
 export RM="rm -rf"
 
+MAKE_OPTS="LOWMEM=1"
+
 if test -x ./ncc
 then
     touch *.nc
