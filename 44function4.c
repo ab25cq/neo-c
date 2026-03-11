@@ -2416,6 +2416,7 @@ void skip_spaces_and_lf(struct sInfo*  info  );
 void skip_spaces_and_lf2(struct sInfo*  info  );
 struct tuple3$3sType$phchar$ph_Bool$* parse_type(struct sInfo*  info  , _Bool parse_variable_name, _Bool parse_multiple_type, _Bool in_function_parametor);
 struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _Bool in_function);
+_Bool is_function_attribute_word(char* buf);
 int transpile_block(struct sBlock*  block  , struct list$1sType$ph* param_types, struct list$1char$ph* param_names, struct sInfo*  info  , _Bool no_var_table, _Bool loop_block, _Bool if_result_value, _Bool iter_, _Bool loop_result_type);
 void arrange_stack(struct sInfo*  info  , int top);
 struct sNode* parse_function(struct sInfo*  info  );
