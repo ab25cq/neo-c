@@ -1136,8 +1136,33 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 /// 21obj.c
 /////////////////////////////////////////////////////////////////////
 sNode*% create_implements(sNode*% node, sType* inf_type, sInfo* info=info);
+sNode*% create_new_node(sType*% type, list<tuple2<string, sNode*%>*%>*% initializer, sNode*% initializer_num, sInfo* info);
+sNode*% create_defer_node(sBlock*% block, sInfo* info=info);
 sNode*% create_true_object(sInfo* info);
 sNode*% create_false_object(sInfo* info);
+sNode*% create_delete_node(sNode*% node, sInfo* info);
+sNode*% create_borrow_node(sNode*% node, sInfo* info);
+sNode*% create_clone_node(sNode*% node, sInfo* info);
+sNode*% create_dupe_node(sNode*% node, sInfo* info);
+sNode*% create_dummy_heap_node(sNode*% node, sInfo* info);
+sNode*% create_gc_inc_node(sNode*% node, sInfo* info);
+sNode*% create_gc_dec_node(sNode*% node, sInfo* info);
+sNode*% create_gc_dec_nofree_node(sNode*% node, sInfo* info);
+sNode*% create_is_heap_node(sType* type, sInfo* info);
+sNode*% create_is_pointer_node(sType* type, sInfo* info);
+sNode*% create_optional_node(sNode*% node, sInfo* info);
+sNode*% create_ref_node(sNode*% node, sInfo* info);
+sNode*% create_span_node(sNode*% node, sInfo* info);
+sNode*% create_generic_node(sNode*% exp, list<sType*%>*% types, list<sNode*%>*% exps, sNode*% default_exp, sInfo* info);
+sNode*% create_offsetof_node(sType* type, string name, sInfo* info);
+sNode*% create_sizeof_node(sType* type, sInfo* info);
+sNode*% create_sizeof_exp_node(sNode*% exp, sInfo* info);
+sNode*% create_dynamic_typeof_node(sNode*% exp, sInfo* info);
+sNode*% create_dynamic_sizeof_exp_node(sNode*% exp, sInfo* info);
+sNode*% create_alignof_node(sType* type, sInfo* info);
+sNode*% create_alignof_exp_node(sNode*% exp, sInfo* info);
+sNode*% create_alignof_node2(sType* type, sInfo* info);
+sNode*% create_alignof_exp_node2(sNode*% exp, sInfo* info);
 
 sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 21;
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 94;
