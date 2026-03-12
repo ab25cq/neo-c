@@ -199,166 +199,166 @@ ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07functi
 	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o 
 
 neo-c-str.o: neo-c-str.c neo-c-str.h
-	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS)
 
 01main.o: 01main.c
-	$(CC) -o 01main.o -c 01main.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 01main.o -c 01main.c $(CFLAGS)
 
 02transpile.o: 02transpile.c
-	$(CC) -o 02transpile.o -c 02transpile.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 02transpile.o -c 02transpile.c $(CFLAGS)
 
 03output_code.o: 03output_code.c
-	$(CC) -o 03output_code.o -c 03output_code.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 03output_code.o -c 03output_code.c $(CFLAGS)
 
 04heap.o: 04heap.c
-	$(CC) -o 04heap.o -c 04heap.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 04heap.o -c 04heap.c $(CFLAGS)
 
 05parse.o: 05parse.c
-	$(CC) -o 05parse.o -c 05parse.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 05parse.o -c 05parse.c $(CFLAGS)
 
 06type.o: 06type.c
-	$(CC) -o 06type.o -c 06type.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 06type.o -c 06type.c $(CFLAGS)
 
 07function.o: 07function.c
-	$(CC) -o 07function.o -c 07function.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 07function.o -c 07function.c $(CFLAGS)
 
 08call.o: 08call.c
-	$(CC) -o 08call.o -c 08call.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 08call.o -c 08call.c $(CFLAGS)
 
 09pre_op.o: 09pre_op.c
-	$(CC) -o 09pre_op.o -c 09pre_op.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 09pre_op.o -c 09pre_op.c $(CFLAGS)
 
 10str.o: 10str.c
-	$(CC) -o 10str.o -c 10str.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 10str.o -c 10str.c $(CFLAGS)
 
 11number.o: 11number.c
-	$(CC) -o 11number.o -c 11number.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 11number.o -c 11number.c $(CFLAGS)
 
 12var.o: 12var.c
-	$(CC) -o 12var.o -c 12var.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 12var.o -c 12var.c $(CFLAGS)
 
 13gvar.o: 13gvar.c
-	$(CC) -o 13gvar.o -c 13gvar.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 13gvar.o -c 13gvar.c $(CFLAGS)
 
 14if.o: 14if.c
-	$(CC) -o 14if.o -c 14if.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 14if.o -c 14if.c $(CFLAGS)
 
 15while.o: 15while.c
-	$(CC) -o 15while.o -c 15while.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 15while.o -c 15while.c $(CFLAGS)
 
 16for.o: 16for.c
-	$(CC) -o 16for.o -c 16for.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 16for.o -c 16for.c $(CFLAGS)
 
 17do_while.o: 17do_while.c
-	$(CC) -o 17do_while.o -c 17do_while.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 17do_while.o -c 17do_while.c $(CFLAGS)
 
 18switch.o: 18switch.c
-	$(CC) -o 18switch.o -c 18switch.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 18switch.o -c 18switch.c $(CFLAGS)
 
 19struct.o: 19struct.c
-	$(CC) -o 19struct.o -c 19struct.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 19struct.o -c 19struct.c $(CFLAGS)
 
 20union.o: 20union.c
-	$(CC) -o 20union.o -c 20union.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 20union.o -c 20union.c $(CFLAGS)
 
 21enum.o: 21enum.c
-	$(CC) -o 21enum.o -c 21enum.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 21enum.o -c 21enum.c $(CFLAGS)
 
 22typedef.o: 22typedef.c
-	$(CC) -o 22typedef.o -c 22typedef.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 22typedef.o -c 22typedef.c $(CFLAGS)
 
 23field.o: 23field.c
-	$(CC) -o 23field.o -c 23field.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 23field.o -c 23field.c $(CFLAGS)
 
 24method.o: 24method.c
-	$(CC) -o 24method.o -c 24method.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 24method.o -c 24method.c $(CFLAGS)
 
 25obj.o: 25obj.c
-	$(CC) -o 25obj.o -c 25obj.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 25obj.o -c 25obj.c $(CFLAGS)
 
 26eq.o: 26eq.c
-	$(CC) -o 26eq.o -c 26eq.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 26eq.o -c 26eq.c $(CFLAGS)
 
 27impl.o: 27impl.c
-	$(CC) -o 27impl.o -c 27impl.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 27impl.o -c 27impl.c $(CFLAGS)
 
 28interface.o: 28interface.c
-	$(CC) -o 28interface.o -c 28interface.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 28interface.o -c 28interface.c $(CFLAGS)
 
 29module.o: 29module.c
-	$(CC) -o 29module.o -c 29module.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 29module.o -c 29module.c $(CFLAGS)
 
 30op.o: 30op.c
-	$(CC) -o 30op.o -c 30op.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 30op.o -c 30op.c $(CFLAGS)
 
 31type2.o: 31type2.c
-	$(CC) -o 31type2.o -c 31type2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 31type2.o -c 31type2.c $(CFLAGS)
 
 32function2.o: 32function2.c
-	$(CC) -o 32function2.o -c 32function2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 32function2.o -c 32function2.c $(CFLAGS)
 
 33output_code2.o: 33output_code2.c
-	$(CC) -o 33output_code2.o -c 33output_code2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 33output_code2.o -c 33output_code2.c $(CFLAGS)
 
 34heap2.o: 34heap2.c
-	$(CC) -o 34heap2.o -c 34heap2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 34heap2.o -c 34heap2.c $(CFLAGS)
 
 35call2.o: 35call2.c
-	$(CC) -o 35call2.o -c 35call2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 35call2.o -c 35call2.c $(CFLAGS)
 
 36str2.o: 36str2.c
-	$(CC) -o 36str2.o -c 36str2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 36str2.o -c 36str2.c $(CFLAGS)
 
 37var2.o: 37var2.c
-	$(CC) -o 37var2.o -c 37var2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 37var2.o -c 37var2.c $(CFLAGS)
 
 38struct2.o: 38struct2.c
-	$(CC) -o 38struct2.o -c 38struct2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 38struct2.o -c 38struct2.c $(CFLAGS)
 
 39method2.o: 39method2.c
-	$(CC) -o 39method2.o -c 39method2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 39method2.o -c 39method2.c $(CFLAGS)
 
 40obj2.o: 40obj2.c
-	$(CC) -o 40obj2.o -c 40obj2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 40obj2.o -c 40obj2.c $(CFLAGS)
 
 41module2.o: 41module2.c
-	$(CC) -o 41module2.o -c 41module2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 41module2.o -c 41module2.c $(CFLAGS)
 
 42op2.o: 42op2.c
-	$(CC) -o 42op2.o -c 42op2.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 42op2.o -c 42op2.c $(CFLAGS)
 
 43function3.o: 43function3.c
-	$(CC) -o 43function3.o -c 43function3.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 43function3.o -c 43function3.c $(CFLAGS)
 
 44function4.o: 44function4.c
-	$(CC) -o 44function4.o -c 44function4.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 44function4.o -c 44function4.c $(CFLAGS)
 
 45function5.o: 45function5.c
-	$(CC) -o 45function5.o -c 45function5.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 45function5.o -c 45function5.c $(CFLAGS)
 
 46function6.o: 46function6.c
-	$(CC) -o 46function6.o -c 46function6.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 46function6.o -c 46function6.c $(CFLAGS)
 
 47function7.o: 47function7.c
-	$(CC) -o 47function7.o -c 47function7.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 47function7.o -c 47function7.c $(CFLAGS)
 
 48function8.o: 48function8.c
-	$(CC) -o 48function8.o -c 48function8.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 48function8.o -c 48function8.c $(CFLAGS)
 
 49call3.o: 49call3.c
-	$(CC) -o 49call3.o -c 49call3.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 49call3.o -c 49call3.c $(CFLAGS)
 
 50call4.o: 50call4.c
-	$(CC) -o 50call4.o -c 50call4.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 50call4.o -c 50call4.c $(CFLAGS)
 
 51str3.o: 51str3.c
-	$(CC) -o 51str3.o -c 51str3.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 51str3.o -c 51str3.c $(CFLAGS)
 
 52obj3.o: 52obj3.c
-	$(CC) -o 52obj3.o -c 52obj3.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 52obj3.o -c 52obj3.c $(CFLAGS)
 
 53obj4.o: 53obj4.c
-	$(CC) -o 53obj4.o -c 53obj4.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o 53obj4.o -c 53obj4.c $(CFLAGS)
 
 ccpp.o: ccpp.c
 	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS)
