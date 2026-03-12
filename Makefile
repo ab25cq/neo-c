@@ -5,7 +5,12 @@ DESTDIR=/usr/local
 CFLAGS_OPT=
 CC=clang
 INSTALL=/usr/bin/install -c
-CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_OPT) -std=c11 # -O2 #-g -Og
+CC_NAME=$(notdir $(firstword $(CC)))
+CFLAGS_COMPILER=
+ifeq ($(CC_NAME),gcc)
+CFLAGS_COMPILER+=-fpermissive
+endif
+CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_OPT) $(CFLAGS_COMPILER) -std=c11 # -O2 #-g -Og
 LIBS= -lutil -ldl -lm -lrt
 UNAME_S=$(shell uname -s)
 NCC_FLAGS=
