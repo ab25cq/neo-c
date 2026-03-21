@@ -11,6 +11,65 @@ bool gComelang = false;
 bool gComeSafe = false;
 bool gPortableC = false;
 bool gComeLowMemory = false;
+bool gComeKeepPreprocessedFile = false;
+
+static bool gHostInfoInitialized = false;
+static bool gHostIsMac = false;
+static bool gHostIsAndroid = false;
+static bool gHostIsRaspberryPi = false;
+static bool gHostIs32BitCpu = false;
+
+static bool host_file_contains(const char* path, const char* keyword)
+{
+    FILE* f = fopen(path, "r");
+    if(f == null) {
+        return false;
+    }
+    
+    bool result = false;
+    char buf[1024];
+    
+    while(fgets(buf, sizeof(buf), f)) {
+        if(strstr(buf, keyword)) {
+            result = true;
+            break;
+        }
+    }
+    
+    fclose(f);
+    
+    return result;
+}
+
+static void init_host_info()
+{
+    if(gHostInfoInitialized) {
+        return;
+    }
+    
+#if defined(__APPLE__)
+    gHostIsMac = true;
+#endif
+
+#if defined(__ANDROID__)
+    gHostIsAndroid = true;
+#endif
+
+    gHostIs32BitCpu = sizeof(void*) == 4;
+    gHostIsRaspberryPi = host_file_contains("/proc/device-tree/model", "Raspberry Pi")
+        || host_file_contains("/proc/cpuinfo", "Raspberry Pi");
+    
+    gHostInfoInitialized = true;
+}
+
+static string get_cpp_output_file_name(sInfo* info)
+{
+    if(info.output_file_name) {
+        return info.output_file_name + ".i";
+    }
+    
+    return info.sname + ".i";
+}
 
 bool require_explicit_method_in_low_memory_mode(sType* type, const char* fun_name, sInfo* info=info)
 {
@@ -137,42 +196,37 @@ bool transpile_conditional_with_free_right_object_value(sNode* node, sInfo* info
 static bool cpp(sInfo* info)
 {
     string input_file_name = info.sname;
-    
-    string output_file_name;
-    if(info.output_file_name) {
-        output_file_name = info.output_file_name + ".i";
+    string output_file_name = get_cpp_output_file_name(info);
+    FILE* out = null;
+    char* source_data = null;
+    size_t source_size = 0;
+    bool use_memstream = false;
+
+#if defined(__linux__) || defined(__ANDROID__)
+    if(!gComeLowMemory) {
+        out = open_memstream(&source_data, &source_size);
+        use_memstream = out != null;
     }
-    else {
-        output_file_name = info.sname + ".i";
-    }
-    
-    FILE* out = fopen(output_file_name, "w");
-    if(out == null) {
-        puts(s"CAN'T OPEN CPP OUTPUT FILE \{output_file_name}");
-        exit(1);
+#endif
+
+    if(!use_memstream) {
+        out = fopen(output_file_name, "w");
+        if(out == null) {
+            puts(s"CAN'T OPEN CPP OUTPUT FILE \{output_file_name}");
+            exit(1);
+        }
     }
 
-    int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
-    int is_android = system("uname -a | grep Android 1> /dev/null 2>/dev/null") == 0;
-    int is_arm64 = system("uname -a | grep arm64 1> /dev/null 2> /dev/null") == 0;
+    init_host_info();
+    
+    int is_mac = gHostIsMac;
+    int is_android = gHostIsAndroid;
     int is_m5stack = info.m5stack_cpp; // M5Stack?
     int is_pico = info.pico_cpp; // PICO?
     int is_baremetal = info.baremetal_cpp; // BAREMETAL?
-    int is_linux = 1;
     
-    bool _32bit = false;
-    FILE* f = fopen("/proc/cpuinfo", "r");
-    int is_raspi;
-    if(f) {
-        fclose(f);
-        is_raspi = system("cat /proc/cpuinfo | grep 'Model' | grep 'Raspberry Pi' > /dev/null 2> /dev/null ") == 0;
-        if(is_raspi) {
-            _32bit = system(" lscpu | grep armv7l > /dev/null 2> /dev/null ") == 0;
-        }
-    }
-    else {
-        is_raspi = 0;
-    }
+    bool _32bit = gHostIs32BitCpu;
+    int is_raspi = gHostIsRaspberryPi;
     
     if(is_pico || is_m5stack) {
         _32bit = true;
@@ -207,6 +261,23 @@ static bool cpp(sInfo* info)
     preprocess_file_neo_c(input_file_name, out);
     
     fclose(out);
+
+    if(use_memstream) {
+        info.source = source_data.to_buffer();
+        
+        if(gComeKeepPreprocessedFile) {
+            source_data.write(output_file_name);
+        }
+        
+        free(source_data);
+    }
+    else {
+        info.source = output_file_name.read();
+        
+        if(!gComeKeepPreprocessedFile) {
+            remove(output_file_name);
+        }
+    }
     
     return true;
 }
@@ -247,7 +318,9 @@ static void init_classes(sInfo* info)
     //type__->mUnsigned = true;
     //(void)add_typedef(s"uint64_t", type__, info);
     
-    int is_mac = system("uname -a | grep Darwin 1> /dev/null 2>/dev/null") == 0;
+    init_host_info();
+    
+    int is_mac = gHostIsMac;
     if(is_mac) {
         info.classes.insert(string("__builtin_va_list"), new sClass(s"__builtin_va_list", number:true));
         
@@ -335,6 +408,9 @@ static void init_classes(sInfo* info)
         else if(argv[i] === "-lowmem") {
             gComeLowMemory = true;
         }
+        else if(argv[i] === "-E") {
+            gComeKeepPreprocessedFile = true;
+        }
         else if(ext_name === "nc") {
             files.push_back(string(argv[i]));
         }
@@ -400,7 +476,6 @@ int come_main(int argc, char** argv)
             exit(2);
         }
 
-        info.source = xsprintf("%s.i", it).read();
         info.p = span borrow info.source;
         info.head = borrow info.source.buf;
         info.end = info.source.buf + info.source.len;

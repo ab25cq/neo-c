@@ -2,6 +2,8 @@
 # environmnet variables
 #########################################
 DESTDIR=/usr/local
+DEFAULT_CFLAGS_OPT?=-O2
+CFLAGS_DEFAULT_OPT=$(DEFAULT_CFLAGS_OPT)
 CFLAGS_OPT=
 CC=clang
 INSTALL=/usr/bin/install -c
@@ -10,13 +12,14 @@ CFLAGS_COMPILER=
 ifeq ($(CC_NAME),gcc)
 CFLAGS_COMPILER+=-fpermissive
 endif
-CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_OPT) $(CFLAGS_COMPILER) -std=c11 # -O2 #-g -Og
+CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_DEFAULT_OPT) $(CFLAGS_OPT) $(CFLAGS_COMPILER) -std=c11 # -g -Og
 LIBS= -lutil -ldl -lm -lrt
 UNAME_S=$(shell uname -s)
 NCC_FLAGS=
 LOWMEM?=0
 .PHONY: all self-host install clean distclean uninstall test
 ifeq ($(LOWMEM),1)
+CFLAGS_DEFAULT_OPT=
 NCC_FLAGS+=-lowmem
 endif
 ifeq ($(UNAME_S),Darwin)
