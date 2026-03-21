@@ -13,6 +13,198 @@ bool parsecmp(const char* p2, sInfo* info=info)
     return (xispunct(c) || c == ' ' || c == '\t' || c == '\n' || c == '\0' || c == '\r') && c != '_';
 }
 
+static inline bool is_parsecmp_tail_char(unsigned char c)
+{
+    return (xispunct(c) || c == ' ' || c == '\t' || c == '\n' || c == '\0' || c == '\r') && c != '_';
+}
+
+#define MATCH_COMMON_ATTRIBUTE(keyword) (len == (sizeof(keyword)-1) && memcmp(p, keyword, sizeof(keyword)-1) == 0)
+
+int match_common_attribute_keyword_len(const char* p)
+{
+    if(p == null || p[0] != '_' || p[1] != '_') {
+        return 0;
+    }
+    
+    int len = 0;
+    while(xisalnum(p[len]) || p[len] == '_') {
+        len++;
+    }
+    
+    if(len < 5 || !is_parsecmp_tail_char(p[len])) {
+        return 0;
+    }
+    
+    switch(p[2]) {
+        case 'a':
+            if(MATCH_COMMON_ATTRIBUTE("__aligned")
+                || MATCH_COMMON_ATTRIBUTE("__aligned_largest")
+                || MATCH_COMMON_ATTRIBUTE("__aligned_u64")
+                || MATCH_COMMON_ATTRIBUTE("__alias")
+                || MATCH_COMMON_ATTRIBUTE("__alloc_align")
+                || MATCH_COMMON_ATTRIBUTE("__always_inline")
+                || MATCH_COMMON_ATTRIBUTE("__always_unused")
+                || MATCH_COMMON_ATTRIBUTE("__assume_aligned"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'c':
+            if(MATCH_COMMON_ATTRIBUTE("__cleanup")
+                || MATCH_COMMON_ATTRIBUTE("__cold")
+                || MATCH_COMMON_ATTRIBUTE("__constructor"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'd':
+            if(MATCH_COMMON_ATTRIBUTE("__deprecated")
+                || MATCH_COMMON_ATTRIBUTE("__destructor"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'e':
+            if(MATCH_COMMON_ATTRIBUTE("__error")
+                || MATCH_COMMON_ATTRIBUTE("__exit")
+                || MATCH_COMMON_ATTRIBUTE("__exitconst")
+                || MATCH_COMMON_ATTRIBUTE("__exitdata"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'f':
+            if(MATCH_COMMON_ATTRIBUTE("__flatten")
+                || MATCH_COMMON_ATTRIBUTE("__format")
+                || MATCH_COMMON_ATTRIBUTE("__format_arg"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'h':
+            if(MATCH_COMMON_ATTRIBUTE("__hot")) {
+                return len;
+            }
+            break;
+        
+        case 'i':
+            if(MATCH_COMMON_ATTRIBUTE("__init")
+                || MATCH_COMMON_ATTRIBUTE("__init_rodata")
+                || MATCH_COMMON_ATTRIBUTE("__initconst")
+                || MATCH_COMMON_ATTRIBUTE("__initdata"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'l':
+            if(MATCH_COMMON_ATTRIBUTE("__latent_entropy")
+                || MATCH_COMMON_ATTRIBUTE("__leaf"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'm':
+            if(MATCH_COMMON_ATTRIBUTE("__malloc")
+                || MATCH_COMMON_ATTRIBUTE("__maybe_unused")
+                || MATCH_COMMON_ATTRIBUTE("__meminit")
+                || MATCH_COMMON_ATTRIBUTE("__meminitconst")
+                || MATCH_COMMON_ATTRIBUTE("__meminitdata")
+                || MATCH_COMMON_ATTRIBUTE("__must_check"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'n':
+            if(MATCH_COMMON_ATTRIBUTE("__naked")
+                || MATCH_COMMON_ATTRIBUTE("__noclone")
+                || MATCH_COMMON_ATTRIBUTE("__no_instrument_function")
+                || MATCH_COMMON_ATTRIBUTE("__no_profile")
+                || MATCH_COMMON_ATTRIBUTE("__no_sanitize")
+                || MATCH_COMMON_ATTRIBUTE("__no_sanitize_address")
+                || MATCH_COMMON_ATTRIBUTE("__no_sanitize_coverage")
+                || MATCH_COMMON_ATTRIBUTE("__no_sanitize_thread")
+                || MATCH_COMMON_ATTRIBUTE("__noinline"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'o':
+            if(MATCH_COMMON_ATTRIBUTE("__optimize")) {
+                return len;
+            }
+            break;
+        
+        case 'p':
+            if(MATCH_COMMON_ATTRIBUTE("__packed")
+                || MATCH_COMMON_ATTRIBUTE("__percpu"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'r':
+            if(MATCH_COMMON_ATTRIBUTE("__read_mostly")
+                || MATCH_COMMON_ATTRIBUTE("__ref")
+                || MATCH_COMMON_ATTRIBUTE("__returns_nonnull")
+                || MATCH_COMMON_ATTRIBUTE("__ro_after_init"))
+            {
+                return len;
+            }
+            break;
+        
+        case 's':
+            if(MATCH_COMMON_ATTRIBUTE("__scanf")
+                || MATCH_COMMON_ATTRIBUTE("__section"))
+            {
+                return len;
+            }
+            break;
+        
+        case 't':
+            if(MATCH_COMMON_ATTRIBUTE("__target")) {
+                return len;
+            }
+            break;
+        
+        case 'u':
+            if(MATCH_COMMON_ATTRIBUTE("__unused")
+                || MATCH_COMMON_ATTRIBUTE("__used"))
+            {
+                return len;
+            }
+            break;
+        
+        case 'v':
+            if(MATCH_COMMON_ATTRIBUTE("__visibility")) {
+                return len;
+            }
+            break;
+        
+        case 'w':
+            if(MATCH_COMMON_ATTRIBUTE("__warn_unused_result")
+                || MATCH_COMMON_ATTRIBUTE("__warning")
+                || MATCH_COMMON_ATTRIBUTE("__weak")
+                || MATCH_COMMON_ATTRIBUTE("__weak_ref"))
+            {
+                return len;
+            }
+            break;
+    }
+    
+    return 0;
+}
+
+#undef MATCH_COMMON_ATTRIBUTE
+
 int err_msg(sInfo* info, const char* msg, ...)
 {
     if(!info.no_output_come_code) {

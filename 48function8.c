@@ -2401,6 +2401,7 @@ struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType*  t
 struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType*  type  , const char* fun_name, struct sInfo*  info  );
 char*  skip_block(struct sInfo*  info  , _Bool return_self_at_last);
 _Bool parsecmp(const char* p2, struct sInfo*  info  );
+int match_common_attribute_keyword_len(const char* p);
 char*  parse_word(_Bool digits, struct sInfo*  info  );
 char*  backtrace_parse_word(struct sInfo*  info  );
 void skip_spaces_and_lf(struct sInfo*  info  );

@@ -2390,6 +2390,7 @@ struct tuple2$2sFun$pchar$ph* create_not_equals_automatically(struct sType*  typ
 struct tuple2$2sFun$pchar$ph* create_get_hash_key_automatically(struct sType*  type  , const char* fun_name, struct sInfo*  info  );
 struct tuple2$2sFun$pchar$ph* create_compare_automatically(struct sType*  type  , const char* fun_name, struct sInfo*  info  );
 _Bool parsecmp(const char* p2, struct sInfo*  info  );
+int match_common_attribute_keyword_len(const char* p);
 char*  parse_word(_Bool digits, struct sInfo*  info  );
 char*  backtrace_parse_word(struct sInfo*  info  );
 void skip_spaces_and_lf(struct sInfo*  info  );
@@ -2911,244 +2912,21 @@ _Bool parse_function_attribute_keyword(struct buffer*  result  , const char* key
 _Bool parse_common_function_attribute_keyword(struct buffer*  result  , struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parse_common_function_attribute_keyword"; neo_current_frame = &fr;
-    if(parse_function_attribute_keyword(result,"__aligned_largest",info)) {
+    int keyword_len;
+    char* head;
+    char* tail;
+    keyword_len=match_common_attribute_keyword_len(info->p);
+    if(keyword_len==0) {
                 neo_current_frame = fr.prev;
-        return (_Bool)1;
+        return (_Bool)0;
     }
-    else if(parse_function_attribute_keyword(result,"__aligned_u64",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__aligned",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__section",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__visibility",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__alias",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__format_arg",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__format",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__printf",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__scanf",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__assume_aligned",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__cleanup",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__optimize",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__target",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__error",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__warning",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__no_sanitize_address",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__no_sanitize_thread",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__no_sanitize_coverage",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__no_sanitize",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__constructor",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__destructor",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__packed",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__used",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__unused",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__maybe_unused",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__always_unused",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__deprecated",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__cold",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__hot",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__weak_ref",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__weak",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__noinline",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__always_inline",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__flatten",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__leaf",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__naked",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__noclone",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__no_profile",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__no_instrument_function",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__warn_unused_result",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__must_check",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__returns_nonnull",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__malloc",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__init",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__initdata",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__initconst",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__init_rodata",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__exit",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__exitdata",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__exitconst",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__ref",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__meminit",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__meminitdata",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__meminitconst",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__ro_after_init",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__read_mostly",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__latent_entropy",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
-    else if(parse_function_attribute_keyword(result,"__percpu",info)) {
-                neo_current_frame = fr.prev;
-        return (_Bool)1;
-    }
+    head=info->p;
+    info->p+=keyword_len;
+    parse_function_attribute_skip_paren(info);
+    tail=info->p;
+    buffer_append(result,head,tail-head);
         neo_current_frame = fr.prev;
-    return (_Bool)0;
+    return (_Bool)1;
     neo_current_frame = fr.prev;
 }
 
@@ -3205,10 +2983,10 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
     struct tuple2$2char$phchar$ph* __result_obj__0;
-    asm_fun_name=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 546, 8, "struct buffer* "), "07function.nc", 546, 9)), "07function.nc", 546, 10);
+    asm_fun_name=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 381, 8, "struct buffer* "), "07function.nc", 381, 9)), "07function.nc", 381, 10);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 547, 11, "struct buffer* "), "07function.nc", 547, 12)), "07function.nc", 547, 13);
+    result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 382, 11, "struct buffer* "), "07function.nc", 382, 12)), "07function.nc", 382, 13);
     while((_Bool)1) {
         if(parsecmp("__attribute__",info)) {
             head=info->p;
@@ -3219,14 +2997,14 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
         }
         else if(parsecmp("__declspec",info)) {
             __right_value0 = (void*)0;
-            attr=(char* )come_increment_ref_count(parse_declspec_attribute(info), "07function.nc", 561, 14);
+            attr=(char* )come_increment_ref_count(parse_declspec_attribute(info), "07function.nc", 396, 14);
             if(string_operator_not_equals(attr,"")) {
                 if(buffer_length(result)>0) {
                     buffer_append_str(result," ");
                 }
                 buffer_append_str(result,attr);
             }
-            (attr = come_decrement_ref_count(attr, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 804, 15));
+            (attr = come_decrement_ref_count(attr, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 639, 15));
         }
         else if(parsecmp("_Noreturn",info)) {
             head_0=info->p;
@@ -3403,12 +3181,12 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
     }
         __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    __result_obj__0 = (struct tuple2$2char$phchar$ph*)come_increment_ref_count(((struct tuple2$2char$phchar$ph*)(__right_value3=tuple2$2char$phchar$ph_initialize((struct tuple2$2char$phchar$ph*)come_increment_ref_count((struct tuple2$2char$phchar$ph*)come_calloc(1, sizeof(struct tuple2$2char$phchar$ph)*(1), "07function.nc", 806, 16, "struct tuple2$2char$phchar$ph"), "07function.nc", 806, 28),(char* )come_increment_ref_count(buffer_to_string(asm_fun_name), "07function.nc", 806, 29),(char* )come_increment_ref_count(buffer_to_string(result), "07function.nc", 806, 30)))), "07function.nc", 806, 31);
-    come_call_finalizer(buffer_finalize, asm_fun_name, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 806, 32);
-    come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 806, 33);
-    come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 806, 34);
+    __result_obj__0 = (struct tuple2$2char$phchar$ph*)come_increment_ref_count(((struct tuple2$2char$phchar$ph*)(__right_value3=tuple2$2char$phchar$ph_initialize((struct tuple2$2char$phchar$ph*)come_increment_ref_count((struct tuple2$2char$phchar$ph*)come_calloc(1, sizeof(struct tuple2$2char$phchar$ph)*(1), "07function.nc", 641, 16, "struct tuple2$2char$phchar$ph"), "07function.nc", 641, 28),(char* )come_increment_ref_count(buffer_to_string(asm_fun_name), "07function.nc", 641, 29),(char* )come_increment_ref_count(buffer_to_string(result), "07function.nc", 641, 30)))), "07function.nc", 641, 31);
+    come_call_finalizer(buffer_finalize, asm_fun_name, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 641, 32);
+    come_call_finalizer(buffer_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 641, 33);
+    come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __right_value3, (void*)0, (void*)0, 0, 1, 0, (void*)0, "07function.nc}", 641, 34);
     neo_current_frame = fr.prev;
-    come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "07function.nc}", 806, 35);
+    come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "07function.nc}", 641, 35);
     return __result_obj__0;
 }
 
@@ -3459,8 +3237,8 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
     _Bool Value;
     while(*info->p) {
         __dec_obj3=info->sname_at_head,
-        info->sname_at_head=(char* )come_increment_ref_count((char* )come_memdup(info->sname, "07function.nc", 813, 36, "char* "), "07function.nc", 813, 38);
-        __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 813, 37);
+        info->sname_at_head=(char* )come_increment_ref_count((char* )come_memdup(info->sname, "07function.nc", 648, 36, "char* "), "07function.nc", 648, 38);
+        __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 648, 37);
         skip_spaces_and_lf(info);
         if(*info->p==0) {
             break;
@@ -3481,24 +3259,24 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
         if(*info->p==91&&*(info->p+1)==91) {
             __right_value0 = (void*)0;
             __dec_obj4=buf,
-            buf=(char*)come_increment_ref_count(xsprintf("__attribute__"), "07function.nc", 834, 40);
-            __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 834, 39);
+            buf=(char*)come_increment_ref_count(xsprintf("__attribute__"), "07function.nc", 669, 40);
+            __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 669, 39);
         }
         else {
             __right_value0 = (void*)0;
             __dec_obj5=buf,
-            buf=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 837, 42);
-            __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 837, 41);
+            buf=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "07function.nc", 672, 42);
+            __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 672, 41);
         }
         skip_spaces_and_lf(info);
         if(block&&*info->p==125) {
             info->p++;
             skip_spaces_and_lf(info);
-            (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 845, 43));
+            (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 680, 43));
             break;
         }
         __right_value0 = (void*)0;
-        node=(struct sNode*)come_increment_ref_count(top_level_v99(buf,head,head_sline,info), "07function.nc", 848, 44);
+        node=(struct sNode*)come_increment_ref_count(top_level_v99(buf,head,head_sline,info), "07function.nc", 683, 44);
         skip_spaces_and_lf(info);
         while(*info->p==59) {
             info->p++;
@@ -3516,12 +3294,12 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
         if(block&&*info->p==125) {
             info->p++;
             skip_spaces_and_lf(info);
-            (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 870, 45));
-            ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 870, 46):(void*)0);
+            (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 705, 45));
+            ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 705, 46):(void*)0);
             break;
         }
-        (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 873, 47));
-        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 873, 48):(void*)0);
+        (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 708, 47));
+        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 708, 48):(void*)0);
     }
     neo_current_frame = fr.prev;
 }
@@ -3546,57 +3324,57 @@ int transpile(struct sInfo*  info  )
     struct sFun* fun_54;
     skip_spaces_and_lf(info);
     {
-        name=(char* )come_increment_ref_count(__builtin_string("__builtin_va_start","07function.nc",880), "07function.nc", 880, 49);
+        name=(char* )come_increment_ref_count(__builtin_string("__builtin_va_start","07function.nc",715), "07function.nc", 715, 49);
         __right_value0 = (void*)0;
-        result_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "07function.nc", 881, 50, "struct sType* "), "07function.nc", 881, 51),(char*)come_increment_ref_count(xsprintf("void"), "07function.nc", 881, 52),(_Bool)0,info,(_Bool)0,0), "07function.nc", 881, 53);
-        __right_value0 = (void*)0;
-        __right_value1 = (void*)0;
-        param_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "07function.nc", 882, 54, "struct list$1sType$ph*"), "07function.nc", 882, 90)), "07function.nc", 882, 91);
+        result_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "07function.nc", 716, 50, "struct sType* "), "07function.nc", 716, 51),(char*)come_increment_ref_count(xsprintf("void"), "07function.nc", 716, 52),(_Bool)0,info,(_Bool)0,0), "07function.nc", 716, 53);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        param_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 883, 92, "struct list$1char$ph*"), "07function.nc", 883, 96)), "07function.nc", 883, 97);
+        param_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "07function.nc", 717, 54, "struct list$1sType$ph*"), "07function.nc", 717, 90)), "07function.nc", 717, 91);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 884, 98, "struct list$1char$ph*"), "07function.nc", 884, 99)), "07function.nc", 884, 100);
+        param_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 718, 92, "struct list$1char$ph*"), "07function.nc", 718, 96)), "07function.nc", 718, 97);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        fun=(struct sFun*)come_increment_ref_count(sFun_initialize((struct sFun* )come_increment_ref_count((struct sFun *)come_calloc(1, sizeof(struct sFun )*(1), "07function.nc", 885, 101, "struct sFun* "), "07function.nc", 888, 102),(char* )come_increment_ref_count(name, "07function.nc", 888, 103),(struct sType*)come_increment_ref_count(result_type, "07function.nc", 888, 104),(struct list$1sType$ph*)come_increment_ref_count(param_types, "07function.nc", 888, 105),(struct list$1char$ph*)come_increment_ref_count(param_names, "07function.nc", 888, 106),(struct list$1char$ph*)come_increment_ref_count(param_default_parametors, "07function.nc", 888, 107),(_Bool)1,(_Bool)1,((void*)0),(_Bool)0,info,(_Bool)0,(_Bool)0,(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 888, 108),(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 888, 109),(_Bool)0,((void*)0),((void*)0),0,(_Bool)0,(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 888, 110)), "07function.nc", 888, 111);
+        param_default_parametors=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 719, 98, "struct list$1char$ph*"), "07function.nc", 719, 99)), "07function.nc", 719, 100);
         __right_value0 = (void*)0;
-        map$2char$phsFun$ph_insert(info->funcs,(char* )come_increment_ref_count(__builtin_string(name,"07function.nc",890), "07function.nc", 890, 196),(struct sFun*)come_increment_ref_count(fun, "07function.nc", 890, 197),(_Bool)0);
-        (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 892, 198));
-        come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 892, 199);
-        come_call_finalizer(list$1sType$ph$p_finalize, param_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 892, 200);
-        come_call_finalizer(list$1char$ph$p_finalize, param_names, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 892, 201);
-        come_call_finalizer(list$1char$ph$p_finalize, param_default_parametors, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 892, 202);
-        come_call_finalizer(sFun_finalize, fun, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 892, 203);
+        __right_value1 = (void*)0;
+        fun=(struct sFun*)come_increment_ref_count(sFun_initialize((struct sFun* )come_increment_ref_count((struct sFun *)come_calloc(1, sizeof(struct sFun )*(1), "07function.nc", 720, 101, "struct sFun* "), "07function.nc", 723, 102),(char* )come_increment_ref_count(name, "07function.nc", 723, 103),(struct sType*)come_increment_ref_count(result_type, "07function.nc", 723, 104),(struct list$1sType$ph*)come_increment_ref_count(param_types, "07function.nc", 723, 105),(struct list$1char$ph*)come_increment_ref_count(param_names, "07function.nc", 723, 106),(struct list$1char$ph*)come_increment_ref_count(param_default_parametors, "07function.nc", 723, 107),(_Bool)1,(_Bool)1,((void*)0),(_Bool)0,info,(_Bool)0,(_Bool)0,(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 723, 108),(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 723, 109),(_Bool)0,((void*)0),((void*)0),0,(_Bool)0,(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 723, 110)), "07function.nc", 723, 111);
+        __right_value0 = (void*)0;
+        map$2char$phsFun$ph_insert(info->funcs,(char* )come_increment_ref_count(__builtin_string(name,"07function.nc",725), "07function.nc", 725, 196),(struct sFun*)come_increment_ref_count(fun, "07function.nc", 725, 197),(_Bool)0);
+        (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 727, 198));
+        come_call_finalizer(sType_finalize, result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 727, 199);
+        come_call_finalizer(list$1sType$ph$p_finalize, param_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 727, 200);
+        come_call_finalizer(list$1char$ph$p_finalize, param_names, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 727, 201);
+        come_call_finalizer(list$1char$ph$p_finalize, param_default_parametors, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 727, 202);
+        come_call_finalizer(sFun_finalize, fun, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 727, 203);
     }
     {
         __right_value0 = (void*)0;
-        name_49=(char* )come_increment_ref_count(__builtin_string("__builtin_va_end","07function.nc",893), "07function.nc", 893, 204);
+        name_49=(char* )come_increment_ref_count(__builtin_string("__builtin_va_end","07function.nc",728), "07function.nc", 728, 204);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        result_type_50=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "07function.nc", 894, 205, "struct sType* "), "07function.nc", 894, 206),(char*)come_increment_ref_count(xsprintf("void"), "07function.nc", 894, 207),(_Bool)0,info,(_Bool)0,0), "07function.nc", 894, 208);
+        result_type_50=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "07function.nc", 729, 205, "struct sType* "), "07function.nc", 729, 206),(char*)come_increment_ref_count(xsprintf("void"), "07function.nc", 729, 207),(_Bool)0,info,(_Bool)0,0), "07function.nc", 729, 208);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        param_types_51=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "07function.nc", 895, 209, "struct list$1sType$ph*"), "07function.nc", 895, 210)), "07function.nc", 895, 211);
+        param_types_51=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "07function.nc", 730, 209, "struct list$1sType$ph*"), "07function.nc", 730, 210)), "07function.nc", 730, 211);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        param_names_52=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 896, 212, "struct list$1char$ph*"), "07function.nc", 896, 213)), "07function.nc", 896, 214);
+        param_names_52=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 731, 212, "struct list$1char$ph*"), "07function.nc", 731, 213)), "07function.nc", 731, 214);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        param_default_parametors_53=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 897, 215, "struct list$1char$ph*"), "07function.nc", 897, 216)), "07function.nc", 897, 217);
+        param_default_parametors_53=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "07function.nc", 732, 215, "struct list$1char$ph*"), "07function.nc", 732, 216)), "07function.nc", 732, 217);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        fun_54=(struct sFun*)come_increment_ref_count(sFun_initialize((struct sFun* )come_increment_ref_count((struct sFun *)come_calloc(1, sizeof(struct sFun )*(1), "07function.nc", 898, 218, "struct sFun* "), "07function.nc", 901, 219),(char* )come_increment_ref_count(name_49, "07function.nc", 901, 220),(struct sType*)come_increment_ref_count(result_type_50, "07function.nc", 901, 221),(struct list$1sType$ph*)come_increment_ref_count(param_types_51, "07function.nc", 901, 222),(struct list$1char$ph*)come_increment_ref_count(param_names_52, "07function.nc", 901, 223),(struct list$1char$ph*)come_increment_ref_count(param_default_parametors_53, "07function.nc", 901, 224),(_Bool)1,(_Bool)1,((void*)0),(_Bool)0,info,(_Bool)0,(_Bool)0,(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 901, 225),(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 901, 226),(_Bool)0,((void*)0),((void*)0),0,(_Bool)0,(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 901, 227)), "07function.nc", 901, 228);
+        fun_54=(struct sFun*)come_increment_ref_count(sFun_initialize((struct sFun* )come_increment_ref_count((struct sFun *)come_calloc(1, sizeof(struct sFun )*(1), "07function.nc", 733, 218, "struct sFun* "), "07function.nc", 736, 219),(char* )come_increment_ref_count(name_49, "07function.nc", 736, 220),(struct sType*)come_increment_ref_count(result_type_50, "07function.nc", 736, 221),(struct list$1sType$ph*)come_increment_ref_count(param_types_51, "07function.nc", 736, 222),(struct list$1char$ph*)come_increment_ref_count(param_names_52, "07function.nc", 736, 223),(struct list$1char$ph*)come_increment_ref_count(param_default_parametors_53, "07function.nc", 736, 224),(_Bool)1,(_Bool)1,((void*)0),(_Bool)0,info,(_Bool)0,(_Bool)0,(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 736, 225),(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 736, 226),(_Bool)0,((void*)0),((void*)0),0,(_Bool)0,(char*)come_increment_ref_count(xsprintf(""), "07function.nc", 736, 227)), "07function.nc", 736, 228);
         __right_value0 = (void*)0;
-        map$2char$phsFun$ph_insert(info->funcs,(char* )come_increment_ref_count(__builtin_string(name_49,"07function.nc",903), "07function.nc", 903, 229),(struct sFun*)come_increment_ref_count(fun_54, "07function.nc", 903, 230),(_Bool)0);
-        (name_49 = come_decrement_ref_count(name_49, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 905, 231));
-        come_call_finalizer(sType_finalize, result_type_50, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 905, 232);
-        come_call_finalizer(list$1sType$ph$p_finalize, param_types_51, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 905, 233);
-        come_call_finalizer(list$1char$ph$p_finalize, param_names_52, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 905, 234);
-        come_call_finalizer(list$1char$ph$p_finalize, param_default_parametors_53, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 905, 235);
-        come_call_finalizer(sFun_finalize, fun_54, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 905, 236);
+        map$2char$phsFun$ph_insert(info->funcs,(char* )come_increment_ref_count(__builtin_string(name_49,"07function.nc",738), "07function.nc", 738, 229),(struct sFun*)come_increment_ref_count(fun_54, "07function.nc", 738, 230),(_Bool)0);
+        (name_49 = come_decrement_ref_count(name_49, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 740, 231));
+        come_call_finalizer(sType_finalize, result_type_50, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 740, 232);
+        come_call_finalizer(list$1sType$ph$p_finalize, param_types_51, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 740, 233);
+        come_call_finalizer(list$1char$ph$p_finalize, param_names_52, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 740, 234);
+        come_call_finalizer(list$1char$ph$p_finalize, param_default_parametors_53, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 740, 235);
+        come_call_finalizer(sFun_finalize, fun_54, (void*)0, (void*)0, 0, 0, 0, (void*)0, "07function.nc}", 740, 236);
     }
     transpile_toplevel((_Bool)0,info);
         neo_current_frame = fr.prev;

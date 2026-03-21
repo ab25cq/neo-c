@@ -838,185 +838,30 @@ bool parse_attribute_keyword(buffer* result, const char* keyword, bool allow_end
 
 bool parse_common_attribute_keyword(buffer* result, sInfo* info=info, bool allow_end=true)
 {
-    if(parse_attribute_keyword(result, "__aligned_largest", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__aligned_u64", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__aligned", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__section", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__visibility", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__alias", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__format_arg", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__format", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__printf", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__scanf", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__assume_aligned", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__cleanup", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__optimize", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__target", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__error", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__warning", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__no_sanitize_address", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__no_sanitize_thread", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__no_sanitize_coverage", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__no_sanitize", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__constructor", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__destructor", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__packed", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__used", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__unused", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__maybe_unused", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__always_unused", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__deprecated", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__cold", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__hot", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__weak_ref", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__weak", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__noinline", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__always_inline", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__flatten", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__leaf", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__naked", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__noclone", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__no_profile", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__no_instrument_function", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__warn_unused_result", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__must_check", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__returns_nonnull", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__malloc", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__init", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__initdata", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__initconst", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__init_rodata", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__exit", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__exitdata", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__exitconst", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__ref", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__meminit", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__meminitdata", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__meminitconst", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__ro_after_init", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__read_mostly", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__latent_entropy", allow_end, info)) {
-        return true;
-    }
-    else if(parse_attribute_keyword(result, "__percpu", allow_end, info)) {
-        return true;
+    int keyword_len = match_common_attribute_keyword_len(info.p);
+    if(keyword_len == 0) {
+        return false;
     }
     
-    return false;
+    char* p = info.p + keyword_len;
+    while(*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') {
+        p++;
+    }
+    if(!allow_end && *p != '(') {
+        if(*p == ';' || *p == ',' || *p == ')' || *p == ']' || *p == '=' || *p == ':' || *p == '[') {
+            return false;
+        }
+    }
+    
+    char* head = info.p;
+    info->p += keyword_len;
+    
+    parse_struct_attribute_skip_paren(info);
+    
+    char* tail = info.p;
+    result.append(head, tail-head);
+    
+    return true;
 }
 
 string parse_struct_attribute(sInfo* info=info, bool allow_end=true)
