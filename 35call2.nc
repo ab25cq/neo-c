@@ -169,7 +169,7 @@ sNode*% expression(sInfo* info=info) version 5
 static sNode*% post_position_operator_of_statment(sNode*% node, sInfo* info)
 {
     if(!node->terminated() && parsecmp("or")) {
-        info->p.p += strlen("or");
+        info->p += strlen("or");
         skip_spaces_and_lf();
         
         node = parse_or_statment(clone node, info);
@@ -177,7 +177,7 @@ static sNode*% post_position_operator_of_statment(sNode*% node, sInfo* info)
         return node;
     }
     else if(!node->terminated() && parsecmp("and")) {
-        info->p.p += strlen("and");
+        info->p += strlen("and");
         skip_spaces_and_lf();
         
         node = parse_and_statment(clone node, info);
@@ -405,8 +405,8 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
 {
     skip_spaces_and_lf();
     
-    if(!node->terminated() && *info->p.p == '(') {
-        info->p.p++;
+    if(!node->terminated() && *info->p == '(') {
+        info->p++;
         skip_spaces_and_lf(info);
         
         skip_spaces_and_lf();
@@ -414,30 +414,30 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
         list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         while(true) {
-            if(*info->p.p == ')') {
-                info->p.p++;
+            if(*info->p == ')') {
+                info->p++;
                 skip_spaces_and_lf();
                 break;
             }
             
-            char* p = info.p.p;
+            char* p = info.p;
             int sline = info.sline;
             
             bool err_flag = false;
             string label = string("");
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info->p) || *info->p == '_') {
                 label = parse_word();
                 err_flag = true;
             }
             
-            if(err_flag == true && *info->p.p == ':') {
-                info->p.p++;
+            if(err_flag == true && *info->p == ':') {
+                info->p++;
                 skip_spaces_and_lf();
             }
             else {
                 label = null;
                 
-                info->p.p = p;
+                info->p = p;
                 info->sline = sline;
             }
             
@@ -458,12 +458,12 @@ sNode*% post_position_operator(sNode*% node, sInfo* info)
             
             skip_spaces_and_lf();
             
-            if(*info->p.p == ',') {
-                info->p.p++;
+            if(*info->p == ',') {
+                info->p++;
                 skip_spaces_and_lf();
             }
-            else if(*info->p.p == ')') {
-                info->p.p++;
+            else if(*info->p == ')') {
+                info->p++;
                 skip_spaces_and_lf();
                 
                 break;

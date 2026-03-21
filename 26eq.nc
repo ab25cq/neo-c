@@ -861,30 +861,30 @@ class sExpEqualNode extends sNodeBase
 
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
 {
-    if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '+' && *(info->p.p+2) == '+') || (*info.p == '+' && *(info->p.p+1) == '+'))) {
+    if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '+' && *(info->p+2) == '+') || (*info.p == '+' && *(info->p+1) == '+'))) {
          bool quote;
          if(*info.p == '\\') {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = false;
          }
          
          return new sPlusPlusNode(node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '-' && *(info->p.p+2) == '-') || (*info.p == '-' && *(info->p.p+1) == '-'))) {
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '-' && *(info->p+2) == '-') || (*info.p == '-' && *(info->p+1) == '-'))) {
         bool quote
         if(*info.p == '\\') {
-            info->p.p+=3;
+            info->p+=3;
             skip_spaces_and_lf();
             quote = true;
         }
         else {
-            info->p.p+=2;
+            info->p+=2;
             skip_spaces_and_lf();
             quote = false;
         }
@@ -894,16 +894,16 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
     else if(info->no_assign) {
         return inherit(node, info);
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '+' && *(info->p.p+2) == '=') || (*info.p == '+' && *(info->p.p+1) == '='))) 
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '+' && *(info->p+2) == '=') || (*info.p == '+' && *(info->p+1) == '='))) 
     {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -912,16 +912,16 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sPlusEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '-' && *(info->p.p+2) == '=') || (*info.p == '-' && *(info->p.p+1) == '='))) 
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '-' && *(info->p+2) == '=') || (*info.p == '-' && *(info->p+1) == '='))) 
     {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -930,16 +930,16 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sMinusEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '*' && *(info->p.p+2) == '=') || (*info.p == '*' && *(info->p.p+1) == '='))) 
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '*' && *(info->p+2) == '=') || (*info.p == '*' && *(info->p+1) == '='))) 
     {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -948,16 +948,16 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sMultEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '/' && *(info->p.p+2) == '=') || (*info.p == '/' && *(info->p.p+1) == '='))) 
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '/' && *(info->p+2) == '=') || (*info.p == '/' && *(info->p+1) == '='))) 
     {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -966,16 +966,16 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sDivEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '%' && *(info->p.p+2) == '=') || (*info.p == '%' && *(info->p.p+1) == '='))) 
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '%' && *(info->p+2) == '=') || (*info.p == '%' && *(info->p+1) == '='))) 
     {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -985,16 +985,16 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sModEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '<' && *(info->p.p+2) == '<' && *(info->p.p+3) == '=') || (*info.p == '<' && *(info->p.p+1) == '<' && *(info->p.p+2) == '='))) 
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '<' && *(info->p+2) == '<' && *(info->p+3) == '=') || (*info.p == '<' && *(info->p+1) == '<' && *(info->p+2) == '='))) 
     {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=4;
+             info->p+=4;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -1003,16 +1003,16 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sLShifEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '>' && *(info->p.p+2) == '>' && *(info->p.p+3) == '=') || (*info.p == '>' && *(info->p.p+1) == '>' && *(info->p.p+2) == '='))) 
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '>' && *(info->p+2) == '>' && *(info->p+3) == '=') || (*info.p == '>' && *(info->p+1) == '>' && *(info->p+2) == '='))) 
     {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=4;
+             info->p+=4;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -1021,16 +1021,16 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sRShiftEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '^' && *(info->p.p+2) == '=') || (*info.p == '^' && *(info->p.p+1) == '='))) 
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '^' && *(info->p+2) == '=') || (*info.p == '^' && *(info->p+1) == '='))) 
     {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -1039,15 +1039,15 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sXorEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '&' && *(info->p.p+2) == '=') || (*info.p == '&' && *(info->p.p+1) == '='))) {
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '&' && *(info->p+2) == '=') || (*info.p == '&' && *(info->p+1) == '='))) {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -1056,15 +1056,15 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sAndEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '|' && *(info->p.p+2) == '=') || (*info.p == '|' && *(info->p.p+1) == '='))) {
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '|' && *(info->p+2) == '=') || (*info.p == '|' && *(info->p+1) == '='))) {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=3;
+             info->p+=3;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = false;
          }
@@ -1073,15 +1073,15 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 19
         
          return new sOrEqualNode(node, right_node, quote, info) implements sNode;
     }
-    else if(!node->terminated() && ((*info.p == '\\' && *(info->p.p+1) == '=' && *(info->p.p+2) != '=' && *(info->p.p+2) != '>') || (*info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>'))) {
+    else if(!node->terminated() && ((*info.p == '\\' && *(info->p+1) == '=' && *(info->p+2) != '=' && *(info->p+2) != '>') || (*info.p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>'))) {
          bool quote
          if(*info.p == '\\') {
-             info->p.p+=2;
+             info->p+=2;
              skip_spaces_and_lf();
              quote = true;
          }
          else {
-             info->p.p++;
+             info->p++;
              skip_spaces_and_lf();
              quote = false;
          }

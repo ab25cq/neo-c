@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2619,8 +2608,6 @@ struct sFunNode* sFunNode_initialize(struct sFunNode* self, struct sFun*  fun  ,
 char*  sFunNode_kind(struct sFunNode* self);
 _Bool sFunNode_compile(struct sFunNode* self, struct sInfo*  info  );
 struct sNode* expression_node_v96(struct sInfo*  info  );
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
-static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct list$1sNode$ph* list$1sNode$ph_initialize(struct list$1sNode$ph* self);
 static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self);
 static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self);
@@ -2804,10 +2791,10 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
     memset(&c_58, 0, sizeof(c_58));
     memset(&quote, 0, sizeof(quote));
     memset(&size_64, 0, sizeof(size_64));
-    if(span$1char$p_operator_derefference(info->p)==34&&*(info->p->p+1)==34&&*(info->p->p+2)==34&&*(info->p->p+3)==10) {
+    if(*info->p==34&&*(info->p+1)==34&&*(info->p+2)==34&&*(info->p+3)==10) {
         sline_real=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p+=4;
+        info->p+=4;
         info->sline++;
         sline=info->sline;
         exps=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 14, 1, "struct list$1sNode$ph*"), "51str3.nc", 14, 7)), "51str3.nc", 14, 8);
@@ -2816,113 +2803,113 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         value=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 15, 9, "struct buffer* "), "51str3.nc", 15, 10)), "51str3.nc", 15, 11);
         head_of_last_line=((void*)0);
         while(1) {
-            if(span$1char$p_operator_derefference(info->p)==34&&*(info->p->p+1)==34&&*(info->p->p+2)==34) {
-                info->p->p+=3;
+            if(*info->p==34&&*(info->p+1)==34&&*(info->p+2)==34) {
+                info->p+=3;
                 skip_spaces_and_lf(info);
                 break;
             }
-            else if(span$1char$p_operator_derefference(info->p)==37) {
+            else if(*info->p==37) {
                 buffer_append_char(value,37);
                 buffer_append_char(value,37);
-                info->p->p++;
+                info->p++;
             }
-            else if(span$1char$p_operator_derefference(info->p)==34) {
+            else if(*info->p==34) {
                 buffer_append_char(value,92);
                 buffer_append_char(value,34);
-                info->p->p++;
+                info->p++;
             }
-            else if(span$1char$p_operator_derefference(info->p)==92) {
+            else if(*info->p==92) {
                 buffer_append_char(value,92);
-                info->p->p++;
-                if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+                info->p++;
+                if(xisdigit(*info->p)) {
                     len=0;
-                    while(xisdigit(span$1char$p_operator_derefference(info->p))&&len<3) {
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                    while(xisdigit(*info->p)&&len<3) {
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         len++;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==120||span$1char$p_operator_derefference(info->p)==88) {
-                    buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
-                    while(span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57||span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=102||span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=70) {
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                else if(*info->p==120||*info->p==88) {
+                    buffer_append_char(value,*info->p);
+                    info->p++;
+                    while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==123) {
-                    info->p->p++;
+                else if(*info->p==123) {
+                    info->p++;
                     __right_value0 = (void*)0;
                     exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 61, 12);
                     list$1sNode$ph_add(exps,(struct sNode*)come_increment_ref_count(exp, "51str3.nc", 63, 27));
-                    if(span$1char$p_operator_derefference(info->p)==125) {
-                        info->p->p++;
+                    if(*info->p==125) {
+                        info->p++;
                     }
                     buffer_append_str(value,"%s");
                     ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 124, 28):(void*)0);
                 }
                 else {
-                    switch (                    span$1char$p_operator_derefference(info->p)) {
+                    switch (                    *info->p) {
                         case 48:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                         case 110:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                         case 116:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                         case 114:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                         case 118:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                         case 102:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                         case 97:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                         case 98:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                         case 92:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                         default:
-                        buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value,*info->p);
+                        info->p++;
                         break;
                     }
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 sline2=info->sline;
                 info->sline=sline;
                 err_msg(info,"close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(span$1char$p_operator_derefference(info->p)==10) {
+                if(*info->p==10) {
                     buffer_append_char(value,92);
                     buffer_append_char(value,110);
-                    info->p->p++;
+                    info->p++;
                     info->sline++;
-                    head_of_last_line=info->p->p;
+                    head_of_last_line=info->p;
                 }
                 else {
-                    buffer_append_char(value,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(value,*info->p);
+                    info->p++;
                 }
             }
         }
@@ -2940,43 +2927,43 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sNode$ph$p_finalize, exps, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 36);
         come_call_finalizer(buffer_finalize, value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 37);
     }
-    else if(span$1char$p_operator_derefference(info->p)==117&&*(info->p->p+1)==56&&*(info->p->p+2)==34) {
+    else if(*info->p==117&&*(info->p+1)==56&&*(info->p+2)==34) {
         sline_real_2=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p+=3;
+        info->p+=3;
         sline_3=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_4=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 161, 38, "struct buffer* "), "51str3.nc", 161, 39)), "51str3.nc", 161, 40);
         while(1) {
-            if(span$1char$p_operator_derefference(info->p)==34) {
-                info->p->p++;
-                p=info->p->p;
+            if(*info->p==34) {
+                info->p++;
+                p=info->p;
                 sline_5=info->sline;
                 skip_spaces_and_lf(info);
                 parse_sharp_v5(info);
-                if(span$1char$p_operator_derefference(info->p)==117&&*(info->p->p+1)==56&&*(info->p->p+2)==34) {
-                    info->p->p+=3;
+                if(*info->p==117&&*(info->p+1)==56&&*(info->p+2)==34) {
+                    info->p+=3;
                 }
                 else {
-                    info->p->p=p;
+                    info->p=p;
                     info->sline=sline_5;
                     break;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==92) {
+            else if(*info->p==92) {
                 buffer_append_char(value_4,92);
-                info->p->p++;
-                if(span$1char$p_operator_derefference(info->p)==34) {
+                info->p++;
+                if(*info->p==34) {
                     buffer_append_char(value_4,34);
-                    info->p->p++;
+                    info->p++;
                 }
                 else {
-                    buffer_append_char(value_4,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(value_4,*info->p);
+                    info->p++;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 sline2_6=info->sline;
                 info->sline=sline_3;
                 err_msg(info,"close \" to make c string value");
@@ -2984,11 +2971,11 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 exit(2);
             }
             else {
-                if(span$1char$p_operator_derefference(info->p)==10) {
+                if(*info->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_4,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+                buffer_append_char(value_4,*info->p);
+                info->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -3003,44 +2990,44 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 47);
     }
-    else if((span$1char$p_operator_derefference(info->p)==117||span$1char$p_operator_derefference(info->p)==85)&&*(info->p->p+1)==34) {
+    else if((*info->p==117||*info->p==85)&&*(info->p+1)==34) {
         sline_real_7=info->sline_real;
         info->sline_real=info->sline;
-        prefix=span$1char$p_operator_derefference(info->p);
-        info->p->p+=2;
+        prefix=*info->p;
+        info->p+=2;
         sline_8=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_9=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 226, 48, "struct buffer* "), "51str3.nc", 226, 49)), "51str3.nc", 226, 50);
         while(1) {
-            if(span$1char$p_operator_derefference(info->p)==34) {
-                info->p->p++;
-                p_10=info->p->p;
+            if(*info->p==34) {
+                info->p++;
+                p_10=info->p;
                 sline_11=info->sline;
                 skip_spaces_and_lf(info);
                 parse_sharp_v5(info);
-                if(span$1char$p_operator_derefference(info->p)==prefix&&*(info->p->p+1)==34) {
-                    info->p->p+=2;
+                if(*info->p==prefix&&*(info->p+1)==34) {
+                    info->p+=2;
                 }
                 else {
-                    info->p->p=p_10;
+                    info->p=p_10;
                     info->sline=sline_11;
                     break;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==92) {
+            else if(*info->p==92) {
                 buffer_append_char(value_9,92);
-                info->p->p++;
-                if(span$1char$p_operator_derefference(info->p)==34) {
+                info->p++;
+                if(*info->p==34) {
                     buffer_append_char(value_9,34);
-                    info->p->p++;
+                    info->p++;
                 }
                 else {
-                    buffer_append_char(value_9,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(value_9,*info->p);
+                    info->p++;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 sline2_12=info->sline;
                 info->sline=sline_8;
                 err_msg(info,"close \" to make c string value");
@@ -3048,11 +3035,11 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 exit(2);
             }
             else {
-                if(span$1char$p_operator_derefference(info->p)==10) {
+                if(*info->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_9,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+                buffer_append_char(value_9,*info->p);
+                info->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -3068,43 +3055,43 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 57);
     }
-    else if(span$1char$p_operator_derefference(info->p)==34) {
+    else if(*info->p==34) {
         sline_real_13=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p++;
+        info->p++;
         sline_14=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_15=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 289, 58, "struct buffer* "), "51str3.nc", 289, 59)), "51str3.nc", 289, 60);
         while(1) {
-            if(span$1char$p_operator_derefference(info->p)==34) {
-                info->p->p++;
-                p_16=info->p->p;
+            if(*info->p==34) {
+                info->p++;
+                p_16=info->p;
                 sline_17=info->sline;
                 skip_spaces_and_lf(info);
                 parse_sharp_v5(info);
-                if(span$1char$p_operator_derefference(info->p)==34) {
-                    info->p->p++;
+                if(*info->p==34) {
+                    info->p++;
                 }
                 else {
-                    info->p->p=p_16;
+                    info->p=p_16;
                     info->sline=sline_17;
                     break;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==92) {
+            else if(*info->p==92) {
                 buffer_append_char(value_15,92);
-                info->p->p++;
-                if(span$1char$p_operator_derefference(info->p)==34) {
+                info->p++;
+                if(*info->p==34) {
                     buffer_append_char(value_15,34);
-                    info->p->p++;
+                    info->p++;
                 }
                 else {
-                    buffer_append_char(value_15,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(value_15,*info->p);
+                    info->p++;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 sline2_18=info->sline;
                 info->sline=sline_14;
                 err_msg(info,"close \" to make c string value");
@@ -3112,11 +3099,11 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 exit(2);
             }
             else {
-                if(span$1char$p_operator_derefference(info->p)==10) {
+                if(*info->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_15,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+                buffer_append_char(value_15,*info->p);
+                info->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -3131,118 +3118,118 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 66);
     }
-    else if((span$1char$p_operator_derefference(info->p)==98||span$1char$p_operator_derefference(info->p)==66)&&*(info->p->p+1)==34) {
+    else if((*info->p==98||*info->p==66)&&*(info->p+1)==34) {
         sline_real_19=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p+=2;
+        info->p+=2;
         sline_20=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_21=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 352, 67, "struct buffer* "), "51str3.nc", 352, 68)), "51str3.nc", 352, 69);
         size=0;
         while(1) {
-            if(span$1char$p_operator_derefference(info->p)==34) {
-                info->p->p++;
-                p_22=info->p->p;
+            if(*info->p==34) {
+                info->p++;
+                p_22=info->p;
                 sline_23=info->sline;
                 skip_spaces_and_lf(info);
-                if(span$1char$p_operator_derefference(info->p)==34) {
-                    info->p->p++;
+                if(*info->p==34) {
+                    info->p++;
                 }
                 else {
-                    info->p->p=p_22;
+                    info->p=p_22;
                     info->sline=sline_23;
                     break;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==92) {
+            else if(*info->p==92) {
                 buffer_append_char(value_21,92);
-                info->p->p++;
-                if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+                info->p++;
+                if(xisdigit(*info->p)) {
                     len_24=0;
-                    while(xisdigit(span$1char$p_operator_derefference(info->p))&&len_24<3) {
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                    while(xisdigit(*info->p)&&len_24<3) {
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         len_24++;
                     }
                     size++;
                 }
-                else if(span$1char$p_operator_derefference(info->p)==120||span$1char$p_operator_derefference(info->p)==88) {
-                    buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
-                    while(span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57||span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=102||span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=70) {
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                else if(*info->p==120||*info->p==88) {
+                    buffer_append_char(value_21,*info->p);
+                    info->p++;
+                    while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                     }
                     size++;
                 }
                 else {
-                    switch (                    span$1char$p_operator_derefference(info->p)) {
+                    switch (                    *info->p) {
                         case 48:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                         case 110:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                         case 116:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                         case 114:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                         case 118:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                         case 102:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                         case 97:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                         case 98:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                         case 92:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                         default:
-                        buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_21,*info->p);
+                        info->p++;
                         size++;
                         break;
                     }
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 sline2_25=info->sline;
                 info->sline=sline_20;
                 err_msg(info,"close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(span$1char$p_operator_derefference(info->p)==10) {
+                if(*info->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_21,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+                buffer_append_char(value_21,*info->p);
+                info->p++;
                 size++;
             }
         }
@@ -3257,42 +3244,42 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_21, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 75);
     }
-    else if(span$1char$p_operator_derefference(info->p)==47&&*(info->p->p-1)!=42&&*(info->p->p+1)!=42) {
+    else if(*info->p==47&&*(info->p-1)!=42&&*(info->p+1)!=42) {
         sline_real_26=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p++;
+        info->p++;
         sline_27=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 488, 76, "struct buffer* "), "51str3.nc", 488, 77)), "51str3.nc", 488, 78);
         while((_Bool)1) {
-            if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==47) {
-                info->p->p++;
-                buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+            if(*info->p==92&&*(info->p+1)==47) {
+                info->p++;
+                buffer_append_char(buf,*info->p);
+                info->p++;
             }
-            else if(span$1char$p_operator_derefference(info->p)==47) {
-                info->p->p++;
+            else if(*info->p==47) {
+                info->p++;
                 break;
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 err_msg(info,"require closing / for regex");
                 exit(5);
             }
             else {
-                buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+                buffer_append_char(buf,*info->p);
+                info->p++;
             }
         }
         global=(_Bool)0;
         ignore_case=(_Bool)0;
-        while(span$1char$p_operator_derefference(info->p)==103||span$1char$p_operator_derefference(info->p)==105) {
-            if(span$1char$p_operator_derefference(info->p)==103) {
-                info->p->p++;
+        while(*info->p==103||*info->p==105) {
+            if(*info->p==103) {
+                info->p++;
                 global=(_Bool)1;
             }
-            else if(span$1char$p_operator_derefference(info->p)==105) {
-                info->p->p++;
+            else if(*info->p==105) {
+                info->p++;
                 ignore_case=(_Bool)1;
             }
             else {
@@ -3385,116 +3372,116 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sType$ph$p_finalize, method_generics_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 221);
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1499, 222):(void*)0);
     }
-    else if((span$1char$p_operator_derefference(info->p)==82||span$1char$p_operator_derefference(info->p)==114)&&*(info->p->p+1)==34) {
+    else if((*info->p==82||*info->p==114)&&*(info->p+1)==34) {
         sline_real_30=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p+=2;
+        info->p+=2;
         sline_31=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_32=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 559, 223, "struct buffer* "), "51str3.nc", 559, 224)), "51str3.nc", 559, 225);
         while(1) {
-            if(span$1char$p_operator_derefference(info->p)==34) {
-                info->p->p++;
-                p_33=info->p->p;
+            if(*info->p==34) {
+                info->p++;
+                p_33=info->p;
                 sline_34=info->sline;
                 skip_spaces_and_lf(info);
-                if(span$1char$p_operator_derefference(info->p)==34) {
-                    info->p->p++;
+                if(*info->p==34) {
+                    info->p++;
                 }
                 else {
-                    info->p->p=p_33;
+                    info->p=p_33;
                     info->sline=sline_34;
                     break;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==92) {
+            else if(*info->p==92) {
                 buffer_append_char(value_32,92);
-                info->p->p++;
-                if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+                info->p++;
+                if(xisdigit(*info->p)) {
                     len_35=0;
-                    while(xisdigit(span$1char$p_operator_derefference(info->p))&&len_35<3) {
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                    while(xisdigit(*info->p)&&len_35<3) {
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         len_35++;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==120||span$1char$p_operator_derefference(info->p)==88) {
-                    buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
-                    while(span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57||span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=102||span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=70) {
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                else if(*info->p==120||*info->p==88) {
+                    buffer_append_char(value_32,*info->p);
+                    info->p++;
+                    while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                     }
                 }
                 else {
-                    switch (                    span$1char$p_operator_derefference(info->p)) {
+                    switch (                    *info->p) {
                         case 48:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                         case 110:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                         case 116:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                         case 114:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                         case 118:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                         case 102:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                         case 97:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                         case 98:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                         case 92:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                         default:
-                        buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_32,*info->p);
+                        info->p++;
                         break;
                     }
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 sline2_36=info->sline;
                 info->sline=sline_31;
                 err_msg(info,"close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(span$1char$p_operator_derefference(info->p)==10) {
+                if(*info->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_32,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+                buffer_append_char(value_32,*info->p);
+                info->p++;
             }
         }
         global_37=(_Bool)0;
         ignore_case_38=(_Bool)0;
-        while(span$1char$p_operator_derefference(info->p)==103||span$1char$p_operator_derefference(info->p)==105) {
-            if(span$1char$p_operator_derefference(info->p)==103) {
-                info->p->p++;
+        while(*info->p==103||*info->p==105) {
+            if(*info->p==103) {
+                info->p++;
                 global_37=(_Bool)1;
             }
-            else if(span$1char$p_operator_derefference(info->p)==105) {
-                info->p->p++;
+            else if(*info->p==105) {
+                info->p++;
                 ignore_case_38=(_Bool)1;
             }
             else {
@@ -3591,63 +3578,63 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sType$ph$p_finalize, method_generics_types_43, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 305);
         ((node_44) ? node_44 = come_decrement_ref_count(node_44, ((struct sNode*)node_44)->finalize, ((struct sNode*)node_44)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1499, 306):(void*)0);
     }
-    else if((span$1char$p_operator_derefference(info->p)==117||span$1char$p_operator_derefference(info->p)==85)&&*(info->p->p+1)==39) {
+    else if((*info->p==117||*info->p==85)&&*(info->p+1)==39) {
         sline_real_45=info->sline_real;
         info->sline_real=info->sline;
-        prefix_46=span$1char$p_operator_derefference(info->p);
-        info->p->p+=2;
-        if(span$1char$p_operator_derefference(info->p)==92) {
-            info->p->p++;
-            if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+        prefix_46=*info->p;
+        info->p+=2;
+        if(*info->p==92) {
+            info->p++;
+            if(xisdigit(*info->p)) {
                 n=0;
-                while(xisdigit(span$1char$p_operator_derefference(info->p))) {
-                    n=n*8+span$1char$p_operator_derefference(info->p)-48;
-                    info->p->p++;
+                while(xisdigit(*info->p)) {
+                    n=n*8+*info->p-48;
+                    info->p++;
                 }
                 c=n;
             }
             else {
-                switch (                span$1char$p_operator_derefference(info->p)) {
+                switch (                *info->p) {
                     case 110:
                     c=10;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 116:
                     c=9;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 114:
                     c=13;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 97:
                     c=7;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 102:
                     c=12;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 118:
                     c=11;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 98:
                     c=8;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 92:
                     c=92;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 48:
                     c=0;
-                    info->p->p++;
-                    if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+                    info->p++;
+                    if(xisdigit(*info->p)) {
                         n_47=0;
-                        while(xisdigit(span$1char$p_operator_derefference(info->p))) {
-                            n_47=n_47*8+span$1char$p_operator_derefference(info->p)-48;
-                            info->p->p++;
+                        while(xisdigit(*info->p)) {
+                            n_47=n_47*8+*info->p-48;
+                            info->p++;
                             skip_spaces_and_lf(info);
                         }
                         c=n_47;
@@ -3656,16 +3643,16 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     case 120:
                     case 88:
                     {
-                        info->p->p++;
+                        info->p++;
                         char buf_48[128];
                         memset(&buf_48, 0, sizeof(buf_48));
                         strncpy(buf_48,"0x",128);
-                        while(span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57||span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=102||span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=70) {
+                        while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
                             char buf2[2];
                             memset(&buf2, 0, sizeof(buf2));
-                            buf2[0]=span$1char$p_operator_derefference(info->p);
+                            buf2[0]=*info->p;
                             buf2[1]=0;
-                            info->p->p++;
+                            info->p++;
                             strncat(buf_48,buf2,128);
                         }
                         n_49=strtoll(buf_48,((void*)0),0);
@@ -3673,22 +3660,22 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     }
                     break;
                     default:
-                    c=span$1char$p_operator_derefference(info->p);
-                    info->p->p++;
+                    c=*info->p;
+                    info->p++;
                     break;
                 }
             }
         }
         else {
-            c=span$1char$p_operator_derefference(info->p);
-            info->p->p++;
+            c=*info->p;
+            info->p++;
         }
-        if(span$1char$p_operator_derefference(info->p)!=39) {
+        if(*info->p!=39) {
             err_msg(info,"close \' to make character value");
             exit(1);
         }
         else {
-            info->p->p++;
+            info->p++;
             skip_spaces_and_lf(info);
             info->sline_real=sline_real_45;
                         __right_value0 = (void*)0;
@@ -3700,62 +3687,62 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             return __result_obj__0;
         }
     }
-    else if(span$1char$p_operator_derefference(info->p)==39) {
+    else if(*info->p==39) {
         sline_real_50=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p++;
-        if(span$1char$p_operator_derefference(info->p)==92) {
-            info->p->p++;
-            if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+        info->p++;
+        if(*info->p==92) {
+            info->p++;
+            if(xisdigit(*info->p)) {
                 n_52=0;
-                while(xisdigit(span$1char$p_operator_derefference(info->p))) {
-                    n_52=n_52*8+span$1char$p_operator_derefference(info->p)-48;
-                    info->p->p++;
+                while(xisdigit(*info->p)) {
+                    n_52=n_52*8+*info->p-48;
+                    info->p++;
                 }
                 c_51=n_52;
             }
             else {
-                switch (                span$1char$p_operator_derefference(info->p)) {
+                switch (                *info->p) {
                     case 110:
                     c_51=10;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 116:
                     c_51=9;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 114:
                     c_51=13;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 97:
                     c_51=7;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 102:
                     c_51=12;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 118:
                     c_51=11;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 98:
                     c_51=8;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 92:
                     c_51=92;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 48:
                     c_51=0;
-                    info->p->p++;
-                    if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+                    info->p++;
+                    if(xisdigit(*info->p)) {
                         n_53=0;
-                        while(xisdigit(span$1char$p_operator_derefference(info->p))) {
-                            n_53=n_53*8+span$1char$p_operator_derefference(info->p)-48;
-                            info->p->p++;
+                        while(xisdigit(*info->p)) {
+                            n_53=n_53*8+*info->p-48;
+                            info->p++;
                             skip_spaces_and_lf(info);
                         }
                         c_51=n_53;
@@ -3764,16 +3751,16 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     case 120:
                     case 88:
                     {
-                        info->p->p++;
+                        info->p++;
                         char buf_54[128];
                         memset(&buf_54, 0, sizeof(buf_54));
                         strncpy(buf_54,"0x",128);
-                        while(span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57||span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=102||span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=70) {
+                        while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
                             char buf2_55[2];
                             memset(&buf2_55, 0, sizeof(buf2_55));
-                            buf2_55[0]=span$1char$p_operator_derefference(info->p);
+                            buf2_55[0]=*info->p;
                             buf2_55[1]=0;
-                            info->p->p++;
+                            info->p++;
                             strncat(buf_54,buf2_55,128);
                         }
                         n_56=strtoll(buf_54,((void*)0),0);
@@ -3781,22 +3768,22 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     }
                     break;
                     default:
-                    c_51=span$1char$p_operator_derefference(info->p);
-                    info->p->p++;
+                    c_51=*info->p;
+                    info->p++;
                     break;
                 }
             }
         }
         else {
-            c_51=span$1char$p_operator_derefference(info->p);
-            info->p->p++;
+            c_51=*info->p;
+            info->p++;
         }
-        if(span$1char$p_operator_derefference(info->p)!=39) {
+        if(*info->p!=39) {
             err_msg(info,"close \' to make character value");
             exit(1);
         }
         else {
-            info->p->p++;
+            info->p++;
             skip_spaces_and_lf(info);
             info->sline_real=sline_real_50;
                         __right_value0 = (void*)0;
@@ -3807,51 +3794,51 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             return __result_obj__0;
         }
     }
-    else if(span$1char$p_operator_derefference(info->p)==76&&*(info->p->p+1)==39) {
+    else if(*info->p==76&&*(info->p+1)==39) {
         sline_real_57=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p+=2;
-        if(span$1char$p_operator_derefference(info->p)==92) {
+        info->p+=2;
+        if(*info->p==92) {
             quote=(_Bool)1;
-            info->p->p++;
-            if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+            info->p++;
+            if(xisdigit(*info->p)) {
                 n_59=0;
-                while(xisdigit(span$1char$p_operator_derefference(info->p))) {
-                    n_59=n_59*8+span$1char$p_operator_derefference(info->p)-48;
-                    info->p->p++;
+                while(xisdigit(*info->p)) {
+                    n_59=n_59*8+*info->p-48;
+                    info->p++;
                 }
                 c_58=n_59;
             }
             else {
-                switch (                span$1char$p_operator_derefference(info->p)) {
+                switch (                *info->p) {
                     case 110:
                     c_58=10;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 116:
                     c_58=9;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 114:
                     c_58=13;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 97:
                     c_58=7;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 92:
                     c_58=92;
-                    info->p->p++;
+                    info->p++;
                     break;
                     case 48:
                     c_58=0;
-                    info->p->p++;
-                    if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+                    info->p++;
+                    if(xisdigit(*info->p)) {
                         n_60=0;
-                        while(xisdigit(span$1char$p_operator_derefference(info->p))) {
-                            n_60=n_60*8+span$1char$p_operator_derefference(info->p)-48;
-                            info->p->p++;
+                        while(xisdigit(*info->p)) {
+                            n_60=n_60*8+*info->p-48;
+                            info->p++;
                             skip_spaces_and_lf(info);
                         }
                         c_58=n_60;
@@ -3860,16 +3847,16 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     case 120:
                     case 88:
                     {
-                        info->p->p++;
+                        info->p++;
                         char buf_61[128];
                         memset(&buf_61, 0, sizeof(buf_61));
                         strncpy(buf_61,"0x",128);
-                        while(span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57||span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=102||span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=70) {
+                        while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
                             char buf2_62[2];
                             memset(&buf2_62, 0, sizeof(buf2_62));
-                            buf2_62[0]=span$1char$p_operator_derefference(info->p);
+                            buf2_62[0]=*info->p;
                             buf2_62[1]=0;
-                            info->p->p++;
+                            info->p++;
                             strncat(buf_61,buf2_62,128);
                         }
                         n_63=strtoll(buf_61,((void*)0),0);
@@ -3877,15 +3864,15 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     }
                     break;
                     default:
-                    c_58=span$1char$p_operator_derefference(info->p);
-                    info->p->p++;
+                    c_58=*info->p;
+                    info->p++;
                     break;
                 }
             }
         }
         else {
             quote=(_Bool)0;
-            p2=*(unsigned char*)info->p->p;
+            p2=*(unsigned char*)info->p;
             if(p2>127) {
                 char str[16+1];
                 memset(&str, 0, sizeof(str));
@@ -3896,7 +3883,7 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     exit(2);
                 }
                 else {
-                    memcpy(str,info->p->p,size_64);
+                    memcpy(str,info->p,size_64);
                     str[size_64]=0;
                     if(mbtowc(&c_58,str,size_64)<0) {
                         perror("mbtowc");
@@ -3905,22 +3892,22 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                         exit(2);
                     }
                     else {
-                        info->p->p+=size_64;
+                        info->p+=size_64;
                     }
                 }
             }
             else {
-                c_58=span$1char$p_operator_derefference(info->p);
-                info->p->p++;
+                c_58=*info->p;
+                info->p++;
             }
         }
-        if(span$1char$p_operator_derefference(info->p)!=39) {
+        if(*info->p!=39) {
             err_msg(info,"close \' to make character value");
             info->err_num++;
             exit(2);
         }
         else {
-            info->p->p++;
+            info->p++;
             skip_spaces_and_lf(info);
             info->sline_real=sline_real_57;
                         __right_value0 = (void*)0;
@@ -3931,53 +3918,53 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             return __result_obj__0;
         }
     }
-    else if(span$1char$p_operator_derefference(info->p)==76&&*(info->p->p+1)==34) {
+    else if(*info->p==76&&*(info->p+1)==34) {
         sline_real_65=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p+=2;
+        info->p+=2;
         sline_66=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_67=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 1110, 317, "struct buffer* "), "51str3.nc", 1110, 318)), "51str3.nc", 1110, 319);
         while(1) {
-            if(span$1char$p_operator_derefference(info->p)==34) {
-                info->p->p++;
-                p_68=info->p->p;
+            if(*info->p==34) {
+                info->p++;
+                p_68=info->p;
                 sline_69=info->sline;
                 skip_spaces_and_lf(info);
-                if(span$1char$p_operator_derefference(info->p)==34) {
-                    info->p->p++;
+                if(*info->p==34) {
+                    info->p++;
                 }
                 else {
-                    info->p->p=p_68;
+                    info->p=p_68;
                     info->sline=sline_69;
                     break;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==92) {
+            else if(*info->p==92) {
                 buffer_append_char(value_67,92);
-                info->p->p++;
-                if(span$1char$p_operator_derefference(info->p)==34) {
+                info->p++;
+                if(*info->p==34) {
                     buffer_append_char(value_67,34);
-                    info->p->p++;
+                    info->p++;
                 }
                 else {
-                    buffer_append_char(value_67,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(value_67,*info->p);
+                    info->p++;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 sline2_70=info->sline;
                 info->sline=sline_66;
                 err_msg(info,"close \" to make c string value");
                 exit(2);
             }
             else {
-                if(span$1char$p_operator_derefference(info->p)==10) {
+                if(*info->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_67,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+                buffer_append_char(value_67,*info->p);
+                info->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -4002,10 +3989,10 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(buffer_finalize, value_67, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 328);
         (wstr = come_decrement_ref_count(wstr, (void*)0, (void*)0, 0, 0, (void*)0, "51str3.nc", 1499, 329));
     }
-    else if((span$1char$p_operator_derefference(info->p)==115||span$1char$p_operator_derefference(info->p)==83)&&*(info->p->p+1)==34) {
+    else if((*info->p==115||*info->p==83)&&*(info->p+1)==34) {
         sline_real_73=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p+=2;
+        info->p+=2;
         sline_74=info->sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
@@ -4014,112 +4001,112 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         __right_value1 = (void*)0;
         value_76=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 1185, 333, "struct buffer* "), "51str3.nc", 1185, 334)), "51str3.nc", 1185, 335);
         while(1) {
-            if(span$1char$p_operator_derefference(info->p)==34) {
-                info->p->p++;
-                p_77=info->p->p;
+            if(*info->p==34) {
+                info->p++;
+                p_77=info->p;
                 sline_78=info->sline;
                 skip_spaces_and_lf(info);
-                if(span$1char$p_operator_derefference(info->p)==34) {
-                    info->p->p++;
+                if(*info->p==34) {
+                    info->p++;
                 }
                 else {
-                    info->p->p=p_77;
+                    info->p=p_77;
                     info->sline=sline_78;
                     break;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==37) {
+            else if(*info->p==37) {
                 buffer_append_char(value_76,37);
                 buffer_append_char(value_76,37);
-                info->p->p++;
+                info->p++;
             }
-            else if(span$1char$p_operator_derefference(info->p)==92) {
+            else if(*info->p==92) {
                 buffer_append_char(value_76,92);
-                info->p->p++;
-                if(xisdigit(span$1char$p_operator_derefference(info->p))) {
+                info->p++;
+                if(xisdigit(*info->p)) {
                     len_79=0;
-                    while(xisdigit(span$1char$p_operator_derefference(info->p))&&len_79<3) {
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                    while(xisdigit(*info->p)&&len_79<3) {
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         len_79++;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==120||span$1char$p_operator_derefference(info->p)==88) {
-                    buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
-                    while(span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57||span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=102||span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=70) {
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                else if(*info->p==120||*info->p==88) {
+                    buffer_append_char(value_76,*info->p);
+                    info->p++;
+                    while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==123) {
-                    info->p->p++;
+                else if(*info->p==123) {
+                    info->p++;
                     __right_value0 = (void*)0;
                     exp_80=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1252, 336);
                     list$1sNode$ph_add(exps_75,(struct sNode*)come_increment_ref_count(exp_80, "51str3.nc", 1254, 337));
-                    if(span$1char$p_operator_derefference(info->p)==125) {
-                        info->p->p++;
+                    if(*info->p==125) {
+                        info->p++;
                     }
                     buffer_append_str(value_76,"%s");
                     ((exp_80) ? exp_80 = come_decrement_ref_count(exp_80, ((struct sNode*)exp_80)->finalize, ((struct sNode*)exp_80)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1315, 338):(void*)0);
                 }
                 else {
-                    switch (                    span$1char$p_operator_derefference(info->p)) {
+                    switch (                    *info->p) {
                         case 48:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                         case 110:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                         case 116:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                         case 114:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                         case 118:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                         case 102:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                         case 97:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                         case 98:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                         case 92:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                         default:
-                        buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(value_76,*info->p);
+                        info->p++;
                         break;
                     }
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 sline2_81=info->sline;
                 info->sline=sline_74;
                 err_msg(info,"close \" to make embbeded string value");
                 exit(2);
             }
             else {
-                if(span$1char$p_operator_derefference(info->p)==10) {
+                if(*info->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_76,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+                buffer_append_char(value_76,*info->p);
+                info->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -4136,18 +4123,18 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sNode$ph$p_finalize, exps_75, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 346);
         come_call_finalizer(buffer_finalize, value_76, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 347);
     }
-    else if(span$1char$p_operator_derefference(info->p)==91) {
+    else if(*info->p==91) {
         sline_real_82=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p++;
+        info->p++;
         skip_spaces_and_lf(info);
-        p_83=info->p->p;
+        p_83=info->p;
         no_comma=info->no_comma;
         info->no_comma=(_Bool)1;
         __right_value0 = (void*)0;
         node_84=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1346, 348);
         info->no_comma=no_comma;
-        p2_85=info->p->p;
+        p2_85=info->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         first_element_source=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 1352, 349, "struct buffer* "), "51str3.nc", 1352, 350)), "51str3.nc", 1352, 351);
@@ -4162,8 +4149,8 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         map_elements=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 1360, 358, "struct list$1sNode$ph*"), "51str3.nc", 1360, 359)), "51str3.nc", 1360, 360);
-        if(span$1char$p_operator_derefference(info->p)==58) {
-            info->p->p++;
+        if(*info->p==58) {
+            info->p++;
             skip_spaces_and_lf(info);
             list$1sNode$ph_push_back(map_keys,(struct sNode*)come_increment_ref_count(node_84, "51str3.nc", 1367, 375));
             no_comma_88=info->no_comma;
@@ -4172,8 +4159,8 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             node2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1373, 376);
             info->no_comma=no_comma_88;
             list$1sNode$ph_push_back(map_elements,(struct sNode*)come_increment_ref_count(node2, "51str3.nc", 1377, 377));
-            if(span$1char$p_operator_derefference(info->p)==93) {
-                info->p->p++;
+            if(*info->p==93) {
+                info->p++;
                 skip_spaces_and_lf(info);
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_map_node((struct list$1sNode$ph*)come_increment_ref_count(map_keys, "51str3.nc", 1383, 378),(struct list$1sNode$ph*)come_increment_ref_count(map_elements, "51str3.nc", 1383, 379),info))), "51str3.nc", 1383, 380);
@@ -4204,23 +4191,23 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                     node3=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1403, 391);
                     info->no_comma=no_comma_89;
                     list$1sNode$ph_push_back(map_elements,(struct sNode*)come_increment_ref_count(node3, "51str3.nc", 1407, 392));
-                    if(span$1char$p_operator_derefference(info->p)==0) {
+                    if(*info->p==0) {
                         err_msg(info,"invalid source end");
                         exit(2);
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==44) {
-                        info->p->p++;
+                    else if(*info->p==44) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==93) {
-                        info->p->p++;
+                    else if(*info->p==93) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         ((node2_90) ? node2_90 = come_decrement_ref_count(node2_90, ((struct sNode*)node2_90)->finalize, ((struct sNode*)node2_90)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1420, 393):(void*)0);
                         ((node3) ? node3 = come_decrement_ref_count(node3, ((struct sNode*)node3)->finalize, ((struct sNode*)node3)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1420, 394):(void*)0);
                         break;
                     }
                     else {
-                        err_msg(info,"invalid character(3)(%c)",span$1char$p_operator_derefference(info->p));
+                        err_msg(info,"invalid character(3)(%c)",*info->p);
                         exit(2);
                     }
                     ((node2_90) ? node2_90 = come_decrement_ref_count(node2_90, ((struct sNode*)node2_90)->finalize, ((struct sNode*)node2_90)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1428, 395):(void*)0);
@@ -4241,13 +4228,13 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             }
             ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1478, 408):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==93) {
-            info->p->p++;
+        else if(*info->p==93) {
+            info->p++;
             skip_spaces_and_lf(info);
             list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node_84, "51str3.nc", 1436, 409));
         }
-        else if(span$1char$p_operator_derefference(info->p)==44) {
-            info->p->p++;
+        else if(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
             list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node_84, "51str3.nc", 1442, 410));
             while((_Bool)1) {
@@ -4257,29 +4244,29 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 node2_92=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1448, 411);
                 info->no_comma=no_comma_91;
                 list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node2_92, "51str3.nc", 1452, 412));
-                if(span$1char$p_operator_derefference(info->p)==0) {
+                if(*info->p==0) {
                     err_msg(info,"invalid source end");
                     exit(2);
                 }
-                else if(span$1char$p_operator_derefference(info->p)==44) {
-                    info->p->p++;
+                else if(*info->p==44) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                 }
-                else if(span$1char$p_operator_derefference(info->p)==93) {
-                    info->p->p++;
+                else if(*info->p==93) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     ((node2_92) ? node2_92 = come_decrement_ref_count(node2_92, ((struct sNode*)node2_92)->finalize, ((struct sNode*)node2_92)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1465, 413):(void*)0);
                     break;
                 }
                 else {
-                    err_msg(info,"invalid character(4)(%c)",span$1char$p_operator_derefference(info->p));
+                    err_msg(info,"invalid character(4)(%c)",*info->p);
                     exit(2);
                 }
                 ((node2_92) ? node2_92 = come_decrement_ref_count(node2_92, ((struct sNode*)node2_92)->finalize, ((struct sNode*)node2_92)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1472, 414):(void*)0);
             }
         }
         else {
-            err_msg(info,"invalid character(5)(%c)",span$1char$p_operator_derefference(info->p));
+            err_msg(info,"invalid character(5)(%c)",*info->p);
             exit(2);
         }
         if(list$1sNode$ph_length(list_elements)>0) {
@@ -4314,10 +4301,10 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sNode$ph$p_finalize, map_keys, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 434);
         come_call_finalizer(list$1sNode$ph$p_finalize, map_elements, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 435);
     }
-    else if(span$1char$p_operator_derefference(info->p)==118&&*(info->p->p+1)==40) {
+    else if(*info->p==118&&*(info->p+1)==40) {
         sline_real_93=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p+=2;
+        info->p+=2;
         skip_spaces_and_lf(info);
     }
     else {
@@ -4334,88 +4321,6 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
     neo_current_frame = fr.prev;
     ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "51str3.nc", 1499, 442):(void*)0);
     return __result_obj__0;
-}
-
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
-}
-
-static char span$1char$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
 }
 
 static struct list$1sNode$ph* list$1sNode$ph_initialize(struct list$1sNode$ph* self)
@@ -4903,7 +4808,7 @@ struct sNode* parse_tuple(struct sInfo*  info  , _Bool named_tuple)
     memset(&name, 0, sizeof(name));
     tuple_elements=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "51str3.nc", 1504, 443, "struct list$1tuple2$2char$phsNode$ph$ph*"), "51str3.nc", 1504, 444)), "51str3.nc", 1504, 445);
     while((_Bool)1) {
-        p=info->p->p;
+        p=info->p;
         if(named_tuple) {
             __right_value0 = (void*)0;
             __dec_obj12=name,
@@ -4923,19 +4828,19 @@ struct sNode* parse_tuple(struct sInfo*  info  , _Bool named_tuple)
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_push_back(tuple_elements,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 1523, 467, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 1523, 468),(char* )come_increment_ref_count((char* )come_memdup(name, "51str3.nc", 1523, 466, "char* "), "51str3.nc", 1523, 469),(struct sNode*)come_increment_ref_count(node, "51str3.nc", 1523, 470)), "51str3.nc", 1523, 471));
-        if(span$1char$p_operator_derefference(info->p)==44) {
-            info->p->p++;
+        if(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
-        else if(span$1char$p_operator_derefference(info->p)==41) {
-            info->p->p++;
+        else if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "51str3.nc", 1532, 472));
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1532, 473):(void*)0);
             break;
         }
         else {
-            err_msg(info,"invalid character in tuple expression (%c)",span$1char$p_operator_derefference(info->p));
+            err_msg(info,"invalid character in tuple expression (%c)",*info->p);
             exit(2);
         }
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "51str3.nc", 1540, 474));
@@ -5023,13 +4928,13 @@ struct sNode* parse_vector(struct sInfo*  info  )
     _Bool no_comma_97;
     struct sNode* node2;
     struct sNode* __result_obj__0;
-    p=info->p->p;
+    p=info->p;
     sline_real=info->sline;
     no_comma=info->no_comma;
     info->no_comma=(_Bool)1;
     node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1552, 481);
     info->no_comma=no_comma;
-    p2=info->p->p;
+    p2=info->p;
     __right_value0 = (void*)0;
     first_element_source=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 1558, 482, "struct buffer* "), "51str3.nc", 1558, 483)), "51str3.nc", 1558, 484);
     buffer_append(first_element_source,p,p2-p);
@@ -5043,13 +4948,13 @@ struct sNode* parse_vector(struct sInfo*  info  )
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     map_elements=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 1566, 491, "struct list$1sNode$ph*"), "51str3.nc", 1566, 492)), "51str3.nc", 1566, 493);
-    if(span$1char$p_operator_derefference(info->p)==93) {
-        info->p->p++;
+    if(*info->p==93) {
+        info->p++;
         skip_spaces_and_lf(info);
         list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node, "51str3.nc", 1573, 494));
     }
-    else if(span$1char$p_operator_derefference(info->p)==44) {
-        info->p->p++;
+    else if(*info->p==44) {
+        info->p++;
         skip_spaces_and_lf(info);
         list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node, "51str3.nc", 1579, 495));
         while((_Bool)1) {
@@ -5059,29 +4964,29 @@ struct sNode* parse_vector(struct sInfo*  info  )
             node2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1585, 496);
             info->no_comma=no_comma_97;
             list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node2, "51str3.nc", 1589, 497));
-            if(span$1char$p_operator_derefference(info->p)==0) {
+            if(*info->p==0) {
                 err_msg(info,"invalid source end");
                 exit(2);
             }
-            else if(span$1char$p_operator_derefference(info->p)==44) {
-                info->p->p++;
+            else if(*info->p==44) {
+                info->p++;
                 skip_spaces_and_lf(info);
             }
-            else if(span$1char$p_operator_derefference(info->p)==93) {
-                info->p->p++;
+            else if(*info->p==93) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1602, 498):(void*)0);
                 break;
             }
             else {
-                err_msg(info,"invalid character(4)(%c)",span$1char$p_operator_derefference(info->p));
+                err_msg(info,"invalid character(4)(%c)",*info->p);
                 exit(2);
             }
             ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1609, 499):(void*)0);
         }
     }
     else {
-        err_msg(info,"invalid character(5)(%c)",span$1char$p_operator_derefference(info->p));
+        err_msg(info,"invalid character(5)(%c)",*info->p);
         exit(2);
     }
     if(list$1sNode$ph_length(list_elements)>0) {

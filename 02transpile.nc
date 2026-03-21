@@ -476,7 +476,7 @@ int come_main(int argc, char** argv)
             exit(2);
         }
 
-        info.p = span borrow info.source;
+        info.p = borrow info.source.buf;
         info.head = borrow info.source.buf;
         info.end = info.source.buf + info.source.len;
         

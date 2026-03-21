@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2765,8 +2754,6 @@ static struct sCaseNode* sCaseNode_clone(struct sCaseNode* self);
 static struct sDefaultNode* sDefaultNode_clone(struct sDefaultNode* self);
 static struct sBreakNode* sBreakNode_clone(struct sBreakNode* self);
 static struct sContinueNode* sContinueNode_clone(struct sContinueNode* self);
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
-static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct sLabelNode* sLabelNode_clone(struct sLabelNode* self);
 static struct sGotoNode* sGotoNode_clone(struct sGotoNode* self);
 static struct sSwitchNode* sSwitchNode_clone(struct sSwitchNode* self);
@@ -5282,7 +5269,7 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
         info->no_label=no_label;
         node2=((void*)0);
         if(parsecmp("...",info)) {
-            info->p->p+=strlen("...");
+            info->p+=strlen("...");
             skip_spaces_and_lf(info);
             no_label_24=info->no_label;
             info->no_label=(_Bool)1;
@@ -5387,10 +5374,10 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "18switch.nc", 275, 545):(void*)0);
         return __result_obj__0;
     }
-    else if(!info->no_label&&span$1char$p_operator_derefference(info->p)==58&&charp_operator_not_equals(buf,"tup")) {
-        info->p->p++;
+    else if(!info->no_label&&*info->p==58&&charp_operator_not_equals(buf,"tup")) {
+        info->p++;
         skip_spaces_and_lf(info);
-        if(span$1char$p_operator_derefference(info->p)==59) {
+        if(*info->p==59) {
                         __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
@@ -5642,88 +5629,6 @@ static struct sContinueNode* sContinueNode_clone(struct sContinueNode* self)
     come_call_finalizer(sContinueNode_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "sContinueNode_clone}", 9, 541);
     neo_current_frame = fr.prev;
     return __result_obj__0;
-}
-
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
-}
-
-static char span$1char$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
 }
 
 static struct sLabelNode* sLabelNode_clone(struct sLabelNode* self)

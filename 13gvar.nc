@@ -129,7 +129,7 @@ sNode*% parse_global_variable(sInfo* info)
     /// backtrace ///
     bool multiple_declare = false;
     {
-        char* p = info.p.p;
+        char* p = info.p;
         int sline = info.sline;
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
@@ -144,8 +144,8 @@ sNode*% parse_global_variable(sInfo* info)
                 var type,name = parse_variable_name_on_multiple_declare(type@base_type_name, true@first, info);
                 skip_spaces_and_lf();
                 
-                if(*info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
-                    info->p.p++;
+                if(*info.p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
+                    info->p++;
                     skip_spaces_and_lf();
                     
                     if(*info.p == '{') {
@@ -170,7 +170,7 @@ sNode*% parse_global_variable(sInfo* info)
         }
         
         info.no_output_come_code =  no_output_come_code;
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
     }
     
@@ -190,11 +190,11 @@ sNode*% parse_global_variable(sInfo* info)
         var type2, var_name = parse_variable_name_on_multiple_declare(base_type, true@first, info);
         skip_spaces_and_lf();
         
-        if(*info.p == '=' && *(info->p.p+1) != '=') {
-            info->p.p++;
+        if(*info.p == '=' && *(info->p+1) != '=') {
+            info->p++;
             skip_spaces_and_lf();
             
-            char* head = info.p.p;
+            char* head = info.p;
             
             if(*info.p == '{') {
                 skip_block();
@@ -212,7 +212,7 @@ sNode*% parse_global_variable(sInfo* info)
                 info->no_output_come_code = no_output_come_code;
             }
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             
             var buf = new buffer();
             
@@ -227,16 +227,16 @@ sNode*% parse_global_variable(sInfo* info)
         }
         
         while(*info.p == ',') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             
             var type2, var_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
             
-            if(*info.p == '=' && *(info->p.p+1) != '=')  {
-                info->p.p++;
+            if(*info.p == '=' && *(info->p+1) != '=')  {
+                info->p++;
                 skip_spaces_and_lf();
                 
-                char* head = info.p.p;
+                char* head = info.p;
                 
                 if(*info.p == '{') {
                     skip_block();
@@ -254,7 +254,7 @@ sNode*% parse_global_variable(sInfo* info)
                     info->no_output_come_code = no_output_come_code;
                 }
                 
-                char* tail = info.p.p;
+                char* tail = info.p;
                 
                 var buf = new buffer();
                 
@@ -300,15 +300,15 @@ sNode*% parse_global_variable(sInfo* info)
         sNode*% right_node = null;
         string array_initializer = null;
         
-        if(*info.p == '=' && *(info->p.p+1) != '=') {
-            info->p.p++;
+        if(*info.p == '=' && *(info->p+1) != '=') {
+            info->p++;
             skip_spaces_and_lf();
             
             if(*info.p == '{') {
                 buffer*% buf = new buffer();
                 
                 buf.append_char(*info.p);
-                info->p.p++;
+                info->p++;
                 
                 bool squort = false;
                 bool dquort = false;
@@ -320,21 +320,21 @@ sNode*% parse_global_variable(sInfo* info)
                     }
                     else if(*info.p == '\\') {
                         buf.append_char(*info.p);
-                        info->p.p++;
+                        info->p++;
                         if(*info.p == '\n') {
                             info->sline++;
                         }
                         buf.append_char(*info.p);
-                        info->p.p++;
+                        info->p++;
                     }
                     else if(!squort && *info.p == '"') {
                         buf.append_char(*info.p);
-                        info->p.p++;
+                        info->p++;
                         dquort = !dquort;
                     }
                     else if(!dquort && *info.p == '\'') {
                         buf.append_char(*info.p);
-                        info->p.p++;
+                        info->p++;
                         squort = !squort;
                     }
                     else if(squort || dquort) {
@@ -342,17 +342,17 @@ sNode*% parse_global_variable(sInfo* info)
                             info->sline++;
                         }
                         buf.append_char(*info.p);
-                        info->p.p++;
+                        info->p++;
                     }
                     else if(*info.p == '{') {
                         nest++;
                         buf.append_char(*info.p);
-                        info->p.p++;
+                        info->p++;
                     }
                     else if(*info.p == '}') {
                         nest--;
                         buf.append_char(*info.p);
-                        info->p.p++;
+                        info->p++;
                         
                         if(nest == 0) {
                             skip_spaces_and_lf();
@@ -362,11 +362,11 @@ sNode*% parse_global_variable(sInfo* info)
                     else if(*info.p == '\n') {
                         info->sline++;
                         buf.append_char(*info.p);
-                        info->p.p++;
+                        info->p++;
                     }
                     else {
                         buf.append_char(*info.p);
-                        info->p.p++;
+                        info->p++;
                     }
                 }
                 array_initializer = buf.to_string();

@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2866,8 +2855,6 @@ static void sArrayInitializer_finalize(struct sArrayInitializer* self);
 struct sNode* create_defference_node(struct sNode* value, _Bool quote, struct sInfo*  info  );
 static struct sDerefferenceNode* sDerefferenceNode_clone(struct sDerefferenceNode* self);
 struct sNode* pre_position_operator(struct sInfo*  info  );
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
-static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct sArrayInitializer* sArrayInitializer_clone(struct sArrayInitializer* self);
 static struct sLogicalDenial2* sLogicalDenial2_clone(struct sLogicalDenial2* self);
 static struct sMinusMinusNode2* sMinusMinusNode2_clone(struct sMinusMinusNode2* self);
@@ -7068,95 +7055,95 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     refference=(_Bool)0;
     {
-        p=info->p->p;
+        p=info->p;
         sline=info->sline;
-        if(span$1char$p_operator_derefference(info->p)==38&&*(info->p->p+1)!=38) {
-            info->p->p++;
+        if(*info->p==38&&*(info->p+1)!=38) {
+            info->p++;
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==34) {
+            if(*info->p==34) {
                 refference=(_Bool)1;
             }
-            else if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+            else if(xisalpha(*info->p)||*info->p==95) {
                 refference=(_Bool)1;
             }
-            else if(span$1char$p_operator_derefference(info->p)==40||span$1char$p_operator_derefference(info->p)==42) {
-                while(span$1char$p_operator_derefference(info->p)==40||span$1char$p_operator_derefference(info->p)==42) {
-                    info->p->p++;
+            else if(*info->p==40||*info->p==42) {
+                while(*info->p==40||*info->p==42) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                 }
-                if(span$1char$p_operator_derefference(info->p)==38) {
+                if(*info->p==38) {
                     refference=(_Bool)1;
                 }
-                else if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+                else if(xisalpha(*info->p)||*info->p==95) {
                     refference=(_Bool)1;
                 }
             }
         }
-        info->p->p=p;
+        info->p=p;
         info->sline=sline;
     }
     skip_spaces_and_lf(info);
-    if(span$1char$p_operator_derefference(info->p)==123) {
+    if(*info->p==123) {
         if(info->array_initializer) {
             buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "09pre_op.nc", 816, 951, "struct buffer* "), "09pre_op.nc", 816, 952)), "09pre_op.nc", 816, 953);
-            buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-            info->p->p++;
+            buffer_append_char(buf,*info->p);
+            info->p++;
             squort=(_Bool)0;
             dquort=(_Bool)0;
             nest=1;
             while(1) {
-                if(span$1char$p_operator_derefference(info->p)==0) {
+                if(*info->p==0) {
                     err_msg(info,"unexpected source end in array initiailizer");
                     exit(2);
                 }
-                else if(span$1char$p_operator_derefference(info->p)==92) {
-                    buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
-                    if(span$1char$p_operator_derefference(info->p)==10) {
+                else if(*info->p==92) {
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
+                    if(*info->p==10) {
                         info->sline++;
                     }
-                    buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
                 }
-                else if(!squort&&span$1char$p_operator_derefference(info->p)==34) {
-                    buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                else if(!squort&&*info->p==34) {
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
                     dquort=!dquort;
                 }
-                else if(!dquort&&span$1char$p_operator_derefference(info->p)==39) {
-                    buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                else if(!dquort&&*info->p==39) {
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
                     squort=!squort;
                 }
                 else if(squort||dquort) {
-                    if(span$1char$p_operator_derefference(info->p)==10) {
+                    if(*info->p==10) {
                         info->sline++;
                     }
-                    buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
                 }
-                else if(span$1char$p_operator_derefference(info->p)==123) {
+                else if(*info->p==123) {
                     nest++;
-                    buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
                 }
-                else if(span$1char$p_operator_derefference(info->p)==125) {
+                else if(*info->p==125) {
                     nest--;
-                    buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
                     if(nest==0) {
                         skip_spaces_and_lf(info);
                         break;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==10) {
+                else if(*info->p==10) {
                     info->sline++;
-                    buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
                 }
                 else {
-                    buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf,*info->p);
+                    info->p++;
                 }
             }
                         __right_value0 = (void*)0;
@@ -7191,8 +7178,8 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
             return __result_obj__0;
         }
     }
-    else if(span$1char$p_operator_derefference(info->p)==33&&*(info->p->p+1)!=33&&*(info->p->p+1)!=123) {
-        info->p->p++;
+    else if(*info->p==33&&*(info->p+1)!=33&&*(info->p+1)!=123) {
+        info->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node=(struct sNode*)come_increment_ref_count(expression_node_v99(info), "09pre_op.nc", 890, 979);
@@ -7220,8 +7207,8 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1254, 990):(void*)0);
     }
-    else if(span$1char$p_operator_derefference(info->p)==33&&*(info->p->p+1)==33) {
-        info->p->p+=2;
+    else if(*info->p==33&&*(info->p+1)==33) {
+        info->p+=2;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node_32=(struct sNode*)come_increment_ref_count(expression_node_v99(info), "09pre_op.nc", 898, 991);
@@ -7249,8 +7236,8 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
         ((node_32) ? node_32 = come_decrement_ref_count(node_32, ((struct sNode*)node_32)->finalize, ((struct sNode*)node_32)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1254, 1010):(void*)0);
     }
-    else if(span$1char$p_operator_derefference(info->p)==45&&*(info->p->p+1)==45) {
-        info->p->p+=2;
+    else if(*info->p==45&&*(info->p+1)==45) {
+        info->p+=2;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node_33=(struct sNode*)come_increment_ref_count(expression_node_v99(info), "09pre_op.nc", 906, 1011);
@@ -7278,8 +7265,8 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
         ((node_33) ? node_33 = come_decrement_ref_count(node_33, ((struct sNode*)node_33)->finalize, ((struct sNode*)node_33)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1254, 1030):(void*)0);
     }
-    else if(span$1char$p_operator_derefference(info->p)==45&&!xisdigit(*(info->p->p+1))) {
-        info->p->p++;
+    else if(*info->p==45&&!xisdigit(*(info->p+1))) {
+        info->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node_34=(struct sNode*)come_increment_ref_count(expression_node_v99(info), "09pre_op.nc", 914, 1031);
@@ -7307,8 +7294,8 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
         ((node_34) ? node_34 = come_decrement_ref_count(node_34, ((struct sNode*)node_34)->finalize, ((struct sNode*)node_34)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1254, 1050):(void*)0);
     }
-    else if(span$1char$p_operator_derefference(info->p)==43&&*(info->p->p+1)==43) {
-        info->p->p+=2;
+    else if(*info->p==43&&*(info->p+1)==43) {
+        info->p+=2;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node_35=(struct sNode*)come_increment_ref_count(expression_node_v99(info), "09pre_op.nc", 922, 1051);
@@ -7336,8 +7323,8 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
         ((node_35) ? node_35 = come_decrement_ref_count(node_35, ((struct sNode*)node_35)->finalize, ((struct sNode*)node_35)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1254, 1070):(void*)0);
     }
-    else if(span$1char$p_operator_derefference(info->p)==126) {
-        info->p->p++;
+    else if(*info->p==126) {
+        info->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         node_36=(struct sNode*)come_increment_ref_count(expression_node_v99(info), "09pre_op.nc", 930, 1071);
@@ -7365,14 +7352,14 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
         ((node_36) ? node_36 = come_decrement_ref_count(node_36, ((struct sNode*)node_36)->finalize, ((struct sNode*)node_36)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1254, 1090):(void*)0);
     }
-    else if((span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==42)||span$1char$p_operator_derefference(info->p)==42) {
-        if(span$1char$p_operator_derefference(info->p)==92) {
-            info->p->p+=2;
+    else if((*info->p==92&&*(info->p+1)==42)||*info->p==42) {
+        if(*info->p==92) {
+            info->p+=2;
             skip_spaces_and_lf(info);
             quote=(_Bool)1;
         }
         else {
-            info->p->p++;
+            info->p++;
             skip_spaces_and_lf(info);
             quote=(_Bool)0;
         }
@@ -7405,8 +7392,8 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
         ((value) ? value = come_decrement_ref_count(value, ((struct sNode*)value)->finalize, ((struct sNode*)value)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1254, 1102):(void*)0);
     }
-    else if(span$1char$p_operator_derefference(info->p)==38&&refference) {
-        info->p->p++;
+    else if(*info->p==38&&refference) {
+        info->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         value_37=(struct sNode*)come_increment_ref_count(expression_node_v99(info), "09pre_op.nc", 958, 1103);
@@ -7434,8 +7421,8 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
         ((value_37) ? value_37 = come_decrement_ref_count(value_37, ((struct sNode*)value_37)->finalize, ((struct sNode*)value_37)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1254, 1114):(void*)0);
     }
-    else if(span$1char$p_operator_derefference(info->p)==33&&*(info->p->p+1)!=33&&*(info->p->p+1)!=123) {
-        info->p->p++;
+    else if(*info->p==33&&*(info->p+1)!=33&&*(info->p+1)!=123) {
+        info->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         value_38=(struct sNode*)come_increment_ref_count(expression_node_v99(info), "09pre_op.nc", 976, 1115);
@@ -7463,34 +7450,34 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
         ((value_38) ? value_38 = come_decrement_ref_count(value_38, ((struct sNode*)value_38)->finalize, ((struct sNode*)value_38)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1254, 1126):(void*)0);
     }
-    else if(span$1char$p_operator_derefference(info->p)==40) {
-        info->p->p++;
+    else if(*info->p==40) {
+        info->p++;
         skip_spaces_and_lf(info);
         cast_expression_flag=(_Bool)0;
         struct_initializer_flag=(_Bool)0;
         {
-            p_39=info->p->p;
+            p_39=info->p;
             sline_40=info->sline;
             skip_spaces_and_lf(info);
-            p2=info->p->p;
+            p2=info->p;
             sline2=info->sline;
             __right_value0 = (void*)0;
             word=(char* )come_increment_ref_count(__builtin_string("","09pre_op.nc",996), "09pre_op.nc", 996, 1127);
-            if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj135=word,
                 word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "09pre_op.nc", 998, 1129);
                 __dec_obj135 = come_decrement_ref_count(__dec_obj135, (void*)0, (void*)0, 0,0, (void*)0, "09pre_op.nc", 998, 1128);
                 if(is_type_name(word,info)) {
-                    info->p->p=p2;
+                    info->p=p2;
                     info->sline=sline2;
                     __right_value0 = (void*)0;
                     ((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
                     come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "09pre_op.nc}", 1003, 1132);
-                    if(span$1char$p_operator_derefference(info->p)==41) {
-                        info->p->p++;
+                    if(*info->p==41) {
+                        info->p++;
                         skip_spaces_and_lf(info);
-                        if(span$1char$p_operator_derefference(info->p)==123) {
+                        if(*info->p==123) {
                             struct_initializer_flag=(_Bool)1;
                         }
                         else {
@@ -7500,14 +7487,14 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
                 }
             }
             skip_spaces_and_lf(info);
-            info->p->p=p_39;
+            info->p=p_39;
             info->sline=sline_40;
             (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "09pre_op.nc", 1025, 1133));
         }
         tuple_expression_flag=(_Bool)0;
         named_tuple_expression_flag=(_Bool)0;
-        if(span$1char$p_operator_derefference(info->p)==123) {
-            info->p->p++;
+        if(*info->p==123) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
@@ -7518,17 +7505,17 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
                 node2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "09pre_op.nc", 1087, 1137);
                 skip_spaces_and_lf(info);
                 list$1sNode$ph_add(paren_block,(struct sNode*)come_increment_ref_count(node2, "09pre_op.nc", 1091, 1138));
-                while(span$1char$p_operator_derefference(info->p)==59) {
-                    info->p->p++;
+                while(*info->p==59) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                 }
-                if(span$1char$p_operator_derefference(info->p)==125) {
-                    info->p->p++;
+                if(*info->p==125) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "09pre_op.nc", 1101, 1139):(void*)0);
                     break;
                 }
-                else if(span$1char$p_operator_derefference(info->p)==0) {
+                else if(*info->p==0) {
                     err_msg(info,"invalid source end in paren block");
                     exit(0);
                 }
@@ -7579,64 +7566,64 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             buf_42=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "09pre_op.nc", 1140, 1165, "struct buffer* "), "09pre_op.nc", 1140, 1166)), "09pre_op.nc", 1140, 1167);
-            buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-            info->p->p++;
+            buffer_append_char(buf_42,*info->p);
+            info->p++;
             squort_43=(_Bool)0;
             dquort_44=(_Bool)0;
             nest_45=1;
             while(1) {
-                if(span$1char$p_operator_derefference(info->p)==0) {
+                if(*info->p==0) {
                     err_msg(info,"unexpected source end in array initiailizer");
                     exit(2);
                 }
-                else if(span$1char$p_operator_derefference(info->p)==92) {
-                    buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
-                    if(span$1char$p_operator_derefference(info->p)==10) {
+                else if(*info->p==92) {
+                    buffer_append_char(buf_42,*info->p);
+                    info->p++;
+                    if(*info->p==10) {
                         info->sline++;
                     }
-                    buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf_42,*info->p);
+                    info->p++;
                 }
-                else if(!squort_43&&span$1char$p_operator_derefference(info->p)==34) {
-                    buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                else if(!squort_43&&*info->p==34) {
+                    buffer_append_char(buf_42,*info->p);
+                    info->p++;
                     dquort_44=!dquort_44;
                 }
-                else if(!dquort_44&&span$1char$p_operator_derefference(info->p)==39) {
-                    buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                else if(!dquort_44&&*info->p==39) {
+                    buffer_append_char(buf_42,*info->p);
+                    info->p++;
                     squort_43=!squort_43;
                 }
                 else if(squort_43||dquort_44) {
-                    if(span$1char$p_operator_derefference(info->p)==10) {
+                    if(*info->p==10) {
                         info->sline++;
                     }
-                    buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf_42,*info->p);
+                    info->p++;
                 }
-                else if(span$1char$p_operator_derefference(info->p)==123) {
+                else if(*info->p==123) {
                     nest_45++;
-                    buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf_42,*info->p);
+                    info->p++;
                 }
-                else if(span$1char$p_operator_derefference(info->p)==125) {
+                else if(*info->p==125) {
                     nest_45--;
-                    buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf_42,*info->p);
+                    info->p++;
                     if(nest_45==0) {
                         skip_spaces_and_lf(info);
                         break;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==10) {
+                else if(*info->p==10) {
                     info->sline++;
-                    buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf_42,*info->p);
+                    info->p++;
                 }
                 else {
-                    buffer_append_char(buf_42,span$1char$p_operator_derefference(info->p));
-                    info->p->p++;
+                    buffer_append_char(buf_42,*info->p);
+                    info->p++;
                 }
             }
                         __right_value0 = (void*)0;
@@ -7771,88 +7758,6 @@ struct sNode* pre_position_operator(struct sInfo*  info  )
         return __result_obj__0;
     }
     neo_current_frame = fr.prev;
-}
-
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
-}
-
-static char span$1char$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
 }
 
 static struct sArrayInitializer* sArrayInitializer_clone(struct sArrayInitializer* self)

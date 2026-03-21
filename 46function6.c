@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -1543,17 +1532,6 @@ struct sRawCodeNode
     char*  sname  ;
     int sline_real;
     char*  mCode  ;
-};
-
-struct span$1buffer$p
-{
-    char* memory;
-    struct buffer*  p  ;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
 };
 
 /// variable definition ///
@@ -2720,9 +2698,6 @@ static void tuple2$2char$phchar$ph$p_finalize(struct tuple2$2char$phchar$ph* sel
 static struct sRawCodeNode* sRawCodeNode_clone(struct sRawCodeNode* self);
 static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* self, struct sNode* item);
 static struct sSemicolonNode* sSemicolonNode_clone(struct sSemicolonNode* self);
-static struct span$1buffer$p* span$1buffer$p_initialize(struct span$1buffer$p* self, void* head, unsigned long  len  , _Bool local, _Bool heap, _Bool global, void* stacktop);
-static void span$1buffer$p$p_finalize(struct span$1buffer$p* self);
-static void span$1char$p$p_finalize(struct span$1char$p* self);
 _Bool is_function_attribute_word(char* buf);
 // uniq global variable
 // inline function
@@ -5276,52 +5251,50 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
     char* head_30;
     struct buffer*  source2  ;
     struct buffer*  __dec_obj84  ;
-    struct span$1char$p* __dec_obj85;
     struct sNode* node_31;
-    struct buffer*  __dec_obj86  ;
-    struct span$1char$p* __dec_obj87;
+    struct buffer*  __dec_obj85  ;
     memset(&node_27, 0, sizeof(node_27));
     result=(struct sBlock*)come_increment_ref_count(sBlock_initialize((struct sBlock* )come_increment_ref_count((struct sBlock *)come_calloc(1, sizeof(struct sBlock )*(1), "46function6.nc", 57, 500, "struct sBlock* "), "46function6.nc", 57, 501)), "46function6.nc", 57, 502);
     sline_top=info->sline_top;
     info->sline_top=info->sline;
     block_level=info->block_level;
     info->block_level++;
-    if(*info->p->p==123) {
-        info->p->p++;
+    if(*info->p==123) {
+        info->p++;
         skip_spaces_and_lf(info);
         while((_Bool)1) {
             skip_spaces_and_lf(info);
-            if(*info->p->p==125) {
-                info->p->p++;
+            if(*info->p==125) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
-            while(*info->p->p==59) {
-                info->p->p++;
+            while(*info->p==59) {
+                info->p++;
                 skip_spaces_and_lf(info);
             }
             skip_spaces_and_lf(info);
-            p=info->p->p;
+            p=info->p;
             sline=info->sline;
             __right_value0 = (void*)0;
             sname=(char* )come_increment_ref_count(__builtin_string(info->sname,"46function6.nc",84), "46function6.nc", 84, 503);
-            if(*info->p->p==123) {
+            if(*info->p==123) {
                 info->sline_top=sline;
             }
             node=((void*)0);
             if(in_function) {
                 nested_fun=((void*)0);
-                head=info->p->p;
+                head=info->p;
                 head_sline=info->sline;
                 __right_value0 = (void*)0;
                 head_sname=(char* )come_increment_ref_count(__builtin_string(info->sname,"46function6.nc",96), "46function6.nc", 96, 504);
-                if(xisalpha(*info->p->p)||*info->p->p==95) {
-                    p0=info->p->p;
+                if(xisalpha(*info->p)||*info->p==95) {
+                    p0=info->p;
                     sline0=info->sline;
                     __right_value0 = (void*)0;
                     word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "46function6.nc", 101, 505);
                     is_type=is_type_name(word,info);
-                    info->p->p=p0;
+                    info->p=p0;
                     info->sline=sline0;
                     if(is_type) {
                         no_output_come_code=info->no_output_come_code;
@@ -5333,7 +5306,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
                         err=multiple_assign_var1->v3;
                         come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "46function6.nc}", 110, 510);
                         skip_spaces_and_lf(info);
-                        if(err&&*info->p->p==40) {
+                        if(err&&*info->p==40) {
                             skip_paren(info);
                             skip_spaces_and_lf(info);
                             __right_value0 = (void*)0;
@@ -5342,10 +5315,10 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
                             fun_attr=(char* )come_increment_ref_count(multiple_assign_var2->v2, "46function6.nc", 116, 512);
                             come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "46function6.nc}", 116, 515);
                             skip_spaces_and_lf(info);
-                            if(*info->p->p==123) {
+                            if(*info->p==123) {
                                 __right_value0 = (void*)0;
                                 block=(char* )come_increment_ref_count(skip_block(info,(_Bool)0), "46function6.nc", 120, 516);
-                                tail=info->p->p;
+                                tail=info->p;
                                 __right_value0 = (void*)0;
                                 __right_value1 = (void*)0;
                                 buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "46function6.nc", 123, 517, "struct buffer* "), "46function6.nc", 123, 518)), "46function6.nc", 123, 519);
@@ -5386,7 +5359,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
                     (__dec_obj74 ? __dec_obj74 = come_decrement_ref_count(__dec_obj74, ((struct sNode*)__dec_obj74)->finalize, ((struct sNode*)__dec_obj74)->_protocol_obj, 0,0, (void*)0, "46function6.nc", 135, 544) :0);
                 }
                 else {
-                    info->p->p=head;
+                    info->p=head;
                     info->sline=head_sline;
                     __right_value0 = (void*)0;
                     __dec_obj75=info->sname,
@@ -5425,16 +5398,16 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
             if(node->terminated(node->_protocol_obj)) {
                 omit_semicolon=(_Bool)0;
             }
-            while(*info->p->p==59) {
-                info->p->p++;
+            while(*info->p==59) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 omit_semicolon=(_Bool)0;
             }
             skip_spaces_and_lf(info);
-            if(*info->p->p==125) {
+            if(*info->p==125) {
                 result->mOmitSemicolon=omit_semicolon;
                 if(omit_semicolon&&in_function) {
-                    info->p->p++;
+                    info->p++;
                     skip_spaces_and_lf(info);
                     __right_value0 = (void*)0;
                     node2=(struct sNode*)come_increment_ref_count(create_return_node((struct sNode*)come_increment_ref_count(node, "46function6.nc", 181, 559),info), "46function6.nc", 181, 560);
@@ -5447,7 +5420,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
                 }
                 else {
                     list$1sNode$ph_push_back(result->mNodes,(struct sNode*)come_increment_ref_count(node, "46function6.nc", 188, 580));
-                    info->p->p++;
+                    info->p++;
                     skip_spaces_and_lf(info);
                     (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "46function6.nc", 191, 581));
                     ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "46function6.nc", 191, 582):(void*)0);
@@ -5462,8 +5435,8 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
     else {
         info->sline_block=info->sline;
         skip_spaces_and_lf(info);
-        if(*info->p->p==59) {
-            info->p->p++;
+        if(*info->p==59) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
@@ -5509,8 +5482,8 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
             if(node_27->terminated(node_27->_protocol_obj)) {
                 omit_semicolon_28=(_Bool)0;
             }
-            while(*info->p->p==59) {
-                info->p->p++;
+            while(*info->p==59) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 omit_semicolon_28=(_Bool)0;
             }
@@ -5521,7 +5494,7 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
         ((node_27) ? node_27 = come_decrement_ref_count(node_27, ((struct sNode*)node_27)->finalize, ((struct sNode*)node_27)->_protocol_obj, 0, 0,(void*)0, "46function6.nc", 245, 607):(void*)0);
     }
     if(return_self_at_last) {
-        p_29=info->p->p;
+        p_29=info->p;
         head_30=info->head;
         source2=(struct buffer* )come_increment_ref_count(info->source, "46function6.nc", 248, 608);
         __right_value0 = (void*)0;
@@ -5531,52 +5504,40 @@ struct sBlock*  parse_block(struct sInfo*  info  , _Bool return_self_at_last, _B
         come_call_finalizer(buffer_finalize, __dec_obj84,(void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc", 250, 609);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "46function6.nc", 250, 611));
         if(info->p==((void*)0)) {
-            __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            __dec_obj85=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "46function6.nc", 252, 612, "struct span$1buffer$p*"), "46function6.nc", 252, 616),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "46function6.nc", 252, 618);
-            come_call_finalizer(span$1char$p$p_finalize, __dec_obj85,(void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc", 252, 617);
+            info->p=info->source->buf;
         }
-        info->p->memory=info->source->buf;
-        info->p->len=info->source->len+2;
-        info->p->p=info->source->buf;
+        info->p=info->source->buf;
         info->head=info->source->buf;
         __right_value0 = (void*)0;
-        node_31=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "46function6.nc", 259, 619);
+        node_31=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "46function6.nc", 257, 612);
         if(node_31==((void*)0)) {
             err_msg(info,"Invalid expression");
-                        __result_obj__0 = (struct sBlock* )come_increment_ref_count(((void*)0), "46function6.nc", 263, 620);
-            come_call_finalizer(buffer_finalize, source2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc}", 263, 621);
-            ((node_31) ? node_31 = come_decrement_ref_count(node_31, ((struct sNode*)node_31)->finalize, ((struct sNode*)node_31)->_protocol_obj, 0, 0,(void*)0, "46function6.nc", 263, 622):(void*)0);
-            come_call_finalizer(sBlock_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc}", 263, 623);
+                        __result_obj__0 = (struct sBlock* )come_increment_ref_count(((void*)0), "46function6.nc", 261, 613);
+            come_call_finalizer(buffer_finalize, source2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc}", 261, 614);
+            ((node_31) ? node_31 = come_decrement_ref_count(node_31, ((struct sNode*)node_31)->finalize, ((struct sNode*)node_31)->_protocol_obj, 0, 0,(void*)0, "46function6.nc", 261, 615):(void*)0);
+            come_call_finalizer(sBlock_finalize, result, (void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc}", 261, 616);
             neo_current_frame = fr.prev;
-            come_call_finalizer(sBlock_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "46function6.nc}", 263, 624);
+            come_call_finalizer(sBlock_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "46function6.nc}", 261, 617);
             return __result_obj__0;
         }
-        list$1sNode$ph_push_back(result->mNodes,(struct sNode*)come_increment_ref_count(node_31, "46function6.nc", 266, 625));
-        __dec_obj86=info->source,
-        info->source=(struct buffer* )come_increment_ref_count(source2, "46function6.nc", 268, 627);
-        come_call_finalizer(buffer_finalize, __dec_obj86,(void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc", 268, 626);
+        list$1sNode$ph_push_back(result->mNodes,(struct sNode*)come_increment_ref_count(node_31, "46function6.nc", 264, 618));
+        __dec_obj85=info->source,
+        info->source=(struct buffer* )come_increment_ref_count(source2, "46function6.nc", 266, 620);
+        come_call_finalizer(buffer_finalize, __dec_obj85,(void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc", 266, 619);
         if(info->p==((void*)0)) {
-            __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            __dec_obj87=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "46function6.nc", 270, 628, "struct span$1buffer$p*"), "46function6.nc", 270, 629),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "46function6.nc", 270, 631);
-            come_call_finalizer(span$1char$p$p_finalize, __dec_obj87,(void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc", 270, 630);
+            info->p=info->source->buf;
         }
-        info->p->memory=info->source->buf;
-        info->p->len=info->source->len+2;
-        info->p->p=info->source->buf;
-        info->p->p=p_29;
+        info->p=info->source->buf;
+        info->p=p_29;
         info->head=head_30;
-        come_call_finalizer(buffer_finalize, source2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc}", 279, 632);
-        ((node_31) ? node_31 = come_decrement_ref_count(node_31, ((struct sNode*)node_31)->finalize, ((struct sNode*)node_31)->_protocol_obj, 0, 0,(void*)0, "46function6.nc", 279, 633):(void*)0);
+        come_call_finalizer(buffer_finalize, source2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "46function6.nc}", 275, 621);
+        ((node_31) ? node_31 = come_decrement_ref_count(node_31, ((struct sNode*)node_31)->finalize, ((struct sNode*)node_31)->_protocol_obj, 0, 0,(void*)0, "46function6.nc", 275, 622):(void*)0);
     }
     info->block_level=block_level;
-        __result_obj__0 = (struct sBlock* )come_increment_ref_count(result, "46function6.nc", 281, 634);
-    come_call_finalizer(sBlock_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "46function6.nc}", 281, 635);
+        __result_obj__0 = (struct sBlock* )come_increment_ref_count(result, "46function6.nc", 277, 623);
+    come_call_finalizer(sBlock_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "46function6.nc}", 277, 624);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sBlock_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "46function6.nc}", 281, 636);
+    come_call_finalizer(sBlock_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "46function6.nc}", 277, 625);
     return __result_obj__0;
 }
 
@@ -5727,41 +5688,6 @@ static struct sSemicolonNode* sSemicolonNode_clone(struct sSemicolonNode* self)
     come_call_finalizer(sSemicolonNode_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "sSemicolonNode_clone}", 9, 595);
     neo_current_frame = fr.prev;
     return __result_obj__0;
-}
-
-static struct span$1buffer$p* span$1buffer$p_initialize(struct span$1buffer$p* self, void* head, unsigned long  len  , _Bool local, _Bool heap, _Bool global, void* stacktop)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1buffer$p_initialize"; neo_current_frame = &fr;
-    struct span$1buffer$p* __result_obj__0;
-    if(!1) {
-        puts("invalid span");
-        stackframe2(self);
-        exit(2);
-    }
-    self->memory=(char*)head;
-    self->p=(struct buffer* )head;
-    self->len=len;
-    self->local=local;
-    self->heap=heap;
-    self->global=global;
-    self->stacktop=stacktop;
-        __result_obj__0 = (struct span$1buffer$p*)come_increment_ref_count(self, "/usr/local/include/neo-c.h", 1026, 613);
-    come_call_finalizer(span$1buffer$p$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1026, 614);
-    neo_current_frame = fr.prev;
-    come_call_finalizer(span$1buffer$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1026, 615);
-    return __result_obj__0;
-}
-
-static void span$1buffer$p$p_finalize(struct span$1buffer$p* self)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1buffer$p$p_finalize"; neo_current_frame = &fr;
-        neo_current_frame = fr.prev;
-}
-
-static void span$1char$p$p_finalize(struct span$1char$p* self)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1char$p$p_finalize"; neo_current_frame = &fr;
-                neo_current_frame = fr.prev;
 }
 
 _Bool is_function_attribute_word(char* buf)

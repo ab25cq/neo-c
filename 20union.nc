@@ -169,7 +169,7 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info, bool 
         if(*info.p == ',') {
             skip_spaces_and_lf();
             while(*info.p == ',') {
-                info->p.p++;
+                info->p++;
                 skip_spaces_and_lf();
                 
                 string name2 = parse_word();
@@ -189,7 +189,7 @@ sNode*% parse_union(string type_name, string union_attribute, sInfo* info, bool 
         skip_spaces_and_lf();
         
         if(*info.p == '}') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             break;
         }
@@ -225,7 +225,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
 {
     if(buf === "union") {
         info.parse_struct_recursive_count++;
-        char* source_head = info.p.p;
+        char* source_head = info.p;
         
         string struct_attribute = parse_struct_attribute();
         
@@ -274,7 +274,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
             
             if(*info.p == ',') {
                 while(*info.p == ',') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     
                     string name2 = parse_word();
@@ -295,7 +295,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
             }
             
             if(*info.p == '}') {
-                info->p.p++;
+                info->p++;
                 skip_spaces_and_lf();
                 break;
             }
@@ -303,7 +303,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 97
     
         string struct_attribute2 = parse_struct_attribute();
         
-        char* source_tail = info.p.p;
+        char* source_tail = info.p;
         
         buffer*% header = new buffer();
         header.append_str("union ");
@@ -341,7 +341,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     string union_attribute = s"";
     bool define_union = false;
     {
-        char* p = info.p.p;
+        char* p = info.p;
         int sline = info.sline;
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
@@ -366,7 +366,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
         
         info.no_output_come_code = no_output_come_code;
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
     }
     

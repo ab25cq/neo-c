@@ -3,7 +3,7 @@
 bool parsecmp(const char* p2, sInfo* info=info)
 {
     int len = strlen(p2);
-    char* p = info.p.p;
+    char* p = info.p;
     for(int i=0; i<len; i++) {
         if(p[i] == '\0' || p[i] != p2[i]) {
             return false;
@@ -23,7 +23,7 @@ int err_msg(sInfo* info, const char* msg, ...)
         vasprintf(&msg2,msg,args);
         va_end(args);
         
-        char* p = info.p.p;
+        char* p = info.p;
         int sline_real = info.sline_real > 0 ? info.sline_real : info.sline;
         
         buffer*% buf = new buffer();
@@ -35,9 +35,9 @@ int err_msg(sInfo* info, const char* msg, ...)
             buf.append_format("%s %d(%d): [error] %s\n", info.sname, info.sline, sline_real, msg2);
         }
         
-        if((info.end - info.p.p) > 30 && (info.p.p - info.head) > 30) {
+        if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
             char mem[128];
-            memcpy(mem, info.p.p - 30, 60);
+            memcpy(mem, info.p - 30, 60);
             mem[20] = '\0';
             buf.append_str(mem + "\n"); 
         }
@@ -73,9 +73,9 @@ int warning_msg(sInfo* info, const char* msg, ...)
         else {
             buf.append_format("%s %d(%d): [warning] %s\n", info.sname, info.sline, sline_real, msg2);
         }
-        if((info.end - info.p.p) > 30 && (info.p.p - info.head) > 30) {
+        if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
             char mem[128];
-            memcpy(mem, info.p.p - 30, 60);
+            memcpy(mem, info.p - 30, 60);
             mem[20] = '\0';
             buf.append_str(mem + "\n"); 
         }
@@ -102,7 +102,7 @@ int expected_next_character(char c, sInfo* info=info)
         }
     }
     
-    info->p.p++;
+    info->p++;
     skip_spaces_and_lf();
     
     return 0;
@@ -112,7 +112,7 @@ string parse_word(bool digits=false, sInfo* info=info)
 {
     parse_sharp();
     
-    char* p = info.p.p;
+    char* p = info.p;
     char* head = p;
     
     if(digits) {
@@ -131,7 +131,7 @@ string parse_word(bool digits=false, sInfo* info=info)
         }
     }
     
-    info.p.p = p;
+    info.p = p;
     skip_spaces_and_lf();
     
     if(head == p) {
@@ -158,7 +158,7 @@ string parse_word(bool digits=false, sInfo* info=info)
 
 string backtrace_parse_word(sInfo* info=info)
 {
-    char* p = info.p.p;
+    char* p = info.p;
     int sline = info.sline;
     
     string buf;
@@ -169,7 +169,7 @@ string backtrace_parse_word(sInfo* info=info)
         buf = string("");
     }
     
-    info.p.p = p;
+    info.p = p;
     info.sline = sline;
     
     return buf;
@@ -177,7 +177,7 @@ string backtrace_parse_word(sInfo* info=info)
 
 static bool skip_comment(sInfo* info, bool skip_space_after)
 {
-    char* p = info.p.p;
+    char* p = info.p;
     int sline = info.sline;
     int sline_real = info.sline_real;
     
@@ -193,7 +193,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                 nest--;
                 
                 if(nest == 0) {
-                    info.p.p = p;
+                    info.p = p;
                     info.sline = sline;
                     info.sline_real = sline_real;
                     if(skip_space_after) {
@@ -216,7 +216,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                 sline_real++;
             }
             else if(*p == '\0') {
-                info.p.p = p;
+                info.p = p;
                 info.sline = sline;
                 info.sline_real = sline_real;
                 err_msg(info, "unterminated comment");
@@ -237,7 +237,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                 p++;
                 sline++;
                 sline_real++;
-                info.p.p = p;
+                info.p = p;
                 info.sline = sline;
                 info.sline_real = sline_real;
                 if(skip_space_after) {
@@ -252,7 +252,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                 }
                 sline++;
                 sline_real++;
-                info.p.p = p;
+                info.p = p;
                 info.sline = sline;
                 info.sline_real = sline_real;
                 if(skip_space_after) {
@@ -261,7 +261,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
                 break;
             }
             else if(*p == '\0') {
-                info.p.p = p;
+                info.p = p;
                 info.sline = sline;
                 info.sline_real = sline_real;
                 break;
@@ -279,7 +279,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
 
 void skip_spaces_and_lf(sInfo* info=info)
 {
-    char* p = info.p.p;
+    char* p = info.p;
     int sline = info.sline;
     int sline_real = info.sline_real;
     
@@ -328,7 +328,7 @@ void skip_spaces_and_lf(sInfo* info=info)
                     sline_real++;
                 }
                 else if(*p == '\0') {
-                    info.p.p = p;
+                    info.p = p;
                     info.sline = sline;
                     info.sline_real = sline_real;
                     err_msg(info, "unterminated comment");
@@ -369,7 +369,7 @@ void skip_spaces_and_lf(sInfo* info=info)
             break;
         }
     }
-    info.p.p = p;
+    info.p = p;
     info.sline = sline;
     info.sline_real = sline_real;
     
@@ -383,7 +383,7 @@ void skip_spaces_and_lf(sInfo* info=info)
 
 void skip_spaces_and_lf2(sInfo* info=info)
 {
-    char* p = info.p.p;
+    char* p = info.p;
     int sline = info.sline;
     int sline_real = info.sline_real;
     
@@ -432,7 +432,7 @@ void skip_spaces_and_lf2(sInfo* info=info)
                     sline_real++;
                 }
                 else if(*p == '\0') {
-                    info.p.p = p;
+                    info.p = p;
                     info.sline = sline;
                     info.sline_real = sline_real;
                     err_msg(info, "unterminated comment");
@@ -474,14 +474,14 @@ void skip_spaces_and_lf2(sInfo* info=info)
         }
     }
     
-    info.p.p = p;
+    info.p = p;
     info.sline = sline;
     info.sline_real = sline_real;
 }
 
 void skip_spaces_and_tabs(sInfo* info=info)
 {
-    char* p = info.p.p;
+    char* p = info.p;
     int sline = info.sline;
     int sline_real = info.sline_real;
     
@@ -517,7 +517,7 @@ void skip_spaces_and_tabs(sInfo* info=info)
                     sline_real++;
                 }
                 else if(*p == '\0') {
-                    info.p.p = p;
+                    info.p = p;
                     info.sline = sline;
                     info.sline_real = sline_real;
                     err_msg(info, "unterminated comment");
@@ -540,7 +540,7 @@ void skip_spaces_and_tabs(sInfo* info=info)
         }
     }
     
-    info.p.p = p;
+    info.p = p;
     info.sline = sline;
     info.sline_real = sline_real;
 }
@@ -740,15 +740,15 @@ void parse_sharp(sInfo* info=info) version 5
     
     while(1) {
         if(*info.p == '#') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_tabs();
             
             if(parsecmp("pragma")) {
-                char* head = info.p.p;
+                char* head = info.p;
                 while(*info.p && *info.p != '\n') {
-                    info->p.p++;
+                    info->p++;
                 }
-                int len = info.p.p - head;
+                int len = info.p - head;
                 char*% mem = new char[len+2];
                 mem[0] = '#';
                 memcpy(mem+1, head, len);
@@ -756,7 +756,7 @@ void parse_sharp(sInfo* info=info) version 5
                 if(*info.p == '\n') {
                     mem[len+1] = '\n';
                     mem[len+2-1] = '\0';
-                    info->p.p++;
+                    info->p++;
                     info->sline++;
                     info->sline_real++;
                 }
@@ -771,7 +771,7 @@ void parse_sharp(sInfo* info=info) version 5
                 skip_spaces_and_lf2();
             }
             else if(parsecmp("line")) {
-                info->p.p += strlen("line");
+                info->p += strlen("line");
                 skip_spaces_and_tabs();
                 
                 int line = 0;
@@ -784,33 +784,33 @@ void parse_sharp(sInfo* info=info) version 5
                 
                 while(xisdigit(*info.p)) {
                     line = line * 10 + (*info.p - '0');
-                    info->p.p++;
+                    info->p++;
                 }
                 skip_spaces_and_tabs();
     
                 if(*info.p == '"') {
-                    info->p.p++;
-                    char* head = info.p.p;
+                    info->p++;
+                    char* head = info.p;
     
                     while(*info.p && *info.p != '"') {
-                        info->p.p++;
+                        info->p++;
                     }
                     if(*info.p == '\0') {
                         err_msg(info, "unterminated #line file name");
                         return;
                     }
-                    int len = info.p.p - head;
+                    int len = info.p - head;
                     char*% mem = new char[len+1];
                     memcpy(mem, head, len);
                     mem[len] = '\0';
                     fname_str = mem;
-                    info->p.p++;
+                    info->p++;
     
                     while(*info.p && *info.p != '\n') {
-                        info->p.p++;
+                        info->p++;
                     }
                     if(*info.p == '\n') {
-                        info->p.p++;
+                        info->p++;
                         info->sline_real++;
                     }
                 }
@@ -836,33 +836,33 @@ void parse_sharp(sInfo* info=info) version 5
     
                 while(xisdigit(*info.p)) {
                     line = line * 10 + (*info.p - '0');
-                    info->p.p++;
+                    info->p++;
                 }
                 skip_spaces_and_tabs();
     
                 if(*info.p == '"') {
-                    info->p.p++;
-                    char* head = info.p.p;
+                    info->p++;
+                    char* head = info.p;
     
                     while(*info.p && *info.p != '"') {
-                        info->p.p++;
+                        info->p++;
                     }
                     if(*info.p == '\0') {
                         err_msg(info, "unterminated #line file name");
                         return;
                     }
-                    int len = info.p.p - head;
+                    int len = info.p - head;
                     char*% mem = new char[len+1];
                     memcpy(mem, head, len);
                     mem[len] = '\0';
                     fname_str = mem;
-                    info->p.p++;
+                    info->p++;
     
                     while(*info.p && *info.p != '\n') {
-                        info->p.p++;
+                        info->p++;
                     }
                     if(*info.p == '\n') {
-                        info->p.p++;
+                        info->p++;
                         info->sline_real++;
                     }
                 }
@@ -884,22 +884,22 @@ void parse_sharp(sInfo* info=info) version 5
                 skip_spaces_and_tabs();
             }
             else if(*info.p == '"') {
-                info->p.p++;
+                info->p++;
     
                 while(*info.p && *info.p != '"') {
-                    info->p.p++;
+                    info->p++;
                 }
                 if(*info.p == '\0') {
                     err_msg(info, "unterminated #include file name");
                     return;
                 }
-                info->p.p++;
+                info->p++;
     
                 while(*info.p && *info.p != '\n') {
-                    info->p.p++;
+                    info->p++;
                 }
                 if(*info.p == '\n') {
-                    info->p.p++;
+                    info->p++;
                     info->sline_real++;
                 }
             }
@@ -909,7 +909,7 @@ void parse_sharp(sInfo* info=info) version 5
         else if(skip_comment(info, true)) {
         }
         else if(parsecmp("__extension__")) {
-            info->p.p += strlen("__extension__");
+            info->p += strlen("__extension__");
             skip_spaces_and_lf2();
         }
         else {
@@ -923,13 +923,13 @@ void skip_paren(sInfo* info)
     int nest = 0;
     while(true) {
         if(*info.p == '(') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             
             nest++;
         }
         else if(*info.p == ')') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             
             nest--;
@@ -942,7 +942,7 @@ void skip_paren(sInfo* info)
             exit(1);
         }
         else {
-            info->p.p++;
+            info->p++;
         }
     }
 }

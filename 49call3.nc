@@ -743,17 +743,15 @@ class sFunCallNode extends sNodeBase
                 
                 if(default_param && default_param !== "" && come_params[i] == null) {
                     buffer*% source = info.source;
-                    char* p = info.p.p;
+                    char* p = info.p;
                     char* head = info.head;
                     int sline = info.sline;
                     
                     info.source = default_param.to_buffer();
                     if(info.p == null) {
-                        info.p = span borrow info.source;
+                        info.p = borrow info.source.buf;
                     }
-                    info.p.memory = borrow info.source.buf;
-                    info.p.len = info.source.len+2;
-                    info.p.p = borrow info.source.buf;
+                    info.p = borrow info.source.buf;
                     info.head = borrow info.source.buf;
                     
                     bool no_output_come_code = info.no_output_come_code;
@@ -769,12 +767,10 @@ class sFunCallNode extends sNodeBase
                     
                     info.source = source;
     if(info.p == null) {
-        info.p = span borrow info.source;
+        info.p = borrow info.source.buf;
     }
-    info.p.memory = borrow info.source.buf;
-    info.p.len = info.source.len+2;
-    info.p.p = borrow info.source.buf;
-    info.p.p = p;
+    info.p = borrow info.source.buf;
+    info.p = p;
                     info.head = head;
                     info.sline = sline;
             
@@ -895,17 +891,15 @@ class sFunCallNode extends sNodeBase
             method_block2.append_str(method_block.to_string());
             
             buffer*% source3 = info.source;
-            char* p = info.p.p;
+            char* p = info.p;
             char* head = info.head;
             int sline = info.sline;
             
             info.source = method_block2;
             if(info.p == null) {
-                info.p = span borrow info.source;
+                info.p = borrow info.source.buf;
             }
-            info.p.memory = borrow info.source.buf;
-            info.p.len = info.source.len+2;
-            info.p.p = borrow info.source.buf;
+            info.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
             info.sline = method_block_sline;
            
@@ -936,12 +930,10 @@ class sFunCallNode extends sNodeBase
             
             info.source = source3;
     if(info.p == null) {
-        info.p = span borrow info.source;
+        info.p = borrow info.source.buf;
     }
-    info.p.memory = borrow info.source.buf;
-    info.p.len = info.source.len+2;
-    info.p.p = borrow info.source.buf;
-    info.p.p = p;
+    info.p = borrow info.source.buf;
+    info.p = p;
             info.head = head;
             info.sline = sline;
             
@@ -1013,22 +1005,22 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
 {
     list<sType*%>*% method_generics_types = new list<sType*%>();
     
-    if(*info->p.p == '<') {
-        info->p.p++;
+    if(*info->p == '<') {
+        info->p++;
         skip_spaces_and_lf();
         
         while(true) {
-            if(*info->p.p == '\0') {
+            if(*info->p == '\0') {
                 err_msg(info, "unexpected source end");
                 exit(2);
             }
-            else if(*info->p.p == '>') {
-                info->p.p++;
+            else if(*info->p == '>') {
+                info->p++;
                 skip_spaces_and_lf();
                 break;
             }
-            else if(*info->p.p == ',') {
-                info->p.p++;
+            else if(*info->p == ',') {
+                info->p++;
                 skip_spaces_and_lf();
             }
             else {
@@ -1056,30 +1048,30 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
     }
     
     while(true) {
-        if(*info->p.p == ')') {
-            info->p.p++;
+        if(*info->p == ')') {
+            info->p++;
             skip_spaces_and_lf();
             break;
         }
         
-        char* p = info.p.p;
+        char* p = info.p;
         int sline = info.sline;
         
         bool err_flag = false;
         string label = string("");
-        if(xisalpha(*info->p.p) || *info->p.p == '_') {
+        if(xisalpha(*info->p) || *info->p == '_') {
             label = parse_word();
             err_flag = true;
         }
         
-        if(err_flag == true && *info->p.p == ':') {
-            info->p.p++;
+        if(err_flag == true && *info->p == ':') {
+            info->p++;
             skip_spaces_and_lf();
         }
         else {
             label = null;
             
-            info->p.p = p;
+            info->p = p;
             info->sline = sline;
         }
         
@@ -1106,12 +1098,12 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
         
         skip_spaces_and_lf();
         
-        if(*info->p.p == ',') {
-            info->p.p++;
+        if(*info->p == ',') {
+            info->p++;
             skip_spaces_and_lf();
         }
-        else if(*info->p.p == ')') {
-            info->p.p++;
+        else if(*info->p == ')') {
+            info->p++;
             skip_spaces_and_lf();
             
             break;
@@ -1124,13 +1116,13 @@ sNode*% parse_function_call(char* fun_name, sInfo* info, bool come_=false)
     
     buffer*% method_block = null;
     int method_block_sline = 0;
-    if(*info->p.p == '{') {
-        char* head = info.p.p;
+    if(*info->p == '{') {
+        char* head = info.p;
         method_block_sline = info.sline;
         
         skip_block(info);
         
-        char* tail = info.p.p;
+        char* tail = info.p;
         
         method_block = new buffer();
         

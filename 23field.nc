@@ -1154,11 +1154,11 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
         /// backtrace ///
         bool range_array = false;
         {
-            char* p = info.p.p;
+            char* p = info.p;
             int sline = info.sline;
             
             if(*info.p == '[') {
-                info->p.p++;
+                info->p++;
                 skip_spaces_and_lf();
                 
                 bool no_comma = info.no_comma;
@@ -1169,21 +1169,21 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 info->no_comma = no_comma;
                 info->no_output_come_code = no_output_come_code;
                 
-                if(*info.p == '.' && *(info->p.p+1) == '.') {
+                if(*info.p == '.' && *(info->p+1) == '.') {
                     range_array = true;
                 }
             }
             
-            info.p.p = p;
+            info.p = p;
             info.sline = sline;
         }
         
-        if(!node.terminated() && range_array && (*info.p == '\\' && *(info->p.p+1) == '[' || *info.p == '[')) {
+        if(!node.terminated() && range_array && (*info.p == '\\' && *(info->p+1) == '[' || *info.p == '[')) {
             bool quote = *info.p == '\\';
             if(quote) {
-                info->p.p++;
+                info->p++;
             }
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             
             list<sNode*%>*% array_num = new list<sNode*%>();
@@ -1194,8 +1194,8 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             
             array_num.push_back(node2);
             
-            if(*info.p == '.' && *(info->p.p+1) == '.') {
-                info->p.p += 2;
+            if(*info.p == '.' && *(info->p+1) == '.') {
+                info->p += 2;
                 skip_spaces_and_lf(info);
                 
                 skip_pointer_attribute();
@@ -1216,18 +1216,18 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             }
             node = new sLoadRangeArrayNode(node2, array_num, quote, info) implements sNode;
         }
-        else if(!node.terminated() && *info.p == '!' && *(info->p.p+1) != '=') {
-            info->p.p++;
+        else if(!node.terminated() && *info.p == '!' && *(info->p+1) != '=') {
+            info->p++;
             skip_spaces_and_lf();
             
             node = new sUnwrapNode(node, info) implements sNode;
         }
-        else if(!node->terminated() && (*info.p == '.' && *(info->p.p+1) == '`')) 
+        else if(!node->terminated() && (*info.p == '.' && *(info->p+1) == '`')) 
         {
             sNode*% obj = node;
             sNode*% node_before = null;
-            while(*info.p == '.' && *(info->p.p+1) == '`') {
-                info->p.p += 2;
+            while(*info.p == '.' && *(info->p+1) == '`') {
+                info->p += 2;
                 skip_spaces_and_lf();
                 
                 string field_name2 = parse_word();
@@ -1236,10 +1236,10 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 node_before = node;
             }
         }
-        else if(!node->terminated() && !range_array && (*info.p == '\\' && *(info->p.p+1) == '[' || *info.p == '[')) {
+        else if(!node->terminated() && !range_array && (*info.p == '\\' && *(info->p+1) == '[' || *info.p == '[')) {
             bool quote = *info.p == '\\';
             if(quote) {
-                info->p.p++;
+                info->p++;
             }
             
             bool range = false;
@@ -1247,11 +1247,11 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             while(1) {
                 bool range_array2 = false;
                 {
-                    char* p = info.p.p;
+                    char* p = info.p;
                     int sline = info.sline;
                     
                     if(*info.p == '[') {
-                        info->p.p++;
+                        info->p++;
                         skip_spaces_and_lf();
                         
                         bool no_comma = info.no_comma;
@@ -1262,12 +1262,12 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                         info->no_comma = no_comma;
                         info->no_output_come_code = no_output_come_code;
                         
-                        if(*info.p == '.' && *(info->p.p+1) == '.') {
+                        if(*info.p == '.' && *(info->p+1) == '.') {
                             range_array2 = true;
                         }
                     }
                     
-                    info.p.p = p;
+                    info.p = p;
                     info.sline = sline;
                 }
                 
@@ -1275,7 +1275,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                     break;
                 }
                 else if(*info.p == '[') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     
                     skip_pointer_attribute();
@@ -1285,7 +1285,7 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                     array_num.push_back(node2);
                     
                     if(*info.p == ']') {
-                        info->p.p++;
+                        info->p++;
                         skip_spaces_and_lf();
                     }
                     else {
@@ -1298,8 +1298,8 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 }
             }
             
-            if(!info.no_assign && *info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
-                info->p.p++;
+            if(!info.no_assign && *info.p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
+                info->p++;
                 skip_spaces_and_lf();
                 
                 
@@ -1327,19 +1327,19 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                 node = new sLoadArrayNode(node2, array_num, quote, false@break_guard, info) implements sNode;
             }
         }
-        else if((*info.p == '\\' && *(info->p.p+1) == '.') || (*info.p == '\\' && *(info->p.p+1) == '-' && *(info->p.p+2) == '>') || (*info.p == '.' && *(info->p.p+1) != '.') || (*info.p == '-' && *(info->p.p+1) == '>')) {
+        else if((*info.p == '\\' && *(info->p+1) == '.') || (*info.p == '\\' && *(info->p+1) == '-' && *(info->p+2) == '>') || (*info.p == '.' && *(info->p+1) != '.') || (*info.p == '-' && *(info->p+1) == '>')) {
             bool quote = *info.p == '\\';
             if(quote) {
-                info.p.p++;
+                info.p++;
             }
             bool arrow_ = false;
             if(*info.p == '.') {
-                info->p.p++;
+                info->p++;
                 skip_spaces_and_lf();
             }
             else {
                 arrow_ = true;
-                info->p.p+=2;
+                info->p+=2;
                 skip_spaces_and_lf();
             }
             
@@ -1351,11 +1351,11 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
             
             bool parse_method_generics_type = false;
             {
-                char* p = info->p.p;
+                char* p = info->p;
                 int sline = info->sline;
                 
                 if(*info.p == '<') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     
                     if(xisalpha(*info.p) || *info.p == '_') {
@@ -1367,12 +1367,12 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 99
                     }
                 }
                 
-                info->p.p = p;
+                info->p = p;
                 info->sline = sline;
             }
             
-            if(!info.no_assign && *info.p == '=' && *(info->p.p+1) != '=' && *(info->p.p+1) != '>') {
-                info->p.p++;
+            if(!info.no_assign && *info.p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>') {
+                info->p++;
                 skip_spaces_and_lf();
                 
                 

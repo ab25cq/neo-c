@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2768,8 +2757,6 @@ char*  sAndStatmentNode_kind(struct sAndStatmentNode* self);
 _Bool sAndStatmentNode_compile(struct sAndStatmentNode* self, struct sInfo*  info  );
 static void sAndStatmentNode_finalize(struct sAndStatmentNode* self);
 struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo*  info  );
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
-static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* self, struct sNode* item);
 static struct list$1sBlock$ph* list$1sBlock$ph_push_back(struct list$1sBlock$ph* self, struct sBlock*  item  );
 static struct sIfNode* sIfNode_clone(struct sIfNode* self);
@@ -5807,14 +5794,14 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
         elif_num=0;
         else_block=((void*)0);
         while(1) {
-            saved_p=info->p->p;
+            saved_p=info->p;
             saved_sline=info->sline;
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==59) {
-                info->p->p++;
+            if(*info->p==59) {
+                info->p++;
                 skip_spaces_and_lf(info);
             }
-            if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
+            if(!(xisalpha(*info->p)||*info->p==95)) {
                 break;
             }
             skip_spaces_and_lf(info);
@@ -5826,7 +5813,7 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
                 info->sline_real=info->sline;
                 if(parsecmp("if",info)) {
                     skip_spaces_and_lf(info);
-                    info->p->p+=strlen("if");
+                    info->p+=strlen("if");
                     skip_spaces_and_lf(info);
                     expected_next_character(40,info);
                     __right_value0 = (void*)0;
@@ -5858,7 +5845,7 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
                 info->sline_real=sline_real_36;
             }
             else {
-                info->p->p=saved_p;
+                info->p=saved_p;
                 info->sline=saved_sline;
                 (buf_35 = come_decrement_ref_count(buf_35, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 407, 651));
                 break;
@@ -5907,88 +5894,6 @@ struct sNode* string_node_v8(char* buf, char* head, int head_sline, struct sInfo
     neo_current_frame = fr.prev;
     ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "14if.nc", 417, 694):(void*)0);
     return __result_obj__0;
-}
-
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
-}
-
-static char span$1char$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
 }
 
 static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* self, struct sNode* item)
@@ -6404,7 +6309,7 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  )
     while((_Bool)1) {
         skip_spaces_and_lf(info);
         if(parsecmp("else",info)) {
-            info->p->p+=strlen("else");
+            info->p+=strlen("else");
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __dec_obj94=else_block,
@@ -6415,8 +6320,8 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  )
             }
         }
         else {
-            if(span$1char$p_operator_derefference(info->p)==125) {
-                info->p->p++;
+            if(*info->p==125) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
@@ -6436,8 +6341,8 @@ struct sNode* parse_match(struct sNode* expression_node, struct sInfo*  info  )
             ((conditional_value_42) ? conditional_value_42 = come_decrement_ref_count(conditional_value_42, ((struct sNode*)conditional_value_42)->finalize, ((struct sNode*)conditional_value_42)->_protocol_obj, 0, 0,(void*)0, "14if.nc", 509, 763):(void*)0);
             come_call_finalizer(sBlock_finalize, elif_block, (void*)0, (void*)0, 0, 0, 0, (void*)0, "14if.nc}", 509, 764);
         }
-        if(span$1char$p_operator_derefference(info->p)==125) {
-            info->p->p++;
+        if(*info->p==125) {
+            info->p++;
             skip_spaces_and_lf(info);
             break;
         }
@@ -6681,14 +6586,14 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
     elif_num=0;
     else_block=((void*)0);
     while(1) {
-        saved_p=info->p->p;
+        saved_p=info->p;
         saved_sline=info->sline;
         skip_spaces_and_lf(info);
-        if(span$1char$p_operator_derefference(info->p)==59) {
-            info->p->p++;
+        if(*info->p==59) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
-        if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
+        if(!(xisalpha(*info->p)||*info->p==95)) {
             break;
         }
         skip_spaces_and_lf(info);
@@ -6698,7 +6603,7 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
         if(string_operator_equals(buf,"else")) {
             if(parsecmp("if",info)) {
                 skip_spaces_and_lf(info);
-                info->p->p+=strlen("if");
+                info->p+=strlen("if");
                 skip_spaces_and_lf(info);
                 expected_next_character(40,info);
                 __right_value0 = (void*)0;
@@ -6729,7 +6634,7 @@ struct sNode* parse_if_method_call(struct sNode* expression_node, struct sInfo* 
             }
         }
         else {
-            info->p->p=saved_p;
+            info->p=saved_p;
             info->sline=saved_sline;
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 629, 870));
             break;
@@ -6884,14 +6789,14 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
     elif_num=0;
     else_block=((void*)0);
     while(1) {
-        saved_p=info->p->p;
+        saved_p=info->p;
         saved_sline=info->sline;
         skip_spaces_and_lf(info);
-        if(span$1char$p_operator_derefference(info->p)==59) {
-            info->p->p++;
+        if(*info->p==59) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
-        if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
+        if(!(xisalpha(*info->p)||*info->p==95)) {
             break;
         }
         skip_spaces_and_lf(info);
@@ -6901,7 +6806,7 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
         if(string_operator_equals(buf,"else")) {
             if(parsecmp("if",info)) {
                 skip_spaces_and_lf(info);
-                info->p->p+=strlen("if");
+                info->p+=strlen("if");
                 skip_spaces_and_lf(info);
                 expected_next_character(40,info);
                 __right_value0 = (void*)0;
@@ -6932,7 +6837,7 @@ struct sNode* parse_elif_method_call(struct sNode* expression_node, struct sInfo
             }
         }
         else {
-            info->p->p=saved_p;
+            info->p=saved_p;
             info->sline=saved_sline;
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 720, 933));
             break;
@@ -7044,14 +6949,14 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
     elif_num=0;
     else_block=((void*)0);
     while(1) {
-        saved_p=info->p->p;
+        saved_p=info->p;
         saved_sline=info->sline;
         skip_spaces_and_lf(info);
-        if(span$1char$p_operator_derefference(info->p)==59) {
-            info->p->p++;
+        if(*info->p==59) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
-        if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
+        if(!(xisalpha(*info->p)||*info->p==95)) {
             break;
         }
         skip_spaces_and_lf(info);
@@ -7061,7 +6966,7 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
         if(string_operator_equals(buf,"else")) {
             if(parsecmp("if",info)) {
                 skip_spaces_and_lf(info);
-                info->p->p+=strlen("if");
+                info->p+=strlen("if");
                 skip_spaces_and_lf(info);
                 expected_next_character(40,info);
                 __right_value0 = (void*)0;
@@ -7092,7 +6997,7 @@ struct sNode* parse_less_method_call(struct sNode* expression_node, struct sInfo
             }
         }
         else {
-            info->p->p=saved_p;
+            info->p=saved_p;
             info->sline=saved_sline;
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "14if.nc", 811, 989));
             break;

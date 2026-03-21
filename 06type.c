@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2607,8 +2596,6 @@ static _Bool list$1char$ph_contained(struct list$1char$ph* self, char*  item  , 
 static char*  list$1char$ph_begin(struct list$1char$ph* self);
 static _Bool list$1char$ph_end(struct list$1char$ph* self);
 static char*  list$1char$ph_next(struct list$1char$ph* self);
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
-static char span$1char$p_operator_derefference(struct span$1char$p* self);
 _Bool is_contained_generics_class(struct sType*  type  , struct sInfo*  info  );
 static struct sType*  sType_clone(struct sType*  self  );
 static struct list$1sType$ph* list$1sType$ph$p_clone(struct list$1sType$ph* self);
@@ -2659,8 +2646,6 @@ static struct tuple3$3sType$phchar$ph_Bool$* tuple3$3sType$phchar$ph_Bool$_initi
 struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* backtrace_struct_union_enum(struct sInfo*  info  );
 static struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$_initialize(struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* self, _Bool v1, _Bool v2, _Bool v3, _Bool v4, _Bool v5);
 static void tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$$p_finalize(struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* self);
-static struct span$1char$p* span$1char$p$p_operator_plus_plus(struct span$1char$p* self);
-static struct span$1char$p* span$1char$p_operator_plus_plus(struct span$1char$p* self);
 struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  info  );
 void append_attribute_to_type(struct sType*  type  , char*  attribute  , _Bool for_variable, struct sInfo*  info  );
 void apply_type_qualifiers(struct sType*  type  , _Bool constant, _Bool complex_, _Bool atomic_, _Bool thread_local, _Bool thread_, _Bool alignas_double, _Bool register_, _Bool unsigned_, _Bool noreturn_, _Bool volatile_, _Bool uniq_, _Bool static_, _Bool extern_, _Bool inline_, _Bool restrict_, _Bool long_long, _Bool long_, _Bool short_, _Bool norecord, _Bool weak_);
@@ -2748,11 +2733,11 @@ _Bool is_type_name(char* buf, struct sInfo*  info  )
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06type.nc", 9, 103));
     if(gComeC) {
                 neo_current_frame = fr.prev;
-        return (type&&type->mTypedef)||(klass&&klass->mNumber)||(klass&&klass->mFloat)||charp_operator_equals(buf,"_Thread_local")||charp_operator_equals(buf,"__thread")||charp_operator_equals(buf,"_Complex")||charp_operator_equals(buf,"const")||charp_operator_equals(buf,"register")||charp_operator_equals(buf,"static")||charp_operator_equals(buf,"volatile")||charp_operator_equals(buf,"unsigned")||charp_operator_equals(buf,"__volatile__")||charp_operator_equals(buf,"signed")||charp_operator_equals(buf,"struct")||charp_operator_equals(buf,"enum")||charp_operator_equals(buf,"union")||charp_operator_equals(buf,"extern")||info->in_top_level&&(charp_operator_equals(buf,"inline")||charp_operator_equals(buf,"__inline")||charp_operator_equals(buf,"__always_inline")||charp_operator_equals(buf,"__inline__")||charp_operator_equals(buf,"__forceinline"))||charp_operator_equals(buf,"__extension__")||charp_operator_equals(buf,"_Noreturn")||charp_operator_equals(buf,"restrict")||charp_operator_equals(buf,"__noreturn")||charp_operator_equals(buf,"_noreturn")||charp_operator_equals(buf,"__typeof__")||charp_operator_equals(buf,"typeof")||charp_operator_equals(buf,"_Nullable")||charp_operator_equals(buf,"_Alignas")||charp_operator_equals(buf,"_Atomic")||charp_operator_equals(buf,"__type__")||charp_operator_equals(buf,"__attribute__")&&(span$1char$p_operator_derefference(info->p)==40||(span$1char$p_operator_derefference(info->p)==91&&*(info->p->p+1)==91))||charp_operator_equals(buf,"__declspec")&&span$1char$p_operator_derefference(info->p)==40||charp_operator_equals(buf,"void");
+        return (type&&type->mTypedef)||(klass&&klass->mNumber)||(klass&&klass->mFloat)||charp_operator_equals(buf,"_Thread_local")||charp_operator_equals(buf,"__thread")||charp_operator_equals(buf,"_Complex")||charp_operator_equals(buf,"const")||charp_operator_equals(buf,"register")||charp_operator_equals(buf,"static")||charp_operator_equals(buf,"volatile")||charp_operator_equals(buf,"unsigned")||charp_operator_equals(buf,"__volatile__")||charp_operator_equals(buf,"signed")||charp_operator_equals(buf,"struct")||charp_operator_equals(buf,"enum")||charp_operator_equals(buf,"union")||charp_operator_equals(buf,"extern")||info->in_top_level&&(charp_operator_equals(buf,"inline")||charp_operator_equals(buf,"__inline")||charp_operator_equals(buf,"__always_inline")||charp_operator_equals(buf,"__inline__")||charp_operator_equals(buf,"__forceinline"))||charp_operator_equals(buf,"__extension__")||charp_operator_equals(buf,"_Noreturn")||charp_operator_equals(buf,"restrict")||charp_operator_equals(buf,"__noreturn")||charp_operator_equals(buf,"_noreturn")||charp_operator_equals(buf,"__typeof__")||charp_operator_equals(buf,"typeof")||charp_operator_equals(buf,"_Nullable")||charp_operator_equals(buf,"_Alignas")||charp_operator_equals(buf,"_Atomic")||charp_operator_equals(buf,"__type__")||charp_operator_equals(buf,"__attribute__")&&(*info->p==40||(*info->p==91&&*(info->p+1)==91))||charp_operator_equals(buf,"__declspec")&&*info->p==40||charp_operator_equals(buf,"void");
     }
     else {
                 neo_current_frame = fr.prev;
-        return generics_class||generics_type_name||mgenerics_type_name||klass||type||charp_operator_equals(buf,"const")||charp_operator_equals(buf,"register")||charp_operator_equals(buf,"static")||charp_operator_equals(buf,"volatile")||charp_operator_equals(buf,"__volatile__")||charp_operator_equals(buf,"unsigned")||charp_operator_equals(buf,"signed")||charp_operator_equals(buf,"struct")||charp_operator_equals(buf,"enum")||charp_operator_equals(buf,"union")||charp_operator_equals(buf,"extern")||info->in_top_level&&(charp_operator_equals(buf,"inline")||charp_operator_equals(buf,"__inline")||charp_operator_equals(buf,"__always_inline")||charp_operator_equals(buf,"__inline__")||charp_operator_equals(buf,"__forceinline"))||charp_operator_equals(buf,"__extension__")||charp_operator_equals(buf,"_Thread_local")||charp_operator_equals(buf,"_norecord")||charp_operator_equals(buf,"__thread")||charp_operator_equals(buf,"_Complex")||(info->in_top_level&&charp_operator_equals(buf,"_Noreturn"))||(info->in_top_level&&charp_operator_equals(buf,"__noreturn"))||(info->in_top_level&&charp_operator_equals(buf,"_noreturn"))||charp_operator_equals(buf,"__typeof__")||charp_operator_equals(buf,"typeof")||charp_operator_equals(buf,"_Nullable")||charp_operator_equals(buf,"_Alignas")||charp_operator_equals(buf,"_Atomic")||charp_operator_equals(buf,"restrict")||charp_operator_equals(buf,"__type__")||charp_operator_equals(buf,"_weak")||charp_operator_equals(buf,"__attribute__")&&(span$1char$p_operator_derefference(info->p)==40||(span$1char$p_operator_derefference(info->p)==91&&*(info->p->p+1)==91))||charp_operator_equals(buf,"__declspec")&&span$1char$p_operator_derefference(info->p)==40||(charp_operator_equals(buf,"tup")&&(span$1char$p_operator_derefference(info->p)==58||span$1char$p_operator_derefference(info->p)==40))||(info->in_top_level&&charp_operator_equals(buf,"uniq"));
+        return generics_class||generics_type_name||mgenerics_type_name||klass||type||charp_operator_equals(buf,"const")||charp_operator_equals(buf,"register")||charp_operator_equals(buf,"static")||charp_operator_equals(buf,"volatile")||charp_operator_equals(buf,"__volatile__")||charp_operator_equals(buf,"unsigned")||charp_operator_equals(buf,"signed")||charp_operator_equals(buf,"struct")||charp_operator_equals(buf,"enum")||charp_operator_equals(buf,"union")||charp_operator_equals(buf,"extern")||info->in_top_level&&(charp_operator_equals(buf,"inline")||charp_operator_equals(buf,"__inline")||charp_operator_equals(buf,"__always_inline")||charp_operator_equals(buf,"__inline__")||charp_operator_equals(buf,"__forceinline"))||charp_operator_equals(buf,"__extension__")||charp_operator_equals(buf,"_Thread_local")||charp_operator_equals(buf,"_norecord")||charp_operator_equals(buf,"__thread")||charp_operator_equals(buf,"_Complex")||(info->in_top_level&&charp_operator_equals(buf,"_Noreturn"))||(info->in_top_level&&charp_operator_equals(buf,"__noreturn"))||(info->in_top_level&&charp_operator_equals(buf,"_noreturn"))||charp_operator_equals(buf,"__typeof__")||charp_operator_equals(buf,"typeof")||charp_operator_equals(buf,"_Nullable")||charp_operator_equals(buf,"_Alignas")||charp_operator_equals(buf,"_Atomic")||charp_operator_equals(buf,"restrict")||charp_operator_equals(buf,"__type__")||charp_operator_equals(buf,"_weak")||charp_operator_equals(buf,"__attribute__")&&(*info->p==40||(*info->p==91&&*(info->p+1)==91))||charp_operator_equals(buf,"__declspec")&&*info->p==40||(charp_operator_equals(buf,"tup")&&(*info->p==58||*info->p==40))||(info->in_top_level&&charp_operator_equals(buf,"uniq"));
     }
     neo_current_frame = fr.prev;
 }
@@ -3285,88 +3270,6 @@ static char*  list$1char$ph_next(struct list$1char$ph* self)
         __result_obj__0 = result_1;
     neo_current_frame = fr.prev;
     return __result_obj__0;
-}
-
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
-}
-
-static char span$1char$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
 }
 
 _Bool is_contained_generics_class(struct sType*  type  , struct sInfo*  info  )
@@ -4435,32 +4338,32 @@ struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$* parse_pa
     expected_next_character(40,info);
     void_param=(_Bool)0;
     {
-        p=info->p->p;
+        p=info->p;
         sline=info->sline;
         if(parsecmp("void",info)) {
-            info->p->p+=strlen("void");
+            info->p+=strlen("void");
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==41) {
+            if(*info->p==41) {
                 void_param=(_Bool)1;
             }
         }
-        info->p->p=p;
+        info->p=p;
         info->sline=sline;
     }
     if(void_param) {
         if(parsecmp("void",info)) {
-            info->p->p+=strlen("void");
+            info->p+=strlen("void");
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==41) {
-                info->p->p++;
+            if(*info->p==41) {
+                info->p++;
                 skip_spaces_and_lf(info);
             }
         }
     }
     else {
         while((_Bool)1) {
-            if(span$1char$p_operator_derefference(info->p)==41) {
-                info->p->p++;
+            if(*info->p==41) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
@@ -4492,16 +4395,16 @@ struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$* parse_pa
             list$1sType$ph_push_back(param_types,(struct sType* )come_increment_ref_count(sType_clone(param_type2), "06type.nc", 185, 370));
             __right_value0 = (void*)0;
             list$1char$ph_push_back(param_names,(char* )come_increment_ref_count((char* )come_memdup(param_name, "06type.nc", 186, 385, "char* "), "06type.nc", 186, 386));
-            if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
-                info->p->p++;
+            if(*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62) {
+                info->p++;
                 skip_spaces_and_lf(info);
-                p_16=info->p->p;
+                p_16=info->p;
                 no_comma=info->no_comma;
                 info->no_comma=(_Bool)1;
                 __right_value0 = (void*)0;
                 node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "06type.nc", 198, 387);
                 info->no_comma=no_comma;
-                p2=info->p->p;
+                p2=info->p;
                 char buf[p2-p_16+1];
                 memset(&buf, 0, sizeof(buf));
                 memcpy(buf,p_16,p2-p_16);
@@ -4514,11 +4417,11 @@ struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$* parse_pa
                 list$1char$ph_push_back(param_default_parametors,((void*)0));
             }
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==44) {
-                info->p->p++;
+            if(*info->p==44) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 if(parsecmp("...",info)) {
-                    info->p->p+=strlen("...");
+                    info->p+=strlen("...");
                     skip_spaces_and_lf(info);
                     var_args=(_Bool)1;
                     expected_next_character(41,info);
@@ -4528,8 +4431,8 @@ struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$* parse_pa
                     break;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==41) {
-                info->p->p++;
+            else if(*info->p==41) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 come_call_finalizer(sType_finalize, param_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 232, 393);
                 (param_name = come_decrement_ref_count(param_name, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 232, 394));
@@ -4735,38 +4638,38 @@ char*  parse_square_attribute(struct sInfo*  info  )
     _Bool gnu_ns;
     _Bool mapped;
     skip_spaces_and_lf(info);
-    if(!(span$1char$p_operator_derefference(info->p)==91&&*(info->p->p+1)==91)) {
+    if(!(*info->p==91&&*(info->p+1)==91)) {
                 __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "06type.nc", 245, 410);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06type.nc", 245, 411));
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06type.nc", 245, 412));
         return __result_obj__0;
     }
-    info->p->p+=2;
+    info->p+=2;
     skip_spaces_and_lf(info);
     __right_value0 = (void*)0;
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "06type.nc", 251, 413, "struct buffer* "), "06type.nc", 251, 414)), "06type.nc", 251, 415);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==93&&*(info->p->p+1)==93) {
-            info->p->p+=2;
+    while(*info->p) {
+        if(*info->p==93&&*(info->p+1)==93) {
+            info->p+=2;
             skip_spaces_and_lf(info);
             break;
         }
-        if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
-            info->p->p++;
+        if(!(xisalpha(*info->p)||*info->p==95)) {
+            info->p++;
             continue;
         }
         __right_value0 = (void*)0;
         ns=(char*)come_increment_ref_count(xsprintf(""), "06type.nc", 265, 416);
         __right_value0 = (void*)0;
         keyword=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 266, 417);
-        if(span$1char$p_operator_derefference(info->p)==58&&*(info->p->p+1)==58) {
+        if(*info->p==58&&*(info->p+1)==58) {
             __dec_obj48=ns,
             ns=(char* )come_increment_ref_count(keyword, "06type.nc", 269, 419);
             __dec_obj48 = come_decrement_ref_count(__dec_obj48, (void*)0, (void*)0, 0,0, (void*)0, "06type.nc", 269, 418);
-            info->p->p+=2;
+            info->p+=2;
             skip_spaces_and_lf(info);
-            if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj49=keyword,
                 keyword=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 274, 421);
@@ -4780,10 +4683,10 @@ char*  parse_square_attribute(struct sInfo*  info  )
         }
         arg_head=((void*)0);
         arg_tail=((void*)0);
-        if(span$1char$p_operator_derefference(info->p)==40) {
-            arg_head=info->p->p;
+        if(*info->p==40) {
+            arg_head=info->p;
             skip_paren(info);
-            arg_tail=info->p->p;
+            arg_tail=info->p;
         }
         gnu_ns=string_operator_equals(ns,"gnu")||string_operator_equals(ns,"__gnu__");
         mapped=(_Bool)0;
@@ -4866,8 +4769,8 @@ char*  parse_square_attribute(struct sInfo*  info  )
         if(!mapped) {
         }
         skip_spaces_and_lf(info);
-        if(span$1char$p_operator_derefference(info->p)==44) {
-            info->p->p++;
+        if(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         (ns = come_decrement_ref_count(ns, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 380, 424));
@@ -4896,14 +4799,14 @@ char*  parse_declspec_attribute(struct sInfo*  info  )
     char* arg_tail;
     char* arg_head_17;
     char* arg_tail_18;
-    p=info->p->p;
+    p=info->p;
     sline=info->sline;
     if(parsecmp("__declspec",info)) {
-        info->p->p+=strlen("__declspec");
+        info->p+=strlen("__declspec");
         skip_spaces_and_lf(info);
     }
-    if(span$1char$p_operator_derefference(info->p)!=40) {
-        info->p->p=p;
+    if(*info->p!=40) {
+        info->p=p;
         info->sline=sline;
                 __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "06type.nc", 396, 430);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06type.nc", 396, 431));
@@ -4911,23 +4814,23 @@ char*  parse_declspec_attribute(struct sInfo*  info  )
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06type.nc", 396, 432));
         return __result_obj__0;
     }
-    info->p->p++;
+    info->p++;
     skip_spaces_and_lf(info);
     __right_value0 = (void*)0;
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "06type.nc", 402, 433, "struct buffer* "), "06type.nc", 402, 434)), "06type.nc", 402, 435);
-    while(span$1char$p_operator_derefference(info->p)&&span$1char$p_operator_derefference(info->p)!=41) {
-        if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
-            info->p->p++;
+    while(*info->p&&*info->p!=41) {
+        if(!(xisalpha(*info->p)||*info->p==95)) {
+            info->p++;
             continue;
         }
         __right_value0 = (void*)0;
         keyword=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 410, 436);
         skip_spaces_and_lf(info);
         if(string_operator_equals(keyword,"align")) {
-            if(span$1char$p_operator_derefference(info->p)==40) {
-                arg_head=info->p->p;
+            if(*info->p==40) {
+                arg_head=info->p;
                 skip_paren(info);
-                arg_tail=info->p->p;
+                arg_tail=info->p;
                 if(buffer_length(result)>0) {
                     buffer_append_str(result," ");
                 }
@@ -4947,7 +4850,7 @@ char*  parse_declspec_attribute(struct sInfo*  info  )
                 buffer_append_str(result," ");
             }
             buffer_append_format(result,"__attribute__((%s))",keyword);
-            if(span$1char$p_operator_derefference(info->p)==40) {
+            if(*info->p==40) {
                 skip_paren(info);
             }
         }
@@ -4956,28 +4859,28 @@ char*  parse_declspec_attribute(struct sInfo*  info  )
                 buffer_append_str(result," ");
             }
             buffer_append_str(result,"__attribute__((deprecated");
-            if(span$1char$p_operator_derefference(info->p)==40) {
-                arg_head_17=info->p->p;
+            if(*info->p==40) {
+                arg_head_17=info->p;
                 skip_paren(info);
-                arg_tail_18=info->p->p;
+                arg_tail_18=info->p;
                 buffer_append(result,arg_head_17,arg_tail_18-arg_head_17);
             }
             buffer_append_str(result,"))");
         }
         else {
-            if(span$1char$p_operator_derefference(info->p)==40) {
+            if(*info->p==40) {
                 skip_paren(info);
             }
         }
         skip_spaces_and_lf(info);
-        if(span$1char$p_operator_derefference(info->p)==44) {
-            info->p->p++;
+        if(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         (keyword = come_decrement_ref_count(keyword, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 476, 437));
     }
-    if(span$1char$p_operator_derefference(info->p)==41) {
-        info->p->p++;
+    if(*info->p==41) {
+        info->p++;
         skip_spaces_and_lf(info);
     }
         __right_value0 = (void*)0;
@@ -5017,179 +4920,179 @@ struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo*  info  )
     attribute=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "06type.nc", 487, 445, "struct buffer* "), "06type.nc", 487, 446)), "06type.nc", 487, 447);
     while((_Bool)1) {
         if(parsecmp("__attribute_pure__",info)) {
-            info->p->p+=strlen("__attribute_pure__");
+            info->p+=strlen("__attribute_pure__");
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__malloc_like",info)) {
-            info->p->p+=strlen("__malloc_like");
+            info->p+=strlen("__malloc_like");
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__result_use_check",info)) {
-            info->p->p+=strlen("__result_use_check");
+            info->p+=strlen("__result_use_check");
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__alloc_size2",info)) {
-            info->p->p+=strlen("__alloc_size2");
+            info->p+=strlen("__alloc_size2");
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==40) {
+            if(*info->p==40) {
                 nest=0;
                 while(1) {
-                    if(span$1char$p_operator_derefference(info->p)==40) {
-                        info->p->p++;
+                    if(*info->p==40) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest++;
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==41) {
-                        info->p->p++;
+                    else if(*info->p==41) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest--;
                         if(nest==0) {
                             break;
                         }
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==0) {
+                    else if(*info->p==0) {
                         break;
                     }
                     else {
-                        info->p->p++;
+                        info->p++;
                     }
                 }
             }
         }
         else if(parsecmp("__alloc_size",info)) {
-            info->p->p+=strlen("__alloc_size");
+            info->p+=strlen("__alloc_size");
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==40) {
+            if(*info->p==40) {
                 nest_19=0;
                 while(1) {
-                    if(span$1char$p_operator_derefference(info->p)==40) {
-                        info->p->p++;
+                    if(*info->p==40) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest_19++;
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==41) {
-                        info->p->p++;
+                    else if(*info->p==41) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest_19--;
                         if(nest_19==0) {
                             break;
                         }
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==0) {
+                    else if(*info->p==0) {
                         break;
                     }
                     else {
-                        info->p->p++;
+                        info->p++;
                     }
                 }
             }
         }
         else if(parsecmp("__nonnull",info)) {
-            info->p->p+=strlen("__nonnull");
+            info->p+=strlen("__nonnull");
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==40) {
+            if(*info->p==40) {
                 nest_20=0;
                 while(1) {
-                    if(span$1char$p_operator_derefference(info->p)==40) {
-                        info->p->p++;
+                    if(*info->p==40) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest_20++;
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==41) {
-                        info->p->p++;
+                    else if(*info->p==41) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest_20--;
                         if(nest_20==0) {
                             break;
                         }
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==0) {
+                    else if(*info->p==0) {
                         break;
                     }
                     else {
-                        info->p->p++;
+                        info->p++;
                     }
                 }
             }
         }
         else if(parsecmp("_Nonnull",info)) {
-            info->p->p+=strlen("_Nonnull");
+            info->p+=strlen("_Nonnull");
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==40) {
+            if(*info->p==40) {
                 nest_21=0;
                 while(1) {
-                    if(span$1char$p_operator_derefference(info->p)==40) {
-                        info->p->p++;
+                    if(*info->p==40) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest_21++;
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==41) {
-                        info->p->p++;
+                    else if(*info->p==41) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest_21--;
                         if(nest_21==0) {
                             break;
                         }
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==0) {
+                    else if(*info->p==0) {
                         break;
                     }
                     else {
-                        info->p->p++;
+                        info->p++;
                     }
                 }
             }
         }
         else if(parsecmp("__alloc_align",info)) {
-            info->p->p+=strlen("__alloc_align");
+            info->p+=strlen("__alloc_align");
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==40) {
+            if(*info->p==40) {
                 nest_22=0;
                 while(1) {
-                    if(span$1char$p_operator_derefference(info->p)==40) {
-                        info->p->p++;
+                    if(*info->p==40) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest_22++;
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==41) {
-                        info->p->p++;
+                    else if(*info->p==41) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         nest_22--;
                         if(nest_22==0) {
                             break;
                         }
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==0) {
+                    else if(*info->p==0) {
                         break;
                     }
                     else {
-                        info->p->p++;
+                        info->p++;
                     }
                 }
             }
         }
         else if(parsecmp("__attribute_malloc__",info)) {
-            info->p->p+=strlen("__attribute_malloc__");
+            info->p+=strlen("__attribute_malloc__");
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__attr_dealloc_fclose",info)) {
-            info->p->p+=strlen("__attr_dealloc_fclose");
+            info->p+=strlen("__attr_dealloc_fclose");
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__wur",info)) {
-            info->p->p+=strlen("__wur");
+            info->p+=strlen("__wur");
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__pure2",info)) {
-            info->p->p+=strlen("__pure2");
+            info->p+=strlen("__pure2");
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__pure",info)) {
-            info->p->p+=strlen("__pure");
+            info->p+=strlen("__pure");
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__noreturn",info)) {
-            info->p->p+=strlen("__noreturn");
+            info->p+=strlen("__noreturn");
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__attribute__",info)) {
@@ -5211,7 +5114,7 @@ struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo*  info  )
             }
             (attr_23 = come_decrement_ref_count(attr_23, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 776, 451));
         }
-        else if(span$1char$p_operator_derefference(info->p)==91&&*(info->p->p+1)==91) {
+        else if(*info->p==91&&*(info->p+1)==91) {
             __right_value0 = (void*)0;
             attr_24=(char* )come_increment_ref_count(parse_square_attribute(info), "06type.nc", 692, 452);
             if(string_operator_not_equals(attr_24,"")) {
@@ -5223,62 +5126,62 @@ struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo*  info  )
             (attr_24 = come_decrement_ref_count(attr_24, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 776, 453));
         }
         else if(parsecmp("__asm__",info)) {
-            info->p->p+=strlen("__asm__");
+            info->p+=strlen("__asm__");
             skip_spaces_and_lf(info);
-            if((info->end-info->p->p)>=strlen("__ASMNAME")&&memcmp(info->p->p,"__ASMNAME",strlen("__ASMNAME"))==0) {
-                info->p->p+=strlen("__ASMNAME");
+            if((info->end-info->p)>=strlen("__ASMNAME")&&memcmp(info->p,"__ASMNAME",strlen("__ASMNAME"))==0) {
+                info->p+=strlen("__ASMNAME");
                 skip_spaces_and_lf(info);
             }
             len=0;
-            if(span$1char$p_operator_derefference(info->p)==40) {
+            if(*info->p==40) {
                 in_dquort=(_Bool)0;
                 brace_num=0;
-                while(span$1char$p_operator_derefference(info->p)) {
-                    if(span$1char$p_operator_derefference(info->p)==34) {
-                        info->p->p++;
+                while(*info->p) {
+                    if(*info->p==34) {
+                        info->p++;
                         in_dquort=!in_dquort;
                     }
                     else if(in_dquort) {
-                        buffer_append_char(asm_fun_name,span$1char$p_operator_derefference(info->p));
-                        info->p->p++;
+                        buffer_append_char(asm_fun_name,*info->p);
+                        info->p++;
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==40) {
-                        info->p->p++;
+                    else if(*info->p==40) {
+                        info->p++;
                         brace_num++;
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==41) {
-                        info->p->p++;
+                    else if(*info->p==41) {
+                        info->p++;
                         brace_num--;
                         if(brace_num==0) {
                             break;
                         }
                     }
                     else {
-                        info->p->p++;
+                        info->p++;
                     }
                 }
             }
             skip_spaces_and_lf(info);
         }
         else if(parsecmp("__asm",info)) {
-            info->p->p+=strlen("__asm");
+            info->p+=strlen("__asm");
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==40) {
+            if(*info->p==40) {
                 brace_num_25=0;
-                while(span$1char$p_operator_derefference(info->p)) {
-                    if(span$1char$p_operator_derefference(info->p)==40) {
-                        info->p->p++;
+                while(*info->p) {
+                    if(*info->p==40) {
+                        info->p++;
                         brace_num_25++;
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==41) {
-                        info->p->p++;
+                    else if(*info->p==41) {
+                        info->p++;
                         brace_num_25--;
                         if(brace_num_25==0) {
                             break;
                         }
                     }
                     else {
-                        info->p->p++;
+                        info->p++;
                     }
                 }
             }
@@ -5339,27 +5242,27 @@ void parse_struct_attribute_skip_paren(struct sInfo*  info  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parse_struct_attribute_skip_paren"; neo_current_frame = &fr;
     int nest;
     skip_spaces_and_lf(info);
-    if(span$1char$p_operator_derefference(info->p)==40) {
+    if(*info->p==40) {
         nest=0;
         while(1) {
-            if(span$1char$p_operator_derefference(info->p)==40) {
-                info->p->p++;
+            if(*info->p==40) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 nest++;
             }
-            else if(span$1char$p_operator_derefference(info->p)==41) {
-                info->p->p++;
+            else if(*info->p==41) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 nest--;
                 if(nest==0) {
                     break;
                 }
             }
-            else if(span$1char$p_operator_derefference(info->p)==0) {
+            else if(*info->p==0) {
                 break;
             }
             else {
-                info->p->p++;
+                info->p++;
             }
         }
     }
@@ -5374,7 +5277,7 @@ _Bool parse_attribute_keyword(struct buffer*  result  , const char* keyword, _Bo
     char* head;
     char* tail;
     if(parsecmp(keyword,info)) {
-        p=info->p->p+strlen(keyword);
+        p=info->p+strlen(keyword);
         while(*p==32||*p==9||*p==10||*p==13) {
             p++;
         }
@@ -5384,10 +5287,10 @@ _Bool parse_attribute_keyword(struct buffer*  result  , const char* keyword, _Bo
                 return (_Bool)0;
             }
         }
-        head=info->p->p;
-        info->p->p+=strlen(keyword);
+        head=info->p;
+        info->p+=strlen(keyword);
         parse_struct_attribute_skip_paren(info);
-        tail=info->p->p;
+        tail=info->p;
         buffer_append(result,head,tail-head);
                 neo_current_frame = fr.prev;
         return (_Bool)1;
@@ -5656,11 +5559,11 @@ char*  parse_struct_attribute(struct sInfo*  info  , _Bool allow_end)
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "06type.nc", 1025, 474, "struct buffer* "), "06type.nc", 1025, 475)), "06type.nc", 1025, 476);
     while(1) {
         if(parsecmp("__attribute__",info)) {
-            head=info->p->p;
-            info->p->p+=strlen("__attribute__");
+            head=info->p;
+            info->p+=strlen("__attribute__");
             skip_spaces_and_lf(info);
             skip_paren(info);
-            tail=info->p->p;
+            tail=info->p;
             buffer_append(result,head,tail-head);
         }
         else if(parsecmp("__declspec",info)) {
@@ -5674,7 +5577,7 @@ char*  parse_struct_attribute(struct sInfo*  info  , _Bool allow_end)
             }
             (attr = come_decrement_ref_count(attr, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1063, 478));
         }
-        else if(span$1char$p_operator_derefference(info->p)==91&&*(info->p->p+1)==91) {
+        else if(*info->p==91&&*(info->p+1)==91) {
             __right_value0 = (void*)0;
             attr_26=(char* )come_increment_ref_count(parse_square_attribute(info), "06type.nc", 1049, 479);
             if(string_operator_not_equals(attr_26,"")) {
@@ -5784,71 +5687,71 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
     }
     var_name=((void*)0);
     {
-        p=info->p->p;
+        p=info->p;
         sline=info->sline;
-        if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __right_value0 = (void*)0;
             word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1095, 500);
             if(string_operator_equals(word,"const")||string_operator_equals(word,"__restrict")||string_operator_equals(word,"restrict")||string_operator_equals(word,"__user")||string_operator_equals(word,"volatile")||string_operator_equals(word,"__volatile__")||string_operator_equals(word,"_Nonnull")||string_operator_equals(word,"_Nullable")||string_operator_equals(word,"_Null_unspecified")||string_operator_equals(word,"__user")||string_operator_equals(word,"_Addr")) {
             }
             else {
-                info->p->p=p;
+                info->p=p;
                 info->sline=sline;
             }
             (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1108, 501));
         }
         else {
-            info->p->p=p;
+            info->p=p;
             info->sline=sline;
         }
     }
     between_brace=(_Bool)0;
     {
-        p_27=info->p->p;
+        p_27=info->p;
         sline_28=info->sline;
-        if(span$1char$p_operator_derefference(info->p)==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
-            if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 __right_value0 = (void*)0;
                 word_29=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1120, 502);
                 if(is_type_name(word_29,info)) {
                 }
-                else if(span$1char$p_operator_derefference(info->p)==41) {
-                    info->p->p++;
+                else if(*info->p==41) {
+                    info->p++;
                     skip_spaces_and_lf(info);
-                    if(span$1char$p_operator_derefference(info->p)!=40) {
+                    if(*info->p!=40) {
                         between_brace=(_Bool)1;
                     }
                 }
                 (word_29 = come_decrement_ref_count(word_29, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1133, 503));
             }
         }
-        info->p->p=p_27;
+        info->p=p_27;
         info->sline=sline_28;
     }
     lambda_=(_Bool)0;
     {
-        p_30=info->p->p;
+        p_30=info->p;
         sline_31=info->sline;
-        if(span$1char$p_operator_derefference(info->p)==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==42) {
-                info->p->p++;
+            if(*info->p==42) {
+                info->p++;
                 skip_spaces_and_lf(info);
-                if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+                if(xisalpha(*info->p)||*info->p==95) {
                     __right_value0 = (void*)0;
                     word_32=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1152, 504);
                     if(is_type_name(word_32,info)) {
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==91) {
+                    else if(*info->p==91) {
                         lambda_=(_Bool)1;
                     }
-                    else if(span$1char$p_operator_derefference(info->p)==41) {
-                        info->p->p++;
+                    else if(*info->p==41) {
+                        info->p++;
                         skip_spaces_and_lf(info);
-                        if(span$1char$p_operator_derefference(info->p)==40) {
+                        if(*info->p==40) {
                             lambda_=(_Bool)1;
                         }
                     }
@@ -5856,19 +5759,19 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
                 }
             }
         }
-        info->p->p=p_30;
+        info->p=p_30;
         info->sline=sline_31;
     }
     skip_spaces_and_lf(info);
-    while(span$1char$p_operator_derefference(info->p)==42) {
-        info->p->p++;
+    while(*info->p==42) {
+        info->p++;
         skip_spaces_and_lf(info);
         skip_pointer_attribute(info);
         result_type->mPointerNum++;
     }
     skip_spaces_and_lf(info);
-    if(between_brace&&span$1char$p_operator_derefference(info->p)==40) {
-        info->p->p++;
+    if(between_brace&&*info->p==40) {
+        info->p++;
         skip_spaces_and_lf(info);
     }
     if(lambda_) {
@@ -5880,8 +5783,8 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
         __dec_obj52 = come_decrement_ref_count(__dec_obj52, (void*)0, (void*)0, 0,0, (void*)0, "06type.nc", 1195, 506);
         __right_value0 = (void*)0;
         result_type2=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "06type.nc", 1197, 508, "struct sType* "), "06type.nc", 1197, 509),(char*)come_increment_ref_count(xsprintf("lambda"), "06type.nc", 1197, 510),(_Bool)0,info,(_Bool)0,0), "06type.nc", 1197, 511);
-        if(span$1char$p_operator_derefference(info->p)==91) {
-            info->p->p++;
+        if(*info->p==91) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "06type.nc", 1203, 512);
@@ -5916,7 +5819,7 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
         come_call_finalizer(list$1char$ph$p_finalize, param_names, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 1230, 529);
         come_call_finalizer(list$1char$ph$p_finalize, param_default_parametors, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 1230, 530);
     }
-    else if(xisalnum(*info->p->p)||span$1char$p_operator_derefference(info->p)==95) {
+    else if(xisalnum(*info->p)||*info->p==95) {
         __right_value0 = (void*)0;
         __dec_obj57=var_name,
         var_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1222, 532);
@@ -5930,12 +5833,12 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
         var_name=(char* )come_increment_ref_count(xsprintf("anonymous_var_nameYYY%d",num_anonymous_var_name), "06type.nc", 1227, 534);
         __dec_obj58 = come_decrement_ref_count(__dec_obj58, (void*)0, (void*)0, 0,0, (void*)0, "06type.nc", 1227, 533);
     }
-    if(between_brace&&span$1char$p_operator_derefference(info->p)==41) {
-        info->p->p++;
+    if(between_brace&&*info->p==41) {
+        info->p++;
         skip_spaces_and_lf(info);
     }
-    if(span$1char$p_operator_derefference(info->p)==58) {
-        info->p->p++;
+    if(*info->p==58) {
+        info->p++;
         skip_spaces_and_lf(info);
         no_comma=info->no_comma;
         info->no_comma=(_Bool)1;
@@ -5947,30 +5850,30 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
         (__dec_obj59 ? __dec_obj59 = come_decrement_ref_count(__dec_obj59, ((struct sNode*)__dec_obj59)->finalize, ((struct sNode*)__dec_obj59)->_protocol_obj, 0,0, (void*)0, "06type.nc", 1244, 536) :0);
         ((node_33) ? node_33 = come_decrement_ref_count(node_33, ((struct sNode*)node_33)->finalize, ((struct sNode*)node_33)->_protocol_obj, 0, 0,(void*)0, "06type.nc", 1247, 538):(void*)0);
     }
-    while(span$1char$p_operator_derefference(info->p)==91) {
-        info->p->p++;
+    while(*info->p==91) {
+        info->p++;
         skip_spaces_and_lf(info);
         {
-            p_34=info->p->p;
+            p_34=info->p;
             sline_35=info->sline;
-            if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 __right_value0 = (void*)0;
                 word_36=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1256, 539);
                 if(string_operator_equals(word_36,"const")||string_operator_equals(word_36,"__restrict")||string_operator_equals(word_36,"restrict")||string_operator_equals(word_36,"__user")||string_operator_equals(word_36,"volatile")||string_operator_equals(word_36,"__volatile__")||string_operator_equals(word_36,"_Nonnull")||string_operator_equals(word_36,"_Nullable")||string_operator_equals(word_36,"_Null_unspecified")||string_operator_equals(word_36,"__user")||string_operator_equals(word_36,"_Addr")) {
                 }
                 else {
-                    info->p->p=p_34;
+                    info->p=p_34;
                     info->sline=sline_35;
                 }
                 (word_36 = come_decrement_ref_count(word_36, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1269, 540));
             }
             else {
-                info->p->p=p_34;
+                info->p=p_34;
                 info->sline=sline_35;
             }
         }
-        if(span$1char$p_operator_derefference(info->p)==93) {
-            info->p->p++;
+        if(*info->p==93) {
+            info->p++;
             skip_spaces_and_lf(info);
             result_type->mArrayPointerType=(_Bool)1;
             break;
@@ -6098,38 +6001,38 @@ _Bool skip_pointer_attribute(struct sInfo*  info  )
     char*  word  ;
     int nest;
     _Bool __result_obj__0;
-    p=info->p->p;
+    p=info->p;
     sline=info->sline;
-    if(span$1char$p_operator_derefference(info->p)==91&&*(info->p->p+1)==91) {
+    if(*info->p==91&&*(info->p+1)==91) {
         (void)((char* )(__right_value0=parse_square_attribute(info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06type.nc", 1301, 582));
                 neo_current_frame = fr.prev;
         return (_Bool)1;
     }
-    if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+    if(xisalpha(*info->p)||*info->p==95) {
         __right_value0 = (void*)0;
         word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1306, 583);
-        if((string_operator_equals(word,"__attribute")||string_operator_equals(word,"__attribute__"))&&span$1char$p_operator_derefference(info->p)==40) {
+        if((string_operator_equals(word,"__attribute")||string_operator_equals(word,"__attribute__"))&&*info->p==40) {
             nest=0;
             while(1) {
-                if(span$1char$p_operator_derefference(info->p)==40) {
-                    info->p->p++;
+                if(*info->p==40) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     nest++;
                 }
-                else if(span$1char$p_operator_derefference(info->p)==41) {
-                    info->p->p++;
+                else if(*info->p==41) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     nest--;
                     if(nest==0) {
                         break;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==0) {
+                else if(*info->p==0) {
                     break;
                 }
                 else {
-                    info->p->p++;
+                    info->p++;
                 }
             }
                         __result_obj__0 = (_Bool)1;
@@ -6137,7 +6040,7 @@ _Bool skip_pointer_attribute(struct sInfo*  info  )
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        else if(string_operator_equals(word,"__declspec")&&span$1char$p_operator_derefference(info->p)==40) {
+        else if(string_operator_equals(word,"__declspec")&&*info->p==40) {
             skip_paren(info);
                         __result_obj__0 = (_Bool)1;
             (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1337, 585));
@@ -6151,13 +6054,13 @@ _Bool skip_pointer_attribute(struct sInfo*  info  )
             return __result_obj__0;
         }
         else {
-            info->p->p=p;
+            info->p=p;
             info->sline=sline;
         }
         (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1352, 587));
     }
     else {
-        info->p->p=p;
+        info->p=p;
         info->sline=sline;
     }
         neo_current_frame = fr.prev;
@@ -6178,46 +6081,46 @@ char*  parse_pointer_qualifier(struct sInfo*  info  )
     char*  __result_obj__0  ;
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "06type.nc", 1357, 588, "struct buffer* "), "06type.nc", 1357, 589)), "06type.nc", 1357, 590);
     while(1) {
-        if(span$1char$p_operator_derefference(info->p)==91&&*(info->p->p+1)==91) {
+        if(*info->p==91&&*(info->p+1)==91) {
             __right_value0 = (void*)0;
             (void)((char* )(__right_value0=parse_square_attribute(info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06type.nc", 1361, 591));
             continue;
         }
-        if(!(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95)) {
+        if(!(xisalpha(*info->p)||*info->p==95)) {
             break;
         }
-        p=info->p->p;
+        p=info->p;
         sline=info->sline;
         __right_value0 = (void*)0;
         word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1372, 592);
-        if((string_operator_equals(word,"__attribute")||string_operator_equals(word,"__attribute__"))&&span$1char$p_operator_derefference(info->p)==40) {
+        if((string_operator_equals(word,"__attribute")||string_operator_equals(word,"__attribute__"))&&*info->p==40) {
             nest=0;
             while(1) {
-                if(span$1char$p_operator_derefference(info->p)==40) {
-                    info->p->p++;
+                if(*info->p==40) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     nest++;
                 }
-                else if(span$1char$p_operator_derefference(info->p)==41) {
-                    info->p->p++;
+                else if(*info->p==41) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     nest--;
                     if(nest==0) {
                         break;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==0) {
+                else if(*info->p==0) {
                     break;
                 }
                 else {
-                    info->p->p++;
+                    info->p++;
                 }
             }
             (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1398, 593));
             continue;
         }
-        else if(string_operator_equals(word,"__declspec")&&span$1char$p_operator_derefference(info->p)==40) {
+        else if(string_operator_equals(word,"__declspec")&&*info->p==40) {
             skip_paren(info);
             (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1402, 594));
             continue;
@@ -6237,7 +6140,7 @@ char*  parse_pointer_qualifier(struct sInfo*  info  )
             continue;
         }
         else {
-            info->p->p=p;
+            info->p=p;
             info->sline=sline;
             (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1419, 597));
             break;
@@ -6331,11 +6234,11 @@ struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* backtrace_struct_union_enum(struc
     union_=(_Bool)0;
     enum_=(_Bool)0;
     {
-        head=info->p->p;
+        head=info->p;
         head_sline=info->sline;
         ((struct tuple2$2char$phchar$ph*)(__right_value0=parse_attribute(info)));
         come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "06type.nc}", 1452, 624);
-        if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __right_value0 = (void*)0;
             declare_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1455, 625);
             if(string_operator_equals(declare_name,"struct")) {
@@ -6361,7 +6264,7 @@ struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* backtrace_struct_union_enum(struc
         __right_value0 = (void*)0;
         ((struct tuple2$2char$phchar$ph*)(__right_value0=parse_attribute(info)));
         come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "06type.nc}", 1470, 636);
-        if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __right_value0 = (void*)0;
             struct_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1473, 637);
             (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1479, 638));
@@ -6372,28 +6275,28 @@ struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* backtrace_struct_union_enum(struc
         __right_value0 = (void*)0;
         ((struct tuple2$2char$phchar$ph*)(__right_value0=parse_attribute(info)));
         come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "06type.nc}", 1479, 639);
-        if(span$1char$p_operator_derefference(info->p)==60) {
+        if(*info->p==60) {
             nest=0;
             while((_Bool)1) {
-                if(span$1char$p_operator_derefference(info->p)==60) {
-                    info->p->p++;
+                if(*info->p==60) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     nest++;
                 }
-                else if(span$1char$p_operator_derefference(info->p)==62) {
-                    info->p->p++;
+                else if(*info->p==62) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     nest--;
                     if(nest==0) {
                         break;
                     }
                 }
-                else if(span$1char$p_operator_derefference(info->p)==0) {
+                else if(*info->p==0) {
                     err_msg(info,"unexpected source end");
                     exit(1);
                 }
                 else {
-                    span$1char$p_operator_derefference(span$1char$p_operator_plus_plus(info->p));
+                    *info->p++;
                     skip_spaces_and_lf(info);
                 }
             }
@@ -6401,21 +6304,21 @@ struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* backtrace_struct_union_enum(struc
         __right_value0 = (void*)0;
         ((struct tuple2$2char$phchar$ph*)(__right_value0=parse_attribute(info)));
         come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "06type.nc}", 1509, 640);
-        if(span$1char$p_operator_derefference(info->p)==123) {
+        if(*info->p==123) {
             __right_value0 = (void*)0;
             ((char* )(__right_value0=skip_block(info,(_Bool)0)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06type.nc", 1512, 641));
             __right_value0 = (void*)0;
             ((struct tuple2$2char$phchar$ph*)(__right_value0=parse_attribute(info)));
             come_call_finalizer(tuple2$2char$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "06type.nc}", 1514, 642);
-            if(span$1char$p_operator_derefference(info->p)==59) {
+            if(*info->p==59) {
                 define_only=(_Bool)1;
             }
             else {
                 define_only=(_Bool)0;
             }
         }
-        info->p->p=head;
+        info->p=head;
         info->sline=head_sline;
     }
         __right_value0 = (void*)0;
@@ -6449,32 +6352,6 @@ static void tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$$p_finalize(struct tuple5$5_Bo
         neo_current_frame = fr.prev;
 }
 
-static struct span$1char$p* span$1char$p$p_operator_plus_plus(struct span$1char$p* self)
-{
-    struct span$1char$p* __result_obj__0;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    self->p++;
-        __result_obj__0 = self;
-    return __result_obj__0;
-}
-
-static struct span$1char$p* span$1char$p_operator_plus_plus(struct span$1char$p* self)
-{
-    struct span$1char$p* __result_obj__0;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    self->p++;
-        __result_obj__0 = self;
-    return __result_obj__0;
-}
-
 struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parse_pointer_attribute"; neo_current_frame = &fr;
@@ -6505,8 +6382,8 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
     char*  __dec_obj73  ;
     tmp_=((void*)0);
     while(1) {
-        if(span$1char$p_operator_derefference(info->p)==42) {
-            info->p->p++;
+        if(*info->p==42) {
+            info->p++;
             skip_spaces_and_lf(info);
             type->mPointerNum++;
             if(type->mNoSolvedGenericsType) {
@@ -6529,39 +6406,39 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
             }
             (pointer_attr = come_decrement_ref_count(pointer_attr, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1729, 654));
         }
-        else if(span$1char$p_operator_derefference(info->p)==37) {
-            info->p->p++;
+        else if(*info->p==37) {
+            info->p++;
             skip_spaces_and_lf(info);
             type->mHeap=(_Bool)1;
             if(type->mNoSolvedGenericsType) {
                 type->mNoSolvedGenericsType->mHeap=(_Bool)1;
             }
         }
-        else if(span$1char$p_operator_derefference(info->p)==64) {
-            info->p->p++;
-            while(xisalnum(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
-                info->p->p++;
+        else if(*info->p==64) {
+            info->p++;
+            while(xisalnum(*info->p)||*info->p==95) {
+                info->p++;
             }
             skip_spaces_and_lf(info);
         }
-        else if(span$1char$p_operator_derefference(info->p)==94) {
-            info->p->p++;
+        else if(*info->p==94) {
+            info->p++;
             skip_spaces_and_lf(info);
             type->mNoHeap=(_Bool)1;
             if(type->mNoSolvedGenericsType) {
                 type->mNoSolvedGenericsType->mNoHeap=(_Bool)0;
             }
         }
-        else if(span$1char$p_operator_derefference(info->p)==93) {
-            info->p->p++;
+        else if(*info->p==93) {
+            info->p++;
             skip_spaces_and_lf(info);
             type->mMinusPointerNum++;
             if(type->mNoSolvedGenericsType) {
                 type->mNoSolvedGenericsType->mMinusPointerNum++;
             }
         }
-        else if(span$1char$p_operator_derefference(info->p)==38) {
-            info->p->p++;
+        else if(*info->p==38) {
+            info->p++;
             skip_spaces_and_lf(info);
             type->mPointerNum=1;
             type->mHeap=(_Bool)0;
@@ -6596,8 +6473,8 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
             come_call_finalizer(sType_finalize, type_40, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 1729, 672);
             come_call_finalizer(sType_finalize, type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 1729, 673);
         }
-        else if(span$1char$p_operator_derefference(info->p)==63) {
-            info->p->p++;
+        else if(*info->p==63) {
+            info->p++;
             skip_spaces_and_lf(info);
             if(tmp_) {
                 err_msg(info,"invalid type name");
@@ -6642,8 +6519,8 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
             come_call_finalizer(sType_finalize, type_42, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 1729, 695);
             come_call_finalizer(sType_finalize, type2_43, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 1729, 696);
         }
-        else if(memcmp(info->p->p,"{}",2)==0) {
-            info->p->p+=2;
+        else if(memcmp(info->p,"{}",2)==0) {
+            info->p+=2;
             skip_spaces_and_lf(info);
             if(tmp_) {
                 err_msg(info,"invalid type name");
@@ -6688,36 +6565,36 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
             come_call_finalizer(sType_finalize, type_45, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 1729, 718);
             come_call_finalizer(sType_finalize, type2_46, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 1729, 719);
         }
-        else if(span$1char$p_operator_derefference(info->p)==47) {
-            info->p->p++;
+        else if(*info->p==47) {
+            info->p++;
             skip_spaces_and_lf(info);
             type->mNoCallingDestructor=(_Bool)1;
             if(type->mNoSolvedGenericsType) {
                 type->mNoSolvedGenericsType->mNoCallingDestructor=(_Bool)1;
             }
         }
-        else if(gComePthread&&span$1char$p_operator_derefference(info->p)==124) {
-            info->p->p++;
+        else if(gComePthread&&*info->p==124) {
+            info->p++;
             skip_spaces_and_lf(info);
             type->mChannel=(_Bool)1;
             if(type->mNoSolvedGenericsType) {
                 type->mNoSolvedGenericsType->mChannel=(_Bool)1;
             }
         }
-        else if(span$1char$p_operator_derefference(info->p)==126) {
-            info->p->p++;
+        else if(*info->p==126) {
+            info->p++;
             skip_spaces_and_lf(info);
             type->mDefferRightValue=(_Bool)1;
             if(type->mNoSolvedGenericsType) {
                 type->mNoSolvedGenericsType->mDefferRightValue=(_Bool)1;
             }
         }
-        else if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
-            p=info->p->p;
+        else if(xisalpha(*info->p)||*info->p==95) {
+            p=info->p;
             sline=info->sline;
             __right_value0 = (void*)0;
             pointer_attr_47=(char* )come_increment_ref_count(parse_pointer_qualifier(info), "06type.nc", 1709, 720);
-            if(info->p->p!=p) {
+            if(info->p!=p) {
                 if(string_operator_not_equals(pointer_attr_47,"")) {
                     if(type->mPointerAttribute==((void*)0)||string_operator_equals(type->mPointerAttribute,"")) {
                         __dec_obj72=type->mPointerAttribute,
@@ -6736,7 +6613,7 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
                 }
             }
             else {
-                info->p->p=p;
+                info->p=p;
                 info->sline=sline;
                 (pointer_attr_47 = come_decrement_ref_count(pointer_attr_47, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 1723, 726));
                 break;
@@ -6884,11 +6761,11 @@ char*  parse_variable_name_fun(struct sType*  type  , _Bool anonymous_name, _Boo
     char*  attribute2  ;
     char*  __result_obj__0  ;
     var_name=(char*)come_increment_ref_count(xsprintf(""), "06type.nc", 1825, 757);
-    if(var_name_between_brace&&span$1char$p_operator_derefference(info->p)==40) {
-        info->p->p++;
+    if(var_name_between_brace&&*info->p==40) {
+        info->p++;
         skip_spaces_and_lf(info);
     }
-    if(span$1char$p_operator_derefference(info->p)==58) {
+    if(*info->p==58) {
         __right_value0 = (void*)0;
         __dec_obj80=var_name,
         var_name=(char* )come_increment_ref_count(__builtin_string("","06type.nc",1832), "06type.nc", 1832, 759);
@@ -6903,7 +6780,7 @@ char*  parse_variable_name_fun(struct sType*  type  , _Bool anonymous_name, _Boo
         __dec_obj81 = come_decrement_ref_count(__dec_obj81, (void*)0, (void*)0, 0,0, (void*)0, "06type.nc", 1837, 760);
         type->mAnonymousVarName=(_Bool)1;
     }
-    else if(xisalnum(*info->p->p)||span$1char$p_operator_derefference(info->p)==95) {
+    else if(xisalnum(*info->p)||*info->p==95) {
         __right_value0 = (void*)0;
         __dec_obj82=var_name,
         var_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "06type.nc", 1841, 763);
@@ -6918,12 +6795,12 @@ char*  parse_variable_name_fun(struct sType*  type  , _Bool anonymous_name, _Boo
         __dec_obj83 = come_decrement_ref_count(__dec_obj83, (void*)0, (void*)0, 0,0, (void*)0, "06type.nc", 1846, 764);
         type->mAnonymousVarName=(_Bool)1;
     }
-    if(var_name_between_brace&&span$1char$p_operator_derefference(info->p)==41) {
-        info->p->p++;
+    if(var_name_between_brace&&*info->p==41) {
+        info->p++;
         skip_spaces_and_lf(info);
     }
-    if(span$1char$p_operator_derefference(info->p)==58) {
-        info->p->p++;
+    if(*info->p==58) {
+        info->p++;
         skip_spaces_and_lf(info);
         no_comma=info->no_comma;
         info->no_comma=(_Bool)1;

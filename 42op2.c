@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2986,8 +2975,6 @@ static void sConditionalNode_finalize(struct sConditionalNode* self);
 struct sNode* conditional_node(struct sNode* value1, struct sNode* value2, struct sNode* value3, struct sInfo*  info  );
 static struct sConditionalNode* sConditionalNode_clone(struct sConditionalNode* self);
 struct sNode* mult_exp(struct sInfo*  info  );
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
-static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static struct sMultNode* sMultNode_clone(struct sMultNode* self);
 static struct sDivNode* sDivNode_clone(struct sDivNode* self);
 static struct sModNode* sModNode_clone(struct sModNode* self);
@@ -7646,13 +7633,13 @@ struct sNode* mult_exp(struct sInfo*  info  )
     struct sNode* __dec_obj158;
     node=(struct sNode*)come_increment_ref_count(expression_node_v99(info), "42op2.nc", 1520, 1314);
     parse_sharp_v5(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(!node->terminated(node->_protocol_obj)&&span$1char$p_operator_derefference(info->p)==42&&*(info->p->p+1)!=61) {
-            info->p->p++;
+    while(*info->p) {
+        if(!node->terminated(node->_protocol_obj)&&*info->p==42&&*(info->p+1)!=61) {
+            info->p++;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==41) {
+            if(*info->p==41) {
                 err_msg(info,"invalid )");
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))), "42op2.nc", 1533, 1315);
@@ -7684,8 +7671,8 @@ struct sNode* mult_exp(struct sInfo*  info  )
             come_call_finalizer(sMultNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1539, 1338);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1599, 1339):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==47&&*(info->p->p+1)!=61&&*(info->p->p+1)!=42&&*(info->p->p-1)!=42) {
-            info->p->p++;
+        else if(*info->p==47&&*(info->p+1)!=61&&*(info->p+1)!=42&&*(info->p-1)!=42) {
+            info->p++;
             sline_real_36=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -7713,8 +7700,8 @@ struct sNode* mult_exp(struct sInfo*  info  )
             come_call_finalizer(sDivNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1550, 1359);
             ((right_37) ? right_37 = come_decrement_ref_count(right_37, ((struct sNode*)right_37)->finalize, ((struct sNode*)right_37)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1599, 1360):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==37&&*(info->p->p+1)!=61) {
-            info->p->p++;
+        else if(*info->p==37&&*(info->p+1)!=61) {
+            info->p++;
             sline_real_38=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -7742,8 +7729,8 @@ struct sNode* mult_exp(struct sInfo*  info  )
             come_call_finalizer(sModNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1561, 1380);
             ((right_39) ? right_39 = come_decrement_ref_count(right_39, ((struct sNode*)right_39)->finalize, ((struct sNode*)right_39)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1599, 1381):(void*)0);
         }
-        else if(!node->terminated(node->_protocol_obj)&&span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==42&&*(info->p->p+2)!=61) {
-            info->p->p+=2;
+        else if(!node->terminated(node->_protocol_obj)&&*info->p==92&&*(info->p+1)==42&&*(info->p+2)!=61) {
+            info->p+=2;
             sline_real_40=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -7771,8 +7758,8 @@ struct sNode* mult_exp(struct sInfo*  info  )
             come_call_finalizer(sMultNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1572, 1391);
             ((right_41) ? right_41 = come_decrement_ref_count(right_41, ((struct sNode*)right_41)->finalize, ((struct sNode*)right_41)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1599, 1392):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==47&&*(info->p->p+2)!=61) {
-            info->p->p+=2;
+        else if(*info->p==92&&*(info->p+1)==47&&*(info->p+2)!=61) {
+            info->p+=2;
             sline_real_42=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -7800,8 +7787,8 @@ struct sNode* mult_exp(struct sInfo*  info  )
             come_call_finalizer(sDivNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1583, 1402);
             ((right_43) ? right_43 = come_decrement_ref_count(right_43, ((struct sNode*)right_43)->finalize, ((struct sNode*)right_43)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1599, 1403):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==37&&*(info->p->p+2)!=61) {
-            info->p->p+=2;
+        else if(*info->p==92&&*(info->p+1)==37&&*(info->p+2)!=61) {
+            info->p+=2;
             sline_real_44=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -7839,88 +7826,6 @@ struct sNode* mult_exp(struct sInfo*  info  )
     neo_current_frame = fr.prev;
     ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "42op2.nc", 1603, 1417):(void*)0);
     return __result_obj__0;
-}
-
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
-}
-
-static char span$1char$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
 }
 
 static struct sMultNode* sMultNode_clone(struct sMultNode* self)
@@ -8097,9 +8002,9 @@ struct sNode* add_exp(struct sInfo*  info  )
     struct sNode* __result_obj__0;
     node=(struct sNode*)come_increment_ref_count(mult_exp(info), "42op2.nc", 1608, 1418);
     parse_sharp_v5(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==43&&*(info->p->p+1)!=61&&*(info->p->p+1)!=43) {
-            info->p->p++;
+    while(*info->p) {
+        if(*info->p==43&&*(info->p+1)!=61&&*(info->p+1)!=43) {
+            info->p++;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8125,8 +8030,8 @@ struct sNode* add_exp(struct sInfo*  info  )
             come_call_finalizer(sAddNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1623, 1428);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1664, 1429):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==45&&*(info->p->p+1)!=61&&*(info->p->p+1)!=45&&*(info->p->p+1)!=62) {
-            info->p->p++;
+        else if(*info->p==45&&*(info->p+1)!=61&&*(info->p+1)!=45&&*(info->p+1)!=62) {
+            info->p++;
             sline_real_46=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8154,8 +8059,8 @@ struct sNode* add_exp(struct sInfo*  info  )
             come_call_finalizer(sSubNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1635, 1449);
             ((right_47) ? right_47 = come_decrement_ref_count(right_47, ((struct sNode*)right_47)->finalize, ((struct sNode*)right_47)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1664, 1450):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==43&&*(info->p->p+2)!=61&&*(info->p->p+2)!=43) {
-            info->p->p+=2;
+        else if(*info->p==92&&*(info->p+1)==43&&*(info->p+2)!=61&&*(info->p+2)!=43) {
+            info->p+=2;
             sline_real_48=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8183,8 +8088,8 @@ struct sNode* add_exp(struct sInfo*  info  )
             come_call_finalizer(sAddNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1647, 1460);
             ((right_49) ? right_49 = come_decrement_ref_count(right_49, ((struct sNode*)right_49)->finalize, ((struct sNode*)right_49)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1664, 1461):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==45&&*(info->p->p+2)!=61&&*(info->p->p+2)!=45&&*(info->p->p+2)!=62) {
-            info->p->p+=2;
+        else if(*info->p==92&&*(info->p+1)==45&&*(info->p+2)!=61&&*(info->p+2)!=45&&*(info->p+2)!=62) {
+            info->p+=2;
             sline_real_50=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8303,9 +8208,9 @@ struct sNode* shift_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(add_exp(info), "42op2.nc", 1675, 1476);
     parse_sharp_v5(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==60&&*(info->p->p+1)==60&&*(info->p->p+2)!=61) {
-            info->p->p+=2;
+    while(*info->p) {
+        if(*info->p==60&&*(info->p+1)==60&&*(info->p+2)!=61) {
+            info->p+=2;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8331,8 +8236,8 @@ struct sNode* shift_exp(struct sInfo*  info  )
             come_call_finalizer(sLShiftNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1689, 1496);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1727, 1497):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==62&&*(info->p->p+1)==62&&*(info->p->p+2)!=61&&*(info->p->p+2)!=62) {
-            info->p->p+=2;
+        else if(*info->p==62&&*(info->p+1)==62&&*(info->p+2)!=61&&*(info->p+2)!=62) {
+            info->p+=2;
             sline_real_52=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8360,8 +8265,8 @@ struct sNode* shift_exp(struct sInfo*  info  )
             come_call_finalizer(sRShiftNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1700, 1517);
             ((right_53) ? right_53 = come_decrement_ref_count(right_53, ((struct sNode*)right_53)->finalize, ((struct sNode*)right_53)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1727, 1518):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==60&&*(info->p->p+2)==60&&*(info->p->p+3)!=61) {
-            info->p->p+=3;
+        else if(*info->p==92&&*(info->p+1)==60&&*(info->p+2)==60&&*(info->p+3)!=61) {
+            info->p+=3;
             sline_real_54=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8389,8 +8294,8 @@ struct sNode* shift_exp(struct sInfo*  info  )
             come_call_finalizer(sLShiftNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1711, 1528);
             ((right_55) ? right_55 = come_decrement_ref_count(right_55, ((struct sNode*)right_55)->finalize, ((struct sNode*)right_55)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1727, 1529):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==62&&*(info->p->p+2)==62&&*(info->p->p+3)!=61&&*(info->p->p+3)!=62) {
-            info->p->p+=3;
+        else if(*info->p==92&&*(info->p+1)==62&&*(info->p+2)==62&&*(info->p+3)!=61&&*(info->p+3)!=62) {
+            info->p+=3;
             sline_real_56=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8577,9 +8482,9 @@ struct sNode* comparison_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(shift_exp(info), "42op2.nc", 1738, 1544);
     parse_sharp_v5(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==62&&*(info->p->p+1)==61) {
-            info->p->p+=2;
+    while(*info->p) {
+        if(*info->p==62&&*(info->p+1)==61) {
+            info->p+=2;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8605,8 +8510,8 @@ struct sNode* comparison_exp(struct sInfo*  info  )
             come_call_finalizer(sGtEqNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1752, 1564);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1834, 1565):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==60&&*(info->p->p+1)==61) {
-            info->p->p+=2;
+        else if(*info->p==60&&*(info->p+1)==61) {
+            info->p+=2;
             sline_real_58=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8634,8 +8539,8 @@ struct sNode* comparison_exp(struct sInfo*  info  )
             come_call_finalizer(sLtEqNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1763, 1585);
             ((right_59) ? right_59 = come_decrement_ref_count(right_59, ((struct sNode*)right_59)->finalize, ((struct sNode*)right_59)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1834, 1586):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==62&&*(info->p->p+1)!=62) {
-            info->p->p++;
+        else if(*info->p==62&&*(info->p+1)!=62) {
+            info->p++;
             sline_real_60=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8663,8 +8568,8 @@ struct sNode* comparison_exp(struct sInfo*  info  )
             come_call_finalizer(sGtNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1774, 1606);
             ((right_61) ? right_61 = come_decrement_ref_count(right_61, ((struct sNode*)right_61)->finalize, ((struct sNode*)right_61)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1834, 1607):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==60&&*(info->p->p+1)!=60&&*(info->p->p+1)!=45) {
-            info->p->p++;
+        else if(*info->p==60&&*(info->p+1)!=60&&*(info->p+1)!=45) {
+            info->p++;
             sline_real_62=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8692,8 +8597,8 @@ struct sNode* comparison_exp(struct sInfo*  info  )
             come_call_finalizer(sLtNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1785, 1627);
             ((right_63) ? right_63 = come_decrement_ref_count(right_63, ((struct sNode*)right_63)->finalize, ((struct sNode*)right_63)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1834, 1628):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==62&&*(info->p->p+2)==61) {
-            info->p->p+=3;
+        else if(*info->p==92&&*(info->p+1)==62&&*(info->p+2)==61) {
+            info->p+=3;
             sline_real_64=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8721,8 +8626,8 @@ struct sNode* comparison_exp(struct sInfo*  info  )
             come_call_finalizer(sGtEqNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1796, 1638);
             ((right_65) ? right_65 = come_decrement_ref_count(right_65, ((struct sNode*)right_65)->finalize, ((struct sNode*)right_65)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1834, 1639):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==60&&*(info->p->p+2)==61) {
-            info->p->p+=3;
+        else if(*info->p==92&&*(info->p+1)==60&&*(info->p+2)==61) {
+            info->p+=3;
             sline_real_66=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8750,8 +8655,8 @@ struct sNode* comparison_exp(struct sInfo*  info  )
             come_call_finalizer(sLtEqNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1807, 1649);
             ((right_67) ? right_67 = come_decrement_ref_count(right_67, ((struct sNode*)right_67)->finalize, ((struct sNode*)right_67)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1834, 1650):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==62&&*(info->p->p+2)!=62) {
-            info->p->p+=2;
+        else if(*info->p==92&&*(info->p+1)==62&&*(info->p+2)!=62) {
+            info->p+=2;
             sline_real_68=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -8779,8 +8684,8 @@ struct sNode* comparison_exp(struct sInfo*  info  )
             come_call_finalizer(sGtNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1818, 1660);
             ((right_69) ? right_69 = come_decrement_ref_count(right_69, ((struct sNode*)right_69)->finalize, ((struct sNode*)right_69)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1834, 1661):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==60&&*(info->p->p+2)!=60&&*(info->p->p+2)!=45) {
-            info->p->p+=2;
+        else if(*info->p==92&&*(info->p+1)==60&&*(info->p+2)!=60&&*(info->p+2)!=45) {
+            info->p+=2;
             sline_real_70=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9063,9 +8968,9 @@ struct sNode* eq_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(comparison_exp(info), "42op2.nc", 1845, 1676);
     parse_sharp_v5(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)==61&&*(info->p->p+2)==61) {
-            info->p->p+=3;
+    while(*info->p) {
+        if(*info->p==61&&*(info->p+1)==61&&*(info->p+2)==61) {
+            info->p+=3;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9091,8 +8996,8 @@ struct sNode* eq_exp(struct sInfo*  info  )
             come_call_finalizer(sEq2Node_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1859, 1696);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1941, 1697):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)==61) {
-            info->p->p+=2;
+        else if(*info->p==61&&*(info->p+1)==61) {
+            info->p+=2;
             sline_real_72=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9120,8 +9025,8 @@ struct sNode* eq_exp(struct sInfo*  info  )
             come_call_finalizer(sEqNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1870, 1717);
             ((right_73) ? right_73 = come_decrement_ref_count(right_73, ((struct sNode*)right_73)->finalize, ((struct sNode*)right_73)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1941, 1718):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==33&&*(info->p->p+1)==61&&*(info->p->p+2)==61) {
-            info->p->p+=3;
+        else if(*info->p==33&&*(info->p+1)==61&&*(info->p+2)==61) {
+            info->p+=3;
             sline_real_74=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9149,8 +9054,8 @@ struct sNode* eq_exp(struct sInfo*  info  )
             come_call_finalizer(sNotEq2Node_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1881, 1738);
             ((right_75) ? right_75 = come_decrement_ref_count(right_75, ((struct sNode*)right_75)->finalize, ((struct sNode*)right_75)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1941, 1739):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==33&&*(info->p->p+1)==61) {
-            info->p->p+=2;
+        else if(*info->p==33&&*(info->p+1)==61) {
+            info->p+=2;
             sline_real_76=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9178,8 +9083,8 @@ struct sNode* eq_exp(struct sInfo*  info  )
             come_call_finalizer(sNotEqNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1892, 1759);
             ((right_77) ? right_77 = come_decrement_ref_count(right_77, ((struct sNode*)right_77)->finalize, ((struct sNode*)right_77)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1941, 1760):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==61&&*(info->p->p+2)==61&&*(info->p->p+3)==61) {
-            info->p->p+=4;
+        else if(*info->p==92&&*(info->p+1)==61&&*(info->p+2)==61&&*(info->p+3)==61) {
+            info->p+=4;
             sline_real_78=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9207,8 +9112,8 @@ struct sNode* eq_exp(struct sInfo*  info  )
             come_call_finalizer(sEq2Node_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1903, 1770);
             ((right_79) ? right_79 = come_decrement_ref_count(right_79, ((struct sNode*)right_79)->finalize, ((struct sNode*)right_79)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1941, 1771):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==61&&*(info->p->p+2)==61) {
-            info->p->p+=3;
+        else if(*info->p==92&&*(info->p+1)==61&&*(info->p+2)==61) {
+            info->p+=3;
             sline_real_80=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9236,8 +9141,8 @@ struct sNode* eq_exp(struct sInfo*  info  )
             come_call_finalizer(sEqNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1914, 1781);
             ((right_81) ? right_81 = come_decrement_ref_count(right_81, ((struct sNode*)right_81)->finalize, ((struct sNode*)right_81)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1941, 1782):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==33&&*(info->p->p+2)==61&&*(info->p->p+3)==61) {
-            info->p->p+=4;
+        else if(*info->p==92&&*(info->p+1)==33&&*(info->p+2)==61&&*(info->p+3)==61) {
+            info->p+=4;
             sline_real_82=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9265,8 +9170,8 @@ struct sNode* eq_exp(struct sInfo*  info  )
             come_call_finalizer(sNotEq2Node_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1925, 1792);
             ((right_83) ? right_83 = come_decrement_ref_count(right_83, ((struct sNode*)right_83)->finalize, ((struct sNode*)right_83)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1941, 1793):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==33&&*(info->p->p+2)==61) {
-            info->p->p+=3;
+        else if(*info->p==92&&*(info->p+1)==33&&*(info->p+2)==61) {
+            info->p+=3;
             sline_real_84=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9519,9 +9424,9 @@ struct sNode* and_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(eq_exp(info), "42op2.nc", 1952, 1808);
     skip_spaces_and_lf(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(!node->terminated(node->_protocol_obj)&&span$1char$p_operator_derefference(info->p)==38&&*(info->p->p+1)!=38&&*(info->p->p+1)!=61) {
-            info->p->p++;
+    while(*info->p) {
+        if(!node->terminated(node->_protocol_obj)&&*info->p==38&&*(info->p+1)!=38&&*(info->p+1)!=61) {
+            info->p++;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9547,8 +9452,8 @@ struct sNode* and_exp(struct sInfo*  info  )
             come_call_finalizer(sAndNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 1966, 1828);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 1982, 1829):(void*)0);
         }
-        else if(!node->terminated(node->_protocol_obj)&&span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==38&&*(info->p->p+2)!=38&&*(info->p->p+2)!=61) {
-            info->p->p+=2;
+        else if(!node->terminated(node->_protocol_obj)&&*info->p==92&&*(info->p+1)==38&&*(info->p+2)!=38&&*(info->p+2)!=61) {
+            info->p+=2;
             sline_real_86=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9657,9 +9562,9 @@ struct sNode* xor_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(and_exp(info), "42op2.nc", 1993, 1844);
     skip_spaces_and_lf(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==94&&*(info->p->p+1)!=61) {
-            info->p->p++;
+    while(*info->p) {
+        if(*info->p==94&&*(info->p+1)!=61) {
+            info->p++;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9685,8 +9590,8 @@ struct sNode* xor_exp(struct sInfo*  info  )
             come_call_finalizer(sXOrNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 2007, 1864);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 2023, 1865):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==94&&*(info->p->p+2)!=61) {
-            info->p->p+=2;
+        else if(*info->p==92&&*(info->p+1)==94&&*(info->p+2)!=61) {
+            info->p+=2;
             sline_real_88=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9795,9 +9700,9 @@ struct sNode* or_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(xor_exp(info), "42op2.nc", 2034, 1880);
     skip_spaces_and_lf(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==124&&*(info->p->p+1)!=61&&*(info->p->p+1)!=124) {
-            info->p->p++;
+    while(*info->p) {
+        if(*info->p==124&&*(info->p+1)!=61&&*(info->p+1)!=124) {
+            info->p++;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9823,8 +9728,8 @@ struct sNode* or_exp(struct sInfo*  info  )
             come_call_finalizer(sOrNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 2048, 1900);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 2064, 1901):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==124&&*(info->p->p+2)!=61&&*(info->p->p+2)!=124) {
-            info->p->p+=2;
+        else if(*info->p==92&&*(info->p+1)==124&&*(info->p+2)!=61&&*(info->p+2)!=124) {
+            info->p+=2;
             sline_real_90=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9933,9 +9838,9 @@ struct sNode* andand_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(or_exp(info), "42op2.nc", 2075, 1916);
     skip_spaces_and_lf(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==38&&*(info->p->p+1)==38) {
-            info->p->p+=2;
+    while(*info->p) {
+        if(*info->p==38&&*(info->p+1)==38) {
+            info->p+=2;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -9961,8 +9866,8 @@ struct sNode* andand_exp(struct sInfo*  info  )
             come_call_finalizer(sAndAndNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 2089, 1936);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 2105, 1937):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==38&&*(info->p->p+2)==38) {
-            info->p->p+=3;
+        else if(*info->p==92&&*(info->p+1)==38&&*(info->p+2)==38) {
+            info->p+=3;
             sline_real_92=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -10071,9 +9976,9 @@ struct sNode* oror_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(andand_exp(info), "42op2.nc", 2116, 1952);
     skip_spaces_and_lf(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==124&&*(info->p->p+1)==124) {
-            info->p->p+=2;
+    while(*info->p) {
+        if(*info->p==124&&*(info->p+1)==124) {
+            info->p+=2;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -10099,8 +10004,8 @@ struct sNode* oror_exp(struct sInfo*  info  )
             come_call_finalizer(sOrOrNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "42op2.nc}", 2130, 1972);
             ((right) ? right = come_decrement_ref_count(right, ((struct sNode*)right)->finalize, ((struct sNode*)right)->_protocol_obj, 0, 0,(void*)0, "42op2.nc", 2146, 1973):(void*)0);
         }
-        else if(span$1char$p_operator_derefference(info->p)==92&&*(info->p->p+1)==124&&*(info->p->p+2)==124) {
-            info->p->p+=3;
+        else if(*info->p==92&&*(info->p+1)==124&&*(info->p+2)==124) {
+            info->p+=3;
             sline_real_94=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -10280,9 +10185,9 @@ struct sNode* comma_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(oror_exp(info), "42op2.nc", 2162, 2010);
     skip_spaces_and_lf(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(!info->no_comma&&span$1char$p_operator_derefference(info->p)==44) {
-            info->p->p++;
+    while(*info->p) {
+        if(!info->no_comma&&*info->p==44) {
+            info->p++;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
@@ -10343,13 +10248,13 @@ struct sNode* conditional_exp(struct sInfo*  info  )
     skip_spaces_and_lf(info);
     node=(struct sNode*)come_increment_ref_count(comma_exp(info), "42op2.nc", 2192, 2025);
     skip_spaces_and_lf(info);
-    while(span$1char$p_operator_derefference(info->p)) {
-        if(span$1char$p_operator_derefference(info->p)==63) {
-            info->p->p++;
+    while(*info->p) {
+        if(*info->p==63) {
+            info->p++;
             sline_real=info->sline_real;
             info->sline_real=info->sline;
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==58) {
+            if(*info->p==58) {
                 __right_value0 = (void*)0;
                 _inf_value46=(struct sNode*)come_calloc(1, sizeof(struct sNode), "42op2.nc", 2205, 2028, "struct sNode");
                 _inf_obj_value46=(struct sNullNode*)come_increment_ref_count(((struct sNullNode*)(__right_value1=sNullNode_initialize((struct sNullNode* )come_increment_ref_count((struct sNullNode *)come_calloc(1, sizeof(struct sNullNode )*(1), "42op2.nc", 2205, 2026, "struct sNullNode* "), "42op2.nc", 2205, 2027),info))), "42op2.nc", 2205, 2029);
@@ -10512,15 +10417,15 @@ struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp)
     struct sNode* __result_obj__0;
     node=((void*)0);
     skip_spaces_and_lf(info);
-    if(span$1char$p_operator_derefference(info->p)==92) {
-        info->p->p++;
+    if(*info->p==92) {
+        info->p++;
     }
-    if(type_name_exp&&(span$1char$p_operator_derefference(info->p)==95||xisalpha(span$1char$p_operator_derefference(info->p)))) {
-        p=info->p->p;
+    if(type_name_exp&&(*info->p==95||xisalpha(*info->p))) {
+        p=info->p;
         sline=info->sline;
         word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "42op2.nc", 2276, 2075);
-        fun_call=span$1char$p_operator_derefference(info->p)==40;
-        info->p->p=p;
+        fun_call=*info->p==40;
+        info->p=p;
         info->sline=sline;
         if(is_type_name(word,info)&&!fun_call) {
             __right_value0 = (void*)0;

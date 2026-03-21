@@ -3,12 +3,12 @@
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
 {
     info.in_top_level = true;
-    char* source_head = info->p.p;
+    char* source_head = info->p;
     
     bool is_type_name_flag = is_type_name(buf);
     int sline = info.sline;
     
-    info.p.p = head;
+    info.p = head;
     info.sline = head_sline;
     
     var define_only, anonymous_name, struct_, union_, enum_ = backtrace_struct_union_enum();
@@ -26,16 +26,16 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p.p;
+        char* p = info.p;
         int sline = info.sline;
         
         if(buf === "struct") {
             parse_word();
             
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info->p) || *info->p == '_') {
                 string word = parse_word();
                 
-                if(*info->p.p == ';') {
+                if(*info->p == ';') {
                     define_struct_nobody = true;
                 }
             }
@@ -43,7 +43,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         
         info.no_output_come_code = no_output_come_code;
         
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
     }
     
@@ -53,15 +53,15 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p.p;
-        info.p.p = head;
+        char* p = info.p;
+        info.p = head;
         int sline = info.sline;
         
-        if(xisalpha(*info->p.p) || *info->p.p == '_') {
+        if(xisalpha(*info->p) || *info->p == '_') {
             parse_word();
         }
         
-        if(xisalpha(*info->p.p) || *info->p.p == '_') {
+        if(xisalpha(*info->p) || *info->p == '_') {
             string buf2 = parse_word();
             
             if(buf2 === "class") {
@@ -69,7 +69,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             }
         }
         
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
         info.no_output_come_code = no_output_come_code;
     }
@@ -82,27 +82,27 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p.p;
-        info.p.p = head;
+        char* p = info.p;
+        info.p = head;
         
-        if(xisalpha(*info->p.p) || *info->p.p == '_' || (*info->p.p == '[' && *(info->p.p+1) == '[')) {
+        if(xisalpha(*info->p) || *info->p == '_' || (*info->p == '[' && *(info->p+1) == '[')) {
             var result_type, fun_name, err = backtrace_parse_type();
             
-            if(*info->p.p == '(') {
-                info->p.p ++;
+            if(*info->p == '(') {
+                info->p ++;
                 skip_spaces_and_lf();
                 
-                if(*info->p.p != '*') {
+                if(*info->p != '*') {
                     define_function_pointer_result_function = true;
                     
-                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                    if(xisalpha(*info->p) || *info->p == '_') {
                         string word = parse_word();
                         
-                        if(!is_type_name(word) && *info->p.p == ')') {
-                            info->p.p++;
+                        if(!is_type_name(word) && *info->p == ')') {
+                            info->p++;
                             skip_spaces_and_lf();
                             
-                            if(*info->p.p == '(') {
+                            if(*info->p == '(') {
                             }
                             else {
                                 define_variable_between_brace = true;
@@ -114,7 +114,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         }
         
         info.no_output_come_code = no_output_come_code;
-        info.p.p = head;
+        info.p = head;
         info.sline = sline;
     }
     
@@ -125,19 +125,19 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p.p;
-        info.p.p = head;
+        char* p = info.p;
+        info.p = head;
         
-        if(xisalpha(*info->p.p) || *info->p.p == '_' || (*info->p.p == '[' && *(info->p.p+1) == '[')) {
+        if(xisalpha(*info->p) || *info->p == '_' || (*info->p == '[' && *(info->p+1) == '[')) {
             var result_type, fun_name, err = backtrace_parse_type();
         }
-        if(*info->p.p == '(' || (*info->p.p == ':' && *(info->p.p+1) == ':')) {
+        if(*info->p == '(' || (*info->p == ':' && *(info->p+1) == ':')) {
             define_function_flag = true;
         }
         
         if(!define_only) {
             string word = null;
-            if(xisalnum(*info.p.p) || *info->p.p == '_') {
+            if(xisalnum(*info.p) || *info->p == '_') {
                 word = parse_word();
                 
                 if(word === "extern") {
@@ -150,29 +150,29 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             
             if(word) {
                 if(is_type_name(word)) {
-                    while(*info->p.p == '*') {
-                        info->p.p++;
+                    while(*info->p == '*') {
+                        info->p++;
                         skip_spaces_and_lf();
                     }
-                    if(*info->p.p == '[' && *(info->p.p+1) == ']') {
-                        info->p.p += 2;
+                    if(*info->p == '[' && *(info->p+1) == ']') {
+                        info->p += 2;
                         skip_spaces_and_lf();
                     }
-                    if(*info->p.p == ':') {
-                        info->p.p++;
+                    if(*info->p == ':') {
+                        info->p++;
                         skip_spaces_and_lf();
                     }
-                    if(*info->p.p == ':') {
-                        info->p.p++;
+                    if(*info->p == ':') {
+                        info->p++;
                         skip_spaces_and_lf();
                     }
-                    if(xisalnum(*info.p.p) || *info->p.p == '_') {
+                    if(xisalnum(*info.p) || *info->p == '_') {
                         word = parse_word();
                     }
                 }
                 
                 /// fun name ///
-                if(strlen(word) > 0 && (*info->p.p == '(' || (*info->p.p == ':' && *(info->p.p+1) == ':'))) {
+                if(strlen(word) > 0 && (*info->p == '(' || (*info->p == ':' && *(info->p+1) == ':'))) {
                     if(is_type_name_flag) {
                         define_function_flag = true;
                     }
@@ -181,7 +181,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         }
         
         info.no_output_come_code = no_output_come_code;
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
     }
     
@@ -192,45 +192,45 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p.p;
-        info.p.p = head;
+        char* p = info.p;
+        info.p = head;
         
         if(!is_type_name_flag) {
             define_variable = false;
         }
         
-        if(xisalpha(*info->p.p) || *info->p.p == '_' || (*info->p.p == '[' && *(info->p.p+1) == '[')) {
+        if(xisalpha(*info->p) || *info->p == '_' || (*info->p == '[' && *(info->p+1) == '[')) {
             var result_type, fun_name, err = backtrace_parse_type();
             
-            if(*info->p.p == '(') {
-                info->p.p ++;
+            if(*info->p == '(') {
+                info->p ++;
                 skip_spaces_and_lf();
                 
-                if(*info->p.p == '*') {
-                    info->p.p++;
+                if(*info->p == '*') {
+                    info->p++;
                     skip_spaces_and_lf();
                     
-                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                    if(xisalpha(*info->p) || *info->p == '_') {
                         string word = parse_word();
                         
-                        if(*info->p.p == ')') {
-                            info->p.p++;
+                        if(*info->p == ')') {
+                            info->p++;
                             skip_spaces_and_lf();
                             
-                            if(*info->p.p == '(') {
+                            if(*info->p == '(') {
                                 define_variable = true;
                             }
                         }
                     }
                 }
-                else if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                else if(xisalpha(*info->p) || *info->p == '_') {
                     string word = parse_word();
                     
-                    if(*info->p.p == ')') {
-                        info->p.p++;
+                    if(*info->p == ')') {
+                        info->p++;
                         skip_spaces_and_lf();
                         
-                        if(!is_type_name(word) && *info->p.p != '(') {
+                        if(!is_type_name(word) && *info->p != '(') {
                             define_variable = true;
                         }
                     }
@@ -244,21 +244,21 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         else if(define_variable) {
         }
         else {
-            if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
+            if(!(xisalpha(*info->p) || *info->p == '_')) {
                 define_variable = false;
             }
             
-            while(xisalpha(*info->p.p) || *info->p.p == '_') {
-                info->p.p++;
+            while(xisalpha(*info->p) || *info->p == '_') {
+                info->p++;
             }
             skip_spaces_and_lf();
             
-            if(*info->p.p == '(' || *info->p.p == ':') {
+            if(*info->p == '(' || *info->p == ':') {
                 define_variable = false;
             }
         }
         
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
         info.no_output_come_code = no_output_come_code;
     }
@@ -272,16 +272,16 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
         
-        char* p = info.p.p;
-        info.p.p = head;
+        char* p = info.p;
+        info.p = head;
         
         if(buf === "struct") {
             parse_struct_attribute();
-            if(xisalpha(*info->p.p) || *info->p.p == '_') {
+            if(xisalpha(*info->p) || *info->p == '_') {
                 parse_word();
-                if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                if(xisalpha(*info->p) || *info->p == '_') {
                     string word = parse_word();
-                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                    if(xisalpha(*info->p) || *info->p == '_') {
                         word = parse_word();
                         
                         if(word === "extends") {
@@ -298,30 +298,30 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         else if(define_variable) {
         }
         else {
-            if(!(xisalpha(*info->p.p) || *info->p.p == '_')) {
+            if(!(xisalpha(*info->p) || *info->p == '_')) {
                 define_variable = false;
             }
             
-            while(xisalpha(*info->p.p) || *info->p.p == '_') {
-                info->p.p++;
+            while(xisalpha(*info->p) || *info->p == '_') {
+                info->p++;
             }
             skip_spaces_and_lf();
             
-            if(*info->p.p == '(' || *info->p.p == ':') {
+            if(*info->p == '(' || *info->p == ':') {
                 define_variable = false;
             }
         }
         
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
         info.no_output_come_code = no_output_come_code;
     }
     
-    info.p.p = head;
+    info.p = head;
     info.sline = head_sline;
     
     if(uniq_class) {
-        info.p.p = head;
+        info.p = head;
         info.sline = sline;
         
         string buf2 = parse_word();
@@ -331,23 +331,23 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
     else if(buf === "template") {
         string word = parse_word();
         
-        if(*info->p.p == '<') {
-            info->p.p++;
+        if(*info->p == '<') {
+            info->p++;
             skip_spaces_and_lf();
             
             info->method_generics_type_names.reset();
             
             while(true) {
-                if(*info->p.p == '>') {
-                    info->p.p++;
+                if(*info->p == '>') {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     break;
                 }
-                else if(*info->p.p == ',') {
-                    info->p.p++;
+                else if(*info->p == ',') {
+                    info->p++;
                     skip_spaces_and_lf(info);
                 }
-                else if(*info->p.p == '\0') {
+                else if(*info->p == '\0') {
                     err_msg(info, "unexpected source end");
                     exit(2);
                 }
@@ -364,29 +364,29 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             return node;
         }
     }
-    else if(buf === "enum" && *info->p.p == '{') {
+    else if(buf === "enum" && *info->p == '{') {
     }
     else if(define_struct_nobody) {
     }
     else if(define_variable_between_brace) {
-        info.p.p = head;
+        info.p = head;
         info.sline = sline;
         
         return parse_global_variable(info);
     }
     else if(define_function_pointer_result_function) {
-        char* header_head = info.p.p;
+        char* header_head = info.p;
         var result_type, fun_name, err = parse_type();
         
-        if(*info->p.p == '(') {
-            info->p.p++;
+        if(*info->p == '(') {
+            info->p++;
             skip_spaces_and_lf();
             
             var param_types = new list<sType*%>();
             var param_names = new list<string>();
             
-            if(*info->p.p == ')') {
-                info->p.p++;
+            if(*info->p == ')') {
+                info->p++;
                 skip_spaces_and_lf();
             }
             else {
@@ -403,21 +403,21 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
                     static int num_function_pointer_result_var_name_a = 0;
                     param_names.push_back(xsprintf("_function_pointer_result_var_name_a%d", ++num_function_pointer_result_var_name_a));
                     
-                    if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                    if(xisalpha(*info->p) || *info->p == '_') {
                         (void)parse_word();
                     }
                     
-                    if(*info->p.p == ',') {
-                        info->p.p++;
+                    if(*info->p == ',') {
+                        info->p++;
                         skip_spaces_and_lf();
                     }
-                    else if(*info->p.p == ')') {
-                        info->p.p++;
+                    else if(*info->p == ')') {
+                        info->p++;
                         skip_spaces_and_lf();
                         break;
                     }
                     else {
-                        err_msg(info, "require , or ) (1) it is %c", *info->p.p);
+                        err_msg(info, "require , or ) (1) it is %c", *info->p);
                         exit(2);
                     }
                 }
@@ -425,15 +425,15 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
             
             expected_next_character(')');
             
-            if(*info->p.p == '(') {
-                info->p.p++;
+            if(*info->p == '(') {
+                info->p++;
                 skip_spaces_and_lf();
                 
                 var param_types2 = new list<sType*%>();
                 var param_names2 = new list<string>();
                 
-                if(*info->p.p == ')') {
-                    info->p.p++;
+                if(*info->p == ')') {
+                    info->p++;
                     skip_spaces_and_lf();
                 }
                 else {
@@ -450,16 +450,16 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
                         static int num_function_pointer_result_var_name_b = 0;
                         param_names2.push_back(xsprintf("_function_pointer_result_var_name_b%d", ++num_function_pointer_result_var_name_b));
                     
-                        if(xisalpha(*info->p.p) || *info->p.p == '_') {
+                        if(xisalpha(*info->p) || *info->p == '_') {
                             (void)parse_word();
                         }
                         
-                        if(*info->p.p == ',') {
-                            info->p.p++;
+                        if(*info->p == ',') {
+                            info->p++;
                             skip_spaces_and_lf();
                         }
-                        else if(*info->p.p == ')') {
-                            info->p.p++;
+                        else if(*info->p == ')') {
+                            info->p++;
                             skip_spaces_and_lf();
                             break;
                         }
@@ -470,7 +470,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
                     }
                 }
                 
-                char* header_tail = info.p.p;
+                char* header_tail = info.p;
                 
                 sType*% result_type2 = new sType(s"lambda");
                 
@@ -504,12 +504,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         }
     }
     else if(buf === "__attribute__" || buf === "__declspec") {
-        info.p.p = head;
+        info.p = head;
         info.sline = sline;
         
         string struct_attribute0 = parse_struct_attribute();
         
-        if(xisalpha(*info->p.p) || *info->p.p == '_') {
+        if(xisalpha(*info->p) || *info->p == '_') {
             string word = parse_word();
             
             if(word === "struct") {
@@ -533,39 +533,39 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
                     bool no_output_come_code = info.no_output_come_code;
                     info.no_output_come_code = true;
                     
-                    char* p = info.p.p;
+                    char* p = info.p;
                     int sline2 = info.sline;
-                    info.p.p = head;
+                    info.p = head;
                     info.sline = head_sline;
                     
                     (void)parse_struct_attribute();
-                    while(xisalnum(*info.p.p) || *info->p.p == '_') {
+                    while(xisalnum(*info.p) || *info->p == '_') {
                         string declaration_word = parse_word();
                         bool type_word = is_type_name(declaration_word);
                         
                         if(!type_word) {
-                            if(*info->p.p == '(' || (*info->p.p == ':' && *(info->p.p+1) == ':')) {
+                            if(*info->p == '(' || (*info->p == ':' && *(info->p+1) == ':')) {
                                 attribute_define_function = true;
                             }
                             break;
                         }
                         
-                        while(*info->p.p == '*') {
-                            info->p.p++;
+                        while(*info->p == '*') {
+                            info->p++;
                             skip_spaces_and_lf();
                         }
-                        if(*info->p.p == '[' && *(info->p.p+1) == ']') {
-                            info->p.p += 2;
+                        if(*info->p == '[' && *(info->p+1) == ']') {
+                            info->p += 2;
                             skip_spaces_and_lf();
                         }
                     }
                     
-                    info.p.p = p;
+                    info.p = p;
                     info.sline = sline2;
                     info.no_output_come_code = no_output_come_code;
                 }
                 
-                info.p.p = head;
+                info.p = head;
                 info.sline = sline;
 
                 sNode*% node;
@@ -589,7 +589,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         }
     }
     else if(is_function_attribute_word(buf)) {
-        info.p.p = head;
+        info.p = head;
         info.sline = sline;
         
         sNode*% node = parse_function(info);
@@ -597,7 +597,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         return node;
     }
     else if(define_function_flag) {
-        info.p.p = head;
+        info.p = head;
         info.sline = sline;
         
         sNode*% node = parse_function(info);
@@ -605,12 +605,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         return node;
     }
     else if(define_variable) {
-        info.p.p = head;
+        info.p = head;
         info.sline = sline;
         
         sNode*% node = parse_global_variable(info);
         
-        char* source_tail = info.p.p;
+        char* source_tail = info.p;
         
         buffer*% header = new buffer();
         header.append(source_head, source_tail - source_head);
@@ -618,7 +618,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 99
         return node;
     }
     
-    info.p.p = head;
+    info.p = head;
     info.sline = sline;
     
     string buf2 = parse_word();

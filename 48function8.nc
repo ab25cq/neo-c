@@ -66,8 +66,8 @@ class sLambdaNode extends sNodeBase
 
 sNode*% parse_function(sInfo* info)
 {
-    char* header_head = info.p.p;
-    char* source_head = info.p.p;
+    char* header_head = info.p;
+    char* source_head = info.p;
     
     var asm_fun, fun_attribute_prefix = parse_function_attribute();
     string fun_attribute = s"";
@@ -78,7 +78,7 @@ sNode*% parse_function(sInfo* info)
     string var_name = null;
     bool constructor_ = false;
 
-    if(info.in_class && (info->end - info->p.p) >= strlen("new(") && memcmp(info.p.p, "new(", 4) == 0) {
+    if(info.in_class && (info->end - info->p) >= strlen("new(") && memcmp(info.p, "new(", 4) == 0) {
         parse_word();
         result_type = clone info.class_type;
         result_type.mHeap = true;
@@ -115,32 +115,32 @@ sNode*% parse_function(sInfo* info)
     /// backtrace ///
     bool method_definition = false;
     {
-        char* p = info.p.p;
+        char* p = info.p;
         int sline = info.sline;
         
         bool flag = false;
-        while(xisalnum(*info->p.p) || *info->p.p == '_') {
+        while(xisalnum(*info->p) || *info->p == '_') {
             flag = true;
             parse_word();
         }
         
-        while(*info->p.p == '*') {
-            info->p.p++;
+        while(*info->p == '*') {
+            info->p++;
             skip_spaces_and_lf();
         }
-        while(*info->p.p == '[' && *(info->p.p+1) == ']') {
-            info->p.p+=2;
+        while(*info->p == '[' && *(info->p+1) == ']') {
+            info->p+=2;
             skip_spaces_and_lf();
         }
-        while(*info->p.p == '%') {
-            info->p.p++;
+        while(*info->p == '%') {
+            info->p++;
             skip_spaces_and_lf();
         }
-        if(flag && *info->p.p == ':' && *(info->p.p+1) == ':') {
+        if(flag && *info->p == ':' && *(info->p+1) == ':') {
             method_definition = true;
         }
         
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
     }
     
@@ -203,7 +203,7 @@ sNode*% parse_function(sInfo* info)
     }
     
     var param_types, param_names, param_default_parametors, var_args = parse_params(info, constructor_);
-    char* header_tail = info.p.p;
+    char* header_tail = info.p;
     if(info.in_class && base_fun_name === "initialize") {
         info.in_class = true;
     }
@@ -212,13 +212,13 @@ sNode*% parse_function(sInfo* info)
     
     int version = 0;
     if(parsecmp("version")) {
-        info->p.p += strlen("version");
+        info->p += strlen("version");
         skip_spaces_and_lf();
         
         int n = 0;
-        while(xisdigit(*info->p.p)) {
-            n = n * 10 + (*info->p.p - '0');
-            info->p.p++;
+        while(xisdigit(*info->p)) {
+            n = n * 10 + (*info->p - '0');
+            info->p++;
         }
         skip_spaces_and_lf();
         
@@ -322,8 +322,8 @@ sNode*% parse_function(sInfo* info)
         
         return (sNode*%)null;
     }
-    else if(*info->p.p == '{') {
-        char* source_tail = info.p.p -1;
+    else if(*info->p == '{') {
+        char* source_tail = info.p -1;
         
         if(version > 0) {
             string new_fun_name = xsprintf("%s_v%d", string(fun_name), version);
@@ -367,7 +367,7 @@ sNode*% parse_function(sInfo* info)
             string block = skip_block(info, return_self_at_last:constructor_);
             
             if(constructor_ && info.defining_class && info.defining_class.mUniq) {
-                char* p = info.p.p;
+                char* p = info.p;
                 int sline = info.sline;
                 int sline_real = info.sline_real;
                 int sline_top = info.sline_top;
@@ -377,11 +377,9 @@ sNode*% parse_function(sInfo* info)
                 
                 info.source = block.to_buffer();
                 if(info.p == null) {
-                    info.p = span borrow info.source;
+                    info.p = borrow info.source.buf;
                 }
-                info.p.memory = borrow info.source.buf;
-                info.p.len = info.source.len+2;
-                info.p.p = borrow info.source.buf;
+                info.p = borrow info.source.buf;
                 info.head = borrow info.source.buf;
                 
                 info.sline = generics_sline;
@@ -394,12 +392,10 @@ sNode*% parse_function(sInfo* info)
                 info.head = head;
                 info.source = source;
                 if(info.p == null) {
-                    info.p = span borrow info.source;
+                    info.p = borrow info.source.buf;
                 }
-                info.p.memory = borrow info.source.buf;
-                info.p.len = info.source.len+2;
-                info.p.p = borrow info.source.buf;
-                info.p.p = p;
+                info.p = borrow info.source.buf;
+                info.p = p;
                 info.sline = sline;
                 info.sline_real = sline_real;
                 info.sline_top = sline_top;
@@ -448,14 +444,14 @@ sNode*% parse_function(sInfo* info)
             return new sFunNode(fun, info) implements sNode;
         }
     }
-    else if(xisalpha(*info->p.p) || *info->p.p == '_' || *info->p.p == ';') {
+    else if(xisalpha(*info->p) || *info->p == '_' || *info->p == ';') {
         if(version > 0) {
             string new_fun_name = xsprintf("%s_v%d", fun_name, version);
             fun_name = string(new_fun_name);
         }
         
-        if(*info->p.p == ';') {
-            info->p.p++;
+        if(*info->p == ';') {
+            info->p++;
             skip_spaces_and_lf();
             
             result_type->mStatic = false;
@@ -511,7 +507,7 @@ sNode*% parse_function(sInfo* info)
         }
     }
     else {
-        err_msg(info, "invalid character(2)(%c)", *info->p.p);
+        err_msg(info, "invalid character(2)(%c)", *info->p);
         exit(2);
     }
     

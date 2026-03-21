@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2722,9 +2711,9 @@ char*  skip_block(struct sInfo*  info  , _Bool return_self_at_last)
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     char*  __result_obj__0  ;
-    head=info->p->p;
-    if(*info->p->p==123) {
-        info->p->p++;
+    head=info->p;
+    if(*info->p==123) {
+        info->p++;
         dquort=(_Bool)0;
         squort=(_Bool)0;
         sline=0;
@@ -2732,123 +2721,123 @@ char*  skip_block(struct sInfo*  info  , _Bool return_self_at_last)
         while(1) {
             parse_sharp_v5(info);
             if(dquort) {
-                if(*info->p->p==92) {
-                    info->p->p++;
-                    if(*info->p->p==0) {
+                if(*info->p==92) {
+                    info->p++;
+                    if(*info->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
-                    if(*info->p->p==10) {
-                        info->p->p++;
+                    if(*info->p==10) {
+                        info->p++;
                     }
-                    info->p->p++;
+                    info->p++;
                 }
-                else if(*info->p->p==34) {
-                    info->p->p++;
+                else if(*info->p==34) {
+                    info->p++;
                     dquort=!dquort;
                 }
-                else if(*info->p->p==10) {
-                    info->p->p++;
+                else if(*info->p==10) {
+                    info->p++;
                     info->sline++;
-                    if(*info->p->p==0) {
+                    if(*info->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p->p++;
-                    if(*info->p->p==0) {
+                    info->p++;
+                    if(*info->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
                 }
             }
             else if(squort) {
-                if(*info->p->p==92) {
-                    info->p->p++;
-                    if(*info->p->p==0) {
+                if(*info->p==92) {
+                    info->p++;
+                    if(*info->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
-                    if(*info->p->p==10) {
+                    if(*info->p==10) {
                         info->sline++;
                     }
-                    info->p->p++;
+                    info->p++;
                 }
-                else if(*info->p->p==39) {
-                    info->p->p++;
+                else if(*info->p==39) {
+                    info->p++;
                     squort=!squort;
                 }
-                else if(*info->p->p==10) {
-                    info->p->p++;
+                else if(*info->p==10) {
+                    info->p++;
                     info->sline++;
-                    if(*info->p->p==0) {
+                    if(*info->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p->p++;
-                    if(*info->p->p==0) {
+                    info->p++;
+                    if(*info->p==0) {
                         err_msg(info,"%s %d: unexpected the source end. close single quote or double quote.",info->sname,sline);
                         exit(2);
                     }
                 }
             }
-            else if(*info->p->p==39) {
+            else if(*info->p==39) {
                 sline=info->sline;
-                info->p->p++;
+                info->p++;
                 squort=!squort;
             }
-            else if(*info->p->p==34) {
+            else if(*info->p==34) {
                 sline=info->sline;
-                info->p->p++;
+                info->p++;
                 dquort=!dquort;
             }
-            else if(*info->p->p==35) {
+            else if(*info->p==35) {
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p->p==47&&*(info->p->p+1)==42) {
+            else if(*info->p==47&&*(info->p+1)==42) {
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p->p==47&&*(info->p->p+1)==47) {
+            else if(*info->p==47&&*(info->p+1)==47) {
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p->p==92) {
-                info->p->p++;
-                if(*info->p->p) {
-                    info->p->p++;
+            else if(*info->p==92) {
+                info->p++;
+                if(*info->p) {
+                    info->p++;
                 }
             }
-            else if(*info->p->p==123) {
-                info->p->p++;
+            else if(*info->p==123) {
+                info->p++;
                 nest++;
             }
-            else if(*info->p->p==125) {
-                info->p->p++;
+            else if(*info->p==125) {
+                info->p++;
                 if(nest==0) {
                     break;
                 }
                 nest--;
             }
-            else if(*info->p->p==0) {
+            else if(*info->p==0) {
                 err_msg(info,"The block requires } character for closing block");
                 exit(2);
             }
-            else if(*info->p->p==10) {
-                info->p->p++;
+            else if(*info->p==10) {
+                info->p++;
                 info->sline++;
             }
             else {
-                info->p->p++;
+                info->p++;
             }
         }
     }
     else {
-        err_msg(info,"Require block. This is %c",*info->p->p);
+        err_msg(info,"Require block. This is %c",*info->p);
         exit(1);
     }
-    tail=info->p->p;
+    tail=info->p;
     buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 153, 1, "struct buffer* "), "07function.nc", 153, 2)), "07function.nc", 153, 3);
     buffer_append(buf,head,tail-head-1);
     if(return_self_at_last) {
@@ -2872,27 +2861,27 @@ void parse_function_attribute_skip_paren(struct sInfo*  info  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parse_function_attribute_skip_paren"; neo_current_frame = &fr;
     int nest;
     skip_spaces_and_lf(info);
-    if(*info->p->p==40) {
+    if(*info->p==40) {
         nest=0;
         while(1) {
-            if(*info->p->p==40) {
-                info->p->p++;
+            if(*info->p==40) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 nest++;
             }
-            else if(*info->p->p==41) {
-                info->p->p++;
+            else if(*info->p==41) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 nest--;
                 if(nest==0) {
                     break;
                 }
             }
-            else if(*info->p->p==0) {
+            else if(*info->p==0) {
                 break;
             }
             else {
-                info->p->p++;
+                info->p++;
             }
         }
     }
@@ -2906,10 +2895,10 @@ _Bool parse_function_attribute_keyword(struct buffer*  result  , const char* key
     char* head;
     char* tail;
     if(parsecmp(keyword,info)) {
-        head=info->p->p;
-        info->p->p+=strlen(keyword);
+        head=info->p;
+        info->p+=strlen(keyword);
         parse_function_attribute_skip_paren(info);
-        tail=info->p->p;
+        tail=info->p;
         buffer_append(result,head,tail-head);
                 neo_current_frame = fr.prev;
         return (_Bool)1;
@@ -3222,10 +3211,10 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "07function.nc", 547, 11, "struct buffer* "), "07function.nc", 547, 12)), "07function.nc", 547, 13);
     while((_Bool)1) {
         if(parsecmp("__attribute__",info)) {
-            head=info->p->p;
-            info->p->p+=strlen("__attribute__");
+            head=info->p;
+            info->p+=strlen("__attribute__");
             parse_function_attribute_skip_paren(info);
-            tail=info->p->p;
+            tail=info->p;
             buffer_append(result,head,tail-head);
         }
         else if(parsecmp("__declspec",info)) {
@@ -3240,170 +3229,170 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
             (attr = come_decrement_ref_count(attr, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 804, 15));
         }
         else if(parsecmp("_Noreturn",info)) {
-            head_0=info->p->p;
-            info->p->p+=strlen("_Noreturn");
+            head_0=info->p;
+            info->p+=strlen("_Noreturn");
             parse_function_attribute_skip_paren(info);
-            tail_1=info->p->p;
+            tail_1=info->p;
             buffer_append(result,head_0,tail_1-head_0);
         }
         else if(parsecmp("_Nonnull",info)) {
-            head_2=info->p->p;
-            info->p->p+=strlen("_Nonnull");
+            head_2=info->p;
+            info->p+=strlen("_Nonnull");
             parse_function_attribute_skip_paren(info);
-            tail_3=info->p->p;
+            tail_3=info->p;
             buffer_append(result,head_2,tail_3-head_2);
         }
         else if(parsecmp("__noreturn",info)) {
-            head_4=info->p->p;
-            info->p->p+=strlen("__noreturn");
+            head_4=info->p;
+            info->p+=strlen("__noreturn");
             parse_function_attribute_skip_paren(info);
-            tail_5=info->p->p;
+            tail_5=info->p;
             buffer_append(result,head_4,tail_5-head_4);
         }
         else if(parsecmp("__asm__",info)) {
-            head_6=info->p->p;
-            info->p->p+=strlen("__asm__");
+            head_6=info->p;
+            info->p+=strlen("__asm__");
             skip_spaces_and_lf(info);
-            if(((info->end-info->p->p)>=strlen("__ASMNAME"))&&memcmp(info->p->p,"__ASMNAME",strlen("__ASMNAME"))==0) {
-                info->p->p+=strlen("__ASMNAME");
+            if(((info->end-info->p)>=strlen("__ASMNAME"))&&memcmp(info->p,"__ASMNAME",strlen("__ASMNAME"))==0) {
+                info->p+=strlen("__ASMNAME");
                 skip_spaces_and_lf(info);
             }
             parse_function_attribute_skip_paren(info);
-            tail_7=info->p->p;
+            tail_7=info->p;
             buffer_append(result,head_6,tail_7-head_6);
         }
         else if(parsecmp("__attribute_pure__",info)) {
-            head_8=info->p->p;
-            info->p->p+=strlen("__attribute_pure__");
+            head_8=info->p;
+            info->p+=strlen("__attribute_pure__");
             parse_function_attribute_skip_paren(info);
-            tail_9=info->p->p;
+            tail_9=info->p;
             buffer_append(result,head_8,tail_9-head_8);
         }
         else if(parsecmp("__malloc_like",info)) {
-            head_10=info->p->p;
-            info->p->p+=strlen("__malloc_like");
+            head_10=info->p;
+            info->p+=strlen("__malloc_like");
             parse_function_attribute_skip_paren(info);
-            tail_11=info->p->p;
+            tail_11=info->p;
             buffer_append(result,head_10,tail_11-head_10);
         }
         else if(parsecmp("__result_use_check",info)) {
-            head_12=info->p->p;
-            info->p->p+=strlen("__result_use_check");
+            head_12=info->p;
+            info->p+=strlen("__result_use_check");
             parse_function_attribute_skip_paren(info);
-            tail_13=info->p->p;
+            tail_13=info->p;
             buffer_append(result,head_12,tail_13-head_12);
         }
         else if(parsecmp("__alloc_size2",info)) {
-            head_14=info->p->p;
-            info->p->p+=strlen("__alloc_size2");
+            head_14=info->p;
+            info->p+=strlen("__alloc_size2");
             parse_function_attribute_skip_paren(info);
-            tail_15=info->p->p;
+            tail_15=info->p;
             buffer_append(result,head_14,tail_15-head_14);
         }
         else if(parsecmp("__alloc_size",info)) {
-            head_16=info->p->p;
-            info->p->p+=strlen("__alloc_size");
+            head_16=info->p;
+            info->p+=strlen("__alloc_size");
             parse_function_attribute_skip_paren(info);
-            tail_17=info->p->p;
+            tail_17=info->p;
             buffer_append(result,head_16,tail_17-head_16);
         }
         else if(parsecmp("__nonnull",info)) {
-            head_18=info->p->p;
-            info->p->p+=strlen("__nonnull");
+            head_18=info->p;
+            info->p+=strlen("__nonnull");
             parse_function_attribute_skip_paren(info);
-            tail_19=info->p->p;
+            tail_19=info->p;
             buffer_append(result,head_18,tail_19-head_18);
         }
         else if(parsecmp("__alloc_align",info)) {
-            head_20=info->p->p;
-            info->p->p+=strlen("__alloc_align");
+            head_20=info->p;
+            info->p+=strlen("__alloc_align");
             parse_function_attribute_skip_paren(info);
-            tail_21=info->p->p;
+            tail_21=info->p;
             buffer_append(result,head_20,tail_21-head_20);
         }
         else if(parsecmp("__attribute_malloc__",info)) {
-            head_22=info->p->p;
-            info->p->p+=strlen("__attribute_malloc__");
+            head_22=info->p;
+            info->p+=strlen("__attribute_malloc__");
             parse_function_attribute_skip_paren(info);
-            tail_23=info->p->p;
+            tail_23=info->p;
             buffer_append(result,head_22,tail_23-head_22);
         }
         else if(parsecmp("__attr_dealloc_fclose",info)) {
-            head_24=info->p->p;
-            info->p->p+=strlen("__attr_dealloc_fclose");
+            head_24=info->p;
+            info->p+=strlen("__attr_dealloc_fclose");
             parse_function_attribute_skip_paren(info);
-            tail_25=info->p->p;
+            tail_25=info->p;
             buffer_append(result,head_24,tail_25-head_24);
         }
         else if(parsecmp("__wur",info)) {
-            head_26=info->p->p;
-            info->p->p+=strlen("__wur");
+            head_26=info->p;
+            info->p+=strlen("__wur");
             parse_function_attribute_skip_paren(info);
-            tail_27=info->p->p;
+            tail_27=info->p;
             buffer_append(result,head_26,tail_27-head_26);
         }
         else if(parsecmp("__pure2",info)) {
-            head_28=info->p->p;
-            info->p->p+=strlen("__pure2");
+            head_28=info->p;
+            info->p+=strlen("__pure2");
             parse_function_attribute_skip_paren(info);
-            tail_29=info->p->p;
+            tail_29=info->p;
             buffer_append(result,head_28,tail_29-head_28);
         }
         else if(parsecmp("__pure",info)) {
-            head_30=info->p->p;
-            info->p->p+=strlen("__pure");
+            head_30=info->p;
+            info->p+=strlen("__pure");
             parse_function_attribute_skip_paren(info);
-            tail_31=info->p->p;
+            tail_31=info->p;
             buffer_append(result,head_30,tail_31-head_30);
         }
         else if(parsecmp("__THROW",info)) {
-            head_32=info->p->p;
-            info->p->p+=strlen("__THROW");
+            head_32=info->p;
+            info->p+=strlen("__THROW");
             parse_function_attribute_skip_paren(info);
-            tail_33=info->p->p;
+            tail_33=info->p;
             buffer_append(result,head_32,tail_33-head_32);
         }
         else if(parsecmp("__asm",info)) {
-            head0=info->p->p;
+            head0=info->p;
             sline0=info->sline;
-            info->p->p+=strlen("__asm");
+            info->p+=strlen("__asm");
             skip_spaces_and_lf(info);
-            head_34=info->p->p;
+            head_34=info->p;
             sline=info->sline;
             nest=0;
-            while(*info->p->p) {
-                if(*info->p->p==40) {
-                    info->p->p++;
+            while(*info->p) {
+                if(*info->p==40) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     nest++;
                 }
-                else if(*info->p->p==41) {
-                    info->p->p++;
+                else if(*info->p==41) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     nest--;
                     if(nest==0) {
                         break;
                     }
                 }
-                else if(*info->p->p==34) {
-                    info->p->p++;
-                    while(*info->p->p!=0&&*info->p->p!=34) {
-                        buffer_append_char(asm_fun_name,*info->p->p);
-                        info->p->p++;
+                else if(*info->p==34) {
+                    info->p++;
+                    while(*info->p!=0&&*info->p!=34) {
+                        buffer_append_char(asm_fun_name,*info->p);
+                        info->p++;
                     }
-                    info->p->p++;
+                    info->p++;
                     skip_spaces_and_lf(info);
                 }
                 else {
-                    info->p->p++;
+                    info->p++;
                 }
             }
-            info->p->p=head0;
+            info->p=head0;
             info->sline=sline0;
-            info->p->p+=strlen("__asm");
+            info->p+=strlen("__asm");
             skip_spaces_and_lf(info);
             parse_function_attribute_skip_paren(info);
-            tail_35=info->p->p;
+            tail_35=info->p;
             buffer_append(result,head0,tail_35-head0);
         }
         else if(parse_common_function_attribute_keyword(result,info)) {
@@ -3468,28 +3457,28 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
     char*  __dec_obj5  ;
     struct sNode* node;
     _Bool Value;
-    while(*info->p->p) {
+    while(*info->p) {
         __dec_obj3=info->sname_at_head,
         info->sname_at_head=(char* )come_increment_ref_count((char* )come_memdup(info->sname, "07function.nc", 813, 36, "char* "), "07function.nc", 813, 38);
         __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 813, 37);
         skip_spaces_and_lf(info);
-        if(*info->p->p==0) {
+        if(*info->p==0) {
             break;
         }
-        if(block&&*info->p->p==125) {
-            info->p->p++;
+        if(block&&*info->p==125) {
+            info->p++;
             skip_spaces_and_lf(info);
             break;
         }
-        while(*info->p->p==59) {
-            info->p->p++;
+        while(*info->p==59) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        head=info->p->p;
+        head=info->p;
         head_sline=info->sline;
         buf=((void*)0);
-        if(*info->p->p==91&&*(info->p->p+1)==91) {
+        if(*info->p==91&&*(info->p+1)==91) {
             __right_value0 = (void*)0;
             __dec_obj4=buf,
             buf=(char*)come_increment_ref_count(xsprintf("__attribute__"), "07function.nc", 834, 40);
@@ -3502,8 +3491,8 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
             __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0, "07function.nc", 837, 41);
         }
         skip_spaces_and_lf(info);
-        if(block&&*info->p->p==125) {
-            info->p->p++;
+        if(block&&*info->p==125) {
+            info->p++;
             skip_spaces_and_lf(info);
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 845, 43));
             break;
@@ -3511,8 +3500,8 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
         __right_value0 = (void*)0;
         node=(struct sNode*)come_increment_ref_count(top_level_v99(buf,head,head_sline,info), "07function.nc", 848, 44);
         skip_spaces_and_lf(info);
-        while(*info->p->p==59) {
-            info->p->p++;
+        while(*info->p==59) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -3524,8 +3513,8 @@ void transpile_toplevel(_Bool block, struct sInfo*  info  )
             }
         }
         skip_spaces_and_lf(info);
-        if(block&&*info->p->p==125) {
-            info->p->p++;
+        if(block&&*info->p==125) {
+            info->p++;
             skip_spaces_and_lf(info);
             (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 0, (void*)0, "07function.nc", 870, 45));
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "07function.nc", 870, 46):(void*)0);

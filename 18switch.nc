@@ -251,7 +251,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         sNode*% node2 = null;
         if(parsecmp("...")) {
-            info->p.p += strlen("...");
+            info->p += strlen("...");
             skip_spaces_and_lf();
             
             bool no_label = info.no_label;
@@ -275,7 +275,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         return new sContinueNode(info) implements sNode;
     }
     else if(!info->no_label && *info.p == ':' && buf !== "tup") {
-        info->p.p++;
+        info->p++;
         skip_spaces_and_lf();
         
         if(*info.p == ';') {

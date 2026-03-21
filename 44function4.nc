@@ -30,7 +30,7 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     var param_default_parametors = clone generics_fun->mParamDefaultParametors;
     
-    char* p = info.p.p;
+    char* p = info.p;
     int sline = info.sline;
     string sname = info.sname;
     char* head = info.head;
@@ -38,11 +38,9 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     info.source = generics_fun->mBlock.to_buffer();
     if(info.p == null) {
-        info.p = span borrow info.source;
+        info.p = borrow info.source.buf;
     }
-    info.p.memory = borrow info.source.buf;
-    info.p.len = info.source.len+2;
-    info.p.p = borrow info.source.buf;
+    info.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     
     sType*% generics_type_saved = info->generics_type;
@@ -67,12 +65,10 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     info.head = head;
     info.source = source;
     if(info.p == null) {
-        info.p = span borrow info.source;
+        info.p = borrow info.source.buf;
     }
-    info.p.memory = borrow info.source.buf;
-    info.p.len = info.source.len+2;
-    info.p.p = borrow info.source.buf;
-    info.p.p = p;
+    info.p = borrow info.source.buf;
+    info.p = p;
     info.sline = sline;
     info.sname = sname;
     
@@ -138,7 +134,7 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     
     var param_default_parametors = clone generics_fun->mParamDefaultParametors;
     
-    char* p = info.p.p;
+    char* p = info.p;
     int sline = info.sline;
     string sname = info.sname;
     char* head = info.head;
@@ -146,11 +142,9 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     
     info.source = generics_fun->mBlock.to_buffer();
     if(info.p == null) {
-        info.p = span borrow info.source;
+        info.p = borrow info.source.buf;
     }
-    info.p.memory = borrow info.source.buf;
-    info.p.len = info.source.len+2;
-    info.p.p = borrow info.source.buf;
+    info.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     
     list<string>*% method_generics_type_names = info->method_generics_type_names;
@@ -171,12 +165,10 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     info.head = head;
     info.source = source;
     if(info.p == null) {
-        info.p = span borrow info.source;
+        info.p = borrow info.source.buf;
     }
-    info.p.memory = borrow info.source.buf;
-    info.p.len = info.source.len+2;
-    info.p.p = borrow info.source.buf;
-    info.p.p = p;
+    info.p = borrow info.source.buf;
+    info.p = p;
     info.sline = sline;
     info.sname = sname;
     
@@ -291,7 +283,7 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     
     var param_default_parametors = clone fun->mParamDefaultParametors;
     
-    char* p = info.p.p;
+    char* p = info.p;
     int sline = info.sline;
     string sname = info.sname;
     char* head = info.head;
@@ -299,11 +291,9 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     
     info.source = fun.mTextBlock.to_buffer();
     if(info.p == null) {
-        info.p = span borrow info.source;
+        info.p = borrow info.source.buf;
     }
-    info.p.memory = borrow info.source.buf;
-    info.p.len = info.source.len+2;
-    info.p.p = borrow info.source.buf;
+    info.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     
     info.sline = fun->mTextBlockSline;
@@ -321,12 +311,10 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     info.head = head;
     info.source = source;
     if(info.p == null) {
-        info.p = span borrow info.source;
+        info.p = borrow info.source.buf;
     }
-    info.p.memory = borrow info.source.buf;
-    info.p.len = info.source.len+2;
-    info.p.p = borrow info.source.buf;
-    info.p.p = p;
+    info.p = borrow info.source.buf;
+    info.p = p;
     info.sline = sline;
     info.sname = sname;
     

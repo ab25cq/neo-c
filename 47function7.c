@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2842,10 +2831,10 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     char*  buf2_72  ;
     memset(&node_68, 0, sizeof(node_68));
     info->in_top_level=(_Bool)1;
-    source_head=info->p->p;
+    source_head=info->p;
     is_type_name_flag=is_type_name(buf,info);
     sline=info->sline;
-    info->p->p=head;
+    info->p=head;
     info->sline=head_sline;
     multiple_assign_var1=((struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$*)(__right_value0=backtrace_struct_union_enum(info)));
     define_only=multiple_assign_var1->v1;
@@ -2859,38 +2848,38 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     {
         no_output_come_code=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p=info->p->p;
+        p=info->p;
         sline_0=info->sline;
         if(charp_operator_equals(buf,"struct")) {
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_word((_Bool)0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "47function7.nc", 33, 2));
-            if(xisalpha(*info->p->p)||*info->p->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 __right_value0 = (void*)0;
                 word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 36, 3);
-                if(*info->p->p==59) {
+                if(*info->p==59) {
                     define_struct_nobody=(_Bool)1;
                 }
                 (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 42, 4));
             }
         }
         info->no_output_come_code=no_output_come_code;
-        info->p->p=p;
+        info->p=p;
         info->sline=sline_0;
     }
     uniq_class=(_Bool)0;
     if(charp_operator_equals(buf,"uniq")) {
         no_output_come_code_1=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_2=info->p->p;
-        info->p->p=head;
+        p_2=info->p;
+        info->p=head;
         sline_3=info->sline;
-        if(xisalpha(*info->p->p)||*info->p->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_word((_Bool)0,info)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "47function7.nc", 61, 5));
         }
-        if(xisalpha(*info->p->p)||*info->p->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __right_value0 = (void*)0;
             buf2=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 65, 6);
             if(string_operator_equals(buf2,"class")) {
@@ -2898,7 +2887,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             }
             (buf2 = come_decrement_ref_count(buf2, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 72, 7));
         }
-        info->p->p=p_2;
+        info->p=p_2;
         info->sline=sline_3;
         info->no_output_come_code=no_output_come_code_1;
     }
@@ -2907,27 +2896,27 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     if(is_type_name_flag&&!uniq_class&&!square_attribute_head) {
         no_output_come_code_4=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_5=info->p->p;
-        info->p->p=head;
-        if(xisalpha(*info->p->p)||*info->p->p==95||(*info->p->p==91&&*(info->p->p+1)==91)) {
+        p_5=info->p;
+        info->p=head;
+        if(xisalpha(*info->p)||*info->p==95||(*info->p==91&&*(info->p+1)==91)) {
             __right_value0 = (void*)0;
             multiple_assign_var2=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=backtrace_parse_type((_Bool)0,info)));
             result_type=(struct sType* )come_increment_ref_count(multiple_assign_var2->v1, "47function7.nc", 89, 8);
             fun_name=(char* )come_increment_ref_count(multiple_assign_var2->v2, "47function7.nc", 89, 9);
             err=multiple_assign_var2->v3;
             come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "47function7.nc}", 89, 44);
-            if(*info->p->p==40) {
-                info->p->p++;
+            if(*info->p==40) {
+                info->p++;
                 skip_spaces_and_lf(info);
-                if(*info->p->p!=42) {
+                if(*info->p!=42) {
                     define_function_pointer_result_function=(_Bool)1;
-                    if(xisalpha(*info->p->p)||*info->p->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         __right_value0 = (void*)0;
                         word_6=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 99, 45);
-                        if(!is_type_name(word_6,info)&&*info->p->p==41) {
-                            info->p->p++;
+                        if(!is_type_name(word_6,info)&&*info->p==41) {
+                            info->p++;
                             skip_spaces_and_lf(info);
-                            if(*info->p->p==40) {
+                            if(*info->p==40) {
                             }
                             else {
                                 define_variable_between_brace=(_Bool)1;
@@ -2941,16 +2930,16 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             (fun_name = come_decrement_ref_count(fun_name, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 116, 48));
         }
         info->no_output_come_code=no_output_come_code_4;
-        info->p->p=head;
+        info->p=head;
         info->sline=sline;
     }
     define_function_flag=(_Bool)0;
     if(is_type_name_flag&&!define_function_pointer_result_function&&charp_operator_not_equals(buf,"__typeof__")&&!uniq_class&&!square_attribute_head) {
         no_output_come_code_7=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_8=info->p->p;
-        info->p->p=head;
-        if(xisalpha(*info->p->p)||*info->p->p==95||(*info->p->p==91&&*(info->p->p+1)==91)) {
+        p_8=info->p;
+        info->p=head;
+        if(xisalpha(*info->p)||*info->p==95||(*info->p==91&&*(info->p+1)==91)) {
             __right_value0 = (void*)0;
             multiple_assign_var3=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=backtrace_parse_type((_Bool)0,info)));
             result_type_9=(struct sType* )come_increment_ref_count(multiple_assign_var3->v1, "47function7.nc", 132, 49);
@@ -2960,12 +2949,12 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             come_call_finalizer(sType_finalize, result_type_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "47function7.nc}", 134, 52);
             (fun_name_10 = come_decrement_ref_count(fun_name_10, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 134, 53));
         }
-        if(*info->p->p==40||(*info->p->p==58&&*(info->p->p+1)==58)) {
+        if(*info->p==40||(*info->p==58&&*(info->p+1)==58)) {
             define_function_flag=(_Bool)1;
         }
         if(!define_only) {
             word_12=((void*)0);
-            if(xisalnum(*info->p->p)||*info->p->p==95) {
+            if(xisalnum(*info->p)||*info->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj1=word_12,
                 word_12=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 141, 55);
@@ -2984,30 +2973,30 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             }
             if(word_12) {
                 if(is_type_name(word_12,info)) {
-                    while(*info->p->p==42) {
-                        info->p->p++;
+                    while(*info->p==42) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                     }
-                    if(*info->p->p==91&&*(info->p->p+1)==93) {
-                        info->p->p+=2;
+                    if(*info->p==91&&*(info->p+1)==93) {
+                        info->p+=2;
                         skip_spaces_and_lf(info);
                     }
-                    if(*info->p->p==58) {
-                        info->p->p++;
+                    if(*info->p==58) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                     }
-                    if(*info->p->p==58) {
-                        info->p->p++;
+                    if(*info->p==58) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                     }
-                    if(xisalnum(*info->p->p)||*info->p->p==95) {
+                    if(xisalnum(*info->p)||*info->p==95) {
                         __right_value0 = (void*)0;
                         __dec_obj4=word_12,
                         word_12=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 170, 60);
                         __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0, "47function7.nc", 170, 59);
                     }
                 }
-                if(strlen(word_12)>0&&(*info->p->p==40||(*info->p->p==58&&*(info->p->p+1)==58))) {
+                if(strlen(word_12)>0&&(*info->p==40||(*info->p==58&&*(info->p+1)==58))) {
                     if(is_type_name_flag) {
                         define_function_flag=(_Bool)1;
                     }
@@ -3016,51 +3005,51 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
             (word_12 = come_decrement_ref_count(word_12, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 183, 61));
         }
         info->no_output_come_code=no_output_come_code_7;
-        info->p->p=p_8;
+        info->p=p_8;
         info->sline=sline;
     }
     define_variable=(_Bool)1;
     if(is_type_name_flag&&!define_function_pointer_result_function&&!uniq_class&&!square_attribute_head) {
         no_output_come_code_13=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_14=info->p->p;
-        info->p->p=head;
+        p_14=info->p;
+        info->p=head;
         if(!is_type_name_flag) {
             define_variable=(_Bool)0;
         }
-        if(xisalpha(*info->p->p)||*info->p->p==95||(*info->p->p==91&&*(info->p->p+1)==91)) {
+        if(xisalpha(*info->p)||*info->p==95||(*info->p==91&&*(info->p+1)==91)) {
             __right_value0 = (void*)0;
             multiple_assign_var4=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=backtrace_parse_type((_Bool)0,info)));
             result_type_15=(struct sType* )come_increment_ref_count(multiple_assign_var4->v1, "47function7.nc", 203, 62);
             fun_name_16=(char* )come_increment_ref_count(multiple_assign_var4->v2, "47function7.nc", 203, 63);
             err_17=multiple_assign_var4->v3;
             come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "47function7.nc}", 203, 64);
-            if(*info->p->p==40) {
-                info->p->p++;
+            if(*info->p==40) {
+                info->p++;
                 skip_spaces_and_lf(info);
-                if(*info->p->p==42) {
-                    info->p->p++;
+                if(*info->p==42) {
+                    info->p++;
                     skip_spaces_and_lf(info);
-                    if(xisalpha(*info->p->p)||*info->p->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         __right_value0 = (void*)0;
                         word_18=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 214, 65);
-                        if(*info->p->p==41) {
-                            info->p->p++;
+                        if(*info->p==41) {
+                            info->p++;
                             skip_spaces_and_lf(info);
-                            if(*info->p->p==40) {
+                            if(*info->p==40) {
                                 define_variable=(_Bool)1;
                             }
                         }
                         (word_18 = come_decrement_ref_count(word_18, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 225, 66));
                     }
                 }
-                else if(xisalpha(*info->p->p)||*info->p->p==95) {
+                else if(xisalpha(*info->p)||*info->p==95) {
                     __right_value0 = (void*)0;
                     word_19=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 227, 67);
-                    if(*info->p->p==41) {
-                        info->p->p++;
+                    if(*info->p==41) {
+                        info->p++;
                         skip_spaces_and_lf(info);
-                        if(!is_type_name(word_19,info)&&*info->p->p!=40) {
+                        if(!is_type_name(word_19,info)&&*info->p!=40) {
                             define_variable=(_Bool)1;
                         }
                     }
@@ -3076,18 +3065,18 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         else if(define_variable) {
         }
         else {
-            if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
+            if(!(xisalpha(*info->p)||*info->p==95)) {
                 define_variable=(_Bool)0;
             }
-            while(xisalpha(*info->p->p)||*info->p->p==95) {
-                info->p->p++;
+            while(xisalpha(*info->p)||*info->p==95) {
+                info->p++;
             }
             skip_spaces_and_lf(info);
-            if(*info->p->p==40||*info->p->p==58) {
+            if(*info->p==40||*info->p==58) {
                 define_variable=(_Bool)0;
             }
         }
-        info->p->p=p_14;
+        info->p=p_14;
         info->sline=sline;
         info->no_output_come_code=no_output_come_code_13;
     }
@@ -3097,20 +3086,20 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     if(!define_function_pointer_result_function) {
         no_output_come_code_20=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p_21=info->p->p;
-        info->p->p=head;
+        p_21=info->p;
+        info->p=head;
         if(charp_operator_equals(buf,"struct")) {
             __right_value0 = (void*)0;
             ((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "47function7.nc", 279, 71));
-            if(xisalpha(*info->p->p)||*info->p->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 __right_value0 = (void*)0;
                 ((char* )(__right_value0=parse_word((_Bool)0,info)));
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "47function7.nc", 281, 72));
-                if(xisalpha(*info->p->p)||*info->p->p==95) {
+                if(xisalpha(*info->p)||*info->p==95) {
                     __right_value0 = (void*)0;
                     word_22=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 283, 73);
-                    if(xisalpha(*info->p->p)||*info->p->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         __right_value0 = (void*)0;
                         __dec_obj5=word_22,
                         word_22=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 285, 75);
@@ -3129,25 +3118,25 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         else if(define_variable) {
         }
         else {
-            if(!(xisalpha(*info->p->p)||*info->p->p==95)) {
+            if(!(xisalpha(*info->p)||*info->p==95)) {
                 define_variable=(_Bool)0;
             }
-            while(xisalpha(*info->p->p)||*info->p->p==95) {
-                info->p->p++;
+            while(xisalpha(*info->p)||*info->p==95) {
+                info->p++;
             }
             skip_spaces_and_lf(info);
-            if(*info->p->p==40||*info->p->p==58) {
+            if(*info->p==40||*info->p==58) {
                 define_variable=(_Bool)0;
             }
         }
-        info->p->p=p_21;
+        info->p=p_21;
         info->sline=sline;
         info->no_output_come_code=no_output_come_code_20;
     }
-    info->p->p=head;
+    info->p=head;
     info->sline=head_sline;
     if(uniq_class) {
-        info->p->p=head;
+        info->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         buf2_23=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 327, 77);
@@ -3163,21 +3152,21 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
     else if(charp_operator_equals(buf,"template")) {
         __right_value0 = (void*)0;
         word_24=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 332, 83);
-        if(*info->p->p==60) {
-            info->p->p++;
+        if(*info->p==60) {
+            info->p++;
             skip_spaces_and_lf(info);
             list$1char$ph_reset(info->method_generics_type_names);
             while((_Bool)1) {
-                if(*info->p->p==62) {
-                    info->p->p++;
+                if(*info->p==62) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                     break;
                 }
-                else if(*info->p->p==44) {
-                    info->p->p++;
+                else if(*info->p==44) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                 }
-                else if(*info->p->p==0) {
+                else if(*info->p==0) {
                     err_msg(info,"unexpected source end");
                     exit(2);
                 }
@@ -3202,12 +3191,12 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         }
         (word_24 = come_decrement_ref_count(word_24, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 621, 109));
     }
-    else if(charp_operator_equals(buf,"enum")&&*info->p->p==123) {
+    else if(charp_operator_equals(buf,"enum")&&*info->p==123) {
     }
     else if(define_struct_nobody) {
     }
     else if(define_variable_between_brace) {
-        info->p->p=head;
+        info->p=head;
         info->sline=sline;
                 __right_value0 = (void*)0;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=parse_global_variable(info))), "47function7.nc", 375, 110);
@@ -3217,23 +3206,23 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         return __result_obj__0;
     }
     else if(define_function_pointer_result_function) {
-        header_head=info->p->p;
+        header_head=info->p;
         __right_value0 = (void*)0;
         multiple_assign_var5=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
         result_type_28=(struct sType* )come_increment_ref_count(multiple_assign_var5->v1, "47function7.nc", 379, 113);
         fun_name_29=(char* )come_increment_ref_count(multiple_assign_var5->v2, "47function7.nc", 379, 114);
         err_30=multiple_assign_var5->v3;
         come_call_finalizer(tuple3$3sType$phchar$ph_Bool$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "47function7.nc}", 379, 115);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             param_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "47function7.nc", 385, 116, "struct list$1sType$ph*"), "47function7.nc", 385, 120)), "47function7.nc", 385, 121);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             param_names=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "47function7.nc", 386, 122, "struct list$1char$ph*"), "47function7.nc", 386, 126)), "47function7.nc", 386, 127);
-            if(*info->p->p==41) {
-                info->p->p++;
+            if(*info->p==41) {
+                info->p++;
                 skip_spaces_and_lf(info);
             }
             else {
@@ -3252,24 +3241,24 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                     static int num_function_pointer_result_var_name_a=0;
                     __right_value0 = (void*)0;
                     list$1char$ph_push_back(param_names,(char* )come_increment_ref_count(xsprintf("_function_pointer_result_var_name_a%d",++num_function_pointer_result_var_name_a), "47function7.nc", 404, 146));
-                    if(xisalpha(*info->p->p)||*info->p->p==95) {
+                    if(xisalpha(*info->p)||*info->p==95) {
                         __right_value0 = (void*)0;
                         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "47function7.nc", 407, 147));
                     }
-                    if(*info->p->p==44) {
-                        info->p->p++;
+                    if(*info->p==44) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                     }
-                    else if(*info->p->p==41) {
-                        info->p->p++;
+                    else if(*info->p==41) {
+                        info->p++;
                         skip_spaces_and_lf(info);
                         come_call_finalizer(sType_finalize, param_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "47function7.nc}", 417, 148);
                         (param_name = come_decrement_ref_count(param_name, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 417, 149));
                         break;
                     }
                     else {
-                        err_msg(info,"require , or ) (1) it is %c",*info->p->p);
+                        err_msg(info,"require , or ) (1) it is %c",*info->p);
                         exit(2);
                     }
                     come_call_finalizer(sType_finalize, param_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "47function7.nc}", 424, 150);
@@ -3277,8 +3266,8 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                 }
             }
             expected_next_character(41,info);
-            if(*info->p->p==40) {
-                info->p->p++;
+            if(*info->p==40) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
@@ -3286,8 +3275,8 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 param_names2=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "47function7.nc", 433, 155, "struct list$1char$ph*"), "47function7.nc", 433, 156)), "47function7.nc", 433, 157);
-                if(*info->p->p==41) {
-                    info->p->p++;
+                if(*info->p==41) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                 }
                 else {
@@ -3306,17 +3295,17 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                         static int num_function_pointer_result_var_name_b=0;
                         __right_value0 = (void*)0;
                         list$1char$ph_push_back(param_names2,(char* )come_increment_ref_count(xsprintf("_function_pointer_result_var_name_b%d",++num_function_pointer_result_var_name_b), "47function7.nc", 451, 162));
-                        if(xisalpha(*info->p->p)||*info->p->p==95) {
+                        if(xisalpha(*info->p)||*info->p==95) {
                             __right_value0 = (void*)0;
                             (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
                             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "47function7.nc", 454, 163));
                         }
-                        if(*info->p->p==44) {
-                            info->p->p++;
+                        if(*info->p==44) {
+                            info->p++;
                             skip_spaces_and_lf(info);
                         }
-                        else if(*info->p->p==41) {
-                            info->p->p++;
+                        else if(*info->p==41) {
+                            info->p++;
                             skip_spaces_and_lf(info);
                             come_call_finalizer(sType_finalize, param_type_34, (void*)0, (void*)0, 0, 0, 0, (void*)0, "47function7.nc}", 464, 164);
                             (param_name_35 = come_decrement_ref_count(param_name_35, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 464, 165));
@@ -3330,7 +3319,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                         (param_name_35 = come_decrement_ref_count(param_name_35, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 471, 167));
                     }
                 }
-                header_tail=info->p->p;
+                header_tail=info->p;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 result_type2=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "47function7.nc", 475, 168, "struct sType* "), "47function7.nc", 475, 169),(char*)come_increment_ref_count(xsprintf("lambda"), "47function7.nc", 475, 170),(_Bool)0,info,(_Bool)0,0), "47function7.nc", 475, 171);
@@ -3406,11 +3395,11 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         (fun_name_29 = come_decrement_ref_count(fun_name_29, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 621, 707));
     }
     else if(charp_operator_equals(buf,"__attribute__")||charp_operator_equals(buf,"__declspec")) {
-        info->p->p=head;
+        info->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         struct_attribute0=(char* )come_increment_ref_count(parse_struct_attribute(info,(_Bool)1), "47function7.nc", 510, 708);
-        if(xisalpha(*info->p->p)||*info->p->p==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __right_value0 = (void*)0;
             word_63=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 513, 709);
             if(string_operator_equals(word_63,"struct")) {
@@ -3495,39 +3484,39 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
                 if(!attribute_define_function) {
                     no_output_come_code_66=info->no_output_come_code;
                     info->no_output_come_code=(_Bool)1;
-                    p_67=info->p->p;
+                    p_67=info->p;
                     sline2=info->sline;
-                    info->p->p=head;
+                    info->p=head;
                     info->sline=head_sline;
                     __right_value0 = (void*)0;
                     (void)((char* )(__right_value0=parse_struct_attribute(info,(_Bool)1)));
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "47function7.nc", 541, 755));
-                    while(xisalnum(*info->p->p)||*info->p->p==95) {
+                    while(xisalnum(*info->p)||*info->p==95) {
                         __right_value0 = (void*)0;
                         declaration_word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 543, 756);
                         type_word=is_type_name(declaration_word,info);
                         if(!type_word) {
-                            if(*info->p->p==40||(*info->p->p==58&&*(info->p->p+1)==58)) {
+                            if(*info->p==40||(*info->p==58&&*(info->p+1)==58)) {
                                 attribute_define_function=(_Bool)1;
                             }
                             (declaration_word = come_decrement_ref_count(declaration_word, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 550, 757));
                             break;
                         }
-                        while(*info->p->p==42) {
-                            info->p->p++;
+                        while(*info->p==42) {
+                            info->p++;
                             skip_spaces_and_lf(info);
                         }
-                        if(*info->p->p==91&&*(info->p->p+1)==93) {
-                            info->p->p+=2;
+                        if(*info->p==91&&*(info->p+1)==93) {
+                            info->p+=2;
                             skip_spaces_and_lf(info);
                         }
                         (declaration_word = come_decrement_ref_count(declaration_word, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 563, 758));
                     }
-                    info->p->p=p_67;
+                    info->p=p_67;
                     info->sline=sline2;
                     info->no_output_come_code=no_output_come_code_66;
                 }
-                info->p->p=head;
+                info->p=head;
                 info->sline=sline;
                 if(attribute_define_function) {
                     __right_value0 = (void*)0;
@@ -3572,7 +3561,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         (struct_attribute0 = come_decrement_ref_count(struct_attribute0, (void*)0, (void*)0, 0, 0, (void*)0, "47function7.nc", 621, 777));
     }
     else if(is_function_attribute_word(buf)) {
-        info->p->p=head;
+        info->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         node_69=(struct sNode*)come_increment_ref_count(parse_function(info), "47function7.nc", 595, 778);
@@ -3584,7 +3573,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         ((node_69) ? node_69 = come_decrement_ref_count(node_69, ((struct sNode*)node_69)->finalize, ((struct sNode*)node_69)->_protocol_obj, 0, 0,(void*)0, "47function7.nc", 621, 782):(void*)0);
     }
     else if(define_function_flag) {
-        info->p->p=head;
+        info->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         node_70=(struct sNode*)come_increment_ref_count(parse_function(info), "47function7.nc", 603, 783);
@@ -3596,11 +3585,11 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         ((node_70) ? node_70 = come_decrement_ref_count(node_70, ((struct sNode*)node_70)->finalize, ((struct sNode*)node_70)->_protocol_obj, 0, 0,(void*)0, "47function7.nc", 621, 787):(void*)0);
     }
     else if(define_variable) {
-        info->p->p=head;
+        info->p=head;
         info->sline=sline;
         __right_value0 = (void*)0;
         node_71=(struct sNode*)come_increment_ref_count(parse_global_variable(info), "47function7.nc", 611, 788);
-        source_tail=info->p->p;
+        source_tail=info->p;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         header=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "47function7.nc", 615, 789, "struct buffer* "), "47function7.nc", 615, 790)), "47function7.nc", 615, 791);
@@ -3614,7 +3603,7 @@ struct sNode* top_level_v99(char* buf, char* head, int head_sline, struct sInfo*
         ((node_71) ? node_71 = come_decrement_ref_count(node_71, ((struct sNode*)node_71)->finalize, ((struct sNode*)node_71)->_protocol_obj, 0, 0,(void*)0, "47function7.nc", 621, 796):(void*)0);
         come_call_finalizer(buffer_finalize, header, (void*)0, (void*)0, 0, 0, 0, (void*)0, "47function7.nc}", 621, 797);
     }
-    info->p->p=head;
+    info->p=head;
     info->sline=sline;
     __right_value0 = (void*)0;
     buf2_72=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "47function7.nc", 624, 798);

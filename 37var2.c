@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2786,8 +2775,6 @@ static void tuple2$2char$phsType$ph$p_finalize(struct tuple2$2char$phsType$ph* s
 static struct list$1tuple2$2char$phsType$ph$ph* list$1tuple2$2char$phsType$ph$ph_add(struct list$1tuple2$2char$phsType$ph$ph* self, struct tuple2$2char$phsType$ph* item);
 static struct tuple2$2char$phsType$ph* tuple2$2char$phsType$ph_initialize(struct tuple2$2char$phsType$ph* self, char*  v1  , struct sType*  v2  );
 struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo*  info  );
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
-static char span$1char$p_operator_derefference(struct span$1char$p* self);
 static void tuple3$3sType$phchar$ph_Bool$$p_finalize(struct tuple3$3sType$phchar$ph_Bool$* self);
 static void tuple2$2sType$phchar$ph$p_finalize(struct tuple2$2sType$phchar$ph* self);
 static struct sNewChannel* sNewChannel_clone(struct sNewChannel* self);
@@ -7803,11 +7790,11 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
     if(is_type_name_flag&&!info->in_offsetof) {
         no_output_come_code=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        p=info->p->p;
+        p=info->p;
         sline=info->sline;
-        info->p->p=head;
+        info->p=head;
         info->sline=head_sline;
-        if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             skip_spaces_and_lf(info);
             multiple_assign_var3=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)1,(_Bool)0)));
             type=(struct sType* )come_increment_ref_count(multiple_assign_var3->v1, "37var2.nc", 1001, 1125);
@@ -7822,10 +7809,10 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
                 type_97=(struct sType* )come_increment_ref_count(multiple_assign_var4->v1, "37var2.nc", 1006, 1130);
                 name_98=(char* )come_increment_ref_count(multiple_assign_var4->v2, "37var2.nc", 1006, 1131);
                 come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "37var2.nc}", 1006, 1134);
-                if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62&&!info->no_assign) {
-                    info->p->p++;
+                if(*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62&&!info->no_assign) {
+                    info->p++;
                     skip_spaces_and_lf(info);
-                    if(span$1char$p_operator_derefference(info->p)==123) {
+                    if(*info->p==123) {
                         __right_value0 = (void*)0;
                         ((char* )(__right_value0=skip_block(info,(_Bool)0)));
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "37var2.nc", 1013, 1135));
@@ -7842,7 +7829,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
                         ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "37var2.nc", 1027, 1137):(void*)0);
                     }
                 }
-                if(!is_type_name(name_98,info)&&span$1char$p_operator_derefference(info->p)==44) {
+                if(!is_type_name(name_98,info)&&*info->p==44) {
                     multiple_declare=(_Bool)1;
                 }
                 come_call_finalizer(sType_finalize, type_97, (void*)0, (void*)0, 0, 0, 0, (void*)0, "37var2.nc}", 1033, 1138);
@@ -7851,17 +7838,17 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
             come_call_finalizer(sType_finalize, type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "37var2.nc}", 1035, 1140);
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "37var2.nc", 1035, 1141));
         }
-        info->p->p=p;
+        info->p=p;
         info->sline=sline;
         info->no_output_come_code=no_output_come_code;
     }
     attr_define=(_Bool)0;
     if(is_type_name_flag&&info->defining_class&&!info->in_offsetof) {
-        p_100=info->p->p;
+        p_100=info->p;
         sline_101=info->sline;
         no_output_come_code_102=info->no_output_come_code;
         info->no_output_come_code=(_Bool)1;
-        info->p->p=head;
+        info->p=head;
         info->sline=head_sline;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
@@ -7874,7 +7861,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
         if(err_105&&parsecmp("self",info)) {
             attr_define=(_Bool)1;
         }
-        info->p->p=p_100;
+        info->p=p_100;
         info->sline=sline_101;
         info->no_output_come_code=no_output_come_code_102;
         come_call_finalizer(sType_finalize, type_103, (void*)0, (void*)0, 0, 0, 0, (void*)0, "37var2.nc}", 1063, 1145);
@@ -7890,7 +7877,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
         buf2=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "37var2.nc", 1069, 1148);
         skip_spaces_and_lf(info);
         multiple_assign=((void*)0);
-        if(span$1char$p_operator_derefference(info->p)==44) {
+        if(*info->p==44) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj138=multiple_assign,
@@ -7898,8 +7885,8 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
             come_call_finalizer(list$1char$ph_finalize, __dec_obj138,(void*)0, (void*)0, 0, 0, 0, (void*)0, "37var2.nc", 1075, 1151);
             __right_value0 = (void*)0;
             list$1char$ph_push_back(multiple_assign,(char* )come_increment_ref_count((char* )come_memdup(buf2, "37var2.nc", 1076, 1153, "char* "), "37var2.nc", 1076, 1154));
-            while(span$1char$p_operator_derefference(info->p)==44) {
-                info->p->p++;
+            while(*info->p==44) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
                 buf3=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "37var2.nc", 1082, 1155);
@@ -7910,8 +7897,8 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
             }
         }
         skip_spaces_and_lf(info);
-        if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62&&!info->no_assign) {
-            info->p->p++;
+        if(*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62&&!info->no_assign) {
+            info->p++;
             skip_spaces_and_lf(info);
             no_comma_106=info->no_comma;
             info->no_comma=(_Bool)1;
@@ -7954,7 +7941,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "37var2.nc", 1111, 1178):(void*)0);
         }
         else {
-            err_msg(info,"var requires a right value(%c)",span$1char$p_operator_derefference(info->p));
+            err_msg(info,"var requires a right value(%c)",*info->p);
             exit(1);
         }
         (buf2 = come_decrement_ref_count(buf2, (void*)0, (void*)0, 0, 0, (void*)0, "37var2.nc", 1356, 1179));
@@ -7987,7 +7974,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
         ((node_107) ? node_107 = come_decrement_ref_count(node_107, ((struct sNode*)node_107)->finalize, ((struct sNode*)node_107)->_protocol_obj, 0, 0,(void*)0, "37var2.nc", 1356, 1196):(void*)0);
     }
     else if(multiple_declare) {
-        info->p->p=head;
+        info->p=head;
         info->sline=head_sline;
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
@@ -8011,8 +7998,8 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
         var_name=(char* )come_increment_ref_count(multiple_assign_var7->v2, "37var2.nc", 1133, 1204);
         come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "37var2.nc}", 1133, 1205);
         skip_spaces_and_lf(info);
-        if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61) {
-            info->p->p++;
+        if(*info->p==61&&*(info->p+1)!=61) {
+            info->p++;
             skip_spaces_and_lf(info);
             if(type2->mClass->mStruct&&list$1sNode$ph_length(type2->mArrayNum)==0) {
                 info->array_initializer=(_Bool)1;
@@ -8046,16 +8033,16 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
             __right_value1 = (void*)0;
             list$1tuple3$3sType$phchar$phsNode$ph$ph_push_back(multiple_declare_108,(struct tuple3$3sType$phchar$phsNode$ph*)come_increment_ref_count(tuple3$3sType$phchar$phsNode$ph_initialize((struct tuple3$3sType$phchar$phsNode$ph*)come_increment_ref_count((struct tuple3$3sType$phchar$phsNode$ph*)come_calloc(1, sizeof(struct tuple3$3sType$phchar$phsNode$ph)*(1), "37var2.nc", 1162, 1248, "struct tuple3$3sType$phchar$phsNode$ph"), "37var2.nc", 1162, 1249),(struct sType* )come_increment_ref_count(type2, "37var2.nc", 1162, 1250),(char* )come_increment_ref_count(var_name, "37var2.nc", 1162, 1251),(struct sNode*)come_increment_ref_count((struct sNode*)((void*)0), "37var2.nc", 1162, 1252)), "37var2.nc", 1162, 1253));
         }
-        while(span$1char$p_operator_derefference(info->p)==44) {
-            info->p->p++;
+        while(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             multiple_assign_var8=((struct tuple2$2sType$phchar$ph*)(__right_value0=parse_variable_name_on_multiple_declare(base_type,(_Bool)0,info)));
             type2_117=(struct sType* )come_increment_ref_count(multiple_assign_var8->v1, "37var2.nc", 1169, 1254);
             var_name_118=(char* )come_increment_ref_count(multiple_assign_var8->v2, "37var2.nc", 1169, 1255);
             come_call_finalizer(tuple2$2sType$phchar$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "37var2.nc}", 1169, 1256);
-            if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61) {
-                info->p->p++;
+            if(*info->p==61&&*(info->p+1)!=61) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 if(type2_117->mClass->mStruct&&list$1sNode$ph_length(type2_117->mArrayNum)==0) {
                     info->array_initializer=(_Bool)1;
@@ -8136,7 +8123,7 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
         ((node_123) ? node_123 = come_decrement_ref_count(node_123, ((struct sNode*)node_123)->finalize, ((struct sNode*)node_123)->_protocol_obj, 0, 0,(void*)0, "37var2.nc", 1356, 1307):(void*)0);
     }
     else if(attr_define) {
-        info->p->p=head;
+        info->p=head;
         info->sline=head_sline;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
@@ -8150,15 +8137,15 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
             printf("%s %d: parse_type failed\n",info->sname,info->sline);
             exit(2);
         }
-        info->p->p+=strlen("self.");
+        info->p+=strlen("self.");
         __right_value0 = (void*)0;
         __dec_obj147=name_125,
         name_125=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "37var2.nc", 1226, 1312);
         __dec_obj147 = come_decrement_ref_count(__dec_obj147, (void*)0, (void*)0, 0,0, (void*)0, "37var2.nc", 1226, 1311);
         skip_spaces_and_lf(info);
         add_defining_class_field_if_missing((char* )come_increment_ref_count(name_125, "37var2.nc", 1229, 1313),type_124,info);
-        if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62) {
-            info->p->p++;
+        if(*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
@@ -8210,8 +8197,8 @@ struct sNode* string_node_v7(char* buf, char* head, int head_sline, struct sInfo
         come_call_finalizer(sType_finalize, type_124, (void*)0, (void*)0, 0, 0, 0, (void*)0, "37var2.nc}", 1356, 1341);
         (name_125 = come_decrement_ref_count(name_125, (void*)0, (void*)0, 0, 0, (void*)0, "37var2.nc", 1356, 1342));
     }
-    else if(!is_type_name_flag&&span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62&&!info->no_assign) {
-        info->p->p++;
+    else if(!is_type_name_flag&&*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62&&!info->no_assign) {
+        info->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         right_value_129=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "37var2.nc", 1253, 1343);
@@ -8317,9 +8304,9 @@ _conditional_value_X0;})) {
         ((node_132) ? node_132 = come_decrement_ref_count(node_132, ((struct sNode*)node_132)->finalize, ((struct sNode*)node_132)->_protocol_obj, 0, 0,(void*)0, "37var2.nc", 1356, 1390):(void*)0);
     }
     else {
-        info->p->p=head;
+        info->p=head;
         info->sline=head_sline;
-        if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
+        if(xisalpha(*info->p)||*info->p==95) {
             __right_value0 = (void*)0;
             __dec_obj151=word,
             word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "37var2.nc", 1288, 1392);
@@ -8332,7 +8319,7 @@ _conditional_value_X0;})) {
             __dec_obj152 = come_decrement_ref_count(__dec_obj152, (void*)0, (void*)0, 0,0, (void*)0, "37var2.nc", 1291, 1393);
         }
         is_type_name_flag_133=is_type_name(word,info);
-        info->p->p=head;
+        info->p=head;
         info->sline=head_sline;
         if(is_type_name_flag_133) {
             skip_spaces_and_lf(info);
@@ -8348,7 +8335,7 @@ _conditional_value_X0;})) {
                 exit(2);
             }
             skip_spaces_and_lf(info);
-            if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62&&info->no_assign) {
+            if(*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62&&info->no_assign) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 _inf_value10=(struct sNode*)come_calloc(1, sizeof(struct sNode), "37var2.nc", 1311, 1401, "struct sNode");
@@ -8377,8 +8364,8 @@ _conditional_value_X0;})) {
                 return __result_obj__0;
                 ((node_137) ? node_137 = come_decrement_ref_count(node_137, ((struct sNode*)node_137)->finalize, ((struct sNode*)node_137)->_protocol_obj, 0, 0,(void*)0, "37var2.nc", 1353, 1411):(void*)0);
             }
-            else if(span$1char$p_operator_derefference(info->p)==61&&*(info->p->p+1)!=61&&*(info->p->p+1)!=62&&!info->no_assign) {
-                info->p->p++;
+            else if(*info->p==61&&*(info->p+1)!=61&&*(info->p+1)!=62&&!info->no_assign) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 right_value_138=((void*)0);
                 if((type_134->mClass->mStruct||type_134->mClass->mUnion)&&list$1sNode$ph_length(type_134->mArrayNum)==0) {
@@ -8481,88 +8468,6 @@ _conditional_value_X0;})) {
     err_msg(info,"unexpected word(%s)(1)",buf);
     exit(2);
     neo_current_frame = fr.prev;
-}
-
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
-}
-
-static char span$1char$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
 }
 
 static void tuple3$3sType$phchar$ph_Bool$$p_finalize(struct tuple3$3sType$phchar$ph_Bool$* self)
@@ -8716,8 +8621,8 @@ struct sNode* expression_node_v95(struct sInfo*  info  )
     struct sNode* __dec_obj159;
     memset(&node, 0, sizeof(node));
     skip_spaces_and_lf(info);
-    if(strncmp(info->p->p,"<-",strlen("<-"))==0) {
-        info->p->p+=strlen("<-");
+    if(strncmp(info->p,"<-",strlen("<-"))==0) {
+        info->p+=strlen("<-");
         skip_spaces_and_lf(info);
         exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "37var2.nc", 1370, 1456);
         skip_spaces_and_lf(info);
@@ -8806,8 +8711,8 @@ struct sNode* post_position_operator_v7(struct sNode* node, struct sInfo*  info 
     struct sWriteChannelNode* _inf_obj_value14;
     void* __right_value2 = (void*)0;
     struct sNode* __result_obj__0;
-    if(!node->terminated(node->_protocol_obj)&&strncmp(info->p->p,"<-",strlen("<-"))==0) {
-        info->p->p+=2;
+    if(!node->terminated(node->_protocol_obj)&&strncmp(info->p,"<-",strlen("<-"))==0) {
+        info->p+=2;
         skip_spaces_and_lf(info);
         right_value=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "37var2.nc", 1388, 1482);
         skip_spaces_and_lf(info);

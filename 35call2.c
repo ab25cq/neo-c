@@ -1163,17 +1163,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1261,7 +1250,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -4663,7 +4652,7 @@ static struct sNode* post_position_operator_of_statment(struct sNode* node, stru
     struct sNode* __result_obj__0;
     struct sNode* __dec_obj51;
     if(!node->terminated(node->_protocol_obj)&&parsecmp("or",info)) {
-        info->p->p+=strlen("or");
+        info->p+=strlen("or");
         skip_spaces_and_lf(info);
         __dec_obj50=node,
         node=(struct sNode*)come_increment_ref_count(parse_or_statment((struct sNode*)come_increment_ref_count(sNode_clone(node), "35call2.nc", 175, 411),info), "35call2.nc", 175, 413);
@@ -4675,7 +4664,7 @@ static struct sNode* post_position_operator_of_statment(struct sNode* node, stru
         return __result_obj__0;
     }
     else if(!node->terminated(node->_protocol_obj)&&parsecmp("and",info)) {
-        info->p->p+=strlen("and");
+        info->p+=strlen("and");
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
@@ -5082,38 +5071,38 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     struct sNode* __result_obj__0;
     skip_spaces_and_lf(info);
-    if(!node->terminated(node->_protocol_obj)&&*info->p->p==40) {
-        info->p->p++;
+    if(!node->terminated(node->_protocol_obj)&&*info->p==40) {
+        info->p++;
         skip_spaces_and_lf(info);
         skip_spaces_and_lf(info);
         params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "35call2.nc", 414, 513, "struct list$1tuple2$2char$phsNode$ph$ph*"), "35call2.nc", 414, 514)), "35call2.nc", 414, 515);
         while((_Bool)1) {
-            if(*info->p->p==41) {
-                info->p->p++;
+            if(*info->p==41) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 break;
             }
-            p=info->p->p;
+            p=info->p;
             sline=info->sline;
             err_flag=(_Bool)0;
             __right_value0 = (void*)0;
             label=(char* )come_increment_ref_count(__builtin_string("","35call2.nc",427), "35call2.nc", 427, 516);
-            if(xisalpha(*info->p->p)||*info->p->p==95) {
+            if(xisalpha(*info->p)||*info->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj67=label,
                 label=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "35call2.nc", 429, 518);
                 __dec_obj67 = come_decrement_ref_count(__dec_obj67, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 429, 517);
                 err_flag=(_Bool)1;
             }
-            if(err_flag==(_Bool)1&&*info->p->p==58) {
-                info->p->p++;
+            if(err_flag==(_Bool)1&&*info->p==58) {
+                info->p++;
                 skip_spaces_and_lf(info);
             }
             else {
                 __dec_obj68=label,
                 label=((void*)0);
                 __dec_obj68 = come_decrement_ref_count(__dec_obj68, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 438, 519);
-                info->p->p=p;
+                info->p=p;
                 info->sline=sline;
             }
             no_comma=info->no_comma;
@@ -5132,12 +5121,12 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  )
             __right_value1 = (void*)0;
             list$1tuple2$2char$phsNode$ph$ph_push_back(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "35call2.nc", 457, 538, "struct tuple2$2char$phsNode$ph"), "35call2.nc", 457, 548),(char* )come_increment_ref_count(label, "35call2.nc", 457, 549),(struct sNode*)come_increment_ref_count(node_36, "35call2.nc", 457, 550)), "35call2.nc", 457, 551));
             skip_spaces_and_lf(info);
-            if(*info->p->p==44) {
-                info->p->p++;
+            if(*info->p==44) {
+                info->p++;
                 skip_spaces_and_lf(info);
             }
-            else if(*info->p->p==41) {
-                info->p->p++;
+            else if(*info->p==41) {
+                info->p++;
                 skip_spaces_and_lf(info);
                 (label = come_decrement_ref_count(label, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 469, 552));
                 ((node_36) ? node_36 = come_decrement_ref_count(node_36, ((struct sNode*)node_36)->finalize, ((struct sNode*)node_36)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 469, 553):(void*)0);

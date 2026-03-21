@@ -397,7 +397,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
         skip_spaces_and_lf();
         
         if(*info.p == '}') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             break;
         }
@@ -406,7 +406,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
         
         bool multiple_declare = false;
         {
-            char* p = info.p.p;
+            char* p = info.p;
             int sline = info.sline;
             
             var type, name, err = backtrace_parse_type(parse_variable_name:true);
@@ -415,7 +415,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
                 multiple_declare = true;
             }
                 
-            info.p.p = p;
+            info.p = p;
             info.sline = sline;
         }
         
@@ -427,7 +427,7 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
             klass.mFields.push_back(t(name2, type2));
             
             while(*info.p == ',') {
-                info->p.p++;
+                info->p++;
                 skip_spaces_and_lf();
                 
                 var type2, name2 = parse_variable_name_on_multiple_declare(base_type, false@first, info);
@@ -446,14 +446,14 @@ sNode*% parse_struct(string type_name, string struct_attribute, sInfo* info, boo
             klass.mFields.push_back(t(name, type2));
         }
         if(*info.p == ';') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
         }
         
         skip_spaces_and_lf();
         
         if(*info.p == '}') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             break;
         }
@@ -512,7 +512,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         }
         
         if(*info.p == ';') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             
             sClass*% struct_class;
@@ -537,7 +537,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             }
             info.types.insert(type_name, type);
             
-            char* source_tail = info.p.p;
+            char* source_tail = info.p;
             
             buffer*% header = new buffer();
             header.append(source_head, source_tail - source_head);
@@ -560,7 +560,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         else if(*info.p == '<') {
             info.generics_type_names.reset();
             
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             
             while(true) {
@@ -568,12 +568,12 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 info.generics_type_names.push_back(clone T);
                 
                 if(*info.p == '>') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
                 else if(*info.p == ',') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                 }
                 else {
@@ -598,7 +598,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 skip_spaces_and_lf();
                 
                 if(*info.p == '}') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
@@ -616,7 +616,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     generics_class.mFields.push_back(t(name, type2));
                     
                     while(*info.p == ',') {
-                        info->p.p++;
+                        info->p++;
                         skip_spaces_and_lf();
                         
                         string name2 = parse_word();
@@ -624,7 +624,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                         var type3 = clone type2;
                         
                         if(*info.p == ':') {
-                            info->p.p++;
+                            info->p++;
                             skip_spaces_and_lf();
                             
                             bool no_comma = info->no_comma;
@@ -643,14 +643,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 }
                 
                 if(*info.p == ';') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                 }
                 
                 skip_spaces_and_lf();
                 
                 if(*info.p == '}') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
@@ -661,7 +661,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             
             info.generics_type_names.reset();
             
-            char* source_tail = info.p.p;
+            char* source_tail = info.p;
             
             buffer*% header = new buffer();
             header.append_str("struct ");
@@ -713,7 +713,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             while(true) {
                 skip_spaces_and_lf();
                 if(*info.p == '}') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
@@ -721,7 +721,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     
                 bool multiple_declare = false;
                 {
-                    char* p = info.p.p;
+                    char* p = info.p;
                     int sline = info.sline;
                     
                     var type, name, err = backtrace_parse_type(parse_variable_name:true);
@@ -730,7 +730,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                         multiple_declare = true;
                     }
                         
-                    info.p.p = p;
+                    info.p = p;
                     info.sline = sline;
                 }
                 
@@ -742,7 +742,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     struct_class.mFields.push_back(t(name2, type2));
                     
                     while(*info.p == ',') {
-                        info->p.p++;
+                        info->p++;
                         skip_spaces_and_lf();
                         
                         var type2, name2 = parse_variable_name_on_multiple_declare(base_type, false@first, info);
@@ -761,7 +761,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 }
                 
                 if(*info.p == ';') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                 }
                 //expected_next_character(';') ;
@@ -769,7 +769,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 skip_spaces_and_lf();
                 
                 if(*info.p == '}') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
@@ -780,7 +780,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             
             info.generics_type_names.reset();
             
-            char* source_tail = info.p.p;
+            char* source_tail = info.p;
             
             buffer*% header = new buffer();
             header.append(source_head, source_tail - source_head);
@@ -804,7 +804,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             return new sStructNode(string(type_name), struct_class, info) implements sNode;
         }
     }
-    else if(!gComeC && ((buf === "uniq" && info.p.p.substring(0, strlen("class")) === "class")
+    else if(!gComeC && ((buf === "uniq" && info.p.substring(0, strlen("class")) === "class")
         || buf === "class") )
     {
         info.parse_struct_recursive_count++;
@@ -868,14 +868,14 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
         
         expected_next_character('{') ;
         
-        char* head = info.p.p;
+        char* head = info.p;
        
         list<sNode*%>*% methods = new list<sNode*%>();
         while(true) {
             skip_spaces_and_lf();
             
             if(*info.p == '}') {
-                info->p.p++;
+                info->p++;
                 skip_spaces_and_lf();
                 break;
             }
@@ -886,10 +886,10 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             bool multiple_declare = false;
             if(include_ == false)
             {
-                char* p = info.p.p;
+                char* p = info.p;
                 int sline = info.sline;
                 
-                if((info->end - info->p.p) >= strlen("new(") && memcmp(info.p.p, "new(", 4) != 0) {
+                if((info->end - info->p) >= strlen("new(") && memcmp(info.p, "new(", 4) != 0) {
                     var type, name, err = backtrace_parse_type(parse_variable_name:true);
                     
                     if(err && *info.p == ',') {
@@ -897,16 +897,16 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     }
                 }
                     
-                info.p.p = p;
+                info.p = p;
                 info.sline = sline;
             }
             bool define_function_flag = false;
             if(include_ == false)
             {
-                char* p = info.p.p;
+                char* p = info.p;
                 int sline = info.sline;
                 
-                if((info->end - info->p.p) >= strlen("new(") && memcmp(info.p.p, "new(", 4) == 0) {
+                if((info->end - info->p) >= strlen("new(") && memcmp(info.p, "new(", 4) == 0) {
                     define_function_flag = true;
                 }
                 else {
@@ -916,8 +916,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     }
                     
                     string word = null;
-                    if(xisalnum(*info.p.p) || *info.p == '_') {
-                        while(xisalnum(*info.p.p) || *info.p == '_') {
+                    if(xisalnum(*info.p) || *info.p == '_') {
+                        while(xisalnum(*info.p) || *info.p == '_') {
                             word = parse_word();
                         }
                     }
@@ -928,43 +928,43 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                     if(word) {
                         if(is_type_name(word)) {
                             while(*info.p == '*') {
-                                info->p.p++;
+                                info->p++;
                                 skip_spaces_and_lf();
                             }
                             while(*info.p == '%') {
-                                info->p.p++;
+                                info->p++;
                                 skip_spaces_and_lf();
                             }
-                            if(*info.p == '[' && *(info->p.p+1) == ']') {
-                                info->p.p += 2;
-                                skip_spaces_and_lf();
-                            }
-                            if(*info.p == ':') {
-                                info->p.p++;
+                            if(*info.p == '[' && *(info->p+1) == ']') {
+                                info->p += 2;
                                 skip_spaces_and_lf();
                             }
                             if(*info.p == ':') {
-                                info->p.p++;
+                                info->p++;
                                 skip_spaces_and_lf();
                             }
-                            if(xisalnum(*info.p.p) || *info.p == '_') {
+                            if(*info.p == ':') {
+                                info->p++;
+                                skip_spaces_and_lf();
+                            }
+                            if(xisalnum(*info.p) || *info.p == '_') {
                                 word = parse_word();
                             }
                         }
                         
                         /// fun name ///
-                        if(strlen(word) > 0 && (*info.p == '(' || (*info.p == ':' && *(info->p.p+1) == ':'))) {
+                        if(strlen(word) > 0 && (*info.p == '(' || (*info.p == ':' && *(info->p+1) == ':'))) {
                             define_function_flag = true;
                         }
                     }
                 }
                 
-                info.p.p = p;
+                info.p = p;
                 info.sline = sline;
             }
             
             if(define_function_flag) {
-                char* tail = info.p.p;
+                char* tail = info.p;
                 
                 int pointer_num = 1;
         
@@ -988,7 +988,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 struct_class.mFields.push_back(t(name2, type2));
                 
                 while(*info.p == ',') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     
                     var type2, name2 = parse_variable_name_on_multiple_declare(base_type, false@first, info);
@@ -1007,7 +1007,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
                 struct_class.mFields.push_back(t(name, type2));
                 
                 if(*info.p == ';') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                 }
                 //expected_next_character(';') ;
@@ -1016,7 +1016,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 98
             skip_spaces_and_lf();
             
             if(*info.p == '}') {
-                info->p.p++;
+                info->p++;
                 skip_spaces_and_lf();
                 break;
             }
@@ -1039,7 +1039,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     /// backtrace ///
     bool define_struct = false;
     {
-        char* p = info.p.p;
+        char* p = info.p;
         int sline = info.sline;
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
@@ -1068,7 +1068,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         }
         
         info.no_output_come_code = no_output_come_code;
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
     }
     

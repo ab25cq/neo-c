@@ -1522,8 +1522,8 @@ sNode*% mult_exp(sInfo* info)
     parse_sharp()
 
     while(*info.p) {
-        if(!node.terminated() && *info.p == '*' && *(info->p.p+1) != '=') {
-            info->p.p++;
+        if(!node.terminated() && *info.p == '*' && *(info->p+1) != '=') {
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1538,8 +1538,8 @@ sNode*% mult_exp(sInfo* info)
             
             node = new sMultNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '/' && *(info->p.p+1) != '=' && *(info->p.p+1) != '*' && *(info->p.p-1) != '*') {
-            info->p.p++;
+        else if(*info.p == '/' && *(info->p+1) != '=' && *(info->p+1) != '*' && *(info->p-1) != '*') {
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1549,8 +1549,8 @@ sNode*% mult_exp(sInfo* info)
             
             node = new sDivNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '%' && *(info->p.p+1) != '=') {
-            info->p.p++;
+        else if(*info.p == '%' && *(info->p+1) != '=') {
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1560,8 +1560,8 @@ sNode*% mult_exp(sInfo* info)
             
             node = new sModNode(node, right, false@quote, info) implements sNode;
         }
-        else if(!node.terminated() && *info.p == '\\' && *(info->p.p+1) == '*' && *(info->p.p+2) != '=') {
-            info->p.p+=2;
+        else if(!node.terminated() && *info.p == '\\' && *(info->p+1) == '*' && *(info->p+2) != '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1571,8 +1571,8 @@ sNode*% mult_exp(sInfo* info)
             
             node = new sMultNode(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '/' && *(info->p.p+2) != '=') {
-            info->p.p+=2;
+        else if(*info.p == '\\' && *(info->p+1) == '/' && *(info->p+2) != '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1582,8 +1582,8 @@ sNode*% mult_exp(sInfo* info)
             
             node = new sDivNode(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '%' && *(info->p.p+2) != '=') {
-            info->p.p+=2;
+        else if(*info.p == '\\' && *(info->p+1) == '%' && *(info->p+2) != '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1610,9 +1610,9 @@ sNode*% add_exp(sInfo* info)
     parse_sharp()
 
     while(*info.p) {
-        if(*info.p == '+' && *(info->p.p+1) != '=' && *(info->p.p+1) != '+') 
+        if(*info.p == '+' && *(info->p+1) != '=' && *(info->p+1) != '+') 
         {
-            info->p.p++;
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1622,9 +1622,9 @@ sNode*% add_exp(sInfo* info)
             
             node = new sAddNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '-' && *(info->p.p+1) != '=' && *(info->p.p+1) != '-' && *(info->p.p+1) != '>') 
+        else if(*info.p == '-' && *(info->p+1) != '=' && *(info->p+1) != '-' && *(info->p+1) != '>') 
         {
-            info->p.p++;
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1634,9 +1634,9 @@ sNode*% add_exp(sInfo* info)
             
             node = new sSubNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '+' && *(info->p.p+2) != '=' && *(info->p.p+2) != '+') 
+        else if(*info.p == '\\' && *(info->p+1) == '+' && *(info->p+2) != '=' && *(info->p+2) != '+') 
         {
-            info->p.p+=2;
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1646,9 +1646,9 @@ sNode*% add_exp(sInfo* info)
             
             node = new sAddNode(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '-' && *(info->p.p+2) != '=' && *(info->p.p+2) != '-' && *(info->p.p+2) != '>') 
+        else if(*info.p == '\\' && *(info->p+1) == '-' && *(info->p+2) != '=' && *(info->p+2) != '-' && *(info->p+2) != '>') 
         {
-            info->p.p+=2;
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1677,8 +1677,8 @@ sNode*% shift_exp(sInfo* info)
     parse_sharp()
 
     while(*info.p) {
-        if(*info.p == '<' && *(info->p.p+1) == '<' && *(info->p.p+2) != '=') {
-            info->p.p+=2;
+        if(*info.p == '<' && *(info->p+1) == '<' && *(info->p+2) != '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1688,8 +1688,8 @@ sNode*% shift_exp(sInfo* info)
             
             node = new sLShiftNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '>' && *(info->p.p+1) == '>' && *(info->p.p+2) != '=' && *(info->p.p+2) != '>') {
-            info->p.p+=2;
+        else if(*info.p == '>' && *(info->p+1) == '>' && *(info->p+2) != '=' && *(info->p+2) != '>') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1699,8 +1699,8 @@ sNode*% shift_exp(sInfo* info)
             
             node = new sRShiftNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '<' && *(info->p.p+2) == '<' && *(info->p.p+3) != '=') {
-            info->p.p+=3;
+        else if(*info.p == '\\' && *(info->p+1) == '<' && *(info->p+2) == '<' && *(info->p+3) != '=') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1710,8 +1710,8 @@ sNode*% shift_exp(sInfo* info)
             
             node = new sLShiftNode(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '>' && *(info->p.p+2) == '>' && *(info->p.p+3) != '=' && *(info->p.p+3) != '>') {
-            info->p.p+=3;
+        else if(*info.p == '\\' && *(info->p+1) == '>' && *(info->p+2) == '>' && *(info->p+3) != '=' && *(info->p+3) != '>') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1740,8 +1740,8 @@ sNode*% comparison_exp(sInfo* info)
     parse_sharp()
 
     while(*info.p) {
-        if(*info.p == '>' && *(info->p.p+1) == '=') {
-            info->p.p+=2;
+        if(*info.p == '>' && *(info->p+1) == '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1751,8 +1751,8 @@ sNode*% comparison_exp(sInfo* info)
             
             node = new sGtEqNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '<' && *(info->p.p+1) == '=') {
-            info->p.p+=2;
+        else if(*info.p == '<' && *(info->p+1) == '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1762,8 +1762,8 @@ sNode*% comparison_exp(sInfo* info)
             
             node = new sLtEqNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '>' && *(info->p.p+1) != '>') {
-            info->p.p++;
+        else if(*info.p == '>' && *(info->p+1) != '>') {
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1773,8 +1773,8 @@ sNode*% comparison_exp(sInfo* info)
             
             node = new sGtNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '<' && *(info->p.p+1) != '<' && *(info->p.p+1) != '-') {
-            info->p.p++;
+        else if(*info.p == '<' && *(info->p+1) != '<' && *(info->p+1) != '-') {
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1784,8 +1784,8 @@ sNode*% comparison_exp(sInfo* info)
             
             node = new sLtNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '>' && *(info->p.p+2) == '=') {
-            info->p.p+=3;
+        else if(*info.p == '\\' && *(info->p+1) == '>' && *(info->p+2) == '=') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1795,8 +1795,8 @@ sNode*% comparison_exp(sInfo* info)
             
             node = new sGtEqNode(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '<' && *(info->p.p+2) == '=') {
-            info->p.p+=3;
+        else if(*info.p == '\\' && *(info->p+1) == '<' && *(info->p+2) == '=') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1806,8 +1806,8 @@ sNode*% comparison_exp(sInfo* info)
             
             node = new sLtEqNode(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '>' && *(info->p.p+2) != '>') {
-            info->p.p+=2;
+        else if(*info.p == '\\' && *(info->p+1) == '>' && *(info->p+2) != '>') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1817,8 +1817,8 @@ sNode*% comparison_exp(sInfo* info)
             
             node = new sGtNode(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '<' && *(info->p.p+2) != '<' && *(info->p.p+2) != '-') {
-            info->p.p+=2;
+        else if(*info.p == '\\' && *(info->p+1) == '<' && *(info->p+2) != '<' && *(info->p+2) != '-') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1847,8 +1847,8 @@ sNode*% eq_exp(sInfo* info)
     parse_sharp()
 
     while(*info.p) {
-        if(*info.p == '=' && *(info->p.p+1) == '=' && *(info->p.p+2) == '=') {
-            info->p.p+=3;
+        if(*info.p == '=' && *(info->p+1) == '=' && *(info->p+2) == '=') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1858,8 +1858,8 @@ sNode*% eq_exp(sInfo* info)
             
             node = new sEq2Node(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '=' && *(info->p.p+1) == '=') {
-            info->p.p+=2;
+        else if(*info.p == '=' && *(info->p+1) == '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1869,8 +1869,8 @@ sNode*% eq_exp(sInfo* info)
             
             node = new sEqNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '!' && *(info->p.p+1) == '=' && *(info->p.p+2) == '=') {
-            info->p.p+=3;
+        else if(*info.p == '!' && *(info->p+1) == '=' && *(info->p+2) == '=') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1880,8 +1880,8 @@ sNode*% eq_exp(sInfo* info)
             
             node = new sNotEq2Node(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '!' && *(info->p.p+1) == '=') {
-            info->p.p+=2;
+        else if(*info.p == '!' && *(info->p+1) == '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1891,8 +1891,8 @@ sNode*% eq_exp(sInfo* info)
             
             node = new sNotEqNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '=' && *(info->p.p+2) == '=' && *(info->p.p+3) == '=') {
-            info->p.p+=4;
+        else if(*info.p == '\\' && *(info->p+1) == '=' && *(info->p+2) == '=' && *(info->p+3) == '=') {
+            info->p+=4;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1902,8 +1902,8 @@ sNode*% eq_exp(sInfo* info)
             
             node = new sEq2Node(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '=' && *(info->p.p+2) == '=') {
-            info->p.p+=3;
+        else if(*info.p == '\\' && *(info->p+1) == '=' && *(info->p+2) == '=') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1913,8 +1913,8 @@ sNode*% eq_exp(sInfo* info)
             
             node = new sEqNode(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '!' && *(info->p.p+2) == '=' && *(info->p.p+3) == '=') {
-            info->p.p+=4;
+        else if(*info.p == '\\' && *(info->p+1) == '!' && *(info->p+2) == '=' && *(info->p+3) == '=') {
+            info->p+=4;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1924,8 +1924,8 @@ sNode*% eq_exp(sInfo* info)
             
             node = new sNotEq2Node(node, right, true@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '!' && *(info->p.p+2) == '=') {
-            info->p.p+=3;
+        else if(*info.p == '\\' && *(info->p+1) == '!' && *(info->p+2) == '=') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1954,8 +1954,8 @@ sNode*% and_exp(sInfo* info)
     skip_spaces_and_lf();
 
     while(*info.p) {
-        if(!node->terminated() && *info.p == '&' && *(info->p.p+1) != '&' && *(info->p.p+1) != '=') {
-            info->p.p++;
+        if(!node->terminated() && *info.p == '&' && *(info->p+1) != '&' && *(info->p+1) != '=') {
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1965,8 +1965,8 @@ sNode*% and_exp(sInfo* info)
 
             node = new sAndNode(node, right, false@quote, info) implements sNode;
         }
-        else if(!node->terminated() && *info.p == '\\' && *(info->p.p+1) == '&' && *(info->p.p+2) != '&' && *(info->p.p+2) != '=') {
-            info->p.p+=2;
+        else if(!node->terminated() && *info.p == '\\' && *(info->p+1) == '&' && *(info->p+2) != '&' && *(info->p+2) != '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -1995,8 +1995,8 @@ sNode*% xor_exp(sInfo* info)
     skip_spaces_and_lf();
 
     while(*info.p) {
-        if(*info.p == '^' && *(info->p.p+1) != '=') {
-            info->p.p++;
+        if(*info.p == '^' && *(info->p+1) != '=') {
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2006,8 +2006,8 @@ sNode*% xor_exp(sInfo* info)
 
             node = new sXOrNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '^' && *(info->p.p+2) != '=') {
-            info->p.p+=2;
+        else if(*info.p == '\\' && *(info->p+1) == '^' && *(info->p+2) != '=') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2036,8 +2036,8 @@ sNode*% or_exp(sInfo* info)
     skip_spaces_and_lf();
 
     while(*info.p) {
-        if(*info.p == '|' && *(info->p.p+1) != '=' && *(info->p.p+1) != '|') {
-            info->p.p++;
+        if(*info.p == '|' && *(info->p+1) != '=' && *(info->p+1) != '|') {
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2047,8 +2047,8 @@ sNode*% or_exp(sInfo* info)
 
             node = new sOrNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '|' && *(info->p.p+2) != '=' && *(info->p.p+2) != '|') {
-            info->p.p+=2;
+        else if(*info.p == '\\' && *(info->p+1) == '|' && *(info->p+2) != '=' && *(info->p+2) != '|') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2077,8 +2077,8 @@ sNode*% andand_exp(sInfo* info)
     skip_spaces_and_lf();
 
     while(*info.p) {
-        if(*info.p == '&' && *(info->p.p+1) == '&') {
-            info->p.p+=2;
+        if(*info.p == '&' && *(info->p+1) == '&') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2088,8 +2088,8 @@ sNode*% andand_exp(sInfo* info)
 
             node = new sAndAndNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '&' && *(info->p.p+2) == '&') {
-            info->p.p+=3;
+        else if(*info.p == '\\' && *(info->p+1) == '&' && *(info->p+2) == '&') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2118,8 +2118,8 @@ sNode*% oror_exp(sInfo* info)
     skip_spaces_and_lf();
 
     while(*info.p) {
-        if(*info.p == '|' && *(info->p.p+1) == '|') {
-            info->p.p+=2;
+        if(*info.p == '|' && *(info->p+1) == '|') {
+            info->p+=2;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2129,8 +2129,8 @@ sNode*% oror_exp(sInfo* info)
 
             node = new sOrOrNode(node, right, false@quote, info) implements sNode;
         }
-        else if(*info.p == '\\' && *(info->p.p+1) == '|' && *(info->p.p+2) == '|') {
-            info->p.p+=3;
+        else if(*info.p == '\\' && *(info->p+1) == '|' && *(info->p+2) == '|') {
+            info->p+=3;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2165,7 +2165,7 @@ sNode*% comma_exp(sInfo* info)
 
     while(*info.p) {
         if(!info.no_comma && *info.p == ',') {
-            info->p.p++;
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2195,7 +2195,7 @@ sNode*% conditional_exp(sInfo* info)
 
     while(*info.p) {
         if(*info.p == '?') {
-            info->p.p++;
+            info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;
             skip_spaces_and_lf();
@@ -2265,19 +2265,19 @@ sNode*% expression(sInfo* info=info, bool type_name_exp=false) version 13
     skip_spaces_and_lf();
     
     if(*info.p == '\\') {
-        info->p.p++;
+        info->p++;
     }
     
     /// backtrace ///
     if(type_name_exp && (*info.p == '_' || xisalpha(*info.p))) {
-        char* p = info.p.p;
+        char* p = info.p;
         int sline = info.sline;
         
         string word = parse_word();
         
         bool fun_call = *info.p == '(';
         
-        info.p.p = p;
+        info.p = p;
         info.sline = sline;
         
         if(is_type_name(word) && !fun_call) {

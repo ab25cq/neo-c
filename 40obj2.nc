@@ -449,7 +449,7 @@ sNode*% create_implements(sNode*% node, sType* inf_type, sInfo* info=info)
 sNode*% post_position_operator(sNode*% node, sInfo* info) version 21
 {
     if(!node->terminated() && !gComeC && parsecmp("implements")) {
-        info->p.p += strlen("implements");
+        info->p += strlen("implements");
         skip_spaces_and_lf();
         
         var type3, name2,err = parse_type(parse_multiple_type:false);
@@ -463,9 +463,9 @@ sNode*% post_position_operator(sNode*% node, sInfo* info) version 21
         return new sImplementsNode(node, inf_type, info) implements sNode;
     }
     else if(*info.p == '@') {
-        info->p.p++;
+        info->p++;
         while(xisalnum(*info.p) || *info.p == '_') {
-            info->p.p++;
+            info->p++;
         }
         skip_spaces_and_lf();
     }

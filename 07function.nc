@@ -14,9 +14,9 @@ void arrange_stack(sInfo* info, int top)
 
 string skip_block(sInfo* info=info, bool return_self_at_last=false)
 {
-    char* head = info.p.p;
-    if(*info->p.p == '{') {
-        info->p.p++;
+    char* head = info.p;
+    if(*info->p == '{') {
+        info->p++;
 
         bool dquort = false;
         bool squort = false;
@@ -25,103 +25,103 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
         while(1) {
             parse_sharp();
             if(dquort) {
-                if(*info->p.p == '\\') {
-                    info->p.p++;
-                    if(*info->p.p == '\0') {
+                if(*info->p == '\\') {
+                    info->p++;
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
-                    if(*info->p.p == '\n') {
-                        info->p.p++;
+                    if(*info->p == '\n') {
+                        info->p++;
                     }
-                    info->p.p++;
+                    info->p++;
                 }
-                else if(*info->p.p == '"') {
-                    info->p.p++;
+                else if(*info->p == '"') {
+                    info->p++;
                     dquort = !dquort;
                 }
-                else if(*info->p.p == '\n') {
-                    info->p.p++;
+                else if(*info->p == '\n') {
+                    info->p++;
                     info->sline++;
 
-                    if(*info->p.p == '\0') {
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p.p++;
+                    info->p++;
 
-                    if(*info->p.p == '\0') {
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
             }
             else if(squort) {
-                if(*info->p.p == '\\') {
-                    info->p.p++;
-                    if(*info->p.p == '\0') {
+                if(*info->p == '\\') {
+                    info->p++;
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
-                    if(*info->p.p == '\n') {
+                    if(*info->p == '\n') {
                         info->sline++;
                     }
-                    info->p.p++;
+                    info->p++;
                 }
-                else if(*info->p.p == '\'') {
-                    info->p.p++;
+                else if(*info->p == '\'') {
+                    info->p++;
                     squort = !squort;
                 }
-                else if(*info->p.p == '\n') {
-                    info->p.p++;
+                else if(*info->p == '\n') {
+                    info->p++;
                     info->sline++;
 
-                    if(*info->p.p == '\0') {
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p.p++;
+                    info->p++;
 
-                    if(*info->p.p == '\0') {
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
             }
-            else if(*info->p.p == '\'') {
+            else if(*info->p == '\'') {
                 sline = info->sline;
-                info->p.p++;
+                info->p++;
                 squort = !squort;
             }
-            else if(*info->p.p == '"') {
+            else if(*info->p == '"') {
                 sline = info->sline;
-                info->p.p++;
+                info->p++;
                 dquort = !dquort;
             }
-            else if(*info->p.p == '#') {
+            else if(*info->p == '#') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p.p == '/' && *(info->p.p+1) == '*') {
+            else if(*info->p == '/' && *(info->p+1) == '*') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p.p == '/' && *(info->p.p+1) == '/') {
+            else if(*info->p == '/' && *(info->p+1) == '/') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p.p == '\\') {
-                info->p.p++;
-                if(*info->p.p) info->p.p++;
+            else if(*info->p == '\\') {
+                info->p++;
+                if(*info->p) info->p++;
             }
-            else if(*info->p.p == '{') {
-                info->p.p++;
+            else if(*info->p == '{') {
+                info->p++;
 
                 nest++;
             }
-            else if(*info->p.p == '}') {
-                info->p.p++;
+            else if(*info->p == '}') {
+                info->p++;
 
                 if(nest == 0) {
                     break;
@@ -129,26 +129,26 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
 
                 nest--;
             }
-            else if(*info->p.p == '\0') {
+            else if(*info->p == '\0') {
                 err_msg(info, "The block requires } character for closing block");
                 exit(2);
             }
-            else if(*info->p.p == '\n') {
-                info->p.p++;
+            else if(*info->p == '\n') {
+                info->p++;
                 info->sline++;
             }
             else {
-                info->p.p++;
+                info->p++;
             }
         }
     }
     else {
-        err_msg(info, "Require block. This is %c", *info->p.p);
+        err_msg(info, "Require block. This is %c", *info->p);
         //stackframe();
         exit(1);
     }
     
-    char* tail = info.p.p;
+    char* tail = info.p;
     
     buffer*% buf = new buffer();
     
@@ -169,9 +169,9 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false)
 /*
 string skip_paren(sInfo* info=info)
 {
-    char* head = info.p.p;
-    if(*info->p.p == '(') {
-        info->p.p++;
+    char* head = info.p;
+    if(*info->p == '(') {
+        info->p++;
 
         bool dquort = false;
         bool squort = false;
@@ -180,99 +180,99 @@ string skip_paren(sInfo* info=info)
         while(1) {
             parse_sharp();
             if(dquort) {
-                if(*info->p.p == '\\') {
-                    info->p.p++;
-                    if(*info->p.p == '\0') {
+                if(*info->p == '\\') {
+                    info->p++;
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
-                    if(*info->p.p == '\n') {
-                        info->p.p++;
+                    if(*info->p == '\n') {
+                        info->p++;
                     }
-                    info->p.p++;
+                    info->p++;
                 }
-                else if(*info->p.p == '"') {
-                    info->p.p++;
+                else if(*info->p == '"') {
+                    info->p++;
                     dquort = !dquort;
                 }
-                else if(*info->p.p == '\n') {
-                    info->p.p++;
+                else if(*info->p == '\n') {
+                    info->p++;
                     info->sline++;
 
-                    if(*info->p.p == '\0') {
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p.p++;
+                    info->p++;
 
-                    if(*info->p.p == '\0') {
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
             }
             else if(squort) {
-                if(*info->p.p == '\\') {
-                    info->p.p++;
-                    if(*info->p.p == '\0') {
+                if(*info->p == '\\') {
+                    info->p++;
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
-                    if(*info->p.p == '\n') {
+                    if(*info->p == '\n') {
                         info->sline++;
                     }
-                    info->p.p++;
+                    info->p++;
                 }
-                else if(*info->p.p == '\'') {
-                    info->p.p++;
+                else if(*info->p == '\'') {
+                    info->p++;
                     squort = !squort;
                 }
-                else if(*info->p.p == '\n') {
-                    info->p.p++;
+                else if(*info->p == '\n') {
+                    info->p++;
                     info->sline++;
 
-                    if(*info->p.p == '\0') {
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
                 else {
-                    info->p.p++;
+                    info->p++;
 
-                    if(*info->p.p == '\0') {
+                    if(*info->p == '\0') {
                         err_msg(info, "%s %d: unexpected the source end. close single quote or double quote.", info->sname, sline);
                         exit(2);
                     }
                 }
             }
-            else if(*info->p.p == '\'') {
+            else if(*info->p == '\'') {
                 sline = info->sline;
-                info->p.p++;
+                info->p++;
                 squort = !squort;
             }
-            else if(*info->p.p == '"') {
+            else if(*info->p == '"') {
                 sline = info->sline;
-                info->p.p++;
+                info->p++;
                 dquort = !dquort;
             }
-            else if(*info->p.p == '#') {
+            else if(*info->p == '#') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p.p == '/' && *(info->p.p+1) == '*') {
+            else if(*info->p == '/' && *(info->p+1) == '*') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p.p == '/' && *(info->p.p+1) == '/') {
+            else if(*info->p == '/' && *(info->p+1) == '/') {
                 skip_spaces_and_lf();
             }
-            else if(*info->p.p == '(') {
-                info->p.p++;
+            else if(*info->p == '(') {
+                info->p++;
 
                 nest++;
             }
-            else if(*info->p.p == ')') {
-                info->p.p++;
+            else if(*info->p == ')') {
+                info->p++;
 
                 if(nest == 0) {
                     break;
@@ -280,25 +280,25 @@ string skip_paren(sInfo* info=info)
 
                 nest--;
             }
-            else if(*info->p.p == '\0') {
+            else if(*info->p == '\0') {
                 err_msg(info, "The block requires } character for closing block");
                 exit(2);
             }
-            else if(*info->p.p == '\n') {
-                info->p.p++;
+            else if(*info->p == '\n') {
+                info->p++;
                 info->sline++;
             }
             else {
-                info->p.p++;
+                info->p++;
             }
         }
     }
     else {
-        err_msg(info, "Require block. This is %c", *info->p.p);
+        err_msg(info, "Require block. This is %c", *info->p);
         exit(1);
     }
     
-    char* tail = info.p.p;
+    char* tail = info.p;
     
     buffer*% buf = new buffer();
     
@@ -313,16 +313,16 @@ string skip_paren(sInfo* info=info)
 void parse_function_attribute_skip_paren(sInfo* info)
 {
     skip_spaces_and_lf();
-    if(*info->p.p == '(') {
+    if(*info->p == '(') {
         int nest = 0;
         while(1) {
-            if(*info->p.p == '(') {
-                info->p.p++;
+            if(*info->p == '(') {
+                info->p++;
                 skip_spaces_and_lf();
                 nest++;
             }
-            else if(*info->p.p == ')') {
-                info->p.p++
+            else if(*info->p == ')') {
+                info->p++
                 skip_spaces_and_lf();
                 
                 nest--;
@@ -330,11 +330,11 @@ void parse_function_attribute_skip_paren(sInfo* info)
                     break;
                 }
             }
-            else if(*info->p.p == '\0') {
+            else if(*info->p == '\0') {
                 break;
             }
             else {
-                info->p.p++;
+                info->p++;
             }
         }
     }
@@ -344,12 +344,12 @@ void parse_function_attribute_skip_paren(sInfo* info)
 bool parse_function_attribute_keyword(buffer* result, const char* keyword, sInfo* info=info)
 {
     if(parsecmp(keyword)) {
-        char* head = info.p.p;
-        info->p.p += strlen(keyword);
+        char* head = info.p;
+        info->p += strlen(keyword);
         
         parse_function_attribute_skip_paren(info);
         
-        char* tail = info.p.p;
+        char* tail = info.p;
         result.append(head, tail-head);
         
         return true;
@@ -548,12 +548,12 @@ string,string parse_function_attribute(sInfo* info=info)
     
     while(true) {
         if(parsecmp("__attribute__")) {
-            char* head = info.p.p;
-            info->p.p += strlen("__attribute__");
+            char* head = info.p;
+            info->p += strlen("__attribute__");
 
             parse_function_attribute_skip_paren(info);
 
-            char* tail = info.p.p;
+            char* tail = info.p;
             
             result.append(head, tail-head);
         }
@@ -567,201 +567,201 @@ string,string parse_function_attribute(sInfo* info=info)
             }
         }
         else if(parsecmp("_Noreturn")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("_Noreturn");
+            info->p += strlen("_Noreturn");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("_Nonnull")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("_Nonnull");
+            info->p += strlen("_Nonnull");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__noreturn")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__noreturn");
+            info->p += strlen("__noreturn");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__asm__")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__asm__");
+            info->p += strlen("__asm__");
             skip_spaces_and_lf();
             
-            if(((info->end - info->p.p) >= strlen("__ASMNAME")) && memcmp(info->p.p, "__ASMNAME", strlen("__ASMNAME")) == 0) {
-                info->p.p += strlen("__ASMNAME");
+            if(((info->end - info->p) >= strlen("__ASMNAME")) && memcmp(info->p, "__ASMNAME", strlen("__ASMNAME")) == 0) {
+                info->p += strlen("__ASMNAME");
                 skip_spaces_and_lf();
             }
 
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__attribute_pure__")) {
-            char* head = info.p.p; 
+            char* head = info.p; 
             
-            info->p.p += strlen("__attribute_pure__");
+            info->p += strlen("__attribute_pure__");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__malloc_like")) {
-            char* head = info.p.p; 
+            char* head = info.p; 
             
-            info->p.p += strlen("__malloc_like");
+            info->p += strlen("__malloc_like");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__result_use_check")) {
-            char* head = info.p.p; 
+            char* head = info.p; 
             
-            info->p.p += strlen("__result_use_check");
+            info->p += strlen("__result_use_check");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__alloc_size2")) {
-            char* head = info.p.p; 
+            char* head = info.p; 
             
-            info->p.p += strlen("__alloc_size2");
+            info->p += strlen("__alloc_size2");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__alloc_size")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__alloc_size");
+            info->p += strlen("__alloc_size");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__nonnull")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__nonnull");
+            info->p += strlen("__nonnull");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__alloc_align")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__alloc_align");
+            info->p += strlen("__alloc_align");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__attribute_malloc__")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__attribute_malloc__");
+            info->p += strlen("__attribute_malloc__");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__attr_dealloc_fclose")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__attr_dealloc_fclose");
+            info->p += strlen("__attr_dealloc_fclose");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__wur")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__wur");
+            info->p += strlen("__wur");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__pure2")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__pure2");
+            info->p += strlen("__pure2");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__pure")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__pure");
+            info->p += strlen("__pure");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__THROW")) {
-            char* head = info.p.p;
+            char* head = info.p;
             
-            info->p.p += strlen("__THROW");
+            info->p += strlen("__THROW");
             
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head, tail-head);
         }
         else if(parsecmp("__asm")) {
-            char* head0 = info.p.p;
+            char* head0 = info.p;
             int sline0 = info.sline;
             
-            info->p.p += strlen("__asm");
+            info->p += strlen("__asm");
             skip_spaces_and_lf();
             
-            char* head = info.p.p;
+            char* head = info.p;
             int sline = info.sline;
             
             int nest = 0;
-            while(*info->p.p) {
-                if(*info->p.p == '(') {
-                    info->p.p++;
+            while(*info->p) {
+                if(*info->p == '(') {
+                    info->p++;
                     skip_spaces_and_lf();
                     
                     nest++;
                 }
-                else if(*info->p.p == ')') {
-                    info->p.p++;
+                else if(*info->p == ')') {
+                    info->p++;
                     skip_spaces_and_lf();
                     
                     nest--;
@@ -769,31 +769,31 @@ string,string parse_function_attribute(sInfo* info=info)
                         break;
                     }
                 }
-                else if(*info->p.p == '"') {
-                    info->p.p++;
-                    while(*info->p.p != '\0' && *info->p.p != '"') {
-                        asm_fun_name.append_char(*info->p.p);
-                        info->p.p++;
+                else if(*info->p == '"') {
+                    info->p++;
+                    while(*info->p != '\0' && *info->p != '"') {
+                        asm_fun_name.append_char(*info->p);
+                        info->p++;
                     }
                     
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                 }
                 else {
-                    //asm_fun_name.append_char(*info->p.p);
-                    info->p.p++;
+                    //asm_fun_name.append_char(*info->p);
+                    info->p++;
                 }
             }
             
-            info.p.p = head0;
+            info.p = head0;
             info.sline = sline0;
             
-            info->p.p += strlen("__asm");
+            info->p += strlen("__asm");
             skip_spaces_and_lf();
 
             parse_function_attribute_skip_paren(info);
             
-            char* tail = info.p.p;
+            char* tail = info.p;
             result.append(head0, tail-head0);
         }
         else if(parse_common_function_attribute_keyword(result, info)) {
@@ -809,28 +809,28 @@ string,string parse_function_attribute(sInfo* info=info)
 
 void transpile_toplevel(bool block=false, sInfo* info=info)
 {
-    while(*info->p.p) {
+    while(*info->p) {
         info.sname_at_head = clone info.sname;
         skip_spaces_and_lf();
         
-        if(*info->p.p == '\0') {
+        if(*info->p == '\0') {
             break;
         }
-        if(block && *info->p.p == '}') {
-            info->p.p++;
+        if(block && *info->p == '}') {
+            info->p++;
             skip_spaces_and_lf(info);
             break;
         }
-        while(*info->p.p == ';') {
-            info->p.p++;
+        while(*info->p == ';') {
+            info->p++;
             skip_spaces_and_lf();
         }
         skip_spaces_and_lf();
         
-        char* head = info.p.p;
+        char* head = info.p;
         int head_sline = info.sline;
         string buf = null;
-        if(*info->p.p == '[' && *(info->p.p+1) == '[') {
+        if(*info->p == '[' && *(info->p+1) == '[') {
             buf = s"__attribute__";
         }
         else {
@@ -839,8 +839,8 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(block && *info->p.p == '}') {
-            info->p.p++;
+        if(block && *info->p == '}') {
+            info->p++;
             skip_spaces_and_lf(info);
             break;
         }
@@ -848,8 +848,8 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
         sNode*% node = top_level(buf, head, head_sline, info);
         skip_spaces_and_lf();
         
-        while(*info->p.p == ';') {
-            info->p.p++;
+        while(*info->p == ';') {
+            info->p++;
             skip_spaces_and_lf();
         }
         skip_spaces_and_lf();
@@ -864,8 +864,8 @@ void transpile_toplevel(bool block=false, sInfo* info=info)
         
         skip_spaces_and_lf();
         
-        if(block && *info->p.p == '}') {
-            info->p.p++;
+        if(block && *info->p == '}') {
+            info->p++;
             skip_spaces_and_lf(info);
             break;
         }

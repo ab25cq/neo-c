@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -1552,17 +1541,6 @@ struct sNoneNode
     int sline;
     char*  sname  ;
     int sline_real;
-};
-
-struct span$1buffer$p
-{
-    char* memory;
-    struct buffer*  p  ;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
 };
 
 /// variable definition ///
@@ -2764,9 +2742,6 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
 static void sNothingNode_finalize(struct sNothingNode* self);
 static struct sNothingNode* sNothingNode_clone(struct sNothingNode* self);
 static struct sUndefNode* sUndefNode_clone(struct sUndefNode* self);
-static struct span$1buffer$p* span$1buffer$p_initialize(struct span$1buffer$p* self, void* head, unsigned long  len  , _Bool local, _Bool heap, _Bool global, void* stacktop);
-static void span$1buffer$p$p_finalize(struct span$1buffer$p* self);
-static void span$1char$p$p_finalize(struct span$1char$p* self);
 static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$phchar$ph* self, char*  key  , char*  item  , _Bool by_pointer);
 static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self);
 static char*  map$2char$phchar$ph_begin(struct map$2char$phchar$ph* self);
@@ -5250,14 +5225,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 232, 420));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 241, 421);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5300,14 +5275,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 265, 469));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_19=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 274, 470);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5350,14 +5325,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 298, 488));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_23=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 307, 489);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5415,14 +5390,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 341, 597));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_29=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 350, 598);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5452,14 +5427,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 369, 608));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_31=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 378, 609);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5497,24 +5472,24 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 403, 623));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_33=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 412, 624);
         __right_value0 = (void*)0;
         args=(char*)come_increment_ref_count(xsprintf(""), "41module2.nc", 413, 625);
-        if(*info->p->p==44) {
-            info->p->p++;
+        if(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             __dec_obj46=args,
             args=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 418, 627);
             __dec_obj46 = come_decrement_ref_count(__dec_obj46, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 418, 626);
         }
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5555,22 +5530,22 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 444, 644));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
-        if(*info->p->p==34) {
-            info->p->p++;
+        if(*info->p==34) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_36=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 458, 645);
-        if(*info->p->p==34) {
-            info->p->p++;
+        if(*info->p==34) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5599,14 +5574,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 480, 655));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_37=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 489, 656);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5635,14 +5610,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 506, 666));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_38=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 515, 667);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5671,14 +5646,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 532, 677));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_39=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 541, 678);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5707,14 +5682,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 558, 688));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_40=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 567, 689);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5752,14 +5727,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 590, 703));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_43=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 599, 704);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5806,14 +5781,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 626, 722));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_47=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 635, 723);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5855,20 +5830,20 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 658, 741));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_50=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 667, 742);
-        if(*info->p->p==44) {
-            info->p->p++;
+        if(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp2=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 674, 743);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5917,20 +5892,20 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 700, 782));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_55=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 709, 783);
-        if(*info->p->p==44) {
-            info->p->p++;
+        if(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp2_56=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 716, 784);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -5975,14 +5950,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 739, 823));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_61=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 748, 824);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6024,14 +5999,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 771, 842));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_64=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 780, 843);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6075,20 +6050,20 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 805, 897));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_67=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 814, 898);
-        if(*info->p->p==44) {
-            info->p->p++;
+        if(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp2_68=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 821, 899);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6147,14 +6122,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 852, 925));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_72=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 861, 926);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6194,14 +6169,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 886, 940));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_75=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 895, 941);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6241,14 +6216,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 920, 955));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_78=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 929, 956);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6288,14 +6263,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 954, 970));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_81=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 963, 971);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6335,14 +6310,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 988, 985));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_84=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 997, 986);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6382,14 +6357,14 @@ char*  reflection_node(struct sInfo*  info  )
         (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1022, 1000));
         skip_spaces_and_lf(info);
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
         exp_87=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1031, 1001);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -6424,51 +6399,51 @@ char*  reflection_node(struct sInfo*  info  )
         (exp_87 = come_decrement_ref_count(exp_87, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1216, 1013));
         come_call_finalizer(sClass_finalize, Value_89, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1216, 1014);
     }
-    else if(*info->p->p==34) {
+    else if(*info->p==34) {
         sline_real=info->sline_real;
         info->sline_real=info->sline;
-        info->p->p++;
+        info->p++;
         sline=info->sline;
         __right_value0 = (void*)0;
         value_90=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "41module2.nc", 1093, 1015, "struct buffer* "), "41module2.nc", 1093, 1016)), "41module2.nc", 1093, 1017);
         while(1) {
-            if(*info->p->p==34) {
-                info->p->p++;
-                p=info->p->p;
+            if(*info->p==34) {
+                info->p++;
+                p=info->p;
                 sline_91=info->sline;
                 skip_spaces_and_lf(info);
                 parse_sharp_v5(info);
-                if(*info->p->p==34) {
-                    info->p->p++;
+                if(*info->p==34) {
+                    info->p++;
                 }
                 else {
-                    info->p->p=p;
+                    info->p=p;
                     info->sline=sline_91;
                     break;
                 }
             }
-            else if(*info->p->p==92) {
-                info->p->p++;
-                if(*info->p->p==123) {
-                    info->p->p++;
+            else if(*info->p==92) {
+                info->p++;
+                if(*info->p==123) {
+                    info->p++;
                     __right_value0 = (void*)0;
                     exp_92=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1121, 1018);
                     expected_next_character(125,info);
                     buffer_append_str(value_90,exp_92);
                     (exp_92 = come_decrement_ref_count(exp_92, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1137, 1019));
                 }
-                else if(*info->p->p==34) {
+                else if(*info->p==34) {
                     buffer_append_char(value_90,92);
                     buffer_append_char(value_90,34);
-                    info->p->p++;
+                    info->p++;
                 }
                 else {
                     buffer_append_char(value_90,92);
-                    buffer_append_char(value_90,*info->p->p);
-                    info->p->p++;
+                    buffer_append_char(value_90,*info->p);
+                    info->p++;
                 }
             }
-            else if(*info->p->p==0) {
+            else if(*info->p==0) {
                 sline2=info->sline;
                 info->sline=sline;
                 err_msg(info,"close \" to make c string value");
@@ -6476,11 +6451,11 @@ char*  reflection_node(struct sInfo*  info  )
                 exit(2);
             }
             else {
-                if(*info->p->p==10) {
+                if(*info->p==10) {
                     info->sline++;
                 }
-                buffer_append_char(value_90,*info->p->p);
-                info->p->p++;
+                buffer_append_char(value_90,*info->p);
+                info->p++;
             }
         }
         skip_spaces_and_lf(info);
@@ -6494,8 +6469,8 @@ char*  reflection_node(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, value_90, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1216, 1024);
     }
-    else if(*info->p->p==36) {
-        info->p->p++;
+    else if(*info->p==36) {
+        info->p++;
         __right_value0 = (void*)0;
         var_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "41module2.nc", 1160, 1025);
         __right_value0 = (void*)0;
@@ -6519,13 +6494,13 @@ char*  reflection_node(struct sInfo*  info  )
         (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1216, 1066));
         (value_93 = come_decrement_ref_count(value_93, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1216, 1067));
     }
-    else if(xisalpha(*info->p->p)||*info->p->p==95) {
+    else if(xisalpha(*info->p)||*info->p==95) {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "41module2.nc", 1172, 1068, "struct buffer* "), "41module2.nc", 1172, 1069)), "41module2.nc", 1172, 1070);
-        while(xisalnum(*info->p->p)||*info->p->p==95||*info->p->p==42||*info->p->p==37||*info->p->p==60||*info->p->p==62) {
-            buffer_append_char(buf,*info->p->p);
-            info->p->p++;
+        while(xisalnum(*info->p)||*info->p==95||*info->p==42||*info->p==37||*info->p==60||*info->p==62) {
+            buffer_append_char(buf,*info->p);
+            info->p++;
         }
         skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
@@ -6537,11 +6512,11 @@ char*  reflection_node(struct sInfo*  info  )
         return __result_obj__0;
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1216, 1075);
     }
-    else if(*info->p->p==45&&xisdigit(*(info->p->p+1))) {
+    else if(*info->p==45&&xisdigit(*(info->p+1))) {
         n_94=0;
-        while(xisdigit(*info->p->p)) {
-            n_94=n_94*10+(*info->p->p-48);
-            info->p->p++;
+        while(xisdigit(*info->p)) {
+            n_94=n_94*10+(*info->p-48);
+            info->p++;
         }
         skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
@@ -6551,11 +6526,11 @@ char*  reflection_node(struct sInfo*  info  )
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "41module2.nc", 1188, 1078));
         return __result_obj__0;
     }
-    else if(xisdigit(*info->p->p)) {
+    else if(xisdigit(*info->p)) {
         n_95=0;
-        while(xisdigit(*info->p->p)) {
-            n_95=n_95*10+(*info->p->p-48);
-            info->p->p++;
+        while(xisdigit(*info->p)) {
+            n_95=n_95*10+(*info->p-48);
+            info->p++;
         }
         skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
@@ -6565,8 +6540,8 @@ char*  reflection_node(struct sInfo*  info  )
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "41module2.nc", 1197, 1081));
         return __result_obj__0;
     }
-    else if(*info->p->p==33) {
-        info->p->p++;
+    else if(*info->p==33) {
+        info->p++;
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         exp_96=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1203, 1082);
@@ -6591,9 +6566,9 @@ char*  reflection_node(struct sInfo*  info  )
         (exp_96 = come_decrement_ref_count(exp_96, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1216, 1091));
     }
     else {
-        err_msg(info,"invalid character(%c)",*info->p->p);
+        err_msg(info,"invalid character(%c)",*info->p);
     }
-    err_msg(info,"invalid character(%c)",*info->p->p);
+    err_msg(info,"invalid character(%c)",*info->p);
         __right_value0 = (void*)0;
     __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "41module2.nc", 1218, 1092);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1218, 1093));
@@ -7466,9 +7441,9 @@ char*  reflection_expression_mult(struct sInfo*  info  )
     char*  right_98  ;
     node=(char* )come_increment_ref_count(reflection_node(info), "41module2.nc", 1223, 1095);
     skip_spaces_and_lf(info);
-    while(*info->p->p) {
-        if(*info->p->p==42) {
-            info->p->p++;
+    while(*info->p) {
+        if(*info->p==42) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_node(info), "41module2.nc", 1232, 1096);
@@ -7482,8 +7457,8 @@ char*  reflection_expression_mult(struct sInfo*  info  )
             return __result_obj__0;
             (right = come_decrement_ref_count(right, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1255, 1102));
         }
-        else if(*info->p->p==47) {
-            info->p->p++;
+        else if(*info->p==47) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_97=(char* )come_increment_ref_count(reflection_node(info), "41module2.nc", 1240, 1103);
@@ -7497,8 +7472,8 @@ char*  reflection_expression_mult(struct sInfo*  info  )
             return __result_obj__0;
             (right_97 = come_decrement_ref_count(right_97, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1255, 1109));
         }
-        else if(*info->p->p==37) {
-            info->p->p++;
+        else if(*info->p==37) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_98=(char* )come_increment_ref_count(reflection_node(info), "41module2.nc", 1248, 1110);
@@ -7534,9 +7509,9 @@ char*  reflection_expression_add(struct sInfo*  info  )
     char*  right_100  ;
     node=(char* )come_increment_ref_count(reflection_expression_mult(info), "41module2.nc", 1262, 1120);
     skip_spaces_and_lf(info);
-    while(*info->p->p) {
-        if(*info->p->p==46) {
-            info->p->p++;
+    while(*info->p) {
+        if(*info->p==46) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_mult(info), "41module2.nc", 1271, 1121);
@@ -7550,8 +7525,8 @@ char*  reflection_expression_add(struct sInfo*  info  )
             return __result_obj__0;
             (right = come_decrement_ref_count(right, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1294, 1127));
         }
-        else if(*info->p->p==43) {
-            info->p->p++;
+        else if(*info->p==43) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_99=(char* )come_increment_ref_count(reflection_expression_mult(info), "41module2.nc", 1279, 1128);
@@ -7565,8 +7540,8 @@ char*  reflection_expression_add(struct sInfo*  info  )
             return __result_obj__0;
             (right_99 = come_decrement_ref_count(right_99, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1294, 1134));
         }
-        else if(*info->p->p==45) {
-            info->p->p++;
+        else if(*info->p==45) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_100=(char* )come_increment_ref_count(reflection_expression_mult(info), "41module2.nc", 1287, 1135);
@@ -7603,9 +7578,9 @@ char*  reflection_expression_comp(struct sInfo*  info  )
     char*  right_103  ;
     node=(char* )come_increment_ref_count(reflection_expression_add(info), "41module2.nc", 1301, 1145);
     skip_spaces_and_lf(info);
-    while(*info->p->p) {
-        if(*info->p->p==62&&*(info->p->p+1)==61) {
-            info->p->p+=2;
+    while(*info->p) {
+        if(*info->p==62&&*(info->p+1)==61) {
+            info->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_add(info), "41module2.nc", 1310, 1146);
@@ -7631,8 +7606,8 @@ char*  reflection_expression_comp(struct sInfo*  info  )
             }
             (right = come_decrement_ref_count(right, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1361, 1157));
         }
-        else if(*info->p->p==60&&*(info->p->p+1)==61) {
-            info->p->p+=2;
+        else if(*info->p==60&&*(info->p+1)==61) {
+            info->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_101=(char* )come_increment_ref_count(reflection_expression_add(info), "41module2.nc", 1323, 1158);
@@ -7658,8 +7633,8 @@ char*  reflection_expression_comp(struct sInfo*  info  )
             }
             (right_101 = come_decrement_ref_count(right_101, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1361, 1169));
         }
-        else if(*info->p->p==62) {
-            info->p->p+=1;
+        else if(*info->p==62) {
+            info->p+=1;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_102=(char* )come_increment_ref_count(reflection_expression_add(info), "41module2.nc", 1336, 1170);
@@ -7685,8 +7660,8 @@ char*  reflection_expression_comp(struct sInfo*  info  )
             }
             (right_102 = come_decrement_ref_count(right_102, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1361, 1181));
         }
-        else if(*info->p->p==60) {
-            info->p->p+=1;
+        else if(*info->p==60) {
+            info->p+=1;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_103=(char* )come_increment_ref_count(reflection_expression_add(info), "41module2.nc", 1349, 1182);
@@ -7733,9 +7708,9 @@ char*  reflection_expression_eq(struct sInfo*  info  )
     char*  right_104  ;
     node=(char* )come_increment_ref_count(reflection_expression_comp(info), "41module2.nc", 1368, 1197);
     skip_spaces_and_lf(info);
-    while(*info->p->p) {
-        if(*info->p->p==61&&*(info->p->p+1)==61&&*(info->p->p+2)!=61) {
-            info->p->p+=2;
+    while(*info->p) {
+        if(*info->p==61&&*(info->p+1)==61&&*(info->p+2)!=61) {
+            info->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_comp(info), "41module2.nc", 1377, 1198);
@@ -7761,8 +7736,8 @@ char*  reflection_expression_eq(struct sInfo*  info  )
             }
             (right = come_decrement_ref_count(right, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1402, 1209));
         }
-        else if(*info->p->p==33&&*(info->p->p+1)==61&&*(info->p->p+2)!=61) {
-            info->p->p+=2;
+        else if(*info->p==33&&*(info->p+1)==61&&*(info->p+2)!=61) {
+            info->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right_104=(char* )come_increment_ref_count(reflection_expression_comp(info), "41module2.nc", 1390, 1210);
@@ -7808,9 +7783,9 @@ char*  reflection_expression_oror(struct sInfo*  info  )
     char*  __result_obj__0  ;
     node=(char* )come_increment_ref_count(reflection_expression_eq(info), "41module2.nc", 1409, 1225);
     skip_spaces_and_lf(info);
-    while(*info->p->p) {
-        if(*info->p->p==124&&*(info->p->p+1)==124) {
-            info->p->p+=2;
+    while(*info->p) {
+        if(*info->p==124&&*(info->p+1)==124) {
+            info->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_eq(info), "41module2.nc", 1418, 1226);
@@ -7856,9 +7831,9 @@ char*  reflection_expression_andand(struct sInfo*  info  )
     char*  __result_obj__0  ;
     node=(char* )come_increment_ref_count(reflection_expression_oror(info), "41module2.nc", 1437, 1241);
     skip_spaces_and_lf(info);
-    while(*info->p->p) {
-        if(*info->p->p==38&&*(info->p->p+1)==38) {
-            info->p->p+=2;
+    while(*info->p) {
+        if(*info->p==38&&*(info->p+1)==38) {
+            info->p+=2;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
             right=(char* )come_increment_ref_count(reflection_expression_oror(info), "41module2.nc", 1446, 1242);
@@ -7945,11 +7920,9 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
     char*  sname  ;
     int sline;
     struct buffer*  __dec_obj62  ;
-    struct span$1char$p* __dec_obj63;
-    char*  __dec_obj64  ;
-    struct buffer*  __dec_obj65  ;
-    struct span$1char$p* __dec_obj66;
-    char*  __dec_obj67  ;
+    char*  __dec_obj63  ;
+    struct buffer*  __dec_obj64  ;
+    char*  __dec_obj65  ;
     struct sNode* _inf_value6;
     struct sNothingNode* _inf_obj_value6;
     char*  reflection_condtional  ;
@@ -7965,12 +7938,10 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
     char* end_123;
     char*  sname_124  ;
     int sline_125;
+    struct buffer*  __dec_obj66  ;
+    char*  __dec_obj67  ;
     struct buffer*  __dec_obj68  ;
-    struct span$1char$p* __dec_obj69;
-    char*  __dec_obj70  ;
-    struct buffer*  __dec_obj71  ;
-    struct span$1char$p* __dec_obj72;
-    char*  __dec_obj73  ;
+    char*  __dec_obj69  ;
     struct sNode* _inf_value8;
     struct sNothingNode* _inf_obj_value8;
     char*  var_name  ;
@@ -7982,19 +7953,19 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
     struct sNothingNode* _inf_obj_value10;
     char*  exp_131  ;
     char*  exp2_132  ;
-    char*  __dec_obj74  ;
+    char*  __dec_obj70  ;
     char*  def  ;
     void* __right_value3 = (void*)0;
     void* __right_value4 = (void*)0;
     void* __right_value5 = (void*)0;
     void* __right_value6 = (void*)0;
-    char*  __dec_obj75  ;
+    char*  __dec_obj71  ;
     struct sNode* _inf_value11;
     struct sNothingNode* _inf_obj_value11;
     char*  exp_133  ;
     struct sNode* _inf_value12;
     struct sNothingNode* _inf_obj_value12;
-    if(charp_operator_equals(buf,"__c__")&&*info->p->p==123) {
+    if(charp_operator_equals(buf,"__c__")&&*info->p==123) {
         block_text=(char* )come_increment_ref_count(skip_block(info,(_Bool)0), "41module2.nc", 1471, 1260);
         p=block_text+strlen(block_text);
         while(*p&&p>=block_text&&*p!=125) {
@@ -8031,10 +8002,10 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         neo_current_frame = fr.prev;
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1487, 1335):(void*)0);
         return __result_obj__0;
-        (block_text = come_decrement_ref_count(block_text, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1336));
-        (contents = come_decrement_ref_count(contents, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1337));
+        (block_text = come_decrement_ref_count(block_text, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1336));
+        (contents = come_decrement_ref_count(contents, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1337));
     }
-    else if(charp_operator_equals(buf,"c_include")&&*info->p->p==123) {
+    else if(charp_operator_equals(buf,"c_include")&&*info->p==123) {
         __right_value0 = (void*)0;
         block_text_112=(char* )come_increment_ref_count(skip_block(info,(_Bool)0), "41module2.nc", 1490, 1338);
         p_113=block_text_112+strlen(block_text_112);
@@ -8074,8 +8045,8 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         neo_current_frame = fr.prev;
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1506, 1352):(void*)0);
         return __result_obj__0;
-        (block_text_112 = come_decrement_ref_count(block_text_112, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1353));
-        (contents_114 = come_decrement_ref_count(contents_114, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1354));
+        (block_text_112 = come_decrement_ref_count(block_text_112, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1353));
+        (contents_114 = come_decrement_ref_count(contents_114, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1354));
     }
     else if(charp_operator_equals(buf,"_Static_assert")||charp_operator_equals(buf,"static_assert")||charp_operator_equals(buf,"__STATIC_ASSERT")) {
         expected_next_character(40,info);
@@ -8111,14 +8082,14 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         neo_current_frame = fr.prev;
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1522, 1368):(void*)0);
         return __result_obj__0;
-        ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "41module2.nc", 1819, 1369):(void*)0);
-        ((exp2) ? exp2 = come_decrement_ref_count(exp2, ((struct sNode*)exp2)->finalize, ((struct sNode*)exp2)->_protocol_obj, 0, 0,(void*)0, "41module2.nc", 1819, 1370):(void*)0);
+        ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "41module2.nc", 1811, 1369):(void*)0);
+        ((exp2) ? exp2 = come_decrement_ref_count(exp2, ((struct sNode*)exp2)->finalize, ((struct sNode*)exp2)->_protocol_obj, 0, 0,(void*)0, "41module2.nc", 1811, 1370):(void*)0);
     }
     else if(charp_operator_equals(buf,"undef")) {
         __right_value0 = (void*)0;
         word=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "41module2.nc", 1525, 1371);
-        if(*info->p->p==59) {
-            info->p->p++;
+        if(*info->p==59) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
                 __right_value0 = (void*)0;
@@ -8143,37 +8114,37 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         neo_current_frame = fr.prev;
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1532, 1390):(void*)0);
         return __result_obj__0;
-        (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1391));
+        (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1391));
     }
     else if(charp_operator_equals(buf,"macro_include")) {
         quoted=0;
-        if(*info->p->p==34) {
+        if(*info->p==34) {
             quoted=1;
-            info->p->p++;
+            info->p++;
         }
-        else if(*info->p->p==60) {
-            info->p->p++;
+        else if(*info->p==60) {
+            info->p++;
         }
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         buf_116=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "41module2.nc", 1544, 1392, "struct buffer* "), "41module2.nc", 1544, 1393)), "41module2.nc", 1544, 1394);
-        while(*info->p->p) {
-            if(*info->p->p==92) {
-                info->p->p++;
-                buffer_append_char(buf_116,*info->p->p);
-                info->p->p++;
+        while(*info->p) {
+            if(*info->p==92) {
+                info->p++;
+                buffer_append_char(buf_116,*info->p);
+                info->p++;
             }
-            else if(*info->p->p==34) {
-                info->p->p++;
+            else if(*info->p==34) {
+                info->p++;
                 break;
             }
-            else if(*info->p->p==62) {
-                info->p->p++;
+            else if(*info->p==62) {
+                info->p++;
                 break;
             }
             else {
-                buffer_append_char(buf_116,*info->p->p);
-                info->p->p++;
+                buffer_append_char(buf_116,*info->p);
+                info->p++;
             }
         }
         __right_value0 = (void*)0;
@@ -8197,7 +8168,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             free(macro_defines);
         }
         source=(struct buffer* )come_increment_ref_count(info->source, "41module2.nc", 1585, 1399);
-        p_117=info->p->p;
+        p_117=info->p;
         head_118=info->head;
         end=info->end;
         sname=(char* )come_increment_ref_count(info->sname, "41module2.nc", 1589, 1400);
@@ -8207,48 +8178,36 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         info->source=(struct buffer* )come_increment_ref_count(charp_read("__ccpp_tmp"), "41module2.nc", 1592, 1402);
         come_call_finalizer(buffer_finalize, __dec_obj62,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1592, 1401);
         if(info->p==((void*)0)) {
-            __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            __dec_obj63=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "41module2.nc", 1594, 1403, "struct span$1buffer$p*"), "41module2.nc", 1594, 1407),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "41module2.nc", 1594, 1409);
-            come_call_finalizer(span$1char$p$p_finalize, __dec_obj63,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1594, 1408);
+            info->p=info->source->buf;
         }
-        info->p->memory=info->source->buf;
-        info->p->len=info->source->len+2;
-        info->p->p=info->source->buf;
+        info->p=info->source->buf;
         info->head=info->source->buf;
         info->end=info->source->buf+info->source->len;
         __right_value0 = (void*)0;
-        __dec_obj64=info->sname,
-        info->sname=(char* )come_increment_ref_count(__builtin_string(path,"41module2.nc",1601), "41module2.nc", 1601, 1411);
-        __dec_obj64 = come_decrement_ref_count(__dec_obj64, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1601, 1410);
+        __dec_obj63=info->sname,
+        info->sname=(char* )come_increment_ref_count(__builtin_string(path,"41module2.nc",1599), "41module2.nc", 1599, 1404);
+        __dec_obj63 = come_decrement_ref_count(__dec_obj63, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1599, 1403);
         info->sline=1;
         transpile_toplevel((_Bool)0,info);
-        __dec_obj65=info->source,
-        info->source=(struct buffer* )come_increment_ref_count(source, "41module2.nc", 1606, 1413);
-        come_call_finalizer(buffer_finalize, __dec_obj65,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1606, 1412);
+        __dec_obj64=info->source,
+        info->source=(struct buffer* )come_increment_ref_count(source, "41module2.nc", 1604, 1406);
+        come_call_finalizer(buffer_finalize, __dec_obj64,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1604, 1405);
         if(info->p==((void*)0)) {
-            __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            __dec_obj66=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "41module2.nc", 1608, 1414, "struct span$1buffer$p*"), "41module2.nc", 1608, 1415),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "41module2.nc", 1608, 1417);
-            come_call_finalizer(span$1char$p$p_finalize, __dec_obj66,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1608, 1416);
+            info->p=info->source->buf;
         }
-        info->p->memory=info->source->buf;
-        info->p->len=info->source->len+2;
-        info->p->p=info->source->buf;
-        info->p->p=p_117;
+        info->p=info->source->buf;
+        info->p=p_117;
         info->head=head_118;
         info->end=end;
-        __dec_obj67=info->sname,
-        info->sname=(char* )come_increment_ref_count(sname, "41module2.nc", 1616, 1419);
-        __dec_obj67 = come_decrement_ref_count(__dec_obj67, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1616, 1418);
+        __dec_obj65=info->sname,
+        info->sname=(char* )come_increment_ref_count(sname, "41module2.nc", 1612, 1408);
+        __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1612, 1407);
         info->sline=sline;
         remove("__ccpp_tmp");
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value6=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1621, 1422, "struct sNode");
-        _inf_obj_value6=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1621, 1420, "struct sNothingNode* "), "41module2.nc", 1621, 1421),info))), "41module2.nc", 1621, 1423);
+        _inf_value6=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1617, 1411, "struct sNode");
+        _inf_obj_value6=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1617, 1409, "struct sNothingNode* "), "41module2.nc", 1617, 1410),info))), "41module2.nc", 1617, 1412);
         _inf_value6->_protocol_obj=_inf_obj_value6;
         _inf_value6->finalize=(void*)sNothingNode_finalize;
         _inf_value6->clone=(void*)sNothingNode_clone;
@@ -8260,30 +8219,30 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         _inf_value6->kind=(void*)sNothingNode_kind;
         _inf_value6->left_value=(void*)sNodeBase_left_value;
         __right_value2 = (void*)0;
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value6)), "41module2.nc", 1621, 1424);
-        come_call_finalizer(buffer_finalize, buf_116, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1621, 1425);
-        (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1621, 1426));
-        come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1621, 1427);
-        (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1621, 1428));
-        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1621, 1429);
-        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1621, 1430):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value6)), "41module2.nc", 1617, 1413);
+        come_call_finalizer(buffer_finalize, buf_116, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1617, 1414);
+        (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1617, 1415));
+        come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1617, 1416);
+        (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1617, 1417));
+        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1617, 1418);
+        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1617, 1419):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1621, 1431):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1617, 1420):(void*)0);
         return __result_obj__0;
-        come_call_finalizer(buffer_finalize, buf_116, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1819, 1432);
-        (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1433));
-        come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1819, 1434);
-        (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1435));
+        come_call_finalizer(buffer_finalize, buf_116, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1811, 1421);
+        (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1422));
+        come_call_finalizer(buffer_finalize, source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1811, 1423);
+        (sname = come_decrement_ref_count(sname, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1424));
     }
     else if(charp_operator_equals(buf,"if")) {
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
-        reflection_condtional=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1628, 1436);
-        if(*info->p->p==41) {
-            info->p->p++;
+        reflection_condtional=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1624, 1425);
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         match_=(_Bool)0;
@@ -8295,7 +8254,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         else {
             __right_value0 = (void*)0;
             ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1641, 1437));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1637, 1426));
         }
         skip_spaces_and_lf(info);
         parse_sharp_v5(info);
@@ -8303,15 +8262,15 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             if(parsecmp("elif",info)) {
                 __right_value0 = (void*)0;
                 (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1649, 1438));
-                if(*info->p->p==40) {
-                    info->p->p++;
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1645, 1427));
+                if(*info->p==40) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                 }
                 __right_value0 = (void*)0;
-                reflection_condtional_119=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1656, 1439);
-                if(*info->p->p==41) {
-                    info->p->p++;
+                reflection_condtional_119=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1652, 1428);
+                if(*info->p==41) {
+                    info->p++;
                     skip_spaces_and_lf(info);
                 }
                 if(!match_&&string_operator_not_equals(reflection_condtional_119,"false")) {
@@ -8322,10 +8281,10 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
                 else {
                     __right_value0 = (void*)0;
                     ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1669, 1440));
+                    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1665, 1429));
                     parse_sharp_v5(info);
                 }
-                (reflection_condtional_119 = come_decrement_ref_count(reflection_condtional_119, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1676, 1441));
+                (reflection_condtional_119 = come_decrement_ref_count(reflection_condtional_119, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1672, 1430));
             }
             else {
                 break;
@@ -8334,7 +8293,7 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         if(parsecmp("else",info)) {
             __right_value0 = (void*)0;
             (void)((char* )(__right_value0=parse_word((_Bool)0,info)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1679, 1442));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1675, 1431));
             if(!match_) {
                 expected_next_character(123,info);
                 transpile_toplevel((_Bool)1,info);
@@ -8342,14 +8301,14 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
             else {
                 __right_value0 = (void*)0;
                 ((char* )(__right_value0=skip_block(info,(_Bool)0)));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1686, 1443));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1682, 1432));
                 parse_sharp_v5(info);
             }
         }
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value7=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1691, 1446, "struct sNode");
-        _inf_obj_value7=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1691, 1444, "struct sNothingNode* "), "41module2.nc", 1691, 1445),info))), "41module2.nc", 1691, 1447);
+        _inf_value7=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1687, 1435, "struct sNode");
+        _inf_obj_value7=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1687, 1433, "struct sNothingNode* "), "41module2.nc", 1687, 1434),info))), "41module2.nc", 1687, 1436);
         _inf_value7->_protocol_obj=_inf_obj_value7;
         _inf_value7->finalize=(void*)sNothingNode_finalize;
         _inf_value7->clone=(void*)sNothingNode_clone;
@@ -8361,71 +8320,59 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         _inf_value7->kind=(void*)sNothingNode_kind;
         _inf_value7->left_value=(void*)sNodeBase_left_value;
         __right_value2 = (void*)0;
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value7)), "41module2.nc", 1691, 1448);
-        (reflection_condtional = come_decrement_ref_count(reflection_condtional, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1691, 1449));
-        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1691, 1450);
-        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1691, 1451):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value7)), "41module2.nc", 1687, 1437);
+        (reflection_condtional = come_decrement_ref_count(reflection_condtional, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1687, 1438));
+        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1687, 1439);
+        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1687, 1440):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1691, 1452):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1687, 1441):(void*)0);
         return __result_obj__0;
-        (reflection_condtional = come_decrement_ref_count(reflection_condtional, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1453));
+        (reflection_condtional = come_decrement_ref_count(reflection_condtional, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1442));
     }
     else if(charp_operator_equals(buf,"eval")) {
         __right_value0 = (void*)0;
-        value=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1694, 1454);
+        value=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1690, 1443);
         __right_value0 = (void*)0;
-        source2=(struct buffer* )come_increment_ref_count(charp_to_buffer(value), "41module2.nc", 1696, 1455);
-        p_120=info->p->p;
-        source_121=(struct buffer* )come_increment_ref_count(info->source, "41module2.nc", 1699, 1456);
+        source2=(struct buffer* )come_increment_ref_count(charp_to_buffer(value), "41module2.nc", 1692, 1444);
+        p_120=info->p;
+        source_121=(struct buffer* )come_increment_ref_count(info->source, "41module2.nc", 1695, 1445);
         head_122=info->head;
         end_123=info->end;
-        sname_124=(char* )come_increment_ref_count(info->sname, "41module2.nc", 1702, 1457);
+        sname_124=(char* )come_increment_ref_count(info->sname, "41module2.nc", 1698, 1446);
         sline_125=info->sline;
-        __dec_obj68=info->source,
-        info->source=(struct buffer* )come_increment_ref_count(source2, "41module2.nc", 1705, 1459);
-        come_call_finalizer(buffer_finalize, __dec_obj68,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1705, 1458);
+        __dec_obj66=info->source,
+        info->source=(struct buffer* )come_increment_ref_count(source2, "41module2.nc", 1701, 1448);
+        come_call_finalizer(buffer_finalize, __dec_obj66,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1701, 1447);
         if(info->p==((void*)0)) {
-            __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            __dec_obj69=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "41module2.nc", 1707, 1460, "struct span$1buffer$p*"), "41module2.nc", 1707, 1461),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "41module2.nc", 1707, 1463);
-            come_call_finalizer(span$1char$p$p_finalize, __dec_obj69,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1707, 1462);
+            info->p=info->source->buf;
         }
-        info->p->memory=info->source->buf;
-        info->p->len=info->source->len+2;
-        info->p->p=info->source->buf;
+        info->p=info->source->buf;
         info->head=source2->buf;
         info->end=source2->buf+source2->len;
         __right_value0 = (void*)0;
-        __dec_obj70=info->sname,
-        info->sname=(char* )come_increment_ref_count(__builtin_string("eval","41module2.nc",1715), "41module2.nc", 1715, 1465);
-        __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1715, 1464);
+        __dec_obj67=info->sname,
+        info->sname=(char* )come_increment_ref_count(__builtin_string("eval","41module2.nc",1709), "41module2.nc", 1709, 1450);
+        __dec_obj67 = come_decrement_ref_count(__dec_obj67, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1709, 1449);
         info->sline=1;
         transpile_toplevel((_Bool)0,info);
-        __dec_obj71=info->source,
-        info->source=(struct buffer* )come_increment_ref_count(source_121, "41module2.nc", 1720, 1467);
-        come_call_finalizer(buffer_finalize, __dec_obj71,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1720, 1466);
+        __dec_obj68=info->source,
+        info->source=(struct buffer* )come_increment_ref_count(source_121, "41module2.nc", 1714, 1452);
+        come_call_finalizer(buffer_finalize, __dec_obj68,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1714, 1451);
         if(info->p==((void*)0)) {
-            __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            __dec_obj72=info->p,
-            info->p=(struct span$1buffer$p*)come_increment_ref_count(span$1buffer$p_initialize((struct span$1buffer$p*)come_increment_ref_count((struct span$1buffer$p*)come_calloc(1, sizeof(struct span$1buffer$p)*(1), "41module2.nc", 1722, 1468, "struct span$1buffer$p*"), "41module2.nc", 1722, 1469),info->source->buf,info->source->len+1,(_Bool)1,(_Bool)0,(_Bool)0,neo_current_frame->stacktop), "41module2.nc", 1722, 1471);
-            come_call_finalizer(span$1char$p$p_finalize, __dec_obj72,(void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc", 1722, 1470);
+            info->p=info->source->buf;
         }
-        info->p->memory=info->source->buf;
-        info->p->len=info->source->len+2;
-        info->p->p=info->source->buf;
-        info->p->p=p_120;
+        info->p=info->source->buf;
+        info->p=p_120;
         info->head=head_122;
         info->end=end_123;
-        __dec_obj73=info->sname,
-        info->sname=(char* )come_increment_ref_count(sname_124, "41module2.nc", 1731, 1473);
-        __dec_obj73 = come_decrement_ref_count(__dec_obj73, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1731, 1472);
+        __dec_obj69=info->sname,
+        info->sname=(char* )come_increment_ref_count(sname_124, "41module2.nc", 1723, 1454);
+        __dec_obj69 = come_decrement_ref_count(__dec_obj69, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1723, 1453);
         info->sline=sline_125;
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value8=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1734, 1476, "struct sNode");
-        _inf_obj_value8=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1734, 1474, "struct sNothingNode* "), "41module2.nc", 1734, 1475),info))), "41module2.nc", 1734, 1477);
+        _inf_value8=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1726, 1457, "struct sNode");
+        _inf_obj_value8=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1726, 1455, "struct sNothingNode* "), "41module2.nc", 1726, 1456),info))), "41module2.nc", 1726, 1458);
         _inf_value8->_protocol_obj=_inf_obj_value8;
         _inf_value8->finalize=(void*)sNothingNode_finalize;
         _inf_value8->clone=(void*)sNothingNode_clone;
@@ -8437,32 +8384,32 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         _inf_value8->kind=(void*)sNothingNode_kind;
         _inf_value8->left_value=(void*)sNodeBase_left_value;
         __right_value2 = (void*)0;
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value8)), "41module2.nc", 1734, 1478);
-        (value = come_decrement_ref_count(value, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1734, 1479));
-        come_call_finalizer(buffer_finalize, source2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1734, 1480);
-        come_call_finalizer(buffer_finalize, source_121, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1734, 1481);
-        (sname_124 = come_decrement_ref_count(sname_124, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1734, 1482));
-        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1734, 1483);
-        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1734, 1484):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value8)), "41module2.nc", 1726, 1459);
+        (value = come_decrement_ref_count(value, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1726, 1460));
+        come_call_finalizer(buffer_finalize, source2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1726, 1461);
+        come_call_finalizer(buffer_finalize, source_121, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1726, 1462);
+        (sname_124 = come_decrement_ref_count(sname_124, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1726, 1463));
+        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1726, 1464);
+        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1726, 1465):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1734, 1485):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1726, 1466):(void*)0);
         return __result_obj__0;
-        (value = come_decrement_ref_count(value, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1486));
-        come_call_finalizer(buffer_finalize, source2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1819, 1487);
-        come_call_finalizer(buffer_finalize, source_121, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1819, 1488);
-        (sname_124 = come_decrement_ref_count(sname_124, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1489));
+        (value = come_decrement_ref_count(value, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1467));
+        come_call_finalizer(buffer_finalize, source2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1811, 1468);
+        come_call_finalizer(buffer_finalize, source_121, (void*)0, (void*)0, 0, 0, 0, (void*)0, "41module2.nc}", 1811, 1469);
+        (sname_124 = come_decrement_ref_count(sname_124, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1470));
     }
     else if(charp_operator_equals(buf,"var")) {
         __right_value0 = (void*)0;
-        var_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "41module2.nc", 1737, 1490);
+        var_name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "41module2.nc", 1729, 1471);
         expected_next_character(61,info);
         __right_value0 = (void*)0;
-        value_126=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1741, 1491);
-        map$2char$phchar$ph_insert(info->reflection_vars,(char* )come_increment_ref_count(var_name, "41module2.nc", 1743, 1532),(char* )come_increment_ref_count(value_126, "41module2.nc", 1743, 1533),(_Bool)0);
+        value_126=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1733, 1472);
+        map$2char$phchar$ph_insert(info->reflection_vars,(char* )come_increment_ref_count(var_name, "41module2.nc", 1735, 1513),(char* )come_increment_ref_count(value_126, "41module2.nc", 1735, 1514),(_Bool)0);
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value9=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1745, 1536, "struct sNode");
-        _inf_obj_value9=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1745, 1534, "struct sNothingNode* "), "41module2.nc", 1745, 1535),info))), "41module2.nc", 1745, 1537);
+        _inf_value9=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1737, 1517, "struct sNode");
+        _inf_obj_value9=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1737, 1515, "struct sNothingNode* "), "41module2.nc", 1737, 1516),info))), "41module2.nc", 1737, 1518);
         _inf_value9->_protocol_obj=_inf_obj_value9;
         _inf_value9->finalize=(void*)sNothingNode_finalize;
         _inf_value9->clone=(void*)sNothingNode_clone;
@@ -8474,33 +8421,33 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         _inf_value9->kind=(void*)sNothingNode_kind;
         _inf_value9->left_value=(void*)sNodeBase_left_value;
         __right_value2 = (void*)0;
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value9)), "41module2.nc", 1745, 1538);
-        (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1745, 1539));
-        (value_126 = come_decrement_ref_count(value_126, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1745, 1540));
-        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1745, 1541);
-        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1745, 1542):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value9)), "41module2.nc", 1737, 1519);
+        (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1737, 1520));
+        (value_126 = come_decrement_ref_count(value_126, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1737, 1521));
+        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1737, 1522);
+        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1737, 1523):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1745, 1543):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1737, 1524):(void*)0);
         return __result_obj__0;
-        (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1544));
-        (value_126 = come_decrement_ref_count(value_126, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1545));
+        (var_name = come_decrement_ref_count(var_name, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1525));
+        (value_126 = come_decrement_ref_count(value_126, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1526));
     }
     else if(charp_operator_equals(buf,"puts")) {
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
-        exp_130=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1753, 1546);
+        exp_130=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1745, 1527);
         puts(exp_130);
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value10=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1762, 1549, "struct sNode");
-        _inf_obj_value10=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1762, 1547, "struct sNothingNode* "), "41module2.nc", 1762, 1548),info))), "41module2.nc", 1762, 1550);
+        _inf_value10=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1754, 1530, "struct sNode");
+        _inf_obj_value10=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1754, 1528, "struct sNothingNode* "), "41module2.nc", 1754, 1529),info))), "41module2.nc", 1754, 1531);
         _inf_value10->_protocol_obj=_inf_obj_value10;
         _inf_value10->finalize=(void*)sNothingNode_finalize;
         _inf_value10->clone=(void*)sNothingNode_clone;
@@ -8512,55 +8459,55 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         _inf_value10->kind=(void*)sNothingNode_kind;
         _inf_value10->left_value=(void*)sNodeBase_left_value;
         __right_value2 = (void*)0;
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value10)), "41module2.nc", 1762, 1551);
-        (exp_130 = come_decrement_ref_count(exp_130, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1762, 1552));
-        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1762, 1553);
-        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1762, 1554):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value10)), "41module2.nc", 1754, 1532);
+        (exp_130 = come_decrement_ref_count(exp_130, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1754, 1533));
+        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1754, 1534);
+        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1754, 1535):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1762, 1555):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1754, 1536):(void*)0);
         return __result_obj__0;
-        (exp_130 = come_decrement_ref_count(exp_130, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1556));
+        (exp_130 = come_decrement_ref_count(exp_130, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1537));
     }
     else if(charp_operator_equals(buf,"macro_define")) {
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
-        exp_131=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1770, 1557);
+        exp_131=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1762, 1538);
         exp2_132=((void*)0);
-        if(*info->p->p==44) {
-            info->p->p++;
+        if(*info->p==44) {
+            info->p++;
             skip_spaces_and_lf(info);
             __right_value0 = (void*)0;
-            __dec_obj74=exp2_132,
-            exp2_132=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1776, 1559);
-            __dec_obj74 = come_decrement_ref_count(__dec_obj74, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1776, 1558);
+            __dec_obj70=exp2_132,
+            exp2_132=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1768, 1540);
+            __dec_obj70 = come_decrement_ref_count(__dec_obj70, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1768, 1539);
         }
-        if(*info->p->p==41) {
-            info->p->p++;
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
-        def=(char* )come_increment_ref_count(exp_131, "41module2.nc", 1786, 1560);
+        def=(char* )come_increment_ref_count(exp_131, "41module2.nc", 1778, 1541);
         if(exp2_132) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            __dec_obj75=def,
-            def=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value5=string_operator_add(exp_131,((char*)(__right_value4=xsprintf(" ")))))),exp2_132), "41module2.nc", 1788, 1562);
-            __dec_obj75 = come_decrement_ref_count(__dec_obj75, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1788, 1561);
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1788, 1563));
-            (__right_value4 = come_decrement_ref_count(__right_value4, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1788, 1564));
-            (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1788, 1565));
+            __dec_obj71=def,
+            def=(char* )come_increment_ref_count(string_operator_add(((char* )(__right_value5=string_operator_add(exp_131,((char*)(__right_value4=xsprintf(" ")))))),exp2_132), "41module2.nc", 1780, 1543);
+            __dec_obj71 = come_decrement_ref_count(__dec_obj71, (void*)0, (void*)0, 0,0, (void*)0, "41module2.nc", 1780, 1542);
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1780, 1544));
+            (__right_value4 = come_decrement_ref_count(__right_value4, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1780, 1545));
+            (__right_value5 = come_decrement_ref_count(__right_value5, (void*)0, (void*)0, 1, 0, (void*)0, "41module2.nc", 1780, 1546));
         }
         if(def) {
             macro_define(def);
         }
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value11=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1795, 1568, "struct sNode");
-        _inf_obj_value11=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1795, 1566, "struct sNothingNode* "), "41module2.nc", 1795, 1567),info))), "41module2.nc", 1795, 1569);
+        _inf_value11=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1787, 1549, "struct sNode");
+        _inf_obj_value11=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1787, 1547, "struct sNothingNode* "), "41module2.nc", 1787, 1548),info))), "41module2.nc", 1787, 1550);
         _inf_value11->_protocol_obj=_inf_obj_value11;
         _inf_value11->finalize=(void*)sNothingNode_finalize;
         _inf_value11->clone=(void*)sNothingNode_clone;
@@ -8572,28 +8519,28 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         _inf_value11->kind=(void*)sNothingNode_kind;
         _inf_value11->left_value=(void*)sNodeBase_left_value;
         __right_value2 = (void*)0;
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value11)), "41module2.nc", 1795, 1570);
-        (exp_131 = come_decrement_ref_count(exp_131, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1795, 1571));
-        (exp2_132 = come_decrement_ref_count(exp2_132, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1795, 1572));
-        (def = come_decrement_ref_count(def, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1795, 1573));
-        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1795, 1574);
-        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1795, 1575):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value11)), "41module2.nc", 1787, 1551);
+        (exp_131 = come_decrement_ref_count(exp_131, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1787, 1552));
+        (exp2_132 = come_decrement_ref_count(exp2_132, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1787, 1553));
+        (def = come_decrement_ref_count(def, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1787, 1554));
+        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1787, 1555);
+        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1787, 1556):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1795, 1576):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1787, 1557):(void*)0);
         return __result_obj__0;
-        (exp_131 = come_decrement_ref_count(exp_131, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1577));
-        (exp2_132 = come_decrement_ref_count(exp2_132, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1578));
-        (def = come_decrement_ref_count(def, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1579));
+        (exp_131 = come_decrement_ref_count(exp_131, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1558));
+        (exp2_132 = come_decrement_ref_count(exp2_132, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1559));
+        (def = come_decrement_ref_count(def, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1560));
     }
     else if(charp_operator_equals(buf,"macro_undef")) {
-        if(*info->p->p==40) {
-            info->p->p++;
+        if(*info->p==40) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         __right_value0 = (void*)0;
-        exp_133=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1803, 1580);
-        if(*info->p->p==41) {
-            info->p->p++;
+        exp_133=(char* )come_increment_ref_count(reflection_expression(info), "41module2.nc", 1795, 1561);
+        if(*info->p==41) {
+            info->p++;
             skip_spaces_and_lf(info);
         }
         skip_spaces_and_lf(info);
@@ -8602,8 +8549,8 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         }
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value12=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1816, 1583, "struct sNode");
-        _inf_obj_value12=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1816, 1581, "struct sNothingNode* "), "41module2.nc", 1816, 1582),info))), "41module2.nc", 1816, 1584);
+        _inf_value12=(struct sNode*)come_calloc(1, sizeof(struct sNode), "41module2.nc", 1808, 1564, "struct sNode");
+        _inf_obj_value12=(struct sNothingNode*)come_increment_ref_count(((struct sNothingNode*)(__right_value1=sNothingNode_initialize((struct sNothingNode* )come_increment_ref_count((struct sNothingNode *)come_calloc(1, sizeof(struct sNothingNode )*(1), "41module2.nc", 1808, 1562, "struct sNothingNode* "), "41module2.nc", 1808, 1563),info))), "41module2.nc", 1808, 1565);
         _inf_value12->_protocol_obj=_inf_obj_value12;
         _inf_value12->finalize=(void*)sNothingNode_finalize;
         _inf_value12->clone=(void*)sNothingNode_clone;
@@ -8615,20 +8562,20 @@ struct sNode* top_level_v91(char* buf, char* head, int head_sline, struct sInfo*
         _inf_value12->kind=(void*)sNothingNode_kind;
         _inf_value12->left_value=(void*)sNodeBase_left_value;
         __right_value2 = (void*)0;
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value12)), "41module2.nc", 1816, 1585);
-        (exp_133 = come_decrement_ref_count(exp_133, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1816, 1586));
-        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1816, 1587);
-        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1816, 1588):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value12)), "41module2.nc", 1808, 1566);
+        (exp_133 = come_decrement_ref_count(exp_133, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1808, 1567));
+        come_call_finalizer(sNothingNode_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "41module2.nc}", 1808, 1568);
+        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1808, 1569):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1816, 1589):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1808, 1570):(void*)0);
         return __result_obj__0;
-        (exp_133 = come_decrement_ref_count(exp_133, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1819, 1590));
+        (exp_133 = come_decrement_ref_count(exp_133, (void*)0, (void*)0, 0, 0, (void*)0, "41module2.nc", 1811, 1571));
     }
         __right_value0 = (void*)0;
-    __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=top_level_v1(buf,head,head_sline,info))), "41module2.nc", 1819, 1591);
-    ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1819, 1592):(void*)0);
+    __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=top_level_v1(buf,head,head_sline,info))), "41module2.nc", 1811, 1572);
+    ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "41module2.nc", 1811, 1573):(void*)0);
     neo_current_frame = fr.prev;
-    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1819, 1593):(void*)0);
+    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "41module2.nc", 1811, 1574):(void*)0);
     return __result_obj__0;
 }
 
@@ -9080,41 +9027,6 @@ static struct sUndefNode* sUndefNode_clone(struct sUndefNode* self)
     return __result_obj__0;
 }
 
-static struct span$1buffer$p* span$1buffer$p_initialize(struct span$1buffer$p* self, void* head, unsigned long  len  , _Bool local, _Bool heap, _Bool global, void* stacktop)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1buffer$p_initialize"; neo_current_frame = &fr;
-    struct span$1buffer$p* __result_obj__0;
-    if(!1) {
-        puts("invalid span");
-        stackframe2(self);
-        exit(2);
-    }
-    self->memory=(char*)head;
-    self->p=(struct buffer* )head;
-    self->len=len;
-    self->local=local;
-    self->heap=heap;
-    self->global=global;
-    self->stacktop=stacktop;
-        __result_obj__0 = (struct span$1buffer$p*)come_increment_ref_count(self, "/usr/local/include/neo-c.h", 1026, 1404);
-    come_call_finalizer(span$1buffer$p$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1026, 1405);
-    neo_current_frame = fr.prev;
-    come_call_finalizer(span$1buffer$p$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1026, 1406);
-    return __result_obj__0;
-}
-
-static void span$1buffer$p$p_finalize(struct span$1buffer$p* self)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1buffer$p$p_finalize"; neo_current_frame = &fr;
-        neo_current_frame = fr.prev;
-}
-
-static void span$1char$p$p_finalize(struct span$1char$p* self)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "span$1char$p$p_finalize"; neo_current_frame = &fr;
-                neo_current_frame = fr.prev;
-}
-
 static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$phchar$ph* self, char*  key  , char*  item  , _Bool by_pointer)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phchar$ph_insert"; neo_current_frame = &fr;
@@ -9125,8 +9037,8 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
     char*  it2  ;
     if(self==((void*)0)) {
                 __result_obj__0 = self;
-        (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3348, 1492));
-        (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3348, 1493));
+        (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3348, 1473));
+        (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3348, 1474));
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -9140,16 +9052,16 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
                 if(1) {
                     list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
-                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3364, 1523));
-                    self->keys[it]=(char* )come_increment_ref_count(key, "/usr/local/include/neo-c.h", 3365, 1524);
+                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3364, 1504));
+                    self->keys[it]=(char* )come_increment_ref_count(key, "/usr/local/include/neo-c.h", 3365, 1505);
                 }
                 else {
                     list$1char$ph_remove(self->key_list,self->keys[it],(_Bool)0);
                     self->keys[it]=key;
                 }
                 if(1) {
-                    (self->items[it] = come_decrement_ref_count(self->items[it], (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3372, 1525));
-                    self->items[it]=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 3373, 1526);
+                    (self->items[it] = come_decrement_ref_count(self->items[it], (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3372, 1506));
+                    self->items[it]=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 3373, 1507);
                 }
                 else {
                     self->items[it]=item;
@@ -9169,13 +9081,13 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
         else {
             self->item_existance[it]=(_Bool)1;
             if(1) {
-                self->keys[it]=(char* )come_increment_ref_count(key, "/usr/local/include/neo-c.h", 3395, 1527);
+                self->keys[it]=(char* )come_increment_ref_count(key, "/usr/local/include/neo-c.h", 3395, 1508);
             }
             else {
                 self->keys[it]=key;
             }
             if(1) {
-                self->items[it]=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 3401, 1528);
+                self->items[it]=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 3401, 1509);
             }
             else {
                 self->items[it]=item;
@@ -9191,11 +9103,11 @@ static struct map$2char$phchar$ph* map$2char$phchar$ph_insert(struct map$2char$p
         }
     }
     if(!same_key_exist) {
-        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key, "/usr/local/include/neo-c.h", 3421, 1529));
+        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key, "/usr/local/include/neo-c.h", 3421, 1510));
     }
         __result_obj__0 = self;
-    (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3424, 1530));
-    (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3424, 1531));
+    (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3424, 1511));
+    (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3424, 1512));
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -9216,16 +9128,16 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
     int n;
     char*  default_value_129  ;
     size=self->size*10;
-    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), "/usr/local/include/neo-c.h", 3272, 1494, "char** "))), "/usr/local/include/neo-c.h", 3272, 1495);
+    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), "/usr/local/include/neo-c.h", 3272, 1475, "char** "))), "/usr/local/include/neo-c.h", 3272, 1476);
     __right_value0 = (void*)0;
-    items=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), "/usr/local/include/neo-c.h", 3273, 1496, "char** "))), "/usr/local/include/neo-c.h", 3273, 1497);
+    items=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), "/usr/local/include/neo-c.h", 3273, 1477, "char** "))), "/usr/local/include/neo-c.h", 3273, 1478);
     __right_value0 = (void*)0;
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3274, 1498, "_Bool*"))), "/usr/local/include/neo-c.h", 3274, 1499);
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3274, 1479, "_Bool*"))), "/usr/local/include/neo-c.h", 3274, 1480);
     len=0;
     for(it=map$2char$phchar$ph_begin(self)    ;!map$2char$phchar$ph_end(self);it=map$2char$phchar$ph_next(self)){
         memset(&default_value,0,sizeof(char* ));
         __right_value0 = (void*)0;
-        it2=(char* )come_increment_ref_count(map$2char$phchar$ph_at(self,it,(char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3281, 1515),(_Bool)0), "/usr/local/include/neo-c.h", 3281, 1516);
+        it2=(char* )come_increment_ref_count(map$2char$phchar$ph_at(self,it,(char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3281, 1496),(_Bool)0), "/usr/local/include/neo-c.h", 3281, 1497);
         hash=string_get_hash_key(((char* )it))%size;
         n=hash;
         while((_Bool)1) {
@@ -9245,18 +9157,18 @@ static void map$2char$phchar$ph_rehash(struct map$2char$phchar$ph* self)
                 keys[n]=it;
                 memset(&default_value_129,0,sizeof(char* ));
                 __right_value0 = (void*)0;
-                items[n]=((char* )(__right_value0=map$2char$phchar$ph_at(self,it,(char* )come_increment_ref_count(default_value_129, "/usr/local/include/neo-c.h", 3304, 1517),(_Bool)0)));
+                items[n]=((char* )(__right_value0=map$2char$phchar$ph_at(self,it,(char* )come_increment_ref_count(default_value_129, "/usr/local/include/neo-c.h", 3304, 1498),(_Bool)0)));
                 len++;
-                (default_value_129 = come_decrement_ref_count(default_value_129, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3307, 1518));
+                (default_value_129 = come_decrement_ref_count(default_value_129, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3307, 1499));
                 break;
-                (default_value_129 = come_decrement_ref_count(default_value_129, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3309, 1519));
+                (default_value_129 = come_decrement_ref_count(default_value_129, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3309, 1500));
             }
         }
-        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3312, 1520));
-        (it2 = come_decrement_ref_count(it2, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3312, 1521));
+        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3312, 1501));
+        (it2 = come_decrement_ref_count(it2, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3312, 1502));
     }
     come_free((char*)self->items);
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3313, 1522));
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3313, 1503));
     come_free((char*)self->keys);
     self->keys=keys;
     self->items=items;
@@ -9329,10 +9241,10 @@ static char*  map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char*  ke
     unsigned int hash;
     unsigned int it;
     if(self==((void*)0)) {
-                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3141, 1500);
-        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3141, 1501));
+                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3141, 1481);
+        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3141, 1482));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3141, 1502));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3141, 1483));
         return __result_obj__0;
     }
     hash=string_get_hash_key(((char* )key))%self->size;
@@ -9340,10 +9252,10 @@ static char*  map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char*  ke
     while((_Bool)1) {
         if(self->item_existance[it]) {
             if((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key)) {
-                                __result_obj__0 = (char* )come_increment_ref_count(self->items[it], "/usr/local/include/neo-c.h", 3152, 1503);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3152, 1504));
+                                __result_obj__0 = (char* )come_increment_ref_count(self->items[it], "/usr/local/include/neo-c.h", 3152, 1484);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3152, 1485));
                 neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3152, 1505));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3152, 1486));
                 return __result_obj__0;
             }
             it++;
@@ -9351,25 +9263,25 @@ static char*  map$2char$phchar$ph_at(struct map$2char$phchar$ph* self, char*  ke
                 it=0;
             }
             else if(it==hash) {
-                                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3161, 1506);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3161, 1507));
+                                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3161, 1487);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3161, 1488));
                 neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3161, 1508));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3161, 1489));
                 return __result_obj__0;
             }
         }
         else {
-                        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3165, 1509);
-            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3165, 1510));
+                        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3165, 1490);
+            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3165, 1491));
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3165, 1511));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3165, 1492));
             return __result_obj__0;
         }
     }
-        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3169, 1512);
-    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3169, 1513));
+        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3169, 1493);
+    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3169, 1494));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3169, 1514));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3169, 1495));
     return __result_obj__0;
 }
 

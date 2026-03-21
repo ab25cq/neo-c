@@ -1161,17 +1161,6 @@ struct sRightValueObject
     _Bool mNoFree;
 };
 
-struct span$1char$p
-{
-    char* memory;
-    char* p;
-    unsigned long  len  ;
-    _Bool local;
-    _Bool heap;
-    _Bool global;
-    void* stacktop;
-};
-
 struct map$2char$phsFun$ph
 {
     char**  keys  ;
@@ -1259,7 +1248,7 @@ struct list$1CVALUE$ph
 
 struct sInfo
 {
-    struct span$1char$p* p;
+    char* p;
     char* head;
     struct buffer*  source  ;
     char* end;
@@ -2751,8 +2740,6 @@ struct sNode* create_implements(struct sNode* node, struct sType*  inf_type  , s
 static struct sImplementsNode* sImplementsNode_clone(struct sImplementsNode* self);
 struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo*  info  );
 static void tuple3$3sType$phchar$ph_Bool$$p_finalize(struct tuple3$3sType$phchar$ph_Bool$* self);
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self);
-static char span$1char$p_operator_derefference(struct span$1char$p* self);
 // uniq global variable
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
@@ -6829,7 +6816,7 @@ struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo*  info
     void* __right_value2 = (void*)0;
     struct sNode* __result_obj__0;
     if(!node->terminated(node->_protocol_obj)&&!gComeC&&parsecmp("implements",info)) {
-        info->p->p+=strlen("implements");
+        info->p+=strlen("implements");
         skip_spaces_and_lf(info);
         multiple_assign_var6=((struct tuple3$3sType$phchar$ph_Bool$*)(__right_value0=parse_type(info,(_Bool)0,(_Bool)0,(_Bool)0)));
         type3=(struct sType* )come_increment_ref_count(multiple_assign_var6->v1, "40obj2.nc", 455, 957);
@@ -6869,10 +6856,10 @@ struct sNode* post_position_operator_v21(struct sNode* node, struct sInfo*  info
         (name2 = come_decrement_ref_count(name2, (void*)0, (void*)0, 0, 0, (void*)0, "40obj2.nc", 473, 977));
         come_call_finalizer(sType_finalize, inf_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "40obj2.nc}", 473, 978);
     }
-    else if(span$1char$p_operator_derefference(info->p)==64) {
-        info->p->p++;
-        while(xisalnum(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
-            info->p->p++;
+    else if(*info->p==64) {
+        info->p++;
+        while(xisalnum(*info->p)||*info->p==95) {
+            info->p++;
         }
         skip_spaces_and_lf(info);
     }
@@ -6895,87 +6882,5 @@ static void tuple3$3sType$phchar$ph_Bool$$p_finalize(struct tuple3$3sType$phchar
         (self->v2 = come_decrement_ref_count(self->v2, (void*)0, (void*)0, 0, 0, (void*)0, "tuple3$3sType$phchar$ph_Bool$$p_finalize", 3, 960));
     }
             neo_current_frame = fr.prev;
-}
-
-static char span$1char$p$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
-}
-
-static char span$1char$p_operator_derefference(struct span$1char$p* self)
-{
-    char* p;
-    if(self==((void*)0)) {
-        puts("null pointer exception. self is null");
-        stackframe();
-        exit(2);
-    }
-    if(self->local) {
-        if(self->stacktop<neo_current_frame->stacktop) {
-            puts("refferenced stack object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    if(self->heap) {
-        if(!come_is_alive(self->memory)) {
-            puts("refferenced heap object is vanished");
-            stackframe2(self);
-            exit(127);
-        }
-    }
-    p=self->p;
-    if(sizeof(char)>self->len) {
-        puts("invalid span. len is few");
-        stackframe2(self);
-        exit(2);
-    }
-    if(self->p>=(char*)self->memory+self->len) {
-        puts("out of range of span(3)");
-        stackframe2(self);
-        exit(1);
-    }
-    if(self->p<(char*)self->memory) {
-        puts("out of range of span(4)");
-        stackframe2(self);
-        exit(1);
-    }
-        return *p;
 }
 

@@ -3,7 +3,7 @@
 sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
 {
     if(!gComeC && buf === "impl") {
-        char* source_head = info.p.p;
+        char* source_head = info.p;
         
         string word;
         if(*info.p == '_' || xisalpha(*info.p)) {
@@ -13,7 +13,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
         bool has_generics_args = false;
         if(*info.p == '<') {
             has_generics_args = true;
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             
             info.generics_type_names.reset();
@@ -23,11 +23,11 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
                 info.generics_type_names.push_back(clone generics_name);
                 
                 if(*info.p == ',') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                 }
                 else if(*info.p == '>') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces_and_lf();
                     break;
                 }
@@ -53,7 +53,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
         
         int pointer_num = 0;
         while(*info.p == '*') {
-            info->p.p++;
+            info->p++;
             skip_spaces_and_lf();
             pointer_num++;
         }
@@ -66,7 +66,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
         while(*info.p != '}') {
             skip_spaces_and_lf();
             
-            char* head = info.p.p;
+            char* head = info.p;
             
             string buf;
             if(*info.p == '_' || xisalpha(*info.p)) {
@@ -79,7 +79,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
             parse_sharp(info);
             
             while(*info.p == ';') {
-                info->p.p++;
+                info->p++;
                 skip_spaces_and_lf();
             }
             parse_sharp(info);
@@ -104,7 +104,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 93
         info.generics_type_names.reset();
         info->impl_type = null;
         
-        char* source_tail = info.p.p;
+        char* source_tail = info.p;
         
         buffer*% header = new buffer();
         header.append(source_head, source_tail - source_head);
