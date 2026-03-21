@@ -108,6 +108,16 @@ int expected_next_character(char c, sInfo* info=info)
     return 0;
 }
 
+static inline bool is_word_head_char(char c)
+{
+    return xisalpha(c) || c == '_' || c == '$';
+}
+
+static inline bool is_word_body_char(char c)
+{
+    return xisalnum(c) || c == '_' || c == '$';
+}
+
 string parse_word(bool digits=false, sInfo* info=info)
 {
     parse_sharp();
@@ -115,20 +125,11 @@ string parse_word(bool digits=false, sInfo* info=info)
     char* p = info.p;
     char* head = p;
     
-    if(digits) {
-        while((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || *p == '_' || (*p >= '0' && *p <= '9') || (*p == '$'))
-        {
+    char c = *p;
+    if(is_word_head_char(c) || (digits && xisdigit(c))) {
+        do {
             p++;
-        }
-    }
-    else {
-        if((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || *p == '_' || (*p == '$'))
-        {
-            while((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || *p == '_' || (*p >= '0' && *p <= '9') || (*p == '$'))
-            {
-                p++;
-            }
-        }
+        } while(is_word_body_char(*p));
     }
     
     info.p = p;
