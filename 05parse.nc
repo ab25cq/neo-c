@@ -177,78 +177,97 @@ string backtrace_parse_word(sInfo* info=info)
 
 static bool skip_comment(sInfo* info, bool skip_space_after)
 {
-    if(*info.p == '/' && *(info->p.p+1) == '*') {
+    char* p = info.p.p;
+    int sline = info.sline;
+    int sline_real = info.sline_real;
+    
+    if(*p == '/' && *(p+1) == '*') {
         int nest = 0;
         while(1) {
-            if(*info.p == '/' && *(info->p.p+1) == '*') {
-                info->p.p +=2;
+            if(*p == '/' && *(p+1) == '*') {
+                p += 2;
                 nest++;
             }
-            else if(*info.p == '*' && *(info->p.p+1) == '/') {
-                info->p.p +=2;
+            else if(*p == '*' && *(p+1) == '/') {
+                p += 2;
                 nest--;
                 
                 if(nest == 0) {
+                    info.p.p = p;
+                    info.sline = sline;
+                    info.sline_real = sline_real;
                     if(skip_space_after) {
                         skip_spaces_and_lf2();
                     }
                     break;
                 }
             }
-            else if(*info.p == '\n') {
-                info->p.p++;
-                info->sline++;
-                info->sline_real++;
+            else if(*p == '\n') {
+                p++;
+                sline++;
+                sline_real++;
             }
-            else if(*info.p == '\r') {
-                info->p.p++;
-                if(*info.p == '\n') {
-                    info->p.p++;
+            else if(*p == '\r') {
+                p++;
+                if(*p == '\n') {
+                    p++;
                 }
-                info->sline++;
-                info->sline_real++;
+                sline++;
+                sline_real++;
             }
-            else if(*info.p == '\0') {
+            else if(*p == '\0') {
+                info.p.p = p;
+                info.sline = sline;
+                info.sline_real = sline_real;
                 err_msg(info, "unterminated comment");
                 break;
             }
             else {
-                info->p.p++;
+                p++;
             }
         }
         
         return true;
     }
-    else if(*info.p == '/' && *(info->p.p+1) == '/') {
-        info->p.p+=2;
+    else if(*p == '/' && *(p+1) == '/') {
+        p += 2;
         
         while(1) {
-            if(*info.p == '\n') {
-                info->p.p++;
-                info->sline++;
-                info->sline_real++;
+            if(*p == '\n') {
+                p++;
+                sline++;
+                sline_real++;
+                info.p.p = p;
+                info.sline = sline;
+                info.sline_real = sline_real;
                 if(skip_space_after) {
                     skip_spaces_and_lf2();
                 }
                 break;
             }
-            else if(*info.p == '\r') {
-                info->p.p++;
-                if(*info.p == '\n') {
-                    info->p.p++;
+            else if(*p == '\r') {
+                p++;
+                if(*p == '\n') {
+                    p++;
                 }
-                info->sline++;
-                info->sline_real++;
+                sline++;
+                sline_real++;
+                info.p.p = p;
+                info.sline = sline;
+                info.sline_real = sline_real;
                 if(skip_space_after) {
                     skip_spaces_and_lf2();
                 }
                 break;
             }
-            else if(*info.p == '\0') {
+            else if(*p == '\0') {
+                info.p.p = p;
+                info.sline = sline;
+                info.sline_real = sline_real;
                 break;
             }
             else { 
-                info->p.p++;
+                p++;
             }
         }
         
@@ -260,29 +279,99 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
 
 void skip_spaces_and_lf(sInfo* info=info)
 {
+    char* p = info.p.p;
+    int sline = info.sline;
+    int sline_real = info.sline_real;
+    
     while(true) {
-        if(*info.p == ' ' || *info.p == '\t') {
-            info->p.p++;
+        if(*p == ' ' || *p == '\t') {
+            p++;
         }
-        else if(*info.p == '\r') {
-            info->p.p++;
-            if(*info.p == '\n') {
-                info->p.p++;
+        else if(*p == '\r') {
+            p++;
+            if(*p == '\n') {
+                p++;
             }
-            info->sline++;
-            info->sline_real++;
+            sline++;
+            sline_real++;
         }
-        else if(*info.p == '\n') {
-            info->p.p++;
-            info->sline++;
-            info->sline_real++;
+        else if(*p == '\n') {
+            p++;
+            sline++;
+            sline_real++;
         }
-        else if(skip_comment(info, false)) {
+        else if(*p == '/' && *(p+1) == '*') {
+            int nest = 0;
+            while(true) {
+                if(*p == '/' && *(p+1) == '*') {
+                    p += 2;
+                    nest++;
+                }
+                else if(*p == '*' && *(p+1) == '/') {
+                    p += 2;
+                    nest--;
+                    if(nest == 0) {
+                        break;
+                    }
+                }
+                else if(*p == '\n') {
+                    p++;
+                    sline++;
+                    sline_real++;
+                }
+                else if(*p == '\r') {
+                    p++;
+                    if(*p == '\n') {
+                        p++;
+                    }
+                    sline++;
+                    sline_real++;
+                }
+                else if(*p == '\0') {
+                    info.p.p = p;
+                    info.sline = sline;
+                    info.sline_real = sline_real;
+                    err_msg(info, "unterminated comment");
+                    break;
+                }
+                else {
+                    p++;
+                }
+            }
+        }
+        else if(*p == '/' && *(p+1) == '/') {
+            p += 2;
+            while(true) {
+                if(*p == '\n') {
+                    p++;
+                    sline++;
+                    sline_real++;
+                    break;
+                }
+                else if(*p == '\r') {
+                    p++;
+                    if(*p == '\n') {
+                        p++;
+                    }
+                    sline++;
+                    sline_real++;
+                    break;
+                }
+                else if(*p == '\0') {
+                    break;
+                }
+                else {
+                    p++;
+                }
+            }
         }
         else {
             break;
         }
     }
+    info.p.p = p;
+    info.sline = sline;
+    info.sline_real = sline_real;
     
     if(*info.p == '#') {
         parse_sharp();
@@ -294,44 +383,155 @@ void skip_spaces_and_lf(sInfo* info=info)
 
 void skip_spaces_and_lf2(sInfo* info=info)
 {
+    char* p = info.p.p;
+    int sline = info.sline;
+    int sline_real = info.sline_real;
+    
     while(true) {
-        if(*info.p == ' ' || *info.p == '\t') {
-            info->p.p++;
+        if(*p == ' ' || *p == '\t') {
+            p++;
         }
-        else if(*info.p == '\r') {
-            info->p.p++;
-            if(*info.p == '\n') {
-                info->p.p++;
+        else if(*p == '\r') {
+            p++;
+            if(*p == '\n') {
+                p++;
             }
-            info->sline++;
-            info->sline_real++;
+            sline++;
+            sline_real++;
         }
-        else if(*info.p == '\n') {
-            info->p.p++;
-            info->sline++;
-            info->sline_real++;
+        else if(*p == '\n') {
+            p++;
+            sline++;
+            sline_real++;
         }
-        else if(skip_comment(info, false)) {
+        else if(*p == '/' && *(p+1) == '*') {
+            int nest = 0;
+            while(true) {
+                if(*p == '/' && *(p+1) == '*') {
+                    p += 2;
+                    nest++;
+                }
+                else if(*p == '*' && *(p+1) == '/') {
+                    p += 2;
+                    nest--;
+                    if(nest == 0) {
+                        break;
+                    }
+                }
+                else if(*p == '\n') {
+                    p++;
+                    sline++;
+                    sline_real++;
+                }
+                else if(*p == '\r') {
+                    p++;
+                    if(*p == '\n') {
+                        p++;
+                    }
+                    sline++;
+                    sline_real++;
+                }
+                else if(*p == '\0') {
+                    info.p.p = p;
+                    info.sline = sline;
+                    info.sline_real = sline_real;
+                    err_msg(info, "unterminated comment");
+                    break;
+                }
+                else {
+                    p++;
+                }
+            }
+        }
+        else if(*p == '/' && *(p+1) == '/') {
+            p += 2;
+            while(true) {
+                if(*p == '\n') {
+                    p++;
+                    sline++;
+                    sline_real++;
+                    break;
+                }
+                else if(*p == '\r') {
+                    p++;
+                    if(*p == '\n') {
+                        p++;
+                    }
+                    sline++;
+                    sline_real++;
+                    break;
+                }
+                else if(*p == '\0') {
+                    break;
+                }
+                else {
+                    p++;
+                }
+            }
         }
         else {
             break;
         }
     }
+    
+    info.p.p = p;
+    info.sline = sline;
+    info.sline_real = sline_real;
 }
 
 void skip_spaces_and_tabs(sInfo* info=info)
 {
+    char* p = info.p.p;
+    int sline = info.sline;
+    int sline_real = info.sline_real;
+    
     while(true) {
-        if(*info.p == ' ' || *info.p == '\t') {
-            info->p.p++;
+        if(*p == ' ' || *p == '\t') {
+            p++;
         }
-        else if(*info.p == '/' && *(info->p.p+1) == '*') {
-            (void)skip_comment(info, false);
+        else if(*p == '/' && *(p+1) == '*') {
+            int nest = 0;
+            while(true) {
+                if(*p == '/' && *(p+1) == '*') {
+                    p += 2;
+                    nest++;
+                }
+                else if(*p == '*' && *(p+1) == '/') {
+                    p += 2;
+                    nest--;
+                    if(nest == 0) {
+                        break;
+                    }
+                }
+                else if(*p == '\n') {
+                    p++;
+                    sline++;
+                    sline_real++;
+                }
+                else if(*p == '\r') {
+                    p++;
+                    if(*p == '\n') {
+                        p++;
+                    }
+                    sline++;
+                    sline_real++;
+                }
+                else if(*p == '\0') {
+                    info.p.p = p;
+                    info.sline = sline;
+                    info.sline_real = sline_real;
+                    err_msg(info, "unterminated comment");
+                    break;
+                }
+                else {
+                    p++;
+                }
+            }
         }
-        else if(*info.p == '/' && *(info->p.p+1) == '/') {
-            info->p.p += 2;
-            while(*info.p && *info.p != '\n' && *info.p != '\r') {
-                info->p.p++;
+        else if(*p == '/' && *(p+1) == '/') {
+            p += 2;
+            while(*p && *p != '\n' && *p != '\r') {
+                p++;
             }
             break;
         }
@@ -339,6 +539,10 @@ void skip_spaces_and_tabs(sInfo* info=info)
             break;
         }
     }
+    
+    info.p.p = p;
+    info.sline = sline;
+    info.sline_real = sline_real;
 }
 
 static bool is_number_token(char* token)
@@ -540,34 +744,38 @@ void parse_sharp(sInfo* info=info) version 5
             skip_spaces_and_tabs();
             
             if(parsecmp("pragma")) {
-                buffer*% buf = new buffer();
-                buf.append_str("#");
-                while(*info.p) {
-                    if(*info.p == '\n') {
-                        buf.append_char(*info.p);
-                        skip_spaces_and_lf2();
-                        break;
-                    }
-                    else if(*info.p == '\0') {
-                        break;
-                    }
-                    else {
-                        buf.append_char(*info.p);
-                        info->p.p++;
-                    }
+                char* head = info.p.p;
+                while(*info.p && *info.p != '\n') {
+                    info->p.p++;
+                }
+                int len = info.p.p - head;
+                char*% mem = new char[len+2];
+                mem[0] = '#';
+                memcpy(mem+1, head, len);
+                
+                if(*info.p == '\n') {
+                    mem[len+1] = '\n';
+                    mem[len+2-1] = '\0';
+                    info->p.p++;
+                    info->sline++;
+                    info->sline_real++;
+                }
+                else {
+                    mem[len+1] = '\0';
                 }
                 
-                string pragma_line = buf.to_string();
+                string pragma_line = mem;
                 if(pragma_line.index("pack(", -1) != -1) {
                     apply_pack_pragma_state(pragma_line, info);
                 }
+                skip_spaces_and_lf2();
             }
             else if(parsecmp("line")) {
                 info->p.p += strlen("line");
                 skip_spaces_and_tabs();
                 
                 int line = 0;
-                buffer*% fname = new buffer();
+                string fname_str = null;
     
                 if(!xisdigit(*info.p)) {
                     err_msg(info, "invalid #line directive");
@@ -582,15 +790,20 @@ void parse_sharp(sInfo* info=info) version 5
     
                 if(*info.p == '"') {
                     info->p.p++;
+                    char* head = info.p.p;
     
                     while(*info.p && *info.p != '"') {
-                        fname.append_char(*info.p);
                         info->p.p++;
                     }
                     if(*info.p == '\0') {
                         err_msg(info, "unterminated #line file name");
                         return;
                     }
+                    int len = info.p.p - head;
+                    char*% mem = new char[len+1];
+                    memcpy(mem, head, len);
+                    mem[len] = '\0';
+                    fname_str = mem;
                     info->p.p++;
     
                     while(*info.p && *info.p != '\n') {
@@ -611,8 +824,7 @@ void parse_sharp(sInfo* info=info) version 5
                     info->sline_real = line;
                 }
                 
-                string fname_str = fname.to_string();
-                if(fname_str.length() > 0) {
+                if(fname_str && fname_str.length() > 0) {
                     info->sname = fname_str;
                 }
     
@@ -620,7 +832,7 @@ void parse_sharp(sInfo* info=info) version 5
             }
             else if(xisdigit(*info.p)) {
                 int line = 0;
-                buffer*% fname = new buffer();
+                string fname_str = null;
     
                 while(xisdigit(*info.p)) {
                     line = line * 10 + (*info.p - '0');
@@ -630,15 +842,20 @@ void parse_sharp(sInfo* info=info) version 5
     
                 if(*info.p == '"') {
                     info->p.p++;
+                    char* head = info.p.p;
     
                     while(*info.p && *info.p != '"') {
-                        fname.append_char(*info.p);
                         info->p.p++;
                     }
                     if(*info.p == '\0') {
                         err_msg(info, "unterminated #line file name");
                         return;
                     }
+                    int len = info.p.p - head;
+                    char*% mem = new char[len+1];
+                    memcpy(mem, head, len);
+                    mem[len] = '\0';
+                    fname_str = mem;
                     info->p.p++;
     
                     while(*info.p && *info.p != '\n') {
@@ -660,8 +877,7 @@ void parse_sharp(sInfo* info=info) version 5
                     info->sline_real = line;
 //                }
                 
-                string fname_str = fname.to_string();
-                if(fname_str.length() > 0) {
+                if(fname_str && fname_str.length() > 0) {
                     info->sname = fname_str;
                 }
     
