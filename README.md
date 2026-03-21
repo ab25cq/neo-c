@@ -83,7 +83,7 @@ cd neo-c
 sh clean-self-host.sh
 ```
 
-`clean-self-host.sh` and `fast_build.sh` use parallel build by default.
+`clean-self-host.sh`, `self-host.sh`, and `fast_build.sh` use parallel build by default.
 
 If you don't have enough memory, you can use below to install neo-c.
 
@@ -95,7 +95,7 @@ sh fast_build.sh -lowmem
 
 If you pass `-lowmem`, the build scripts enable low-memory mode and disable parallel build.
 
-`clean-self-host.sh` と `fast_build.sh` はデフォルトで並列ビルドします。
+`clean-self-host.sh` と `self-host.sh` と `fast_build.sh` はデフォルトで並列ビルドします。
 
 `-lowmem` を付けると low-memory mode を有効にし、並列ビルドを無効にします。
 
@@ -109,6 +109,7 @@ You can also enable it for project builds:
 
 ```
 LOWMEM=1 make -j1 self-host
+sh self-host.sh -lowmem
 sh fast_build.sh -lowmem
 sh clean-self-host.sh -lowmem
 ```

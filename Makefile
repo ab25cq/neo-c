@@ -15,6 +15,7 @@ LIBS= -lutil -ldl -lm -lrt
 UNAME_S=$(shell uname -s)
 NCC_FLAGS=
 LOWMEM?=0
+.PHONY: all self-host install clean distclean uninstall test
 ifeq ($(LOWMEM),1)
 NCC_FLAGS+=-lowmem
 endif
@@ -32,9 +33,11 @@ all: ncc
 #########################################
 # make c source
 #########################################
-self-host: 01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o neo-c-str.o
+SELF_HOST_C_SOURCES=01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31type2.c 32function2.c 33output_code2.c 34heap2.c 35call2.c 36str2.c 37var2.c 38struct2.c 39method2.c 40obj2.c 41module2.c 42op2.c 43function3.c 44function4.c 45function5.c 46function6.c 47function7.c 48function8.c 49call3.c 50call4.c 51str3.c 52obj3.c 53obj4.c neo-c-str.c
 
-neo-c-str.o: neo-c-str.nc
+self-host: $(SELF_HOST_C_SOURCES)
+
+neo-c-str.c: neo-c-str.nc
 	./ncc $(NCC_FLAGS) -c -uniq neo-c-str.nc
 
 01main.c: 01main.nc
