@@ -2,16 +2,15 @@
 
 bool parsecmp(const char* p2, sInfo* info=info)
 {
-    bool terminated = false;
-    char* p3  = info->p.p;
-    for(int i=0; i<strlen(p2); i++) {
-        if(*p3 == '\0') {
+    int len = strlen(p2);
+    char* p = info.p.p;
+    for(int i=0; i<len; i++) {
+        if(p[i] == '\0' || p[i] != p2[i]) {
             return false;
         }
-        p3++;
     }
-    unsigned char c = *(info->p.p+strlen(p2));
-    return memcmp(info->p.p, p2, strlen(p2)) == 0 && (xispunct(c) || c == ' ' || c == '\t' || c == '\n' || c == '\0' || c == '\r') && c != '_';
+    unsigned char c = p[len];
+    return (xispunct(c) || c == ' ' || c == '\t' || c == '\n' || c == '\0' || c == '\r') && c != '_';
 }
 
 int err_msg(sInfo* info, const char* msg, ...)
@@ -141,9 +140,11 @@ string parse_word(bool digits=false, sInfo* info=info)
         exit(1);
     }
     
-    buffer*% buf = new buffer();
-    buf.append(head, p - head);
-    string result = buf.to_string();
+    int len = p - head;
+    char*% mem = new char[len+1];
+    memcpy(mem, head, len);
+    mem[len] = '\0';
+    string result = mem;
     
     if(info->module_params) {
         string module_param = info->module_params[result];
