@@ -5314,7 +5314,7 @@ _Bool sListNode_compile(struct sListNode* self, struct sInfo*  info  )
     list_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "36str2.nc", 398, 646, "struct sType* "), "36str2.nc", 398, 647),(char*)come_increment_ref_count(xsprintf("list"), "36str2.nc", 398, 648),(_Bool)0,info,(_Bool)0,0), "36str2.nc", 398, 649);
     __right_value0 = (void*)0;
     list$1sType$ph_push_back(list_type->mGenericsTypes,(struct sType* )come_increment_ref_count((((struct sType* )(__right_value0=sType_clone(list_element_type)))), "36str2.nc", 399, 664));
-    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 399, 665);
+    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 399, 665);
     __right_value0 = (void*)0;
     obj_type=(struct sType* )come_increment_ref_count(sType_clone(list_type), "36str2.nc", 401, 666);
     const char* fun_name="initialize_with_values";
@@ -6123,7 +6123,7 @@ _Bool sVectorNode_compile(struct sVectorNode* self, struct sInfo*  info  )
     list_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "36str2.nc", 603, 833, "struct sType* "), "36str2.nc", 603, 834),(char*)come_increment_ref_count(xsprintf("vector"), "36str2.nc", 603, 835),(_Bool)0,info,(_Bool)0,0), "36str2.nc", 603, 836);
     __right_value0 = (void*)0;
     list$1sType$ph_push_back(list_type->mGenericsTypes,(struct sType* )come_increment_ref_count((((struct sType* )(__right_value0=sType_clone(list_element_type)))), "36str2.nc", 604, 837));
-    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 604, 838);
+    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 604, 838);
     __right_value0 = (void*)0;
     obj_type=(struct sType* )come_increment_ref_count(sType_clone(list_type), "36str2.nc", 606, 839);
     const char* fun_name="initialize_with_values";
@@ -6460,7 +6460,7 @@ _Bool sTupleNode_compile(struct sTupleNode* self, struct sInfo*  info  )
     for(_o2_saved_11=(struct list$1sType$ph*)come_increment_ref_count(tuple_types, "36str2.nc", 771, 1001),it_34=list$1sType$ph_begin(_o2_saved_11)    ;!list$1sType$ph_end(_o2_saved_11);it_34=list$1sType$ph_next(_o2_saved_11)){
         __right_value0 = (void*)0;
         list$1sType$ph_push_back(type_32->mGenericsTypes,(struct sType* )come_increment_ref_count((((struct sType* )(__right_value0=sType_clone(it_34)))), "36str2.nc", 772, 1002));
-        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 772, 1003);
+        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 772, 1003);
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
@@ -7112,10 +7112,10 @@ _Bool sMapNode_compile(struct sMapNode* self, struct sInfo*  info  )
     map_type=(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "36str2.nc", 1003, 1186, "struct sType* "), "36str2.nc", 1003, 1187),(char*)come_increment_ref_count(xsprintf("map"), "36str2.nc", 1003, 1188),(_Bool)0,info,(_Bool)0,0), "36str2.nc", 1003, 1189);
     __right_value0 = (void*)0;
     list$1sType$ph_push_back(map_type->mGenericsTypes,(struct sType* )come_increment_ref_count((((struct sType* )(__right_value0=sType_clone(map_key_type)))), "36str2.nc", 1004, 1190));
-    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 1004, 1191);
+    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 1004, 1191);
     __right_value0 = (void*)0;
     list$1sType$ph_push_back(map_type->mGenericsTypes,(struct sType* )come_increment_ref_count((((struct sType* )(__right_value0=sType_clone(map_element_type)))), "36str2.nc", 1005, 1192));
-    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 1005, 1193);
+    come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 1005, 1193);
     __right_value0 = (void*)0;
     obj_type=(struct sType* )come_increment_ref_count(sType_clone(map_type), "36str2.nc", 1007, 1194);
     const char* fun_name="initialize_with_values";

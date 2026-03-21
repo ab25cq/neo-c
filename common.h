@@ -669,7 +669,7 @@ uniq class sNodeBase
     }
     
     string sname(sInfo* info=info) {
-        return string(self.sname);
+        return self.sname;
     }
     
     sNode* left_value() {
@@ -691,7 +691,7 @@ uniq class sCurrentNode extends sNodeBase
     
     string sname(sInfo* info)
     {
-        return string(self.sname);
+        return self.sname;
     }
     
     string kind()

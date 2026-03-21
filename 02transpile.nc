@@ -116,11 +116,11 @@ static void write_source_file_position_to_source(sInfo* info=info)
 
 bool node_compile(sNode* node, sInfo* info=info)
 {
-    string sname = string(info->sname);
+    string sname = info->sname;
     int sline = info->sline;
     int sline_real = info->sline_real;
     
-    info->sname = string(node->sname());
+    info->sname = node->sname();
     info->sline = node->sline();
     info->sline_real = node->sline_real();
     
@@ -128,7 +128,7 @@ bool node_compile(sNode* node, sInfo* info=info)
 
     bool result = node->compile(info);
 
-    info->sname = string(sname);
+    info->sname = sname;
     info->sline = sline;
     info->sline_real = sline_real;
     

@@ -5069,7 +5069,7 @@ _conditional_value_X0;})) {
         finalizer->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count((__list_values1__[0]=(((struct sType* )(__right_value0=sType_clone(voidp)))),
 list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "28interface.nc", 99, 557, "struct list$1sType$ph"), "28interface.nc", 99, 558),1,__list_values1__)), "28interface.nc", 99, 560);
         come_call_finalizer(list$1sType$ph_finalize, __dec_obj59,(void*)0, (void*)0, 0, 0, 0, (void*)0, "28interface.nc", 99, 559);
-        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 99, 561);
+        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 99, 561);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -5099,7 +5099,7 @@ list$1char$ph_initialize_with_values((struct list$1char$ph*)come_increment_ref_c
         cloner->mParamTypes=(struct list$1sType$ph*)come_increment_ref_count((__list_values3__[0]=(((struct sType* )(__right_value0=sType_clone(voidp)))),
 list$1sType$ph_initialize_with_values((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "28interface.nc", 108, 584, "struct list$1sType$ph"), "28interface.nc", 108, 585),1,__list_values3__)), "28interface.nc", 108, 587);
         come_call_finalizer(list$1sType$ph_finalize, __dec_obj62,(void*)0, (void*)0, 0, 0, 0, (void*)0, "28interface.nc", 108, 586);
-        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "}", 108, 588);
+        come_call_finalizer(sType_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "28interface.nc}", 108, 588);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;

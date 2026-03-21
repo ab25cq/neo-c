@@ -2897,64 +2897,58 @@ static char span$1char$p_operator_derefference(struct span$1char$p* self)
 char*  parse_word(_Bool digits, struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parse_word"; neo_current_frame = &fr;
+    char* p;
+    char* head;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
-    _Bool _conditional_value_X0;
     char*  result  ;
-    void* __right_value2 = (void*)0;
-    void* __right_value3 = (void*)0;
+    char*  module_param  ;
     char*  __result_obj__0  ;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 114, 17, "struct buffer* "), "05parse.nc", 114, 18)), "05parse.nc", 114, 19);
     parse_sharp_v5(info);
+    p=info->p->p;
+    head=p;
     if(digits) {
-        while((span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=122)||(span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=90)||span$1char$p_operator_derefference(info->p)==95||(span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57)||(span$1char$p_operator_derefference(info->p)==36)) {
-            buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-            info->p->p++;
+        while((*p>=97&&*p<=122)||(*p>=65&&*p<=90)||*p==95||(*p>=48&&*p<=57)||(*p==36)) {
+            p++;
         }
     }
     else {
-        if((span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=122)||(span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=90)||span$1char$p_operator_derefference(info->p)==95||(span$1char$p_operator_derefference(info->p)==36)) {
-            while((span$1char$p_operator_derefference(info->p)>=97&&span$1char$p_operator_derefference(info->p)<=122)||(span$1char$p_operator_derefference(info->p)>=65&&span$1char$p_operator_derefference(info->p)<=90)||span$1char$p_operator_derefference(info->p)==95||(span$1char$p_operator_derefference(info->p)>=48&&span$1char$p_operator_derefference(info->p)<=57)||(span$1char$p_operator_derefference(info->p)==36)) {
-                buffer_append_char(buf,span$1char$p_operator_derefference(info->p));
-                info->p->p++;
+        if((*p>=97&&*p<=122)||(*p>=65&&*p<=90)||*p==95||(*p==36)) {
+            while((*p>=97&&*p<=122)||(*p>=65&&*p<=90)||*p==95||(*p>=48&&*p<=57)||(*p==36)) {
+                p++;
             }
         }
     }
+    info->p->p=p;
     skip_spaces_and_lf(info);
-    if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(string_length(((char* )(__right_value0=buffer_to_string(buf))))==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 136, 20));
-_conditional_value_X0;})) {
+    if(head==p) {
         err_msg(info,"unexpected character(%c), expected word character, caller %s %d",span$1char$p_operator_derefference(info->p),info->caller_sname,info->caller_line);
         exit(1);
     }
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 144, 17, "struct buffer* "), "05parse.nc", 144, 18)), "05parse.nc", 144, 19);
+    buffer_append(buf,head,p-head);
     __right_value0 = (void*)0;
-    result=(char* )come_increment_ref_count(buffer_to_string(buf), "05parse.nc", 142, 21);
+    result=(char* )come_increment_ref_count(buffer_to_string(buf), "05parse.nc", 146, 20);
     if(info->module_params) {
-        if(__right_value0 = (void*)0,
-__right_value1 = (void*)0,
-({(_conditional_value_X0=(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char* )(__right_value1=__builtin_string(result,"05parse.nc",145))))))));        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 145, 52));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 145, 53));
-_conditional_value_X0;})) {
-                        __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            __right_value2 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value3=__builtin_string(((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(info->module_params,((char* )(__right_value1=__builtin_string(result,"05parse.nc",146)))))),"05parse.nc",146))), "05parse.nc", 146, 54);
-            come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 146, 55);
-            (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 146, 56));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 146, 57));
-            (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 146, 58));
-            (__right_value3 = come_decrement_ref_count(__right_value3, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 146, 59));
+        __right_value0 = (void*)0;
+        module_param=(char* )come_increment_ref_count(map$2char$phchar$ph_operator_load_element(info->module_params,result), "05parse.nc", 149, 51);
+        if(module_param) {
+                        __result_obj__0 = (char* )come_increment_ref_count(module_param, "05parse.nc", 151, 52);
+            (module_param = come_decrement_ref_count(module_param, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 151, 53));
+            come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 151, 54);
+            (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 151, 55));
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 146, 60));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 151, 56));
             return __result_obj__0;
         }
+        (module_param = come_decrement_ref_count(module_param, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 155, 57));
     }
-        __result_obj__0 = (char* )come_increment_ref_count(result, "05parse.nc", 150, 61);
-    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 150, 62);
-    (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 150, 63));
+        __result_obj__0 = (char* )come_increment_ref_count(result, "05parse.nc", 155, 58);
+    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 155, 59);
+    (result = come_decrement_ref_count(result, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 155, 60));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 150, 64));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 155, 61));
     return __result_obj__0;
 }
 
@@ -2967,10 +2961,10 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
     unsigned int it;
     memset(&default_value,0,sizeof(char* ));
     if(self==((void*)0)) {
-                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3515, 22);
-        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3515, 23));
+                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3515, 21);
+        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3515, 22));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3515, 24));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3515, 23));
         return __result_obj__0;
     }
     hash=string_get_hash_key(((char* )key))%self->size;
@@ -2978,10 +2972,10 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
     while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
-                                __result_obj__0 = (char* )come_increment_ref_count(self->items[it], "/usr/local/include/neo-c.h", 3526, 25);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3526, 26));
+                                __result_obj__0 = (char* )come_increment_ref_count(self->items[it], "/usr/local/include/neo-c.h", 3526, 24);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3526, 25));
                 neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3526, 27));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3526, 26));
                 return __result_obj__0;
             }
             it++;
@@ -2989,25 +2983,25 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
                 it=0;
             }
             else if(it==hash) {
-                                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3535, 28);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3535, 29));
+                                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3535, 27);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3535, 28));
                 neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3535, 30));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3535, 29));
                 return __result_obj__0;
             }
         }
         else {
-                        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3539, 31);
-            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3539, 32));
+                        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3539, 30);
+            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3539, 31));
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3539, 33));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3539, 32));
             return __result_obj__0;
         }
     }
-        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3543, 34);
-    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3543, 35));
+        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3543, 33);
+    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3543, 34));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3543, 36));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3543, 35));
     return __result_obj__0;
 }
 
@@ -3020,10 +3014,10 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
     unsigned int it;
     memset(&default_value,0,sizeof(char* ));
     if(self==((void*)0)) {
-                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3515, 37);
-        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3515, 38));
+                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3515, 36);
+        (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3515, 37));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3515, 39));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3515, 38));
         return __result_obj__0;
     }
     hash=string_get_hash_key(((char* )key))%self->size;
@@ -3031,10 +3025,10 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
     while((_Bool)1) {
         if(self->item_existance[it]) {
             if(string_equals(self->keys[it],key)) {
-                                __result_obj__0 = (char* )come_increment_ref_count(self->items[it], "/usr/local/include/neo-c.h", 3526, 40);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3526, 41));
+                                __result_obj__0 = (char* )come_increment_ref_count(self->items[it], "/usr/local/include/neo-c.h", 3526, 39);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3526, 40));
                 neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3526, 42));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3526, 41));
                 return __result_obj__0;
             }
             it++;
@@ -3042,25 +3036,25 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
                 it=0;
             }
             else if(it==hash) {
-                                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3535, 43);
-                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3535, 44));
+                                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3535, 42);
+                (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3535, 43));
                 neo_current_frame = fr.prev;
-                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3535, 45));
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3535, 44));
                 return __result_obj__0;
             }
         }
         else {
-                        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3539, 46);
-            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3539, 47));
+                        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3539, 45);
+            (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3539, 46));
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3539, 48));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3539, 47));
             return __result_obj__0;
         }
     }
-        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3543, 49);
-    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3543, 50));
+        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3543, 48);
+    (default_value = come_decrement_ref_count(default_value, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3543, 49));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3543, 51));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 3543, 50));
     return __result_obj__0;
 }
 
@@ -3079,21 +3073,21 @@ char*  backtrace_parse_word(struct sInfo*  info  )
     sline=info->sline;
     if(xisalpha(span$1char$p_operator_derefference(info->p))||span$1char$p_operator_derefference(info->p)==95) {
         __dec_obj1=buf,
-        buf=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "05parse.nc", 160, 66);
-        __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 160, 65);
+        buf=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "05parse.nc", 165, 63);
+        __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 165, 62);
     }
     else {
         __right_value0 = (void*)0;
         __dec_obj2=buf,
-        buf=(char* )come_increment_ref_count(__builtin_string("","05parse.nc",163), "05parse.nc", 163, 68);
-        __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 163, 67);
+        buf=(char* )come_increment_ref_count(__builtin_string("","05parse.nc",168), "05parse.nc", 168, 65);
+        __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 168, 64);
     }
     info->p->p=p;
     info->sline=sline;
-        __result_obj__0 = (char* )come_increment_ref_count(buf, "05parse.nc", 169, 69);
-    (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 169, 70));
+        __result_obj__0 = (char* )come_increment_ref_count(buf, "05parse.nc", 174, 66);
+    (buf = come_decrement_ref_count(buf, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 174, 67));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 169, 71));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 174, 68));
     return __result_obj__0;
 }
 
@@ -3295,12 +3289,12 @@ static char*  pack_stack_make_entry(char*  id  , char*  pragma  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "pack_stack_make_entry"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%s\t%s",id,pragma))), "05parse.nc", 355, 72);
-    (id = come_decrement_ref_count(id, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 355, 73));
-    (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 355, 74));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 355, 75));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%s\t%s",id,pragma))), "05parse.nc", 360, 69);
+    (id = come_decrement_ref_count(id, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 360, 70));
+    (pragma = come_decrement_ref_count(pragma, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 360, 71));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 360, 72));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 355, 76));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 360, 73));
     return __result_obj__0;
 }
 
@@ -3313,30 +3307,30 @@ static char*  pack_stack_entry_id(char* entry)
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     if(entry==((void*)0)) {
-                __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "05parse.nc", 361, 77);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 361, 78));
+                __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "05parse.nc", 366, 74);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 366, 75));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 361, 79));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 366, 76));
         return __result_obj__0;
     }
     p=strchr(entry,9);
     if(p==((void*)0)) {
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "05parse.nc", 366, 80);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 366, 81));
+        __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "05parse.nc", 371, 77);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 371, 78));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 366, 82));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 371, 79));
         return __result_obj__0;
     }
     __right_value0 = (void*)0;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 369, 83, "struct buffer* "), "05parse.nc", 369, 84)), "05parse.nc", 369, 85);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 374, 80, "struct buffer* "), "05parse.nc", 374, 81)), "05parse.nc", 374, 82);
     buffer_append(buf,entry,p-entry);
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))), "05parse.nc", 371, 86);
-    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 371, 87);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 371, 88));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))), "05parse.nc", 376, 83);
+    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 376, 84);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 376, 85));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 371, 89));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 376, 86));
     return __result_obj__0;
 }
 
@@ -3347,26 +3341,26 @@ static char*  pack_stack_entry_pragma(char* entry)
     char*  __result_obj__0  ;
     char* p;
     if(entry==((void*)0)) {
-                __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "05parse.nc", 377, 90);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 377, 91));
+                __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "05parse.nc", 382, 87);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 382, 88));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 377, 92));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 382, 89));
         return __result_obj__0;
     }
     p=strchr(entry,9);
     if(p==((void*)0)) {
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "05parse.nc", 382, 93);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 382, 94));
+        __result_obj__0 = (char* )come_increment_ref_count(((char*)(__right_value0=xsprintf(""))), "05parse.nc", 387, 90);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 387, 91));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 382, 95));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 387, 92));
         return __result_obj__0;
     }
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%s",p+1))), "05parse.nc", 385, 96);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 385, 97));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%s",p+1))), "05parse.nc", 390, 93);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 390, 94));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 385, 98));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "05parse.nc", 390, 95));
     return __result_obj__0;
 }
 
@@ -3415,18 +3409,18 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
     char*  __dec_obj18  ;
     if(info->pragma_pack_stack==((void*)0)) {
         __dec_obj3=info->pragma_pack_stack,
-        info->pragma_pack_stack=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "05parse.nc", 391, 99, "struct list$1char$ph*"), "05parse.nc", 391, 105)), "05parse.nc", 391, 108);
-        come_call_finalizer(list$1char$ph_finalize, __dec_obj3,(void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc", 391, 107);
+        info->pragma_pack_stack=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "05parse.nc", 396, 96, "struct list$1char$ph*"), "05parse.nc", 396, 102)), "05parse.nc", 396, 105);
+        come_call_finalizer(list$1char$ph_finalize, __dec_obj3,(void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc", 396, 104);
     }
     if(info->pragma==((void*)0)) {
         __right_value0 = (void*)0;
         __dec_obj4=info->pragma,
-        info->pragma=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 394, 110);
-        __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 394, 109);
+        info->pragma=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 399, 107);
+        __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 399, 106);
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    compact_buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 397, 111, "struct buffer* "), "05parse.nc", 397, 112)), "05parse.nc", 397, 113);
+    compact_buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 402, 108, "struct buffer* "), "05parse.nc", 402, 109)), "05parse.nc", 402, 110);
     p=pragma_line;
     while(*p) {
         if(*p!=32&&*p!=9&&*p!=10&&*p!=13) {
@@ -3435,7 +3429,7 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
         p++;
     }
     __right_value0 = (void*)0;
-    compact=(char* )come_increment_ref_count(buffer_to_string(compact_buf), "05parse.nc", 406, 114);
+    compact=(char* )come_increment_ref_count(buffer_to_string(compact_buf), "05parse.nc", 411, 111);
     lparen_pos=-1;
     rparen_pos=-1;
     for(i=0    ;i<string_length(compact);i++){
@@ -3448,39 +3442,39 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
         }
     }
     if(lparen_pos==-1||rparen_pos==-1) {
-                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 420, 115));
-        come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 420, 116);
-        (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 420, 117));
+                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 425, 112));
+        come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 425, 113);
+        (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 425, 114));
         neo_current_frame = fr.prev;
         return;
     }
     if(rparen_pos==lparen_pos+1) {
         __right_value0 = (void*)0;
         __dec_obj5=info->pragma,
-        info->pragma=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 427, 119);
-        __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 427, 118);
-                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 428, 120));
-        come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 428, 121);
-        (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 428, 122));
+        info->pragma=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 432, 116);
+        __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 432, 115);
+                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 433, 117));
+        come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 433, 118);
+        (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 433, 119));
         neo_current_frame = fr.prev;
         return;
     }
     if(rparen_pos<lparen_pos+1) {
-                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 432, 123));
-        come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 432, 124);
-        (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 432, 125));
+                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 437, 120));
+        come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 437, 121);
+        (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 437, 122));
         neo_current_frame = fr.prev;
         return;
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    tokens=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "05parse.nc", 435, 126, "struct list$1char$ph*"), "05parse.nc", 435, 127)), "05parse.nc", 435, 128);
+    tokens=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "05parse.nc", 440, 123, "struct list$1char$ph*"), "05parse.nc", 440, 124)), "05parse.nc", 440, 125);
     {
         i_0=lparen_pos+1;
         while(i_0<rparen_pos) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            tok=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 439, 129, "struct buffer* "), "05parse.nc", 439, 130)), "05parse.nc", 439, 131);
+            tok=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 444, 126, "struct buffer* "), "05parse.nc", 444, 127)), "05parse.nc", 444, 128);
             while(i_0<rparen_pos) {
                 d_1=compact[i_0];
                 if(d_1==44) {
@@ -3490,87 +3484,87 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
                 i_0++;
             }
             __right_value0 = (void*)0;
-            list$1char$ph_push_back(tokens,(char* )come_increment_ref_count(buffer_to_string(tok), "05parse.nc", 448, 146));
+            list$1char$ph_push_back(tokens,(char* )come_increment_ref_count(buffer_to_string(tok), "05parse.nc", 453, 143));
             if(i_0<rparen_pos&&compact[i_0]==44) {
                 i_0++;
             }
-            come_call_finalizer(buffer_finalize, tok, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 453, 147);
+            come_call_finalizer(buffer_finalize, tok, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 458, 144);
         }
     }
     if(list$1char$ph_length(tokens)==0) {
-                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 455, 148));
-        come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 455, 149);
-        (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 455, 150));
-        come_call_finalizer(list$1char$ph$p_finalize, tokens, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 455, 151);
+                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 460, 145));
+        come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 460, 146);
+        (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 460, 147));
+        come_call_finalizer(list$1char$ph$p_finalize, tokens, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 460, 148);
         neo_current_frame = fr.prev;
         return;
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    op=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,0,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 458, 158, "char* "), "05parse.nc", 458, 159);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 458, 160));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 458, 161));
+    op=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,0,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 463, 155, "char* "), "05parse.nc", 463, 156);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 463, 157));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 463, 158));
     if(string_operator_equals(op,"push")) {
         __right_value0 = (void*)0;
-        push_id=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 461, 162);
+        push_id=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 466, 159);
         __right_value0 = (void*)0;
-        push_num=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 462, 163);
+        push_num=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 467, 160);
         for(i_4=1        ;i_4<list$1char$ph_length(tokens);i_4++){
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            tok2=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,i_4,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 465, 164, "char* "), "05parse.nc", 465, 165);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 465, 166));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 465, 167));
+            tok2=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,i_4,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 470, 161, "char* "), "05parse.nc", 470, 162);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 470, 163));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 470, 164));
             if(is_number_token(tok2)) {
                 __right_value0 = (void*)0;
                 __dec_obj9=push_num,
-                push_num=(char* )come_increment_ref_count((char* )come_memdup(tok2, "05parse.nc", 467, 168, "char* "), "05parse.nc", 467, 170);
-                __dec_obj9 = come_decrement_ref_count(__dec_obj9, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 467, 169);
+                push_num=(char* )come_increment_ref_count((char* )come_memdup(tok2, "05parse.nc", 472, 165, "char* "), "05parse.nc", 472, 167);
+                __dec_obj9 = come_decrement_ref_count(__dec_obj9, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 472, 166);
             }
             else if(string_operator_equals(push_id,"")) {
                 __right_value0 = (void*)0;
                 __dec_obj10=push_id,
-                push_id=(char* )come_increment_ref_count((char* )come_memdup(tok2, "05parse.nc", 470, 171, "char* "), "05parse.nc", 470, 173);
-                __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 470, 172);
+                push_id=(char* )come_increment_ref_count((char* )come_memdup(tok2, "05parse.nc", 475, 168, "char* "), "05parse.nc", 475, 170);
+                __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 475, 169);
             }
-            (tok2 = come_decrement_ref_count(tok2, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 474, 174));
+            (tok2 = come_decrement_ref_count(tok2, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 479, 171));
         }
         __right_value0 = (void*)0;
-        list$1char$ph_push_back(info->pragma_pack_stack,(char* )come_increment_ref_count(pack_stack_make_entry((char* )come_increment_ref_count(push_id, "05parse.nc", 474, 175),(char* )come_increment_ref_count(info->pragma, "05parse.nc", 474, 176)), "05parse.nc", 474, 177));
+        list$1char$ph_push_back(info->pragma_pack_stack,(char* )come_increment_ref_count(pack_stack_make_entry((char* )come_increment_ref_count(push_id, "05parse.nc", 479, 172),(char* )come_increment_ref_count(info->pragma, "05parse.nc", 479, 173)), "05parse.nc", 479, 174));
         if(string_operator_not_equals(push_num,"")) {
             __dec_obj11=info->pragma,
-            info->pragma=(char* )come_increment_ref_count(pragma_line, "05parse.nc", 477, 179);
-            __dec_obj11 = come_decrement_ref_count(__dec_obj11, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 477, 178);
+            info->pragma=(char* )come_increment_ref_count(pragma_line, "05parse.nc", 482, 176);
+            __dec_obj11 = come_decrement_ref_count(__dec_obj11, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 482, 175);
         }
-        (push_id = come_decrement_ref_count(push_id, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 526, 180));
-        (push_num = come_decrement_ref_count(push_num, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 526, 181));
+        (push_id = come_decrement_ref_count(push_id, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 531, 177));
+        (push_num = come_decrement_ref_count(push_num, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 531, 178));
     }
     else if(string_operator_equals(op,"pop")) {
         __right_value0 = (void*)0;
-        pop_id=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 481, 182);
+        pop_id=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 486, 179);
         __right_value0 = (void*)0;
-        pop_num=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 482, 183);
+        pop_num=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 487, 180);
         for(i_5=1        ;i_5<list$1char$ph_length(tokens);i_5++){
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            tok2_6=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,i_5,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 485, 184, "char* "), "05parse.nc", 485, 185);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 485, 186));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 485, 187));
+            tok2_6=(char* )come_increment_ref_count((char* )come_memdup(((char* )(__right_value1=list$1char$ph_item(tokens,i_5,((char*)(__right_value0=xsprintf("")))))), "05parse.nc", 490, 181, "char* "), "05parse.nc", 490, 182);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 490, 183));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 490, 184));
             if(is_number_token(tok2_6)) {
                 __right_value0 = (void*)0;
                 __dec_obj12=pop_num,
-                pop_num=(char* )come_increment_ref_count((char* )come_memdup(tok2_6, "05parse.nc", 487, 188, "char* "), "05parse.nc", 487, 190);
-                __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 487, 189);
+                pop_num=(char* )come_increment_ref_count((char* )come_memdup(tok2_6, "05parse.nc", 492, 185, "char* "), "05parse.nc", 492, 187);
+                __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 492, 186);
             }
             else if(string_operator_equals(pop_id,"")) {
                 __right_value0 = (void*)0;
                 __dec_obj13=pop_id,
-                pop_id=(char* )come_increment_ref_count((char* )come_memdup(tok2_6, "05parse.nc", 490, 191, "char* "), "05parse.nc", 490, 193);
-                __dec_obj13 = come_decrement_ref_count(__dec_obj13, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 490, 192);
+                pop_id=(char* )come_increment_ref_count((char* )come_memdup(tok2_6, "05parse.nc", 495, 188, "char* "), "05parse.nc", 495, 190);
+                __dec_obj13 = come_decrement_ref_count(__dec_obj13, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 495, 189);
             }
-            (tok2_6 = come_decrement_ref_count(tok2_6, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 494, 194));
+            (tok2_6 = come_decrement_ref_count(tok2_6, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 499, 191));
         }
         if(string_operator_not_equals(pop_id,"")) {
             found=-1;
@@ -3578,23 +3572,23 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
-                stack_id=(char* )come_increment_ref_count(pack_stack_entry_id(((char* )(__right_value1=list$1char$ph_item(info->pragma_pack_stack,i_7,((char*)(__right_value0=xsprintf(""))))))), "05parse.nc", 497, 195);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 497, 196));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 497, 197));
+                stack_id=(char* )come_increment_ref_count(pack_stack_entry_id(((char* )(__right_value1=list$1char$ph_item(info->pragma_pack_stack,i_7,((char*)(__right_value0=xsprintf(""))))))), "05parse.nc", 502, 192);
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 502, 193));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 502, 194));
                 if(string_operator_equals(stack_id,pop_id)) {
                     found=i_7;
                 }
-                (stack_id = come_decrement_ref_count(stack_id, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 502, 198));
+                (stack_id = come_decrement_ref_count(stack_id, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 507, 195));
             }
             if(found>=0) {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __dec_obj14=info->pragma,
-                info->pragma=(char* )come_increment_ref_count(pack_stack_entry_pragma(((char* )(__right_value1=list$1char$ph_item(info->pragma_pack_stack,found,((char*)(__right_value0=xsprintf(""))))))), "05parse.nc", 503, 200);
-                __dec_obj14 = come_decrement_ref_count(__dec_obj14, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 503, 199);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 503, 201));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 503, 202));
+                info->pragma=(char* )come_increment_ref_count(pack_stack_entry_pragma(((char* )(__right_value1=list$1char$ph_item(info->pragma_pack_stack,found,((char*)(__right_value0=xsprintf(""))))))), "05parse.nc", 508, 197);
+                __dec_obj14 = come_decrement_ref_count(__dec_obj14, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 508, 196);
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 508, 198));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 508, 199));
                 list$1char$ph_delete(info->pragma_pack_stack,found,list$1char$ph_length(info->pragma_pack_stack));
             }
         }
@@ -3605,39 +3599,39 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
                 __right_value1 = (void*)0;
                 __right_value2 = (void*)0;
                 __dec_obj15=info->pragma,
-                info->pragma=(char* )come_increment_ref_count(pack_stack_entry_pragma(((char* )(__right_value1=list$1char$ph_item(info->pragma_pack_stack,len-1,((char*)(__right_value0=xsprintf(""))))))), "05parse.nc", 510, 208);
-                __dec_obj15 = come_decrement_ref_count(__dec_obj15, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 510, 207);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 510, 209));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 510, 210));
+                info->pragma=(char* )come_increment_ref_count(pack_stack_entry_pragma(((char* )(__right_value1=list$1char$ph_item(info->pragma_pack_stack,len-1,((char*)(__right_value0=xsprintf(""))))))), "05parse.nc", 515, 205);
+                __dec_obj15 = come_decrement_ref_count(__dec_obj15, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 515, 204);
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 515, 206));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "05parse.nc", 515, 207));
                 list$1char$ph_delete(info->pragma_pack_stack,len-1,len);
             }
             else {
                 __right_value0 = (void*)0;
                 __dec_obj16=info->pragma,
-                info->pragma=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 514, 212);
-                __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 514, 211);
+                info->pragma=(char*)come_increment_ref_count(xsprintf(""), "05parse.nc", 519, 209);
+                __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 519, 208);
             }
         }
         if(string_operator_not_equals(pop_num,"")) {
             __right_value0 = (void*)0;
             __dec_obj17=info->pragma,
-            info->pragma=(char* )come_increment_ref_count(xsprintf("#pragma pack(push, %s)\n",pop_num), "05parse.nc", 519, 214);
-            __dec_obj17 = come_decrement_ref_count(__dec_obj17, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 519, 213);
+            info->pragma=(char* )come_increment_ref_count(xsprintf("#pragma pack(push, %s)\n",pop_num), "05parse.nc", 524, 211);
+            __dec_obj17 = come_decrement_ref_count(__dec_obj17, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 524, 210);
         }
-        (pop_id = come_decrement_ref_count(pop_id, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 526, 215));
-        (pop_num = come_decrement_ref_count(pop_num, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 526, 216));
+        (pop_id = come_decrement_ref_count(pop_id, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 531, 212));
+        (pop_num = come_decrement_ref_count(pop_num, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 531, 213));
     }
     else if(list$1char$ph_length(tokens)==1&&is_number_token(op)) {
         __right_value0 = (void*)0;
         __dec_obj18=info->pragma,
-        info->pragma=(char* )come_increment_ref_count(xsprintf("#pragma pack(push, %s)\n",op), "05parse.nc", 524, 218);
-        __dec_obj18 = come_decrement_ref_count(__dec_obj18, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 524, 217);
+        info->pragma=(char* )come_increment_ref_count(xsprintf("#pragma pack(push, %s)\n",op), "05parse.nc", 529, 215);
+        __dec_obj18 = come_decrement_ref_count(__dec_obj18, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 529, 214);
     }
-    (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 528, 219));
-    come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 528, 220);
-    (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 528, 221));
-    come_call_finalizer(list$1char$ph$p_finalize, tokens, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 528, 222);
-    (op = come_decrement_ref_count(op, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 528, 223));
+    (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 533, 216));
+    come_call_finalizer(buffer_finalize, compact_buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 533, 217);
+    (compact = come_decrement_ref_count(compact, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 533, 218));
+    come_call_finalizer(list$1char$ph$p_finalize, tokens, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 533, 219);
+    (op = come_decrement_ref_count(op, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 533, 220));
     neo_current_frame = fr.prev;
 }
 
@@ -3648,10 +3642,10 @@ static struct list$1char$ph* list$1char$ph_initialize(struct list$1char$ph* self
     self->head=((void*)0);
     self->tail=((void*)0);
     self->len=0;
-        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(self, "/usr/local/include/neo-c.h", 1485, 100);
-    come_call_finalizer(list$1char$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1485, 103);
+        __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(self, "/usr/local/include/neo-c.h", 1485, 97);
+    come_call_finalizer(list$1char$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1485, 100);
     neo_current_frame = fr.prev;
-    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1485, 104);
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1485, 101);
     return __result_obj__0;
 }
 
@@ -3668,7 +3662,7 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 102);
+        come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 99);
     }
         neo_current_frame = fr.prev;
 }
@@ -3677,7 +3671,7 @@ static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$ph$p_finalize"; neo_current_frame = &fr;
     if(self!=((void*)0)&&self->item!=((void*)0)) {
-        (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0, "list_item$1char$ph$p_finalize", 2, 101));
+        (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0, "list_item$1char$ph$p_finalize", 2, 98));
     }
             neo_current_frame = fr.prev;
 }
@@ -3695,7 +3689,7 @@ static void list$1char$ph_finalize(struct list$1char$ph* self)
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 106);
+        come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 103);
     }
             neo_current_frame = fr.prev;
 }
@@ -3713,45 +3707,45 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
     char*  __dec_obj8  ;
     if(self==((void*)0)) {
                 __result_obj__0 = self;
-        (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 1615, 132));
+        (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 1615, 129));
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
     if(self->len==0) {
-        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1619, 133, "struct list_item$1char$ph*"))), "/usr/local/include/neo-c.h", 1619, 134);
+        litem=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1619, 130, "struct list_item$1char$ph*"))), "/usr/local/include/neo-c.h", 1619, 131);
         litem->prev=((void*)0);
         litem->next=((void*)0);
         __dec_obj6=litem->item,
-        litem->item=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 1623, 136);
-        __dec_obj6 = come_decrement_ref_count(__dec_obj6, (void*)0, (void*)0, 0,0, (void*)0, "/usr/local/include/neo-c.h", 1623, 135);
+        litem->item=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 1623, 133);
+        __dec_obj6 = come_decrement_ref_count(__dec_obj6, (void*)0, (void*)0, 0,0, (void*)0, "/usr/local/include/neo-c.h", 1623, 132);
         self->tail=litem;
         self->head=litem;
     }
     else if(self->len==1) {
         __right_value0 = (void*)0;
-        litem_2=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1629, 137, "struct list_item$1char$ph*"))), "/usr/local/include/neo-c.h", 1629, 138);
+        litem_2=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1629, 134, "struct list_item$1char$ph*"))), "/usr/local/include/neo-c.h", 1629, 135);
         litem_2->prev=self->head;
         litem_2->next=((void*)0);
         __dec_obj7=litem_2->item,
-        litem_2->item=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 1633, 140);
-        __dec_obj7 = come_decrement_ref_count(__dec_obj7, (void*)0, (void*)0, 0,0, (void*)0, "/usr/local/include/neo-c.h", 1633, 139);
+        litem_2->item=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 1633, 137);
+        __dec_obj7 = come_decrement_ref_count(__dec_obj7, (void*)0, (void*)0, 0,0, (void*)0, "/usr/local/include/neo-c.h", 1633, 136);
         self->tail=litem_2;
         self->head->next=litem_2;
     }
     else {
         __right_value0 = (void*)0;
-        litem_3=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1639, 141, "struct list_item$1char$ph*"))), "/usr/local/include/neo-c.h", 1639, 142);
+        litem_3=(struct list_item$1char$ph*)come_increment_ref_count(((struct list_item$1char$ph*)(__right_value0=(struct list_item$1char$ph*)come_calloc(1, sizeof(struct list_item$1char$ph)*(1), "/usr/local/include/neo-c.h", 1639, 138, "struct list_item$1char$ph*"))), "/usr/local/include/neo-c.h", 1639, 139);
         litem_3->prev=self->tail;
         litem_3->next=((void*)0);
         __dec_obj8=litem_3->item,
-        litem_3->item=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 1643, 144);
-        __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0, "/usr/local/include/neo-c.h", 1643, 143);
+        litem_3->item=(char* )come_increment_ref_count(item, "/usr/local/include/neo-c.h", 1643, 141);
+        __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0, "/usr/local/include/neo-c.h", 1643, 140);
         self->tail->next=litem_3;
         self->tail=litem_3;
     }
     self->len++;
         __result_obj__0 = self;
-    (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 1651, 145));
+    (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 1651, 142));
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -3775,9 +3769,9 @@ static char*  list$1char$ph_item(struct list$1char$ph* self, int position, char*
     struct list_item$1char$ph* it;
     int i;
     if(self==((void*)0)) {
-                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1747, 152);
+                __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1747, 149);
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1747, 153));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1747, 150));
         return __result_obj__0;
     }
     if(position<0) {
@@ -3787,17 +3781,17 @@ static char*  list$1char$ph_item(struct list$1char$ph* self, int position, char*
     i=0;
     while(it!=((void*)0)) {
         if(position==i) {
-                        __result_obj__0 = (char* )come_increment_ref_count(it->item, "/usr/local/include/neo-c.h", 1758, 154);
+                        __result_obj__0 = (char* )come_increment_ref_count(it->item, "/usr/local/include/neo-c.h", 1758, 151);
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1758, 155));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1758, 152));
             return __result_obj__0;
         }
         it=it->next;
         i++;
     }
-        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1764, 156);
+        __result_obj__0 = (char* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1764, 153);
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1764, 157));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1764, 154));
     return __result_obj__0;
 }
 
@@ -3860,7 +3854,7 @@ static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, in
                 prev_it=it;
                 it=it->next;
                 i++;
-                come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1934, 204);
+                come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1934, 201);
                 self->len--;
             }
             else if(i==tail) {
@@ -3886,7 +3880,7 @@ static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, in
                 prev_it_10=it_8;
                 it_8=it_8->next;
                 i_9++;
-                come_call_finalizer(list_item$1char$ph$p_finalize, prev_it_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1964, 205);
+                come_call_finalizer(list_item$1char$ph$p_finalize, prev_it_10, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1964, 202);
                 self->len--;
             }
             else {
@@ -3911,7 +3905,7 @@ static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, in
                 prev_it_13=it_11;
                 it_11=it_11->next;
                 i_12++;
-                come_call_finalizer(list_item$1char$ph$p_finalize, prev_it_13, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1997, 206);
+                come_call_finalizer(list_item$1char$ph$p_finalize, prev_it_13, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1997, 203);
                 self->len--;
             }
             else {
@@ -3946,7 +3940,7 @@ static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self)
     while(it!=((void*)0)) {
         prev_it=it;
         it=it->next;
-        come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1856, 203);
+        come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1856, 200);
     }
     self->head=((void*)0);
     self->tail=((void*)0);
@@ -3976,7 +3970,7 @@ void parse_sharp_v5(struct sInfo*  info  )
             info->p->p++;
             skip_spaces_and_tabs(info);
             if(parsecmp("pragma",info)) {
-                buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 537, 224, "struct buffer* "), "05parse.nc", 537, 225)), "05parse.nc", 537, 226);
+                buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 542, 221, "struct buffer* "), "05parse.nc", 542, 222)), "05parse.nc", 542, 223);
                 buffer_append_str(buf,"#");
                 while(span$1char$p_operator_derefference(info->p)) {
                     if(span$1char$p_operator_derefference(info->p)==10) {
@@ -3993,12 +3987,12 @@ void parse_sharp_v5(struct sInfo*  info  )
                     }
                 }
                 __right_value0 = (void*)0;
-                pragma_line=(char* )come_increment_ref_count(buffer_to_string(buf), "05parse.nc", 554, 227);
+                pragma_line=(char* )come_increment_ref_count(buffer_to_string(buf), "05parse.nc", 559, 224);
                 if(string_index(pragma_line,"pack(",-1)!=-1) {
-                    apply_pack_pragma_state((char* )come_increment_ref_count(pragma_line, "05parse.nc", 556, 228),info);
+                    apply_pack_pragma_state((char* )come_increment_ref_count(pragma_line, "05parse.nc", 561, 225),info);
                 }
-                come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 685, 229);
-                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 685, 230));
+                come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 690, 226);
+                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 690, 227));
             }
             else if(parsecmp("line",info)) {
                 info->p->p+=strlen("line");
@@ -4006,10 +4000,10 @@ void parse_sharp_v5(struct sInfo*  info  )
                 line=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 564, 231, "struct buffer* "), "05parse.nc", 564, 232)), "05parse.nc", 564, 233);
+                fname=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 569, 228, "struct buffer* "), "05parse.nc", 569, 229)), "05parse.nc", 569, 230);
                 if(!xisdigit(span$1char$p_operator_derefference(info->p))) {
                     err_msg(info,"invalid #line directive");
-                                        come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 568, 234);
+                                        come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 573, 231);
                     neo_current_frame = fr.prev;
                     return;
                 }
@@ -4026,7 +4020,7 @@ void parse_sharp_v5(struct sInfo*  info  )
                     }
                     if(span$1char$p_operator_derefference(info->p)==0) {
                         err_msg(info,"unterminated #line file name");
-                                                come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 586, 235);
+                                                come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 591, 232);
                         neo_current_frame = fr.prev;
                         return;
                     }
@@ -4048,21 +4042,21 @@ void parse_sharp_v5(struct sInfo*  info  )
                     info->sline_real=line;
                 }
                 __right_value0 = (void*)0;
-                fname_str=(char* )come_increment_ref_count(buffer_to_string(fname), "05parse.nc", 608, 236);
+                fname_str=(char* )come_increment_ref_count(buffer_to_string(fname), "05parse.nc", 613, 233);
                 if(string_length(fname_str)>0) {
                     __dec_obj19=info->sname,
-                    info->sname=(char* )come_increment_ref_count(fname_str, "05parse.nc", 610, 238);
-                    __dec_obj19 = come_decrement_ref_count(__dec_obj19, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 610, 237);
+                    info->sname=(char* )come_increment_ref_count(fname_str, "05parse.nc", 615, 235);
+                    __dec_obj19 = come_decrement_ref_count(__dec_obj19, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 615, 234);
                 }
                 skip_spaces_and_tabs(info);
-                come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 685, 239);
-                (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 685, 240));
+                come_call_finalizer(buffer_finalize, fname, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 690, 236);
+                (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 690, 237));
             }
             else if(xisdigit(span$1char$p_operator_derefference(info->p))) {
                 line_14=0;
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                fname_15=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 617, 241, "struct buffer* "), "05parse.nc", 617, 242)), "05parse.nc", 617, 243);
+                fname_15=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "05parse.nc", 622, 238, "struct buffer* "), "05parse.nc", 622, 239)), "05parse.nc", 622, 240);
                 while(xisdigit(span$1char$p_operator_derefference(info->p))) {
                     line_14=line_14*10+(span$1char$p_operator_derefference(info->p)-48);
                     info->p->p++;
@@ -4076,7 +4070,7 @@ void parse_sharp_v5(struct sInfo*  info  )
                     }
                     if(span$1char$p_operator_derefference(info->p)==0) {
                         err_msg(info,"unterminated #line file name");
-                                                come_call_finalizer(buffer_finalize, fname_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 634, 244);
+                                                come_call_finalizer(buffer_finalize, fname_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 639, 241);
                         neo_current_frame = fr.prev;
                         return;
                     }
@@ -4092,15 +4086,15 @@ void parse_sharp_v5(struct sInfo*  info  )
                 info->sline=line_14;
                 info->sline_real=line_14;
                 __right_value0 = (void*)0;
-                fname_str_16=(char* )come_increment_ref_count(buffer_to_string(fname_15), "05parse.nc", 657, 245);
+                fname_str_16=(char* )come_increment_ref_count(buffer_to_string(fname_15), "05parse.nc", 662, 242);
                 if(string_length(fname_str_16)>0) {
                     __dec_obj20=info->sname,
-                    info->sname=(char* )come_increment_ref_count(fname_str_16, "05parse.nc", 659, 247);
-                    __dec_obj20 = come_decrement_ref_count(__dec_obj20, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 659, 246);
+                    info->sname=(char* )come_increment_ref_count(fname_str_16, "05parse.nc", 664, 244);
+                    __dec_obj20 = come_decrement_ref_count(__dec_obj20, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 664, 243);
                 }
                 skip_spaces_and_tabs(info);
-                come_call_finalizer(buffer_finalize, fname_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 685, 248);
-                (fname_str_16 = come_decrement_ref_count(fname_str_16, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 685, 249));
+                come_call_finalizer(buffer_finalize, fname_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "05parse.nc}", 690, 245);
+                (fname_str_16 = come_decrement_ref_count(fname_str_16, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 690, 246));
             }
             else if(span$1char$p_operator_derefference(info->p)==34) {
                 info->p->p++;

@@ -111,39 +111,44 @@ int expected_next_character(char c, sInfo* info=info)
 
 string parse_word(bool digits=false, sInfo* info=info)
 {
-    var buf = new buffer();
     parse_sharp();
     
+    char* p = info.p.p;
+    char* head = p;
+    
     if(digits) {
-        while((*info.p >= 'a' && *info.p <= 'z') || (*info.p >= 'A' && *info.p <= 'Z') || *info.p == '_' || (*info.p >= '0' && *info.p <= '9') || (*info.p == '$'))
+        while((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || *p == '_' || (*p >= '0' && *p <= '9') || (*p == '$'))
         {
-            buf.append_char(*info.p);
-            info->p.p++;
+            p++;
         }
     }
     else {
-        if((*info.p >= 'a' && *info.p <= 'z') || (*info.p >= 'A' && *info.p <= 'Z') || *info.p == '_' || (*info.p == '$'))
+        if((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || *p == '_' || (*p == '$'))
         {
-            while((*info.p >= 'a' && *info.p <= 'z') || (*info.p >= 'A' && *info.p <= 'Z') || *info.p == '_' || (*info.p >= '0' && *info.p <= '9') || (*info.p == '$'))
+            while((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || *p == '_' || (*p >= '0' && *p <= '9') || (*p == '$'))
             {
-                buf.append_char(*info.p);
-                info->p.p++;
+                p++;
             }
         }
     }
+    
+    info.p.p = p;
     skip_spaces_and_lf();
     
-    if(buf.to_string().length() == 0) {
+    if(head == p) {
         err_msg(info, "unexpected character(%c), expected word character, caller %s %d", *info.p, info->caller_sname, info->caller_line);
         //stackframe();
         exit(1);
     }
     
+    buffer*% buf = new buffer();
+    buf.append(head, p - head);
     string result = buf.to_string();
     
     if(info->module_params) {
-        if(info->module_params[string(result)]) {
-            return string(info->module_params[string(result)]);
+        string module_param = info->module_params[result];
+        if(module_param) {
+            return module_param;
         }
     }
     

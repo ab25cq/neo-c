@@ -680,6 +680,9 @@ void add_come_code(sInfo* info, const char* msg, ...)
     va_start(args, msg);
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
+    if(len < 0) {
+        return;
+    }
     
     if(info->if_expression_buffer) {
         if(!info.in_conditional) {
@@ -689,7 +692,7 @@ void add_come_code(sInfo* info, const char* msg, ...)
             }
         }
         
-        info->if_expression_buffer.append_str(xsprintf("%s", msg2));
+        info->if_expression_buffer.append(msg2, len);
     }
     else if(info->loop_expression_buffer) {
         if(!info.in_conditional) {
@@ -699,14 +702,14 @@ void add_come_code(sInfo* info, const char* msg, ...)
             }
         }
         
-        info->loop_expression_buffer.append_str(xsprintf("%s", msg2));
+        info->loop_expression_buffer.append(msg2, len);
     }
     else if(info->paren_block_buffer) {
-        info->paren_block_buffer.append_str(xsprintf("%s", msg2));
+        info->paren_block_buffer.append(msg2, len);
     }
     else if(info->defer_block) {
         if(info->come_fun) {
-            info->come_fun.mSourceEnd.append_str(xsprintf("%s", msg2));
+            info->come_fun.mSourceEnd.append(msg2, len);
         }
     }
     else if(info->come_fun) {
@@ -717,10 +720,10 @@ void add_come_code(sInfo* info, const char* msg, ...)
             }
         }
         
-        info.come_fun.mSource.append_str(xsprintf("%s", msg2));
+        info.come_fun.mSource.append(msg2, len);
     }
     else {
-        info.module.mSourceHead.append_str(xsprintf("%s", msg2));
+        info.module.mSourceHead.append(msg2, len);
     }
     
     free(msg2);
@@ -737,13 +740,16 @@ void add_come_code_no_indent(sInfo* info, const char* msg, ...)
     va_start(args, msg);
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
+    if(len < 0) {
+        return;
+    }
     
     if(info->if_expression_buffer) {
         if(!info.in_conditional) {
             info.if_expression_buffer.append_str("    ");
         }
         
-        info->if_expression_buffer.append_str(xsprintf("%s", msg2));
+        info->if_expression_buffer.append(msg2, len);
     }
     else if(info->loop_expression_buffer) {
         if(!info.in_conditional) {
@@ -753,14 +759,14 @@ void add_come_code_no_indent(sInfo* info, const char* msg, ...)
             }
         }
         
-        info->loop_expression_buffer.append_str(xsprintf("%s", msg2));
+        info->loop_expression_buffer.append(msg2, len);
     }
     else if(info->paren_block_buffer) {
-        info->paren_block_buffer.append_str(xsprintf("%s", msg2));
+        info->paren_block_buffer.append(msg2, len);
     }
     else if(info->defer_block) {
         if(info->come_fun) {
-            info->come_fun.mSourceEnd.append_str(xsprintf("%s", msg2));
+            info->come_fun.mSourceEnd.append(msg2, len);
         }
     }
     else if(info->come_fun) {
@@ -768,10 +774,10 @@ void add_come_code_no_indent(sInfo* info, const char* msg, ...)
             info.come_fun.mSource.append_str("    ");
         }
         
-        info.come_fun.mSource.append_str(xsprintf("%s", msg2));
+        info.come_fun.mSource.append(msg2, len);
     }
     else {
-        info.module.mSourceHead.append_str(xsprintf("%s", msg2));
+        info.module.mSourceHead.append(msg2, len);
     }
     
     free(msg2);
