@@ -20,10 +20,17 @@ typedef struct {
     bool self_ref;
 } Macro;
 
+typedef struct MacroHashNode {
+    size_t macro_index;
+    struct MacroHashNode *next;
+} MacroHashNode;
+
 typedef struct {
     Macro *items;
     size_t len;
     size_t cap;
+    MacroHashNode **buckets;
+    size_t nbuckets;
 } MacroTable;
 
 typedef struct {
@@ -74,6 +81,139 @@ static void mtable_init(MacroTable *t) {
     t->items = NULL;
     t->len = 0;
     t->cap = 0;
+    t->buckets = NULL;
+    t->nbuckets = 0;
+}
+
+static size_t macro_hash_name(const char *name) {
+    size_t hash = 1469598103934665603ull;
+    const unsigned char *p = (const unsigned char *)name;
+    while (*p) {
+        hash ^= (size_t)*p++;
+        hash *= 1099511628211ull;
+    }
+    return hash;
+}
+
+static size_t mtable_bucket_index(const MacroTable *t, const char *name) {
+    return t->nbuckets ? (macro_hash_name(name) % t->nbuckets) : 0;
+}
+
+static void mtable_rehash(MacroTable *t, size_t nbuckets) {
+    MacroHashNode **new_buckets = (MacroHashNode **)calloc(nbuckets, sizeof(MacroHashNode *));
+    if (!new_buckets) die("calloc");
+
+    if (t->buckets) {
+        for (size_t i = 0; i < t->nbuckets; ++i) {
+            MacroHashNode *node = t->buckets[i];
+            while (node) {
+                MacroHashNode *next = node->next;
+                size_t bucket = macro_hash_name(t->items[node->macro_index].name) % nbuckets;
+                node->next = new_buckets[bucket];
+                new_buckets[bucket] = node;
+                node = next;
+            }
+        }
+        free(t->buckets);
+    }
+
+    t->buckets = new_buckets;
+    t->nbuckets = nbuckets;
+}
+
+static void mtable_maybe_grow_buckets(MacroTable *t, size_t next_len) {
+    size_t target = t->nbuckets;
+    if (target == 0) {
+        target = 64;
+    }
+    while (next_len * 4 >= target * 3) {
+        target *= 2;
+    }
+    if (target != t->nbuckets) {
+        mtable_rehash(t, target);
+    }
+}
+
+static MacroHashNode **mtable_find_slot(MacroTable *t, const char *name) {
+    if (!t->buckets || t->nbuckets == 0) {
+        return NULL;
+    }
+
+    MacroHashNode **slot = &t->buckets[mtable_bucket_index(t, name)];
+    while (*slot) {
+        if (strcmp(t->items[(*slot)->macro_index].name, name) == 0) {
+            return slot;
+        }
+        slot = &(*slot)->next;
+    }
+    return NULL;
+}
+
+static void mtable_index_insert(MacroTable *t, size_t macro_index) {
+    mtable_maybe_grow_buckets(t, t->len);
+
+    size_t bucket = mtable_bucket_index(t, t->items[macro_index].name);
+    MacroHashNode *node = (MacroHashNode *)malloc(sizeof(MacroHashNode));
+    if (!node) die("malloc");
+    node->macro_index = macro_index;
+    node->next = t->buckets[bucket];
+    t->buckets[bucket] = node;
+}
+
+static void mtable_index_remove(MacroTable *t, const char *name) {
+    MacroHashNode **slot = mtable_find_slot(t, name);
+    if (!slot) {
+        return;
+    }
+
+    MacroHashNode *node = *slot;
+    *slot = node->next;
+    free(node);
+}
+
+static void mtable_index_update(MacroTable *t, const char *name, size_t macro_index) {
+    MacroHashNode **slot = mtable_find_slot(t, name);
+    if (slot) {
+        (*slot)->macro_index = macro_index;
+    }
+}
+
+static size_t mtable_find_index(const MacroTable *t, const char *name) {
+    if (!t->buckets || t->nbuckets == 0) {
+        return (size_t)-1;
+    }
+
+    MacroHashNode *node = t->buckets[mtable_bucket_index(t, name)];
+    while (node) {
+        if (strcmp(t->items[node->macro_index].name, name) == 0) {
+            return node->macro_index;
+        }
+        node = node->next;
+    }
+    return (size_t)-1;
+}
+
+static Macro *mtable_append(MacroTable *t, const char *name) {
+    if (t->len == t->cap) {
+        size_t ncap = t->cap ? t->cap * 2 : 8;
+        Macro *nitems = (Macro *)xrealloc(t->items, ncap * sizeof(Macro));
+        t->items = nitems;
+        t->cap = ncap;
+    }
+
+    size_t index = t->len++;
+    Macro *m = &t->items[index];
+    m->name = xstrdup(name);
+    m->value = NULL;
+    m->is_func = false;
+    m->params = NULL;
+    m->nparams = 0;
+    m->var_param = NULL;
+    m->is_variadic = false;
+    m->self_ref = false;
+
+    mtable_index_insert(t, index);
+    return m;
 }
 
 static void mtable_free(MacroTable *t) {
@@ -88,29 +228,46 @@ static void mtable_free(MacroTable *t) {
         free(t->items[i].var_param);
     }
     free(t->items);
+    if (t->buckets) {
+        for (size_t i = 0; i < t->nbuckets; ++i) {
+            MacroHashNode *node = t->buckets[i];
+            while (node) {
+                MacroHashNode *next = node->next;
+                free(node);
+                node = next;
+            }
+        }
+    }
+    free(t->buckets);
 }
 
 static void mtable_unset(MacroTable *t, const char *name) {
-    for (size_t i=0; i<t->len; ++i) {
-        if (strcmp(t->items[i].name, name)==0) {
-            free(t->items[i].name);
-            free(t->items[i].value);
-            if (t->items[i].params) {
-                for (size_t j=0; j<t->items[i].nparams; ++j) free(t->items[i].params[j]);
-                free(t->items[i].params);
-            }
-            free(t->items[i].var_param);
-            // move last into i
-            t->items[i] = t->items[t->len-1];
-            t->len--;
-            return;
-        }
+    size_t index = mtable_find_index(t, name);
+    if (index == (size_t)-1) {
+        return;
     }
+
+    mtable_index_remove(t, name);
+
+    free(t->items[index].name);
+    free(t->items[index].value);
+    if (t->items[index].params) {
+        for (size_t j = 0; j < t->items[index].nparams; ++j) free(t->items[index].params[j]);
+        free(t->items[index].params);
+    }
+    free(t->items[index].var_param);
+
+    size_t last = t->len - 1;
+    if (index != last) {
+        t->items[index] = t->items[last];
+        mtable_index_update(t, t->items[index].name, index);
+    }
+    t->len--;
 }
 
 static Macro *mtable_find(MacroTable *t, const char *name) {
-    for (size_t i=0;i<t->len;++i) if (strcmp(t->items[i].name, name)==0) return &t->items[i];
-    return NULL;
+    size_t index = mtable_find_index(t, name);
+    return index == (size_t)-1 ? NULL : &t->items[index];
 }
 
 static bool macro_value_contains_ident(const char *val, const char *name) {
@@ -164,28 +321,17 @@ static void mtable_set_obj(MacroTable *t, const char *name, const char *value) {
         m->self_ref = macro_value_contains_ident(m->value, name);
         return;
     }
-    if (t->len == t->cap) {
-        size_t ncap = t->cap ? t->cap * 2 : 8;
-        Macro *nitems = (Macro *)xrealloc(t->items, ncap * sizeof(Macro));
-        t->items = nitems;
-        t->cap = ncap;
-    }
-    t->items[t->len].name = xstrdup(name);
-    t->items[t->len].value = xstrdup(value ? value : "");
-    t->items[t->len].is_func = false;
-    t->items[t->len].params = NULL;
-    t->items[t->len].nparams = 0;
-    t->items[t->len].var_param = NULL;
-    t->items[t->len].is_variadic = false;
-    t->items[t->len].self_ref = macro_value_contains_ident(t->items[t->len].value, name);
-    t->len++;
+    m = mtable_append(t, name);
+    m->value = xstrdup(value ? value : "");
+    m->self_ref = macro_value_contains_ident(m->value, name);
 }
 
 static const char *mtable_get(const MacroTable *t, const char *name) {
-    for (size_t i = 0; i < t->len; ++i) {
-        if (strcmp(t->items[i].name, name) == 0 && !t->items[i].is_func) return t->items[i].value;
+    size_t index = mtable_find_index(t, name);
+    if (index == (size_t)-1 || t->items[index].is_func) {
+        return NULL;
     }
-    return NULL;
+    return t->items[index].value;
 }
 
 static int uname_has(const char *token) {
@@ -1101,13 +1247,7 @@ static void mtable_set_func(MacroTable *t, const char *name, char **params, size
                             bool variadic, char *var_param, const char *value) {
     Macro *m = mtable_find(t, name);
     if (!m) {
-        if (t->len == t->cap) {
-            size_t ncap = t->cap ? t->cap * 2 : 8;
-            t->items = xrealloc(t->items, ncap * sizeof(Macro));
-            t->cap = ncap;
-        }
-        m = &t->items[t->len++];
-        m->name = xstrdup(name);
+        m = mtable_append(t, name);
     } else {
         free(m->value);
         if (m->params) { for (size_t j=0;j<m->nparams;++j) free(m->params[j]); free(m->params); }
