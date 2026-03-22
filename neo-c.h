@@ -4904,6 +4904,9 @@ uniq bool char*::equals(const char* self, const char* right)
     else if(self == null || right == null) {
         return false;
     }
+    else if(self == right) {
+        return true;
+    }
     
     return strcmp(self, right) == 0;
 }
@@ -4915,6 +4918,9 @@ uniq bool string::equals(char* self, const char* right)
     }
     else if(self == null || right == null) {
         return false;
+    }
+    else if(self == right) {
+        return true;
     }
     
     return strcmp(self, right) == 0;
@@ -4938,6 +4944,9 @@ uniq bool string::operator_equals(char* self, const char* right)
     else if(self == null || right == null) {
         return false;
     }
+    else if(self == right) {
+        return true;
+    }
     
     return strcmp(self, right) == 0;
 }
@@ -4949,6 +4958,9 @@ uniq bool char*::operator_equals(const char* self, const char* right)
     }
     else if(self == null || right == null) {
         return false;
+    }
+    else if(self == right) {
+        return true;
     }
     
     return strcmp(self, right) == 0;

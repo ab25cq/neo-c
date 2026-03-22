@@ -63,12 +63,12 @@ bool is_type_name(char* buf, sInfo* info=info)
 
 bool is_contained_generics_class(sType* type, sInfo* info)
 {
-    sType*% type2;
+    sType* type2;
     if(type->mNoSolvedGenericsType) {
-        type2 = clone type->mNoSolvedGenericsType;
+        type2 = borrow type->mNoSolvedGenericsType;
     }
     else {
-        type2 = clone type;
+        type2 = type;
     }
     foreach(it, type2->mGenericsTypes) {
         if(is_contained_generics_class(it, info)) {
@@ -88,12 +88,12 @@ bool is_contained_generics_class(sType* type, sInfo* info)
 
 bool is_contained_generics_placeholder(sType* type, sInfo* info)
 {
-    sType*% type2;
+    sType* type2;
     if(type->mNoSolvedGenericsType) {
-        type2 = clone type->mNoSolvedGenericsType;
+        type2 = borrow type->mNoSolvedGenericsType;
     }
     else {
-        type2 = clone type;
+        type2 = type;
     }
 
     foreach(it, type2->mGenericsTypes) {
@@ -257,7 +257,7 @@ string parse_square_attribute(sInfo* info=info)
             break;
         }
         
-        if(!(xisalpha(*info.p) || *info.p == '_')) {
+        if(!(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_')) {
             info->p++;
             continue;
         }
@@ -270,7 +270,7 @@ string parse_square_attribute(sInfo* info=info)
             info->p += 2;
             skip_spaces_and_lf();
             
-            if(xisalpha(*info.p) || *info.p == '_') {
+            if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
                 keyword = parse_word();
             }
             else {
@@ -402,7 +402,7 @@ string parse_declspec_attribute(sInfo* info=info)
     buffer*% result = new buffer();
     
     while(*info.p && *info.p != ')') {
-        if(!(xisalpha(*info.p) || *info.p == '_')) {
+        if(!(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_')) {
             info->p++;
             continue;
         }
@@ -936,7 +936,7 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
         char* p = info.p;
         int sline = info.sline;
     
-        if(xisalpha(*info.p) || *info.p == '_') {
+        if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
             string word = parse_word();
             
             if(word === "const" || word === "__restrict" || word === "restrict" || word === "__user" || word === "volatile" || word === "__volatile__" || word === "_Nonnull" || word === "_Nullable" || word === "_Null_unspecified" || word === "__user" || word === "_Addr") {
@@ -961,7 +961,7 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
             info->p++;
             skip_spaces_and_lf();
             
-            if(xisalpha(*info.p) || *info.p == '_') {
+            if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
                 string word = parse_word();
                 
                 if(is_type_name(word)) {
@@ -993,7 +993,7 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
                 info->p++
                 skip_spaces_and_lf();
                 
-                if(xisalpha(*info.p) || *info.p == '_') {
+                if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
                     string word = parse_word();
                     
                     if(is_type_name(word)) {
@@ -1056,14 +1056,14 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
         
         var param_types, param_names, param_default_parametors, var_args = parse_params(info);
         
-        result_type2->mResultType = clone result_type;
+        result_type2->mResultType = result_type;
         result_type2->mParamTypes = param_types;
         result_type2->mParamNames = param_names;
         result_type2->mVarArgs = var_args;
         
         result_type = result_type2;
     }
-    else if(xisalnum(*info.p) || *info.p == '_') {
+    else if(NEO_IS_ASCII_ALNUM(*info.p) || *info.p == '_') {
         var_name = parse_word();
     }
     else {
@@ -1097,7 +1097,7 @@ tuple2<sType*%, string>*% parse_variable_name_on_multiple_declare(sType* base_ty
             char* p = info.p;
             int sline = info.sline;
         
-            if(xisalpha(*info.p) || *info.p == '_') {
+            if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
                 string word = parse_word();
                 
                 if(word === "const" || word === "__restrict" || word === "restrict" || word === "__user" || word === "volatile" || word === "__volatile__" || word === "_Nonnull" || word === "_Nullable" || word === "_Null_unspecified" || word === "__user" || word === "_Addr") {
@@ -1147,7 +1147,7 @@ bool skip_pointer_attribute(sInfo* info=info)
         return true;
     }
 
-    if(xisalpha(*info.p) || *info.p == '_') {
+    if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
         string word = parse_word();
         
         if((word === "__attribute" || word === "__attribute__") && *info.p == '(') {
@@ -1207,7 +1207,7 @@ string parse_pointer_qualifier(sInfo* info=info)
             continue;
         }
         
-        if(!(xisalpha(*info.p) || *info.p == '_')) {
+        if(!(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_')) {
             break;
         }
         
@@ -1296,7 +1296,7 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
    
         parse_attribute();
         
-        if(xisalpha(*info.p) || *info.p == '_') {
+        if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
             string declare_name = parse_word();
             
             if(declare_name === "struct") {
@@ -1314,7 +1314,7 @@ bool@define_only, bool@anonymous_name, bool@struct_,bool@union_,bool@enum_ backt
         }
         parse_attribute();
         
-        if(xisalpha(*info.p) || *info.p == '_') {
+        if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
             string struct_name = parse_word();
         }
         else {
@@ -1406,7 +1406,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
         }
         else if(*info.p == '@') {
             info->p++;
-            while(xisalnum(*info.p) || *info.p == '_') {
+            while(NEO_IS_ASCII_ALNUM(*info.p) || *info.p == '_') {
                 info->p++;
             }
             skip_spaces_and_lf();
@@ -1455,7 +1455,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             sType*% type2 = solve_generics(type, generics_type, info);
             
             type2->mPointerNum = 1;
-            tmp_ = clone type2;
+            tmp_ = type2;
         }
         else if(*info.p == '?') {
             info->p++;
@@ -1487,7 +1487,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             type2->mPointerNum = 1;
             type2->mHeap = true;
             
-            tmp_ = clone type2;
+            tmp_ = type2;
         }
         else if(memcmp(info->p, "{}", 2) == 0) {
             info->p+=2;
@@ -1519,7 +1519,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
             type2->mPointerNum = 1;
             type2->mHeap = true;
             
-            tmp_ = clone type2;
+            tmp_ = type2;
         }
         else if(*info.p == '/') {
             info->p++;
@@ -1548,7 +1548,7 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
                 type->mNoSolvedGenericsType.mDefferRightValue = true;
             }
         }
-        else if(xisalpha(*info.p) || *info.p == '_') {
+        else if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
             char* p = info.p;
             int sline = info.sline;
             string pointer_attr = parse_pointer_qualifier();
@@ -1574,10 +1574,10 @@ sType*% parse_pointer_attribute(sType*% type, sInfo* info=info)
     }
     
     if(tmp_) {
-        return clone tmp_;
+        return tmp_;
     }
     
-    return clone type;
+    return type;
 }
 
 void append_attribute_to_type(sType* type, string attribute, bool for_variable, sInfo* info=info)
@@ -1682,7 +1682,7 @@ string parse_variable_name_fun(sType* type, bool anonymous_name, bool var_name_b
         var_name = xsprintf("anonymous_var_nameXYZ%d", num_anonymous_var_name);
         type->mAnonymousVarName = true;
     }
-    else if(xisalnum(*info.p) || *info.p == '_') {
+    else if(NEO_IS_ASCII_ALNUM(*info.p) || *info.p == '_') {
         var_name = parse_word();
     }
     else {
@@ -1873,9 +1873,26 @@ bool is_same_attribute(string left_attr, string right_attr, sInfo* info=info)
     return left_attr === right_attr;
 }
 
-sType*% expand_typedef_for_assign(sType* type, sInfo* info=info)
+sType*% normalize_loadvar_type_for_compare(sType* type, sInfo* info=info)
 {
-    sType*% result = clone type;
+    if(type == null) {
+        return null;
+    }
+    if(type->mOriginalLoadVarType) {
+        bool use_original = type->mArrayPointerNum > 0
+            && type->mArrayNum.length() == 0
+            && type->mPointerNum == 0;
+        if(use_original) {
+            return clone type->mOriginalLoadVarType;
+        }
+    }
+    
+    return clone type;
+}
+
+sType*% expand_typedef_for_assign(sType*% type, sInfo* info=info)
+{
+    sType*% result = type;
     int guard = 0;
     while(result->mTypedefOriginalType && guard < 16) {
         sType*% orig = clone result->mTypedefOriginalType;
@@ -1937,7 +1954,7 @@ sType*% expand_typedef_for_assign(sType* type, sInfo* info=info)
             orig->mNoSolvedGenericsType = clone result->mNoSolvedGenericsType;
         }
         
-        result = clone orig;
+        result = orig;
         guard++;
     }
     
@@ -1964,30 +1981,12 @@ bool is_parent_class_of(sClass* parent, sClass* child, sInfo* info=info)
     return false;
 }
 
-bool is_same_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo* info=info)
+bool is_same_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo* info=info);
+
+static bool is_same_type_ignoring_qualifier_core(sType*% left_type2, sType*% right_type2, sInfo* info=info)
 {
-    if(left_type == null || right_type == null) {
+    if(left_type2 == null || right_type2 == null) {
         return false;
-    }
-    
-    sType*% left_type2 = clone left_type;
-    sType*% right_type2 = clone right_type;
-    
-    if(left_type2->mOriginalLoadVarType) {
-        bool use_original = left_type2->mArrayPointerNum > 0
-            && left_type2->mArrayNum.length() == 0
-            && left_type2->mPointerNum == 0;
-        if(use_original) {
-            left_type2 = clone left_type2->mOriginalLoadVarType;
-        }
-    }
-    if(right_type2->mOriginalLoadVarType) {
-        bool use_original = right_type2->mArrayPointerNum > 0
-            && right_type2->mArrayNum.length() == 0
-            && right_type2->mPointerNum == 0;
-        if(use_original) {
-            right_type2 = clone right_type2->mOriginalLoadVarType;
-        }
     }
     
     left_type2 = expand_typedef_for_assign(left_type2);
@@ -2090,27 +2089,22 @@ bool is_same_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo*
     return true;
 }
 
+bool is_same_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo* info=info)
+{
+    if(left_type == null || right_type == null) {
+        return false;
+    }
+    
+    sType*% left_type2 = normalize_loadvar_type_for_compare(left_type);
+    sType*% right_type2 = normalize_loadvar_type_for_compare(right_type);
+    
+    return is_same_type_ignoring_qualifier_core(left_type2, right_type2);
+}
+
 bool is_same_base_type_ignoring_qualifier(sType* left_type, sType* right_type, sInfo* info=info)
 {
-    sType*% left_type2 = clone left_type;
-    sType*% right_type2 = clone right_type;
-    
-    if(left_type2->mOriginalLoadVarType) {
-        bool use_original = left_type2->mArrayPointerNum > 0
-            && left_type2->mArrayNum.length() == 0
-            && left_type2->mPointerNum == 0;
-        if(use_original) {
-            left_type2 = clone left_type2->mOriginalLoadVarType;
-        }
-    }
-    if(right_type2->mOriginalLoadVarType) {
-        bool use_original = right_type2->mArrayPointerNum > 0
-            && right_type2->mArrayNum.length() == 0
-            && right_type2->mPointerNum == 0;
-        if(use_original) {
-            right_type2 = clone right_type2->mOriginalLoadVarType;
-        }
-    }
+    sType*% left_type2 = normalize_loadvar_type_for_compare(left_type);
+    sType*% right_type2 = normalize_loadvar_type_for_compare(right_type);
     
     left_type2->mPointerNum = 0;
     left_type2->mArrayPointerNum = 0;
@@ -2128,7 +2122,7 @@ bool is_same_base_type_ignoring_qualifier(sType* left_type, sType* right_type, s
     right_type2->mVolatile = false;
     right_type2->mRestrict = false;
     
-    return is_same_type_ignoring_qualifier(left_type2, right_type2);
+    return is_same_type_ignoring_qualifier_core(left_type2, right_type2);
 }
 
 bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type, CVALUE* come_value, sInfo* info=info)
@@ -2142,26 +2136,8 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
         return false;
     }
 
-    sType*% left_type2 = clone left_type;
-    if(left_type2->mOriginalLoadVarType) {
-        bool use_original = left_type2->mArrayPointerNum > 0
-            && left_type2->mArrayNum.length() == 0
-            && left_type2->mPointerNum == 0;
-        if(use_original) {
-            sType*% tmp = left_type2->mOriginalLoadVarType;
-            left_type2 = clone tmp;
-        }
-    }
-    sType*% right_type2 = clone right_type;
-    if(right_type2->mOriginalLoadVarType) {
-        bool use_original = right_type2->mArrayPointerNum > 0
-            && right_type2->mArrayNum.length() == 0
-            && right_type2->mPointerNum == 0;
-        if(use_original) {
-            sType*% tmp = right_type2->mOriginalLoadVarType;
-            right_type2 = clone tmp;
-        }
-    }
+    sType*% left_type2 = normalize_loadvar_type_for_compare(left_type);
+    sType*% right_type2 = normalize_loadvar_type_for_compare(right_type);
     left_type2 = expand_typedef_for_assign(left_type2);
     right_type2 = expand_typedef_for_assign(right_type2);
     

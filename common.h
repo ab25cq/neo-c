@@ -3,6 +3,14 @@
 
 #include <neo-c.h>
 
+#define NEO_IS_ASCII_ALPHA(c) ((((unsigned char)(c)) >= 'a' && ((unsigned char)(c)) <= 'z') || (((unsigned char)(c)) >= 'A' && ((unsigned char)(c)) <= 'Z'))
+#define NEO_IS_ASCII_DIGIT(c) (((unsigned char)(c)) >= '0' && ((unsigned char)(c)) <= '9')
+#define NEO_IS_ASCII_ALNUM(c) (NEO_IS_ASCII_ALPHA(c) || NEO_IS_ASCII_DIGIT(c))
+#define NEO_IS_ASCII_PUNCT(c) ((((unsigned char)(c)) >= '!' && ((unsigned char)(c)) <= '/') || (((unsigned char)(c)) >= ':' && ((unsigned char)(c)) <= '@') || (((unsigned char)(c)) >= '[' && ((unsigned char)(c)) <= '`') || (((unsigned char)(c)) >= '{' && ((unsigned char)(c)) <= '~'))
+#define NEO_IS_PARSE_TAIL_CHAR(c) ((NEO_IS_ASCII_PUNCT(c) || (c) == ' ' || (c) == '\t' || (c) == '\n' || (c) == '\0' || (c) == '\r') && (c) != '_')
+#define NEO_IS_WORD_HEAD_CHAR(c) (NEO_IS_ASCII_ALPHA(c) || (c) == '_' || (c) == '$')
+#define NEO_IS_WORD_BODY_CHAR(c) (NEO_IS_ASCII_ALNUM(c) || (c) == '_' || (c) == '$')
+
 #define FUN_VERSION_MAX 128
 #define GENERICS_TYPE_MAX 12
 #define METHOD_GENERICS_TYPE_MAX 7

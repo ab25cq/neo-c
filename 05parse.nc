@@ -2,20 +2,18 @@
 
 bool parsecmp(const char* p2, sInfo* info=info)
 {
-    int len = strlen(p2);
     char* p = info.p;
-    for(int i=0; i<len; i++) {
-        if(p[i] == '\0' || p[i] != p2[i]) {
+    
+    while(*p2) {
+        if(*p == '\0' || *p != *p2) {
             return false;
         }
+        p++;
+        p2++;
     }
-    unsigned char c = p[len];
-    return (xispunct(c) || c == ' ' || c == '\t' || c == '\n' || c == '\0' || c == '\r') && c != '_';
-}
-
-static inline bool is_parsecmp_tail_char(unsigned char c)
-{
-    return (xispunct(c) || c == ' ' || c == '\t' || c == '\n' || c == '\0' || c == '\r') && c != '_';
+    
+    unsigned char c = *p;
+    return NEO_IS_PARSE_TAIL_CHAR(c);
 }
 
 #define MATCH_COMMON_ATTRIBUTE(keyword) (len == (sizeof(keyword)-1) && memcmp(p, keyword, sizeof(keyword)-1) == 0)
@@ -27,11 +25,11 @@ int match_common_attribute_keyword_len(const char* p)
     }
     
     int len = 0;
-    while(xisalnum(p[len]) || p[len] == '_') {
+    while(NEO_IS_ASCII_ALNUM(p[len]) || p[len] == '_') {
         len++;
     }
     
-    if(len < 5 || !is_parsecmp_tail_char(p[len])) {
+    if(len < 5 || !NEO_IS_PARSE_TAIL_CHAR(p[len])) {
         return 0;
     }
     
@@ -300,16 +298,6 @@ int expected_next_character(char c, sInfo* info=info)
     return 0;
 }
 
-static inline bool is_word_head_char(char c)
-{
-    return xisalpha(c) || c == '_' || c == '$';
-}
-
-static inline bool is_word_body_char(char c)
-{
-    return xisalnum(c) || c == '_' || c == '$';
-}
-
 string parse_word(bool digits=false, sInfo* info=info)
 {
     parse_sharp();
@@ -318,10 +306,10 @@ string parse_word(bool digits=false, sInfo* info=info)
     char* head = p;
     
     char c = *p;
-    if(is_word_head_char(c) || (digits && xisdigit(c))) {
+    if(NEO_IS_WORD_HEAD_CHAR(c) || (digits && NEO_IS_ASCII_DIGIT(c))) {
         do {
             p++;
-        } while(is_word_body_char(*p));
+        } while(NEO_IS_WORD_BODY_CHAR(*p));
     }
     
     info.p = p;
@@ -355,7 +343,7 @@ string backtrace_parse_word(sInfo* info=info)
     int sline = info.sline;
     
     string buf;
-    if(xisalpha(*info.p) || *info.p == '_') {
+    if(NEO_IS_ASCII_ALPHA(*info.p) || *info.p == '_') {
         buf = parse_word();
     }
     else {
@@ -745,7 +733,7 @@ static bool is_number_token(char* token)
     }
     char* p = token;
     while(*p) {
-        if(!xisdigit(*p)) {
+        if(!NEO_IS_ASCII_DIGIT(*p)) {
             return false;
         }
         p++;
@@ -964,18 +952,18 @@ void parse_sharp(sInfo* info=info) version 5
                 skip_spaces_and_lf2();
             }
             else if(parsecmp("line")) {
-                info->p += strlen("line");
+                info->p += 4;
                 skip_spaces_and_tabs();
                 
                 int line = 0;
                 string fname_str = null;
     
-                if(!xisdigit(*info.p)) {
+                if(!NEO_IS_ASCII_DIGIT(*info.p)) {
                     err_msg(info, "invalid #line directive");
                     return;
                 }
                 
-                while(xisdigit(*info.p)) {
+                while(NEO_IS_ASCII_DIGIT(*info.p)) {
                     line = line * 10 + (*info.p - '0');
                     info->p++;
                 }
@@ -1023,11 +1011,11 @@ void parse_sharp(sInfo* info=info) version 5
     
                 skip_spaces_and_tabs();
             }
-            else if(xisdigit(*info.p)) {
+            else if(NEO_IS_ASCII_DIGIT(*info.p)) {
                 int line = 0;
                 string fname_str = null;
     
-                while(xisdigit(*info.p)) {
+                while(NEO_IS_ASCII_DIGIT(*info.p)) {
                     line = line * 10 + (*info.p - '0');
                     info->p++;
                 }
@@ -1102,7 +1090,7 @@ void parse_sharp(sInfo* info=info) version 5
         else if(skip_comment(info, true)) {
         }
         else if(parsecmp("__extension__")) {
-            info->p += strlen("__extension__");
+            info->p += 13;
             skip_spaces_and_lf2();
         }
         else {

@@ -119,7 +119,7 @@ sNode*% parse_function(sInfo* info)
         int sline = info.sline;
         
         bool flag = false;
-        while(xisalnum(*info->p) || *info->p == '_') {
+        while(NEO_IS_ASCII_ALNUM(*info->p) || *info->p == '_') {
             flag = true;
             parse_word();
         }
@@ -146,13 +146,9 @@ sNode*% parse_function(sInfo* info)
     
     string fun_name;
     char*% base_fun_name = null;
-    sType*% obj_type2 = null;
-    
     if(constructor_) {
         base_fun_name = string("initialize");
         fun_name = create_method_name(info->class_type, false@no_pointer_name, base_fun_name, info);
-        
-        obj_type2 = clone info->class_type;
     }
     else if(method_definition) {
         var obj_type, name, err = parse_type();
@@ -167,31 +163,23 @@ sNode*% parse_function(sInfo* info)
         
         base_fun_name = parse_word();
         fun_name = create_method_name(obj_type, false@no_pointer_name, base_fun_name, info);
-        
-        obj_type2 = clone obj_type;
     }
     else if(info->impl_type) {
         if(result_type->mClass->mIter) {
             base_fun_name = parse_word();
         
             fun_name = create_method_name(info->impl_type, false@no_pointer_name, base_fun_name, info);
-            
-            obj_type2 = clone info->impl_type;
         }
         else {
             base_fun_name = parse_word();
         
             fun_name = create_method_name(info->impl_type, false@no_pointer_name, base_fun_name, info);
-            
-            obj_type2 = clone info->impl_type;
         }
     }
     else if(info->class_type) {
         base_fun_name = parse_word();
     
         fun_name = create_method_name(info->class_type, false@no_pointer_name, base_fun_name, info);
-        
-        obj_type2 = clone info->class_type;
     }
     else {
         fun_name = parse_word();
@@ -216,7 +204,7 @@ sNode*% parse_function(sInfo* info)
         skip_spaces_and_lf();
         
         int n = 0;
-        while(xisdigit(*info->p)) {
+        while(NEO_IS_ASCII_DIGIT(*info->p)) {
             n = n * 10 + (*info->p - '0');
             info->p++;
         }
@@ -444,7 +432,7 @@ sNode*% parse_function(sInfo* info)
             return new sFunNode(fun, info) implements sNode;
         }
     }
-    else if(xisalpha(*info->p) || *info->p == '_' || *info->p == ';') {
+    else if(NEO_IS_ASCII_ALPHA(*info->p) || *info->p == '_' || *info->p == ';') {
         if(version > 0) {
             string new_fun_name = xsprintf("%s_v%d", fun_name, version);
             fun_name = string(new_fun_name);
