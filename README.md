@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.0.7
+version 1.0.0.8
 
 ``` C
 #include <neo-c.h>
@@ -125,6 +125,7 @@ sh all_build.sh
 # Histories
 
 ```
+1.0.0.8 optimize more faster.
 1.0.0.7 optimize more faster.
 1.0.0.6 optimize more faster.
 1.0.0.5 can build in 512M memory system. may be build in radpberry pi zero.
