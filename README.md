@@ -860,6 +860,422 @@ string join(list<T>* self, char* sep=" ")
     [1,2,3].join("+");    // 1+2+3
 ```
 
+# vector
+
+```
+#include <neo-c.h>
+
+int main(int argc, char** argv)
+{
+    int values[5] = { 1, 2, 3, 4, 5 };
+    
+    vector<int>*% v = new vector<int>.initialize_with_values(5, values);
+    
+    foreach(it, v[1..4]) {   // 2\n3\n4\n
+        printf("%d\n", it);
+    }
+    
+    v.add(6).add(7);
+    
+    foreach(it, v) {   // 1\n2\n3\n4\n5\n6\n7\n
+        printf("%d\n", it);
+    }
+    
+    return 0;
+}
+```
+
+vector can also be iterated with foreach. Internally it uses begin, next, and end.
+
+vectorもforeachで反復できます。内部的にはbegin, next, endが使われます。
+
+vector can be written with `v[]`. `[]` is a list, and `v[]` is a vector.
+
+vectorは`v[]`で書けます。`[]`はlistで、`v[]`はvectorです。
+
+```C
+var v = v[1,2,3];
+v.to_string().puts();   // v[1,2,3]
+```
+
+Below is an explanation of all methods.
+
+以下は全メソッドの解説です。
+
+```C
+vector<T>*% initialize(vector<T>*% self);
+```
+
+A constructor. It will be called by typing new vector<int>();. Internally this is new vector<int>.initialize();
+
+コンストラクタです。new vector<int>();とすれば呼び出されます。これは内部的にはnew vector<int>.initialize();の略です。
+
+```C
+var v = new vector<int>.initialize();
+v.add(1).add(2).add(3);
+
+var v2 = new vector<int>();
+v2.add(1).add(2).add(3);
+```
+
+```C
+vector<T>*% initialize_with_values(vector<T>*% self, int num_value, T^* values)
+```
+
+Creates a vector initialized with an array.
+
+配列で初期化されたvectorを作成します。
+
+```C
+int values[3] = { 1, 2, 3 };
+
+var v = new vector<int>.initialize_with_values(3, values);
+var v2 = v[1,2,3];
+```
+
+```C
+void finalize(vector<T>* self)
+```
+
+It's a destructor. Called when automatically deleted or manually deleted.
+
+デストラクターです。自動的に消去される場合、手動でdeleteする場合に呼ばれます。
+
+```C
+vector<int>* v = borrow new vector<int>();
+v.add(1).add(2).add(3);
+delete v;  // finalize is called. finalizeが呼ばれる
+```
+
+```C
+vector<T>*% clone(vector<T>* self)
+```
+
+```C
+var v = new vector<int>.initialize();
+v.add(1).add(2).add(3);
+
+var v2 = clone v;
+```
+
+clone is a deep copy. If T is a heap type, each element is cloned.
+
+cloneはディープコピーです。Tがヒープ型の場合、各要素もcloneされます。
+
+```C
+vector<T>* add(vector<T>* self, T item)
+```
+
+Appends an element to the end. If the internal buffer is full, it is expanded automatically.
+
+末尾に要素を追加します。内部バッファが足りない場合は自動的に拡張されます。
+
+```C
+var v = new vector<int>();
+v.add(1).add(2).add(3);
+```
+
+```C
+T item(vector<T>* self, int index, T default_value)
+```
+
+```C
+int values[3] = { 10, 20, 30 };
+var v = new vector<int>.initialize_with_values(3, values);
+
+printf("%d\n", v.item(0, 0));   // 10
+printf("%d\n", v.item(-1, 0));  // 30
+printf("%d\n", v.item(99, -1)); // -1
+```
+
+default_value is returned for out-of-range access. Negative indexes count from the end.
+
+default_valueは範囲外アクセスの場合に返されます。負のインデックスは末尾から数えます。
+
+```C
+bool equals(vector<T>* left, vector<T>* right)
+```
+
+```C
+var v = new vector<int>();
+v.add(1).add(2).add(3);
+
+var v2 = new vector<int>();
+v2.add(1).add(2).add(3);
+
+v.equals(v2).to_string().puts();   // true
+```
+
+Checks whether the size and contents are equal. equals is executed for each element.
+
+サイズと内容が等しいか確認します。各要素にequalsが実行されます。
+
+```C
+void replace(vector<T>* self, int index, T value)
+```
+
+```C
+int values[3] = { 1, 2, 3 };
+var v = new vector<int>.initialize_with_values(3, values);
+
+v.replace(1, 7);   // v[1,7,3]
+v.replace(-1, 9);  // v[1,7,9]
+```
+
+Replaces the element at index. Negative indexes are supported.
+
+indexの要素を置き換えます。負のインデックスも使えます。
+
+```C
+int find(vector<T>* self, T^ item, int default_value)
+```
+
+```C
+int values[5] = { 1, 2, 3, 4, 5 };
+var v = new vector<int>.initialize_with_values(5, values);
+
+printf("%d\n", v.find(3, -1));   // 2
+printf("%d\n", v.find(99, -1));  // -1
+```
+
+Returns the first matching index. default_value is returned if not found.
+
+最初に一致した位置を返します。見つからない場合はdefault_valueが返ります。
+
+```C
+int length(vector<T>* self)
+```
+
+```C
+int values[3] = { 1, 2, 3 };
+var v = new vector<int>.initialize_with_values(3, values);
+
+printf("%d\n", v.length());   // 3
+```
+
+Returns the number of elements.
+
+要素数を返します。
+
+```C
+int alloc_size(vector<T>* self)
+```
+
+```C
+int values[3] = { 1, 2, 3 };
+var v = new vector<int>.initialize_with_values(3, values);
+
+printf("%d\n", v.alloc_size());
+```
+
+Returns the number of bytes currently used for stored elements. This is sizeof(T) * length().
+
+現在格納されている要素に使われているバイト数を返します。sizeof(T) * length()です。
+
+```C
+void reset(vector<T>* self)
+```
+
+```C
+int values[3] = { 1, 2, 3 };
+var v = new vector<int>.initialize_with_values(3, values);
+
+v.reset();
+printf("%d\n", v.length());   // 0
+```
+
+Clears all elements and reinitializes the internal storage.
+
+全要素をクリアし、内部ストレージを初期化し直します。
+
+```C
+T^ begin(vector<T>* self)
+T^ next(vector<T>* self)
+bool end(vector<T>* self)
+```
+
+Defined for foreach. Use this if you want to access all elements manually.
+
+foreachのため定義されています。手動で全要素にアクセスしたい場合に使います。
+
+```C
+T operator_load_element(vector<T>* self, int position)
+```
+
+```C
+int values[5] = { 1, 2, 3, 4, 5 };
+var v = new vector<int>.initialize_with_values(5, values);
+
+printf("%d\n", v[0]);      // 1
+printf("%d\n", v[-1]);     // 5
+printf("%d\n", v[9999]);   // 0
+```
+
+If the index is not found, a zero-cleared value is returned.
+
+インデックスが見つからない場合は0クリアされた値が返されます。
+
+```C
+void operator_store_element(vector<T>* self, int index, T item)
+```
+
+```C
+int values[3] = { 1, 2, 3 };
+var v = new vector<int>.initialize_with_values(3, values);
+
+v[0] = 123;   // v[123,2,3]
+```
+
+```C
+vector<T>*% operator_load_range_element(vector<T>* self, int begin, int tail)
+```
+
+```C
+int values[5] = { 1, 2, 3, 4, 5 };
+var v = new vector<int>.initialize_with_values(5, values);
+
+v[0..2].to_string().puts();   // v[1,2]
+v[3..-1].to_string().puts();  // v[4,5]
+```
+
+Creates a new vector from the specified range. tail is exclusive. Negative indexes are supported.
+
+指定範囲から新しいvectorを作成します。tailは含まれません。負のインデックスも使えます。
+
+```C
+bool operator_equals(vector<T>* left, vector<T>* right)
+```
+
+```C
+int a[3] = { 1, 2, 3 };
+int b[3] = { 1, 2, 3 };
+int c[3] = { 1, 2, 4 };
+
+var v1 = new vector<int>.initialize_with_values(3, a);
+var v2 = new vector<int>.initialize_with_values(3, b);
+var v3 = new vector<int>.initialize_with_values(3, c);
+
+printf("%s\n", (v1 === v2).to_string());   // true
+printf("%s\n", (v1 === v3).to_string());   // false
+```
+
+```C
+bool operator_not_equals(vector<T>* left, vector<T>* right)
+```
+
+```C
+int a[3] = { 1, 2, 3 };
+int b[3] = { 1, 2, 4 };
+
+var v1 = new vector<int>.initialize_with_values(3, a);
+var v2 = new vector<int>.initialize_with_values(3, b);
+
+printf("%s\n", (v1 !== v2).to_string());   // true
+```
+
+```C
+vector<T>*% operator_add(vector<T>* left, vector<T>* right)
+```
+
+```C
+int a[2] = { 1, 2 };
+int b[2] = { 3, 4 };
+
+var v1 = new vector<int>.initialize_with_values(2, a);
+var v2 = new vector<int>.initialize_with_values(2, b);
+
+(v1 + v2).to_string().puts();   // v[1,2,3,4]
+```
+
+Concatenates two vectors and returns a new vector.
+
+2つのvectorを連結した新しいvectorを返します。
+
+```C
+vector<T>*% operator_mult(vector<T>* left, int n)
+```
+
+```C
+int a[2] = { 1, 2 };
+var v = new vector<int>.initialize_with_values(2, a);
+
+(v * 3).to_string().puts();   // v[1,2,1,2,1,2]
+```
+
+Repeats the vector n times and returns a new vector.
+
+vectorをn回繰り返した新しいvectorを返します。
+
+```C
+vector<T>* sort_with_lambda(vector<T>* self, int (*compare)(T^, T^))
+```
+
+```C
+int values[4] = { 3, 7, 2, 5 };
+var v = new vector<int>.initialize_with_values(4, values);
+
+v.sort_with_lambda(int lambda(int left, int right) {
+    if(left < right) {
+        return -1;
+    }
+    else if(left > right) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+});
+```
+
+Sorts the vector in place using the given compare function.
+
+指定したcompare関数でその場ソートします。
+
+```C
+vector<T>* sort(vector<T>* self)
+```
+
+```C
+int values[4] = { 3, 7, 2, 5 };
+var v = new vector<int>.initialize_with_values(4, values);
+
+v.sort().to_string().puts();   // v[2,3,5,7]
+```
+
+Sorts the vector in place using compare.
+
+compareを使ってその場ソートします。
+
+```C
+string to_string(vector<T>* self)
+```
+
+```C
+int values[3] = { 1, 2, 3 };
+var v = new vector<int>.initialize_with_values(3, values);
+
+v.to_string().puts();   // v[1,2,3]
+```
+
+Returns a string representation. vector is displayed with the prefix v.
+
+文字列表現を返します。vectorはvを付けて表示されます。
+
+```C
+span<T*>*% to_span(vector<T>* self)
+```
+
+```C
+int values[3] = { 1, 2, 3 };
+var v = new vector<int>.initialize_with_values(3, values);
+var s = v.to_span();
+printf("%d\n", s[1]);   // 2
+```
+
+Creates a span that references the internal buffer of the vector.
+
+vectorの内部バッファを参照するspanを作成します。
+
 # map
 
 map is a dictionary.
