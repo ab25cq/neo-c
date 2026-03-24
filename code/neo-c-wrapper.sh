@@ -13,7 +13,7 @@ fi
 
 (cd .. && make ncc)
 # 1) Transpile via local ncc (uses repo ccpp.c)
-"$(dirname "$0")/../ncc" "$@"
+"$(dirname "$0")/../ncc" -I.. "$@"
 
 input=""
 out=""

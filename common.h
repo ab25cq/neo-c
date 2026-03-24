@@ -738,6 +738,9 @@ uniq class sCurrentNode extends sNodeBase
                     else if(strcmp(value.mCValueName, "__map_element") == 0)
                     {
                     }
+                    else if(strncmp(value.mCValueName, "_o2_saved_", 10) == 0)
+                    {
+                    }
                     else if(value.mType.mClass.mName === "va_list" || value.mType.mClass.mName === "__builtin_va_list") 
                     {
                     }
@@ -793,6 +796,9 @@ uniq class sCurrentNode extends sNodeBase
                     {
                     }
                     else if(strcmp(value.mCValueName, "__map_element") == 0)
+                    {
+                    }
+                    else if(strncmp(value.mCValueName, "_o2_saved_", 10) == 0)
                     {
                     }
                     else if(value.mType.mClass.mName === "va_list" || value.mType.mClass.mName === "__builtin_va_list") 

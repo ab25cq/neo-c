@@ -6298,11 +6298,35 @@ impl list<T>
             `next();
         \}
     }
+    iter skip(int skip_num) {
+        if(i >= skip_num) \{
+            `next();
+        \}
+    }
+    iter take_while() {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+        \}
+        else \{
+            break;
+        \}
+    }
+    iter step_by(int step_by_num) {
+        if(i % step_by_num == 0) \{
+            `next();
+        \}
+    }
     iter map() {
         `it = `block();
     }
     iter enumerate() {
         `it = t(i, it);
+    }
+    iter inspect() {
+        `block();
+        `next();
     }
     iter find() {
         bool result = `block();
@@ -6347,11 +6371,108 @@ impl vector<T>
             `next();
         \}
     }
+    iter skip(int skip_num) {
+        if(i >= skip_num) \{
+            `next();
+        \}
+    }
+    iter take_while() {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+        \}
+        else \{
+            break;
+        \}
+    }
+    iter step_by(int step_by_num) {
+        if(i % step_by_num == 0) \{
+            `next();
+        \}
+    }
     iter map() {
         `it = `block();
     }
     iter enumerate() {
         `it = t(i, it);
+    }
+    iter inspect() {
+        `block();
+        `next();
+    }
+    iter find() {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+            break;
+        \}
+    }
+    iter_end each() {
+        `block();
+    }
+    iter_end collect() {
+        _li.add(it);
+    }
+    iter_end end() {
+    }
+}
+
+impl map<T, T2>
+{
+    iter_begin iter() {
+        ({
+            var _li = new list<T>();
+            int i = 0;
+            foreach(it, `self) \{
+                `next();
+                i++;
+            \};
+            _li
+        })
+    }
+    iter filter() {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+        \}
+    }
+    iter take(int n) {
+        if(i < n) \{
+            `next();
+        \}
+    }
+    iter skip(int skip_num) {
+        if(i >= skip_num) \{
+            `next();
+        \}
+    }
+    iter take_while() {
+        bool result = `block();
+        
+        if(result) \{
+            `next();
+        \}
+        else \{
+            break;
+        \}
+    }
+    iter step_by(int step_by_num) {
+        if(i % step_by_num == 0) \{
+            `next();
+        \}
+    }
+    iter map() {
+        `it = `block();
+    }
+    iter enumerate() {
+        `it = t(i, it);
+    }
+    iter inspect() {
+        `block();
+        `next();
     }
     iter find() {
         bool result = `block();

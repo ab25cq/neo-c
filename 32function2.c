@@ -1535,7 +1535,6 @@ struct __current_stack1__
     struct sType**  Value  ;
     _Bool* owned_cycle;
     struct buffer**  source  ;
-    struct list$1tuple2$2char$phsType$ph$ph** _o2_saved_3;
     struct tuple2$2char$phsType$ph** it;
     char**  user_real_fun_name  ;
     struct sFun**  user_finalizer  ;
@@ -3042,7 +3041,6 @@ __right_value1 = (void*)0,
                         __current_stack1__.Value = &Value;
                         __current_stack1__.owned_cycle = &owned_cycle;
                         __current_stack1__.source = &source;
-                        __current_stack1__._o2_saved_3 = &_o2_saved_3;
                         __current_stack1__.it = &it;
                         __current_stack1__.user_real_fun_name = &user_real_fun_name;
                         __current_stack1__.user_finalizer = &user_finalizer;

@@ -1137,13 +1137,47 @@ class sIterCallNode extends sNodeBase
             obj_type = clone obj_value.type;
         }
         else {
-            node_compile(obj).elif {
-                return false;
+            bool materialize_iter_source = obj.kind() === "sListNode"
+                || obj.kind() === "sVectorNode"
+                || obj.kind() === "sMapNode";
+            
+            if(materialize_iter_source) {
+                node_compile(obj).elif {
+                    return false;
+                }
+                
+                obj_value = get_value_from_stack(-1, info);
+                obj_type = clone obj_value.type;
+                
+                static int n = 0;
+                n++;
+                
+                string temp_name = s"_iter_obj_saved_" + n.to_string();
+                add_variable_to_table(temp_name, clone obj_type, info, false@function_param);
+                
+                sVar* var_ = get_variable_from_table(info.lv_table, temp_name);
+                sType*% temp_type = clone var_->mType;
+                
+                add_come_code_at_function_head(info, "%s;\n", make_define_var(temp_type, var_->mCValueName));
+                
+                if(temp_type->mHeap && obj_value.type->mHeap && temp_type->mPointerNum > 0 && obj_value.type->mPointerNum > 0) {
+                    std_move(temp_type, obj_value.type, obj_value);
+                }
+                
+                add_come_code(info, "%s=%s;\n", var_->mCValueName, obj_value.c_value);
+                
+                obj_value.c_value = clone var_->mCValueName;
+                obj_value.type = clone temp_type;
+                obj_value.var = var_;
             }
-            
-            obj_value = get_value_from_stack(-1, info);
-            
-            obj_type = clone obj_value.type;
+            else {
+                node_compile(obj).elif {
+                    return false;
+                }
+                
+                obj_value = get_value_from_stack(-1, info);
+                obj_type = clone obj_value.type;
+            }
             
             if(!recursive) {
                 info.iter_block = clone obj_value.c_value;

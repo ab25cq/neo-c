@@ -106,12 +106,21 @@ fi
 base="${files[0]%.nc}"
 # ncc writes transpiled C into current directory using basename
 cbase="$(basename "${base}")"
+srcdir="$(cd "$(dirname "${files[0]}")" && pwd)"
+
+include_opts=()
+if [ -d "$srcdir" ]; then
+  include_opts+=("-I${srcdir}")
+fi
+if [ -d "$SCRIPT_DIR" ] && [ "$SCRIPT_DIR" != "$srcdir" ]; then
+  include_opts+=("-I${SCRIPT_DIR}")
+fi
 
 if [ "$CC" = clang++ ]
 then
-    "$NCC_BIN" "${opts[@]}" "${ncc_opts[@]}" -cpp "${files[0]}"
+    "$NCC_BIN" "${include_opts[@]}" "${opts[@]}" "${ncc_opts[@]}" -cpp "${files[0]}"
 else
-    "$NCC_BIN" "${opts[@]}" "${ncc_opts[@]}" "${files[0]}"
+    "$NCC_BIN" "${include_opts[@]}" "${opts[@]}" "${ncc_opts[@]}" "${files[0]}"
 fi
 
 transpile_ok=$?

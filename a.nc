@@ -1,10 +1,11 @@
-#include "a.h"
+#include <neo-c.h>
 
 int main(int argc, char** argv)
 {
-    sData*% data = new sData();
+    var a = [1,2,3,4,5].`filter { it > 2 }.`collect();
     
-    puts(data.a);
-    
+    a.each {
+        printf("%d\n", it);
+    }
     return 0;
 }

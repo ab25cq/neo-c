@@ -47,6 +47,8 @@ test: *.nc
 	./test_iter_obj_eval_once
 	$(NEO_C) test_iter_tuple_rebind.nc
 	./test_iter_tuple_rebind
+	$(NEO_C) test_iter_rust_like.nc
+	./test_iter_rust_like
 	$(NEO_C) comelang2.nc
 	./comelang2
 	$(NEO_C) comelang3.nc
