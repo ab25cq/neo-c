@@ -811,8 +811,9 @@ void parse_struct_attribute_skip_paren(sInfo* info)
 
 bool parse_attribute_keyword(buffer* result, const char* keyword, bool allow_end, sInfo* info=info)
 {
-    if(parsecmp(keyword)) {
-        char* p = info.p + strlen(keyword);
+    char* p = parsecmp_tail(keyword);
+    if(p) {
+        char* tail_keyword = p;
         while(*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r') {
             p++;
         }
@@ -823,7 +824,7 @@ bool parse_attribute_keyword(buffer* result, const char* keyword, bool allow_end
         }
         
         char* head = info.p;
-        info->p += strlen(keyword);
+        info->p = tail_keyword;
         
         parse_struct_attribute_skip_paren(info);
         
@@ -869,16 +870,7 @@ string parse_struct_attribute(sInfo* info=info, bool allow_end=true)
     skip_spaces_and_lf();
     buffer*% result = new buffer();
     while(1) {
-        if(parsecmp("__attribute__")) {
-            char* head = info.p;
-            
-            info->p += strlen("__attribute__");
-            skip_spaces_and_lf();
-            skip_paren(info);
-            
-            char* tail = info->p;
-            
-            result.append(head, tail-head);
+        if(parse_attribute_keyword(result, "__attribute__", allow_end)) {
         }
         else if(parsecmp("__declspec")) {
             string attr = parse_declspec_attribute();

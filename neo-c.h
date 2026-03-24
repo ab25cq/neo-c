@@ -2979,6 +2979,7 @@ impl list<T>
 struct map<T, T2>
 {
     T*^ keys;
+    unsigned int* hashes;
     bool* item_existance;
     T2*^ items;
     int size;
@@ -2998,10 +2999,12 @@ impl map <T, T2>
         
         self.keys = borrow gc_inc(new T[MAP_TABLE_DEFAULT_SIZE]);
         self.items = borrow gc_inc(new T2[MAP_TABLE_DEFAULT_SIZE]);
+        self.hashes = borrow gc_inc(new unsigned int[MAP_TABLE_DEFAULT_SIZE]);
         self.item_existance = borrow gc_inc(new bool[MAP_TABLE_DEFAULT_SIZE]);
 
         for(int i=0; i<MAP_TABLE_DEFAULT_SIZE; i++)
         {
+            self.hashes[i] = 0;
             self.item_existance[i] = false;
         }
 
@@ -3020,10 +3023,12 @@ impl map <T, T2>
         
         self.keys = borrow gc_inc(new T[MAP_TABLE_DEFAULT_SIZE]);
         self.items = borrow gc_inc(new T2[MAP_TABLE_DEFAULT_SIZE]);
+        self.hashes = borrow gc_inc(new unsigned int[MAP_TABLE_DEFAULT_SIZE]);
         self.item_existance = borrow gc_inc(new bool[MAP_TABLE_DEFAULT_SIZE]);
 
         for(int i=0; i<MAP_TABLE_DEFAULT_SIZE; i++)
         {
+            self.hashes[i] = 0;
             self.item_existance[i] = false;
         }
 
@@ -3063,6 +3068,7 @@ impl map <T, T2>
         
         delete borrow self.key_list;
 
+        delete borrow self.hashes;
         delete borrow self.item_existance;
     }
     map<T, T2>*% clone(map<T, T2>* self)
@@ -3141,23 +3147,23 @@ impl map <T, T2>
             return default_value;
         }
         
-        unsigned int hash = ((T)key).get_hash_key() % self.size;
+        unsigned int key_hash = ((T)key).get_hash_key();
+        unsigned int hash = key_hash % self.size;
         unsigned int it = hash;
         
         while(true) {
             if(self.item_existance[it])
             {
-                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))
+                if(self.hashes[it] == key_hash
+                    && ((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key)))
                 {
                     return dummy_heap self.items\[it];
                 }
 
-                it++;
-
-                if(it >= self.size) {
+                if(++it >= self.size) {
                     it = 0;
                 }
-                else if(it == hash) {
+                if(it == hash) {
                     return default_value;
                 }
             }
@@ -3175,17 +3181,20 @@ impl map <T, T2>
             return self;
         }
         
-        unsigned int hash = ((T)key).get_hash_key() % self.size;
+        unsigned int key_hash = ((T)key).get_hash_key();
+        unsigned int hash = key_hash % self.size;
         unsigned int it = hash;
         
         while(true) {
             if(self.item_existance[it])
             {
-                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))
+                if(self.hashes[it] == key_hash
+                    && ((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key)))
                 {
                     self.key_list.remove(self.keys\[it]);
                     
                     self.item_existance[it] = false;
+                    self.hashes[it] = 0;
                     if(isheap(T)) {
                         delete borrow self.keys\[it];
                     }
@@ -3200,12 +3209,10 @@ impl map <T, T2>
                     break;
                 }
 
-                it++;
-
-                if(it >= self.size) {
+                if(++it >= self.size) {
                     it = 0;
                 }
-                else if(it == hash) {
+                if(it == hash) {
                     break;
                 }
             }
@@ -3271,7 +3278,12 @@ impl map <T, T2>
         int size = self.size * 10;
         T^* keys = borrow gc_inc(new T[size]);
         T2^* items = borrow gc_inc(new T2[size]);
+        unsigned int* hashes = borrow gc_inc(new unsigned int[size]);
         bool* item_existance = borrow gc_inc(new bool[size]);
+        for(int i=0; i<size; i++) {
+            hashes[i] = 0;
+            item_existance[i] = false;
+        }
 
         int len = 0;
 
@@ -3279,18 +3291,17 @@ impl map <T, T2>
             T2/ default_value;
             memset(&default_value, 0, sizeof(T2));
             T2/ it2 = self.at(it, default_value);
-            unsigned int hash = ((T)it).get_hash_key() % size;
+            unsigned int key_hash = ((T)it).get_hash_key();
+            unsigned int hash = key_hash % size;
             int n = hash;
 
             while(true) {
                 if(item_existance[n])
                 {
-                    n++;
-
-                    if(n >= size) {
+                    if(++n >= size) {
                         n = 0;
                     }
-                    else if(n == hash) {
+                    if(n == hash) {
                         printf("unexpected error in map.rehash(1)\n");
                         stackframe2(self);
                         exit(2);
@@ -3298,6 +3309,7 @@ impl map <T, T2>
                 }
                 else {
                     item_existance[n] = true;
+                    hashes[n] = key_hash;
                     keys\[n] = it;
                     T2/ default_value;
                     memset(&default_value, 0, sizeof(T2));
@@ -3310,11 +3322,13 @@ impl map <T, T2>
         }
 
         come_free((char*)self.items);
+        delete borrow self.hashes;
         delete borrow self.item_existance;
         come_free((char*)self.keys);
 
         self.keys = keys;
         self.items = items;
+        self.hashes = hashes;
         self.item_existance = item_existance;
 
         self.size = size;
@@ -3351,13 +3365,15 @@ impl map <T, T2>
         if(self.len*10 >= self.size) {
             self.rehash();
         }
-        unsigned int hash = ((T)key).get_hash_key() % self.size;
+        unsigned int key_hash = ((T)key).get_hash_key();
+        unsigned int hash = key_hash % self.size;
         unsigned int it = hash;
         
         while(true) {
             if(self.item_existance[it])
             {
-                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key)) 
+                if(self.hashes[it] == key_hash
+                    && ((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))) 
                 {
                     if(isheap(T)) {
                         self.key_list.remove(self.keys\[it]);
@@ -3375,15 +3391,14 @@ impl map <T, T2>
                     else {
                         self.items\[it] = borrow item;
                     }
+                    self.hashes[it] = key_hash;
                     break;
                 }
 
-                it++;
-
-                if(it >= self.size) {
+                if(++it >= self.size) {
                     it = 0;
                 }
-                else if(it == hash) {
+                if(it == hash) {
                     printf("unexpected error in map.insert\n");
                     stackframe2(self);
                     exit(2);
@@ -3391,6 +3406,7 @@ impl map <T, T2>
             }
             else {
                 self.item_existance[it] = true;
+                self.hashes[it] = key_hash;
                 if(isheap(T)) {
                     self.keys\[it] = borrow gc_inc(key);
                 }
@@ -3433,13 +3449,15 @@ impl map <T, T2>
         if(self.len*2 >= self.size) {
             self.rehash();
         }
-        unsigned int hash = ((T)key).get_hash_key() % self.size;
+        unsigned int key_hash = ((T)key).get_hash_key();
+        unsigned int hash = key_hash % self.size;
         int it = hash;
 
         while(true) {
             if(self.item_existance[it])
             {
-                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))
+                if(self.hashes[it] == key_hash
+                    && ((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key)))
                 {
                     if(isheap(T)) {
                         delete self.keys\[it];
@@ -3457,15 +3475,14 @@ impl map <T, T2>
                     else {
                         self.items\[it] = borrow item;
                     }
+                    self.hashes[it] = key_hash;
                     break;
                 }
 
-                it++;
-
-                if(it >= self.size) {
+                if(++it >= self.size) {
                     it = 0;
                 }
-                else if(it == hash) {
+                if(it == hash) {
                     printf("unexpected error in map.insert\n");
                     stackframe2(self);
                     exit(2);
@@ -3473,6 +3490,7 @@ impl map <T, T2>
             }
             else {
                 self.item_existance[it] = true;
+                self.hashes[it] = key_hash;
                 if(isheap(T)) {
                     self.keys\[it] = borrow gc_inc(key);
                 }
@@ -3515,23 +3533,22 @@ impl map <T, T2>
             return default_value;
         }
         
-        unsigned int hash = ((T)key).get_hash_key() % self.size;
+        unsigned int key_hash = ((T)key).get_hash_key();
+        unsigned int hash = key_hash % self.size;
         unsigned int it = hash;
         
         while(true) {
             if(self.item_existance[it])
             {
-                if(self.keys\[it].equals(key))
+                if(self.hashes[it] == key_hash && self.keys\[it].equals(key))
                 {
                     return dummy_heap self.items\[it];
                 }
 
-                it++;
-
-                if(it >= self.size) {
+                if(++it >= self.size) {
                     it = 0;
                 }
-                else if(it == hash) {
+                if(it == hash) {
                     return default_value;
                 }
             }
@@ -3650,23 +3667,23 @@ impl map <T, T2>
             return false;
         }
         
-        unsigned int hash = ((T)key).get_hash_key() % self.size;
+        unsigned int key_hash = ((T)key).get_hash_key();
+        unsigned int hash = key_hash % self.size;
         int it = hash;
 
         while(true) {
             if(self.item_existance[it])
             {
-                if((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))
+                if(self.hashes[it] == key_hash
+                    && ((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key)))
                 {
                     return true;
                 }
 
-                it++;
-
-                if(it >= self.size) {
+                if(++it >= self.size) {
                     it = 0;
                 }
-                else if(it == hash) {
+                if(it == hash) {
                     return false;
                 }
             }

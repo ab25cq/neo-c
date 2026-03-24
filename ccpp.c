@@ -96,8 +96,22 @@ static size_t macro_hash_name(const char *name) {
     return hash;
 }
 
+static size_t macro_hash_name_n(const char *name, size_t len) {
+    size_t hash = 1469598103934665603ull;
+    const unsigned char *p = (const unsigned char *)name;
+    for (size_t i = 0; i < len; ++i) {
+        hash ^= (size_t)p[i];
+        hash *= 1099511628211ull;
+    }
+    return hash;
+}
+
 static size_t mtable_bucket_index(const MacroTable *t, const char *name) {
     return t->nbuckets ? (macro_hash_name(name) % t->nbuckets) : 0;
+}
+
+static size_t mtable_bucket_index_n(const MacroTable *t, const char *name, size_t len) {
+    return t->nbuckets ? (macro_hash_name_n(name, len) % t->nbuckets) : 0;
 }
 
 static void mtable_rehash(MacroTable *t, size_t nbuckets) {
@@ -194,6 +208,22 @@ static size_t mtable_find_index(const MacroTable *t, const char *name) {
     return (size_t)-1;
 }
 
+static size_t mtable_find_index_n(const MacroTable *t, const char *name, size_t len) {
+    if (!t->buckets || t->nbuckets == 0) {
+        return (size_t)-1;
+    }
+
+    MacroHashNode *node = t->buckets[mtable_bucket_index_n(t, name, len)];
+    while (node) {
+        const char *entry_name = t->items[node->macro_index].name;
+        if (strncmp(entry_name, name, len) == 0 && entry_name[len] == '\0') {
+            return node->macro_index;
+        }
+        node = node->next;
+    }
+    return (size_t)-1;
+}
+
 static Macro *mtable_append(MacroTable *t, const char *name) {
     if (t->len == t->cap) {
         size_t ncap = t->cap ? t->cap * 2 : 8;
@@ -268,6 +298,11 @@ static void mtable_unset(MacroTable *t, const char *name) {
 
 static Macro *mtable_find(MacroTable *t, const char *name) {
     size_t index = mtable_find_index(t, name);
+    return index == (size_t)-1 ? NULL : &t->items[index];
+}
+
+static Macro *mtable_find_n(MacroTable *t, const char *name, size_t len) {
+    size_t index = mtable_find_index_n(t, name, len);
     return index == (size_t)-1 ? NULL : &t->items[index];
 }
 
@@ -1287,24 +1322,27 @@ typedef struct {
 
 static void sb_init(Str *s) { s->buf = NULL; s->len = 0; s->cap = 0; }
 static void sb_free(Str *s) { free(s->buf); }
+static void sb_reserve(Str *s, size_t need) {
+    if (need <= s->cap) return;
+    size_t ncap = s->cap ? s->cap : 128;
+    while (need > ncap) ncap *= 2;
+    s->buf = (char *)xrealloc(s->buf, ncap);
+    s->cap = ncap;
+}
 static void sb_putc(Str *s, char c) {
-    if (s->len + 1 >= s->cap) {
-        size_t ncap = s->cap ? s->cap * 2 : 128;
-        char *nbuf = (char *)xrealloc(s->buf, ncap);
-        s->buf = nbuf; s->cap = ncap;
-    }
+    sb_reserve(s, s->len + 2);
     s->buf[s->len++] = c; s->buf[s->len] = '\0';
+}
+static void sb_putn(Str *s, const char *t, size_t n) {
+    if (n == 0) return;
+    sb_reserve(s, s->len + n + 1);
+    memcpy(s->buf + s->len, t, n);
+    s->len += n;
+    s->buf[s->len] = '\0';
 }
 static void sb_puts(Str *s, const char *t) {
     size_t n = strlen(t);
-    if (s->len + n + 1 >= s->cap) {
-        size_t ncap = s->cap ? s->cap : 128;
-        while (s->len + n + 1 >= ncap) ncap *= 2;
-        char *nbuf = (char *)xrealloc(s->buf, ncap);
-        s->buf = nbuf; s->cap = ncap;
-    }
-    memcpy(s->buf + s->len, t, n);
-    s->len += n; s->buf[s->len] = '\0';
+    sb_putn(s, t, n);
 }
 
 static void normalize_digraph_tokens_inplace(Str *line) {
@@ -1636,6 +1674,8 @@ static bool eval_has_attribute_call(const char *line, size_t start, size_t *end,
 
 static void sb_put_stringized_argument(Str *out, const char *raw);
 
+#define IDENT_EQ(ptr, len, lit) ((len) == sizeof(lit) - 1 && memcmp((ptr), (lit), sizeof(lit) - 1) == 0)
+
 static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out, bool protect_defined) {
     enum { CODE, STR_DQ, STR_SQ, SL_COMMENT, BL_COMMENT } state = CODE;
     int bl_depth = g_block_comment_depth; // continue block comments across lines
@@ -1665,31 +1705,28 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
             if (c == '"') { state = STR_DQ; sb_putc(out, c); i++; continue; }
             if (c == '\'') { state = STR_SQ; sb_putc(out, c); i++; continue; }
             if (isalpha((unsigned char)c) || c == '_') {
-                // parse identifier
-                char ident[256]; size_t k = 0; size_t j = i;
-                while (line[j] && (isalnum((unsigned char)line[j]) || line[j] == '_')) {
-                    if (k + 1 < sizeof ident) ident[k++] = line[j];
-                    j++;
-                }
-                ident[k] = '\0';
-                if (strcmp(ident, "__LINE__") == 0) {
+                const char *ident = line + i;
+                size_t j = i;
+                while (line[j] && (isalnum((unsigned char)line[j]) || line[j] == '_')) j++;
+                size_t ident_len = j - i;
+                if (IDENT_EQ(ident, ident_len, "__LINE__")) {
                     char numbuf[32];
                     snprintf(numbuf, sizeof numbuf, "%ld", g_cur_line);
                     sb_puts(out, numbuf);
                     i = j;
                     continue;
                 }
-                if (strcmp(ident, "__FILE__") == 0) {
+                if (IDENT_EQ(ident, ident_len, "__FILE__")) {
                     sb_put_escaped_cstr(out, g_cur_file ? g_cur_file : "");
                     i = j;
                     continue;
                 }
-                if (strcmp(ident, "true") == 0 || strcmp(ident, "false") == 0) {
-                    sb_puts(out, ident);
+                if (IDENT_EQ(ident, ident_len, "true") || IDENT_EQ(ident, ident_len, "false")) {
+                    sb_putn(out, ident, ident_len);
                     i = j;
                     continue;
                 }
-                if (protect_defined && strcmp(ident, "defined") == 0) {
+                if (protect_defined && IDENT_EQ(ident, ident_len, "defined")) {
                     sb_puts(out, "defined");
                     size_t p = j;
                     while (line[p] && isspace((unsigned char)line[p])) { sb_putc(out, line[p]); p++; }
@@ -1715,8 +1752,8 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     i = j;
                     continue;
                 }
-                if (protect_defined && (strcmp(ident, "__has_include") == 0 || strcmp(ident, "__has_include_next") == 0)) {
-                    if (strcmp(ident, "__has_include_next") == 0 &&
+                if (protect_defined && (IDENT_EQ(ident, ident_len, "__has_include") || IDENT_EQ(ident, ident_len, "__has_include_next"))) {
+                    if (IDENT_EQ(ident, ident_len, "__has_include_next") &&
                         g_ifexpr_this_path && strstr(g_ifexpr_this_path, "stdatomic.h") != NULL) {
                         size_t p2 = j;
                         while (line[p2] && isspace((unsigned char)line[p2])) p2++;
@@ -1746,7 +1783,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     }
                     size_t endp = 0;
                     int val = 0;
-                    bool next = (strcmp(ident, "__has_include_next") == 0);
+                    bool next = IDENT_EQ(ident, ident_len, "__has_include_next");
                     size_t p2 = j;
                     while (line[p2] && isspace((unsigned char)line[p2])) p2++;
                     if (line[p2] != '(') {
@@ -1780,7 +1817,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                         continue;
                     }
                 }
-                if (protect_defined && strcmp(ident, "__has_attribute") == 0) {
+                if (protect_defined && IDENT_EQ(ident, ident_len, "__has_attribute")) {
                     size_t endp = 0;
                     int val = 0;
                     if (eval_has_attribute_call(line, j, &endp, &val)) {
@@ -1791,7 +1828,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                 }
                 // Handle _Pragma("...") operator by consuming it and suppressing output,
                 // since non-"once" pragmas are dropped elsewhere anyway.
-                if (strcmp(ident, "_Pragma") == 0) {
+                if (IDENT_EQ(ident, ident_len, "_Pragma")) {
                     size_t j2 = j; while (line[j2] && isspace((unsigned char)line[j2])) j2++;
                     if (line[j2] == '(') {
                         size_t p = j2 + 1;
@@ -1816,7 +1853,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                         // If malformed, fall through and emit as normal text
                     }
                 }
-                Macro *m = mtable_find((MacroTable*)t, ident);
+                Macro *m = mtable_find_n((MacroTable*)t, ident, ident_len);
                 const Macro *fm = NULL;
                 const char *rep = NULL;
                 if (m) {
@@ -1826,7 +1863,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                 size_t j2 = j; while (line[j2] && isspace((unsigned char)line[j2])) j2++;
                 if (fm && line[j2] == '(') {
                     if (g_expand_pass > 0 && fm->self_ref) {
-                        for (size_t q = i; q < j; ++q) sb_putc(out, line[q]);
+                        sb_putn(out, ident, ident_len);
                         i = j;
                         continue;
                     }
@@ -2042,7 +2079,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                                         }
                                         // not a param; output as literal
                                         sb_putc(out, '#');
-                                        for (size_t qq=bi; qq<bj; ++qq) sb_putc(out, body[qq]);
+                                        sb_putn(out, body + bi, bj - bi);
                                         bi = bj; continue;
                                     } else {
                                         // stringize fallback: if nothing follows '#', emit '#' and stop
@@ -2089,7 +2126,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                                 } else if (pi_idx != (size_t)-1 && pi_idx < argc) {
                                     sb_puts(out, paste_right ? args_raw[pi_idx] : args[pi_idx]);
                                 } else {
-                                    for (size_t qq=bi; qq<bj; ++qq) sb_putc(out, body[qq]);
+                                    sb_putn(out, body + bi, bj - bi);
                                 }
                                 bi = bj; continue;
                             }
@@ -2115,7 +2152,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     continue;
                 } else if (rep) {
                     if (g_expand_pass > 0 && m && m->self_ref) {
-                        for (size_t q = i; q < j; ++q) sb_putc(out, line[q]);
+                        sb_putn(out, ident, ident_len);
                         i = j;
                     } else {
                         sb_puts(out, rep);
@@ -2123,7 +2160,7 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
                     }
                 } else {
                     // not a macro; copy original slice
-                    for (size_t q = i; q < j; ++q) sb_putc(out, line[q]);
+                    sb_putn(out, ident, ident_len);
                     i = j;
                 }
                 continue;
@@ -2165,6 +2202,8 @@ static void expand_into_str_mode(const MacroTable *t, const char *line, Str *out
     g_block_comment_depth = bl_depth;
     g_hidden_block_comment_depth = hidden_bl_depth;
 }
+
+#undef IDENT_EQ
 
 static void sb_put_stringized_argument(Str *out, const char *raw) {
     const char *s = raw ? raw : "";

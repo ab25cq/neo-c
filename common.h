@@ -36,6 +36,8 @@ struct sRightValueObject;
 struct sVarTable;
 struct sBlock;
 
+char* parsecmp_tail(const char* p2, sInfo* info=info);
+
 interface sNode 
 {
     bool compile(sInfo* info);

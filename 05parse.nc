@@ -1,19 +1,28 @@
 #include "common.h"
 
-bool parsecmp(const char* p2, sInfo* info=info)
+char* parsecmp_tail(const char* p2, sInfo* info=info)
 {
     char* p = info.p;
     
     while(*p2) {
         if(*p == '\0' || *p != *p2) {
-            return false;
+            return null;
         }
         p++;
         p2++;
     }
     
     unsigned char c = *p;
-    return NEO_IS_PARSE_TAIL_CHAR(c);
+    if(!NEO_IS_PARSE_TAIL_CHAR(c)) {
+        return null;
+    }
+    
+    return p;
+}
+
+bool parsecmp(const char* p2, sInfo* info=info)
+{
+    return parsecmp_tail(p2, info) != null;
 }
 
 #define MATCH_COMMON_ATTRIBUTE(keyword) (len == (sizeof(keyword)-1) && memcmp(p, keyword, sizeof(keyword)-1) == 0)
