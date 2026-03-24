@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/utsname.h>
 #include <time.h>
 
 #define PP_RESCAN_MAX 1024
@@ -334,14 +335,29 @@ static const char *mtable_get(const MacroTable *t, const char *name) {
     return t->items[index].value;
 }
 
-static int uname_has(const char *token) {
-    char cmd[256];
-    int n;
+typedef struct {
+    bool initialized;
+    bool ok;
+    struct utsname uts;
+} HostInfoCache;
 
+static HostInfoCache g_host_info = {0};
+
+static void init_host_info(void) {
+    if (g_host_info.initialized) return;
+    g_host_info.initialized = true;
+    g_host_info.ok = uname(&g_host_info.uts) == 0;
+}
+
+static int uname_has(const char *token) {
     if (!token || !*token) return 0;
-    n = snprintf(cmd, sizeof(cmd), "uname -a | grep -q \"%s\" 2>/dev/null", token);
-    if (n < 0 || (size_t)n >= sizeof(cmd)) return 0;
-    return system(cmd) == 0;
+    init_host_info();
+    if (!g_host_info.ok) return 0;
+    return strstr(g_host_info.uts.sysname, token) != NULL ||
+           strstr(g_host_info.uts.nodename, token) != NULL ||
+           strstr(g_host_info.uts.release, token) != NULL ||
+           strstr(g_host_info.uts.version, token) != NULL ||
+           strstr(g_host_info.uts.machine, token) != NULL;
 }
 
 static void set_host_macros(MacroTable *t) {
@@ -418,7 +434,8 @@ static void set_host_macros(MacroTable *t) {
     int is_linux = uname_has("Linux");
     int is_mac = uname_has("Darwin");
     int is_bsd = uname_has("FreeBSD") || uname_has("OpenBSD") || uname_has("NetBSD") || uname_has("DragonFly");
-    int is_unix = is_linux || is_android || is_mac || is_bsd || system("uname -s 1> /dev/null 2> /dev/null") == 0;
+    init_host_info();
+    int is_unix = is_linux || is_android || is_mac || is_bsd || g_host_info.ok;
     
     if (is_linux || is_android) {
     mtable_set_obj(t, "__linux__", "1");
