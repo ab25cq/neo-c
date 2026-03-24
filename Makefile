@@ -12,10 +12,11 @@ CFLAGS_COMPILER=
 ifeq ($(CC_NAME),gcc)
 CFLAGS_COMPILER+=-fpermissive
 endif
-CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I/usr/local/include $(CFLAGS_DEFAULT_OPT) $(CFLAGS_OPT) $(CFLAGS_COMPILER) -std=c11 # -g -Og
+CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I. -I/usr/local/include $(CFLAGS_DEFAULT_OPT) $(CFLAGS_OPT) $(CFLAGS_COMPILER) -std=c11 # -g -Og
 LIBS= -lutil -ldl -lm -lrt
 UNAME_S=$(shell uname -s)
 NCC_FLAGS=
+NCC_FLAGS+=-I.
 LOWMEM?=0
 .PHONY: all self-host install clean distclean uninstall test
 ifeq ($(LOWMEM),1)

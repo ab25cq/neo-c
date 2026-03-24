@@ -1320,6 +1320,7 @@ struct list$1list$1int$$ph
 struct map$2int$list$1list$1int$$ph$ph
 {
     int* keys;
+    unsigned int* hashes;
     _Bool* item_existance;
     struct list$1list$1int$$ph** items;
     int size;
@@ -1331,6 +1332,7 @@ struct map$2int$list$1list$1int$$ph$ph
 struct map$2int$tuple3$3int$int$int$$ph
 {
     int*  keys  ;
+    unsigned int* hashes;
     _Bool* item_existance;
     struct tuple3$3int$int$int$** items;
     int size;
