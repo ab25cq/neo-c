@@ -2,10 +2,9 @@
 
 int main(int argc, char** argv)
 {
-    var a = [1,2,3,4,5].`filter { it > 2 }.`collect();
-    
-    a.each {
+    [1,2,3,4,5].`iter().`filter { it > 2 }.`each {
         printf("%d\n", it);
     }
+    
     return 0;
 }
