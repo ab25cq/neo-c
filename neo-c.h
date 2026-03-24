@@ -6279,6 +6279,7 @@ impl list<T>
         ({
             var _li = new list<T>();
             int i = 0;
+            bool _skip_while_done = false;
             foreach(it, `self) \{
                 `next();
                 i++;
@@ -6313,10 +6314,43 @@ impl list<T>
             break;
         \}
     }
+    iter skip_while() {
+        bool result = true;
+        
+        if(!_skip_while_done) \{
+            result = `block();
+            
+            if(!result) \{
+                _skip_while_done = true;
+            \}
+        \}
+        
+        if(_skip_while_done) \{
+            `next();
+        \}
+    }
     iter step_by(int step_by_num) {
         if(i % step_by_num == 0) \{
             `next();
         \}
+    }
+    iter cloned() {
+        if(isheap(T)) \{
+            `it = clone it;
+        \}
+        else \{
+            `it = dummy_heap dupe it;
+        \}
+        `next();
+    }
+    iter copied() {
+        if(isheap(T)) \{
+            `it = clone it;
+        \}
+        else \{
+            `it = dummy_heap dupe it;
+        \}
+        `next();
     }
     iter map() {
         `it = `block();
@@ -6337,6 +6371,9 @@ impl list<T>
         \}
     }
     iter_end each() {
+        `block();
+    }
+    iter_end for_each() {
         `block();
     }
     iter_end collect() {
@@ -6352,6 +6389,7 @@ impl vector<T>
         ({
             var _li = new vector<T>();
             int i = 0;
+            bool _skip_while_done = false;
             foreach(it, `self) \{
                 `next();
                 i++;
@@ -6386,10 +6424,43 @@ impl vector<T>
             break;
         \}
     }
+    iter skip_while() {
+        bool result = true;
+        
+        if(!_skip_while_done) \{
+            result = `block();
+            
+            if(!result) \{
+                _skip_while_done = true;
+            \}
+        \}
+        
+        if(_skip_while_done) \{
+            `next();
+        \}
+    }
     iter step_by(int step_by_num) {
         if(i % step_by_num == 0) \{
             `next();
         \}
+    }
+    iter cloned() {
+        if(isheap(T)) \{
+            `it = clone it;
+        \}
+        else \{
+            `it = dummy_heap dupe it;
+        \}
+        `next();
+    }
+    iter copied() {
+        if(isheap(T)) \{
+            `it = clone it;
+        \}
+        else \{
+            `it = dummy_heap dupe it;
+        \}
+        `next();
     }
     iter map() {
         `it = `block();
@@ -6410,6 +6481,9 @@ impl vector<T>
         \}
     }
     iter_end each() {
+        `block();
+    }
+    iter_end for_each() {
         `block();
     }
     iter_end collect() {
@@ -6425,6 +6499,7 @@ impl map<T, T2>
         ({
             var _li = new list<T>();
             int i = 0;
+            bool _skip_while_done = false;
             foreach(it, `self) \{
                 `next();
                 i++;
@@ -6459,10 +6534,43 @@ impl map<T, T2>
             break;
         \}
     }
+    iter skip_while() {
+        bool result = true;
+        
+        if(!_skip_while_done) \{
+            result = `block();
+            
+            if(!result) \{
+                _skip_while_done = true;
+            \}
+        \}
+        
+        if(_skip_while_done) \{
+            `next();
+        \}
+    }
     iter step_by(int step_by_num) {
         if(i % step_by_num == 0) \{
             `next();
         \}
+    }
+    iter cloned() {
+        if(isheap(T)) \{
+            `it = clone it;
+        \}
+        else \{
+            `it = dummy_heap dupe it;
+        \}
+        `next();
+    }
+    iter copied() {
+        if(isheap(T)) \{
+            `it = clone it;
+        \}
+        else \{
+            `it = dummy_heap dupe it;
+        \}
+        `next();
     }
     iter map() {
         `it = `block();
@@ -6483,6 +6591,9 @@ impl map<T, T2>
         \}
     }
     iter_end each() {
+        `block();
+    }
+    iter_end for_each() {
         `block();
     }
     iter_end collect() {
