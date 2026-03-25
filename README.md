@@ -3705,53 +3705,25 @@ int main(int argc, char** argv)
 
 # ZERO COST ITERATOR
 
-It's testing.
+neo-c has a Rust-like iterator DSL for `list<T>`, `vector<T>`, and `map<K,V>`.
+
+Use backticks for iterator methods:
 
 ```
-impl list<T>
-{
-    iter_begin iter(list<T>* self) {
-        ({
-            var _li = new list<T>();
-            foreach(it, `self) \{
-                `next();
-            \};
-            _li
-        })
-    }
-    iter filter(list<T>* self) {
-        bool result = `block();
-        
-        if(result) \{
-            `next();
-        \}
-    }
-    iter map(list<T>* self) {
-        `it = `block();
-    }
-    iter_end each(list<T>* self) {
-        `block();
-    }
-    iter_end correct(list<T>* self) {
-        _li.add(it);
-    }
-    iter_end end(list<T>* self) {
-    }
-}
-
-int main(int argc, char** argv) 
-{
-    var li = [1,2,3,4,5,6,7];
-    
-    var li2 = li.`iter().`filter { it > 3 }.`map { it.to_string() + "B" }.`correct();
-    
-    puts(li2.to_string());
-                                   
-    return 0;
-}
+var li2 = [1,2,3,4,5].`iter().`filter { it % 2 == 1 }.`map { it * 10 }.`collect();
 ```
 
-`find` usage example (current style):
+Basic rules:
+
+- `iter()` starts the iterator pipeline.
+- `it` is the current item inside each block.
+- The source expression is evaluated only once.
+- `list<T>` and `vector<T>` iterate values.
+- `map<K,V>` iterates keys, not values.
+- `collect()` materializes the pipeline result.
+- Iterator DSL methods use backticks. Normal collection methods such as `count()` do not.
+
+Example:
 
 ```
 #include <neo-c.h>
@@ -3759,18 +3731,282 @@ int main(int argc, char** argv)
 int main(int argc, char** argv)
 {
     var li = [1,2,3,4,5,6,7];
-
-    // take first 3 items -> find first item that matches -> map -> collect to list
-    var li2 = li.`iter().`take(3).`find { it > 2 }.`map { it.to_string() + "B" }.`collect();
-
-    puts(li2.to_string());   // [3B]
-
+    
+    var li2 = li.`iter().`filter { it > 3 }.`map { it.to_string() + "B" }.`collect();
+    
+    puts(li2.to_string());   // [4B, 5B, 6B, 7B]
+    
     return 0;
 }
 ```
 
-Note:
+Iterator DSL methods:
+
+`iter()`
+
+- Starts the pipeline.
+- Available on `list<T>`, `vector<T>`, and `map<K,V>`.
+- Evaluates the source once before iteration begins.
+
+```
+var li = [1,2,3].`iter().`collect();
+```
+
+`filter { ... }`
+
+- Keeps items where the block returns `true`.
+
+```
+var li = [1,2,3,4].`iter().`filter { it % 2 == 0 }.`collect();   // [2,4]
+```
+
+`map { ... }`
+
+- Replaces `it` with the block result.
+- Use this to transform item type or value.
+
+```
+var li = [1,2,3].`iter().`map { it.to_string() + "!" }.`collect();   // [1!,2!,3!]
+```
+
+`take(n)`
+
+- Yields only the first `n` items.
+
+```
+var li = [1,2,3,4,5].`iter().`take(3).`collect();   // [1,2,3]
+```
+
+`skip(n)`
+
+- Skips the first `n` items, then yields the rest.
+
+```
+var li = [1,2,3,4,5].`iter().`skip(2).`collect();   // [3,4,5]
+```
+
+`take_while { ... }`
+
+- Yields items while the block returns `true`.
+- Stops at the first `false`.
+
+```
+var li = [1,2,3,4,1].`iter().`take_while { it < 4 }.`collect();   // [1,2,3]
+```
+
+`skip_while { ... }`
+
+- Skips items while the block returns `true`.
+- Once the block returns `false`, yields that item and all remaining items.
+
+```
+var li = [1,2,3,2].`iter().`skip_while { it < 3 }.`collect();   // [3,2]
+```
+
+`step_by(n)`
+
+- Yields every `n`th item starting from index `0`.
+
+```
+var li = [1,2,3,4,5,6].`iter().`step_by(2).`collect();   // [1,3,5]
+```
+
+`cloned()`
+
+- Clones each item before passing it to the next stage.
+- Useful when you want an owned value in later stages.
+
+```
+var li = [1,2,3].`iter().`cloned().`map { it + 10 }.`collect();   // [11,12,13]
+```
+
+`copied()`
+
+- Produces a copied item for the next stage.
+- Current behavior is the same style as `cloned()` in the shipped implementation.
+
+```
+var li = [1,2,3].`iter().`copied().`map { it + 20 }.`collect();   // [21,22,23]
+```
+
+`enumerate()`
+
+- Rebinds `it` to a tuple of `(index, value)`.
+- Access fields with `it.v1`, `it.v2`, and so on.
+
+```
+var li = [10,20,30].`iter().`enumerate().`map { s"\{it.v1}:\{it.v2}" }.`collect();
+// [0:10,1:20,2:30]
+```
+
+`inspect { ... }`
+
+- Runs the block for side effects and keeps the original item flowing.
+
+```
+int sum = 0;
+var li = [1,2,3].`iter().`inspect { sum += it; }.`collect();   // [1,2,3]
+```
+
+`find { ... }`
+
+- Keeps the first item where the block returns `true`.
+- Stops the pipeline after that item.
+- If nothing matches, `collect()` returns an empty container.
+
+```
+var li = [1,2,3,4,5].`iter().`find { it > 3 }.`collect();   // [4]
+```
+
+`each { ... }`
+
+- Terminal operation for side effects.
+- Runs the block for each yielded item.
+- Alias-style terminal similar to `for_each()`.
+
+```
+[1,2,3].`iter().`each {
+    printf("%d\n", it);
+};
+```
+
+`for_each { ... }`
+
+- Terminal operation for side effects.
+- Runs the block for each yielded item.
+
+```
+[1,2,3].`iter().`for_each {
+    printf("%d\n", it);
+};
+```
+
+`collect()`
+
+- Terminal operation that materializes the result.
+- `list<T>.`iter()...`collect()` returns `list<T2>`.
+- `vector<T>.`iter()...`collect()` returns `vector<T2>`.
+- `map<K,V>.`iter()...`collect()` returns `list<K2>` because map iteration flows keys.
+
+```
+var li = [1,2,3].`iter().`map { it * 2 }.`collect();   // [2,4,6]
+```
+
+`end()`
+
+- Terminal operation that finishes the pipeline without collecting values.
+- Use this when only side effects matter and you do not want a result container.
+
+```
+[1,2,3].`iter().`inspect { printf("%d\n", it); }.`end();
+```
+
+Normal collection terminal methods:
+
+These are not backtick iterator operators. They are normal methods on `list<T>`, `vector<T>`, and `map<K,V>`, so you call them after a collection-producing step such as `filter { ... }` or `map { ... }`.
+
+`count()`
+
+- Returns the number of items.
+
+```
+[1,2,3,4].filter { it % 2 == 0 }.count();   // 2
+```
+
+`any { ... }`
+
+- Returns `true` if any item matches.
+- Returns `false` on an empty collection.
+
+```
+[1,2,3].any { it == 2 };   // true
+```
+
+`all { ... }`
+
+- Returns `true` if all items match.
+- Returns `true` on an empty collection.
+
+```
+[1,2,3].all { it < 4 };   // true
+```
+
+`position(default_value) { ... }`
+
+- Returns the zero-based index of the first matching item.
+- Returns `default_value` if no item matches.
+
+```
+[3,1,4].position(-1) { it == 1 };   // 1
+```
+
+`find_value(default_value) { ... }`
+
+- Returns the first matching item itself.
+- Returns `default_value` if no item matches.
+
+```
+[3,1,4].find_value(-1) { it > 3 };   // 4
+```
+
+`nth(index, default_value)`
+
+- Returns the item at `index`.
+- Negative indices count from the end.
+- Returns `default_value` if out of range.
+
+```
+[10,20,30].nth(1, -1);    // 20
+[10,20,30].nth(-1, -1);   // 30
+```
+
+`last(default_value)`
+
+- Returns the last item.
+- Returns `default_value` for an empty collection.
+
+```
+[10,20,30].last(-1);   // 30
+```
+
+`sum()`
+
+- Returns the sum of all items.
+- Returns `0` for an empty collection.
+
+```
+[1,2,3,4].sum();   // 10
+```
+
+`product()`
+
+- Returns the product of all items.
+- Returns `1` for an empty collection.
+
+```
+[1,2,3,4].product();   // 24
+```
+
+`min(default_value)`
+
+- Returns the minimum item.
+- Returns `default_value` for an empty collection.
+
+```
+[3,1,4,2].min(-1);   // 1
+```
+
+`max(default_value)`
+
+- Returns the maximum item.
+- Returns `default_value` for an empty collection.
+
+```
+[3,1,4,2].max(-1);   // 4
+```
+
+Notes:
 
 - Use `it.to_string() + "B"` for string output.
-- `it + "B"` is invalid (`int + string`) and now reports a compile error.
-- `count/any/all/position/find_value/nth/last/sum/product/min/max` are normal methods on `list/vector/map`, not backtick iterator terminal operators.
+- `it + "B"` is invalid because `int + string` is not allowed.
+- `map<K,V>` iterator pipelines and terminal methods operate on keys.
