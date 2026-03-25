@@ -2452,6 +2452,177 @@ impl list <T>
 
         return result;
     } 
+    bool any(list<T>* self, void* parent, bool (*block)(void*, T))
+    {
+        if(self == null) {
+            return false;
+        }
+        
+        list_item<T>* it = self.head;
+        while(it != null) {
+            if(block(parent, it.item)) {
+                return true;
+            }
+            it = it.next;
+        }
+        
+        return false;
+    }
+    bool all(list<T>* self, void* parent, bool (*block)(void*, T))
+    {
+        if(self == null) {
+            return true;
+        }
+        
+        list_item<T>* it = self.head;
+        while(it != null) {
+            if(!block(parent, it.item)) {
+                return false;
+            }
+            it = it.next;
+        }
+        
+        return true;
+    }
+    int count(list<T>* self)
+    {
+        return self.length();
+    }
+    int position(list<T>* self, int default_value, void* parent, bool (*block)(void*, T))
+    {
+        if(self == null) {
+            return default_value;
+        }
+        
+        list_item<T>* it = self.head;
+        int i = 0;
+        while(it != null) {
+            if(block(parent, it.item)) {
+                return i;
+            }
+            it = it.next;
+            i++;
+        }
+        
+        return default_value;
+    }
+    T find_value(list<T>* self, T^ default_value, void* parent, bool (*block)(void*, T))
+    {
+        if(self == null) {
+            return dummy_heap default_value;
+        }
+        
+        list_item<T>* it = self.head;
+        while(it != null) {
+            if(block(parent, it.item)) {
+                return dummy_heap it.item;
+            }
+            it = it.next;
+        }
+        
+        return dummy_heap default_value;
+    }
+    T nth(list<T>* self, int index, T^ default_value)
+    {
+        if(self == null) {
+            return dummy_heap default_value;
+        }
+        
+        if(index < 0) {
+            index += self.len;
+        }
+        
+        list_item<T>* it = self.head;
+        int i = 0;
+        while(it != null) {
+            if(i == index) {
+                return dummy_heap it.item;
+            }
+            it = it.next;
+            i++;
+        }
+        
+        return dummy_heap default_value;
+    }
+    T last(list<T>* self, T^ default_value)
+    {
+        if(self == null || self.tail == null) {
+            return dummy_heap default_value;
+        }
+        
+        return dummy_heap self.tail.item;
+    }
+    T sum(list<T>* self)
+    {
+        T result;
+        memset(&result, 0, sizeof(T));
+        
+        if(self == null) {
+            return result;
+        }
+        
+        list_item<T>* it = self.head;
+        while(it != null) {
+            result += it.item;
+            it = it.next;
+        }
+        
+        return result;
+    }
+    T product(list<T>* self)
+    {
+        T result = 1;
+        
+        if(self == null) {
+            return result;
+        }
+        
+        list_item<T>* it = self.head;
+        while(it != null) {
+            result *= it.item;
+            it = it.next;
+        }
+        
+        return result;
+    }
+    T min(list<T>* self, T^ default_value)
+    {
+        if(self == null || self.head == null) {
+            return dummy_heap default_value;
+        }
+        
+        bool first = true;
+        T result = dummy_heap default_value;
+        list_item<T>* it = self.head;
+        while(it != null) {
+            if(first || it.item.compare(result) < 0) {
+                result = dummy_heap it.item;
+                first = false;
+            }
+            it = it.next;
+        }
+        
+        return dummy_heap result;
+    }
+    T max(list<T>* self, T^ default_value)
+    {
+        if(self == null || self.head == null) {
+            return dummy_heap default_value;
+        }
+        
+        bool first = true;
+        T result = dummy_heap default_value;
+        list_item<T>* it = self.head;
+        while(it != null) {
+            if(first || it.item.compare(result) > 0) {
+                result = dummy_heap it.item;
+                first = false;
+            }
+            it = it.next;
+        }
+        
+        return dummy_heap result;
+    }
     
     list<T>*% operator_add(list<T>*% left, list<T>*% right) {
         list<T>*% result = new list<T>();
@@ -2737,6 +2908,159 @@ impl vector<T>
         }
 
         return default_value;
+    }
+    bool any(vector<T>* self, void* parent, bool (*block)(void*, T))
+    {
+        using unsafe;
+        
+        if(self == null) {
+            return false;
+        }
+        
+        for(int i=0; i<self.len; i++) {
+            if(block(parent, self.items[i])) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    bool all(vector<T>* self, void* parent, bool (*block)(void*, T))
+    {
+        using unsafe;
+        
+        if(self == null) {
+            return true;
+        }
+        
+        for(int i=0; i<self.len; i++) {
+            if(!block(parent, self.items[i])) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    int count(vector<T>* self)
+    {
+        return self.length();
+    }
+    int position(vector<T>* self, int default_value, void* parent, bool (*block)(void*, T))
+    {
+        using unsafe;
+        
+        if(self == null) {
+            return default_value;
+        }
+        
+        for(int i=0; i<self.len; i++) {
+            if(block(parent, self.items[i])) {
+                return i;
+            }
+        }
+        
+        return default_value;
+    }
+    T find_value(vector<T>* self, T default_value, void* parent, bool (*block)(void*, T))
+    {
+        using unsafe;
+        if(self == null) {
+            return default_value;
+        }
+        
+        for(int i=0; i<self.len; i++) {
+            if(block(parent, self.items[i])) {
+                return dummy_heap self.items[i];
+            }
+        }
+        
+        return default_value;
+    }
+    T nth(vector<T>* self, int index, T default_value)
+    {
+        using unsafe;
+        if(self == null) {
+            return default_value;
+        }
+        
+        if(index < 0) {
+            index += self.len;
+        }
+        
+        if(index < 0 || index >= self.len) {
+            return default_value;
+        }
+        
+        return dummy_heap self.items[index];
+    }
+    T last(vector<T>* self, T default_value)
+    {
+        return self.nth(-1, default_value);
+    }
+    T sum(vector<T>* self)
+    {
+        using unsafe;
+        
+        T result;
+        memset(&result, 0, sizeof(T));
+        
+        if(self == null) {
+            return result;
+        }
+        
+        for(int i=0; i<self.len; i++) {
+            result += self.items[i];
+        }
+        
+        return result;
+    }
+    T product(vector<T>* self)
+    {
+        using unsafe;
+        
+        T result = 1;
+        
+        if(self == null) {
+            return result;
+        }
+        
+        for(int i=0; i<self.len; i++) {
+            result *= self.items[i];
+        }
+        
+        return result;
+    }
+    T min(vector<T>* self, T default_value)
+    {
+        using unsafe;
+        if(self == null || self.len == 0) {
+            return default_value;
+        }
+        
+        T result = default_value;
+        for(int i=0; i<self.len; i++) {
+            if(i == 0 || self.items[i].compare(result) < 0) {
+                result = dummy_heap self.items[i];
+            }
+        }
+        
+        return dummy_heap result;
+    }
+    T max(vector<T>* self, T default_value)
+    {
+        using unsafe;
+        if(self == null || self.len == 0) {
+            return default_value;
+        }
+        
+        T result = default_value;
+        for(int i=0; i<self.len; i++) {
+            if(i == 0 || self.items[i].compare(result) > 0) {
+                result = dummy_heap self.items[i];
+            }
+        }
+        
+        return dummy_heap result;
     }
 
     int length(vector<T>* self)
@@ -3228,6 +3552,163 @@ impl map <T, T2>
             return 0;
         }
         return self.len;
+    }
+    bool any(map<T, T2>* self, void* parent, bool (*block)(void*, T))
+    {
+        if(self == null) {
+            return false;
+        }
+        
+        list_item<T>* it = self.key_list.head;
+        while(it != null) {
+            if(block(parent, it.item)) {
+                return true;
+            }
+            it = it.next;
+        }
+        
+        return false;
+    }
+    bool all(map<T, T2>* self, void* parent, bool (*block)(void*, T))
+    {
+        if(self == null) {
+            return true;
+        }
+        
+        list_item<T>* it = self.key_list.head;
+        while(it != null) {
+            if(!block(parent, it.item)) {
+                return false;
+            }
+            it = it.next;
+        }
+        
+        return true;
+    }
+    int count(map<T, T2>* self)
+    {
+        return self.length();
+    }
+    int position(map<T, T2>* self, int default_value, void* parent, bool (*block)(void*, T))
+    {
+        if(self == null) {
+            return default_value;
+        }
+        
+        list_item<T>* it = self.key_list.head;
+        int i = 0;
+        while(it != null) {
+            if(block(parent, it.item)) {
+                return i;
+            }
+            it = it.next;
+            i++;
+        }
+        
+        return default_value;
+    }
+    T find_value(map<T, T2>* self, T^ default_value, void* parent, bool (*block)(void*, T))
+    {
+        if(self == null) {
+            return dummy_heap default_value;
+        }
+        
+        list_item<T>* it = self.key_list.head;
+        while(it != null) {
+            if(block(parent, it.item)) {
+                return dummy_heap it.item;
+            }
+            it = it.next;
+        }
+        
+        return dummy_heap default_value;
+    }
+    T nth(map<T, T2>* self, int index, T^ default_value)
+    {
+        if(self == null) {
+            return dummy_heap default_value;
+        }
+        
+        return self.key_list.nth(index, default_value);
+    }
+    T last(map<T, T2>* self, T^ default_value)
+    {
+        if(self == null) {
+            return dummy_heap default_value;
+        }
+        
+        return self.key_list.last(default_value);
+    }
+    T sum(map<T, T2>* self)
+    {
+        T result;
+        memset(&result, 0, sizeof(T));
+        
+        if(self == null) {
+            return result;
+        }
+        
+        list_item<T>* it = self.key_list.head;
+        while(it != null) {
+            result += it.item;
+            it = it.next;
+        }
+        
+        return result;
+    }
+    T product(map<T, T2>* self)
+    {
+        T result = 1;
+        
+        if(self == null) {
+            return result;
+        }
+        
+        list_item<T>* it = self.key_list.head;
+        while(it != null) {
+            result *= it.item;
+            it = it.next;
+        }
+        
+        return result;
+    }
+    T min(map<T, T2>* self, T^ default_value)
+    {
+        if(self == null || self.key_list.head == null) {
+            return dummy_heap default_value;
+        }
+        
+        list_item<T>* it = self.key_list.head;
+        bool first = true;
+        T result = dummy_heap default_value;
+        while(it != null) {
+            if(first || it.item.compare(result) < 0) {
+                result = dummy_heap it.item;
+                first = false;
+            }
+            it = it.next;
+        }
+        
+        return dummy_heap result;
+    }
+    T max(map<T, T2>* self, T^ default_value)
+    {
+        if(self == null || self.key_list.head == null) {
+            return dummy_heap default_value;
+        }
+        
+        list_item<T>* it = self.key_list.head;
+        bool first = true;
+        T result = dummy_heap default_value;
+        while(it != null) {
+            if(first || it.item.compare(result) > 0) {
+                result = dummy_heap it.item;
+                first = false;
+            }
+            it = it.next;
+        }
+        
+        return dummy_heap result;
     }
     
     T^ begin(map<T, T2>* self) {

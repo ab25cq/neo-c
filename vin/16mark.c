@@ -2429,7 +2429,7 @@ int untouchwin(struct _win_st*    );
 void use_env(_Bool );
 void use_tioctl(_Bool );
 int vidattr(unsigned int    );
-int vidputs(unsigned int    , int (*anonymous_var_nameY419)(int)  );
+int vidputs(unsigned int    , int (*anonymous_var_nameY443)(int)  );
 int vline(unsigned int    , int );
 int vwprintw(struct _win_st*    , const char* , __builtin_va_list    ) __attribute__((deprecated))	
 		__attribute__((format(printf,2,0)));
@@ -2536,8 +2536,8 @@ int set_escdelay(int );
 int set_tabsize(int );
 int use_default_colors();
 int use_legacy_coding(int );
-int use_screen(struct screen*    , int (*anonymous_var_nameY620)(struct screen* ,void*)  , void* );
-int use_window(struct _win_st*    , int (*anonymous_var_nameY623)(struct _win_st* ,void*)  , void* );
+int use_screen(struct screen*    , int (*anonymous_var_nameY644)(struct screen* ,void*)  , void* );
+int use_window(struct _win_st*    , int (*anonymous_var_nameY647)(struct _win_st* ,void*)  , void* );
 int wresize(struct _win_st*    , int , int );
 int use_extended_names(_Bool );
 struct _win_st*  wgetparent(const struct _win_st*    );
@@ -2628,7 +2628,7 @@ int ungetch_sp(struct screen*    , int );
 void use_env_sp(struct screen*    , _Bool );
 void use_tioctl_sp(struct screen*    , _Bool );
 int vidattr_sp(struct screen*    , unsigned int    );
-int vidputs_sp(struct screen*    , unsigned int    , int (*anonymous_var_nameY780)(struct screen* ,int)  );
+int vidputs_sp(struct screen*    , unsigned int    , int (*anonymous_var_nameY804)(struct screen* ,int)  );
 int alloc_pair_sp(struct screen*    , int , int );
 int assume_default_colors_sp(struct screen*    , int , int );
 int define_key_sp(struct screen*    , const char* , int );
@@ -2725,7 +2725,7 @@ int slk_wset(int , const int*    , int );
 unsigned int  term_attrs();
 int unget_wch(const int    );
 int vid_attr(unsigned int    , short , void* );
-int vid_puts(unsigned int    , short , void* , int (*anonymous_var_nameY1052)(int)  );
+int vid_puts(unsigned int    , short , void* , int (*anonymous_var_nameY1076)(int)  );
 int vline_set(const struct anonymous_typeX21*    , int );
 int wadd_wch(struct _win_st*    , const struct anonymous_typeX21*    );
 int wadd_wchnstr(struct _win_st*    , const struct anonymous_typeX21*    , int );
@@ -2756,7 +2756,7 @@ int erasewchar_sp(struct screen*    , int*    );
 int killwchar_sp(struct screen*    , int*    );
 int unget_wch_sp(struct screen*    , const int    );
 int vid_attr_sp(struct screen*    , unsigned int    , short , void* );
-int vid_puts_sp(struct screen*    , unsigned int    , short , void* , int (*anonymous_var_nameY1132)(struct screen* ,int)  );
+int vid_puts_sp(struct screen*    , unsigned int    , short , void* , int (*anonymous_var_nameY1156)(struct screen* ,int)  );
 int*  wunctrl_sp(struct screen*    , struct anonymous_typeX21*    );
 _Bool has_mouse();
 int getmouse(struct anonymous_typeX22*    );
@@ -3272,13 +3272,13 @@ static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph
     void* __right_value1 = (void*)0;
     struct list$1int$* __dec_obj1;
     struct map$2int$tuple3$3int$int$int$$ph* __result_obj__0;
-    self->keys=(int* )come_increment_ref_count(((int* )(__right_value0=(int *)come_calloc(1, sizeof(int )*(1*(128)), "/usr/local/include/neo-c.h", 3000, 4, "int* "))), "/usr/local/include/neo-c.h", 3000, 5);
+    self->keys=(int* )come_increment_ref_count(((int* )(__right_value0=(int *)come_calloc(1, sizeof(int )*(1*(128)), "/usr/local/include/neo-c.h", 3324, 4, "int* "))), "/usr/local/include/neo-c.h", 3324, 5);
     __right_value0 = (void*)0;
-    self->items=(struct tuple3$3int$int$int$**)come_increment_ref_count(((struct tuple3$3int$int$int$**)(__right_value0=(struct tuple3$3int$int$int$**)come_calloc(1, sizeof(struct tuple3$3int$int$int$*)*(1*(128)), "/usr/local/include/neo-c.h", 3001, 6, "struct tuple3$3int$int$int$**"))), "/usr/local/include/neo-c.h", 3001, 7);
+    self->items=(struct tuple3$3int$int$int$**)come_increment_ref_count(((struct tuple3$3int$int$int$**)(__right_value0=(struct tuple3$3int$int$int$**)come_calloc(1, sizeof(struct tuple3$3int$int$int$*)*(1*(128)), "/usr/local/include/neo-c.h", 3325, 6, "struct tuple3$3int$int$int$**"))), "/usr/local/include/neo-c.h", 3325, 7);
     __right_value0 = (void*)0;
-    self->hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(128)), "/usr/local/include/neo-c.h", 3002, 8, "unsigned int*"))), "/usr/local/include/neo-c.h", 3002, 9);
+    self->hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(128)), "/usr/local/include/neo-c.h", 3326, 8, "unsigned int*"))), "/usr/local/include/neo-c.h", 3326, 9);
     __right_value0 = (void*)0;
-    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 3003, 10, "_Bool*"))), "/usr/local/include/neo-c.h", 3003, 11);
+    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "/usr/local/include/neo-c.h", 3327, 10, "_Bool*"))), "/usr/local/include/neo-c.h", 3327, 11);
     for(i=0    ;i<128;i++){
         self->hashes[i]=0;
         self->item_existance[i]=(_Bool)0;
@@ -3287,13 +3287,13 @@ static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph
     self->len=0;
     __right_value0 = (void*)0;
     __dec_obj1=self->key_list,
-    self->key_list=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "/usr/local/include/neo-c.h", 3014, 12, "struct list$1int$*"), "/usr/local/include/neo-c.h", 3014, 17)), "/usr/local/include/neo-c.h", 3014, 20);
-    come_call_finalizer(list$1int$_finalize, __dec_obj1,(void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3014, 19);
+    self->key_list=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "/usr/local/include/neo-c.h", 3338, 12, "struct list$1int$*"), "/usr/local/include/neo-c.h", 3338, 17)), "/usr/local/include/neo-c.h", 3338, 20);
+    come_call_finalizer(list$1int$_finalize, __dec_obj1,(void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3338, 19);
     self->it=0;
-        __result_obj__0 = (struct map$2int$tuple3$3int$int$int$$ph*)come_increment_ref_count(self, "/usr/local/include/neo-c.h", 3018, 21);
-    come_call_finalizer(map$2int$tuple3$3int$int$int$$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3018, 26);
+        __result_obj__0 = (struct map$2int$tuple3$3int$int$int$$ph*)come_increment_ref_count(self, "/usr/local/include/neo-c.h", 3342, 21);
+    come_call_finalizer(map$2int$tuple3$3int$int$int$$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3342, 26);
     neo_current_frame = fr.prev;
-    come_call_finalizer(map$2int$tuple3$3int$int$int$$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3018, 27);
+    come_call_finalizer(map$2int$tuple3$3int$int$int$$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3342, 27);
     return __result_obj__0;
 }
 
@@ -3361,7 +3361,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3054, 22);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3378, 22);
             }
         }
     }
@@ -3373,9 +3373,9 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->keys);
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3069, 23);
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3071, 24));
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3072, 25));
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 23);
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 24));
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 25));
         neo_current_frame = fr.prev;
 }
 
@@ -3393,7 +3393,7 @@ static void map$2int$tuple3$3int$int$int$$ph_finalize(struct map$2int$tuple3$3in
     for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3054, 29);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3378, 29);
             }
         }
     }
@@ -3405,9 +3405,9 @@ static void map$2int$tuple3$3int$int$int$$ph_finalize(struct map$2int$tuple3$3in
         }
     }
     come_free((char*)self->keys);
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3069, 30);
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3071, 31));
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3072, 32));
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 30);
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 31));
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 32));
         neo_current_frame = fr.prev;
 }
 
@@ -3551,7 +3551,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3054, 55);
+                come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3378, 55);
             }
         }
     }
@@ -3563,9 +3563,9 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->keys);
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3069, 56);
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3071, 57));
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3072, 58));
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 56);
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 57));
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 58));
             neo_current_frame = fr.prev;
 }
 
@@ -3621,7 +3621,7 @@ static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph
     int  it2  ;
     if(self==((void*)0)) {
                 __result_obj__0 = self;
-        come_call_finalizer(tuple3$3int$int$int$$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3362, 68);
+        come_call_finalizer(tuple3$3int$int$int$$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3843, 68);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -3643,8 +3643,8 @@ static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph
                     self->keys[it]=key;
                 }
                 if(1) {
-                    come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[it], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3388, 105);
-                    self->items[it]=(struct tuple3$3int$int$int$*)come_increment_ref_count(item, "/usr/local/include/neo-c.h", 3389, 106);
+                    come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[it], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3869, 105);
+                    self->items[it]=(struct tuple3$3int$int$int$*)come_increment_ref_count(item, "/usr/local/include/neo-c.h", 3870, 106);
                 }
                 else {
                     self->items[it]=item;
@@ -3671,7 +3671,7 @@ static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph
                 self->keys[it]=key;
             }
             if(1) {
-                self->items[it]=(struct tuple3$3int$int$int$*)come_increment_ref_count(item, "/usr/local/include/neo-c.h", 3417, 107);
+                self->items[it]=(struct tuple3$3int$int$int$*)come_increment_ref_count(item, "/usr/local/include/neo-c.h", 3898, 107);
             }
             else {
                 self->items[it]=item;
@@ -3690,7 +3690,7 @@ static struct map$2int$tuple3$3int$int$int$$ph* map$2int$tuple3$3int$int$int$$ph
         list$1int$_push_back(self->key_list,key);
     }
         __result_obj__0 = self;
-    come_call_finalizer(tuple3$3int$int$int$$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3440, 114);
+    come_call_finalizer(tuple3$3int$int$int$$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3921, 114);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -3714,13 +3714,13 @@ static void map$2int$tuple3$3int$int$int$$ph_rehash(struct map$2int$tuple3$3int$
     int n;
     struct tuple3$3int$int$int$* default_value_5;
     size=self->size*10;
-    keys=(int* )come_increment_ref_count(((int* )(__right_value0=(int *)come_calloc(1, sizeof(int )*(1*(size)), "/usr/local/include/neo-c.h", 3279, 69, "int* "))), "/usr/local/include/neo-c.h", 3279, 70);
+    keys=(int* )come_increment_ref_count(((int* )(__right_value0=(int *)come_calloc(1, sizeof(int )*(1*(size)), "/usr/local/include/neo-c.h", 3760, 69, "int* "))), "/usr/local/include/neo-c.h", 3760, 70);
     __right_value0 = (void*)0;
-    items=(struct tuple3$3int$int$int$**)come_increment_ref_count(((struct tuple3$3int$int$int$**)(__right_value0=(struct tuple3$3int$int$int$**)come_calloc(1, sizeof(struct tuple3$3int$int$int$*)*(1*(size)), "/usr/local/include/neo-c.h", 3280, 71, "struct tuple3$3int$int$int$**"))), "/usr/local/include/neo-c.h", 3280, 72);
+    items=(struct tuple3$3int$int$int$**)come_increment_ref_count(((struct tuple3$3int$int$int$**)(__right_value0=(struct tuple3$3int$int$int$**)come_calloc(1, sizeof(struct tuple3$3int$int$int$*)*(1*(size)), "/usr/local/include/neo-c.h", 3761, 71, "struct tuple3$3int$int$int$**"))), "/usr/local/include/neo-c.h", 3761, 72);
     __right_value0 = (void*)0;
-    hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(size)), "/usr/local/include/neo-c.h", 3281, 73, "unsigned int*"))), "/usr/local/include/neo-c.h", 3281, 74);
+    hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(size)), "/usr/local/include/neo-c.h", 3762, 73, "unsigned int*"))), "/usr/local/include/neo-c.h", 3762, 74);
     __right_value0 = (void*)0;
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3282, 75, "_Bool*"))), "/usr/local/include/neo-c.h", 3282, 76);
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "/usr/local/include/neo-c.h", 3763, 75, "_Bool*"))), "/usr/local/include/neo-c.h", 3763, 76);
     for(i=0    ;i<size;i++){
         hashes[i]=0;
         item_existance[i]=(_Bool)0;
@@ -3729,7 +3729,7 @@ static void map$2int$tuple3$3int$int$int$$ph_rehash(struct map$2int$tuple3$3int$
     for(it=map$2int$tuple3$3int$int$int$$ph_begin(self)    ;!map$2int$tuple3$3int$int$int$$ph_end(self);it=map$2int$tuple3$3int$int$int$$ph_next(self)){
         memset(&default_value,0,sizeof(struct tuple3$3int$int$int$*));
         __right_value0 = (void*)0;
-        it2=(struct tuple3$3int$int$int$*)come_increment_ref_count(map$2int$tuple3$3int$int$int$$ph_at(self,it,(struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3293, 92),(_Bool)0), "/usr/local/include/neo-c.h", 3293, 93);
+        it2=(struct tuple3$3int$int$int$*)come_increment_ref_count(map$2int$tuple3$3int$int$int$$ph_at(self,it,(struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3774, 92),(_Bool)0), "/usr/local/include/neo-c.h", 3774, 93);
         key_hash=wchar_t_get_hash_key(((int )it));
         hash=key_hash%size;
         n=hash;
@@ -3750,19 +3750,19 @@ static void map$2int$tuple3$3int$int$int$$ph_rehash(struct map$2int$tuple3$3int$
                 keys[n]=it;
                 memset(&default_value_5,0,sizeof(struct tuple3$3int$int$int$*));
                 __right_value0 = (void*)0;
-                items[n]=((struct tuple3$3int$int$int$*)(__right_value0=map$2int$tuple3$3int$int$int$$ph_at(self,it,(struct tuple3$3int$int$int$*)come_increment_ref_count(default_value_5, "/usr/local/include/neo-c.h", 3316, 94),(_Bool)0)));
+                items[n]=((struct tuple3$3int$int$int$*)(__right_value0=map$2int$tuple3$3int$int$int$$ph_at(self,it,(struct tuple3$3int$int$int$*)come_increment_ref_count(default_value_5, "/usr/local/include/neo-c.h", 3797, 94),(_Bool)0)));
                 len++;
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3319, 95);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3800, 95);
                 break;
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3321, 96);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value_5, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3802, 96);
             }
         }
-        come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3324, 97);
-        come_call_finalizer(tuple3$3int$int$int$$p_finalize, it2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3324, 98);
+        come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3805, 97);
+        come_call_finalizer(tuple3$3int$int$int$$p_finalize, it2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3805, 98);
     }
     come_free((char*)self->items);
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3325, 99));
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3326, 100));
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3806, 99));
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3807, 100));
     come_free((char*)self->keys);
     self->keys=keys;
     self->items=items;
@@ -3831,10 +3831,10 @@ static struct tuple3$3int$int$int$* map$2int$tuple3$3int$int$int$$ph_at(struct m
     unsigned int hash;
     unsigned int it;
     if(self==((void*)0)) {
-                __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3147, 77);
-        come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3147, 78);
+                __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3471, 77);
+        come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3471, 78);
         neo_current_frame = fr.prev;
-        come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3147, 79);
+        come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3471, 79);
         return __result_obj__0;
     }
     key_hash=wchar_t_get_hash_key(((int )key));
@@ -3843,35 +3843,35 @@ static struct tuple3$3int$int$int$* map$2int$tuple3$3int$int$int$$ph_at(struct m
     while((_Bool)1) {
         if(self->item_existance[it]) {
             if(self->hashes[it]==key_hash&&((!by_pointer&&wchar_t_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key))) {
-                                __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(self->items[it], "/usr/local/include/neo-c.h", 3160, 80);
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3160, 81);
+                                __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(self->items[it], "/usr/local/include/neo-c.h", 3484, 80);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3484, 81);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3160, 82);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3484, 82);
                 return __result_obj__0;
             }
             if(++it>=self->size) {
                 it=0;
             }
             if(it==hash) {
-                                __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3167, 83);
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3167, 84);
+                                __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3491, 83);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3491, 84);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3167, 85);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3491, 85);
                 return __result_obj__0;
             }
         }
         else {
-                        __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3171, 86);
-            come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3171, 87);
+                        __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3495, 86);
+            come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3495, 87);
             neo_current_frame = fr.prev;
-            come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3171, 88);
+            come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3495, 88);
             return __result_obj__0;
         }
     }
-        __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3175, 89);
-    come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3175, 90);
+        __result_obj__0 = (struct tuple3$3int$int$int$*)come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 3499, 89);
+    come_call_finalizer(tuple3$3int$int$int$$p_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3499, 90);
     neo_current_frame = fr.prev;
-    come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3175, 91);
+    come_call_finalizer(tuple3$3int$int$int$$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 3499, 91);
     return __result_obj__0;
 }
 

@@ -107,6 +107,33 @@ void test_map_copied()
     xassert("iter map copied", e.length() == 2 && e[0] == 21 && e[1] == 22);
 }
 
+void test_collection_terminals()
+{
+    int count = [1,2,3,4,5].filter { it % 2 == 0 }.count();
+    bool any = [1,2,3].any { it == 2 };
+    bool all = [1,2,3].all { it < 4 };
+    int pos = [3,1,4].position(-1) { it == 1 };
+    int found = [3,1,4].find_value(-1) { it > 3 };
+    int nth = [10,20,30].nth(1, -1);
+    int last = [10,20,30].last(-1);
+    int sum = [1,2,3,4].sum();
+    int product = [1,2,3,4].product();
+    int min = [3,1,4,2].min(-1);
+    int max = [3,1,4,2].max(-1);
+    
+    xassert("list count", count == 2);
+    xassert("list any", any == true);
+    xassert("list all", all == true);
+    xassert("list position", pos == 1);
+    xassert("list find_value", found == 4);
+    xassert("list nth", nth == 20);
+    xassert("list last", last == 30);
+    xassert("list sum", sum == 10);
+    xassert("list product", product == 24);
+    xassert("list min", min == 1);
+    xassert("list max", max == 4);
+}
+
 int main(int argc, char** argv)
 {
     test_skip();
@@ -123,6 +150,7 @@ int main(int argc, char** argv)
     test_map_for_each();
     test_map_cloned();
     test_map_copied();
+    test_collection_terminals();
     
     return 0;
 }

@@ -2429,7 +2429,7 @@ int untouchwin(struct _win_st*    );
 void use_env(_Bool );
 void use_tioctl(_Bool );
 int vidattr(unsigned int    );
-int vidputs(unsigned int    , int (*anonymous_var_nameY419)(int)  );
+int vidputs(unsigned int    , int (*anonymous_var_nameY443)(int)  );
 int vline(unsigned int    , int );
 int vwprintw(struct _win_st*    , const char* , __builtin_va_list    ) __attribute__((deprecated))	
 		__attribute__((format(printf,2,0)));
@@ -2536,8 +2536,8 @@ int set_escdelay(int );
 int set_tabsize(int );
 int use_default_colors();
 int use_legacy_coding(int );
-int use_screen(struct screen*    , int (*anonymous_var_nameY620)(struct screen* ,void*)  , void* );
-int use_window(struct _win_st*    , int (*anonymous_var_nameY623)(struct _win_st* ,void*)  , void* );
+int use_screen(struct screen*    , int (*anonymous_var_nameY644)(struct screen* ,void*)  , void* );
+int use_window(struct _win_st*    , int (*anonymous_var_nameY647)(struct _win_st* ,void*)  , void* );
 int wresize(struct _win_st*    , int , int );
 int use_extended_names(_Bool );
 struct _win_st*  wgetparent(const struct _win_st*    );
@@ -2628,7 +2628,7 @@ int ungetch_sp(struct screen*    , int );
 void use_env_sp(struct screen*    , _Bool );
 void use_tioctl_sp(struct screen*    , _Bool );
 int vidattr_sp(struct screen*    , unsigned int    );
-int vidputs_sp(struct screen*    , unsigned int    , int (*anonymous_var_nameY780)(struct screen* ,int)  );
+int vidputs_sp(struct screen*    , unsigned int    , int (*anonymous_var_nameY804)(struct screen* ,int)  );
 int alloc_pair_sp(struct screen*    , int , int );
 int assume_default_colors_sp(struct screen*    , int , int );
 int define_key_sp(struct screen*    , const char* , int );
@@ -2725,7 +2725,7 @@ int slk_wset(int , const int*    , int );
 unsigned int  term_attrs();
 int unget_wch(const int    );
 int vid_attr(unsigned int    , short , void* );
-int vid_puts(unsigned int    , short , void* , int (*anonymous_var_nameY1052)(int)  );
+int vid_puts(unsigned int    , short , void* , int (*anonymous_var_nameY1076)(int)  );
 int vline_set(const struct anonymous_typeX21*    , int );
 int wadd_wch(struct _win_st*    , const struct anonymous_typeX21*    );
 int wadd_wchnstr(struct _win_st*    , const struct anonymous_typeX21*    , int );
@@ -2756,7 +2756,7 @@ int erasewchar_sp(struct screen*    , int*    );
 int killwchar_sp(struct screen*    , int*    );
 int unget_wch_sp(struct screen*    , const int    );
 int vid_attr_sp(struct screen*    , unsigned int    , short , void* );
-int vid_puts_sp(struct screen*    , unsigned int    , short , void* , int (*anonymous_var_nameY1132)(struct screen* ,int)  );
+int vid_puts_sp(struct screen*    , unsigned int    , short , void* , int (*anonymous_var_nameY1156)(struct screen* ,int)  );
 int*  wunctrl_sp(struct screen*    , struct anonymous_typeX21*    );
 _Bool has_mouse();
 int getmouse(struct anonymous_typeX22*    );
@@ -3512,7 +3512,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3054, 48);
+                come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3378, 48);
             }
         }
     }
@@ -3524,9 +3524,9 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->keys);
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3069, 49);
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3071, 50));
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3072, 51));
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 49);
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 50));
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 51));
             neo_current_frame = fr.prev;
 }
 
@@ -3565,7 +3565,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3054, 55);
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3378, 55);
             }
         }
     }
@@ -3577,9 +3577,9 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->keys);
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3069, 56);
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3071, 57));
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3072, 58));
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 56);
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 57));
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 58));
             neo_current_frame = fr.prev;
 }
 

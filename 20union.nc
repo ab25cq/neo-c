@@ -17,6 +17,9 @@ static void output_union(sClass* klass, string pragma, sInfo* info, bool anonymo
     
     if(pragma && pragma !== "") {
         buf.append_str(pragma);
+        if(pragma[-1] != '\n') {
+            buf.append_char('\n');
+        }
     }
     buf.append_format("union %s\n{\n", klass.mName);
     
@@ -67,7 +70,7 @@ static void output_union(sClass* klass, string pragma, sInfo* info, bool anonymo
         buf.append_format("} %s;\n", klass->mAttribute);
     }
     if(pragma && pragma !== "") {
-        buf.append_str("#pragma pack(pop)");
+        buf.append_str("#pragma pack(pop)\n");
     }
     
     if(anonymous && named_child) return;

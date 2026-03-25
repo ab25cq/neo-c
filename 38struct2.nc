@@ -98,6 +98,9 @@ void output_struct(sClass* klass, string pragma, sInfo* info, bool anonymous=fal
         
     if(pragma && pragma !== "") {
         buf.append_str(pragma);
+        if(pragma[-1] != '\n') {
+            buf.append_char('\n');
+        }
     }
     buf.append_format("struct %s\n{\n", klass.mName);
             
@@ -155,7 +158,7 @@ void output_struct(sClass* klass, string pragma, sInfo* info, bool anonymous=fal
         buf.append_format("} %s;\n", klass->mAttribute);
     }
     if(pragma && pragma !== "") {
-        buf.append_str("#pragma pack(pop)");
+        buf.append_str("#pragma pack(pop)\n");
     }
     
     if(anonymous && named_child) return;
