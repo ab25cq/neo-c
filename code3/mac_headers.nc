@@ -1,5 +1,6 @@
 using C
 {
+#ifdef __APPLE__
 #include <Availability.h>
 #include <AvailabilityMacros.h>
 #include <TargetConditionals.h>
@@ -245,6 +246,11 @@ using C
 # if __has_include(<sys/syslog.h>)
 #  include <sys/syslog.h>
 # endif
+#endif
+#else
+#include <time.h>
+#include <signal.h>
+#include <string.h>
 #endif
 }
 

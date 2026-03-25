@@ -83,13 +83,23 @@ if [ ! -f "$cfile" ]; then
 fi
 
 link_neo_c_str=false
-if rg -q 'string_scan|string_match|charp_scan|charp_match|charp_index_regex|string_index_regex|charp_split|string_split|re_match' "$cfile"; then
+regex_runtime_pattern='string_scan|string_match|charp_scan|charp_match|charp_index_regex|string_index_regex|charp_split|string_split|re_match'
+if command -v rg >/dev/null 2>&1; then
+  if rg -q "$regex_runtime_pattern" "$cfile"; then
+    link_neo_c_str=true
+  fi
+elif grep -Eq "$regex_runtime_pattern" "$cfile"; then
   link_neo_c_str=true
 fi
 
 neo_c_str_flag=""
 if [ "$link_neo_c_str" = true ]; then
-  neo_c_str_flag="/usr/local/lib/neo-c-str.o"
+  local_neo_c_str="$(dirname "$0")/../neo-c-str.o"
+  if [ -f "$local_neo_c_str" ]; then
+    neo_c_str_flag="$local_neo_c_str"
+  else
+    neo_c_str_flag="/usr/local/lib/neo-c-str.o"
+  fi
 fi
 
 # shellcheck disable=SC2086

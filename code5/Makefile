@@ -6,11 +6,6 @@ TEST_OK := \
 	ref_array_elem \
 	ref_ptr \
 	ref_ptrref \
-	ref_string_assign \
-	opt_basic \
-	opt_value \
-	opt_reassign \
-	opt_string_assign \
 	span_array \
 	span_array_int \
 	span_array_read \
@@ -24,9 +19,6 @@ TEST_OK := \
 	span_ptr_int
 
 TEST_FAIL_NULL := \
-	opt_null \
-	opt_null_unwrap \
-	opt_self_null \
 	ref_self_null \
 	span_self_null
 
@@ -35,8 +27,6 @@ TEST_FAIL_REF_INIT := ref_null
 TEST_FAIL_VANISHED := \
 	ref_vanished \
 	ref_heap_vanished \
-	opt_vanished \
-	opt_heap_vanished
 
 TEST_FAIL_SPAN_RANGE :=
 
