@@ -49,6 +49,8 @@ test: *.nc
 	./test_iter_tuple_rebind
 	$(NEO_C) test_iter_rust_like.nc
 	./test_iter_rust_like
+	$(NEO_C) test_collection_terminals.nc
+	./test_collection_terminals
 	$(NEO_C) comelang2.nc
 	./comelang2
 	$(NEO_C) comelang3.nc
