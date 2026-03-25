@@ -1,5 +1,5 @@
-NEO_C ?= neo-c
-CC=neo-c
+NEO_C ?= ../neo-c-local-wrapper
+HOSTCC ?= clang
 CFLAGS ?= -O2
 
 SOURCES = \
@@ -16,6 +16,7 @@ SOURCES = \
 OBJECTS = $(SOURCES:.nc=.o)
 
 all: $(OBJECTS)
+	$(HOSTCC) $(CFLAGS) $(OBJECTS) -o $@
 
 %.o: %.nc
 	$(NEO_C) $(CFLAGS) -c $< -o $@
@@ -25,5 +26,4 @@ clean:
 	rm -f all
 	rm -f *.out
 	rm -f *.
-	rm -r *.i
-
+	rm -rf *.i
