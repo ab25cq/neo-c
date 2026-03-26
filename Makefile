@@ -19,13 +19,20 @@ NCC_FLAGS=
 NCC_FLAGS+=-I.
 LOWMEM?=0
 LTO?=1
-.PHONY: all self-host install clean distclean uninstall test
+ALLOCATOR?=system
+.PHONY: all self-host install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt
 ifeq ($(LOWMEM),1)
 CFLAGS_DEFAULT_OPT=
 NCC_FLAGS+=-lowmem
 endif
 ifeq ($(LTO),1)
 CFLAGS+=-flto=thin
+endif
+ifeq ($(ALLOCATOR),jemalloc)
+LIBS+=-ljemalloc
+endif
+ifeq ($(ALLOCATOR),mimalloc)
+LIBS+=-lmimalloc
 endif
 ifeq ($(UNAME_S),Darwin)
 ifneq ($(NO_PORTABLE_C),1)
@@ -42,6 +49,7 @@ all: ncc
 # make c source
 #########################################
 SELF_HOST_C_SOURCES=01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31type2.c 32function2.c 33output_code2.c 34heap2.c 35call2.c 36str2.c 37var2.c 38struct2.c 39method2.c 40obj2.c 41module2.c 42op2.c 43function3.c 44function4.c 45function5.c 46function6.c 47function7.c 48function8.c 49call3.c 50call4.c 51str3.c 52obj3.c 53obj4.c neo-c-str.c
+
 
 self-host: $(SELF_HOST_C_SOURCES)
 
@@ -401,13 +409,13 @@ install:
 # clean
 #########################################
 clean:
-	rm -fR ncc *.log *.o *.i *.out a a.c b b.c c c.c *.valgrind aa aaa a.out *.error
+	rm -fR ncc *.log *.o *.i *.out a a.c b b.c c c.c *.valgrind aa aaa a.out *.error *.profraw *.fdata ncc.inst ncc.fdata
 	rm -fR mf/mf.dSYM
 	rm -fR shsh/shsh.dSYM
 	rm -fR webweb/dbdb/dbdb.dSYM
 
 distclean: clean
-	rm -fR  config.h autom4te.cache 
+	rm -fR  config.h autom4te.cache ncc.profdata
 
 #########################################
 # uninstall
@@ -425,6 +433,49 @@ uninstall:
 
 test:
 	(cd code && make test)
+
+#########################################
+# PGO (Profile-Guided Optimization)
+# Usage: make pgo
+# Step-by-step: make pgo-generate  (builds instrumented ncc)
+#               make pgo-collect   (runs ncc on *.nc to gather profile)
+#               make pgo-use       (rebuilds ncc using profile data)
+#########################################
+pgo-generate:
+	$(MAKE) clean
+	$(MAKE) LTO=0 CFLAGS_OPT="$(CFLAGS_OPT) -fprofile-generate"
+
+pgo-collect:
+	@if [ ! -f ./ncc ]; then echo "ERROR: ncc not found. Run 'make pgo-generate' first."; exit 1; fi
+	for f in *.nc; do ./ncc $(NCC_FLAGS) -c $$f 2>/dev/null || true; done
+	@if ! ls *.profraw >/dev/null 2>&1; then echo "ERROR: No .profraw files generated. ncc may have crashed."; exit 1; fi
+	llvm-profdata merge -output=ncc.profdata *.profraw
+	rm -f *.profraw
+
+pgo-use:
+	@if [ ! -f ncc.profdata ]; then echo "ERROR: ncc.profdata not found. Run 'make pgo-collect' first."; exit 1; fi
+	$(MAKE) clean
+	$(MAKE) DEFAULT_CFLAGS_OPT=-O3 CFLAGS_OPT="$(CFLAGS_OPT) -fprofile-use=$(CURDIR)/ncc.profdata -Wl,--emit-relocs"
+
+#########################################
+# BOLT (Post-link binary optimization)
+# Requires: llvm-bolt, merge-fdata
+# Usage: make pgo-bolt  (after make pgo-use)
+#########################################
+BOLT_FLAGS=-reorder-blocks=ext-tsp -reorder-functions=hfsort -split-functions -split-all-cold -split-eh -dyno-stats
+
+pgo-bolt:
+	@if [ ! -f ./ncc ]; then echo "ERROR: ncc not found. Run 'make pgo-use' first."; exit 1; fi
+	llvm-bolt ncc -instrument -o ncc.inst
+	for f in *.nc; do ./ncc.inst $(NCC_FLAGS) -c $$f 2>/dev/null || true; done
+	merge-fdata *.fdata > ncc.fdata
+	llvm-bolt ncc -o ncc -data=ncc.fdata $(BOLT_FLAGS)
+	rm -f *.fdata ncc.inst
+
+pgo:
+	$(MAKE) pgo-generate
+	$(MAKE) pgo-collect
+	$(MAKE) pgo-use
 
 #########################################
 # neo-c one file
