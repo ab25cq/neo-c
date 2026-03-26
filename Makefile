@@ -18,10 +18,14 @@ UNAME_S=$(shell uname -s)
 NCC_FLAGS=
 NCC_FLAGS+=-I.
 LOWMEM?=0
+LTO?=1
 .PHONY: all self-host install clean distclean uninstall test
 ifeq ($(LOWMEM),1)
 CFLAGS_DEFAULT_OPT=
 NCC_FLAGS+=-lowmem
+endif
+ifeq ($(LTO),1)
+CFLAGS+=-flto=thin
 endif
 ifeq ($(UNAME_S),Darwin)
 ifneq ($(NO_PORTABLE_C),1)
