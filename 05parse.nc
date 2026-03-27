@@ -221,6 +221,28 @@ int match_common_attribute_keyword_len(const char* p)
 
 #undef MATCH_COMMON_ATTRIBUTE
 
+static int output_compile_message(sInfo* info, const char* level, const char* msg2)
+{
+    int sline_real = info.sline_real > 0 ? info.sline_real : info.sline;
+    
+    if(info.come_fun) {
+        printf("%s %d(%d): [%s] %s in fun (%s)\n", info.sname, info.sline, sline_real, level, msg2, info.come_fun.mName);
+    }
+    else {
+        printf("%s %d(%d): [%s] %s\n", info.sname, info.sline, sline_real, level, msg2);
+    }
+    
+    if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
+        char mem[61];
+        memcpy(mem, info.p - 30, 60);
+        mem[60] = '\0';
+        printf("%s\n", mem);
+    }
+    
+    printf("\n");
+    return 0;
+}
+
 int err_msg(sInfo* info, const char* msg, ...)
 {
     if(!info.no_output_come_code) {
@@ -231,30 +253,10 @@ int err_msg(sInfo* info, const char* msg, ...)
         vasprintf(&msg2,msg,args);
         va_end(args);
         
-        char* p = info.p;
-        int sline_real = info.sline_real > 0 ? info.sline_real : info.sline;
-        
-        buffer*% buf = new buffer();
-        
-        if(info.come_fun) {
-            buf.append_format("%s %d(%d): [error] %s in fun (%s)\n", info.sname, info.sline, sline_real, msg2, info.come_fun.mName);
-        }
-        else {
-            buf.append_format("%s %d(%d): [error] %s\n", info.sname, info.sline, sline_real, msg2);
-        }
-        
-        if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
-            char mem[128];
-            memcpy(mem, info.p - 30, 60);
-            mem[20] = '\0';
-            buf.append_str(mem + "\n"); 
-        }
-        
         info.err_num++;
 
+        output_compile_message(info, "error", msg2);
         free(msg2);
-        
-        printf(buf.to_string() + "\n");
         return 0;
     }
     
@@ -271,28 +273,10 @@ int warning_msg(sInfo* info, const char* msg, ...)
         vasprintf(&msg2,msg,args);
         va_end(args);
         
-        int sline_real = info.sline_real > 0 ? info.sline_real : info.sline;
-        
-        buffer*% buf = new buffer();
-        
-        if(info.come_fun) {
-            buf.append_format("%s %d(%d): [warning] %s in fun (%s)\n", info.sname, info.sline, sline_real, msg2, info.come_fun.mName);
-        }
-        else {
-            buf.append_format("%s %d(%d): [warning] %s\n", info.sname, info.sline, sline_real, msg2);
-        }
-        if((info.end - info.p) > 30 && (info.p - info.head) > 30) {
-            char mem[128];
-            memcpy(mem, info.p - 30, 60);
-            mem[20] = '\0';
-            buf.append_str(mem + "\n"); 
-        }
-        
         info.warning_num++;
 
+        output_compile_message(info, "warning", msg2);
         free(msg2);
-        
-        printf(buf.to_string() + "\n");
         return 0;
     }
     
@@ -476,7 +460,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
     return false;
 }
 
-static void skip_spaces_and_lf_core(bool parse_sharp_after, sInfo* info=info)
+static void skip_spaces_core(bool skip_lf, bool parse_sharp_after, bool stop_at_line_comment, sInfo* info=info)
 {
     char* p = info.p;
     int sline = info.sline;
@@ -486,7 +470,7 @@ static void skip_spaces_and_lf_core(bool parse_sharp_after, sInfo* info=info)
         if(*p == ' ' || *p == '\t') {
             p++;
         }
-        else if(*p == '\r') {
+        else if(skip_lf && *p == '\r') {
             p++;
             if(*p == '\n') {
                 p++;
@@ -494,113 +478,10 @@ static void skip_spaces_and_lf_core(bool parse_sharp_after, sInfo* info=info)
             sline++;
             sline_real++;
         }
-        else if(*p == '\n') {
+        else if(skip_lf && *p == '\n') {
             p++;
             sline++;
             sline_real++;
-        }
-        else if(*p == '/' && *(p+1) == '*') {
-            int nest = 0;
-            while(true) {
-                if(*p == '/' && *(p+1) == '*') {
-                    p += 2;
-                    nest++;
-                }
-                else if(*p == '*' && *(p+1) == '/') {
-                    p += 2;
-                    nest--;
-                    if(nest == 0) {
-                        break;
-                    }
-                }
-                else if(*p == '\n') {
-                    p++;
-                    sline++;
-                    sline_real++;
-                }
-                else if(*p == '\r') {
-                    p++;
-                    if(*p == '\n') {
-                        p++;
-                    }
-                    sline++;
-                    sline_real++;
-                }
-                else if(*p == '\0') {
-                    info.p = p;
-                    info.sline = sline;
-                    info.sline_real = sline_real;
-                    err_msg(info, "unterminated comment");
-                    break;
-                }
-                else {
-                    p++;
-                }
-            }
-        }
-        else if(*p == '/' && *(p+1) == '/') {
-            p += 2;
-            while(true) {
-                if(*p == '\n') {
-                    p++;
-                    sline++;
-                    sline_real++;
-                    break;
-                }
-                else if(*p == '\r') {
-                    p++;
-                    if(*p == '\n') {
-                        p++;
-                    }
-                    sline++;
-                    sline_real++;
-                    break;
-                }
-                else if(*p == '\0') {
-                    break;
-                }
-                else {
-                    p++;
-                }
-            }
-        }
-        else {
-            break;
-        }
-    }
-    info.p = p;
-    info.sline = sline;
-    info.sline_real = sline_real;
-    
-    if(parse_sharp_after) {
-        if(*info.p == '#') {
-            parse_sharp();
-        }
-        else if(*info.p == '_' && parsecmp("__extension__")) {
-            parse_sharp();
-        }
-    }
-}
-
-void skip_spaces_and_lf(sInfo* info=info)
-{
-    skip_spaces_and_lf_core(true, info);
-}
-
-void skip_spaces_and_lf2(sInfo* info=info)
-{
-    skip_spaces_and_lf_core(false, info);
-}
-
-void skip_spaces_and_tabs(sInfo* info=info)
-{
-    char* p = info.p;
-    int sline = info.sline;
-    int sline_real = info.sline_real;
-    
-    while(true) {
-        if(*p == ' ' || *p == '\t') {
-            p++;
         }
         else if(*p == '/' && *(p+1) == '*') {
             int nest = 0;
@@ -646,16 +527,56 @@ void skip_spaces_and_tabs(sInfo* info=info)
             while(*p && *p != '\n' && *p != '\r') {
                 p++;
             }
-            break;
+            if(skip_lf) {
+                if(*p == '\n') {
+                    p++;
+                    sline++;
+                    sline_real++;
+                }
+                else if(*p == '\r') {
+                    p++;
+                    if(*p == '\n') {
+                        p++;
+                    }
+                    sline++;
+                    sline_real++;
+                }
+            }
+            if(stop_at_line_comment) {
+                break;
+            }
         }
         else {
             break;
         }
     }
-    
     info.p = p;
     info.sline = sline;
     info.sline_real = sline_real;
+    
+    if(parse_sharp_after) {
+        if(*info.p == '#') {
+            parse_sharp();
+        }
+        else if(*info.p == '_' && parsecmp("__extension__")) {
+            parse_sharp();
+        }
+    }
+}
+
+void skip_spaces_and_lf(sInfo* info=info)
+{
+    skip_spaces_core(true, true, false, info);
+}
+
+void skip_spaces_and_lf2(sInfo* info=info)
+{
+    skip_spaces_core(true, false, false, info);
+}
+
+void skip_spaces_and_tabs(sInfo* info=info)
+{
+    skip_spaces_core(false, false, true, info);
 }
 
 static bool is_number_token(char* token)

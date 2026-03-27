@@ -33,6 +33,7 @@ MARCH_NATIVE?=1
 NOPLT?=1
 GC_SECTIONS?=1
 ALLOCATOR?=system
+PGO_TRAINING_DIRS?=. code code2 code4 mytest vin mf shsh zed webweb minux2 cinatora
 .PHONY: all self-host install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt pgo-cs-generate pgo-cs-collect pgo-cs-use
 ifeq ($(LOWMEM),1)
 CFLAGS_DEFAULT_OPT=
@@ -477,7 +478,11 @@ pgo-generate:
 
 pgo-collect:
 	@if [ ! -f ./ncc ]; then echo "ERROR: ncc not found. Run 'make pgo-generate' first."; exit 1; fi
-	for f in *.nc; do ./ncc $(NCC_FLAGS) -c $$f 2>/dev/null || true; done
+	@for d in $(PGO_TRAINING_DIRS); do \
+		if [ -d "$$d" ]; then \
+			find "$$d" -maxdepth 1 -name '*.nc' -print; \
+		fi; \
+	done | while read -r f; do ./ncc $(NCC_FLAGS) -c "$$f" 2>/dev/null || true; done
 	@if ! ls *.profraw >/dev/null 2>&1; then echo "ERROR: No .profraw files generated. ncc may have crashed."; exit 1; fi
 	$(LLVM_PROFDATA) merge -output=ncc.profdata *.profraw
 	rm -f *.profraw
@@ -515,7 +520,11 @@ pgo-cs-generate:
 
 pgo-cs-collect:
 	@if [ ! -f ./ncc ]; then echo "ERROR: ncc not found. Run 'make pgo-cs-generate' first."; exit 1; fi
-	for f in *.nc; do ./ncc $(NCC_FLAGS) -c $$f 2>/dev/null || true; done
+	@for d in $(PGO_TRAINING_DIRS); do \
+		if [ -d "$$d" ]; then \
+			find "$$d" -maxdepth 1 -name '*.nc' -print; \
+		fi; \
+	done | while read -r f; do ./ncc $(NCC_FLAGS) -c "$$f" 2>/dev/null || true; done
 	@if ! ls *.profraw >/dev/null 2>&1; then echo "ERROR: No .profraw files generated."; exit 1; fi
 	$(LLVM_PROFDATA) merge -output=ncc_cs.profdata ncc.profdata *.profraw
 	rm -f *.profraw
