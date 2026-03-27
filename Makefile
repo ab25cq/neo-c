@@ -7,6 +7,7 @@ CFLAGS_DEFAULT_OPT=$(DEFAULT_CFLAGS_OPT)
 CFLAGS_OPT=
 CC=clang
 INSTALL=/usr/bin/install -c
+LLVM_PROFDATA=$(shell which llvm-profdata 2>/dev/null || echo /Library/Developer/CommandLineTools/usr/bin/llvm-profdata)
 CC_NAME=$(notdir $(firstword $(CC)))
 CFLAGS_COMPILER=
 ifeq ($(CC_NAME),gcc)
@@ -15,6 +16,15 @@ endif
 CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I. -I/usr/local/include $(CFLAGS_DEFAULT_OPT) $(CFLAGS_OPT) $(CFLAGS_COMPILER) -std=c11 # -g -Og
 LIBS= -lutil -ldl -lm -lrt
 UNAME_S=$(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+PGO_GENERATE_FLAG=-fprofile-instr-generate
+PGO_USE_FLAG=-fprofile-instr-use=
+PGO_EMIT_RELOCS=
+else
+PGO_GENERATE_FLAG=-fprofile-generate
+PGO_USE_FLAG=-fprofile-use=
+PGO_EMIT_RELOCS=-Wl,--emit-relocs
+endif
 NCC_FLAGS=
 NCC_FLAGS+=-I.
 LOWMEM?=0
@@ -456,19 +466,19 @@ test:
 #########################################
 pgo-generate:
 	$(MAKE) clean
-	$(MAKE) LTO=0 CFLAGS_OPT="$(CFLAGS_OPT) -fprofile-generate"
+	$(MAKE) LTO=0 CFLAGS_OPT="$(CFLAGS_OPT) $(PGO_GENERATE_FLAG)"
 
 pgo-collect:
 	@if [ ! -f ./ncc ]; then echo "ERROR: ncc not found. Run 'make pgo-generate' first."; exit 1; fi
 	for f in *.nc; do ./ncc $(NCC_FLAGS) -c $$f 2>/dev/null || true; done
 	@if ! ls *.profraw >/dev/null 2>&1; then echo "ERROR: No .profraw files generated. ncc may have crashed."; exit 1; fi
-	llvm-profdata merge -output=ncc.profdata *.profraw
+	$(LLVM_PROFDATA) merge -output=ncc.profdata *.profraw
 	rm -f *.profraw
 
 pgo-use:
 	@if [ ! -f ncc.profdata ]; then echo "ERROR: ncc.profdata not found. Run 'make pgo-collect' first."; exit 1; fi
 	$(MAKE) clean
-	$(MAKE) DEFAULT_CFLAGS_OPT=-O3 CFLAGS_OPT="$(CFLAGS_OPT) -fprofile-use=$(CURDIR)/ncc.profdata -Wl,--emit-relocs"
+	$(MAKE) DEFAULT_CFLAGS_OPT=-O3 CFLAGS_OPT="$(CFLAGS_OPT) $(PGO_USE_FLAG)$(CURDIR)/ncc.profdata $(PGO_EMIT_RELOCS)"
 
 #########################################
 # BOLT (Post-link binary optimization)
@@ -494,20 +504,26 @@ pgo-bolt:
 pgo-cs-generate:
 	@if [ ! -f ncc.profdata ]; then echo "ERROR: ncc.profdata not found. Run standard PGO first."; exit 1; fi
 	$(MAKE) clean
-	$(MAKE) DEFAULT_CFLAGS_OPT=-O3 CFLAGS_OPT="$(CFLAGS_OPT) -fprofile-use=$(CURDIR)/ncc.profdata -fcs-profile-generate"
+	$(MAKE) DEFAULT_CFLAGS_OPT=-O3 CFLAGS_OPT="$(CFLAGS_OPT) $(PGO_USE_FLAG)$(CURDIR)/ncc.profdata -fcs-profile-generate"
 
 pgo-cs-collect:
 	@if [ ! -f ./ncc ]; then echo "ERROR: ncc not found. Run 'make pgo-cs-generate' first."; exit 1; fi
 	for f in *.nc; do ./ncc $(NCC_FLAGS) -c $$f 2>/dev/null || true; done
 	@if ! ls *.profraw >/dev/null 2>&1; then echo "ERROR: No .profraw files generated."; exit 1; fi
-	llvm-profdata merge -output=ncc_cs.profdata ncc.profdata *.profraw
+	$(LLVM_PROFDATA) merge -output=ncc_cs.profdata ncc.profdata *.profraw
 	rm -f *.profraw
 
 pgo-cs-use:
 	@if [ ! -f ncc_cs.profdata ]; then echo "ERROR: ncc_cs.profdata not found. Run 'make pgo-cs-collect' first."; exit 1; fi
 	$(MAKE) clean
-	$(MAKE) DEFAULT_CFLAGS_OPT=-O3 CFLAGS_OPT="$(CFLAGS_OPT) -fprofile-use=$(CURDIR)/ncc_cs.profdata -Wl,--emit-relocs"
+	$(MAKE) DEFAULT_CFLAGS_OPT=-O3 CFLAGS_OPT="$(CFLAGS_OPT) $(PGO_USE_FLAG)$(CURDIR)/ncc_cs.profdata $(PGO_EMIT_RELOCS)"
 
+ifeq ($(UNAME_S),Darwin)
+pgo:
+	$(MAKE) pgo-generate
+	$(MAKE) pgo-collect
+	$(MAKE) pgo-use
+else
 pgo:
 	$(MAKE) pgo-generate
 	$(MAKE) pgo-collect
@@ -515,6 +531,7 @@ pgo:
 	$(MAKE) pgo-cs-generate
 	$(MAKE) pgo-cs-collect
 	$(MAKE) pgo-cs-use
+endif
 
 #########################################
 # neo-c one file
