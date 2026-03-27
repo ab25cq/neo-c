@@ -19,6 +19,7 @@ NCC_FLAGS=
 NCC_FLAGS+=-I.
 LOWMEM?=0
 LTO?=1
+MARCH_NATIVE?=1
 ALLOCATOR?=system
 .PHONY: all self-host install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt
 ifeq ($(LOWMEM),1)
@@ -27,6 +28,9 @@ NCC_FLAGS+=-lowmem
 endif
 ifeq ($(LTO),1)
 CFLAGS+=-flto=thin
+endif
+ifeq ($(MARCH_NATIVE),1)
+CFLAGS+=-march=native
 endif
 ifeq ($(ALLOCATOR),jemalloc)
 LIBS+=-ljemalloc
