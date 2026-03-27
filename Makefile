@@ -39,7 +39,7 @@ CFLAGS+=-fno-plt
 endif
 ifeq ($(GC_SECTIONS),1)
 CFLAGS+=-ffunction-sections -fdata-sections
-LDFLAGS+=-Wl,--gc-sections
+#LDFLAGS+=-Wl,--gc-sections
 endif
 ifeq ($(ALLOCATOR),jemalloc)
 LIBS+=-ljemalloc
