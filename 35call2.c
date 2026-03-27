@@ -4659,36 +4659,34 @@ static struct sNode* post_position_operator_of_statment(struct sNode* node, stru
     struct sNode* __dec_obj50;
     struct sNode* __result_obj__0;
     struct sNode* __dec_obj51;
-    if(!node->terminated(node->_protocol_obj)&&parsecmp("or",info)) {
-        info->p+=strlen("or");
+    if(!node->terminated(node->_protocol_obj)&&parsecmp_forward("or",info)) {
         skip_spaces_and_lf(info);
         __dec_obj50=node,
-        node=(struct sNode*)come_increment_ref_count(parse_or_statment((struct sNode*)come_increment_ref_count(sNode_clone(node), "35call2.nc", 175, 411),info), "35call2.nc", 175, 413);
-        (__dec_obj50 ? __dec_obj50 = come_decrement_ref_count(__dec_obj50, ((struct sNode*)__dec_obj50)->finalize, ((struct sNode*)__dec_obj50)->_protocol_obj, 0,0, (void*)0, "35call2.nc", 175, 412) :0);
-                __result_obj__0 = (struct sNode*)come_increment_ref_count(node, "35call2.nc", 177, 414);
-        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 177, 415):(void*)0);
+        node=(struct sNode*)come_increment_ref_count(parse_or_statment((struct sNode*)come_increment_ref_count(sNode_clone(node), "35call2.nc", 174, 411),info), "35call2.nc", 174, 413);
+        (__dec_obj50 ? __dec_obj50 = come_decrement_ref_count(__dec_obj50, ((struct sNode*)__dec_obj50)->finalize, ((struct sNode*)__dec_obj50)->_protocol_obj, 0,0, (void*)0, "35call2.nc", 174, 412) :0);
+                __result_obj__0 = (struct sNode*)come_increment_ref_count(node, "35call2.nc", 176, 414);
+        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 176, 415):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 177, 416):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 176, 416):(void*)0);
         return __result_obj__0;
     }
-    else if(!node->terminated(node->_protocol_obj)&&parsecmp("and",info)) {
-        info->p+=strlen("and");
+    else if(!node->terminated(node->_protocol_obj)&&parsecmp_forward("and",info)) {
         skip_spaces_and_lf(info);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj51=node,
-        node=(struct sNode*)come_increment_ref_count(parse_and_statment((struct sNode*)come_increment_ref_count(sNode_clone(node), "35call2.nc", 183, 417),info), "35call2.nc", 183, 419);
-        (__dec_obj51 ? __dec_obj51 = come_decrement_ref_count(__dec_obj51, ((struct sNode*)__dec_obj51)->finalize, ((struct sNode*)__dec_obj51)->_protocol_obj, 0,0, (void*)0, "35call2.nc", 183, 418) :0);
-                __result_obj__0 = (struct sNode*)come_increment_ref_count(node, "35call2.nc", 185, 420);
-        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 185, 421):(void*)0);
+        node=(struct sNode*)come_increment_ref_count(parse_and_statment((struct sNode*)come_increment_ref_count(sNode_clone(node), "35call2.nc", 181, 417),info), "35call2.nc", 181, 419);
+        (__dec_obj51 ? __dec_obj51 = come_decrement_ref_count(__dec_obj51, ((struct sNode*)__dec_obj51)->finalize, ((struct sNode*)__dec_obj51)->_protocol_obj, 0,0, (void*)0, "35call2.nc", 181, 418) :0);
+                __result_obj__0 = (struct sNode*)come_increment_ref_count(node, "35call2.nc", 183, 420);
+        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 183, 421):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 185, 422):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 183, 422):(void*)0);
         return __result_obj__0;
     }
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(node, "35call2.nc", 188, 423);
-    ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 188, 424):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(node, "35call2.nc", 186, 423);
+    ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 186, 424):(void*)0);
     neo_current_frame = fr.prev;
-    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 188, 425):(void*)0);
+    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 186, 425):(void*)0);
     return __result_obj__0;
 }
 
@@ -4699,15 +4697,15 @@ struct sNode* statment(struct sInfo*  info  )
     struct sNode* node;
     struct sNode* __dec_obj52;
     struct sNode* __result_obj__0;
-    node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "35call2.nc", 193, 426);
+    node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "35call2.nc", 191, 426);
     __right_value0 = (void*)0;
     __dec_obj52=node,
-    node=(struct sNode*)come_increment_ref_count(post_position_operator_of_statment((struct sNode*)come_increment_ref_count(node, "35call2.nc", 195, 427),info), "35call2.nc", 195, 429);
-    (__dec_obj52 ? __dec_obj52 = come_decrement_ref_count(__dec_obj52, ((struct sNode*)__dec_obj52)->finalize, ((struct sNode*)__dec_obj52)->_protocol_obj, 0,0, (void*)0, "35call2.nc", 195, 428) :0);
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(node, "35call2.nc", 197, 430);
-    ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 197, 431):(void*)0);
+    node=(struct sNode*)come_increment_ref_count(post_position_operator_of_statment((struct sNode*)come_increment_ref_count(node, "35call2.nc", 193, 427),info), "35call2.nc", 193, 429);
+    (__dec_obj52 ? __dec_obj52 = come_decrement_ref_count(__dec_obj52, ((struct sNode*)__dec_obj52)->finalize, ((struct sNode*)__dec_obj52)->_protocol_obj, 0,0, (void*)0, "35call2.nc", 193, 428) :0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(node, "35call2.nc", 195, 430);
+    ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 195, 431):(void*)0);
     neo_current_frame = fr.prev;
-    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 197, 432):(void*)0);
+    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 195, 432):(void*)0);
     return __result_obj__0;
 }
 
@@ -4721,11 +4719,11 @@ char*  get_none_generics_name(char* class_name)
     p=class_name;
     while(*p) {
         if(*p==36) {
-                        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=charp_substring(((char* )(__right_value0=__builtin_string(class_name,"35call2.nc",205))),0,p-class_name))), "35call2.nc", 205, 433);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 205, 434));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 205, 435));
+                        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=charp_substring(((char* )(__right_value0=__builtin_string(class_name,"35call2.nc",203))),0,p-class_name))), "35call2.nc", 203, 433);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 203, 434));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 203, 435));
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 205, 436));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 203, 436));
             return __result_obj__0;
         }
         else {
@@ -4733,10 +4731,10 @@ char*  get_none_generics_name(char* class_name)
         }
     }
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(class_name,"35call2.nc",212))), "35call2.nc", 212, 437);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 212, 438));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(class_name,"35call2.nc",210))), "35call2.nc", 210, 437);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 210, 438));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 212, 439));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 210, 439));
     return __result_obj__0;
 }
 
@@ -4753,9 +4751,9 @@ char*  create_generics_name(struct sType*  generics_type  , struct sInfo*  info 
     char*  type_name  ;
     int i_33;
     char*  __result_obj__0  ;
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "35call2.nc", 217, 440, "struct buffer* "), "35call2.nc", 217, 441)), "35call2.nc", 217, 442);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "35call2.nc", 215, 440, "struct buffer* "), "35call2.nc", 215, 441)), "35call2.nc", 215, 442);
     klass=generics_type->mClass;
-    class_name=(char* )come_increment_ref_count(klass->mName, "35call2.nc", 221, 443);
+    class_name=(char* )come_increment_ref_count(klass->mName, "35call2.nc", 219, 443);
     buffer_append_str(buf,class_name);
     if(list$1sType$ph_length(generics_type->mGenericsTypes)>0) {
         buffer_append_char(buf,36);
@@ -4764,7 +4762,7 @@ char*  create_generics_name(struct sType*  generics_type  , struct sInfo*  info 
             __right_value0 = (void*)0;
             type=((struct sType* )(__right_value0=list$1sType$ph_operator_load_element(generics_type->mGenericsTypes,i)));
             __right_value0 = (void*)0;
-            type_name=(char* )come_increment_ref_count(create_generics_name(type,info), "35call2.nc", 231, 444);
+            type_name=(char* )come_increment_ref_count(create_generics_name(type,info), "35call2.nc", 229, 444);
             buffer_append_str(buf,type_name);
             buffer_append_char(buf,36);
             for(i_33=0            ;i_33<type->mPointerNum;i_33++){
@@ -4773,16 +4771,16 @@ char*  create_generics_name(struct sType*  generics_type  , struct sInfo*  info 
             if(type->mHeap) {
                 buffer_append_str(buf,"h");
             }
-            (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 244, 445));
+            (type_name = come_decrement_ref_count(type_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 242, 445));
         }
     }
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))), "35call2.nc", 246, 446);
-    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 246, 447);
-    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 246, 448));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 246, 449));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=buffer_to_string(buf))), "35call2.nc", 244, 446);
+    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 244, 447);
+    (class_name = come_decrement_ref_count(class_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 244, 448));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 244, 449));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 246, 450));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 244, 450));
     return __result_obj__0;
 }
 
@@ -4802,17 +4800,17 @@ char*  create_method_name(struct sType*  obj_type  , _Bool no_pointer_name, cons
     int i_34;
     char*  __result_obj__0  ;
     memset(&struct_name, 0, sizeof(struct_name));
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "35call2.nc", 252, 451, "struct buffer* "), "35call2.nc", 252, 452)), "35call2.nc", 252, 453);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "35call2.nc", 250, 451, "struct buffer* "), "35call2.nc", 250, 452)), "35call2.nc", 250, 453);
     if(string_operator_not_equals(obj_type->mOriginalTypeName,"")) {
         __right_value0 = (void*)0;
         __dec_obj53=struct_name,
-        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mOriginalTypeName,"35call2.nc",254), "35call2.nc", 254, 455);
-        __dec_obj53 = come_decrement_ref_count(__dec_obj53, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 254, 454);
+        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mOriginalTypeName,"35call2.nc",252), "35call2.nc", 252, 455);
+        __dec_obj53 = come_decrement_ref_count(__dec_obj53, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 252, 454);
         if(string_operator_equals(struct_name,"_Bool")) {
             __right_value0 = (void*)0;
             __dec_obj54=struct_name,
-            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 256, 457);
-            __dec_obj54 = come_decrement_ref_count(__dec_obj54, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 256, 456);
+            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 254, 457);
+            __dec_obj54 = come_decrement_ref_count(__dec_obj54, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 254, 456);
         }
         if(!obj_type->mClass->mStruct) {
             if(list$1sType$ph_length(obj_type->mGenericsTypes)>0&&obj_type->mTypedefOriginalType&&obj_type->mTypedefOriginalType->mPointerNum>0) {
@@ -4826,20 +4824,20 @@ char*  create_method_name(struct sType*  obj_type  , _Bool no_pointer_name, cons
     else if(obj_type->mClass->mStruct||obj_type->mClass->mProtocol) {
         __right_value0 = (void*)0;
         __dec_obj55=struct_name,
-        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mClass->mName,"35call2.nc",269), "35call2.nc", 269, 459);
-        __dec_obj55 = come_decrement_ref_count(__dec_obj55, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 269, 458);
+        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mClass->mName,"35call2.nc",267), "35call2.nc", 267, 459);
+        __dec_obj55 = come_decrement_ref_count(__dec_obj55, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 267, 458);
         if(string_operator_equals(struct_name,"_Bool")) {
             __right_value0 = (void*)0;
             __dec_obj56=struct_name,
-            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 271, 461);
-            __dec_obj56 = come_decrement_ref_count(__dec_obj56, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 271, 460);
+            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 269, 461);
+            __dec_obj56 = come_decrement_ref_count(__dec_obj56, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 269, 460);
         }
     }
     else {
         __right_value0 = (void*)0;
         __dec_obj57=struct_name,
-        struct_name=(char* )come_increment_ref_count(create_generics_name(obj_type,info), "35call2.nc", 275, 463);
-        __dec_obj57 = come_decrement_ref_count(__dec_obj57, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 275, 462);
+        struct_name=(char* )come_increment_ref_count(create_generics_name(obj_type,info), "35call2.nc", 273, 463);
+        __dec_obj57 = come_decrement_ref_count(__dec_obj57, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 273, 462);
         if(list$1sType$ph_length(obj_type->mGenericsTypes)>0&&obj_type->mPointerNum>0) {
             buffer_append_str(buf,"$");
         }
@@ -4858,13 +4856,13 @@ char*  create_method_name(struct sType*  obj_type  , _Bool no_pointer_name, cons
     }
         __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=xsprintf("%s%s_%s",struct_name,((char* )(__right_value0=buffer_to_string(buf))),fun_name))), "35call2.nc", 296, 464);
-    (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 296, 465));
-    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 296, 466);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 296, 467));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 296, 468));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=xsprintf("%s%s_%s",struct_name,((char* )(__right_value0=buffer_to_string(buf))),fun_name))), "35call2.nc", 294, 464);
+    (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 294, 465));
+    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 294, 466);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 294, 467));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 294, 468));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 296, 469));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 294, 469));
     return __result_obj__0;
 }
 
@@ -4893,24 +4891,24 @@ char*  create_method_name_original_obj_type(struct sType*  obj_type  , _Bool no_
     int i;
     char*  __result_obj__0  ;
     memset(&struct_name, 0, sizeof(struct_name));
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "35call2.nc", 302, 470, "struct buffer* "), "35call2.nc", 302, 471)), "35call2.nc", 302, 472);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "35call2.nc", 300, 470, "struct buffer* "), "35call2.nc", 300, 471)), "35call2.nc", 300, 472);
     if(obj_type->mClass->mStruct||obj_type->mClass->mProtocol) {
         __right_value0 = (void*)0;
         __dec_obj58=struct_name,
-        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mClass->mName,"35call2.nc",304), "35call2.nc", 304, 474);
-        __dec_obj58 = come_decrement_ref_count(__dec_obj58, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 304, 473);
+        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mClass->mName,"35call2.nc",302), "35call2.nc", 302, 474);
+        __dec_obj58 = come_decrement_ref_count(__dec_obj58, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 302, 473);
         if(string_operator_equals(struct_name,"_Bool")) {
             __right_value0 = (void*)0;
             __dec_obj59=struct_name,
-            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 306, 476);
-            __dec_obj59 = come_decrement_ref_count(__dec_obj59, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 306, 475);
+            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 304, 476);
+            __dec_obj59 = come_decrement_ref_count(__dec_obj59, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 304, 475);
         }
     }
     else {
         __right_value0 = (void*)0;
         __dec_obj60=struct_name,
-        struct_name=(char* )come_increment_ref_count(create_generics_name(obj_type,info), "35call2.nc", 310, 478);
-        __dec_obj60 = come_decrement_ref_count(__dec_obj60, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 310, 477);
+        struct_name=(char* )come_increment_ref_count(create_generics_name(obj_type,info), "35call2.nc", 308, 478);
+        __dec_obj60 = come_decrement_ref_count(__dec_obj60, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 308, 477);
         if(list$1sType$ph_length(obj_type->mGenericsTypes)>0&&obj_type->mPointerNum>0) {
             buffer_append_str(buf,"$");
         }
@@ -4926,13 +4924,13 @@ char*  create_method_name_original_obj_type(struct sType*  obj_type  , _Bool no_
     }
         __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=xsprintf("%s%s_%s",struct_name,((char* )(__right_value0=buffer_to_string(buf))),fun_name))), "35call2.nc", 328, 479);
-    (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 328, 480));
-    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 328, 481);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 328, 482));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 328, 483));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value1=xsprintf("%s%s_%s",struct_name,((char* )(__right_value0=buffer_to_string(buf))),fun_name))), "35call2.nc", 326, 479);
+    (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 326, 480));
+    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 326, 481);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 326, 482));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 326, 483));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 328, 484));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 326, 484));
     return __result_obj__0;
 }
 
@@ -4953,17 +4951,17 @@ char*  create_non_method_name(struct sType*  obj_type  , _Bool no_pointer_name, 
     int len;
     char*  __result_obj__0  ;
     memset(&struct_name, 0, sizeof(struct_name));
-    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "35call2.nc", 334, 485, "struct buffer* "), "35call2.nc", 334, 486)), "35call2.nc", 334, 487);
+    buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "35call2.nc", 332, 485, "struct buffer* "), "35call2.nc", 332, 486)), "35call2.nc", 332, 487);
     if(string_operator_not_equals(obj_type->mOriginalTypeName,"")) {
         __right_value0 = (void*)0;
         __dec_obj61=struct_name,
-        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mOriginalTypeName,"35call2.nc",336), "35call2.nc", 336, 489);
-        __dec_obj61 = come_decrement_ref_count(__dec_obj61, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 336, 488);
+        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mOriginalTypeName,"35call2.nc",334), "35call2.nc", 334, 489);
+        __dec_obj61 = come_decrement_ref_count(__dec_obj61, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 334, 488);
         if(string_operator_equals(struct_name,"_Bool")) {
             __right_value0 = (void*)0;
             __dec_obj62=struct_name,
-            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 338, 491);
-            __dec_obj62 = come_decrement_ref_count(__dec_obj62, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 338, 490);
+            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 336, 491);
+            __dec_obj62 = come_decrement_ref_count(__dec_obj62, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 336, 490);
         }
         if(!obj_type->mClass->mStruct) {
             if(obj_type->mTypedefOriginalType) {
@@ -4979,20 +4977,20 @@ char*  create_non_method_name(struct sType*  obj_type  , _Bool no_pointer_name, 
     else if(obj_type->mClass->mStruct||obj_type->mClass->mProtocol) {
         __right_value0 = (void*)0;
         __dec_obj63=struct_name,
-        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mClass->mName,"35call2.nc",353), "35call2.nc", 353, 493);
-        __dec_obj63 = come_decrement_ref_count(__dec_obj63, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 353, 492);
+        struct_name=(char* )come_increment_ref_count(__builtin_string(obj_type->mClass->mName,"35call2.nc",351), "35call2.nc", 351, 493);
+        __dec_obj63 = come_decrement_ref_count(__dec_obj63, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 351, 492);
         if(string_operator_equals(struct_name,"_Bool")) {
             __right_value0 = (void*)0;
             __dec_obj64=struct_name,
-            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 355, 495);
-            __dec_obj64 = come_decrement_ref_count(__dec_obj64, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 355, 494);
+            struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 353, 495);
+            __dec_obj64 = come_decrement_ref_count(__dec_obj64, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 353, 494);
         }
     }
     else {
         __right_value0 = (void*)0;
         __dec_obj65=struct_name,
-        struct_name=(char* )come_increment_ref_count(create_generics_name(obj_type,info), "35call2.nc", 359, 497);
-        __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 359, 496);
+        struct_name=(char* )come_increment_ref_count(create_generics_name(obj_type,info), "35call2.nc", 357, 497);
+        __dec_obj65 = come_decrement_ref_count(__dec_obj65, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 357, 496);
         if(list$1sType$ph_length(obj_type->mGenericsTypes)>0&&obj_type->mPointerNum>0) {
             buffer_append_str(buf,"$");
         }
@@ -5010,16 +5008,16 @@ char*  create_non_method_name(struct sType*  obj_type  , _Bool no_pointer_name, 
     memset(&none_method_name, 0, sizeof(none_method_name));
     __right_value0 = (void*)0;
     len=string_length(struct_name)+string_length(((char* )(__right_value0=buffer_to_string(buf))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 379, 498));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 377, 498));
     memcpy(none_method_name,fun_name+len+1,charp_length(fun_name)-len-1);
     none_method_name[charp_length(fun_name)-len-1]=0;
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(none_method_name,"35call2.nc",383))), "35call2.nc", 383, 499);
-    (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 383, 500));
-    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 383, 501);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 383, 502));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(none_method_name,"35call2.nc",381))), "35call2.nc", 381, 499);
+    (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 381, 500));
+    come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 381, 501);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 381, 502));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 383, 503));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 381, 503));
     return __result_obj__0;
 }
 
@@ -5030,19 +5028,19 @@ char*  create_method_name_using_class(struct sClass*  obj_class  , const char* f
     char*  struct_name  ;
     char*  __dec_obj66  ;
     char*  __result_obj__0  ;
-    struct_name=(char* )come_increment_ref_count(__builtin_string(obj_class->mName,"35call2.nc",388), "35call2.nc", 388, 504);
+    struct_name=(char* )come_increment_ref_count(__builtin_string(obj_class->mName,"35call2.nc",386), "35call2.nc", 386, 504);
     if(string_operator_equals(struct_name,"_Bool")) {
         __right_value0 = (void*)0;
         __dec_obj66=struct_name,
-        struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 390, 506);
-        __dec_obj66 = come_decrement_ref_count(__dec_obj66, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 390, 505);
+        struct_name=(char*)come_increment_ref_count(xsprintf("bool"), "35call2.nc", 388, 506);
+        __dec_obj66 = come_decrement_ref_count(__dec_obj66, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 388, 505);
     }
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%s_%s",struct_name,fun_name))), "35call2.nc", 393, 507);
-    (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 393, 508));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 393, 509));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("%s_%s",struct_name,fun_name))), "35call2.nc", 391, 507);
+    (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 391, 508));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 391, 509));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 393, 510));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "35call2.nc", 391, 510));
     return __result_obj__0;
 }
 
@@ -5052,9 +5050,9 @@ struct sNode* top_level_v1(char* buf, char* head, int head_sline, struct sInfo* 
     struct sNode* __result_obj__0;
     err_msg(info,"unexpected word(%s)(2)",buf);
     exit(2);
-        __result_obj__0 = (struct sNode*)come_increment_ref_count((struct sNode*)((void*)0), "35call2.nc", 401, 511);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count((struct sNode*)((void*)0), "35call2.nc", 399, 511);
     neo_current_frame = fr.prev;
-    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 401, 512):(void*)0);
+    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 399, 512):(void*)0);
     return __result_obj__0;
 }
 
@@ -5083,7 +5081,7 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  )
         info->p++;
         skip_spaces_and_lf(info);
         skip_spaces_and_lf(info);
-        params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "35call2.nc", 414, 513, "struct list$1tuple2$2char$phsNode$ph$ph*"), "35call2.nc", 414, 514)), "35call2.nc", 414, 515);
+        params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "35call2.nc", 412, 513, "struct list$1tuple2$2char$phsNode$ph$ph*"), "35call2.nc", 412, 514)), "35call2.nc", 412, 515);
         while((_Bool)1) {
             if(*info->p==41) {
                 info->p++;
@@ -5094,12 +5092,12 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  )
             sline=info->sline;
             err_flag=(_Bool)0;
             __right_value0 = (void*)0;
-            label=(char* )come_increment_ref_count(__builtin_string("","35call2.nc",427), "35call2.nc", 427, 516);
+            label=(char* )come_increment_ref_count(__builtin_string("","35call2.nc",425), "35call2.nc", 425, 516);
             if(xisalpha(*info->p)||*info->p==95) {
                 __right_value0 = (void*)0;
                 __dec_obj67=label,
-                label=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "35call2.nc", 429, 518);
-                __dec_obj67 = come_decrement_ref_count(__dec_obj67, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 429, 517);
+                label=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "35call2.nc", 427, 518);
+                __dec_obj67 = come_decrement_ref_count(__dec_obj67, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 427, 517);
                 err_flag=(_Bool)1;
             }
             if(err_flag==(_Bool)1&&*info->p==58) {
@@ -5109,7 +5107,7 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  )
             else {
                 __dec_obj68=label,
                 label=((void*)0);
-                __dec_obj68 = come_decrement_ref_count(__dec_obj68, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 438, 519);
+                __dec_obj68 = come_decrement_ref_count(__dec_obj68, (void*)0, (void*)0, 0,0, (void*)0, "35call2.nc", 436, 519);
                 info->p=p;
                 info->sline=sline;
             }
@@ -5118,16 +5116,16 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  )
             in_fun_param=info->in_fun_param;
             info->in_fun_param=(_Bool)1;
             __right_value0 = (void*)0;
-            node_36=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "35call2.nc", 450, 520);
+            node_36=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "35call2.nc", 448, 520);
             __right_value0 = (void*)0;
             __dec_obj69=node_36,
-            node_36=(struct sNode*)come_increment_ref_count(post_position_operator_v99((struct sNode*)come_increment_ref_count(node_36, "35call2.nc", 452, 521),info), "35call2.nc", 452, 523);
-            (__dec_obj69 ? __dec_obj69 = come_decrement_ref_count(__dec_obj69, ((struct sNode*)__dec_obj69)->finalize, ((struct sNode*)__dec_obj69)->_protocol_obj, 0,0, (void*)0, "35call2.nc", 452, 522) :0);
+            node_36=(struct sNode*)come_increment_ref_count(post_position_operator_v99((struct sNode*)come_increment_ref_count(node_36, "35call2.nc", 450, 521),info), "35call2.nc", 450, 523);
+            (__dec_obj69 ? __dec_obj69 = come_decrement_ref_count(__dec_obj69, ((struct sNode*)__dec_obj69)->finalize, ((struct sNode*)__dec_obj69)->_protocol_obj, 0,0, (void*)0, "35call2.nc", 450, 522) :0);
             info->no_comma=no_comma;
             info->in_fun_param=in_fun_param;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            list$1tuple2$2char$phsNode$ph$ph_push_back(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "35call2.nc", 457, 538, "struct tuple2$2char$phsNode$ph"), "35call2.nc", 457, 548),(char* )come_increment_ref_count(label, "35call2.nc", 457, 549),(struct sNode*)come_increment_ref_count(node_36, "35call2.nc", 457, 550)), "35call2.nc", 457, 551));
+            list$1tuple2$2char$phsNode$ph$ph_push_back(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "35call2.nc", 455, 538, "struct tuple2$2char$phsNode$ph"), "35call2.nc", 455, 548),(char* )come_increment_ref_count(label, "35call2.nc", 455, 549),(struct sNode*)come_increment_ref_count(node_36, "35call2.nc", 455, 550)), "35call2.nc", 455, 551));
             skip_spaces_and_lf(info);
             if(*info->p==44) {
                 info->p++;
@@ -5136,18 +5134,18 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  )
             else if(*info->p==41) {
                 info->p++;
                 skip_spaces_and_lf(info);
-                (label = come_decrement_ref_count(label, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 469, 552));
-                ((node_36) ? node_36 = come_decrement_ref_count(node_36, ((struct sNode*)node_36)->finalize, ((struct sNode*)node_36)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 469, 553):(void*)0);
+                (label = come_decrement_ref_count(label, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 467, 552));
+                ((node_36) ? node_36 = come_decrement_ref_count(node_36, ((struct sNode*)node_36)->finalize, ((struct sNode*)node_36)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 467, 553):(void*)0);
                 break;
             }
-            (label = come_decrement_ref_count(label, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 473, 554));
-            ((node_36) ? node_36 = come_decrement_ref_count(node_36, ((struct sNode*)node_36)->finalize, ((struct sNode*)node_36)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 473, 555):(void*)0);
+            (label = come_decrement_ref_count(label, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 471, 554));
+            ((node_36) ? node_36 = come_decrement_ref_count(node_36, ((struct sNode*)node_36)->finalize, ((struct sNode*)node_36)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 471, 555):(void*)0);
         }
         skip_spaces_and_lf(info);
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        _inf_value1=(struct sNode*)come_calloc(1, sizeof(struct sNode), "35call2.nc", 475, 559, "struct sNode");
-        _inf_obj_value1=(struct sLambdaCall*)come_increment_ref_count(((struct sLambdaCall*)(__right_value1=sLambdaCall_initialize((struct sLambdaCall* )come_increment_ref_count((struct sLambdaCall *)come_calloc(1, sizeof(struct sLambdaCall )*(1), "35call2.nc", 475, 556, "struct sLambdaCall* "), "35call2.nc", 475, 557),(struct sNode*)come_increment_ref_count(node, "35call2.nc", 475, 558),params,info))), "35call2.nc", 475, 560);
+        _inf_value1=(struct sNode*)come_calloc(1, sizeof(struct sNode), "35call2.nc", 473, 559, "struct sNode");
+        _inf_obj_value1=(struct sLambdaCall*)come_increment_ref_count(((struct sLambdaCall*)(__right_value1=sLambdaCall_initialize((struct sLambdaCall* )come_increment_ref_count((struct sLambdaCall *)come_calloc(1, sizeof(struct sLambdaCall )*(1), "35call2.nc", 473, 556, "struct sLambdaCall* "), "35call2.nc", 473, 557),(struct sNode*)come_increment_ref_count(node, "35call2.nc", 473, 558),params,info))), "35call2.nc", 473, 560);
         _inf_value1->_protocol_obj=_inf_obj_value1;
         _inf_value1->finalize=(void*)sLambdaCall_finalize;
         _inf_value1->clone=(void*)sLambdaCall_clone;
@@ -5158,24 +5156,24 @@ struct sNode* post_position_operator(struct sNode* node, struct sInfo*  info  )
         _inf_value1->terminated=(void*)sNodeBase_terminated;
         _inf_value1->kind=(void*)sLambdaCall_kind;
         _inf_value1->left_value=(void*)sNodeBase_left_value;
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value1)), "35call2.nc", 475, 571);
-        come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, params, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 475, 572);
-        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 475, 573):(void*)0);
-        come_call_finalizer(sLambdaCall_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "35call2.nc}", 475, 574);
-        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "35call2.nc", 475, 575):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=_inf_value1)), "35call2.nc", 473, 571);
+        come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, params, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 473, 572);
+        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 473, 573):(void*)0);
+        come_call_finalizer(sLambdaCall_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "35call2.nc}", 473, 574);
+        ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "35call2.nc", 473, 575):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 475, 576):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 473, 576):(void*)0);
         return __result_obj__0;
-        come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, params, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 480, 577);
+        come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, params, (void*)0, (void*)0, 0, 0, 0, (void*)0, "35call2.nc}", 478, 577);
     }
     else {
-                __result_obj__0 = (struct sNode*)come_increment_ref_count((struct sNode*)((void*)0), "35call2.nc", 478, 578);
-        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 478, 579):(void*)0);
+                __result_obj__0 = (struct sNode*)come_increment_ref_count((struct sNode*)((void*)0), "35call2.nc", 476, 578);
+        ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 476, 579):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 478, 580):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "35call2.nc", 476, 580):(void*)0);
         return __result_obj__0;
     }
-    ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 481, 581):(void*)0);
+    ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "35call2.nc", 479, 581):(void*)0);
     neo_current_frame = fr.prev;
 }
 

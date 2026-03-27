@@ -365,11 +365,9 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             if(buf === "else") {
                 int sline_real = info.sline_real;
                 info.sline_real = info.sline;
-                if(parsecmp("if", info)) {
+                if(parsecmp_forward("if", info)) {
                     skip_spaces_and_lf();
-                    info->p+=strlen("if");
-                    skip_spaces_and_lf();
-    
+
                     expected_next_character('(');
     
                     /// expression ///
@@ -471,8 +469,7 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
     
     while(true) {
         skip_spaces_and_lf();
-        if(parsecmp("else")) {
-            info->p += strlen("else");
+        if(parsecmp_forward("else")) {
             skip_spaces_and_lf();
             
             else_block = parse_block();
@@ -590,9 +587,7 @@ sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
         skip_spaces_and_lf();
 
         if(buf === "else") {
-            if(parsecmp("if", info)) {
-                skip_spaces_and_lf();
-                info->p+=strlen("if");
+            if(parsecmp_forward("if", info)) {
                 skip_spaces_and_lf();
 
                 expected_next_character('(');
@@ -681,9 +676,7 @@ sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
         skip_spaces_and_lf();
 
         if(buf === "else") {
-            if(parsecmp("if", info)) {
-                skip_spaces_and_lf();
-                info->p+=strlen("if");
+            if(parsecmp_forward("if", info)) {
                 skip_spaces_and_lf();
 
                 expected_next_character('(');
@@ -772,9 +765,7 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
         skip_spaces_and_lf();
 
         if(buf === "else") {
-            if(parsecmp("if", info)) {
-                skip_spaces_and_lf();
-                info->p+=strlen("if");
+            if(parsecmp_forward("if", info)) {
                 skip_spaces_and_lf();
 
                 expected_next_character('(');
@@ -817,4 +808,3 @@ sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
     
     return result;
 }
-

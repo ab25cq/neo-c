@@ -250,8 +250,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.no_label = no_label;
         
         sNode*% node2 = null;
-        if(parsecmp("...")) {
-            info->p += strlen("...");
+        if(parsecmp_forward("...")) {
             skip_spaces_and_lf();
             
             bool no_label = info.no_label;

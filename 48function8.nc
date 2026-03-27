@@ -199,8 +199,7 @@ sNode*% parse_function(sInfo* info)
     bool const_fun = false;
     
     int version = 0;
-    if(parsecmp("version")) {
-        info->p += strlen("version");
+    if(parsecmp_forward("version")) {
         skip_spaces_and_lf();
         
         int n = 0;

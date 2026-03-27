@@ -139,8 +139,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
         char* p = info.p;
         int sline = info.sline;
         
-        if(parsecmp("void")) {
-            info.p += strlen("void");
+        if(parsecmp_forward("void")) {
             skip_spaces_and_lf();
             
             if(*info.p == ')') {
@@ -153,8 +152,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
     }
     
     if(void_param) {
-        if(parsecmp("void")) {
-            info.p += strlen("void");
+        if(parsecmp_forward("void")) {
             skip_spaces_and_lf();
             
             if(*info.p == ')') {
@@ -217,8 +215,7 @@ tuple4<list<sType*%>*%, list<string>*%, list<string>*%, bool>*% parse_params(sIn
                 info->p++;
                 skip_spaces_and_lf();
                 
-                if(parsecmp("...")) {
-                    info->p += strlen("...");
+                if(parsecmp_forward("...")) {
                     skip_spaces_and_lf();
                     var_args = true;
                     
@@ -724,8 +721,7 @@ string,string parse_attribute(sInfo* info=info)
 
             skip_spaces_and_lf();
         }
-        else if(parsecmp("__asm")) {
-            info->p += strlen("__asm");
+        else if(parsecmp_forward("__asm")) {
             skip_spaces_and_lf();
 
             if(*info.p == '(') {

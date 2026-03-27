@@ -228,8 +228,7 @@ int alignof_type(sType* type, sInfo* info=info)
 
 string reflection_node(sInfo* info=info)
 {
-    if(parsecmp("sizeof")) {
-        (void)parse_word();
+    if(parsecmp_forward("sizeof")) {
         
         skip_spaces_and_lf();
         
@@ -261,8 +260,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("alignof")) {
-        (void)parse_word();
+    else if(parsecmp_forward("alignof")) {
         
         skip_spaces_and_lf();
         
@@ -294,8 +292,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("defined")) {
-        (void)parse_word();
+    else if(parsecmp_forward("defined")) {
         
         skip_spaces_and_lf();
         
@@ -337,8 +334,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("macro_defined")) {
-        (void)parse_word();
+    else if(parsecmp_forward("macro_defined")) {
         
         skip_spaces_and_lf();
         
@@ -365,8 +361,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("macro_value")) {
-        (void)parse_word();
+    else if(parsecmp_forward("macro_value")) {
         
         skip_spaces_and_lf();
         
@@ -399,8 +394,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("macro_call")) {
-        (void)parse_word();
+    else if(parsecmp_forward("macro_call")) {
         
         skip_spaces_and_lf();
         
@@ -440,8 +434,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_static")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_static")) {
         
         skip_spaces_and_lf();
         
@@ -476,8 +469,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_heap")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_heap")) {
         
         skip_spaces_and_lf();
         
@@ -502,8 +494,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_const")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_const")) {
         
         skip_spaces_and_lf();
         
@@ -528,8 +519,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_uniq")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_uniq")) {
         
         skip_spaces_and_lf();
         
@@ -554,8 +544,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_type")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_type")) {
         
         skip_spaces_and_lf();
         
@@ -586,8 +575,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("type")) {
-        (void)parse_word();
+    else if(parsecmp_forward("type")) {
         
         skip_spaces_and_lf();
         
@@ -622,8 +610,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("result_type")) {
-        (void)parse_word();
+    else if(parsecmp_forward("result_type")) {
         
         skip_spaces_and_lf();
         
@@ -654,8 +641,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("param_types")) {
-        (void)parse_word();
+    else if(parsecmp_forward("param_types")) {
         
         skip_spaces_and_lf();
         
@@ -696,8 +682,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("param_names")) {
-        (void)parse_word();
+    else if(parsecmp_forward("param_names")) {
         
         skip_spaces_and_lf();
         
@@ -735,8 +720,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("num_param_types")) {
-        (void)parse_word();
+    else if(parsecmp_forward("num_param_types")) {
         
         skip_spaces_and_lf();
         
@@ -767,8 +751,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("num_fields")) {
-        (void)parse_word();
+    else if(parsecmp_forward("num_fields")) {
         
         skip_spaces_and_lf();
         
@@ -801,8 +784,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("field_types")) {
-        (void)parse_word();
+    else if(parsecmp_forward("field_types")) {
         
         skip_spaces_and_lf();
         
@@ -848,8 +830,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_inline")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_inline")) {
         
         skip_spaces_and_lf();
         
@@ -882,8 +863,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_struct")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_struct")) {
         
         skip_spaces_and_lf();
         
@@ -916,8 +896,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_union")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_union")) {
         
         skip_spaces_and_lf();
         
@@ -950,8 +929,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_enum")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_enum")) {
         
         skip_spaces_and_lf();
         
@@ -984,8 +962,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_interface")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_interface")) {
         
         skip_spaces_and_lf();
         
@@ -1018,8 +995,7 @@ string reflection_node(sInfo* info=info)
             return s"false";
         }
     }
-    else if(parsecmp("is_generics")) {
-        (void)parse_word();
+    else if(parsecmp_forward("is_generics")) {
         
         skip_spaces_and_lf();
         
@@ -1645,8 +1621,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         parse_sharp();
         
         while(1) {
-            if(parsecmp("elif")) {
-                (void)parse_word();
+            if(parsecmp_forward("elif")) {
                 
                 if(*info->p == '(') {
                     info->p++;
@@ -1675,8 +1650,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
             }
         }
         
-        if(parsecmp("else")) {
-            (void)parse_word();
+        if(parsecmp_forward("else")) {
             
             if(!match_) {
                 expected_next_character('{');

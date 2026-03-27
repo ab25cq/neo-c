@@ -4229,44 +4229,39 @@ struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo*
     _Bool come_safe;
     _Bool come_safe_73;
     if(charp_operator_equals(buf,"using")) {
-        if(parsecmp("neo-c-pthread",info)) {
-            info->p+=strlen("neo-c-pthread");
+        if(parsecmp_forward("neo-c-pthread",info)) {
             skip_spaces_and_lf(info);
             gComePthread=(_Bool)1;
-                        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))), "52obj3.nc", 725, 473);
-            ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 725, 474):(void*)0);
+                        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))), "52obj3.nc", 724, 473);
+            ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 724, 474):(void*)0);
             neo_current_frame = fr.prev;
-            ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 725, 475):(void*)0);
+            ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 724, 475):(void*)0);
             return __result_obj__0;
         }
-        else if(parsecmp("comelang",info)) {
-            info->p+=strlen("comelang");
+        else if(parsecmp_forward("comelang",info)) {
             skip_spaces_and_lf(info);
             gComelang=(_Bool)1;
                         __right_value0 = (void*)0;
-            __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))), "52obj3.nc", 733, 476);
-            ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 733, 477):(void*)0);
+            __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))), "52obj3.nc", 731, 476);
+            ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 731, 477):(void*)0);
             neo_current_frame = fr.prev;
-            ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 733, 478):(void*)0);
+            ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 731, 478):(void*)0);
             return __result_obj__0;
         }
-        else if(parsecmp("neo-c-net",info)) {
-            info->p+=strlen("neo-c-net");
+        else if(parsecmp_forward("neo-c-net",info)) {
             skip_spaces_and_lf(info);
                         __right_value0 = (void*)0;
-            __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))), "52obj3.nc", 739, 479);
-            ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 739, 480):(void*)0);
+            __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))), "52obj3.nc", 736, 479);
+            ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 736, 480):(void*)0);
             neo_current_frame = fr.prev;
-            ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 739, 481):(void*)0);
+            ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 736, 481):(void*)0);
             return __result_obj__0;
         }
-        else if(parsecmp("neo-c",info)) {
-            info->p+=strlen("neo-c");
+        else if(parsecmp_forward("neo-c",info)) {
             skip_spaces_and_lf(info);
             gComeC=(_Bool)0;
         }
-        else if(parsecmp("c",info)||parsecmp("C",info)) {
-            info->p+=strlen("c");
+        else if(parsecmp_forward("c",info)||parsecmp_forward("C",info)) {
             skip_spaces_and_lf(info);
             if(*info->p==123) {
                 info->p++;
@@ -4280,8 +4275,7 @@ struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo*
                 gComeC=(_Bool)1;
             }
         }
-        else if(parsecmp("unsafe",info)) {
-            info->p+=strlen("unsafe");
+        else if(parsecmp_forward("unsafe",info)) {
             skip_spaces_and_lf(info);
             if(*info->p==123) {
                 info->p++;
@@ -4295,8 +4289,7 @@ struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo*
                 gComeSafe=(_Bool)0;
             }
         }
-        else if(parsecmp("safe",info)) {
-            info->p+=strlen("safe");
+        else if(parsecmp_forward("safe",info)) {
             skip_spaces_and_lf(info);
             if(*info->p==123) {
                 info->p++;
@@ -4315,17 +4308,17 @@ struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo*
             exit(2);
         }
                 __right_value0 = (void*)0;
-        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))), "52obj3.nc", 809, 482);
-        ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 809, 483):(void*)0);
+        __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_nothing_node(info))), "52obj3.nc", 802, 482);
+        ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 802, 483):(void*)0);
         neo_current_frame = fr.prev;
-        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 809, 484):(void*)0);
+        ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 802, 484):(void*)0);
         return __result_obj__0;
     }
         __right_value0 = (void*)0;
-    __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=top_level_v93(buf,head,head_sline,info))), "52obj3.nc", 812, 485);
-    ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 812, 486):(void*)0);
+    __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=top_level_v93(buf,head,head_sline,info))), "52obj3.nc", 805, 485);
+    ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "52obj3.nc", 805, 486):(void*)0);
     neo_current_frame = fr.prev;
-    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 812, 487):(void*)0);
+    ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "52obj3.nc", 805, 487):(void*)0);
     return __result_obj__0;
 }
 

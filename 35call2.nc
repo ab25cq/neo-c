@@ -168,16 +168,14 @@ sNode*% expression(sInfo* info=info) version 5
 
 static sNode*% post_position_operator_of_statment(sNode*% node, sInfo* info)
 {
-    if(!node->terminated() && parsecmp("or")) {
-        info->p += strlen("or");
+    if(!node->terminated() && parsecmp_forward("or")) {
         skip_spaces_and_lf();
         
         node = parse_or_statment(clone node, info);
         
         return node;
     }
-    else if(!node->terminated() && parsecmp("and")) {
-        info->p += strlen("and");
+    else if(!node->terminated() && parsecmp_forward("and")) {
         skip_spaces_and_lf();
         
         node = parse_and_statment(clone node, info);

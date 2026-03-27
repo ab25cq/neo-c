@@ -651,7 +651,8 @@ static void apply_pack_pragma_state(string pragma_line, sInfo* info)
 
     int lparen_pos = -1;
     int rparen_pos = -1;
-    for(int i=0; i<compact.length(); i++) {
+    int compact_len = compact.length();
+    for(int i=0; i<compact_len; i++) {
         char d = compact[i];
         if(d == '(' && lparen_pos == -1) {
             lparen_pos = i;
@@ -695,7 +696,8 @@ static void apply_pack_pragma_state(string pragma_line, sInfo* info)
             }
         }
     }
-    if(tokens.length() == 0) {
+    int tokens_len = tokens.length();
+    if(tokens_len == 0) {
         return;
     }
     
@@ -705,7 +707,7 @@ static void apply_pack_pragma_state(string pragma_line, sInfo* info)
         string push_id = s"";
         string push_num = s"";
         
-        for(int i=1; i<tokens.length(); i++) {
+        for(int i=1; i<tokens_len; i++) {
             string tok2 = clone tokens.item(i, s"");
             if(is_number_token(tok2)) {
                 push_num = clone tok2;
@@ -725,7 +727,7 @@ static void apply_pack_pragma_state(string pragma_line, sInfo* info)
         string pop_id = s"";
         string pop_num = s"";
         
-        for(int i=1; i<tokens.length(); i++) {
+        for(int i=1; i<tokens_len; i++) {
             string tok2 = clone tokens.item(i, s"");
             if(is_number_token(tok2)) {
                 pop_num = clone tok2;
@@ -737,7 +739,8 @@ static void apply_pack_pragma_state(string pragma_line, sInfo* info)
         
         if(pop_id !== "") {
             int found = -1;
-            for(int i=0; i<info.pragma_pack_stack.length(); i++) {
+            int pragma_pack_stack_len = info.pragma_pack_stack.length();
+            for(int i=0; i<pragma_pack_stack_len; i++) {
                 string stack_id = pack_stack_entry_id(info.pragma_pack_stack.item(i, s""));
                 if(stack_id === pop_id) {
                     found = i;
@@ -745,7 +748,7 @@ static void apply_pack_pragma_state(string pragma_line, sInfo* info)
             }
             if(found >= 0) {
                 info.pragma = pack_stack_entry_pragma(info.pragma_pack_stack.item(found, s""));
-                info.pragma_pack_stack.delete(found, info.pragma_pack_stack.length());
+                info.pragma_pack_stack.delete(found, pragma_pack_stack_len);
             }
         }
         else {
@@ -763,7 +766,7 @@ static void apply_pack_pragma_state(string pragma_line, sInfo* info)
             info.pragma = xsprintf("#pragma pack(push, %s)\n", pop_num);
         }
     }
-    else if(tokens.length() == 1 && is_number_token(op)) {
+    else if(tokens_len == 1 && is_number_token(op)) {
         // Normalize pack(N) to push/pop form so generated C stays balanced.
         info.pragma = xsprintf("#pragma pack(push, %s)\n", op);
     }

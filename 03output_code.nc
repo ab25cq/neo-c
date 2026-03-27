@@ -298,8 +298,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
             }
         }
         
-        if(type->mArrayNum.length() > 0) {
-            for(int i=0; i<type->mArrayNum.length(); i++) {
+        int array_num_len = type->mArrayNum.length();
+        if(array_num_len > 0) {
+            for(int i=0; i<array_num_len; i++) {
                 buf.append_str("[");
                 sNode*% node = type->mArrayNum[i];
                 
@@ -310,7 +311,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
             
                 CVALUE*% cvalue = get_value_from_stack(-1, info);
                 
-                buf.append_format("%s", cvalue.c_value);
+                buf.append_str(cvalue.c_value);
                 buf.append_str("]");
             }
         }
@@ -319,13 +320,14 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
         }
         buf.append_str(")(");
         
+        int param_types_len = type->mParamTypes.length();
         int j = 0;
         foreach(it, type->mParamTypes) {
             string param_type_str = make_type_name_string(it,  no_static:true);
             
             buf.append_str(param_type_str);
             
-            if(j != type->mParamTypes.length()-1) {
+            if(j != param_types_len-1) {
                 buf.append_str(",");
             }
             j++;

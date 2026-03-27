@@ -151,8 +151,9 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
     {
         buf.append_format("(*%s", var_name);
         
-        if(type->mResultType->mArrayNum.length() > 0) {
-            for(int i=0; i<type->mResultType->mArrayNum.length(); i++) {
+        int result_array_num_len = type->mResultType->mArrayNum.length();
+        if(result_array_num_len > 0) {
+            for(int i=0; i<result_array_num_len; i++) {
                 buf.append_str("[");
                 sNode*% node = type->mArrayNum[i];
                 
@@ -163,16 +164,17 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
             
                 CVALUE*% cvalue = get_value_from_stack(-1, info);
                 
-                buf.append_format("%s", cvalue.c_value);
+                buf.append_str(cvalue.c_value);
                 buf.append_str("]");
             }
         }
         buf.append_format(")(", var_name);
         
+        int param_types_len = type->mParamTypes.length();
         int i = 0;
         foreach(it, type->mParamTypes) {
             buf.append_str(make_come_type_name_string(it));
-            if(i != type->mParamTypes.length()-1) {
+            if(i != param_types_len-1) {
                 buf.append_str(",");
             }
             
@@ -230,8 +232,9 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
                 buf.append_str("[]");
             }
         }
-        if(type->mArrayNum.length() > 0) {
-            for(int i=0; i<type->mArrayNum.length(); i++) {
+        int array_num_len = type->mArrayNum.length();
+        if(array_num_len > 0) {
+            for(int i=0; i<array_num_len; i++) {
                 buf.append_str("[");
                 sNode*% node = type->mArrayNum[i];
                 
@@ -242,16 +245,17 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
             
                 CVALUE*% cvalue = get_value_from_stack(-1, info);
                 
-                buf.append_format("%s", cvalue.c_value);
+                buf.append_str(cvalue.c_value);
                 buf.append_str("]");
             }
         }
         buf.append_format(")(");
         
+        int param_types_len = type->mParamTypes.length();
         int i = 0;
         foreach(it, type->mParamTypes) {
             buf.append_str(make_type_name_string(it, no_static:true));
-            if(i != type->mParamTypes.length()-1) {
+            if(i != param_types_len-1) {
                 buf.append_str(",");
             }
             
@@ -674,15 +678,7 @@ void add_come_code(sInfo* info, const char* msg, ...)
     if(info->no_output_come_code) {
         return;
     }
-    char* msg2;
-
-    va_list/ args;
-    va_start(args, msg);
-    int len = vasprintf(&msg2, msg, args);
-    va_end(args);
-    if(len < 0) {
-        return;
-    }
+    buffer* output = null;
     
     if(info->if_expression_buffer) {
         if(!info.in_conditional) {
@@ -692,7 +688,7 @@ void add_come_code(sInfo* info, const char* msg, ...)
             }
         }
         
-        info->if_expression_buffer.append(msg2, len);
+        output = borrow info.if_expression_buffer;
     }
     else if(info->loop_expression_buffer) {
         if(!info.in_conditional) {
@@ -702,14 +698,14 @@ void add_come_code(sInfo* info, const char* msg, ...)
             }
         }
         
-        info->loop_expression_buffer.append(msg2, len);
+        output = borrow info.loop_expression_buffer;
     }
     else if(info->paren_block_buffer) {
-        info->paren_block_buffer.append(msg2, len);
+        output = borrow info.paren_block_buffer;
     }
     else if(info->defer_block) {
         if(info->come_fun) {
-            info->come_fun.mSourceEnd.append(msg2, len);
+            output = borrow info.come_fun.mSourceEnd;
         }
     }
     else if(info->come_fun) {
@@ -720,11 +716,58 @@ void add_come_code(sInfo* info, const char* msg, ...)
             }
         }
         
-        info.come_fun.mSource.append(msg2, len);
+        output = borrow info.come_fun.mSource;
     }
     else {
-        info.module.mSourceHead.append(msg2, len);
+        output = borrow info.module.mSourceHead;
     }
+    
+    if(output == null) {
+        return;
+    }
+
+    va_list/ args;
+    va_start(args, msg);
+    if(strchr(msg, '%') == NULL) {
+        output.append_str(msg);
+        va_end(args);
+        return;
+    }
+    if(strcmp(msg, "%s") == 0) {
+        char* msg2 = va_arg(args, char*);
+        if(msg2) {
+            output.append_str(msg2);
+        }
+        va_end(args);
+        return;
+    }
+    if(strcmp(msg, "%s\n") == 0) {
+        char* msg2 = va_arg(args, char*);
+        if(msg2) {
+            output.append_str(msg2);
+        }
+        output.append_str("\n");
+        va_end(args);
+        return;
+    }
+    if(strcmp(msg, "%s;\n") == 0) {
+        char* msg2 = va_arg(args, char*);
+        if(msg2) {
+            output.append_str(msg2);
+        }
+        output.append_str(";\n");
+        va_end(args);
+        return;
+    }
+    
+    char* msg2;
+    int len = vasprintf(&msg2, msg, args);
+    va_end(args);
+    if(len < 0) {
+        return;
+    }
+    
+    output.append(msg2, len);
     
     free(msg2);
 }
@@ -734,22 +777,14 @@ void add_come_code_no_indent(sInfo* info, const char* msg, ...)
     if(info->no_output_come_code) {
         return;
     }
-    char* msg2;
-
-    va_list/ args;
-    va_start(args, msg);
-    int len = vasprintf(&msg2, msg, args);
-    va_end(args);
-    if(len < 0) {
-        return;
-    }
+    buffer* output = null;
     
     if(info->if_expression_buffer) {
         if(!info.in_conditional) {
             info.if_expression_buffer.append_str("    ");
         }
         
-        info->if_expression_buffer.append(msg2, len);
+        output = borrow info.if_expression_buffer;
     }
     else if(info->loop_expression_buffer) {
         if(!info.in_conditional) {
@@ -759,14 +794,14 @@ void add_come_code_no_indent(sInfo* info, const char* msg, ...)
             }
         }
         
-        info->loop_expression_buffer.append(msg2, len);
+        output = borrow info.loop_expression_buffer;
     }
     else if(info->paren_block_buffer) {
-        info->paren_block_buffer.append(msg2, len);
+        output = borrow info.paren_block_buffer;
     }
     else if(info->defer_block) {
         if(info->come_fun) {
-            info->come_fun.mSourceEnd.append(msg2, len);
+            output = borrow info.come_fun.mSourceEnd;
         }
     }
     else if(info->come_fun) {
@@ -774,11 +809,58 @@ void add_come_code_no_indent(sInfo* info, const char* msg, ...)
             info.come_fun.mSource.append_str("    ");
         }
         
-        info.come_fun.mSource.append(msg2, len);
+        output = borrow info.come_fun.mSource;
     }
     else {
-        info.module.mSourceHead.append(msg2, len);
+        output = borrow info.module.mSourceHead;
     }
+    
+    if(output == null) {
+        return;
+    }
+
+    va_list/ args;
+    va_start(args, msg);
+    if(strchr(msg, '%') == NULL) {
+        output.append_str(msg);
+        va_end(args);
+        return;
+    }
+    if(strcmp(msg, "%s") == 0) {
+        char* msg2 = va_arg(args, char*);
+        if(msg2) {
+            output.append_str(msg2);
+        }
+        va_end(args);
+        return;
+    }
+    if(strcmp(msg, "%s\n") == 0) {
+        char* msg2 = va_arg(args, char*);
+        if(msg2) {
+            output.append_str(msg2);
+        }
+        output.append_str("\n");
+        va_end(args);
+        return;
+    }
+    if(strcmp(msg, "%s;\n") == 0) {
+        char* msg2 = va_arg(args, char*);
+        if(msg2) {
+            output.append_str(msg2);
+        }
+        output.append_str(";\n");
+        va_end(args);
+        return;
+    }
+    
+    char* msg2;
+    int len = vasprintf(&msg2, msg, args);
+    va_end(args);
+    if(len < 0) {
+        return;
+    }
+    
+    output.append(msg2, len);
     
     free(msg2);
 }
@@ -965,17 +1047,35 @@ void add_come_code_at_function_head(sInfo* info, const char* code, ...)
     if(info->no_output_come_code) {
         return;
     }
-    char* msg2;
+    if(!info.come_fun) {
+        return;
+    }
 
     va_list/ args;
     va_start(args, code);
+    info->come_fun->mSourceHead.append_str("    ");
+    if(strchr(code, '%') == NULL) {
+        info->come_fun->mSourceHead.append_str(code);
+        va_end(args);
+        return;
+    }
+    if(strcmp(code, "%s") == 0) {
+        char* msg2 = va_arg(args, char*);
+        if(msg2) {
+            info->come_fun->mSourceHead.append_str(msg2);
+        }
+        va_end(args);
+        return;
+    }
+    
+    char* msg2;
     int len = vasprintf(&msg2, code, args);
     va_end(args);
-    
-    if(info.come_fun) {
-        info->come_fun->mSourceHead.append_str("    ");
-        info->come_fun->mSourceHead.append_str(msg2);
+    if(len < 0) {
+        return;
     }
+    
+    info->come_fun->mSourceHead.append(msg2, len);
     
     free(msg2);
 }
@@ -985,17 +1085,35 @@ void add_come_code_at_function_head2(sInfo* info, const char* code, ...)
     if(info->no_output_come_code) {
         return;
     }
-    char* msg2;
+    if(!info.come_fun) {
+        return;
+    }
 
     va_list/ args;
     va_start(args, code);
+    info->come_fun->mSourceHead2.append_str("    ");
+    if(strchr(code, '%') == NULL) {
+        info->come_fun->mSourceHead2.append_str(code);
+        va_end(args);
+        return;
+    }
+    if(strcmp(code, "%s") == 0) {
+        char* msg2 = va_arg(args, char*);
+        if(msg2) {
+            info->come_fun->mSourceHead2.append_str(msg2);
+        }
+        va_end(args);
+        return;
+    }
+    
+    char* msg2;
     int len = vasprintf(&msg2, code, args);
     va_end(args);
-    
-    if(info.come_fun) {
-        info->come_fun->mSourceHead2.append_str("    ");
-        info->come_fun->mSourceHead2.append_str(msg2);
+    if(len < 0) {
+        return;
     }
+    
+    info->come_fun->mSourceHead2.append(msg2, len);
     
     free(msg2);
 }
@@ -1020,15 +1138,29 @@ void add_come_last_code(sInfo* info, const char* msg, ...)
     if(info->no_output_come_code) {
         return;
     }
-    char* msg2;
 
     va_list/ args;
     va_start(args, msg);
+    if(strchr(msg, '%') == NULL) {
+        info.module.mLastCode = string(msg);
+        va_end(args);
+        return;
+    }
+    if(strcmp(msg, "%s") == 0) {
+        char* msg2 = va_arg(args, char*);
+        info.module.mLastCode = msg2 ? string(msg2) : string("");
+        va_end(args);
+        return;
+    }
+    
+    char* msg2;
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
+    if(len < 0) {
+        return;
+    }
     
     info.module.mLastCode = string(msg2);
-    
     free(msg2);
 }
 
@@ -1037,15 +1169,29 @@ void add_come_last_code2(sInfo* info, const char* msg, ...)
     if(info->no_output_come_code) {
         return;
     }
-    char* msg2;
 
     va_list/ args;
     va_start(args, msg);
+    if(strchr(msg, '%') == NULL) {
+        info.module.mLastCode2 = string(msg);
+        va_end(args);
+        return;
+    }
+    if(strcmp(msg, "%s") == 0) {
+        char* msg2 = va_arg(args, char*);
+        info.module.mLastCode2 = msg2 ? string(msg2) : string("");
+        va_end(args);
+        return;
+    }
+    
+    char* msg2;
     int len = vasprintf(&msg2, msg, args);
     va_end(args);
+    if(len < 0) {
+        return;
+    }
     
     info.module.mLastCode2 = string(msg2);
-    
     free(msg2);
 }
 
