@@ -246,7 +246,7 @@ ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07functi
 	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o  $(CFLAGS) $(LDFLAGS)
 
 neo-c-str.o: neo-c-str.c neo-c-str.h
-	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS) 2>&1 | grep error || true
+	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS) -fno-lto 2>&1 | grep error || true
 
 01main.o: 01main.c
 	$(CC) -o 01main.o -c 01main.c $(CFLAGS) 2>&1 | grep error || true
@@ -432,6 +432,7 @@ install:
 # clean
 #########################################
 clean:
+	rm -f neo-c-str.o
 	rm -fR ncc *.log *.o *.i *.out a a.c b b.c c c.c *.valgrind aa aaa a.out *.error *.profraw *.fdata ncc.inst ncc.fdata
 	rm -fR mf/mf.dSYM
 	rm -fR shsh/shsh.dSYM
@@ -447,6 +448,12 @@ uninstall:
 	rm -f "$(DESTDIR)"/bin/neo-c
 	rm -f "$(DESTDIR)"/bin/ncc
 	rm -f "$(DESTDIR)"/lib/neo-c-str.o
+	rm -f "$(DESTDIR)"/include/neo-c.h
+	rm -f "$(DESTDIR)"/include/neo-c-str.h
+	rm -f "$(DESTDIR)"/include/neo-c-libc.h
+	rm -f "$(DESTDIR)"/include/neo-c-net.h
+	rm -f "$(DESTDIR)"/include/neo-c-pthread.h
+	rm -f "$(DESTDIR)/share/doc/neo-c/README.md
 	rm -f "$(DESTDIR)"/include/neo-c.h
 	rm -f "$(DESTDIR)"/include/neo-c-str.h
 	rm -f "$(DESTDIR)"/include/neo-c-libc.h
