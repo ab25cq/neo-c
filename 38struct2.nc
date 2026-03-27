@@ -1,8 +1,37 @@
 #include "common.h"
 
+static bool is_single_flexible_array_aggregate_class(sClass* klass)
+{
+    if(klass == null || klass->mFields.length() != 1) {
+        return false;
+    }
+    
+    var field_name, field_type = klass->mFields[0];
+    
+    return field_type
+        && (field_type->mArrayPointerType || field_type->mArrayNum.length() > 0)
+        && field_type->mPointerNum == 0
+        && field_type->mVarNameArrayNum.length() == 0;
+}
+
 void output_aggregate_field(sType* type, string tag_name, buffer* buf, bool* existance_generics, string field_name, int indent, sInfo* info, bool* named_child)
 {
     sClass* klass = type->mClass;
+    
+    if(tag_name === "" && type->mAnonymousVarName && is_single_flexible_array_aggregate_class(klass)) {
+        var inner_name, inner_type = klass->mFields[0];
+        
+        if(is_contained_generics_class(inner_type, info)) {
+            *existance_generics = true;
+        }
+        
+        inner_type->mStatic = false;
+        
+        buf.append_str("    " * indent);
+        buf.append_str(make_define_var(inner_type, inner_name));
+        buf.append_str(";\n");
+        return;
+    }
     
     if(tag_name !== "") {
         if(klass.mStruct) {
@@ -37,7 +66,14 @@ void output_aggregate_field(sType* type, string tag_name, buffer* buf, bool* exi
         
         sClass* klass = type2->mClass;
         
-        if(type2->mAnonymous) {
+        if(type2->mAnonymous && is_single_flexible_array_aggregate_class(type2->mClass)) {
+            var inner_name, inner_type = type2->mClass->mFields[0];
+            
+            buf.append_str("    " * indent);
+            buf.append_str(make_define_var(inner_type, inner_name));
+            buf.append_str(";\n");
+        }
+        else if(type2->mAnonymous) {
         //if(type2->mAnonymous && name !== name2) {
             //info.struct_definition.remove(type2->mAnonymousName);
             output_aggregate_field(type2, s"", buf, existance_generics, name2, indent, info, named_child);
@@ -89,6 +125,12 @@ void output_struct(sClass* klass, string pragma, sInfo* info, bool anonymous=fal
 {
     if(klass->mFields.length() == 0) {
         return;
+    }
+    
+    if(anonymous) {
+        if(is_single_flexible_array_aggregate_class(klass)) {
+            return;
+        }
     }
     
     char* name = borrow klass.mName;

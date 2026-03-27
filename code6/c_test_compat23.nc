@@ -14,8 +14,9 @@
 struct Flex {
     int len;
     struct {
-        char data[];
+        int tag;
     };
+    char data[];
 };
 
 int main(void) {
@@ -26,8 +27,10 @@ int main(void) {
     REQUIRE(f != NULL);
     if (f) {
         f->len = n;
+        f->tag = 7;
         memcpy(f->data, "abcd", n); // includes '\0'
         REQUIRE(f->len == 5);
+        REQUIRE(f->tag == 7);
         REQUIRE(strcmp(f->data, "abcd") == 0);
         free(f);
     }

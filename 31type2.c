@@ -481,11 +481,6 @@ struct __locale_struct
     const char* __names[13];
 };
 
-struct anonymous_typeX7
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
 struct timeval
 {
     long  int  tv_sec  ;
@@ -496,11 +491,6 @@ struct timespec
 {
     long  int  tv_sec  ;
     long  int  tv_nsec  ;
-};
-
-struct anonymous_typeX8
-{
-    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct anonymous_typeX10
