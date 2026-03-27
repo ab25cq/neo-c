@@ -20,8 +20,10 @@ NCC_FLAGS+=-I.
 LOWMEM?=0
 LTO?=1
 MARCH_NATIVE?=1
+NOPLT?=1
+GC_SECTIONS?=1
 ALLOCATOR?=system
-.PHONY: all self-host install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt
+.PHONY: all self-host install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt pgo-cs-generate pgo-cs-collect pgo-cs-use
 ifeq ($(LOWMEM),1)
 CFLAGS_DEFAULT_OPT=
 NCC_FLAGS+=-lowmem
@@ -31,6 +33,13 @@ CFLAGS+=-flto=thin
 endif
 ifeq ($(MARCH_NATIVE),1)
 CFLAGS+=-march=native
+endif
+ifeq ($(NOPLT),1)
+CFLAGS+=-fno-plt
+endif
+ifeq ($(GC_SECTIONS),1)
+CFLAGS+=-ffunction-sections -fdata-sections
+LDFLAGS+=-Wl,--gc-sections
 endif
 ifeq ($(ALLOCATOR),jemalloc)
 LIBS+=-ljemalloc
@@ -224,7 +233,7 @@ neo-c-str.c: neo-c-str.nc
 # compile c source
 #########################################
 ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o neo-c-str.o
-	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o  $(CFLAGS)
+	$(CC) -o ncc 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o  $(CFLAGS) $(LDFLAGS)
 
 neo-c-str.o: neo-c-str.c neo-c-str.h
 	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS) 2>&1 | grep error || true
@@ -419,7 +428,7 @@ clean:
 	rm -fR webweb/dbdb/dbdb.dSYM
 
 distclean: clean
-	rm -fR  config.h autom4te.cache ncc.profdata
+	rm -fR  config.h autom4te.cache ncc.profdata ncc_cs.profdata
 
 #########################################
 # uninstall
@@ -476,10 +485,36 @@ pgo-bolt:
 	llvm-bolt ncc -o ncc -data=ncc.fdata $(BOLT_FLAGS)
 	rm -f *.fdata ncc.inst
 
+#########################################
+# CS-PGO (Context-Sensitive PGO)
+# More accurate profile than standard PGO.
+# Run after make pgo (requires ncc.profdata).
+# Usage: make pgo (includes CS-PGO automatically)
+#########################################
+pgo-cs-generate:
+	@if [ ! -f ncc.profdata ]; then echo "ERROR: ncc.profdata not found. Run standard PGO first."; exit 1; fi
+	$(MAKE) clean
+	$(MAKE) DEFAULT_CFLAGS_OPT=-O3 CFLAGS_OPT="$(CFLAGS_OPT) -fprofile-use=$(CURDIR)/ncc.profdata -fcs-profile-generate"
+
+pgo-cs-collect:
+	@if [ ! -f ./ncc ]; then echo "ERROR: ncc not found. Run 'make pgo-cs-generate' first."; exit 1; fi
+	for f in *.nc; do ./ncc $(NCC_FLAGS) -c $$f 2>/dev/null || true; done
+	@if ! ls *.profraw >/dev/null 2>&1; then echo "ERROR: No .profraw files generated."; exit 1; fi
+	llvm-profdata merge -output=ncc_cs.profdata ncc.profdata *.profraw
+	rm -f *.profraw
+
+pgo-cs-use:
+	@if [ ! -f ncc_cs.profdata ]; then echo "ERROR: ncc_cs.profdata not found. Run 'make pgo-cs-collect' first."; exit 1; fi
+	$(MAKE) clean
+	$(MAKE) DEFAULT_CFLAGS_OPT=-O3 CFLAGS_OPT="$(CFLAGS_OPT) -fprofile-use=$(CURDIR)/ncc_cs.profdata -Wl,--emit-relocs"
+
 pgo:
 	$(MAKE) pgo-generate
 	$(MAKE) pgo-collect
 	$(MAKE) pgo-use
+	$(MAKE) pgo-cs-generate
+	$(MAKE) pgo-cs-collect
+	$(MAKE) pgo-cs-use
 
 #########################################
 # neo-c one file
