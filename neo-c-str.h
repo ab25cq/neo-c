@@ -2263,7 +2263,8 @@ uniq string string::lower_case(const char* str)
     }
     
     string result = string(str);
-    for(int i=0; i<strlen(str); i++) {
+    int len = strlen(str);
+    for(int i=0; i<len; i++) {
         if(str[i] >= 'A' && str[i] <= 'Z') {
             result[i] = str[i] - 'A' + 'a';
         }
@@ -2279,7 +2280,8 @@ uniq string string::upper_case(const char* str)
     }
     
     string result = string(str);
-    for(int i=0; i<strlen(str); i++) {
+    int len = strlen(str);
+    for(int i=0; i<len; i++) {
         if(str[i] >= 'a' && str[i] <= 'z') {
             result[i] = str[i] - 'a' + 'A';
         }
@@ -2336,7 +2338,14 @@ uniq int char*::rindex(const char* str, const char* search_str, int default_valu
     }
     
     int len = strlen(search_str);
-    char* p = str + strlen(str) - len;
+    int str_len = strlen(str);
+    if(len == 0) {
+        return str_len;
+    }
+    if(len > str_len) {
+        return default_value;
+    }
+    char* p = str + str_len - len;
 
     while(p >= str) {
         if(strncmp(p, search_str, len) == 0) {
@@ -3038,7 +3047,8 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
             return string("");
         }
         string result = string(str);
-        for(int i=0; i<strlen(str); i++) {
+        int len = strlen(str);
+        for(int i=0; i<len; i++) {
             if(str[i] >= 'A' && str[i] <= 'Z') {
                 result[i] = str[i] - 'A' + 'a';
             }
@@ -3053,7 +3063,8 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
             return string("");
         }
         string result = string(str);
-        for(int i=0; i<strlen(str); i++) {
+        int len = strlen(str);
+        for(int i=0; i<len; i++) {
             if(str[i] >= 'a' && str[i] <= 'z') {
                 result[i] = str[i] - 'a' + 'A';
             }
@@ -3117,8 +3128,8 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
         
         int n = 0;
         int len = strlen(str);
+        int len2 = strlen(search_str);
         for(int i=0; i<len; i++) {
-            int len2 = strlen(search_str);
             int j;
             for(j=0; j<len2; j++) {
                 if(str[i+j] != search_str[j]) {
@@ -3145,7 +3156,14 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
             return default_value;
         }
         int len = strlen(search_str);
-        char* p = (char*)(str + strlen(str) - len);
+        int str_len = strlen(str);
+        if(len == 0) {
+            return str_len;
+        }
+        if(len > str_len) {
+            return default_value;
+        }
+        char* p = (char*)(str + str_len - len);
     
         while(p >= str) {
             if(strncmp(p, search_str, len) == 0) {
@@ -3165,7 +3183,14 @@ uniq string string::sub_block(char* self, const char* reg, bool global=true, boo
             return default_value;
         }
         int len = strlen(search_str);
-        const char* p = (char*)str + strlen(str) - len;
+        int str_len = strlen(str);
+        if(len == 0) {
+            return count <= 1 ? str_len : default_value;
+        }
+        if(len > str_len) {
+            return default_value;
+        }
+        const char* p = (char*)str + str_len - len;
         
         int n = 0;
     

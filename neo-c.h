@@ -3756,6 +3756,7 @@ impl map <T, T2>
     void rehash(map<T,T2>* self) {
         using unsafe;
         
+        int old_size = self.size;
         int size = self.size * 10;
         T^* keys = borrow gc_inc(new T[size]);
         T2^* items = borrow gc_inc(new T2[size]);
@@ -3768,11 +3769,12 @@ impl map <T, T2>
 
         int len = 0;
 
-        for(var it = self.begin(); !self.end(); it = self.next()) {
-            T2/ default_value;
-            memset(&default_value, 0, sizeof(T2));
-            T2/ it2 = self.at(it, default_value);
-            unsigned int key_hash = ((T)it).get_hash_key();
+        for(int i=0; i<old_size; i++) {
+            if(!self.item_existance[i]) {
+                continue;
+            }
+
+            unsigned int key_hash = self.hashes[i];
             unsigned int hash = key_hash % size;
             int n = hash;
 
@@ -3791,10 +3793,8 @@ impl map <T, T2>
                 else {
                     item_existance[n] = true;
                     hashes[n] = key_hash;
-                    keys\[n] = it;
-                    T2/ default_value;
-                    memset(&default_value, 0, sizeof(T2));
-                    items\[n] = borrow self.at(it, default_value);
+                    keys\[n] = self.keys\[i];
+                    items\[n] = self.items\[i];
 
                     len++;
                     break;
@@ -3846,6 +3846,7 @@ impl map <T, T2>
         if(self.len*10 >= self.size) {
             self.rehash();
         }
+        bool add_to_key_list = false;
         unsigned int key_hash = ((T)key).get_hash_key();
         unsigned int hash = key_hash % self.size;
         unsigned int it = hash;
@@ -3873,6 +3874,7 @@ impl map <T, T2>
                         self.items\[it] = borrow item;
                     }
                     self.hashes[it] = key_hash;
+                    add_to_key_list = true;
                     break;
                 }
 
@@ -3902,19 +3904,13 @@ impl map <T, T2>
                 }
 
                 self.len++;
+                add_to_key_list = true;
 
                 break;
             }
         }
         
-        bool same_key_exist = false;
-        for(var it2 = self.key_list.begin(); !self.key_list.end(); it2 = self.key_list.next()) {
-            if((!by_pointer && it2.equals(key)) || (by_pointer && it2 == key)) {
-                same_key_exist = true;
-            }
-        }
-        
-        if(!same_key_exist) {
+        if(add_to_key_list) {
             self.key_list.push_back(key);
         }
         
@@ -3930,6 +3926,7 @@ impl map <T, T2>
         if(self.len*2 >= self.size) {
             self.rehash();
         }
+        bool add_to_key_list = false;
         unsigned int key_hash = ((T)key).get_hash_key();
         unsigned int hash = key_hash % self.size;
         int it = hash;
@@ -3957,6 +3954,7 @@ impl map <T, T2>
                         self.items\[it] = borrow item;
                     }
                     self.hashes[it] = key_hash;
+                    add_to_key_list = true;
                     break;
                 }
 
@@ -3986,19 +3984,13 @@ impl map <T, T2>
                 }
 
                 self.len++;
+                add_to_key_list = true;
 
                 break;
             }
         }
         
-        bool same_key_exist = false;
-        for(var it2 = self.key_list.begin(); !self.key_list.end(); it2 = self.key_list.next()) {
-            if((!by_pointer && it2.equals(key)) || (by_pointer && it2 == key)) {
-                same_key_exist = true;
-            }
-        }
-        
-        if(!same_key_exist) {
+        if(add_to_key_list) {
             self.key_list.push_back(key);
         }
         
@@ -4802,9 +4794,9 @@ uniq buffer* buffer*::append(buffer* self, const char* mem, size_t size)
         return self;
     }
     if(self.len + size + 1 + 1 >= self.size) {
-        char*% old_buf = new char[self.size];
-        memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
+        char*% old_buf = new char[old_len+1];
+        memcpy(old_buf, self.buf, old_len+1);
         
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
@@ -4826,9 +4818,9 @@ uniq buffer* buffer*::append_char(buffer* self, char c)
         return null;
     }
     if(self.len + 1 + 1 + 1 >= self.size) {
-        char*% old_buf = new char[self.size];
-        memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
+        char*% old_buf = new char[old_len+1];
+        memcpy(old_buf, self.buf, old_len+1);
         
         int new_size = (self.size + 10 + 1) * 2;
         self.buf = new char[new_size];
@@ -4853,9 +4845,9 @@ uniq buffer* buffer*::append_str(buffer* self, const char* mem)
     
     int size = strlen(mem);
     if(self.len + size + 1 + 1 >= self.size) {
-        char*% old_buf = new char[self.size];
-        memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
+        char*% old_buf = new char[old_len+1];
+        memcpy(old_buf, self.buf, old_len+1);
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
@@ -4890,9 +4882,9 @@ uniq buffer* buffer*::append_str(buffer* self, const char* mem)
         
         int size = strlen(mem);
         if(self.len + size + 1 + 1 >= self.size) {
-            char*% old_buf = new char[self.size];
-            memcpy(old_buf, self.buf, self.size);
             int old_len = self.len;
+            char*% old_buf = new char[old_len+1];
+            memcpy(old_buf, self.buf, old_len+1);
             int new_size = (self.size + size + 1) * 2;
             self.buf = new char[new_size];
             memcpy(self.buf, old_buf, old_len);
@@ -4929,9 +4921,9 @@ uniq buffer* buffer*::append_str(buffer* self, const char* mem)
         
         int size = strlen(mem);
         if(self.len + size + 1 + 1 >= self.size) {
-            char*% old_buf = new char[self.size];
-            memcpy(old_buf, self.buf, self.size);
             int old_len = self.len;
+            char*% old_buf = new char[old_len+1];
+            memcpy(old_buf, self.buf, old_len+1);
             int new_size = (self.size + size + 1) * 2;
             self.buf = new char[new_size];
             memcpy(self.buf, old_buf, old_len);
@@ -4956,9 +4948,9 @@ uniq buffer* buffer*::append_nullterminated_str(buffer* self, const char* mem)
     }
     int size = strlen(mem) + 1;
     if(self.len + size + 1 + 1 + 1 >= self.size) {
-        char*% old_buf = new char[self.size];
-        memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
+        char*% old_buf = new char[old_len+1];
+        memcpy(old_buf, self.buf, old_len+1);
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
@@ -4983,9 +4975,9 @@ uniq buffer* buffer*::append_int(buffer* self, int value)
     int size = sizeof(int);
     
     if(self.len + size + 1 + 1 >= self.size) {
-        char*% old_buf = new char[self.size];
-        memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
+        char*% old_buf = new char[old_len+1];
+        memcpy(old_buf, self.buf, old_len+1);
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
@@ -5009,9 +5001,9 @@ uniq buffer* buffer*::append_long(buffer* self, long value)
     int size = sizeof(long);
     
     if(self.len + size + 1 + 1 >= self.size) {
-        char*% old_buf = new char[self.size];
-        memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
+        char*% old_buf = new char[old_len+1];
+        memcpy(old_buf, self.buf, old_len+1);
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
@@ -5036,9 +5028,9 @@ uniq buffer* buffer*::append_short(buffer* self, short value)
     int size = sizeof(short);
     
     if(self.len + size + 1 + 1 >= self.size) {
-        char*% old_buf = new char[self.size];
-        memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
+        char*% old_buf = new char[old_len+1];
+        memcpy(old_buf, self.buf, old_len+1);
         int new_size = (self.size + size + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
@@ -5063,9 +5055,9 @@ uniq buffer* buffer*::alignment(buffer* self)
     len = (len + 3) & ~3;
     
     if(len >= self.size) {
-        char*% old_buf = new char[self.size];
-        memcpy(old_buf, self.buf, self.size);
         int old_len = self.len;
+        char*% old_buf = new char[old_len+1];
+        memcpy(old_buf, self.buf, old_len+1);
         int new_size = (self.size + 1 + 1) * 2;
         self.buf = new char[new_size];
         memcpy(self.buf, old_buf, old_len);
