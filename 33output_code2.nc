@@ -149,7 +149,8 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
     
     if(type->mResultType && type->mResultType.mClass->mName === "lambda") 
     {
-        buf.append_format("(*%s", var_name);
+        buf.append_str("(*");
+        buf.append_str(var_name);
         
         int result_array_num_len = type->mResultType->mArrayNum.length();
         if(result_array_num_len > 0) {
@@ -168,7 +169,7 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
                 buf.append_str("]");
             }
         }
-        buf.append_format(")(", var_name);
+        buf.append_str(")(");
         
         int param_types_len = type->mParamTypes.length();
         int i = 0;
@@ -190,7 +191,8 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
         return make_lambda_type_name_string(type->mResultType, buf.to_string(), info);
     }
     else {
-        buf.append_format("%s ", make_type_name_string(type->mResultType, no_static:true));
+        buf.append_str(make_type_name_string(type->mResultType, no_static:true));
+        buf.append_str(" ");
         if(type->mMiddleAttribute != null && type->mMiddleAttribute !== "") {
             buf.append_str(type->mMiddleAttribute);
             buf.append_str(" ");
@@ -227,7 +229,7 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
         else {
             buf.append_str("(*");
             buf.append_str(pointer_attr);
-            buf.append_format("%s", var_name);
+            buf.append_str(var_name);
             if(type->mArrayPointerType) {
                 buf.append_str("[]");
             }
@@ -249,7 +251,7 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
                 buf.append_str("]");
             }
         }
-        buf.append_format(")(");
+        buf.append_str(")(");
         
         int param_types_len = type->mParamTypes.length();
         int i = 0;
@@ -382,7 +384,9 @@ string output_function(sFun* fun, sInfo* info)
         }
         CVALUE*% cvalue = get_value_from_stack(-1, info);
         
-        output.append_format("))[%s]", cvalue.c_value);
+        output.append_str("))[");
+        output.append_str(cvalue.c_value);
+        output.append_str("]");
         
         info.module.mSourceHead.append_str(output.to_string());
         if(fun->mFunAttribute !== "") {// && gComeBareMetal) {
@@ -555,8 +559,10 @@ string header_function(sFun* fun, sInfo* info)
         }
         CVALUE*% cvalue = get_value_from_stack(-1, info);
         
-        output.append_format("))[%s]", cvalue.c_value);
-        output.append_format(";\n");
+        output.append_str("))[");
+        output.append_str(cvalue.c_value);
+        output.append_str("]");
+        output.append_str(";\n");
     }
     else {
         if(is_gcc_builtin_float_type(fun->mResultType)) {
@@ -639,7 +645,7 @@ static string header_lambda(sType* lambda_type, string name, sInfo* info)
         
             CVALUE*% cvalue = get_value_from_stack(-1, info);
             
-            output.append_format("%s", cvalue.c_value);
+            output.append_str(cvalue.c_value);
             output.append_str("]");
         }
     }

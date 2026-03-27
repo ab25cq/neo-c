@@ -1606,6 +1606,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
             info->p++;
             skip_spaces_and_lf();
         }
+        skip_spaces_and_lf();
         
         bool match_ = false;
         if(reflection_condtional !== "false") {
@@ -1634,6 +1635,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
                     info->p++;
                     skip_spaces_and_lf();
                 }
+                skip_spaces_and_lf();
                 
                 if(!match_ && reflection_condtional !== "false") {
                     expected_next_character('{');
@@ -1651,6 +1653,7 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         }
         
         if(parsecmp_forward("else")) {
+            skip_spaces_and_lf();
             
             if(!match_) {
                 expected_next_character('{');

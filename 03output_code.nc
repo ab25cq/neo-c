@@ -145,7 +145,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
     string class_name = type->mClass->mName;
     
     if(type->mAlignasDouble && !no_static) {
-        buf.append_format("_Alignas(double) ");
+        buf.append_str("_Alignas(double) ");
     }
     else if(type->mAlignas && !no_static) {
         bool no_output_come_code = info.no_output_come_code;
@@ -158,7 +158,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         
-        buf.append_format("_Alignas(%s) ", come_value.c_value);
+        buf.append_str("_Alignas(");
+        buf.append_str(come_value.c_value);
+        buf.append_str(") ");
     }
     
     if(type->mStatic && !no_static) {
@@ -359,7 +361,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                     }
                     CVALUE*% cvalue = get_value_from_stack(-1, info);
                 
-                    buf.append_format("[%s]", cvalue.c_value);
+                    buf.append_str("[");
+                    buf.append_str(cvalue.c_value);
+                    buf.append_str("]");
                 }
 */
                 if(!nullchecker) buf.append_str(")");
@@ -375,7 +379,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                         buf.append_str("*");
                     }
                     else {
-                        buf.append_format("[%s]", cvalue.c_value);
+                        buf.append_str("[");
+                        buf.append_str(cvalue.c_value);
+                        buf.append_str("]");
                     }
                 }
 */
@@ -399,7 +405,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                     }
                     CVALUE*% cvalue = get_value_from_stack(-1, info);
                 
-                    buf.append_format("[%s]", cvalue.c_value);
+                    buf.append_str("[");
+                    buf.append_str(cvalue.c_value);
+                    buf.append_str("]");
                 }
 */
                 if(!nullchecker) buf.append_str(")");
@@ -415,7 +423,9 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
                         buf.append_str("*");
                     }
                     else {
-                        buf.append_format("[%s]", cvalue.c_value);
+                        buf.append_str("[");
+                        buf.append_str(cvalue.c_value);
+                        buf.append_str("]");
                     }
                 }
 */
@@ -455,7 +465,7 @@ string make_type_name_string(sType* type,  sInfo* info=info, bool no_static=fals
         
             CVALUE*% cvalue = get_value_from_stack(-1, info);
             
-            buf.append_format("%s", cvalue.c_value);
+            buf.append_str(cvalue.c_value);
             buf.append_str("]");
         }
     }
@@ -589,7 +599,7 @@ string make_come_type_name_string(sType* type, sInfo* info=info)
                     
                     CVALUE*% cvalue = get_value_from_stack(-1, info);
                     
-                    buf.append_format("%s", cvalue.c_value);
+                    buf.append_str(cvalue.c_value);
                     buf.append_str("]");
                 }
             }
@@ -715,7 +725,8 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
     
     if(type->mResultType && type->mResultType.mClass->mName === "lambda") 
     {
-        buf.append_format("(*%s", var_name);
+        buf.append_str("(*");
+        buf.append_str(var_name);
         
         if(type->mResultType->mArrayNum.length() > 0) {
             for(int i=0; i<type->mResultType->mArrayNum.length(); i++) {
@@ -729,11 +740,11 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
             
                 CVALUE*% cvalue = get_value_from_stack(-1, info);
                 
-                buf.append_format("%s", cvalue.c_value);
+                buf.append_str(cvalue.c_value);
                 buf.append_str("]");
             }
         }
-        buf.append_format(")(", var_name);
+        buf.append_str(")(");
         
         int i = 0;
         foreach(it, type->mParamTypes) {
@@ -754,7 +765,8 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
         return make_lambda_type_name_string(type->mResultType, buf.to_string(), info);
     }
     else {
-        buf.append_format("%s ", make_type_name_string(type->mResultType, no_static:true));
+        buf.append_str(make_type_name_string(type->mResultType, no_static:true));
+        buf.append_str(" ");
         if(type->mMiddleAttribute != null && type->mMiddleAttribute !== "") {
             buf.append_str(type->mMiddleAttribute);
             buf.append_str(" ");
@@ -791,7 +803,7 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
         else {
             buf.append_str("(*");
             buf.append_str(pointer_attr);
-            buf.append_format("%s", var_name);
+            buf.append_str(var_name);
             if(type->mArrayPointerType) {
                 buf.append_str("[]");
             }
@@ -808,11 +820,11 @@ static string make_lambda_type_name_string(sType* type, char* var_name, sInfo* i
             
                 CVALUE*% cvalue = get_value_from_stack(-1, info);
                 
-                buf.append_format("%s", cvalue.c_value);
+                buf.append_str(cvalue.c_value);
                 buf.append_str("]");
             }
         }
-        buf.append_format(")(");
+        buf.append_str(")(");
         
         int i = 0;
         foreach(it, type->mParamTypes) {
@@ -860,7 +872,7 @@ static string header_lambda(sType* lambda_type, string name, sInfo* info)
         
             CVALUE*% cvalue = get_value_from_stack(-1, info);
             
-            output.append_format("%s", cvalue.c_value);
+            output.append_str(cvalue.c_value);
             output.append_str("]");
         }
     }
@@ -910,16 +922,16 @@ string output_lambda_original_type(sType* type2, char* name, sInfo* info=info)
         buf.append_str(" ");
         
         if(type2->mArrayPointerNum > 0) {
-            buf.append_format("(");
+            buf.append_str("(");
             type2->mArrayPointerNum.times {
-                buf.append_format("*");
+                buf.append_str("*");
             }
         }
         
         buf.append_str(name);
         
         if(type2->mArrayPointerNum > 0) {
-            buf.append_format(")");
+            buf.append_str(")");
         }
         
         if(type2->mArrayNum.length() > 0)
@@ -933,16 +945,24 @@ string output_lambda_original_type(sType* type2, char* name, sInfo* info=info)
                 CVALUE*% cvalue = get_value_from_stack(-1, info);
             
                 if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
-                    buf.append_format("[restrict static %s]", cvalue.c_value);
+                    buf.append_str("[restrict static ");
+                    buf.append_str(cvalue.c_value);
+                    buf.append_str("]");
                 }
                 else if(type2->mArrayStatic[n]) {
-                    buf.append_format("[static %s]", cvalue.c_value);
+                    buf.append_str("[static ");
+                    buf.append_str(cvalue.c_value);
+                    buf.append_str("]");
                 }
                 else if(type2->mArrayRestrict[n]) {
-                    buf.append_format("[restrict %s]", cvalue.c_value);
+                    buf.append_str("[restrict ");
+                    buf.append_str(cvalue.c_value);
+                    buf.append_str("]");
                 }
                 else {
-                    buf.append_format("[%s]", cvalue.c_value);
+                    buf.append_str("[");
+                    buf.append_str(cvalue.c_value);
+                    buf.append_str("]");
                 }
                 
                 n++;
@@ -954,11 +974,14 @@ string output_lambda_original_type(sType* type2, char* name, sInfo* info=info)
         }
        
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" %s", type2->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type2->mAttribute);
         }
     }
     else {
@@ -1007,21 +1030,22 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
     else {
         string type_name = make_type_name_string(type2, no_static:no_static);
         
-        buf.append_format("%s ", type_name);
+            buf.append_str(type_name);
+            buf.append_str(" ");
         
         if(type2->mArrayPointerNum > 0) {
-            buf.append_format("(");
+            buf.append_str("(");
         }
         if(type->mPointerParen) {
-            buf.append_format("(");
+            buf.append_str("(");
         }
         
         type2->mArrayPointerNum.times {
-            buf.append_format("*");
+            buf.append_str("*");
         }
         
         if(!type2->mAnonymousVarName) {
-            buf.append_format("%s", name);
+            buf.append_str(name);
         }
         
         if(type2->mSizeNum != null) {
@@ -1031,11 +1055,12 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
             }
             
             CVALUE*% come_value = get_value_from_stack(-1, info);
-            buf.append_format(":%s", come_value.c_value);
+            buf.append_str(":");
+            buf.append_str(come_value.c_value);
         }
         
         if(type->mPointerParen) {
-            buf.append_format(")");
+            buf.append_str(")");
         }
         
         foreach(it, type2->mVarNameArrayNum) {
@@ -1045,11 +1070,13 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
             }
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
-            buf.append_format("[%s]", cvalue.c_value);
+            buf.append_str("[");
+            buf.append_str(cvalue.c_value);
+            buf.append_str("]");
         }
         
         if(type2->mArrayPointerNum > 0) {
-            buf.append_format(")");
+            buf.append_str(")");
         }
         
         int n = 0;
@@ -1061,16 +1088,24 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
             if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
-                buf.append_format("[restrict static %s]", cvalue.c_value);
+                buf.append_str("[restrict static ");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             else if(type2->mArrayStatic[n]) {
-                buf.append_format("[static %s]", cvalue.c_value);
+                buf.append_str("[static ");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             else if(type2->mArrayRestrict[n]) {
-                buf.append_format("[restrict %s]", cvalue.c_value);
+                buf.append_str("[restrict ");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             else {
-                buf.append_format("[%s]", cvalue.c_value);
+                buf.append_str("[");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             
             n++;
@@ -1081,12 +1116,14 @@ string make_define_var(sType* type, char* name, sInfo* info=info, bool no_static
         }
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" ");
-            buf.append_format(type->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type->mAttribute);
         }
     }
     
@@ -1115,11 +1152,12 @@ string make_var_name(sType* type, char* name, sInfo* info=info, bool no_static=f
     else if(type2->mArrayPointerNum > 0) {
         string type_name = make_type_name_string(type2, no_static:no_static);
         
-        buf.append_format("(");
+        buf.append_str("(");
         type2->mArrayPointerNum.times {
-            buf.append_format("*");
+            buf.append_str("*");
         }
-        buf.append_format("%s)", name);
+        buf.append_str(name);
+        buf.append_str(")");
         
         int n = 0;
         foreach(it, type2->mArrayNum) {
@@ -1130,28 +1168,38 @@ string make_var_name(sType* type, char* name, sInfo* info=info, bool no_static=f
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
             if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
-                buf.append_format("[restrict static %s]", cvalue.c_value);
+                buf.append_str("[restrict static ");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             else if(type2->mArrayStatic[n]) {
-                buf.append_format("[static %s]", cvalue.c_value);
+                buf.append_str("[static ");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             else if(type2->mArrayRestrict[n]) {
-                buf.append_format("[restrict %s]", cvalue.c_value);
+                buf.append_str("[restrict ");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             else {
-                buf.append_format("[%s]", cvalue.c_value);
+                buf.append_str("[");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             
             n++;
         }
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" ");
-            buf.append_format(type->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type->mAttribute);
         }
     }
     else if(type2->mSizeNum != null) {
@@ -1165,14 +1213,19 @@ string make_var_name(sType* type, char* name, sInfo* info=info, bool no_static=f
         for(int i=0; i<type2->mPointerNum; i++) {
             buf.append_str("*");
         }
-        buf.append_format("%s:%s", name, come_value.c_value);
+        buf.append_str(name);
+        buf.append_str(":");
+        buf.append_str(come_value.c_value);
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" %s", type->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type->mAttribute);
         }
     }
     else if(type2->mArrayNum.length() > 0) {
@@ -1190,16 +1243,24 @@ string make_var_name(sType* type, char* name, sInfo* info=info, bool no_static=f
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
             if(type2->mArrayRestrict[n] && type2->mArrayStatic[n]) {
-                buf.append_format("[restrict static %s]", cvalue.c_value);
+                buf.append_str("[restrict static ");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             else if(type2->mArrayStatic[n]) {
-                buf.append_format("[static %s]", cvalue.c_value);
+                buf.append_str("[static ");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             else if(type2->mArrayRestrict[n]) {
-                buf.append_format("[restrict %s]", cvalue.c_value);
+                buf.append_str("[restrict ");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             else {
-                buf.append_format("[%s]", cvalue.c_value);
+                buf.append_str("[");
+                buf.append_str(cvalue.c_value);
+                buf.append_str("]");
             }
             
             n++;
@@ -1210,16 +1271,19 @@ string make_var_name(sType* type, char* name, sInfo* info=info, bool no_static=f
         }
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" %s", type->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type->mAttribute);
         }
     }
     else {
         if(type2->mAttribute != null) {
-            buf.append_format(type->mAttribute);
+            buf.append_str(type->mAttribute);
         }
         buf.append_str(" ");
         for(int i=0; i<type2->mPointerNum; i++) {
@@ -1232,11 +1296,14 @@ string make_var_name(sType* type, char* name, sInfo* info=info, bool no_static=f
         }
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" %s", type->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type->mAttribute);
         }
     }
     
@@ -1269,11 +1336,13 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info)
     else if(type2->mArrayPointerNum > 0) {
         string type_name = make_come_type_name_string(type2);
         
-        buf.append_format("%s (", type_name);
+        buf.append_str(type_name);
+        buf.append_str(" (");
         type2->mArrayPointerNum.times {
-            buf.append_format("*");
+            buf.append_str("*");
         }
-        buf.append_format("%s)", name);
+        buf.append_str(name);
+        buf.append_str(")");
         
         foreach(it, type2->mArrayNum) {
             if(!node_compile(it)) {
@@ -1282,19 +1351,24 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info)
             }
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
-            buf.append_format("[%s]", cvalue.c_value);
+            buf.append_str("[");
+            buf.append_str(cvalue.c_value);
+            buf.append_str("]");
         }
         
         if(type2->mArrayPointerType) {
-            buf.append_format("[]");
+            buf.append_str("[]");
         }
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" %s", type->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type->mAttribute);
         }
     }
     else if(type2->mSizeNum != null) {
@@ -1307,15 +1381,21 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info)
     
         string type_str;
         type_str = make_come_type_name_string(type2);
-        buf.append_format("%s ", type_str);
-        buf.append_format("%s:%s", name, come_value.c_value);
+        buf.append_str(type_str);
+        buf.append_str(" ");
+        buf.append_str(name);
+        buf.append_str(":");
+        buf.append_str(come_value.c_value);
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" %s", type->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type->mAttribute);
         }
     }
     else if(type2->mArrayNum.length() > 0) {
@@ -1334,7 +1414,9 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info)
             }
             CVALUE*% cvalue = get_value_from_stack(-1, info);
         
-            buf.append_format("[%s]", cvalue.c_value);
+            buf.append_str("[");
+            buf.append_str(cvalue.c_value);
+            buf.append_str("]");
         }
         
         if(type2->mArrayPointerType) {
@@ -1342,11 +1424,14 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info)
         }
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" %s", type->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type->mAttribute);
         }
     }
     else {
@@ -1367,11 +1452,14 @@ string make_come_define_var(sType* type, char* name, sInfo* info=info)
         }
         
         if(type2->mAsmName != null && type2->mAsmName !== "") {
-            buf.append_format(" __asm__(\"%s\")", type2->mAsmName);
+            buf.append_str(" __asm__(\"");
+            buf.append_str(type2->mAsmName);
+            buf.append_str("\")");
         }
         
         if(type2->mAttribute != null) {
-            buf.append_format(" %s", type->mAttribute);
+            buf.append_str(" ");
+            buf.append_str(type->mAttribute);
         }
     }
     

@@ -399,10 +399,12 @@ string,string parse_function_attribute(sInfo* info=info)
             || parse_function_attribute_keyword(result, "__noreturn"))
         {
         }
-        else if(parsecmp_tail("__asm__")) {
+        else {
+            char* asm_tail = parsecmp_tail("__asm__");
+            if(asm_tail) {
             char* head = info.p;
             
-            info->p = parsecmp_tail("__asm__");
+            info->p = asm_tail;
             skip_spaces_and_lf();
             
             if(((info->end - info->p) >= strlen("__ASMNAME")) && memcmp(info->p, "__ASMNAME", strlen("__ASMNAME")) == 0) {
@@ -414,8 +416,8 @@ string,string parse_function_attribute(sInfo* info=info)
             
             char* tail = info.p;
             result.append(head, tail-head);
-        }
-        else if(parse_function_attribute_keyword(result, "__attribute_pure__")
+            }
+            else if(parse_function_attribute_keyword(result, "__attribute_pure__")
             || parse_function_attribute_keyword(result, "__malloc_like")
             || parse_function_attribute_keyword(result, "__result_use_check")
             || parse_function_attribute_keyword(result, "__alloc_size2")
@@ -428,66 +430,70 @@ string,string parse_function_attribute(sInfo* info=info)
             || parse_function_attribute_keyword(result, "__pure2")
             || parse_function_attribute_keyword(result, "__pure")
             || parse_function_attribute_keyword(result, "__THROW"))
-        {
-        }
-        else if(parsecmp_tail("__asm")) {
-            char* head0 = info.p;
-            int sline0 = info.sline;
-            
-            info->p = parsecmp_tail("__asm");
-            skip_spaces_and_lf();
-            
-            char* head = info.p;
-            int sline = info.sline;
-            
-            int nest = 0;
-            while(*info->p) {
-                if(*info->p == '(') {
-                    info->p++;
+            {
+            }
+            else {
+                char* asm_tail = parsecmp_tail("__asm");
+                if(asm_tail) {
+                    char* head0 = info.p;
+                    int sline0 = info.sline;
+                    
+                    info->p = asm_tail;
                     skip_spaces_and_lf();
                     
-                    nest++;
-                }
-                else if(*info->p == ')') {
-                    info->p++;
-                    skip_spaces_and_lf();
+                    char* head = info.p;
+                    int sline = info.sline;
                     
-                    nest--;
-                    if(nest == 0) {
-                        break;
+                    int nest = 0;
+                    while(*info->p) {
+                        if(*info->p == '(') {
+                            info->p++;
+                            skip_spaces_and_lf();
+                            
+                            nest++;
+                        }
+                        else if(*info->p == ')') {
+                            info->p++;
+                            skip_spaces_and_lf();
+                            
+                            nest--;
+                            if(nest == 0) {
+                                break;
+                            }
+                        }
+                        else if(*info->p == '"') {
+                            info->p++;
+                            while(*info->p != '\0' && *info->p != '"') {
+                                asm_fun_name.append_char(*info->p);
+                                info->p++;
+                            }
+                            
+                            info->p++;
+                            skip_spaces_and_lf();
+                        }
+                        else {
+                            //asm_fun_name.append_char(*info->p);
+                            info->p++;
+                        }
                     }
-                }
-                else if(*info->p == '"') {
-                    info->p++;
-                    while(*info->p != '\0' && *info->p != '"') {
-                        asm_fun_name.append_char(*info->p);
-                        info->p++;
-                    }
                     
-                    info->p++;
+                    info.p = head0;
+                    info.sline = sline0;
+                    
+                    info->p = asm_tail;
                     skip_spaces_and_lf();
+
+                    parse_function_attribute_skip_paren(info);
+                    
+                    char* tail = info.p;
+                    result.append(head0, tail-head0);
+                }
+                else if(parse_common_function_attribute_keyword(result, info)) {
                 }
                 else {
-                    //asm_fun_name.append_char(*info->p);
-                    info->p++;
+                    break;
                 }
             }
-            
-            info.p = head0;
-            info.sline = sline0;
-            
-            info->p = parsecmp_tail("__asm");
-            skip_spaces_and_lf();
-
-            parse_function_attribute_skip_paren(info);
-            
-            char* tail = info.p;
-            result.append(head0, tail-head0);
-        }
-        else if(parse_common_function_attribute_keyword(result, info)) {
-        }
-        else {
-            break;
         }
     }
 
