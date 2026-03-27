@@ -1644,14 +1644,12 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         bool array_static = false;
         bool array_restrict = false;
         while(1) {
-            if(parsecmp("static")) {
-                info->p += strlen("static");
+            if(parsecmp_forward("static")) {
                 skip_spaces_and_lf();
                 
                 array_static = true;
             }
-            else if(parsecmp("restrict")) {
-                info->p += strlen("restrict");
+            else if(parsecmp_forward("restrict")) {
                 skip_spaces_and_lf();
                 
                 array_restrict = true;

@@ -385,7 +385,7 @@ string,string parse_function_attribute(sInfo* info=info)
     while(true) {
         if(parse_function_attribute_keyword(result, "__attribute__")) {
         }
-        else if(parsecmp("__declspec")) {
+        else if(parsecmp_forward("__declspec")) {
             string attr = parse_declspec_attribute();
             if(attr !== "") {
                 if(result.length() > 0) {

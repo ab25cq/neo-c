@@ -5076,7 +5076,7 @@ struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo*  info  )
             }
             (attr = come_decrement_ref_count(attr, (void*)0, (void*)0, 0, 0, (void*)0, "06type.nc", 755, 434));
         }
-        else if(parsecmp("__declspec",info)) {
+        else if(parsecmp_forward("__declspec",info)) {
             __right_value0 = (void*)0;
             attr_23=(char* )come_increment_ref_count(parse_declspec_attribute(info), "06type.nc", 665, 435);
             if(string_operator_not_equals(attr_23,"")) {
@@ -5318,7 +5318,7 @@ char*  parse_struct_attribute(struct sInfo*  info  , _Bool allow_end)
     while(1) {
         if(parse_attribute_keyword(result,"__attribute__",allow_end,info)) {
         }
-        else if(parsecmp("__declspec",info)) {
+        else if(parsecmp_forward("__declspec",info)) {
             __right_value0 = (void*)0;
             attr=(char* )come_increment_ref_count(parse_declspec_attribute(info), "06type.nc", 855, 462);
             if(string_operator_not_equals(attr,"")) {

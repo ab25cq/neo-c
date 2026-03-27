@@ -2961,7 +2961,7 @@ struct tuple2$2char$phchar$ph* parse_function_attribute(struct sInfo*  info  )
     while((_Bool)1) {
         if(parse_function_attribute_keyword(result,"__attribute__",info)) {
         }
-        else if(parsecmp("__declspec",info)) {
+        else if(parsecmp_forward("__declspec",info)) {
             __right_value0 = (void*)0;
             attr=(char* )come_increment_ref_count(parse_declspec_attribute(info), "07function.nc", 389, 14);
             if(string_operator_not_equals(attr,"")) {

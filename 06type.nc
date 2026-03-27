@@ -661,7 +661,7 @@ string,string parse_attribute(sInfo* info=info)
                 attribute.append_str(attr);
             }
         }
-        else if(parsecmp("__declspec")) {
+        else if(parsecmp_forward("__declspec")) {
             string attr = parse_declspec_attribute();
             if(attr !== "") {
                 if(attribute.length() > 0) {
@@ -851,7 +851,7 @@ string parse_struct_attribute(sInfo* info=info, bool allow_end=true)
     while(1) {
         if(parse_attribute_keyword(result, "__attribute__", allow_end)) {
         }
-        else if(parsecmp("__declspec")) {
+        else if(parsecmp_forward("__declspec")) {
             string attr = parse_declspec_attribute();
             
             if(attr !== "") {
