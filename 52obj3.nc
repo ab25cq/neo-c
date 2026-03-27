@@ -203,38 +203,33 @@
         return create_span_node(node, info);
     }
     else if(buf === "using") {
-       if(parsecmp("neo-c-pthread")) {
-            info->p += strlen("neo-c-pthread");
+       if(parsecmp_forward("neo-c-pthread")) {
             skip_spaces_and_lf();
             
             gComePthread = true;
         
             return create_nothing_node();
         }
-        else if(parsecmp("comelang")) {
-            info->p += strlen("comelang");
+        else if(parsecmp_forward("comelang")) {
             skip_spaces_and_lf();
             
             gComelang = true;
         
             return create_nothing_node();
         }
-        else if(parsecmp("neo-c-net")) {
-            info->p += strlen("neo-c-net");
+        else if(parsecmp_forward("neo-c-net")) {
             skip_spaces_and_lf();
             
             return create_nothing_node();
         }
-        else if(parsecmp("neo-c")) {
-            info->p += strlen("neo-c");
+        else if(parsecmp_forward("neo-c")) {
             skip_spaces_and_lf();
             
             gComeC = false;
         
             return create_nothing_node();
         }
-        else if(parsecmp("c") || parsecmp("C")) {
-            info->p += strlen("c");
+        else if(parsecmp_forward("c") || parsecmp_forward("C")) {
             skip_spaces_and_lf();
             
             bool come_c = gComeC;
@@ -251,8 +246,7 @@
                 return create_nothing_node();
             }
         }
-        else if(parsecmp("unsafe")) {
-            info->p += strlen("unsafe");
+        else if(parsecmp_forward("unsafe")) {
             skip_spaces_and_lf();
             
             bool come_safe = gComeSafe;
@@ -269,8 +263,7 @@
                 return create_nothing_node();
             }
         }
-        else if(parsecmp("safe")) {
-            info->p += strlen("safe");
+        else if(parsecmp_forward("safe")) {
             skip_spaces_and_lf();
             
             bool come_safe = gComeSafe;

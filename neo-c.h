@@ -3395,6 +3395,31 @@ impl map <T, T2>
         delete borrow self.hashes;
         delete borrow self.item_existance;
     }
+    int key_position(map<T,T2>* self, T^ key, bool by_pointer=false)
+    {
+        if(self == null) {
+            return -1;
+        }
+        
+        int pos = 0;
+        list_item<T>* it = self.key_list.head;
+        while(it != null) {
+            if((!by_pointer && it.item.equals(key)) || (by_pointer && it.item == key)) {
+                return pos;
+            }
+            it = it.next;
+            pos++;
+        }
+        
+        return -1;
+    }
+    void remove_ordered_entry(map<T,T2>* self, T^ key, bool by_pointer=false)
+    {
+        int pos = self.key_position(key, by_pointer);
+        if(pos >= 0) {
+            self.key_list.delete(pos, pos+1);
+        }
+    }
     map<T, T2>*% clone(map<T, T2>* self)
     {
         using unsafe;
@@ -3411,7 +3436,7 @@ impl map <T, T2>
             T2/ default_value;
             memset(&default_value, 0, sizeof(T2));
             
-            var it2 = self.at(it, default_value);
+            var it2 = self.at(it, default_value, true);
 
             if(isheap(T) && isheap(T2)) {
                 result.put(clone it, clone it2);
@@ -3446,7 +3471,7 @@ impl map <T, T2>
         while(it) {
             T2/ default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2 it2 = self.at(it.item, default_value);
+            T2 it2 = self.at(it.item, default_value, true);
             
             result.append_str(it.item.to_string());
             result.append_str("^");
@@ -3515,7 +3540,7 @@ impl map <T, T2>
                 if(self.hashes[it] == key_hash
                     && ((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key)))
                 {
-                    self.key_list.remove(self.keys\[it]);
+                    self.remove_ordered_entry(self.keys\[it], by_pointer);
                     
                     self.item_existance[it] = false;
                     self.hashes[it] = 0;
@@ -3829,7 +3854,7 @@ impl map <T, T2>
             T2/ default_value;
             memset(&default_value, 0, sizeof(T2));
             
-            var item = self.at(it, default_value);
+            var item = self.at(it, default_value, true);
             if(item) {
                 puts("item " + item.to_string());
             }
@@ -3857,13 +3882,12 @@ impl map <T, T2>
                 if(self.hashes[it] == key_hash
                     && ((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key))) 
                 {
+                    self.remove_ordered_entry(self.keys\[it], by_pointer);
                     if(isheap(T)) {
-                        self.key_list.remove(self.keys\[it]);
                         delete self.keys\[it];
                         self.keys\[it] = borrow gc_inc(key);
                     }
                     else {
-                        self.key_list.remove(self.keys\[it]);
                         self.keys\[it] = borrow key;
                     }
                     if(isheap(T2)) {
@@ -3937,13 +3961,12 @@ impl map <T, T2>
                 if(self.hashes[it] == key_hash
                     && ((!by_pointer && self.keys\[it].equals(key)) || (by_pointer && self.keys\[it] == key)))
                 {
+                    self.remove_ordered_entry(self.keys\[it], by_pointer);
                     if(isheap(T)) {
                         delete self.keys\[it];
-                        self.key_list.remove(self.keys\[it]);
                         self.keys\[it] = borrow gc_inc(key);
                     }
                     else {
-                        self.key_list.remove(self.keys\[it]);
                         self.keys\[it] = borrow key;
                     }
                     if(isheap(T2)) {
@@ -4065,8 +4088,8 @@ impl map <T, T2>
             if(it.equals(it2)) {
                 T2/ default_value2;
                 memset(&default_value2, 0, sizeof(T2));
-                T2 item = left.at(it, default_value2);
-                T2 item2 = right.at(it2, default_value2);
+                T2 item = left.at(it, default_value2, true);
+                T2 item2 = right.at(it2, default_value2, true);
                 
                 if(!item.equals(item2)) {
                     result = false;
@@ -4105,8 +4128,8 @@ impl map <T, T2>
             if(it === it2) {
                 T2/ default_value2;
                 memset(&default_value2, 0, sizeof(T2));
-                T2 item = left.at(it, default_value2);
-                T2 item2 = right.at(it2, default_value2);
+                T2 item = left.at(it, default_value2, true);
+                T2 item2 = right.at(it2, default_value2, true);
                 
                 if(!(item === item2)) {
                     result = false;
@@ -4176,11 +4199,10 @@ impl map <T, T2>
             return result;
         }
 
-        int n = 0;
         for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
             T2/ default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2 it2 = left.at(it, default_value);
+            T2 it2 = left.at(it, default_value, true);
             
             if(isheap(T) && isheap(T2)) {
                 result.insert(clone it, clone it2);
@@ -4194,14 +4216,12 @@ impl map <T, T2>
             else {
                 result.insert(dummy_heap dupe it, dummy_heap dupe it2);
             }
-            n++;
         }
 
-        n=0;
         for(var it = right.key_list.begin(); !right.key_list.end(); it = right.key_list.next()) {
             T2/ default_value;
             memset(&default_value, 0, sizeof(T2));
-            T2 it2 = left.at(it, default_value);
+            T2 it2 = right.at(it, default_value, true);
             
             if(isheap(T) && isheap(T2)) {
                 result.insert(clone it, clone it2);
@@ -4215,7 +4235,6 @@ impl map <T, T2>
             else {
                 result.insert(dummy_heap dupe it, dummy_heap dupe it2);
             }
-            n++;
         }
 
         return result;
@@ -4230,12 +4249,11 @@ impl map <T, T2>
         }
 
         for(int i=0; i<right; i++ ) {
-            int n = 0;
             for(var it = left.key_list.begin(); !left.key_list.end(); it = left.key_list.next()) {
                 T2/ default_value;
                 memset(&default_value, 0, sizeof(T2));
                 
-                T2 it2 = left.at(it, default_value);
+                T2 it2 = left.at(it, default_value, true);
                 
                 if(isheap(T) && isheap(T2)) {
                     result.insert(clone it, clone it2);
@@ -4249,7 +4267,6 @@ impl map <T, T2>
                 else {
                     result.insert(dummy_heap dupe it, dummy_heap dupe it2);
                 }
-                n++;
             }
         }
 
@@ -4287,7 +4304,7 @@ impl map <T, T2>
             T2/ default_value;
             memset(&default_value, 0, sizeof(T2));
         
-            var it2 = self.at(it, default_value);
+            var it2 = self.at(it, default_value, true);
             
             if(isheap(T2)) {
                 result.push_back(clone it2);
@@ -4316,7 +4333,7 @@ impl map<T, T>
         for(var key = self.key_list.begin(); !self.key_list.end(); key = self.key_list.next()) {
             T/ default_value;
             memset(&default_value, 0, sizeof(T));
-            var item = self.at(key, default_value);
+            var item = self.at(key, default_value, true);
             
             if(isheap(T)) {
                 result.add(clone key);
@@ -6043,7 +6060,8 @@ uniq list<string>*% char*::split_char(char* self, char c)
 
     var str = new buffer.initialize();
 
-    for(int i=0; i<self.length(); i++) {
+    int self_len = self.length();
+    for(int i=0; i<self_len; i++) {
         if(self[i] == c) {
             result.push_back(string(str.buf));
             str.reset();

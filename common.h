@@ -37,6 +37,7 @@ struct sVarTable;
 struct sBlock;
 
 char* parsecmp_tail(const char* p2, sInfo* info=info);
+char* parsecmp_forward(const char* p2, sInfo* info=info);
 
 interface sNode 
 {
@@ -968,6 +969,7 @@ string skip_block(sInfo* info=info, bool return_self_at_last=false);
 bool is_contained_generics_class(sType* type, sInfo* info);
 bool is_type_name(char* buf, sInfo* info=info);
 bool parsecmp(const char* p2, sInfo* info=info)
+char* parsecmp_forward(const char* p2, sInfo* info=info);
 int match_common_attribute_keyword_len(const char* p);
 string parse_word(bool digits=false, sInfo* info=info);
 string backtrace_parse_word(sInfo* info=info);

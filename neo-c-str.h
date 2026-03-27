@@ -2512,11 +2512,13 @@ uniq list<string>*% char*::split_str(const char* self, const char* str)
 
     var buf = new buffer.initialize();
 
-    for(int i=0; i<self.length(); i++) {
+    int self_len = self.length();
+    int needle_len = strlen(str);
+    for(int i=0; i<self_len; i++) {
         if(strstr(self + i, str) == self + i) {
             result.push_back(string(buf.buf));
             buf.reset();
-            i += strlen(str)-1;
+            i += needle_len-1;
         }
         else {
             buf.append_char(self[i]);
@@ -3583,11 +3585,13 @@ uniq wstring wchar_t*::delete(wchar_t* str, int head, int tail)
     
         var buf = new buffer.initialize();
     
-        for(int i=0; i<self.length(); i++) {
+        int self_len = self.length();
+        int needle_len = strlen(str);
+        for(int i=0; i<self_len; i++) {
             if(strstr(self + i, str) == self + i) {
                 result.push_back(string(buf.buf));
                 buf.reset();
-                i += strlen(str)-1;
+                i += needle_len-1;
             }
             else {
                 buf.append_char(self[i]);

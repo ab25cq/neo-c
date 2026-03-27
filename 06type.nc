@@ -385,8 +385,7 @@ string parse_declspec_attribute(sInfo* info=info)
     char* p = info.p;
     int sline = info.sline;
     
-    if(parsecmp("__declspec")) {
-        info->p += strlen("__declspec");
+    if(parsecmp_forward("__declspec")) {
         skip_spaces_and_lf();
     }
     
@@ -487,20 +486,16 @@ string,string parse_attribute(sInfo* info=info)
     buffer*% attribute = new buffer();
     
     while(true) {
-        if(parsecmp("__attribute_pure__")) {
-            info->p += strlen("__attribute_pure__");
+        if(parsecmp_forward("__attribute_pure__")) {
             skip_spaces_and_lf();
         }
-        else if(parsecmp("__malloc_like")) {
-            info->p += strlen("__malloc_like");
+        else if(parsecmp_forward("__malloc_like")) {
             skip_spaces_and_lf();
         }
-        else if(parsecmp("__result_use_check")) {
-            info->p += strlen("__result_use_check");
+        else if(parsecmp_forward("__result_use_check")) {
             skip_spaces_and_lf();
         }
-        else if(parsecmp("__alloc_size2")) {
-            info->p += strlen("__alloc_size2");
+        else if(parsecmp_forward("__alloc_size2")) {
             skip_spaces_and_lf();
             
             if(*info.p == '(') {
@@ -529,8 +524,7 @@ string,string parse_attribute(sInfo* info=info)
                 }
             }
         }
-        else if(parsecmp("__alloc_size")) {
-            info->p += strlen("__alloc_size");
+        else if(parsecmp_forward("__alloc_size")) {
             skip_spaces_and_lf();
             
             if(*info.p == '(') {
@@ -559,8 +553,7 @@ string,string parse_attribute(sInfo* info=info)
                 }
             }
         }
-        else if(parsecmp("__nonnull")) {
-            info->p += strlen("__nonnull");
+        else if(parsecmp_forward("__nonnull")) {
             skip_spaces_and_lf();
             
             if(*info.p == '(') {
@@ -589,8 +582,7 @@ string,string parse_attribute(sInfo* info=info)
                 }
             }
         }
-        else if(parsecmp("_Nonnull")) {
-            info->p += strlen("_Nonnull");
+        else if(parsecmp_forward("_Nonnull")) {
             skip_spaces_and_lf();
             
             if(*info.p == '(') {
@@ -619,8 +611,7 @@ string,string parse_attribute(sInfo* info=info)
                 }
             }
         }
-        else if(parsecmp("__alloc_align")) {
-            info->p += strlen("__alloc_align");
+        else if(parsecmp_forward("__alloc_align")) {
             skip_spaces_and_lf();
             
             if(*info.p == '(') {
@@ -649,28 +640,22 @@ string,string parse_attribute(sInfo* info=info)
                 }
             }
         }
-        else if(parsecmp("__attribute_malloc__")) {
-            info->p += strlen("__attribute_malloc__");
+        else if(parsecmp_forward("__attribute_malloc__")) {
             skip_spaces_and_lf();
         }
-        else if(parsecmp("__attr_dealloc_fclose")) {
-            info->p += strlen("__attr_dealloc_fclose");
+        else if(parsecmp_forward("__attr_dealloc_fclose")) {
             skip_spaces_and_lf();
         }
-        else if(parsecmp("__wur")) {
-            info->p += strlen("__wur");
+        else if(parsecmp_forward("__wur")) {
             skip_spaces_and_lf();
         }
-        else if(parsecmp("__pure2")) {
-            info->p += strlen("__pure2");
+        else if(parsecmp_forward("__pure2")) {
             skip_spaces_and_lf();
         }
-        else if(parsecmp("__pure")) {
-            info->p += strlen("__pure");
+        else if(parsecmp_forward("__pure")) {
             skip_spaces_and_lf();
         }
-        else if(parsecmp("__noreturn")) {
-            info->p += strlen("__noreturn");
+        else if(parsecmp_forward("__noreturn")) {
             skip_spaces_and_lf();
         }
         else if(parsecmp("__attribute__")) {
@@ -697,12 +682,10 @@ string,string parse_attribute(sInfo* info=info)
                 attribute.append_str(attr);
             }
         }
-        else if(parsecmp("__asm__")) {
-            info->p += strlen("__asm__");
+        else if(parsecmp_forward("__asm__")) {
             skip_spaces_and_lf();
             
-            if((info->end - info->p) >= strlen("__ASMNAME") && memcmp(info->p, "__ASMNAME", strlen("__ASMNAME")) == 0) {
-                info->p += strlen("__ASMNAME");
+            if(parsecmp_forward("__ASMNAME")) {
                 skip_spaces_and_lf();
             }
 

@@ -25,6 +25,15 @@ bool parsecmp(const char* p2, sInfo* info=info)
     return parsecmp_tail(p2, info) != null;
 }
 
+char* parsecmp_forward(const char* p2, sInfo* info=info)
+{
+    char* tail = parsecmp_tail(p2, info);
+    if(tail != null) {
+        info.p = tail;
+    }
+    return tail;
+}
+
 #define MATCH_COMMON_ATTRIBUTE(keyword) (len == (sizeof(keyword)-1) && memcmp(p, keyword, sizeof(keyword)-1) == 0)
 
 int match_common_attribute_keyword_len(const char* p)
@@ -467,7 +476,7 @@ static bool skip_comment(sInfo* info, bool skip_space_after)
     return false;
 }
 
-void skip_spaces_and_lf(sInfo* info=info)
+static void skip_spaces_and_lf_core(bool parse_sharp_after, sInfo* info=info)
 {
     char* p = info.p;
     int sline = info.sline;
@@ -563,110 +572,24 @@ void skip_spaces_and_lf(sInfo* info=info)
     info.sline = sline;
     info.sline_real = sline_real;
     
-    if(*info.p == '#') {
-        parse_sharp();
+    if(parse_sharp_after) {
+        if(*info.p == '#') {
+            parse_sharp();
+        }
+        else if(*info.p == '_' && parsecmp("__extension__")) {
+            parse_sharp();
+        }
     }
-    else if(*info.p == '_' && parsecmp("__extension__")) {
-        parse_sharp();
-    }
+}
+
+void skip_spaces_and_lf(sInfo* info=info)
+{
+    skip_spaces_and_lf_core(true, info);
 }
 
 void skip_spaces_and_lf2(sInfo* info=info)
 {
-    char* p = info.p;
-    int sline = info.sline;
-    int sline_real = info.sline_real;
-    
-    while(true) {
-        if(*p == ' ' || *p == '\t') {
-            p++;
-        }
-        else if(*p == '\r') {
-            p++;
-            if(*p == '\n') {
-                p++;
-            }
-            sline++;
-            sline_real++;
-        }
-        else if(*p == '\n') {
-            p++;
-            sline++;
-            sline_real++;
-        }
-        else if(*p == '/' && *(p+1) == '*') {
-            int nest = 0;
-            while(true) {
-                if(*p == '/' && *(p+1) == '*') {
-                    p += 2;
-                    nest++;
-                }
-                else if(*p == '*' && *(p+1) == '/') {
-                    p += 2;
-                    nest--;
-                    if(nest == 0) {
-                        break;
-                    }
-                }
-                else if(*p == '\n') {
-                    p++;
-                    sline++;
-                    sline_real++;
-                }
-                else if(*p == '\r') {
-                    p++;
-                    if(*p == '\n') {
-                        p++;
-                    }
-                    sline++;
-                    sline_real++;
-                }
-                else if(*p == '\0') {
-                    info.p = p;
-                    info.sline = sline;
-                    info.sline_real = sline_real;
-                    err_msg(info, "unterminated comment");
-                    break;
-                }
-                else {
-                    p++;
-                }
-            }
-        }
-        else if(*p == '/' && *(p+1) == '/') {
-            p += 2;
-            while(true) {
-                if(*p == '\n') {
-                    p++;
-                    sline++;
-                    sline_real++;
-                    break;
-                }
-                else if(*p == '\r') {
-                    p++;
-                    if(*p == '\n') {
-                        p++;
-                    }
-                    sline++;
-                    sline_real++;
-                    break;
-                }
-                else if(*p == '\0') {
-                    break;
-                }
-                else {
-                    p++;
-                }
-            }
-        }
-        else {
-            break;
-        }
-    }
-    
-    info.p = p;
-    info.sline = sline;
-    info.sline_real = sline_real;
+    skip_spaces_and_lf_core(false, info);
 }
 
 void skip_spaces_and_tabs(sInfo* info=info)

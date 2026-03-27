@@ -1469,15 +1469,17 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
 {
     if(buf === "__c__" && *info->p == '{') {
         string block_text = skip_block();
+        int block_text_len = strlen(block_text);
+        char* block_text_end = block_text + block_text_len;
         
-        char* p = block_text + strlen(block_text);
+        char* p = block_text_end;
         
         while(*p && p >= block_text && *p != '}') {
             p--;
         }
         p--;
         
-        string contents = block_text.substring(1, p - (block_text + strlen(block_text))-1);
+        string contents = block_text.substring(1, p - block_text_end - 1);
         
         //add_come_code(info, "%s\n", contents);
         static int n = 0;
@@ -1488,15 +1490,17 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
     }
     else if(buf === "c_include" && *info->p == '{') {
         string block_text = skip_block();
+        int block_text_len = strlen(block_text);
+        char* block_text_end = block_text + block_text_len;
         
-        char* p = block_text + strlen(block_text);
+        char* p = block_text_end;
         
         while(*p && p >= block_text && *p != '}') {
             p--;
         }
         p--;
         
-        string contents = block_text.substring(1, p - (block_text + strlen(block_text))-1);
+        string contents = block_text.substring(1, p - block_text_end - 1);
         
         //add_come_code(info, "%s\n", contents);
         static int n = 0;
