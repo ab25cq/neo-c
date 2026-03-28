@@ -50,6 +50,8 @@ void ViWin*::finalize(ViWin* self)
     delete self.recordingMacro;
     delete self.runningMacro;
 
+    delete self.completionCandidates;
+    delete self.completionPrefix;
 
     delete self.mark;
 }

@@ -9,7 +9,6 @@ void fun2() {
     fun();
 }
 
-
 int main(int argc, char** argv) {
     fun2();
     

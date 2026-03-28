@@ -91,6 +91,12 @@ struct ViWin
     bool visualModeVerticalInserting;
     
     bool pasteMode;
+
+    list<wstring>*% completionCandidates;
+    wstring completionPrefix;
+    int completionStartX;
+    int completionIndex;
+    bool completionActive;
 };
 
 struct Vi;
@@ -196,7 +202,10 @@ void ViWin*::pushUndo(ViWin* self) version 3;
 void ViWin*::writedFlagOn(ViWin* self) version 3;
 void ViWin*::completion(ViWin* self, Vi* nvi) version 3;
 void ViWin*::completion_neo_c2(ViWin* self, Vi* nvi) version 3;
+void ViWin*::completionFileName(ViWin* self, Vi* nvi) version 3;
+void ViWin*::completionNext(ViWin* self, Vi* nvi, bool prev) version 3;
 void ViWin*::clearInputedKey(ViWin* self) version 3;
+void ViWin*::resetCompletionState(ViWin* self) version 3;
 void ViWin*::saveInputedKey(ViWin* self) version 3;
 void ViWin*::backwardWord(ViWin* self) version 3;
 void Vi*::enterInsertMode(Vi* self) version 3;
@@ -371,9 +380,13 @@ Vi*% Vi*::initialize(Vi*% self) version 12;
 ////////////////////////////
 // src/13completion.c
 ////////////////////////////
+wchar_t* ViWin*::getCompletionWord(ViWin* self, int* start_pos);
 wchar_t* ViWin*::selector2(ViWin* self, list<wstring>* lines);
+void ViWin*::resetCompletionState(ViWin* self);
+ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 13;
 void ViWin*::completion(ViWin* self, Vi* nvi) version 13;
 void ViWin*::completionFileName(ViWin* self, Vi* nvi) version 13;
+void ViWin*::completionNext(ViWin* self, Vi* nvi, bool prev);
 
 ////////////////////////////
 // src/14dot.c
@@ -446,13 +459,6 @@ void Vi*::exitFromRewiteMode(Vi* self);
 Vi*% Vi*::initialize(Vi*% self) version 19;
 int Vi*::main_loop(Vi* self) version 19;
 
-////////////////////////////
-// src/20shell.c
-////////////////////////////
-Vi*% Vi*::initialize(Vi*% self) version 20;
-void Vi*::exitFromShellMode(Vi* self);
-void ViWin*::input(ViWin* self, Vi* nvi) version 20;
-void ViWin*::view(ViWin* self, Vi* nvi) version 20;
 
 ////////////////////////////
 // src/21binary.c

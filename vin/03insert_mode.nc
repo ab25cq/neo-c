@@ -1,6 +1,34 @@
 #include "common.h"
 #include <limits.h>
 
+static bool is_insert_mode_word_char(wchar_t c)
+{
+    return (c >= 'a' && c <= 'z')
+        || (c >= 'A' && c <= 'Z')
+        || (c >= '0' && c <= '9')
+        || c == '_';
+}
+
+static bool is_insert_mode_file_char(wchar_t c)
+{
+    return c != '\0'
+        && c != ' '
+        && c != '\t'
+        && c != '"'
+        && c != '\''
+        && c != '('
+        && c != ')'
+        && c != '['
+        && c != ']'
+        && c != '{'
+        && c != '}'
+        && c != '<'
+        && c != '>'
+        && c != ','
+        && c != ';'
+        && c != '`';
+}
+
 void ViWin*::insertModeView(ViWin* self, Vi* nvi)
 {
     werase(self.win);
@@ -161,23 +189,29 @@ void ViWin*::blinkBraceEnd(ViWin* self, wchar_t head, wchar_t tail, Vi* nvi)
 void ViWin*::inputInsertMode(ViWin* self, Vi* nvi)
 {
     auto key = self.getKey(false);
+
+    if(key != 'N'-'A'+1 && key != 'P'-'A'+1) {
+        self.resetCompletionState();
+    }
     
     if(key == 3 || key == 27) {
         nvi.exitFromInsertMode();
     }
+    else if(key == 'N'-'A'+1) {
+        self.completionNext(nvi, false);
+    }
+    else if(key == 'P'-'A'+1) {
+        self.completionNext(nvi, true);
+    }
     else if(key == 'F' - 'A' +1) {
-/*
+        self.completionFileName(nvi);
+    }
+    else if(key == 'X' - 'A' +1) {
         auto key2 = self.getKey(false);
 
-        if(key2 == 'F' - 'A' + 1) {
-*/
-            self.completionFileName(nvi);
-/*
-        }
-        else if(key2 == 'X' - 'A' + 1) {
+        if(key2 == 'X' - 'A' + 1) {
             self.completion_neo_c2(nvi);
         }
-*/
     }
     else if(key == 4) {
         self.backIndent();
@@ -200,9 +234,18 @@ void ViWin*::inputInsertMode(ViWin* self, Vi* nvi)
             self.insertText(wstring("    "));
         }
         else {
-            if(xiswalpha(str.substring(-1, -1)[0])) {
+/*
+            auto tail = str.substring(-1, -1)[0];
+
+            if(is_insert_mode_word_char(tail)) {
+*/
                 self.completion(nvi);
+/*
             }
+            else if(is_insert_mode_file_char(tail)) {
+                self.completionFileName(nvi);
+            }
+*/
         }
     }
     else if(key > 127) {
@@ -324,7 +367,22 @@ void ViWin*::completion_neo_c2(ViWin* self, Vi* nvi) version 3
     /// implemented by the after layer
 }
 
+void ViWin*::completionFileName(ViWin* self, Vi* nvi) version 3
+{
+    /// implemented by the after layer
+}
+
+void ViWin*::completionNext(ViWin* self, Vi* nvi, bool prev) version 3
+{
+    /// implemented by the after layer
+}
+
 void ViWin*::clearInputedKey(ViWin* self) version 3
+{
+    /// implemented by the after layer
+}
+
+void ViWin*::resetCompletionState(ViWin* self) version 3
 {
     /// implemented by the after layer
 }
