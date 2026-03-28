@@ -165,6 +165,20 @@ void ViWin*::inputInsertMode(ViWin* self, Vi* nvi)
     if(key == 3 || key == 27) {
         nvi.exitFromInsertMode();
     }
+    else if(key == 'F' - 'A' +1) {
+/*
+        auto key2 = self.getKey(false);
+
+        if(key2 == 'F' - 'A' + 1) {
+*/
+            self.completionFileName(nvi);
+/*
+        }
+        else if(key2 == 'X' - 'A' + 1) {
+            self.completion_neo_c2(nvi);
+        }
+*/
+    }
     else if(key == 4) {
         self.backIndent();
     }
@@ -189,16 +203,6 @@ void ViWin*::inputInsertMode(ViWin* self, Vi* nvi)
             if(xiswalpha(str.substring(-1, -1)[0])) {
                 self.completion(nvi);
             }
-        }
-    }
-    else if(key == 'X' - 'A' +1) {
-        auto key2 = self.getKey(false);
-
-        if(key2 == 'F' - 'A' + 1) {
-            self.completionFileName(nvi);
-        }
-        else if(key2 == 'X' - 'A' + 1) {
-            self.completion_neo_c2(nvi);
         }
     }
     else if(key > 127) {

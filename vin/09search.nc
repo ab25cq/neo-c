@@ -358,13 +358,7 @@ void Vi*::enterSearchMode(Vi* self, bool regex_search, bool reverse) version 9
 
 void Vi*::exitFromSearchMode(Vi* self) 
 {
-    if(self.modeBeforeSearch == kVisualMode) {
-        self.activeWin.restoreVisualMode(self);
-    }
-    else {
-        self.mode = kEditMode;
-    }
-
+    self.mode = self.modeBeforeSearch;
     self.modeBeforeSearch = kEditMode;
 }
 

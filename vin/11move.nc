@@ -14,6 +14,28 @@ static bool line_is_function_top(char* line)
     return line[head] == '{';
 }
 
+static bool line_is_unindented_function_top(char* line)
+{
+    return line != null && line[0] == '{';
+}
+
+static bool line_is_blank(char* line)
+{
+    if(line == null) {
+        return true;
+    }
+
+    int i = 0;
+    while(line[i]) {
+        if(!xisspace(line[i])) {
+            return false;
+        }
+        i++;
+    }
+
+    return true;
+}
+
 static bool line_starts_with_keyword(char* line, char* keyword)
 {
     int len = strlen(keyword);
@@ -67,7 +89,20 @@ static bool line_is_function_signature(char* line)
         return false;
     }
 
-    return xisalpha(line[name_pos]) || xisdigit(line[name_pos]) || line[name_pos] == '_' || line[name_pos] == ':';
+    if(!(xisalpha(line[name_pos]) || xisdigit(line[name_pos]) || line[name_pos] == '_' || line[name_pos] == ':')) {
+        return false;
+    }
+
+    int name_head = name_pos;
+    while(name_head >= head && (xisalpha(line[name_head]) || xisdigit(line[name_head]) || line[name_head] == '_' || line[name_head] == ':')) {
+        name_head--;
+    }
+
+    while(name_head >= head && (line[name_head] == ' ' || line[name_head] == '\t' || line[name_head] == '*' || line[name_head] == '&')) {
+        name_head--;
+    }
+
+    return name_head >= head;
 }
 
 static bool line_is_method_top(char* line)
@@ -373,7 +408,21 @@ void ViWin*::gotoFunctionTop(ViWin* self, Vi* nvi)
 {
     int it2 = 0;
     foreach(it, self.texts.sublist(0, self.scroll+self.cursorY).reverse()) {
-        if(line_is_function_top(it.to_string()))
+        int y = self.cursorY + self.scroll - it2 - 1;
+        auto prev_line = wstring("");
+
+        for(int i=y-1; i>=0; i--) {
+            auto it2 = self.texts.item(i, wstring(""));
+
+            if(!line_is_blank(it2.to_string())) {
+                prev_line = clone it2;
+                break;
+            }
+        }
+
+        if((line_is_unindented_function_top(it.to_string())
+                && line_is_function_signature(prev_line.to_string()))
+            || line_is_method_top(it.to_string()))
         {
             self.saveReturnPoint();
 
@@ -382,6 +431,19 @@ void ViWin*::gotoFunctionTop(ViWin* self, Vi* nvi)
             self.modifyUnderCursorYValue();
             self.modifyOverCursorYValue();
             break;
+        }
+        else if(line_is_function_signature(it.to_string())) {
+            auto next_line = self.texts.item(y+1, wstring(""));
+
+            if(line_is_function_top(next_line.to_string())) {
+                self.saveReturnPoint();
+
+                self.cursorX = 0;
+                self.cursorY = self.cursorY - it2 -1;
+                self.modifyUnderCursorYValue();
+                self.modifyOverCursorYValue();
+                break;
+            }
         }
 
         it2++;

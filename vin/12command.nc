@@ -1,6 +1,7 @@
 #include "common.h"
 #include <libgen.h>
 #include <dirent.h>
+#include <limits.h>
 
 static bool is_directory_path(char* path)
 {
@@ -61,6 +62,17 @@ static string parse_filter_command(char* command_string)
     }
 
     return string(p);
+}
+
+static void append_command_string(char* command_string, char* str)
+{
+    int len = strlen(command_string);
+
+    if(len >= 127) {
+        return;
+    }
+
+    strncat(command_string, str, 127-len);
 }
 
 void ViWin*::commandModeView(ViWin* self, Vi* nvi) 
@@ -209,9 +221,13 @@ string ViWin*::selectFileCompletionCandidate(ViWin* self, string word)
 
     if(dir_name.equals("./")) {
         char* cwd = getenv("PWD");
+        char cwd2[PATH_MAX];
         
         if(cwd == null) {
-            return string("");
+            if(getcwd(cwd2, PATH_MAX) == null) {
+                return string("");
+            }
+            cwd = cwd2;
         }
     
         DIR* dir = opendir(cwd);
@@ -319,7 +335,7 @@ string ViWin*::selectFileCompletionCandidate(ViWin* self, string word)
         return string("");
     }
 
-    auto words3 = words2.sort_with_lambda(int lambda(char* left, char* right) { return strcmp(left, right);} );
+    auto words3 = words2.sort();
 
     return self.selector(words3);
 }
@@ -345,7 +361,7 @@ void ViWin*::fileCompetion(ViWin* self, Vi* nvi)
 
     if(strcmp(candidate, "") != 0 && strstr(candidate, word) == candidate) {
         auto file_name = candidate.substring(strlen(word), -1);
-        strncat(nvi.commandString, file_name, 128);
+        append_command_string(nvi.commandString, file_name);
     }
 }
 
@@ -377,13 +393,13 @@ if(key == 410) { // For iPhone + clicks
                 char a[128];
                 a[0] = 13;
                 a[1] = '\0';
-                strncat(nvi.commandString, a, 128);
+                append_command_string(nvi.commandString, a);
             }
             else {
                 char a[128];
                 a[0] = key2;
                 a[1] = '\0';
-                strncat(nvi.commandString, a, 128);
+                append_command_string(nvi.commandString, a);
             }
             }
             break;
@@ -403,7 +419,7 @@ if(key == 410) { // For iPhone + clicks
             break;
 
         default: {
-            strncat(nvi.commandString, a, 128);
+            append_command_string(nvi.commandString, a);
             }
             break;
     }

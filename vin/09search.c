@@ -3919,12 +3919,7 @@ void Vi_enterSearchMode_v9(struct Vi*  self  , _Bool regex_search, _Bool reverse
 void Vi_exitFromSearchMode(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_exitFromSearchMode"; neo_current_frame = &fr;
-    if(self->modeBeforeSearch==(2)) {
-        ViWin_restoreVisualMode_v8(self->activeWin,self);
-    }
-    else {
-        self->mode=(0);
-    }
+    self->mode=self->modeBeforeSearch;
     self->modeBeforeSearch=(0);
     neo_current_frame = fr.prev;
 }
@@ -3994,7 +3989,7 @@ struct Vi*  Vi_initialize_v9(struct Vi*  self  )
     void* __right_value0 = (void*)0;
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
-    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v8((struct Vi* )come_increment_ref_count(self, "09search.nc", 373, 97)), "09search.nc", 373, 98);
+    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v8((struct Vi* )come_increment_ref_count(self, "09search.nc", 367, 97)), "09search.nc", 367, 98);
     Vi_readSearchString(result,"searchString.vin");
     result->modeBeforeSearch=(0);
     list$1lambda$_replace(result->events,47,lambda1);
@@ -4003,11 +3998,11 @@ struct Vi*  Vi_initialize_v9(struct Vi*  self  )
     list$1lambda$_replace(result->events,78,lambda4);
     list$1lambda$_replace(result->events,42,lambda5);
     list$1lambda$_replace(result->events,35,lambda6);
-        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "09search.nc", 424, 105);
-    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09search.nc}", 424, 143);
-    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "09search.nc}", 424, 144);
+        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "09search.nc", 418, 105);
+    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09search.nc}", 418, 143);
+    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "09search.nc}", 418, 144);
     neo_current_frame = fr.prev;
-    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "09search.nc}", 424, 145);
+    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "09search.nc}", 418, 145);
     return __result_obj__0;
 }
 

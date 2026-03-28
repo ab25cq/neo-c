@@ -66,8 +66,7 @@ void ViWin*::verticalVisualModeView(ViWin* self, Vi* nvi)
 
 void ViWin*::view(ViWin* self, Vi* nvi) version 18
 {
-    if(nvi.mode == kVerticalVisualMode 
-        && nvi.activeWin.equals(self)) 
+    if(nvi.mode == kVerticalVisualMode && nvi.activeWin.equals(self)) 
     {
         self.verticalVisualModeView(nvi);
     }
@@ -420,8 +419,7 @@ Vi*% Vi*::initialize(Vi*% self) version 18
 {
     auto result = inherit(self);
 
-    result.events.replace('V'-'A'+1, void lambda(Vi* self, int key) 
-    {
+    result.events.replace('V'-'A'+1, void lambda(Vi* self, int key) {
         self.enterVerticalVisualMode();
         self.activeWin.saveInputedKey();
     });

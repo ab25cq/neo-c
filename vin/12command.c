@@ -3202,11 +3202,11 @@ long  int  getdents64(int __fd, void* __buffer, unsigned long  int  __length  );
 static _Bool is_directory_path(char* path);
 static char*  parse_sp_path(char* command_string);
 static char*  parse_filter_command(char* command_string);
+static void append_command_string(char* command_string, char* str);
 void ViWin_commandModeView(struct ViWin*  self  , struct Vi*  nvi  );
 char*  ViWin_selector(struct ViWin*  self  , struct list$1char$ph* lines);
 static int list$1char$ph_length(struct list$1char$ph* self);
 static char*  list$1char$ph_item(struct list$1char$ph* self, int position, char*  default_value  );
-static int lambda1(char* left, char* right);
 char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  );
 static struct list$1char$ph* list$1char$ph_initialize(struct list$1char$ph* self);
 static void list$1char$ph$p_finalize(struct list$1char$ph* self);
@@ -3215,7 +3215,8 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
 static char*  list$1char$ph_begin(struct list$1char$ph* self);
 static _Bool list$1char$ph_end(struct list$1char$ph* self);
 static char*  list$1char$ph_next(struct list$1char$ph* self);
-static struct list$1char$ph* list$1char$ph_sort_with_lambda(struct list$1char$ph* self, int (*compare)(char* ,char* ));
+static int lambda1(char*  left  , char*  right  );
+static struct list$1char$ph* list$1char$ph_sort(struct list$1char$ph* self);
 static struct list$1char$ph* list$1char$ph_merge_sort_with_lambda(struct list$1char$ph* self, int (*compare)(char* ,char* ));
 static struct list$1char$ph* list$1char$ph_clone(struct list$1char$ph* self);
 static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self, char*  item  );
@@ -3316,9 +3317,9 @@ static char*  parse_sp_path(char* command_string)
     char* tail;
     void* __right_value0 = (void*)0;
     if(strncmp(command_string,"sp",2)!=0) {
-                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 20, 1);
+                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 21, 1);
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 20, 2));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 21, 2));
         return __result_obj__0;
     }
     p=command_string+2;
@@ -3326,9 +3327,9 @@ static char*  parse_sp_path(char* command_string)
         p++;
     }
     if(*p==0) {
-                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 29, 3);
+                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 30, 3);
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 29, 4));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 30, 4));
         return __result_obj__0;
     }
     tail=command_string+strlen(command_string);
@@ -3336,19 +3337,19 @@ static char*  parse_sp_path(char* command_string)
         tail--;
     }
     if(tail<=p) {
-                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 38, 5);
+                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 39, 5);
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 38, 6));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 39, 6));
         return __result_obj__0;
     }
     char buf[tail-p+1];
     memset(&buf, 0, sizeof(buf));
     memcpy(buf,p,tail-p);
     buf[tail-p]=0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(buf,"12command.nc",45))), "12command.nc", 45, 7);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 45, 8));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(buf,"12command.nc",46))), "12command.nc", 46, 7);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 46, 8));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 45, 9));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 46, 9));
     return __result_obj__0;
 }
 
@@ -3359,9 +3360,9 @@ static char*  parse_filter_command(char* command_string)
     char* p;
     void* __right_value0 = (void*)0;
     if(strncmp(command_string,".!",2)!=0) {
-                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 51, 10);
+                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 52, 10);
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 51, 11));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 52, 11));
         return __result_obj__0;
     }
     p=command_string+2;
@@ -3369,16 +3370,29 @@ static char*  parse_filter_command(char* command_string)
         p++;
     }
     if(*p==0) {
-                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 60, 12);
+                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "12command.nc", 61, 12);
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 60, 13));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 61, 13));
         return __result_obj__0;
     }
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(p,"12command.nc",63))), "12command.nc", 63, 14);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 63, 15));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(p,"12command.nc",64))), "12command.nc", 64, 14);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 64, 15));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 63, 16));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 64, 16));
     return __result_obj__0;
+}
+
+static void append_command_string(char* command_string, char* str)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "append_command_string"; neo_current_frame = &fr;
+    int len;
+    len=strlen(command_string);
+    if(len>=127) {
+                neo_current_frame = fr.prev;
+        return;
+    }
+    strncat(command_string,str,127-len);
+    neo_current_frame = fr.prev;
 }
 
 void ViWin_commandModeView(struct ViWin*  self  , struct Vi*  nvi  )
@@ -3389,7 +3403,7 @@ void ViWin_commandModeView(struct ViWin*  self  , struct Vi*  nvi  )
     ViWin_textsView(self,nvi);
     wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     mvwprintw(self->win,self->height-1,0,":%s",((char* )(__right_value0=chara_printable(nvi->commandString))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 73, 17));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 85, 17));
     wattr_off(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     wrefresh(self->win);
     neo_current_frame = fr.prev;
@@ -3425,9 +3439,9 @@ char*  ViWin_selector(struct ViWin*  self  , struct list$1char$ph* lines)
         wclear(stdscr);
         maxy2=list$1char$ph_length(lines)-scrolltop;
         for(y=0        ;y<maxy&&y<maxy2;y++){
-            it=(char* )come_increment_ref_count(list$1char$ph_item(lines,scrolltop+y,((void*)0)), "12command.nc", 96, 24);
+            it=(char* )come_increment_ref_count(list$1char$ph_item(lines,scrolltop+y,((void*)0)), "12command.nc", 108, 24);
             __right_value0 = (void*)0;
-            line=(char* )come_increment_ref_count(charp_substring(it,0,maxx-1), "12command.nc", 98, 25);
+            line=(char* )come_increment_ref_count(charp_substring(it,0,maxx-1), "12command.nc", 110, 25);
             if(cursor==y) {
                 wattr_on(stdscr,(unsigned int )((((unsigned int )((1U))<<((10)+8)))),((void*)0));
                 mvprintw(y,0,"%s",line);
@@ -3436,8 +3450,8 @@ char*  ViWin_selector(struct ViWin*  self  , struct list$1char$ph* lines)
             else {
                 mvprintw(y,0,"%s",line);
             }
-            (it = come_decrement_ref_count(it, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 109, 26));
-            (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 109, 27));
+            (it = come_decrement_ref_count(it, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 121, 26));
+            (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 121, 27));
         }
         wrefresh(stdscr);
         key=wgetch(stdscr);
@@ -3496,19 +3510,19 @@ char*  ViWin_selector(struct ViWin*  self  , struct list$1char$ph* lines)
     }
     if(canceled) {
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",181))), "12command.nc", 181, 28);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 181, 29));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",193))), "12command.nc", 193, 28);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 193, 29));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 181, 30));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 193, 30));
         return __result_obj__0;
     }
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value2=__builtin_string(((char* )(__right_value1=list$1char$ph_item(lines,scrolltop+cursor,((char* )(__right_value0=__builtin_string("","12command.nc",183)))))),"12command.nc",183))), "12command.nc", 183, 31);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 183, 32));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 183, 33));
-    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 183, 34));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value2=__builtin_string(((char* )(__right_value1=list$1char$ph_item(lines,scrolltop+cursor,((char* )(__right_value0=__builtin_string("","12command.nc",195)))))),"12command.nc",195))), "12command.nc", 195, 31);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 195, 32));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 195, 33));
+    (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 195, 34));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 183, 35));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 195, 35));
     return __result_obj__0;
 }
 
@@ -3557,14 +3571,6 @@ static char*  list$1char$ph_item(struct list$1char$ph* self, int position, char*
     return __result_obj__0;
 }
 
-static int lambda1(char* left, char* right)
-{
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
-        neo_current_frame = fr.prev;
-    return strcmp(left,right);
-    neo_current_frame = fr.prev;
-}
-
 char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_selectFileCompletionCandidate"; neo_current_frame = &fr;
@@ -3598,63 +3604,68 @@ char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  )
     memset(&dir_3, 0, sizeof(dir_3));
     memset(&dir_7, 0, sizeof(dir_7));
     if(strcmp(word,"")==0) {
-                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",189))), "12command.nc", 189, 36);
-        (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 189, 37));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 189, 38));
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",201))), "12command.nc", 201, 36);
+        (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 201, 37));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 201, 38));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 189, 39));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 201, 39));
         return __result_obj__0;
     }
     dir_name=((void*)0);
     if(word[strlen(word)-1]==47) {
         __right_value0 = (void*)0;
         __dec_obj1=dir_name,
-        dir_name=(char* )come_increment_ref_count(__builtin_string(word,"12command.nc",194), "12command.nc", 194, 41);
-        __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "12command.nc", 194, 40);
+        dir_name=(char* )come_increment_ref_count(__builtin_string(word,"12command.nc",206), "12command.nc", 206, 41);
+        __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "12command.nc", 206, 40);
     }
     else {
         __right_value0 = (void*)0;
-        tmp=(char* )come_increment_ref_count((char* )come_memdup(word, "12command.nc", 197, 42, "char* "), "12command.nc", 197, 43);
+        tmp=(char* )come_increment_ref_count((char* )come_memdup(word, "12command.nc", 209, 42, "char* "), "12command.nc", 209, 43);
         dname=dirname(tmp);
         if(strcmp(dname,"/")==0) {
             __right_value0 = (void*)0;
             __dec_obj2=dir_name,
-            dir_name=(char* )come_increment_ref_count(__builtin_string("/","12command.nc",201), "12command.nc", 201, 45);
-            __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0, "12command.nc", 201, 44);
+            dir_name=(char* )come_increment_ref_count(__builtin_string("/","12command.nc",213), "12command.nc", 213, 45);
+            __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0, "12command.nc", 213, 44);
         }
         else {
             __right_value0 = (void*)0;
             __dec_obj3=dir_name,
-            dir_name=(char* )come_increment_ref_count(xsprintf("%s/",dname), "12command.nc", 204, 47);
-            __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0, "12command.nc", 204, 46);
+            dir_name=(char* )come_increment_ref_count(xsprintf("%s/",dname), "12command.nc", 216, 47);
+            __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0, "12command.nc", 216, 46);
         }
-        (tmp = come_decrement_ref_count(tmp, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 208, 48));
+        (tmp = come_decrement_ref_count(tmp, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 220, 48));
     }
     __right_value0 = (void*)0;
-    words=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "12command.nc", 208, 49, "struct list$1char$ph*"), "12command.nc", 208, 55)), "12command.nc", 208, 56);
+    words=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "12command.nc", 220, 49, "struct list$1char$ph*"), "12command.nc", 220, 55)), "12command.nc", 220, 56);
     if(string_equals(dir_name,"./")) {
         cwd=getenv("PWD");
+        char cwd2[4096];
+        memset(&cwd2, 0, sizeof(cwd2));
         if(cwd==((void*)0)) {
-                        __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",214))), "12command.nc", 214, 57);
-            (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 214, 58));
-            (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 214, 59));
-            come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 214, 60);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 214, 61));
-            neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 214, 62));
-            return __result_obj__0;
+            if(getcwd(cwd2,4096)==((void*)0)) {
+                                __right_value0 = (void*)0;
+                __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",228))), "12command.nc", 228, 57);
+                (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 228, 58));
+                (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 228, 59));
+                come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 228, 60);
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 228, 61));
+                neo_current_frame = fr.prev;
+                (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 228, 62));
+                return __result_obj__0;
+            }
+            cwd=cwd2;
         }
         dir=opendir(cwd);
         if(dir==((void*)0)) {
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",220))), "12command.nc", 220, 63);
-            (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 220, 64));
-            (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 220, 65));
-            come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 220, 66);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 220, 67));
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",236))), "12command.nc", 236, 63);
+            (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 236, 64));
+            (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 236, 65));
+            come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 236, 66);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 236, 67));
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 220, 68));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 236, 68));
             return __result_obj__0;
         }
         while((_Bool)1) {
@@ -3663,18 +3674,18 @@ char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  )
                 break;
             }
             __right_value0 = (void*)0;
-            path=(char* )come_increment_ref_count(xsprintf("%s/%s",cwd,entry->d_name), "12command.nc", 230, 69);
+            path=(char* )come_increment_ref_count(xsprintf("%s/%s",cwd,entry->d_name), "12command.nc", 246, 69);
             if(is_directory_path(path)) {
                 __right_value0 = (void*)0;
-                item=(char* )come_increment_ref_count(xsprintf("%s/",entry->d_name), "12command.nc", 233, 70);
-                list$1char$ph_push_back(words,(char* )come_increment_ref_count(item, "12command.nc", 234, 85));
-                (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 239, 86));
+                item=(char* )come_increment_ref_count(xsprintf("%s/",entry->d_name), "12command.nc", 249, 70);
+                list$1char$ph_push_back(words,(char* )come_increment_ref_count(item, "12command.nc", 250, 85));
+                (item = come_decrement_ref_count(item, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 255, 86));
             }
             else {
                 __right_value0 = (void*)0;
-                list$1char$ph_push_back(words,(char* )come_increment_ref_count(__builtin_string(entry->d_name,"12command.nc",237), "12command.nc", 237, 87));
+                list$1char$ph_push_back(words,(char* )come_increment_ref_count(__builtin_string(entry->d_name,"12command.nc",253), "12command.nc", 253, 87));
             }
-            (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 241, 88));
+            (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 257, 88));
         }
         closedir(dir);
     }
@@ -3682,20 +3693,20 @@ char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  )
         if(strcmp(word,"/")!=0&&word[strlen(word)-1]==47) {
             __right_value0 = (void*)0;
             dir_3=opendir(((char* )(__right_value0=charp_substring(word,0,-2))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 246, 89));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 262, 89));
         }
         else {
             dir_3=opendir(dir_name);
         }
         if(dir_3==((void*)0)) {
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",253))), "12command.nc", 253, 90);
-            (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 253, 91));
-            (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 253, 92));
-            come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 253, 93);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 253, 94));
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",269))), "12command.nc", 269, 90);
+            (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 269, 91));
+            (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 269, 92));
+            come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 269, 93);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 269, 94));
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 253, 95));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 269, 95));
             return __result_obj__0;
         }
         while((_Bool)1) {
@@ -3704,20 +3715,20 @@ char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  )
                 break;
             }
             __right_value0 = (void*)0;
-            path_5=(char* )come_increment_ref_count(xsprintf("%s%s",dir_name,entry_4->d_name), "12command.nc", 263, 96);
+            path_5=(char* )come_increment_ref_count(xsprintf("%s%s",dir_name,entry_4->d_name), "12command.nc", 279, 96);
             if(is_directory_path(path_5)) {
                 __right_value0 = (void*)0;
-                item_6=(char* )come_increment_ref_count(xsprintf("%s%s/",dir_name,entry_4->d_name), "12command.nc", 266, 97);
-                list$1char$ph_push_back(words,(char* )come_increment_ref_count(item_6, "12command.nc", 267, 98));
-                (item_6 = come_decrement_ref_count(item_6, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 272, 99));
+                item_6=(char* )come_increment_ref_count(xsprintf("%s%s/",dir_name,entry_4->d_name), "12command.nc", 282, 97);
+                list$1char$ph_push_back(words,(char* )come_increment_ref_count(item_6, "12command.nc", 283, 98));
+                (item_6 = come_decrement_ref_count(item_6, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 288, 99));
             }
             else {
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
-                list$1char$ph_push_back(words,(char* )come_increment_ref_count(xsprintf("%s%s",dir_name,((char* )(__right_value0=__builtin_string(entry_4->d_name,"12command.nc",270)))), "12command.nc", 270, 100));
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 270, 101));
+                list$1char$ph_push_back(words,(char* )come_increment_ref_count(xsprintf("%s%s",dir_name,((char* )(__right_value0=__builtin_string(entry_4->d_name,"12command.nc",286)))), "12command.nc", 286, 100));
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 286, 101));
             }
-            (path_5 = come_decrement_ref_count(path_5, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 274, 102));
+            (path_5 = come_decrement_ref_count(path_5, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 290, 102));
         }
         closedir(dir_3);
     }
@@ -3725,20 +3736,20 @@ char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  )
         if(word[strlen(word)-1]==47) {
             __right_value0 = (void*)0;
             dir_7=opendir(((char* )(__right_value0=charp_substring(word,0,-2))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 279, 103));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 295, 103));
         }
         else {
             dir_7=opendir(dir_name);
         }
         if(dir_7==((void*)0)) {
                         __right_value0 = (void*)0;
-            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",286))), "12command.nc", 286, 104);
-            (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 286, 105));
-            (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 286, 106));
-            come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 286, 107);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 286, 108));
+            __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",302))), "12command.nc", 302, 104);
+            (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 302, 105));
+            (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 302, 106));
+            come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 302, 107);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 302, 108));
             neo_current_frame = fr.prev;
-            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 286, 109));
+            (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 302, 109));
             return __result_obj__0;
         }
         while((_Bool)1) {
@@ -3747,56 +3758,56 @@ char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  )
                 break;
             }
             __right_value0 = (void*)0;
-            path_9=(char* )come_increment_ref_count(xsprintf("%s%s",dir_name,entry_8->d_name), "12command.nc", 296, 110);
+            path_9=(char* )come_increment_ref_count(xsprintf("%s%s",dir_name,entry_8->d_name), "12command.nc", 312, 110);
             if(is_directory_path(path_9)) {
                 __right_value0 = (void*)0;
-                item_10=(char* )come_increment_ref_count(xsprintf("%s%s/",dir_name,entry_8->d_name), "12command.nc", 299, 111);
-                list$1char$ph_push_back(words,(char* )come_increment_ref_count(item_10, "12command.nc", 300, 112));
-                (item_10 = come_decrement_ref_count(item_10, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 305, 113));
+                item_10=(char* )come_increment_ref_count(xsprintf("%s%s/",dir_name,entry_8->d_name), "12command.nc", 315, 111);
+                list$1char$ph_push_back(words,(char* )come_increment_ref_count(item_10, "12command.nc", 316, 112));
+                (item_10 = come_decrement_ref_count(item_10, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 321, 113));
             }
             else {
                 __right_value0 = (void*)0;
-                list$1char$ph_push_back(words,(char* )come_increment_ref_count(xsprintf("%s%s",dir_name,entry_8->d_name), "12command.nc", 303, 114));
+                list$1char$ph_push_back(words,(char* )come_increment_ref_count(xsprintf("%s%s",dir_name,entry_8->d_name), "12command.nc", 319, 114));
             }
-            (path_9 = come_decrement_ref_count(path_9, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 307, 115));
+            (path_9 = come_decrement_ref_count(path_9, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 323, 115));
         }
         closedir(dir_7);
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    words2=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "12command.nc", 310, 116, "struct list$1char$ph*"), "12command.nc", 310, 117)), "12command.nc", 310, 118);
-    for(_o2_saved_1=(struct list$1char$ph*)come_increment_ref_count(words, "12command.nc", 312, 119),it=list$1char$ph_begin(_o2_saved_1)    ;!list$1char$ph_end(_o2_saved_1);it=list$1char$ph_next(_o2_saved_1)){
+    words2=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "12command.nc", 326, 116, "struct list$1char$ph*"), "12command.nc", 326, 117)), "12command.nc", 326, 118);
+    for(_o2_saved_1=(struct list$1char$ph*)come_increment_ref_count(words, "12command.nc", 328, 119),it=list$1char$ph_begin(_o2_saved_1)    ;!list$1char$ph_end(_o2_saved_1);it=list$1char$ph_next(_o2_saved_1)){
         if(strstr(it,word)==it) {
             __right_value0 = (void*)0;
-            list$1char$ph_push_back(words2,(char* )come_increment_ref_count((char* )come_memdup(it, "12command.nc", 314, 120, "char* "), "12command.nc", 314, 121));
+            list$1char$ph_push_back(words2,(char* )come_increment_ref_count((char* )come_memdup(it, "12command.nc", 330, 120, "char* "), "12command.nc", 330, 121));
         }
     }
     if(list$1char$ph_length(words2)==0) {
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",319))), "12command.nc", 319, 122);
-        (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 319, 123));
-        (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 319, 124));
-        come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 319, 125);
-        come_call_finalizer(list$1char$ph$p_finalize, words2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 319, 126);
-        come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 319, 127);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 319, 128));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","12command.nc",335))), "12command.nc", 335, 122);
+        (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 335, 123));
+        (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 335, 124));
+        come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 335, 125);
+        come_call_finalizer(list$1char$ph$p_finalize, words2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 335, 126);
+        come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 335, 127);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 335, 128));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 319, 129));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 335, 129));
         return __result_obj__0;
     }
     __right_value0 = (void*)0;
-    words3=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_sort_with_lambda(words2,lambda1), "12command.nc", 322, 215);
+    words3=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_sort(words2), "12command.nc", 338, 215);
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=ViWin_selector(self,words3))), "12command.nc", 324, 216);
-    (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 324, 217));
-    (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 324, 218));
-    come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 324, 219);
-    come_call_finalizer(list$1char$ph$p_finalize, words2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 324, 220);
-    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 324, 221);
-    come_call_finalizer(list$1char$ph$p_finalize, words3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 324, 222);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 324, 223));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=ViWin_selector(self,words3))), "12command.nc", 340, 216);
+    (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 340, 217));
+    (dir_name = come_decrement_ref_count(dir_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 340, 218));
+    come_call_finalizer(list$1char$ph$p_finalize, words, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 340, 219);
+    come_call_finalizer(list$1char$ph$p_finalize, words2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 340, 220);
+    come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 340, 221);
+    come_call_finalizer(list$1char$ph$p_finalize, words3, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 340, 222);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 340, 223));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 324, 224));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "12command.nc", 340, 224));
     return __result_obj__0;
 }
 
@@ -3953,24 +3964,32 @@ static char*  list$1char$ph_next(struct list$1char$ph* self)
     return __result_obj__0;
 }
 
-static struct list$1char$ph* list$1char$ph_sort_with_lambda(struct list$1char$ph* self, int (*compare)(char* ,char* ))
+static int lambda1(char*  left  , char*  right  )
 {
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_sort_with_lambda"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
+        neo_current_frame = fr.prev;
+    return string_compare(left,right);
+    neo_current_frame = fr.prev;
+}
+
+static struct list$1char$ph* list$1char$ph_sort(struct list$1char$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_sort"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     struct list$1char$ph* __result_obj__0;
     if(self==((void*)0)) {
-                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "/usr/local/include/neo-c.h", 2366, 130, "struct list$1char$ph*"), "/usr/local/include/neo-c.h", 2366, 131)))), "/usr/local/include/neo-c.h", 2366, 132);
-        come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "/usr/local/include/neo-c.h}", 2366, 133);
+                __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value1=list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "/usr/local/include/neo-c.h", 2372, 130, "struct list$1char$ph*"), "/usr/local/include/neo-c.h", 2372, 131)))), "/usr/local/include/neo-c.h", 2372, 132);
+        come_call_finalizer(list$1char$ph$p_finalize, __right_value1, (void*)0, (void*)0, 0, 1, 0, (void*)0, "/usr/local/include/neo-c.h}", 2372, 133);
         neo_current_frame = fr.prev;
-        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2366, 134);
+        come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2372, 134);
         return __result_obj__0;
     }
         __right_value0 = (void*)0;
-    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=list$1char$ph_merge_sort_with_lambda(self,compare))), "/usr/local/include/neo-c.h", 2368, 212);
-    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "/usr/local/include/neo-c.h}", 2368, 213);
+    __result_obj__0 = (struct list$1char$ph*)come_increment_ref_count(((struct list$1char$ph*)(__right_value0=list$1char$ph_merge_sort_with_lambda(self,lambda1))), "/usr/local/include/neo-c.h", 2374, 212);
+    come_call_finalizer(list$1char$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "/usr/local/include/neo-c.h}", 2374, 213);
     neo_current_frame = fr.prev;
-    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2368, 214);
+    come_call_finalizer(list$1char$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2374, 214);
     return __result_obj__0;
 }
 
@@ -4236,17 +4255,17 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  )
             p--;
         }
     }
-    word=(char* )come_increment_ref_count(__builtin_string(p,"12command.nc",343), "12command.nc", 343, 225);
+    word=(char* )come_increment_ref_count(__builtin_string(p,"12command.nc",359), "12command.nc", 359, 225);
     __right_value0 = (void*)0;
-    candidate=(char* )come_increment_ref_count(ViWin_selectFileCompletionCandidate(self,(char* )come_increment_ref_count(word, "12command.nc", 344, 226)), "12command.nc", 344, 227);
+    candidate=(char* )come_increment_ref_count(ViWin_selectFileCompletionCandidate(self,(char* )come_increment_ref_count(word, "12command.nc", 360, 226)), "12command.nc", 360, 227);
     if(strcmp(candidate,"")!=0&&strstr(candidate,word)==candidate) {
         __right_value0 = (void*)0;
-        file_name=(char* )come_increment_ref_count(charp_substring(candidate,strlen(word),-1), "12command.nc", 347, 228);
-        strncat(nvi->commandString,file_name,128);
-        (file_name = come_decrement_ref_count(file_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 350, 229));
+        file_name=(char* )come_increment_ref_count(charp_substring(candidate,strlen(word),-1), "12command.nc", 363, 228);
+        append_command_string(nvi->commandString,file_name);
+        (file_name = come_decrement_ref_count(file_name, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 366, 229));
     }
-    (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 352, 230));
-    (candidate = come_decrement_ref_count(candidate, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 352, 231));
+    (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 368, 230));
+    (candidate = come_decrement_ref_count(candidate, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 368, 231));
     neo_current_frame = fr.prev;
 }
 
@@ -4279,14 +4298,14 @@ void ViWin_commandModeInput(struct ViWin*  self  , struct Vi*  nvi  )
                 memset(&a_15, 0, sizeof(a_15));
                 a_15[0]=13;
                 a_15[1]=0;
-                strncat(nvi->commandString,a_15,128);
+                append_command_string(nvi->commandString,a_15);
             }
             else {
                 char a_16[128];
                 memset(&a_16, 0, sizeof(a_16));
                 a_16[0]=key2;
                 a_16[1]=0;
-                strncat(nvi->commandString,a_16,128);
+                append_command_string(nvi->commandString,a_16);
             }
         }
         break;
@@ -4305,7 +4324,7 @@ void ViWin_commandModeInput(struct ViWin*  self  , struct Vi*  nvi  )
         break;
         default:
         {
-            strncat(nvi->commandString,a,128);
+            append_command_string(nvi->commandString,a);
         }
         break;
     }
@@ -4355,26 +4374,26 @@ void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  )
     p2=strstr(p,"/")+strlen("/");
     p3=strstr(p2,"/");
     if(p&&p2&&p3) {
-        str=(char* )come_increment_ref_count(charp_substring(p,0,p2-p-1), "12command.nc", 440, 232);
+        str=(char* )come_increment_ref_count(charp_substring(p,0,p2-p-1), "12command.nc", 456, 232);
         __right_value0 = (void*)0;
-        replace=(char* )come_increment_ref_count(charp_substring(p2,0,p3-p2), "12command.nc", 441, 233);
+        replace=(char* )come_increment_ref_count(charp_substring(p2,0,p3-p2), "12command.nc", 457, 233);
         if(str!=((void*)0)&&replace!=((void*)0)) {
             ViWin_pushUndo_v5(self);
             it2=0;
-            for(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(self->texts, "12command.nc", 446, 234),it=list$1int$ph_begin(_o2_saved_2)            ;!list$1int$ph_end(_o2_saved_2);it=list$1int$ph_next(_o2_saved_2)){
+            for(_o2_saved_2=(struct list$1int$ph*)come_increment_ref_count(self->texts, "12command.nc", 462, 234),it=list$1int$ph_begin(_o2_saved_2)            ;!list$1int$ph_end(_o2_saved_2);it=list$1int$ph_next(_o2_saved_2)){
                 __right_value0 = (void*)0;
-                new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=charp_sub_plain(((char* )(__right_value0=wstring_to_string(it))),str,replace)))), "12command.nc", 447, 235);
-                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 447, 236));
-                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 447, 237));
-                list$1int$ph_replace(self->texts,it2,(int* )come_increment_ref_count(new_line, "12command.nc", 449, 260));
+                new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=charp_sub_plain(((char* )(__right_value0=wstring_to_string(it))),str,replace)))), "12command.nc", 463, 235);
+                (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 463, 236));
+                (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 463, 237));
+                list$1int$ph_replace(self->texts,it2,(int* )come_increment_ref_count(new_line, "12command.nc", 465, 260));
                 list$1int$_replace(self->texts_length,it2,wcslen(new_line));
                 it2++;
-                (new_line = come_decrement_ref_count(new_line, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 454, 267));
+                (new_line = come_decrement_ref_count(new_line, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 470, 267));
             }
-            come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 455, 270);
+            come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 471, 270);
         }
-        (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 456, 271));
-        (replace = come_decrement_ref_count(replace, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 456, 272));
+        (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 472, 271));
+        (replace = come_decrement_ref_count(replace, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 472, 272));
     }
     neo_current_frame = fr.prev;
 }
@@ -4675,20 +4694,20 @@ void ViWin_filterTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  )
     int y;
     void* __right_value2 = (void*)0;
     int i;
-    command=(char* )come_increment_ref_count(parse_filter_command(nvi->commandString), "12command.nc", 460, 273);
+    command=(char* )come_increment_ref_count(parse_filter_command(nvi->commandString), "12command.nc", 476, 273);
     if(command==((void*)0)) {
-                (command = come_decrement_ref_count(command, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 463, 274));
+                (command = come_decrement_ref_count(command, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 479, 274));
         neo_current_frame = fr.prev;
         return;
     }
     __right_value0 = (void*)0;
-    output=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "12command.nc", 466, 275, "struct buffer* "), "12command.nc", 466, 276)), "12command.nc", 466, 277);
+    output=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "12command.nc", 482, 275, "struct buffer* "), "12command.nc", 482, 276)), "12command.nc", 482, 277);
     char buf[8192];
     memset(&buf, 0, sizeof(buf));
     fp=popen(command,"r");
     if(fp==((void*)0)) {
-                (command = come_decrement_ref_count(command, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 472, 278));
-        come_call_finalizer(buffer_finalize, output, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 472, 279);
+                (command = come_decrement_ref_count(command, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 488, 278));
+        come_call_finalizer(buffer_finalize, output, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 488, 279);
         neo_current_frame = fr.prev;
         return;
     }
@@ -4698,12 +4717,12 @@ void ViWin_filterTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  )
     pclose(fp);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    lines=(struct list$1char$ph*)come_increment_ref_count(string_split(((char* )(__right_value0=buffer_to_string(output))),"\n",(_Bool)0), "12command.nc", 480, 280);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 480, 281));
+    lines=(struct list$1char$ph*)come_increment_ref_count(string_split(((char* )(__right_value0=buffer_to_string(output))),"\n",(_Bool)0), "12command.nc", 496, 280);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 496, 281));
     if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X0=(list$1char$ph_length(lines)>0&&string_equals(((char* )(__right_value1=list$1char$ph_item(lines,-1,((char* )(__right_value0=__builtin_string("","12command.nc",482)))))),"")));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 482, 282));
-    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 482, 283));
+({(_conditional_value_X0=(list$1char$ph_length(lines)>0&&string_equals(((char* )(__right_value1=list$1char$ph_item(lines,-1,((char* )(__right_value0=__builtin_string("","12command.nc",498)))))),"")));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 498, 282));
+    (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 498, 283));
 _conditional_value_X0;})) {
         list$1char$ph_delete(lines,-1,-1);
     }
@@ -4711,32 +4730,32 @@ _conditional_value_X0;})) {
     y=self->scroll+self->cursorY;
     if(list$1char$ph_length(lines)==0) {
         __right_value0 = (void*)0;
-        list$1int$ph_replace(self->texts,y,(int* )come_increment_ref_count(__builtin_wstring("","12command.nc",491), "12command.nc", 491, 288));
+        list$1int$ph_replace(self->texts,y,(int* )come_increment_ref_count(__builtin_wstring("","12command.nc",507), "12command.nc", 507, 288));
         list$1int$_replace(self->texts_length,y,0);
     }
     else {
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        list$1int$ph_replace(self->texts,y,(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=list$1char$ph_item(lines,0,((char* )(__right_value0=__builtin_string("","12command.nc",495))))))), "12command.nc", 495, 289));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 495, 290));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 495, 291));
+        list$1int$ph_replace(self->texts,y,(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=list$1char$ph_item(lines,0,((char* )(__right_value0=__builtin_string("","12command.nc",511))))))), "12command.nc", 511, 289));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 511, 290));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 511, 291));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        list$1int$_replace(self->texts_length,y,string_length(((char* )(__right_value1=list$1char$ph_item(lines,0,((char* )(__right_value0=__builtin_string("","12command.nc",496))))))));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 496, 292));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 496, 293));
+        list$1int$_replace(self->texts_length,y,string_length(((char* )(__right_value1=list$1char$ph_item(lines,0,((char* )(__right_value0=__builtin_string("","12command.nc",512))))))));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 512, 292));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 512, 293));
         for(i=1        ;i<list$1char$ph_length(lines);i++){
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            list$1int$ph_insert(self->texts,y+i,(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=list$1char$ph_item(lines,i,((char* )(__right_value0=__builtin_string("","12command.nc",499))))))), "12command.nc", 499, 312));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 499, 313));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 499, 314));
+            list$1int$ph_insert(self->texts,y+i,(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value1=list$1char$ph_item(lines,i,((char* )(__right_value0=__builtin_string("","12command.nc",515))))))), "12command.nc", 515, 312));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 515, 313));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 515, 314));
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            list$1int$_insert(self->texts_length,y+i,string_length(((char* )(__right_value1=list$1char$ph_item(lines,i,((char* )(__right_value0=__builtin_string("","12command.nc",500))))))));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 500, 321));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 500, 322));
+            list$1int$_insert(self->texts_length,y+i,string_length(((char* )(__right_value1=list$1char$ph_item(lines,i,((char* )(__right_value0=__builtin_string("","12command.nc",516))))))));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 516, 321));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 516, 322));
         }
         self->cursorY+=list$1char$ph_length(lines)-1;
     }
@@ -4745,9 +4764,9 @@ _conditional_value_X0;})) {
     ViWin_modifyOverCursorYValue(self);
     ViWin_modifyOverCursorXValue(self);
     self->writed=(_Bool)1;
-    (command = come_decrement_ref_count(command, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 513, 323));
-    come_call_finalizer(buffer_finalize, output, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 513, 324);
-    come_call_finalizer(list$1char$ph$p_finalize, lines, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 513, 325);
+    (command = come_decrement_ref_count(command, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 529, 323));
+    come_call_finalizer(buffer_finalize, output, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 529, 324);
+    come_call_finalizer(list$1char$ph$p_finalize, lines, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 529, 325);
     neo_current_frame = fr.prev;
 }
 
@@ -5094,14 +5113,14 @@ void Vi_exitFromComandMode(struct Vi*  self  )
     _Bool _conditional_value_X4;
     _Bool _conditional_value_X5;
     if(strncmp(self->commandString,"sp",2)==0&&(self->commandString[2]==32||self->commandString[2]==9||self->commandString[2]==0)) {
-        path=(char* )come_increment_ref_count(parse_sp_path(self->commandString), "12command.nc", 522, 326);
+        path=(char* )come_increment_ref_count(parse_sp_path(self->commandString), "12command.nc", 538, 326);
         if(path) {
-            Vi_openNewFile(self,(char* )come_increment_ref_count(path, "12command.nc", 524, 327));
+            Vi_openNewFile(self,(char* )come_increment_ref_count(path, "12command.nc", 540, 327));
         }
-        (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 562, 328));
+        (path = come_decrement_ref_count(path, (void*)0, (void*)0, 0, 0, (void*)0, "12command.nc", 578, 328));
     }
     else if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",527))),"paste",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 527, 329));
+({(_conditional_value_X0=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",543))),"paste",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 543, 329));
 _conditional_value_X0;})) {
         self->activeWin->pasteMode=!self->activeWin->pasteMode;
     }
@@ -5110,22 +5129,22 @@ _conditional_value_X0;})) {
     }
     else {
         if(__right_value0 = (void*)0,
-({(_conditional_value_X1=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",534))),"%",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 534, 330));
+({(_conditional_value_X1=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",550))),"%",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 550, 330));
 _conditional_value_X1;})) {
             ViWin_subAllTextsFromCommandMode(self->activeWin,self);
             self->mode=(0);
         }
         if(__right_value0 = (void*)0,
-({(_conditional_value_X2=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",538))),"w",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 538, 331));
+({(_conditional_value_X2=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",554))),"w",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 554, 331));
 _conditional_value_X2;})) {
             ViWin_writeFile(self->activeWin,gBinaryMode);
         }
         if(__right_value0 = (void*)0,
-({(_conditional_value_X3=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",541))),"q",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 541, 332));
+({(_conditional_value_X3=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",557))),"q",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 557, 332));
 _conditional_value_X3;})) {
             writed=self->activeWin->writed;
             if(__right_value0 = (void*)0,
-({(_conditional_value_X4=(!writed||string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",544))),"!",-1)!=-1));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 544, 333));
+({(_conditional_value_X4=(!writed||string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",560))),"!",-1)!=-1));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 560, 333));
 _conditional_value_X4;})) {
                 if(list$1ViWin$ph_length(self->wins)==1) {
                     self->appEnd=(_Bool)1;
@@ -5136,7 +5155,7 @@ _conditional_value_X4;})) {
             }
         }
         if(__right_value0 = (void*)0,
-({(_conditional_value_X5=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",553))),"shell",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 553, 334));
+({(_conditional_value_X5=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",569))),"shell",-1)!=-1));        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 569, 334));
 _conditional_value_X5;})) {
             endwin();
             (void)system("bash");
@@ -5144,7 +5163,7 @@ _conditional_value_X5;})) {
         }
     }
     if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",562))),"paste",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 562, 335));
+({(_conditional_value_X0=(string_index(((char* )(__right_value0=__builtin_string(self->commandString,"12command.nc",578))),"paste",-1)==0));    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "12command.nc", 578, 335));
 _conditional_value_X0;})) {
         Vi_enterInsertMode_v5(self);
     }
@@ -5179,14 +5198,14 @@ struct Vi*  Vi_initialize_v12(struct Vi*  self  )
     void* __right_value0 = (void*)0;
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
-    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v11((struct Vi* )come_increment_ref_count(self, "12command.nc", 572, 336)), "12command.nc", 572, 337);
+    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v11((struct Vi* )come_increment_ref_count(self, "12command.nc", 588, 336)), "12command.nc", 588, 337);
     strncpy(result->commandString,"",128);
     list$1lambda$_replace(result->events,58,lambda2);
-        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "12command.nc", 580, 344);
-    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 580, 382);
-    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "12command.nc}", 580, 383);
+        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "12command.nc", 596, 344);
+    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "12command.nc}", 596, 382);
+    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "12command.nc}", 596, 383);
     neo_current_frame = fr.prev;
-    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "12command.nc}", 580, 384);
+    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "12command.nc}", 596, 384);
     return __result_obj__0;
 }
 
