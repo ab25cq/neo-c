@@ -427,16 +427,6 @@ struct timespec
     long  int  tv_nsec  ;
 };
 
-struct anonymous_typeX1
-{
-    unsigned long  int fds_bits[1024/(8*sizeof(long))];
-};
-
-struct anonymous_typeX2
-{
-    int val[2];
-};
-
 struct sched_attr
 {
     unsigned int  size  ;
@@ -454,11 +444,6 @@ struct sched_attr
 struct sched_param
 {
     int sched_priority;
-};
-
-struct anonymous_typeX3
-{
-    unsigned long  int  __bits[1024/(8*sizeof(unsigned long  int ))]  ;
 };
 
 struct timeval
@@ -674,11 +659,6 @@ int __align;
 
 typedef long  int __jmp_buf[8];
 
-struct anonymous_typeX15
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
 struct __jmp_buf_tag
 {
     long  int  __jmpbuf[8]  ;
@@ -766,11 +746,6 @@ struct __pthread_cleanup_frame
     void* __cancel_arg;
     int __do_it;
     int __cancel_type;
-};
-
-struct anonymous_typeX17
-{
-    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 union anonymous_typeZ18

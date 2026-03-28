@@ -510,11 +510,6 @@ FP_NORMAL=(4)
 
 typedef long  int __jmp_buf[8];
 
-struct anonymous_typeX2
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
 struct __jmp_buf_tag
 {
     long  int  __jmpbuf[8]  ;
@@ -1775,11 +1770,6 @@ struct timeval
 {
     long  int  tv_sec  ;
     long  int  tv_usec  ;
-};
-
-struct anonymous_typeX55
-{
-    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct random_data

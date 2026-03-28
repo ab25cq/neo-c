@@ -1221,11 +1221,6 @@ struct __fsid_t
     int __val[2];
 };
 
-struct anonymous_typeX3
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
 struct timeval
 {
     long  int  tv_sec  ;
@@ -1236,11 +1231,6 @@ struct timespec
 {
     long  int  tv_sec  ;
     long  int  tv_nsec  ;
-};
-
-struct anonymous_typeX4
-{
-    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct anonymous_typeX6
@@ -2896,16 +2886,6 @@ struct ucred
     unsigned int  gid  ;
 };
 
-struct anonymous_typeX92
-{
-    unsigned long  int fds_bits[1024/(8*sizeof(long))];
-};
-
-struct anonymous_typeX93
-{
-    int val[2];
-};
-
 struct linger
 {
     int l_onoff;
@@ -4064,11 +4044,6 @@ struct sched_attr
 struct sched_param
 {
     int sched_priority;
-};
-
-struct anonymous_typeX107
-{
-    unsigned long  int  __bits[1024/(8*sizeof(unsigned long  int ))]  ;
 };
 
 struct timex

@@ -2371,11 +2371,6 @@ struct __fsid_t
     int __val[2];
 };
 
-struct anonymous_typeX1
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
 struct timeval
 {
     long  int  tv_sec  ;
@@ -2386,11 +2381,6 @@ struct timespec
 {
     long  int  tv_sec  ;
     long  int  tv_nsec  ;
-};
-
-struct anonymous_typeX2
-{
-    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct anonymous_typeX4
@@ -2618,16 +2608,6 @@ struct ucred
     int  pid  ;
     unsigned int  uid  ;
     unsigned int  gid  ;
-};
-
-struct anonymous_typeX14
-{
-    unsigned long  int fds_bits[1024/(8*sizeof(long))];
-};
-
-struct anonymous_typeX15
-{
-    int val[2];
 };
 
 struct linger
@@ -4972,11 +4952,6 @@ struct atalk_netrange
     unsigned short int  nr_lastnet  ;
 };
 
-struct anonymous_typeX87
-{
-    char ax25_call[7];
-};
-
 struct sockaddr_ax25
 {
     unsigned short int  sax25_family  ;
@@ -5187,11 +5162,6 @@ struct nr_ctl_struct
     unsigned char id;
     unsigned int cmd;
     unsigned long  int arg;
-};
-
-struct anonymous_typeX88
-{
-    char rose_addr[5];
 };
 
 struct sockaddr_rose
@@ -5654,11 +5624,6 @@ struct sched_attr
 struct sched_param
 {
     int sched_priority;
-};
-
-struct anonymous_typeX100
-{
-    unsigned long  int  __bits[1024/(8*sizeof(unsigned long  int ))]  ;
 };
 
 typedef long  int __jmp_buf[8];

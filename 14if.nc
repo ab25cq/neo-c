@@ -116,7 +116,8 @@ class sIfNode extends sNodeBase
             add_come_code(info, "}\n");
         }
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
         
         if(existance_result_value) {
             add_come_code(info, s"\{info.if_result_value_name};})");
@@ -261,7 +262,8 @@ class sOrStatmentNode extends sNodeBase
         transpile_block(if_block, null, null, info);
         add_come_code(info, "}\n");
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
         
         return true;
     }
@@ -307,7 +309,8 @@ class sAndStatmentNode extends sNodeBase
         transpile_block(if_block, null, null, info);
         add_come_code(info, "}\n");
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
         
         return true;
     }

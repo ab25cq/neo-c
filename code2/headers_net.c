@@ -469,11 +469,6 @@ struct iovec
     unsigned long  int  iov_len  ;
 };
 
-struct anonymous_typeX1
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
 struct timeval
 {
     long  int  tv_sec  ;
@@ -484,11 +479,6 @@ struct timespec
 {
     long  int  tv_sec  ;
     long  int  tv_nsec  ;
-};
-
-struct anonymous_typeX2
-{
-    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct anonymous_typeX4
@@ -710,16 +700,6 @@ struct ucred
     int  pid  ;
     unsigned int  uid  ;
     unsigned int  gid  ;
-};
-
-struct anonymous_typeX14
-{
-    unsigned long  int fds_bits[1024/(8*sizeof(long))];
-};
-
-struct anonymous_typeX15
-{
-    int val[2];
 };
 
 struct linger

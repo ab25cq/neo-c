@@ -404,16 +404,6 @@ typedef struct anonymous_typeX514 x25_hdlc_proto;
 
 /// previous struct definition ///
 /// struct definition ///
-struct anonymous_typeX1
-{
-    unsigned long  int fds_bits[1024/(8*sizeof(long))];
-};
-
-struct anonymous_typeX2
-{
-    int val[2];
-};
-
 struct sysinfo
 {
     long  uptime  ;
@@ -9773,16 +9763,6 @@ struct ethhdr
 struct __fsid_t
 {
     int __val[2];
-};
-
-struct anonymous_typeX494
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
-struct anonymous_typeX495
-{
-    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct anonymous_typeX497

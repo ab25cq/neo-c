@@ -43,7 +43,8 @@ class sDoWhileNode extends sNodeBase
         add_come_code(info, ");\n");
         info->in_conditional = in_conditional;
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
         
         return true;
     }

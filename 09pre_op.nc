@@ -167,7 +167,8 @@ class sParenBlockNode extends sNodeBase
                 
                 come_type = clone come_value.type;
                 
-                transpiler_clear_last_code(info);
+                info.module.mLastCode = null;
+                info.module.mLastCode2 = null;
             }
             else {
                 if(buf) {
@@ -176,7 +177,8 @@ class sParenBlockNode extends sNodeBase
                         if(info.module.mLastCode2) buf.append_str(info.module.mLastCode2 + "; ");
                     }
                     
-                    transpiler_clear_last_code(info);
+                    info.module.mLastCode = null;
+                    info.module.mLastCode2 = null;
                 }
                 else {
                     add_last_code_to_source(info);
@@ -557,7 +559,8 @@ class sNormalBlock extends sNodeBase
         gComeC = come_c;
         gComeSafe = safe;
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
     
         return true;
     }

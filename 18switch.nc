@@ -40,7 +40,8 @@ class sSwitchNode extends sNodeBase
     
         add_come_code(info, "}\n");
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
     
         return true;
     }
@@ -93,7 +94,8 @@ class sCaseNode extends sNodeBase
             add_come_code(info, "case %s:\n", label_value.c_value);
         }
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
     
         return true;
     }
@@ -120,7 +122,8 @@ class sDefaultNode extends sNodeBase
     {
         add_come_code(info, "default:\n");
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
     
         return true;
     }
@@ -155,7 +158,8 @@ class sLabelNode extends sNodeBase
             add_come_code(info, s"\{self.label}:\n");
         }
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
     
         return true;
     }
@@ -187,7 +191,8 @@ class sGotoNode extends sNodeBase
         
         add_come_code(info, s"goto \{label_value.c_value};\n");
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
     
         return true;
     }
@@ -211,7 +216,8 @@ class sBreakNode extends sNodeBase
     
         add_come_code(info, "break;\n");
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
     
         return true;
     }
@@ -235,7 +241,8 @@ class sContinueNode extends sNodeBase
     
         add_come_code(info, "continue;\n");
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
     
         return true;
     }

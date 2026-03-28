@@ -112,7 +112,8 @@ class sForNode extends sNodeBase
     
         add_come_code(info, "}\n");
         
-        transpiler_clear_last_code(info);
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
         
         return true;
     }

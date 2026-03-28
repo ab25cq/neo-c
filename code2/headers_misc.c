@@ -1217,16 +1217,6 @@ struct timespec
     long  int  tv_nsec  ;
 };
 
-struct anonymous_typeX8
-{
-    unsigned long  int fds_bits[1024/(8*sizeof(long))];
-};
-
-struct anonymous_typeX9
-{
-    int val[2];
-};
-
 struct sched_attr
 {
     unsigned int  size  ;
@@ -1246,25 +1236,10 @@ struct sched_param
     int sched_priority;
 };
 
-struct anonymous_typeX10
-{
-    unsigned long  int  __bits[1024/(8*sizeof(unsigned long  int ))]  ;
-};
-
-struct anonymous_typeX11
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
 struct timeval
 {
     long  int  tv_sec  ;
     long  int  tv_usec  ;
-};
-
-struct anonymous_typeX12
-{
-    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct anonymous_typeX14

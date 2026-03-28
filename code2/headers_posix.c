@@ -489,11 +489,6 @@ struct group
     char** gr_mem;
 };
 
-struct anonymous_typeX1
-{
-    unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
-};
-
 struct pollfd
 {
     int fd;
@@ -516,11 +511,6 @@ struct timeval
 {
     long  int  tv_sec  ;
     long  int  tv_usec  ;
-};
-
-struct anonymous_typeX2
-{
-    long  int  fds_bits[1024/(8*(int)sizeof(long  int ))]  ;
 };
 
 struct anonymous_typeX4
