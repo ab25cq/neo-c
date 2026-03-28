@@ -1,65 +1,216 @@
 #include "common.h"
 
+#define MATCH_TYPE_KEYWORD(keyword) (len == (sizeof(keyword)-1) && memcmp(buf, keyword, sizeof(keyword)-1) == 0)
+
 bool is_type_name(char* buf, sInfo* info=info)
 {
-    sClass* klass = borrow info.classes[buf];
-    sType* type = borrow info.types[buf];
-    sClass* generics_class = borrow info.generics_classes[string(buf)];
-    bool generics_type_name = info.generics_type_names.contained(string(buf));
-    bool mgenerics_type_name = info.method_generics_type_names.contained(string(buf));
+    sClass* klass = null;
+    sType* type = null;
+    sClass* generics_class = null;
+    bool generics_type_name = false;
+    bool mgenerics_type_name = false;
+    int len = strlen(buf);
     
     if(gComeC) {
+        switch(buf[0]) {
+            case '_':
+                if(MATCH_TYPE_KEYWORD("_Thread_local")
+                    || MATCH_TYPE_KEYWORD("__thread")
+                    || MATCH_TYPE_KEYWORD("_Complex")
+                    || MATCH_TYPE_KEYWORD("__volatile__")
+                    || MATCH_TYPE_KEYWORD("__extension__")
+                    || MATCH_TYPE_KEYWORD("_Noreturn")
+                    || MATCH_TYPE_KEYWORD("__noreturn")
+                    || MATCH_TYPE_KEYWORD("_noreturn")
+                    || MATCH_TYPE_KEYWORD("__typeof__")
+                    || MATCH_TYPE_KEYWORD("_Nullable")
+                    || MATCH_TYPE_KEYWORD("_Alignas")
+                    || MATCH_TYPE_KEYWORD("_Atomic")
+                    || MATCH_TYPE_KEYWORD("__type__"))
+                {
+                    return true;
+                }
+                if(info->in_top_level
+                    && (MATCH_TYPE_KEYWORD("__inline")
+                        || MATCH_TYPE_KEYWORD("__always_inline")
+                        || MATCH_TYPE_KEYWORD("__inline__")
+                        || MATCH_TYPE_KEYWORD("__forceinline")))
+                {
+                    return true;
+                }
+                if(MATCH_TYPE_KEYWORD("__attribute__")) {
+                    return *info.p == '(' || (*info.p == '[' && *(info->p+1) == '[');
+                }
+                if(MATCH_TYPE_KEYWORD("__declspec")) {
+                    return *info.p == '(';
+                }
+                break;
+
+            case 'c':
+                if(MATCH_TYPE_KEYWORD("const")) {
+                    return true;
+                }
+                break;
+
+            case 'e':
+                if(MATCH_TYPE_KEYWORD("enum") || MATCH_TYPE_KEYWORD("extern")) {
+                    return true;
+                }
+                break;
+
+            case 'i':
+                if(info->in_top_level && MATCH_TYPE_KEYWORD("inline")) {
+                    return true;
+                }
+                break;
+
+            case 'r':
+                if(MATCH_TYPE_KEYWORD("register") || MATCH_TYPE_KEYWORD("restrict")) {
+                    return true;
+                }
+                break;
+
+            case 's':
+                if(MATCH_TYPE_KEYWORD("static")
+                    || MATCH_TYPE_KEYWORD("signed")
+                    || MATCH_TYPE_KEYWORD("struct"))
+                {
+                    return true;
+                }
+                break;
+
+            case 't':
+                if(MATCH_TYPE_KEYWORD("typeof")) {
+                    return true;
+                }
+                break;
+
+            case 'u':
+                if(MATCH_TYPE_KEYWORD("unsigned") || MATCH_TYPE_KEYWORD("union")) {
+                    return true;
+                }
+                break;
+
+            case 'v':
+                if(MATCH_TYPE_KEYWORD("volatile") || MATCH_TYPE_KEYWORD("void")) {
+                    return true;
+                }
+                break;
+        }
+
+        klass = borrow info.classes[buf];
+        type = borrow info.types[buf];
+
         return (type && type->mTypedef) 
             || (klass && klass->mNumber) 
-            || (klass && klass->mFloat) 
-            || buf === "_Thread_local"
-            || buf === "__thread"
-            || buf === "_Complex"
-            || buf === "const" || buf === "register" || buf === "static" || buf === "volatile" || buf === "unsigned" || buf === "__volatile__"
-            || buf === "signed" || buf === "struct" || buf === "enum" || buf === "union" || buf === "extern" 
-            || info->in_top_level && (buf === "inline" || buf === "__inline" || buf === "__always_inline" || buf === "__inline__" || buf === "__forceinline" )
-            || buf === "__extension__" 
-            || buf === "_Noreturn" 
-            || buf === "restrict" 
-            || buf === "__noreturn" 
-            || buf === "_noreturn" 
-            || buf === "__typeof__" 
-            || buf === "typeof" 
-            || buf === "_Nullable" 
-            || buf === "_Alignas"
-            || buf === "_Atomic"
-            || buf === "__type__"
-            || buf === "__attribute__" && (*info.p == '(' || (*info.p == '[' && *(info->p+1) == '['))
-            || buf === "__declspec" && *info.p == '('
-            || buf === "void" ;
+            || (klass && klass->mFloat);
     }
     else {
-        return generics_class || generics_type_name || mgenerics_type_name || klass || type 
-        || buf === "const" || buf === "register" || buf === "static" || buf === "volatile" || buf === "__volatile__" || buf === "unsigned" 
-        || buf === "signed" || buf === "struct" || buf === "enum" || buf === "union" || buf === "extern" 
-        || info->in_top_level && (buf === "inline" || buf === "__inline" || buf === "__always_inline" || buf === "__inline__" || buf === "__forceinline")
-        || buf === "__extension__" 
-        || buf === "_Thread_local"
-        || buf === "_norecord"
-        || buf === "__thread"
-        || buf === "_Complex"
-        || (info->in_top_level && buf === "_Noreturn")
-        || (info->in_top_level && buf === "__noreturn")
-        || (info->in_top_level && buf === "_noreturn")
-        || buf === "__typeof__" 
-        || buf === "typeof" 
-        || buf === "_Nullable" 
-        || buf === "_Alignas"
-        || buf === "_Atomic"
-        || buf === "restrict"
-        || buf === "__type__"
-        || buf === "_weak"
-        || buf === "__attribute__" && (*info.p == '(' || (*info.p == '[' && *(info->p+1) == '['))
-        || buf === "__declspec" && *info.p == '('
-        || (buf === "tup" && (*info.p == ':' || *info.p == '('))
-        || (info.in_top_level && buf === "uniq") ;
+        switch(buf[0]) {
+            case '_':
+                if(MATCH_TYPE_KEYWORD("_Thread_local")
+                    || MATCH_TYPE_KEYWORD("_norecord")
+                    || MATCH_TYPE_KEYWORD("__thread")
+                    || MATCH_TYPE_KEYWORD("_Complex")
+                    || MATCH_TYPE_KEYWORD("__volatile__")
+                    || MATCH_TYPE_KEYWORD("__extension__")
+                    || MATCH_TYPE_KEYWORD("__typeof__")
+                    || MATCH_TYPE_KEYWORD("_Nullable")
+                    || MATCH_TYPE_KEYWORD("_Alignas")
+                    || MATCH_TYPE_KEYWORD("_Atomic")
+                    || MATCH_TYPE_KEYWORD("__type__")
+                    || MATCH_TYPE_KEYWORD("_weak"))
+                {
+                    return true;
+                }
+                if(info->in_top_level
+                    && (MATCH_TYPE_KEYWORD("_Noreturn")
+                        || MATCH_TYPE_KEYWORD("__noreturn")
+                        || MATCH_TYPE_KEYWORD("_noreturn")
+                        || MATCH_TYPE_KEYWORD("__inline")
+                        || MATCH_TYPE_KEYWORD("__always_inline")
+                        || MATCH_TYPE_KEYWORD("__inline__")
+                        || MATCH_TYPE_KEYWORD("__forceinline")))
+                {
+                    return true;
+                }
+                if(MATCH_TYPE_KEYWORD("__attribute__")) {
+                    return *info.p == '(' || (*info.p == '[' && *(info->p+1) == '[');
+                }
+                if(MATCH_TYPE_KEYWORD("__declspec")) {
+                    return *info.p == '(';
+                }
+                break;
+
+            case 'c':
+                if(MATCH_TYPE_KEYWORD("const")) {
+                    return true;
+                }
+                break;
+
+            case 'e':
+                if(MATCH_TYPE_KEYWORD("enum") || MATCH_TYPE_KEYWORD("extern")) {
+                    return true;
+                }
+                break;
+
+            case 'i':
+                if(info->in_top_level && MATCH_TYPE_KEYWORD("inline")) {
+                    return true;
+                }
+                break;
+
+            case 'r':
+                if(MATCH_TYPE_KEYWORD("register") || MATCH_TYPE_KEYWORD("restrict")) {
+                    return true;
+                }
+                break;
+
+            case 's':
+                if(MATCH_TYPE_KEYWORD("static")
+                    || MATCH_TYPE_KEYWORD("signed")
+                    || MATCH_TYPE_KEYWORD("struct"))
+                {
+                    return true;
+                }
+                break;
+
+            case 't':
+                if(MATCH_TYPE_KEYWORD("typeof")) {
+                    return true;
+                }
+                if(MATCH_TYPE_KEYWORD("tup")) {
+                    return *info.p == ':' || *info.p == '(';
+                }
+                break;
+
+            case 'u':
+                if(MATCH_TYPE_KEYWORD("unsigned")
+                    || MATCH_TYPE_KEYWORD("union")
+                    || (info.in_top_level && MATCH_TYPE_KEYWORD("uniq")))
+                {
+                    return true;
+                }
+                break;
+
+            case 'v':
+                if(MATCH_TYPE_KEYWORD("volatile")) {
+                    return true;
+                }
+                break;
+        }
+
+        klass = borrow info.classes[buf];
+        type = borrow info.types[buf];
+        generics_class = borrow info.generics_classes[buf];
+        generics_type_name = info.generics_type_names.contained(buf);
+        mgenerics_type_name = info.method_generics_type_names.contained(buf);
+
+        return generics_class || generics_type_name || mgenerics_type_name || klass || type;
     }
 }
+
+#undef MATCH_TYPE_KEYWORD
 
 bool is_contained_generics_class(sType* type, sInfo* info)
 {
