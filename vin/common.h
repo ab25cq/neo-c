@@ -120,6 +120,7 @@ struct Vi
     wchar_t searchString[128];
     bool searchReverse;
     bool regexSearch;
+    int modeBeforeSearch;
 
     char commandString[128];
 };
@@ -356,11 +357,13 @@ Vi*% Vi*::initialize(Vi*% self) version 11;
 ////////////////////////////
 void ViWin*::commandModeView(ViWin* self, Vi* nvi);
 string ViWin*::selector(ViWin* self, list<string>* lines);
+string ViWin*::selectFileCompletionCandidate(ViWin* self, string word);
 void ViWin*::fileCompetion(ViWin* self, Vi* nvi);
 void ViWin*::commandModeInput(ViWin* self, Vi* nvi);
 void ViWin*::view(ViWin* self, Vi* nvi) version 12;
 void ViWin*::input(ViWin* self, Vi* nvi) version 12;
 void ViWin*::subAllTextsFromCommandMode(ViWin* self, Vi* nvi);
+void ViWin*::filterTextsFromCommandMode(ViWin* self, Vi* nvi);
 void Vi*::enterComandMode(Vi* self);
 void Vi*::exitFromComandMode(Vi* self);
 Vi*% Vi*::initialize(Vi*% self) version 12;
@@ -370,6 +373,7 @@ Vi*% Vi*::initialize(Vi*% self) version 12;
 ////////////////////////////
 wchar_t* ViWin*::selector2(ViWin* self, list<wstring>* lines);
 void ViWin*::completion(ViWin* self, Vi* nvi) version 13;
+void ViWin*::completionFileName(ViWin* self, Vi* nvi) version 13;
 
 ////////////////////////////
 // src/14dot.c
@@ -466,4 +470,3 @@ void ViWin*::binaryModeView(ViWin* self, Vi* nvi);
 int xgetmaxx();
 int xgetmaxy();
 int main(int argc, char** argv);
-

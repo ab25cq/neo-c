@@ -1426,6 +1426,7 @@ struct Vi
     int  searchString[128]  ;
     _Bool searchReverse;
     _Bool regexSearch;
+    int modeBeforeSearch;
     char commandString[128];
 };
 
@@ -3071,16 +3072,19 @@ void ViWin_gotoFunctionBottom(struct ViWin*  self  , struct Vi*  nvi  );
 struct Vi*  Vi_initialize_v11(struct Vi*  self  );
 void ViWin_commandModeView(struct ViWin*  self  , struct Vi*  nvi  );
 char*  ViWin_selector(struct ViWin*  self  , struct list$1char$ph* lines);
+char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  );
 void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_commandModeInput(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_filterTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
 void Vi_enterComandMode(struct Vi*  self  );
 void Vi_exitFromComandMode(struct Vi*  self  );
 struct Vi*  Vi_initialize_v12(struct Vi*  self  );
 int*  ViWin_selector2(struct ViWin*  self  , struct list$1int$ph* lines);
 void ViWin_completion_v13(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_completionFileName_v13(struct ViWin*  self  , struct Vi*  nvi  );
 void mreset_tty();
 struct ViWin*  ViWin_initialize_v14(struct ViWin*  self  , int y, int x, int width, int height, struct Vi*  vi  );
 _Bool ViWin_saveDotToFile_v14(struct ViWin*  self  , struct Vi*  nvi  );

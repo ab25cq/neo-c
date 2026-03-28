@@ -1426,6 +1426,7 @@ struct Vi
     int  searchString[128]  ;
     _Bool searchReverse;
     _Bool regexSearch;
+    int modeBeforeSearch;
     char commandString[128];
 };
 
@@ -3087,16 +3088,19 @@ void ViWin_gotoFunctionBottom(struct ViWin*  self  , struct Vi*  nvi  );
 struct Vi*  Vi_initialize_v11(struct Vi*  self  );
 void ViWin_commandModeView(struct ViWin*  self  , struct Vi*  nvi  );
 char*  ViWin_selector(struct ViWin*  self  , struct list$1char$ph* lines);
+char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  );
 void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_commandModeInput(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_filterTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
 void Vi_enterComandMode(struct Vi*  self  );
 void Vi_exitFromComandMode(struct Vi*  self  );
 struct Vi*  Vi_initialize_v12(struct Vi*  self  );
 int*  ViWin_selector2(struct ViWin*  self  , struct list$1int$ph* lines);
 void ViWin_completion_v13(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_completionFileName_v13(struct ViWin*  self  , struct Vi*  nvi  );
 void mreset_tty();
 struct ViWin*  ViWin_initialize_v14(struct ViWin*  self  , int y, int x, int width, int height, struct Vi*  vi  );
 _Bool ViWin_saveDotToFile_v14(struct ViWin*  self  , struct Vi*  nvi  );
@@ -3396,13 +3400,14 @@ void ViWin_inputShellMode(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool all_space;
     int i;
     _Bool _conditional_value_X0;
+    int key2;
     int size;
     int i_0;
     int cursor_x;
     int cursor_y;
     int*  line  ;
     int*  line_7  ;
-    int key2;
+    int key2_8;
     memset(&i_0, 0, sizeof(i_0));
     key=ViWin_getKey_v14(self,(_Bool)0);
     if(key==3||key==27) {
@@ -3438,10 +3443,16 @@ _conditional_value_X0;})) {
                 ViWin_completion_v13(self,nvi);
             }
         }
-        (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0, "20shell_mode.nc", 172, 26));
+        (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0, "20shell_mode.nc", 179, 26));
     }
     else if(key==88-65+1) {
-        ViWin_completion_neo_c2_v3(self,nvi);
+        key2=ViWin_getKey_v14(self,(_Bool)0);
+        if(key2==70-65+1) {
+            ViWin_completionFileName_v13(self,nvi);
+        }
+        else if(key2==88-65+1) {
+            ViWin_completion_neo_c2_v3(self,nvi);
+        }
     }
     else if(key>127) {
         size=((key&0x80)>>7)+((key&0x40)>>6)+((key&0x20)>>5)+((key&0x10)>>4);
@@ -3453,56 +3464,56 @@ _conditional_value_X0;})) {
         }
         keys[i_0]=0;
         __right_value0 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(keys,"20shell_mode.nc",99), "20shell_mode.nc", 99, 27));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(keys,"20shell_mode.nc",106), "20shell_mode.nc", 106, 27));
     }
     else if(key==40) {
         ViWin_blinkBraceFoward(self,40,41,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",103), "20shell_mode.nc", 103, 28));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 103, 29));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",110), "20shell_mode.nc", 110, 28));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 110, 29));
     }
     else if(key==123) {
         ViWin_blinkBraceFoward(self,123,125,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",107), "20shell_mode.nc", 107, 30));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 107, 31));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",114), "20shell_mode.nc", 114, 30));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 114, 31));
     }
     else if(key==91) {
         ViWin_blinkBraceFoward(self,60,62,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",111), "20shell_mode.nc", 111, 32));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 111, 33));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",118), "20shell_mode.nc", 118, 32));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 118, 33));
     }
     else if(key==41) {
         ViWin_blinkBraceEnd(self,40,41,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",115), "20shell_mode.nc", 115, 34));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 115, 35));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",122), "20shell_mode.nc", 122, 34));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 122, 35));
     }
     else if(key==125) {
         ViWin_blinkBraceEnd(self,123,125,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",119), "20shell_mode.nc", 119, 36));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 119, 37));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",126), "20shell_mode.nc", 126, 36));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 126, 37));
     }
     else if(key==93) {
         ViWin_blinkBraceEnd(self,91,93,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",123), "20shell_mode.nc", 123, 38));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 123, 39));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",130), "20shell_mode.nc", 130, 38));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 130, 39));
     }
     else if(key==62) {
         ViWin_blinkBraceEnd(self,60,62,nvi);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",127), "20shell_mode.nc", 127, 40));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 127, 41));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"20shell_mode.nc",134), "20shell_mode.nc", 134, 40));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 134, 41));
     }
     else if(key==87-65+1) {
         cursor_x=self->cursorX;
@@ -3511,50 +3522,50 @@ _conditional_value_X0;})) {
         if(cursor_y==self->cursorY) {
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","20shell_mode.nc",136)))), "20shell_mode.nc", 136, 42);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 136, 43));
+            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","20shell_mode.nc",143)))), "20shell_mode.nc", 143, 42);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 143, 43));
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line,self->cursorX,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 137, 44));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 144, 44));
             __right_value0 = (void*)0;
-            list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line, "20shell_mode.nc", 139, 67, "int* "), "20shell_mode.nc", 139, 68));
+            list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line, "20shell_mode.nc", 146, 67, "int* "), "20shell_mode.nc", 146, 68));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line));
             ViWin_modifyOverCursorXValue(self);
             self->cursorX++;
-            (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "20shell_mode.nc", 156, 75));
+            (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "20shell_mode.nc", 163, 75));
         }
         else {
             self->cursorY=cursor_y;
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            line_7=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","20shell_mode.nc",146)))), "20shell_mode.nc", 146, 76);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 146, 77));
+            line_7=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","20shell_mode.nc",153)))), "20shell_mode.nc", 153, 76);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 153, 77));
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line_7,0,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 148, 78));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "20shell_mode.nc", 155, 78));
             __right_value0 = (void*)0;
-            list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line_7, "20shell_mode.nc", 150, 79, "int* "), "20shell_mode.nc", 150, 80));
+            list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line_7, "20shell_mode.nc", 157, 79, "int* "), "20shell_mode.nc", 157, 80));
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line_7));
             self->cursorX=0;
             self->cursorY=cursor_y;
-            (line_7 = come_decrement_ref_count(line_7, (void*)0, (void*)0, 0, 0, (void*)0, "20shell_mode.nc", 156, 81));
+            (line_7 = come_decrement_ref_count(line_7, (void*)0, (void*)0, 0, 0, (void*)0, "20shell_mode.nc", 163, 81));
         }
     }
     else if(key==86-65+1) {
-        key2=ViWin_getKey_v14(self,(_Bool)0);
-        char str_8[2];
-        memset(&str_8, 0, sizeof(str_8));
-        str_8[0]=key2;
-        str_8[1]=0;
+        key2_8=ViWin_getKey_v14(self,(_Bool)0);
+        char str_9[2];
+        memset(&str_9, 0, sizeof(str_9));
+        str_9[0]=key2_8;
+        str_9[1]=0;
         __right_value0 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(str_8,"20shell_mode.nc",165), "20shell_mode.nc", 165, 82));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(str_9,"20shell_mode.nc",172), "20shell_mode.nc", 172, 82));
     }
     else {
         char buf[128];
         memset(&buf, 0, sizeof(buf));
         snprintf(buf,128,"%c",key);
         __right_value0 = (void*)0;
-        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(buf,"20shell_mode.nc",170), "20shell_mode.nc", 170, 83));
+        ViWin_insertText(self,(int* )come_increment_ref_count(__builtin_wstring(buf,"20shell_mode.nc",177), "20shell_mode.nc", 177, 83));
     }
     neo_current_frame = fr.prev;
 }
@@ -3804,14 +3815,14 @@ struct Vi*  Vi_initialize_v20(struct Vi*  self  )
     void* __right_value0 = (void*)0;
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
-    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v19((struct Vi* )come_increment_ref_count(self, "20shell_mode.nc", 203, 84)), "20shell_mode.nc", 203, 85);
+    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v19((struct Vi* )come_increment_ref_count(self, "20shell_mode.nc", 210, 84)), "20shell_mode.nc", 210, 85);
     result->mode=(0);
     list$1lambda$_replace(result->events,33,lambda1);
-        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "20shell_mode.nc", 212, 92);
-    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20shell_mode.nc}", 212, 132);
-    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "20shell_mode.nc}", 212, 133);
+        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "20shell_mode.nc", 219, 92);
+    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "20shell_mode.nc}", 219, 132);
+    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "20shell_mode.nc}", 219, 133);
     neo_current_frame = fr.prev;
-    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "20shell_mode.nc}", 212, 134);
+    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "20shell_mode.nc}", 219, 134);
     return __result_obj__0;
 }
 
@@ -3823,7 +3834,7 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     int i;
     void (*default_value)(struct Vi* ,int);
     struct list_item$1lambda$* it;
-    int i_11;
+    int i_12;
     if(self==((void*)0)) {
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
@@ -3847,14 +3858,14 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
         return __result_obj__0;
     }
     it=self->head;
-    i_11=0;
+    i_12=0;
     while(it!=((void*)0)) {
-        if(position==i_11) {
+        if(position==i_12) {
             it->item=item;
             break;
         }
         it=it->next;
-        i_11++;
+        i_12++;
     }
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
@@ -3867,8 +3878,8 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
     struct list$1lambda$* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct list_item$1lambda$* litem;
-    struct list_item$1lambda$* litem_9;
     struct list_item$1lambda$* litem_10;
+    struct list_item$1lambda$* litem_11;
     if(self==((void*)0)) {
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
@@ -3884,21 +3895,21 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
     }
     else if(self->len==1) {
         __right_value0 = (void*)0;
-        litem_9=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1629, 88, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1629, 89);
-        litem_9->prev=self->head;
-        litem_9->next=((void*)0);
-        litem_9->item=item;
-        self->tail=litem_9;
-        self->head->next=litem_9;
+        litem_10=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1629, 88, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1629, 89);
+        litem_10->prev=self->head;
+        litem_10->next=((void*)0);
+        litem_10->item=item;
+        self->tail=litem_10;
+        self->head->next=litem_10;
     }
     else {
         __right_value0 = (void*)0;
-        litem_10=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1639, 90, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1639, 91);
-        litem_10->prev=self->tail;
-        litem_10->next=((void*)0);
-        litem_10->item=item;
-        self->tail->next=litem_10;
-        self->tail=litem_10;
+        litem_11=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1639, 90, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1639, 91);
+        litem_11->prev=self->tail;
+        litem_11->next=((void*)0);
+        litem_11->item=item;
+        self->tail->next=litem_11;
+        self->tail=litem_11;
     }
     self->len++;
         __result_obj__0 = self;
@@ -4117,7 +4128,7 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
-    int i_12;
+    int i_13;
     for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -4126,8 +4137,8 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
         }
     }
     come_free((char*)self->items);
-    for(i_12=0    ;i_12<self->size;i_12++){
-        if(self->item_existance[i_12]) {
+    for(i_13=0    ;i_13<self->size;i_13++){
+        if(self->item_existance[i_13]) {
             if(0) {
             }
         }
@@ -4170,7 +4181,7 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
-    int i_13;
+    int i_14;
     for(i=0    ;i<self->size;i++){
         if(self->item_existance[i]) {
             if(1) {
@@ -4179,8 +4190,8 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
         }
     }
     come_free((char*)self->items);
-    for(i_13=0    ;i_13<self->size;i_13++){
-        if(self->item_existance[i_13]) {
+    for(i_14=0    ;i_14<self->size;i_14++){
+        if(self->item_existance[i_14]) {
             if(0) {
             }
         }

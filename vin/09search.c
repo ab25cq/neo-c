@@ -1426,6 +1426,7 @@ struct Vi
     int  searchString[128]  ;
     _Bool searchReverse;
     _Bool regexSearch;
+    int modeBeforeSearch;
     char commandString[128];
 };
 
@@ -3065,16 +3066,19 @@ void ViWin_gotoFunctionBottom(struct ViWin*  self  , struct Vi*  nvi  );
 struct Vi*  Vi_initialize_v11(struct Vi*  self  );
 void ViWin_commandModeView(struct ViWin*  self  , struct Vi*  nvi  );
 char*  ViWin_selector(struct ViWin*  self  , struct list$1char$ph* lines);
+char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  );
 void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_commandModeInput(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_filterTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
 void Vi_enterComandMode(struct Vi*  self  );
 void Vi_exitFromComandMode(struct Vi*  self  );
 struct Vi*  Vi_initialize_v12(struct Vi*  self  );
 int*  ViWin_selector2(struct ViWin*  self  , struct list$1int$ph* lines);
 void ViWin_completion_v13(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_completionFileName_v13(struct ViWin*  self  , struct Vi*  nvi  );
 void mreset_tty();
 struct ViWin*  ViWin_initialize_v14(struct ViWin*  self  , int y, int x, int width, int height, struct Vi*  vi  );
 _Bool ViWin_saveDotToFile_v14(struct ViWin*  self  , struct Vi*  nvi  );
@@ -3903,9 +3907,10 @@ void Vi_enterSearchMode_v9(struct Vi*  self  , _Bool regex_search, _Bool reverse
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_enterSearchMode_v9"; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
+    self->modeBeforeSearch=self->mode;
     self->mode=(4);
-    wcsncpy(self->searchString,((int* )(__right_value0=__builtin_wstring("","09search.nc",353))),128);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 353, 96));
+    wcsncpy(self->searchString,((int* )(__right_value0=__builtin_wstring("","09search.nc",354))),128);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "09search.nc", 354, 96));
     self->regexSearch=regex_search;
     self->searchReverse=reverse;
     neo_current_frame = fr.prev;
@@ -3914,7 +3919,13 @@ void Vi_enterSearchMode_v9(struct Vi*  self  , _Bool regex_search, _Bool reverse
 void Vi_exitFromSearchMode(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_exitFromSearchMode"; neo_current_frame = &fr;
-    self->mode=(0);
+    if(self->modeBeforeSearch==(2)) {
+        ViWin_restoreVisualMode_v8(self->activeWin,self);
+    }
+    else {
+        self->mode=(0);
+    }
+    self->modeBeforeSearch=(0);
     neo_current_frame = fr.prev;
 }
 
@@ -3983,19 +3994,20 @@ struct Vi*  Vi_initialize_v9(struct Vi*  self  )
     void* __right_value0 = (void*)0;
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
-    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v8((struct Vi* )come_increment_ref_count(self, "09search.nc", 365, 97)), "09search.nc", 365, 98);
+    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v8((struct Vi* )come_increment_ref_count(self, "09search.nc", 373, 97)), "09search.nc", 373, 98);
     Vi_readSearchString(result,"searchString.vin");
+    result->modeBeforeSearch=(0);
     list$1lambda$_replace(result->events,47,lambda1);
     list$1lambda$_replace(result->events,63,lambda2);
     list$1lambda$_replace(result->events,110,lambda3);
     list$1lambda$_replace(result->events,78,lambda4);
     list$1lambda$_replace(result->events,42,lambda5);
     list$1lambda$_replace(result->events,35,lambda6);
-        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "09search.nc", 415, 105);
-    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09search.nc}", 415, 143);
-    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "09search.nc}", 415, 144);
+        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "09search.nc", 424, 105);
+    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "09search.nc}", 424, 143);
+    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "09search.nc}", 424, 144);
     neo_current_frame = fr.prev;
-    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "09search.nc}", 415, 145);
+    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "09search.nc}", 424, 145);
     return __result_obj__0;
 }
 

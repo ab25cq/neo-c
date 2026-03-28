@@ -131,6 +131,7 @@ sh build-fastest.sh
 # Histories
 
 ```
+1.0.0.9 optimize more faster.
 1.0.0.8 optimize more faster.
 1.0.0.7 optimize more faster.
 1.0.0.6 optimize more faster.

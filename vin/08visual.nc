@@ -493,6 +493,10 @@ void ViWin*::inputVisualMode(ViWin* self, Vi* nvi)
             self.keyG(nvi);
             break;
 
+        case '/':
+            nvi.enterSearchMode(false, false);
+            break;
+
         case 'y':
             self.yankOnVisualMode(nvi);
             nvi.exitFromVisualMode();

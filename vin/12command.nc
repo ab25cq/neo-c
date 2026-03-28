@@ -45,6 +45,24 @@ static string parse_sp_path(char* command_string)
     return string(buf);
 }
 
+static string parse_filter_command(char* command_string)
+{
+    if(strncmp(command_string, ".!", 2) != 0) {
+        return null;
+    }
+
+    char* p = command_string + 2;
+    while(*p == ' ' || *p == '\t') {
+        p++;
+    }
+
+    if(*p == '\0') {
+        return null;
+    }
+
+    return string(p);
+}
+
 void ViWin*::commandModeView(ViWin* self, Vi* nvi) 
 {
     werase(self.win);
@@ -165,29 +183,14 @@ string ViWin*::selector(ViWin* self, list<string>* lines)
     return string(lines.item(scrolltop+cursor, string("")));
 }
 
-void ViWin*::fileCompetion(ViWin* self, Vi* nvi) 
+string ViWin*::selectFileCompletionCandidate(ViWin* self, string word)
 {
-    char* line = nvi.commandString;
-
-    char* p = line + strlen(line) -1;
-    
-    while(p >= line) {
-        if(*p == ' ' || *p == '\t') {
-            p++;
-            break;
-        }
-        else {
-            p--;
-        }
+    if(strcmp(word, "") == 0) {
+        return string("");
     }
-    
-    auto word = string(p);
 
     string dir_name = null;
-    if(strlen(word) == 0) {
-        dir_name = string("");
-    }
-    else if(word[strlen(word)-1] == '/') {
+    if(word[strlen(word)-1] == '/') {
         dir_name = string(word);
     }
     else {
@@ -208,13 +211,13 @@ void ViWin*::fileCompetion(ViWin* self, Vi* nvi)
         char* cwd = getenv("PWD");
         
         if(cwd == null) {
-            return;
+            return string("");
         }
     
         DIR* dir = opendir(cwd);
     
         if(dir == null) {
-            return;
+            return string("");
         }
     
         while(true) {
@@ -247,7 +250,7 @@ void ViWin*::fileCompetion(ViWin* self, Vi* nvi)
         }
     
         if(dir == null) {
-            return;
+            return string("");
         }
     
         while(true) {
@@ -280,7 +283,7 @@ void ViWin*::fileCompetion(ViWin* self, Vi* nvi)
         }
     
         if(dir == null) {
-            return;
+            return string("");
         }
     
         while(true) {
@@ -307,15 +310,43 @@ void ViWin*::fileCompetion(ViWin* self, Vi* nvi)
     auto words2 = new list<string>.initialize();
     
     foreach(it, words) {
-        if(strcmp(word, "") != 0 && strstr(it, word) == it) {
+        if(strstr(it, word) == it) {
             words2.push_back(clone it);
         }
     }
+    
+    if(words2.length() == 0) {
+        return string("");
+    }
+
     auto words3 = words2.sort_with_lambda(int lambda(char* left, char* right) { return strcmp(left, right);} );
+
+    return self.selector(words3);
+}
+
+void ViWin*::fileCompetion(ViWin* self, Vi* nvi) 
+{
+    char* line = nvi.commandString;
+
+    char* p = line + strlen(line) -1;
     
-    auto file_name = self.selector(words3).substring(strlen(word), -1);
+    while(p >= line) {
+        if(*p == ' ' || *p == '\t') {
+            p++;
+            break;
+        }
+        else {
+            p--;
+        }
+    }
     
-    strncat(nvi.commandString, file_name, 128);
+    auto word = string(p);
+    auto candidate = self.selectFileCompletionCandidate(word);
+
+    if(strcmp(candidate, "") != 0 && strstr(candidate, word) == candidate) {
+        auto file_name = candidate.substring(strlen(word), -1);
+        strncat(nvi.commandString, file_name, 128);
+    }
 }
 
 void ViWin*::commandModeInput(ViWin* self, Vi* nvi) 
@@ -424,6 +455,61 @@ void ViWin*::subAllTextsFromCommandMode(ViWin* self, Vi* nvi)
     }
 }
 
+void ViWin*::filterTextsFromCommandMode(ViWin* self, Vi* nvi)
+{
+    var command = parse_filter_command(nvi.commandString);
+
+    if(command == null) {
+        return;
+    }
+
+    var output = new buffer();
+
+    char buf[BUFSIZ];
+
+    FILE* fp = popen(command, "r");
+    if(fp == null) {
+        return;
+    }
+
+    while(fgets(buf, BUFSIZ, fp) != NULL) {
+        output.append_str(buf);
+    }
+    pclose(fp);
+
+    auto lines = output.to_string().split("\n");
+
+    if(lines.length() > 0 && lines.item(-1, string("")).equals("")) {
+        lines.delete(-1, -1);
+    }
+
+    self.pushUndo();
+
+    int y = self.scroll + self.cursorY;
+
+    if(lines.length() == 0) {
+        self.texts.replace(y, wstring(""));
+        self.texts_length.replace(y, 0);
+    }
+    else {
+        self.texts.replace(y, lines.item(0, string("")).to_wstring());
+        self.texts_length.replace(y, lines.item(0, string("")).length());
+
+        for(int i=1; i<lines.length(); i++) {
+            self.texts.insert(y+i, lines.item(i, string("")).to_wstring());
+            self.texts_length.insert(y+i, lines.item(i, string("")).length());
+        }
+
+        self.cursorY += lines.length() - 1;
+    }
+
+    self.cursorX = 0;
+    self.modifyUnderCursorYValue();
+    self.modifyOverCursorYValue();
+    self.modifyOverCursorXValue();
+    self.writed = true;
+}
+
 void Vi*::enterComandMode(Vi* self) 
 {
     self.mode = kCommandMode;
@@ -440,6 +526,9 @@ void Vi*::exitFromComandMode(Vi* self)
     }
     else if(string(self.commandString).index("paste", -1) == 0) {
         self.activeWin.pasteMode = !self.activeWin.pasteMode;
+    }
+    else if(strncmp(self.commandString, ".!", 2) == 0) {
+        self.activeWin.filterTextsFromCommandMode(self);
     }
     else {
         if(string(self.commandString).index("%", -1) != -1) {

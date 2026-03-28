@@ -2766,6 +2766,7 @@ int main(int argc, char** argv)
     setlocale(6,"");
         __result_obj__0 = come_main(argc,argv);
     neo_current_frame = fr.prev;
+    come_memleak_checker();
     return __result_obj__0;
 }
 

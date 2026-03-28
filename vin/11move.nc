@@ -2,10 +2,31 @@
 
 static bool line_is_function_top(char* line)
 {
-    return line != null && line[0] == '{';
+    if(line == null) {
+        return false;
+    }
+
+    int head = 0;
+    while(line[head] == ' ' || line[head] == '\t') {
+        head++;
+    }
+
+    return line[head] == '{';
 }
 
-static bool line_is_method_top(char* line)
+static bool line_starts_with_keyword(char* line, char* keyword)
+{
+    int len = strlen(keyword);
+
+    if(strncmp(line, keyword, len) != 0) {
+        return false;
+    }
+
+    char c = line[len];
+    return c == '\0' || c == ' ' || c == '\t' || c == '(';
+}
+
+static bool line_is_function_signature(char* line)
 {
     if(line == null) {
         return false;
@@ -16,20 +37,51 @@ static bool line_is_method_top(char* line)
         head++;
     }
 
-    if(line[head] == '{') {
-        return true;
+    if(line[head] == '\0') {
+        return false;
     }
 
-    if(!(xisalpha(line[head]) || line[head] == '_')) {
+    if(line_starts_with_keyword(line + head, "if")
+        || line_starts_with_keyword(line + head, "for")
+        || line_starts_with_keyword(line + head, "while")
+        || line_starts_with_keyword(line + head, "switch")
+        || line_starts_with_keyword(line + head, "else")
+        || line_starts_with_keyword(line + head, "do"))
+    {
+        return false;
+    }
+
+    char* lparen = strstr(line + head, "(");
+    char* rparen = strstr(line + head, ")");
+
+    if(lparen == null || rparen == null || lparen >= rparen) {
+        return false;
+    }
+
+    int name_pos = lparen - line - 1;
+    while(name_pos >= head && (line[name_pos] == ' ' || line[name_pos] == '\t' || line[name_pos] == '*' || line[name_pos] == '&')) {
+        name_pos--;
+    }
+
+    if(name_pos < head) {
+        return false;
+    }
+
+    return xisalpha(line[name_pos]) || xisdigit(line[name_pos]) || line[name_pos] == '_' || line[name_pos] == ':';
+}
+
+static bool line_is_method_top(char* line)
+{
+    if(!line_is_function_signature(line)) {
         return false;
     }
 
     int tail = strlen(line) - 1;
-    while(tail >= head && xisspace(line[tail])) {
+    while(tail >= 0 && xisspace(line[tail])) {
         tail--;
     }
 
-    return tail >= head && line[tail] == '{';
+    return tail >= 0 && line[tail] == '{';
 }
 
 static bool line_is_function_bottom(char* line)
@@ -340,6 +392,8 @@ void ViWin*::gotoMethodTop(ViWin* self, Vi* nvi)
 {
     int it2 = 0;
     foreach(it, self.texts.sublist(0, self.scroll+self.cursorY).reverse()) {
+        int y = self.cursorY + self.scroll - it2 - 1;
+
         if(line_is_method_top(it.to_string()))
         {
             self.saveReturnPoint();
@@ -349,6 +403,19 @@ void ViWin*::gotoMethodTop(ViWin* self, Vi* nvi)
             self.modifyUnderCursorYValue();
             self.modifyOverCursorYValue();
             break;
+        }
+        else if(line_is_function_signature(it.to_string())) {
+            auto next_line = self.texts.item(y+1, wstring(""));
+
+            if(line_is_function_top(next_line.to_string())) {
+                self.saveReturnPoint();
+
+                self.cursorX = 0;
+                self.cursorY = self.cursorY - it2 -1;
+                self.modifyUnderCursorYValue();
+                self.modifyOverCursorYValue();
+                break;
+            }
         }
 
         it2++;

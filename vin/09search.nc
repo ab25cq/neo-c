@@ -349,6 +349,7 @@ void Vi*::readSearchString(Vi* self, const char* file_name)
 
 void Vi*::enterSearchMode(Vi* self, bool regex_search, bool reverse) version 9
 {
+    self.modeBeforeSearch = self.mode;
     self.mode = kSearchMode;
     wcsncpy(self.searchString, wstring(""), 128);
     self.regexSearch = regex_search;
@@ -357,7 +358,14 @@ void Vi*::enterSearchMode(Vi* self, bool regex_search, bool reverse) version 9
 
 void Vi*::exitFromSearchMode(Vi* self) 
 {
-    self.mode = kEditMode;
+    if(self.modeBeforeSearch == kVisualMode) {
+        self.activeWin.restoreVisualMode(self);
+    }
+    else {
+        self.mode = kEditMode;
+    }
+
+    self.modeBeforeSearch = kEditMode;
 }
 
 Vi*% Vi*::initialize(Vi*% self) version 9
@@ -365,6 +373,7 @@ Vi*% Vi*::initialize(Vi*% self) version 9
     auto result = inherit(self);
     
     result.readSearchString("searchString.vin");
+    result.modeBeforeSearch = kEditMode;
 
     result.events.replace('/', void lambda(Vi* self, int key) 
     {
@@ -414,4 +423,3 @@ Vi*% Vi*::initialize(Vi*% self) version 9
 
     return result;
 }
-

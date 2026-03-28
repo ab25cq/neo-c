@@ -1426,6 +1426,7 @@ struct Vi
     int  searchString[128]  ;
     _Bool searchReverse;
     _Bool regexSearch;
+    int modeBeforeSearch;
     char commandString[128];
 };
 
@@ -3078,11 +3079,13 @@ void ViWin_gotoFunctionBottom(struct ViWin*  self  , struct Vi*  nvi  );
 struct Vi*  Vi_initialize_v11(struct Vi*  self  );
 void ViWin_commandModeView(struct ViWin*  self  , struct Vi*  nvi  );
 char*  ViWin_selector(struct ViWin*  self  , struct list$1char$ph* lines);
+char*  ViWin_selectFileCompletionCandidate(struct ViWin*  self  , char*  word  );
 void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_commandModeInput(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_filterTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
 void Vi_enterComandMode(struct Vi*  self  );
 void Vi_exitFromComandMode(struct Vi*  self  );
 struct Vi*  Vi_initialize_v12(struct Vi*  self  );
@@ -3150,6 +3153,7 @@ void ViWin_binaryModeView(struct ViWin*  self  , struct Vi*  nvi  );
 int xgetmaxx();
 int xgetmaxy();
 int main(int argc, char** argv);
+static _Bool is_inline_file_completion_char(int  c  );
 int*  ViWin_selector2(struct ViWin*  self  , struct list$1int$ph* lines);
 static int list$1int$ph_length(struct list$1int$ph* self);
 static int*  list$1int$ph_item(struct list$1int$ph* self, int position, int*  default_value  );
@@ -3173,6 +3177,7 @@ static struct list$1int$ph* list$1int$ph_clone(struct list$1int$ph* self);
 static struct list$1int$ph* list$1int$ph_add(struct list$1int$ph* self, int*  item  );
 static struct list$1int$ph* list$1int$ph_merge_list_with_lambda(struct list$1int$ph* left, struct list$1int$ph* right, int (*compare)(int* ,int* ));
 static struct list$1int$ph* list$1int$ph_uniq(struct list$1int$ph* self, _Bool by_pointer);
+void ViWin_completionFileName_v13(struct ViWin*  self  , struct Vi*  nvi  );
 // uniq global variable
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
@@ -3201,6 +3206,14 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 }
 
 // body function
+static _Bool is_inline_file_completion_char(int  c  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_inline_file_completion_char"; neo_current_frame = &fr;
+        neo_current_frame = fr.prev;
+    return c!=0&&c!=32&&c!=9&&c!=34&&c!=39&&c!=40&&c!=41&&c!=91&&c!=93&&c!=123&&c!=125&&c!=60&&c!=62&&c!=44&&c!=59&&c!=96;
+    neo_current_frame = fr.prev;
+}
+
 int*  ViWin_selector2(struct ViWin*  self  , struct list$1int$ph* lines)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_selector2"; neo_current_frame = &fr;
@@ -3231,9 +3244,9 @@ int*  ViWin_selector2(struct ViWin*  self  , struct list$1int$ph* lines)
         wclear(stdscr);
         maxy2=list$1int$ph_length(lines)-scrolltop;
         for(y=0        ;y<maxy&&y<maxy2;y++){
-            it=(int* )come_increment_ref_count(list$1int$ph_item(lines,scrolltop+y,((void*)0)), "13completion.nc", 22, 7);
+            it=(int* )come_increment_ref_count(list$1int$ph_item(lines,scrolltop+y,((void*)0)), "13completion.nc", 42, 7);
             __right_value0 = (void*)0;
-            line=(int* )come_increment_ref_count(wstring_substring(it,0,maxx-1), "13completion.nc", 24, 8);
+            line=(int* )come_increment_ref_count(wstring_substring(it,0,maxx-1), "13completion.nc", 44, 8);
             if(cursor==y) {
                 wattr_on(stdscr,(unsigned int )((((unsigned int )((1U))<<((10)+8)))),((void*)0));
                 mvprintw(y,0,"%ls",line);
@@ -3242,8 +3255,8 @@ int*  ViWin_selector2(struct ViWin*  self  , struct list$1int$ph* lines)
             else {
                 mvprintw(y,0,"%ls",line);
             }
-            (it = come_decrement_ref_count(it, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 35, 9));
-            (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 35, 10));
+            (it = come_decrement_ref_count(it, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 55, 9));
+            (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 55, 10));
         }
         wrefresh(stdscr);
         key=wgetch(stdscr);
@@ -3373,7 +3386,7 @@ void ViWin_completion_v13(struct ViWin*  self  , struct Vi*  nvi  )
     struct list$1int$ph* candidates2;
     int*  candidate  ;
     int*  append  ;
-    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "13completion.nc", 114, 11);
+    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "13completion.nc", 134, 11);
     p=line+self->cursorX;
     p--;
     while(p>=line) {
@@ -3387,43 +3400,43 @@ void ViWin_completion_v13(struct ViWin*  self  , struct Vi*  nvi  )
     p++;
     len=((int* )(line+self->cursorX)-p);
     __right_value0 = (void*)0;
-    word=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX-len,self->cursorX), "13completion.nc", 132, 12);
+    word=(int* )come_increment_ref_count(wstring_substring(line,self->cursorX-len,self->cursorX), "13completion.nc", 152, 12);
     __right_value0 = (void*)0;
-    candidates=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), "13completion.nc", 134, 13, "struct list$1int$ph*"), "13completion.nc", 134, 19)), "13completion.nc", 134, 20);
-    for(_o2_saved_1=(struct list$1int$ph*)come_increment_ref_count(self->texts, "13completion.nc", 136, 21),it=list$1int$ph_begin(_o2_saved_1)    ;!list$1int$ph_end(_o2_saved_1);it=list$1int$ph_next(_o2_saved_1)){
+    candidates=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_initialize((struct list$1int$ph*)come_increment_ref_count((struct list$1int$ph*)come_calloc(1, sizeof(struct list$1int$ph)*(1), "13completion.nc", 154, 13, "struct list$1int$ph*"), "13completion.nc", 154, 19)), "13completion.nc", 154, 20);
+    for(_o2_saved_1=(struct list$1int$ph*)come_increment_ref_count(self->texts, "13completion.nc", 156, 21),it=list$1int$ph_begin(_o2_saved_1)    ;!list$1int$ph_end(_o2_saved_1);it=list$1int$ph_next(_o2_saved_1)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        li=(struct list$1char$ph*)come_increment_ref_count(string_scan(((char* )(__right_value0=wstring_to_string(it))),"[a-zA-Z0-9_]+",(_Bool)0), "13completion.nc", 137, 22);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 137, 23));
-        for(_o2_saved_2=(struct list$1char$ph*)come_increment_ref_count(li, "13completion.nc", 139, 24),it2=list$1char$ph_begin(_o2_saved_2)        ;!list$1char$ph_end(_o2_saved_2);it2=list$1char$ph_next(_o2_saved_2)){
+        li=(struct list$1char$ph*)come_increment_ref_count(string_scan(((char* )(__right_value0=wstring_to_string(it))),"[a-zA-Z0-9_]+",(_Bool)0), "13completion.nc", 157, 22);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 157, 23));
+        for(_o2_saved_2=(struct list$1char$ph*)come_increment_ref_count(li, "13completion.nc", 159, 24),it2=list$1char$ph_begin(_o2_saved_2)        ;!list$1char$ph_end(_o2_saved_2);it2=list$1char$ph_next(_o2_saved_2)){
             if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X0=(string_index(it2,((char* )(__right_value0=wstring_to_string(word))),-1)==0&&strcmp(it2,((char* )(__right_value1=wstring_to_string(word))))!=0));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 140, 25));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 140, 26));
+({(_conditional_value_X0=(string_index(it2,((char* )(__right_value0=wstring_to_string(word))),-1)==0&&strcmp(it2,((char* )(__right_value1=wstring_to_string(word))))!=0));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 160, 25));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 160, 26));
 _conditional_value_X0;})) {
                 __right_value0 = (void*)0;
-                list$1int$ph_push_back(candidates,(int* )come_increment_ref_count(string_to_wstring(it2), "13completion.nc", 142, 41));
+                list$1int$ph_push_back(candidates,(int* )come_increment_ref_count(string_to_wstring(it2), "13completion.nc", 162, 41));
             }
         }
-        come_call_finalizer(list$1char$ph$p_finalize, li, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 147, 44);
-        come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 147, 45);
+        come_call_finalizer(list$1char$ph$p_finalize, li, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 167, 44);
+        come_call_finalizer(list$1char$ph$p_finalize, _o2_saved_2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 167, 45);
     }
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
-    candidates2=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_uniq(((struct list$1int$ph*)(__right_value0=list$1int$ph_sort(candidates))),(_Bool)0), "13completion.nc", 147, 148);
-    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13completion.nc}", 147, 149);
+    candidates2=(struct list$1int$ph*)come_increment_ref_count(list$1int$ph_uniq(((struct list$1int$ph*)(__right_value0=list$1int$ph_sort(candidates))),(_Bool)0), "13completion.nc", 167, 148);
+    come_call_finalizer(list$1int$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "13completion.nc}", 167, 149);
     candidate=ViWin_selector2(self,candidates2);
     if(candidate) {
         __right_value0 = (void*)0;
-        append=(int* )come_increment_ref_count(wchar_tp_substring(candidate,len,-1), "13completion.nc", 152, 150);
-        ViWin_insertText(self,(int* )come_increment_ref_count(append, "13completion.nc", 153, 151));
-        (append = come_decrement_ref_count(append, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 155, 152));
+        append=(int* )come_increment_ref_count(wchar_tp_substring(candidate,len,-1), "13completion.nc", 172, 150);
+        ViWin_insertText(self,(int* )come_increment_ref_count(append, "13completion.nc", 173, 151));
+        (append = come_decrement_ref_count(append, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 175, 152));
     }
-    (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 156, 153));
-    (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 156, 154));
-    come_call_finalizer(list$1int$ph$p_finalize, candidates, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 156, 155);
-    come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 156, 156);
-    come_call_finalizer(list$1int$ph$p_finalize, candidates2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 156, 157);
+    (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 177, 153));
+    (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 177, 154));
+    come_call_finalizer(list$1int$ph$p_finalize, candidates, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 177, 155);
+    come_call_finalizer(list$1int$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 177, 156);
+    come_call_finalizer(list$1int$ph$p_finalize, candidates2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "13completion.nc}", 177, 157);
     neo_current_frame = fr.prev;
 }
 
@@ -3975,5 +3988,53 @@ static struct list$1int$ph* list$1int$ph_uniq(struct list$1int$ph* self, _Bool b
     neo_current_frame = fr.prev;
     come_call_finalizer(list$1int$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 1535, 147);
     return __result_obj__0;
+}
+
+void ViWin_completionFileName_v13(struct ViWin*  self  , struct Vi*  nvi  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_completionFileName_v13"; neo_current_frame = &fr;
+    void* __right_value0 = (void*)0;
+    int*  line  ;
+    int*  p  ;
+    int len;
+    void* __right_value1 = (void*)0;
+    char*  word  ;
+    char*  candidate  ;
+    int*  append  ;
+    line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "13completion.nc", 179, 158);
+    p=line+self->cursorX;
+    p--;
+    while(p>=line) {
+        if(is_inline_file_completion_char(*p)) {
+            p--;
+        }
+        else {
+            break;
+        }
+    }
+    p++;
+    len=((int* )(line+self->cursorX)-p);
+    if(len<=0) {
+                (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 196, 159));
+        neo_current_frame = fr.prev;
+        return;
+    }
+    __right_value0 = (void*)0;
+    word=(char* )come_increment_ref_count(wstring_to_string(((int* )(__right_value0=wstring_substring(line,self->cursorX-len,self->cursorX)))), "13completion.nc", 199, 160);
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 199, 161));
+    __right_value0 = (void*)0;
+    candidate=(char* )come_increment_ref_count(ViWin_selectFileCompletionCandidate(self,(char* )come_increment_ref_count(word, "13completion.nc", 200, 162)), "13completion.nc", 200, 163);
+    if(strcmp(candidate,"")!=0&&strstr(candidate,word)==candidate) {
+        __right_value0 = (void*)0;
+        __right_value1 = (void*)0;
+        append=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value0=charp_substring(candidate,strlen(word),-1)))), "13completion.nc", 203, 164);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "13completion.nc", 203, 165));
+        ViWin_insertText(self,(int* )come_increment_ref_count(append, "13completion.nc", 204, 166));
+        (append = come_decrement_ref_count(append, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 206, 167));
+    }
+    (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 207, 168));
+    (word = come_decrement_ref_count(word, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 207, 169));
+    (candidate = come_decrement_ref_count(candidate, (void*)0, (void*)0, 0, 0, (void*)0, "13completion.nc", 207, 170));
+    neo_current_frame = fr.prev;
 }
 

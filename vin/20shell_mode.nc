@@ -80,7 +80,14 @@ void ViWin*::inputShellMode(ViWin* self, Vi* nvi)
         }
     }
     else if(key == 'X' - 'A' +1) {
-        self.completion_neo_c2(nvi);
+        auto key2 = self.getKey(false);
+
+        if(key2 == 'F' - 'A' + 1) {
+            self.completionFileName(nvi);
+        }
+        else if(key2 == 'X' - 'A' + 1) {
+            self.completion_neo_c2(nvi);
+        }
     }
     else if(key > 127) {
         auto size = ((key & 0x80) >> 7) + ((key & 0x40) >> 6) + ((key & 0x20) >> 5) + ((key & 0x10) >> 4);
@@ -211,4 +218,3 @@ Vi*% Vi*::initialize(Vi*% self) version 20
 
     return result;
 }
-

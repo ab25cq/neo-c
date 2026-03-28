@@ -5,6 +5,29 @@
 #endif
 #endif
 #include <signal.h>
+#include <sys/ioctl.h>
+
+static volatile sig_atomic_t gInterruptRepetitionRequested = 0;
+
+static void handle_repeat_interrupt(int signum)
+{
+    gInterruptRepetitionRequested = 1;
+}
+
+static int peek_repeat_interrupt_key(WINDOW* win)
+{
+    int nread = 0;
+
+    if(ioctl(STDIN_FILENO, FIONREAD, &nread) == 0 && nread > 0) {
+        nodelay(win, true);
+        int key = wgetch(win);
+        nodelay(win, false);
+
+        return key;
+    }
+
+    return ERR;
+}
 
 void mreset_tty()
 {
@@ -14,6 +37,8 @@ void mreset_tty()
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 14
 {
     auto result = inherit(self, y, x, width, height, vi);
+
+    signal(SIGINT, handle_repeat_interrupt);
 
     result.inputedKeys = new list<int>.initialize();
     result.autoInput = false;
@@ -95,6 +120,32 @@ bool ViWin*::loadDotFromFile(ViWin* self, Vi* nvi)
 int ViWin*::getKey(ViWin* self, bool head) version 14
 {
     if(self.runningMacro) {
+        if(gInterruptRepetitionRequested) {
+            gInterruptRepetitionRequested = 0;
+            self.runningMacro = null;
+            self.runningMacroIndex1 = 0;
+            self.runningMacroIndex2 = 0;
+
+            return 3;
+        }
+
+        int real_key = peek_repeat_interrupt_key(self.win);
+
+        if(real_key == 3) {
+            self.runningMacro = null;
+            self.runningMacroIndex1 = 0;
+            self.runningMacroIndex2 = 0;
+
+            if(self.inputedKeys.length() < SAVE_INPUT_KEY_MAX) {
+                self.inputedKeys.push_back(real_key);
+            }
+
+            return real_key;
+        }
+        else if(real_key != ERR) {
+            ungetch(real_key);
+        }
+
         if(self.runningMacroIndex1 >= self.runningMacro.length())
         {
             self.runningMacro = null;
@@ -122,6 +173,32 @@ int ViWin*::getKey(ViWin* self, bool head) version 14
     
     if(self.autoInput && self.savedInputedKeys) 
     {
+        if(gInterruptRepetitionRequested) {
+            gInterruptRepetitionRequested = 0;
+            self.autoInput = false;
+            self.autoInputIndex = 0;
+            self.pressedDot = false;
+
+            return 3;
+        }
+
+        int real_key = peek_repeat_interrupt_key(self.win);
+
+        if(real_key == 3) {
+            self.autoInput = false;
+            self.autoInputIndex = 0;
+            self.pressedDot = false;
+
+            if(self.inputedKeys.length() < SAVE_INPUT_KEY_MAX) {
+                self.inputedKeys.push_back(real_key);
+            }
+
+            return real_key;
+        }
+        else if(real_key != ERR) {
+            ungetch(real_key);
+        }
+
         if(self.autoInputIndex < self.savedInputedKeys.length()) {
             int key = self.savedInputedKeys.item(self.autoInputIndex, -1);
             self.autoInputIndex++;

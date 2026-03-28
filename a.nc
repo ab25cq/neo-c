@@ -10,9 +10,9 @@ void fun2() {
 }
 
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     fun2();
     
     return 0;
 }
+

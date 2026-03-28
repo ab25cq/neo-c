@@ -1,5 +1,25 @@
 #include "common.h"
 
+static bool is_inline_file_completion_char(wchar_t c)
+{
+    return c != '\0'
+        && c != ' '
+        && c != '\t'
+        && c != '"'
+        && c != '\''
+        && c != '('
+        && c != ')'
+        && c != '['
+        && c != ']'
+        && c != '{'
+        && c != '}'
+        && c != '<'
+        && c != '>'
+        && c != ','
+        && c != ';'
+        && c != '`';
+}
+
 wchar_t* ViWin*::selector2(ViWin* self, list<wstring>* lines) 
 {
     wchar_t* result = null;
@@ -150,6 +170,37 @@ void ViWin*::completion(ViWin* self, Vi* nvi) version 13
     
     if(candidate) {
         auto append = candidate.substring(len, -1);
+        self.insertText(append);
+    }
+}
+
+void ViWin*::completionFileName(ViWin* self, Vi* nvi) version 13
+{
+    auto line = self.texts.item(self.scroll+self.cursorY, null);
+
+    wchar_t* p = line + self.cursorX;
+    p--;
+
+    while(p >= line) {
+        if(is_inline_file_completion_char(*p)) {
+            p--;
+        }
+        else {
+            break;
+        }
+    }
+    p++;
+
+    int len = ((wchar_t*)(line + self.cursorX) - p);
+    if(len <= 0) {
+        return;
+    }
+
+    auto word = line.substring(self.cursorX-len, self.cursorX).to_string();
+    auto candidate = self.selectFileCompletionCandidate(word);
+
+    if(strcmp(candidate, "") != 0 && strstr(candidate, word) == candidate) {
+        auto append = candidate.substring(strlen(word), -1).to_wstring();
         self.insertText(append);
     }
 }
