@@ -1,8 +1,18 @@
 #include <neo-c.h>
 
+void fun() {
+    stackframe();
+    char* a = borrow new char[3];
+}
+
+void fun2() {
+    fun();
+}
+
+
 int main(int argc, char** argv)
 {
-    [1,2,3,4,5,6].any { it == 6 }.to_string().puts();   // true
+    fun2();
     
     return 0;
 }
