@@ -2072,7 +2072,7 @@ unsigned long  int  wcsftime_l(int* __restrict  __s  , unsigned long  int  __max
 void stackframe();
 void stackframe2(void* mem);
 _Bool die(const char* msg, char* sname, int sline);
-void come_heap_final();
+void come_memleak_checker();
 void* alloc_from_pages(unsigned long  int  size  );
 void come_free_mem_of_heap_pool(void* mem);
 void* come_alloc_mem_from_heap_pool(unsigned long  int  compiletime_size  , unsigned long  int  size  , const char* sname, int sline, int id, const char* class_name);

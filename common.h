@@ -1615,9 +1615,9 @@ uniq class sFunNode extends sNodeBase
                 add_come_code_no_indent(info, "neo_current_frame = fr.prev;\n");
             }
             
-            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs[s"come_heap_final"]) {
+            if(!gComeC && info.come_fun.mName === "main" && !info.inhibits_output_code2 && info.funcs[s"come_memleak_checker"]) {
                 free_objects(info->gv_table, null@ret_value, info);
-                add_come_code(info, xsprintf("come_heap_final();\n"));
+                add_come_code(info, xsprintf("come_memleak_checker();\n"));
             }
         }
         

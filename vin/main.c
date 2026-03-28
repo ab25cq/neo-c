@@ -2992,7 +2992,7 @@ static void list_item$1lambda$$p_finalize(struct list_item$1lambda$* self);
 void stackframe();
 void stackframe2(void* mem);
 _Bool die(const char* msg, char* sname, int sline);
-void come_heap_final();
+void come_memleak_checker();
 void* alloc_from_pages(unsigned long  int  size  );
 void come_free_mem_of_heap_pool(void* mem);
 void* come_alloc_mem_from_heap_pool(unsigned long  int  compiletime_size  , unsigned long  int  size  , const char* sname, int sline, int id, const char* class_name);
@@ -3320,7 +3320,7 @@ int main(int argc, char** argv)
         __result_obj__0 = result;
     come_call_finalizer(Vi_finalize, vi, (void*)0, (void*)0, 0, 0, 0, (void*)0, "main.nc}", 104, 44);
     neo_current_frame = fr.prev;
-    come_heap_final();
+    come_memleak_checker();
     return __result_obj__0;
 }
 
@@ -3691,9 +3691,9 @@ _Bool die(const char* msg, char* sname, int sline)
     neo_current_frame = fr.prev;
 }
 
-void come_heap_final()
+void come_memleak_checker()
 {
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_heap_final"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_memleak_checker"; neo_current_frame = &fr;
     struct sMemHeader*  it  ;
     int n;
     _Bool flag;

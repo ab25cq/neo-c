@@ -99,9 +99,9 @@ class sReturnNode extends sNodeBase
                     add_come_code(info, "neo_current_frame = fr.prev;\n");
                 }
                 
-                if(!gComeC && info.come_fun.mName === "main" && info.funcs[s"come_heap_final"]) {
+                if(!gComeC && info.come_fun.mName === "main" && info.funcs[s"come_memleak_checker"]) {
                     free_objects(info->gv_table, null@ret_value, info);
-                    add_come_code(info, xsprintf("come_heap_final();\n"));
+                    add_come_code(info, xsprintf("come_memleak_checker();\n"));
                 }
                 
                 if(result_type2.mHeap) {
@@ -137,7 +137,7 @@ class sReturnNode extends sNodeBase
             
             if(!gComeC && info.come_fun.mName === "main") {
                 free_objects(info->gv_table, null@ret_value, info);
-                add_come_code(info, xsprintf("come_heap_final();\n"));
+                add_come_code(info, xsprintf("come_memleak_checker();\n"));
             }
             
             add_come_code(info, "return;\n");

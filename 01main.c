@@ -2397,7 +2397,7 @@ int main(int argc, char** argv);
 void stackframe();
 void stackframe2(void* mem);
 _Bool die(const char* msg, char* sname, int sline);
-void come_heap_final();
+void come_memleak_checker();
 void* alloc_from_pages(unsigned long  int  size  );
 void come_free_mem_of_heap_pool(void* mem);
 void* come_alloc_mem_from_heap_pool(unsigned long  int  compiletime_size  , unsigned long  int  size  , const char* sname, int sline, int id, const char* class_name);
@@ -2766,7 +2766,6 @@ int main(int argc, char** argv)
     setlocale(6,"");
         __result_obj__0 = come_main(argc,argv);
     neo_current_frame = fr.prev;
-    come_heap_final();
     return __result_obj__0;
 }
 
@@ -2827,9 +2826,9 @@ _Bool die(const char* msg, char* sname, int sline)
     neo_current_frame = fr.prev;
 }
 
-void come_heap_final()
+void come_memleak_checker()
 {
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_heap_final"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_memleak_checker"; neo_current_frame = &fr;
     struct sMemHeader*  it  ;
     int n;
     _Bool flag;
@@ -10898,12 +10897,12 @@ _Bool sFunNode_compile(struct sFunNode* self, struct sInfo*  info  )
         }
         if(__right_value0 = (void*)0,
 __right_value1 = (void*)0,
-({(_conditional_value_X0=(!gComeC&&string_operator_equals(info->come_fun->mName,"main")&&!info->inhibits_output_code2&&((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=xsprintf("come_heap_final"))))))));        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1618, 1541));
+({(_conditional_value_X0=(!gComeC&&string_operator_equals(info->come_fun->mName,"main")&&!info->inhibits_output_code2&&((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char*)(__right_value1=xsprintf("come_memleak_checker"))))))));        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1618, 1541));
         come_call_finalizer(sFun_finalize, __right_value2, (void*)0, (void*)0, 0, 1, 0, (void*)0, "./common.h}", 1618, 1542);
 _conditional_value_X0;})) {
             free_objects(info->gv_table,((void*)0),info,(_Bool)0);
             __right_value0 = (void*)0;
-            add_come_code(info,((char* )(__right_value0=xsprintf("come_heap_final();\n"))));
+            add_come_code(info,((char* )(__right_value0=xsprintf("come_memleak_checker();\n"))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "./common.h", 1620, 1543));
         }
     }

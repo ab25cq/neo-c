@@ -239,7 +239,7 @@ uniq sMemHeader* gAllocMem = (void*)0;
 uniq sMemHeader* gFreeMem = (void*)0;
 }
 
-uniq void come_heap_final()
+uniq void come_memleak_checker()
 {
     using unsafe;
     
