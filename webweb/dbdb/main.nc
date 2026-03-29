@@ -94,10 +94,31 @@ struct sInfo
     string current_db_name;
 };
 
+void write_log_message(const char* message)
+{
+    FILE* f = fopen("database.log", "a");
+    if(f != null) {
+        fprintf(f, "%s", message);
+        fclose(f);
+    }
+}
+
+void write_response(int socket, const char* message)
+{
+    write(socket, message, strlen(message));
+    write_log_message(message);
+}
+
+void write_response_string(int socket, string message)
+{
+    write(socket, message, strlen(message));
+    write_log_message(message);
+}
+
 void skip_spaces(sInfo* info=info) 
 {
     while(*info.p == ' ' || *info.p == '\t') {
-        info->p.p++;
+        info->p++;
     }
 }
 
@@ -114,7 +135,7 @@ string parse_word(sInfo* info=info)
         }
         else {
             buf.append_char(*info.p);
-            info->p.p++;
+            info->p++;
         }
     }
     skip_spaces();
@@ -125,7 +146,7 @@ string parse_word(sInfo* info=info)
 bool expected_next_charactor(char c, sInfo* info=info)
 {
     if(*info.p == c) {
-        info->p.p++;
+        info->p++;
         skip_spaces();
     }
     else {
@@ -150,12 +171,12 @@ string, sType*%, bool parse_type(sInfo* info=info)
     
     while(1) {
         if(*info.p == '(') {
-            info->p.p++;
+            info->p++;
             skip_spaces();
             int n = 0;
             while(xisdigit(*info.p)) {
                 n = n * 10 + *info.p - '0';
-                info->p.p++;
+                info->p++;
                 skip_spaces();
             }
             skip_spaces();
@@ -164,20 +185,20 @@ string, sType*%, bool parse_type(sInfo* info=info)
             
             expected_next_charactor(')')
         }
-        else if(strncmp(info->p.p, "AUTO_INCREMENT", strlen("AUTO_INCREMENT")) == 0) {
-            info->p.p += strlen("AUTO_INCREMENT");
+        else if(strncmp(info->p, "AUTO_INCREMENT", strlen("AUTO_INCREMENT")) == 0) {
+            info->p += strlen("AUTO_INCREMENT");
             skip_spaces();
             
             auto_increment = true;
         }
-        else if(strncmp(info->p.p, "PRIMARY KEY", strlen("PRIMARY KEY")) == 0) {
-            info->p.p += strlen("PRIMARY KEY");
+        else if(strncmp(info->p, "PRIMARY KEY", strlen("PRIMARY KEY")) == 0) {
+            info->p += strlen("PRIMARY KEY");
             skip_spaces();
             
             primary_key = true;
         }
-        else if(strncmp(info->p.p, "NOT NULL", strlen("NOT NULL")) == 0) {
-            info->p.p += strlen("NOT NULL");
+        else if(strncmp(info->p, "NOT NULL", strlen("NOT NULL")) == 0) {
+            info->p += strlen("NOT NULL");
             skip_spaces();
             
             not_null = true;
@@ -194,13 +215,13 @@ string, sType*%, bool parse_type(sInfo* info=info)
 
 bool eval_create_table(sInfo* info)
 {
-    info->p.p += strlen("CREATE TABLE");
+    info->p += strlen("CREATE TABLE");
     
     skip_spaces();
     
     bool if_not_exists = false;
-    if(strncmp(info->p.p, "IF NOT EXISTS", strlen("IF NOT EXISTS")) == 0) {
-        info->p.p += strlen("IF NOT EXISTS");
+    if(strncmp(info->p, "IF NOT EXISTS", strlen("IF NOT EXISTS")) == 0) {
+        info->p += strlen("IF NOT EXISTS");
         skip_spaces();
         if_not_exists = true;
     }
@@ -227,6 +248,9 @@ bool eval_create_table(sInfo* info)
     expected_next_charactor(')')
     
     Database*% current_db = gDatabases[info.current_db_name];
+    if(current_db == null) {
+        return false;
+    }
     
     if(current_db.tables[table_name] == null) {
         current_db.tables.insert(table_name, new Table(table_name, types));
@@ -244,29 +268,29 @@ bool eval_create_table(sInfo* info)
 string parse_value(sInfo* info=info)
 {
     if(*info.p == '\'') {
-        info->p.p++;
+        info->p++;
         skip_spaces();
         
         buffer*% buf = new buffer();
         
         while(1) {
             if(*info.p == '\\') {
-                info->p.p++;
+                info->p++;
                 if(*info.p != '\0') {
                     buf.append_char(*info.p);
-                    info->p.p++;
+                    info->p++;
                 }
             }
             else if(*info.p == '\0') {
                 break;
             }
             else if(*info.p == '\'') {
-                info->p.p++;
+                info->p++;
                 break;
             }
             else {
                 buf.append_char(*info.p);
-                info->p.p++;
+                info->p++;
             }
         }
         
@@ -279,7 +303,7 @@ string parse_value(sInfo* info=info)
 
 bool eval_insert_into(sInfo* info)
 {
-    info->p.p += strlen("INSERT INTO");
+    info->p += strlen("INSERT INTO");
     
     skip_spaces();
     
@@ -304,8 +328,8 @@ bool eval_insert_into(sInfo* info)
     
     expected_next_charactor(')')
     
-    if(strncmp(info->p.p, "VALUES", strlen("VALUES")) == 0) {
-        info->p.p += strlen("VALUES");
+    if(strncmp(info->p, "VALUES", strlen("VALUES")) == 0) {
+        info->p += strlen("VALUES");
     }
     
     skip_spaces();
@@ -332,6 +356,9 @@ bool eval_insert_into(sInfo* info)
     }
     
     Database*% current_db = gDatabases[info.current_db_name];
+    if(current_db == null) {
+        return false;
+    }
     
     Table*% table = current_db.tables[table_name];
     
@@ -350,7 +377,10 @@ bool eval_insert_into(sInfo* info)
         
         int last_index = table.rows.length();
         
-        map<string, string>* last_row = borrow table.rows[last_index-1];
+        map<string, string>* last_row = null;
+        if(last_index > 0) {
+            last_row = borrow table.rows[last_index-1];
+        }
         
         if(last_row) {
             foreach(it, table.types) {
@@ -409,7 +439,7 @@ WhereNode*% parse_where(sInfo* info=info)
     
     WhereNode*% result = null;
     if(*info.p == '=') {
-        info->p.p++;
+        info->p++;
         skip_spaces();
         
         string str2;
@@ -424,8 +454,8 @@ WhereNode*% parse_where(sInfo* info=info)
         
         result = new WhereNode(left, right, kWOEq, null);
     }
-    else if(strncmp(info->p.p, "!=", 2) == 0) {
-        info->p.p+=2;
+    else if(strncmp(info->p, "!=", 2) == 0) {
+        info->p+=2;
         skip_spaces();
         
         string str2;
@@ -440,8 +470,8 @@ WhereNode*% parse_where(sInfo* info=info)
         
         result = new WhereNode(left, right, kWONotEq, null);
     }
-    else if(strncmp(info->p.p, ">=", 2) == 0) {
-        info->p.p+=2;
+    else if(strncmp(info->p, ">=", 2) == 0) {
+        info->p+=2;
         skip_spaces();
         
         string str2;
@@ -456,8 +486,8 @@ WhereNode*% parse_where(sInfo* info=info)
         
         result = new WhereNode(left, right, kWOGtEq, null);
     }
-    else if(strncmp(info->p.p, "<=", 2) == 0) {
-        info->p.p+=2;
+    else if(strncmp(info->p, "<=", 2) == 0) {
+        info->p+=2;
         skip_spaces();
         
         string str2;
@@ -473,7 +503,7 @@ WhereNode*% parse_where(sInfo* info=info)
         result = new WhereNode(left, right, kWOLtEq, null);
     }
     else if(*info.p == '>') {
-        info->p.p++;
+        info->p++;
         skip_spaces();
         
         string str2;
@@ -489,7 +519,7 @@ WhereNode*% parse_where(sInfo* info=info)
         result = new WhereNode(left, right, kWOGt, null);
     }
     else if(*info.p == '<') {
-        info->p.p++;
+        info->p++;
         skip_spaces();
         
         string str2;
@@ -507,16 +537,16 @@ WhereNode*% parse_where(sInfo* info=info)
     
     skip_spaces();
     
-    if(strncmp(info->p.p, "AND", strlen("AND")) == 0) {
-        info->p.p += strlen("AND");
+    if(strncmp(info->p, "AND", strlen("AND")) == 0) {
+        info->p += strlen("AND");
         skip_spaces();
         
         WhereNode*% right = parse_where();
         
         result = new WhereNode(result, right, kWOAnd, null);
     }
-    else if(strncmp(info->p.p, "OR", strlen("OR")) == 0) {
-        info->p.p += strlen("OR");
+    else if(strncmp(info->p, "OR", strlen("OR")) == 0) {
+        info->p += strlen("OR");
         skip_spaces();
         
         WhereNode*% right = parse_where();
@@ -534,6 +564,9 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
                 char* right = borrow where_node.right.v1.data;
+                if(left == null) {
+                    return false;
+                }
                 
                 int right_int_value = atoi(right);
                 
@@ -541,7 +574,7 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
                     return left === right;
                 }
                 else {
-                    return atoi(left) == right;
+                    return atoi(left) == right_int_value;
                 }
             }
             else {
@@ -554,6 +587,9 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
                 char* right = borrow where_node.right.v1.data;
+                if(left == null) {
+                    return false;
+                }
                 
                 int right_int_value = atoi(right);
                 
@@ -561,7 +597,7 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
                     return left !== right;
                 }
                 else {
-                    return atoi(left) != right;
+                    return atoi(left) != right_int_value;
                 }
             }
             else {
@@ -574,6 +610,9 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
                 char* right = borrow where_node.right.v1.data;
+                if(left == null) {
+                    return false;
+                }
                 
                 int right_int_value = atoi(right);
                 
@@ -581,7 +620,7 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
                     return false;
                 }
                 else {
-                    return atoi(left) < right;
+                    return atoi(left) < right_int_value;
                 }
             }
             else {
@@ -594,6 +633,9 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
                 char* right = borrow where_node.right.v1.data;
+                if(left == null) {
+                    return false;
+                }
                 
                 int right_int_value = atoi(right);
                 
@@ -601,7 +643,7 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
                     return false;
                 }
                 else {
-                    return atoi(left) <= right;
+                    return atoi(left) <= right_int_value;
                 }
             }
             else {
@@ -614,6 +656,9 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
                 char* right = borrow where_node.right.v1.data;
+                if(left == null) {
+                    return false;
+                }
                 
                 int right_int_value = atoi(right);
                 
@@ -621,7 +666,7 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
                     return false;
                 }
                 else {
-                    return atoi(left) > right;
+                    return atoi(left) > right_int_value;
                 }
             }
             else {
@@ -634,6 +679,9 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
             if(where_node.left.v1.op == kWOData && where_node.right.v1.op == kWOData) {
                 char*% left = row[where_node.left.v1.data];
                 char* right = borrow where_node.right.v1.data;
+                if(left == null) {
+                    return false;
+                }
                 
                 int right_int_value = atoi(right);
                 
@@ -641,7 +689,7 @@ bool where_select(map<string,string>* row, WhereNode* where_node)
                     return false;
                 }
                 else {
-                    return atoi(left) >= right;
+                    return atoi(left) >= right_int_value;
                 }
             }
             else {
@@ -690,7 +738,7 @@ bool like(char *str, char *pattern)
 
 bool eval_select_from(const char* deliminater="\n", sInfo* info)
 {
-    info->p.p += strlen("SELECT");
+    info->p += strlen("SELECT");
     
     skip_spaces();
     
@@ -699,12 +747,12 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
     list<string>*% field_names = new list<string>();
     map<string,bool>*% max_field = new map<string,bool>();
     if(*info.p =='*') {
-        info->p.p++;
+        info->p++;
         skip_spaces();
         all_ = true;
         
-        if(strncmp(info->p.p, "FROM", strlen("FROM")) == 0) {
-            info->p.p += strlen("FROM");
+        if(strncmp(info->p, "FROM", strlen("FROM")) == 0) {
+            info->p += strlen("FROM");
             skip_spaces();
         }
     }
@@ -712,8 +760,8 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
         while(1) {
             string field = null;
             bool max_flag = false;
-            if(strncmp(info->p.p, "MAX(", strlen("MAX(")) == 0) {
-                info->p.p += strlen("MAX(");
+            if(strncmp(info->p, "MAX(", strlen("MAX(")) == 0) {
+                info->p += strlen("MAX(");
                 field = parse_word();
                 expected_next_charactor(')');
                 max_flag = max_ = true;
@@ -725,8 +773,8 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
             field_names.add(field);
             max_field.insert(field, max_flag);
             
-            if(strncmp(info->p.p, "FROM", strlen("FROM")) == 0) {
-                info->p.p += strlen("FROM");
+            if(strncmp(info->p, "FROM", strlen("FROM")) == 0) {
+                info->p += strlen("FROM");
                 skip_spaces();
                 break;
             }
@@ -749,21 +797,21 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
     tuple2<string, string>*% between_values = null;
     string like_value = null;
     string not_like_value = null;
-    if(strncmp(info->p.p, "WHERE", strlen("WHERE")) == 0) {
-        info->p.p += strlen("WHERE");
+    if(strncmp(info->p, "WHERE", strlen("WHERE")) == 0) {
+        info->p += strlen("WHERE");
         skip_spaces();
         
-        char* p = info->p.p;
+        char* p = info->p;
         
         string tmp = parse_word();
         
-        if(strncmp(info->p.p, "IN", strlen("IN")) == 0 || strncmp(info->p.p, "NOT IN", strlen("NOT IN")) == 0) {
-            if(strncmp(info->p.p, "IN", strlen("IN")) == 0) {
-                info->p.p += strlen("IN");
+        if(strncmp(info->p, "IN", strlen("IN")) == 0 || strncmp(info->p, "NOT IN", strlen("NOT IN")) == 0) {
+            if(strncmp(info->p, "IN", strlen("IN")) == 0) {
+                info->p += strlen("IN");
                 skip_spaces();
             }
             else {
-                info->p.p += strlen("NOT IN");
+                info->p += strlen("NOT IN");
                 skip_spaces();
                 not_in = true;
             }
@@ -780,7 +828,7 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                     return false;
                 }
                 else if(*info.p == ')') {
-                    info->p.p++;
+                    info->p++;
                     skip_spaces();
                     break;
                 }
@@ -788,8 +836,8 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                 expected_next_charactor(',');
             }
         }
-        else if(strncmp(info->p.p, "BETWEEN", strlen("BETWEEN")) == 0) {
-            info->p.p += strlen("BETWEEN");
+        else if(strncmp(info->p, "BETWEEN", strlen("BETWEEN")) == 0) {
+            info->p += strlen("BETWEEN");
             skip_spaces();
             
             between_target = tmp;
@@ -798,8 +846,8 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
             
             skip_spaces();
             
-            if(strncmp(info->p.p, "AND", strlen("AND")) == 0) {
-                info->p.p += strlen("AND");
+            if(strncmp(info->p, "AND", strlen("AND")) == 0) {
+                info->p += strlen("AND");
                 skip_spaces();
             }
             
@@ -808,8 +856,8 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
             
             between_values = t(value, value2);
         }
-        else if(strncmp(info->p.p, "LIKE", strlen("LIKE")) == 0) {
-            info->p.p += strlen("LIKE");
+        else if(strncmp(info->p, "LIKE", strlen("LIKE")) == 0) {
+            info->p += strlen("LIKE");
             skip_spaces();
             
             like_target = tmp;
@@ -818,8 +866,8 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
             
             like_value = value;
         }
-        else if(strncmp(info->p.p, "NOT LIKE", strlen("NOT LIKE")) == 0) {
-            info->p.p += strlen("NOT LIKE");
+        else if(strncmp(info->p, "NOT LIKE", strlen("NOT LIKE")) == 0) {
+            info->p += strlen("NOT LIKE");
             skip_spaces();
             
             not_like_target = tmp;
@@ -829,7 +877,7 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
             not_like_value = value;
         }
         else {
-            info->p.p = p;
+            info->p = p;
             
             where_node = parse_where();
         }
@@ -840,6 +888,9 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
     }
     
     Database*% current_db = gDatabases[info.current_db_name];
+    if(current_db == null) {
+        return false;
+    }
     
     Table*% table = current_db.tables[table_name];
     
@@ -906,7 +957,6 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                                 string value2 = value + string(deliminater);
                                 buf.append_str(value2);
                             }
-                            break;
                         }
                     }
                 }
@@ -924,7 +974,6 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                                 string value2 = value + string(deliminater);
                                 buf.append_str(value2);
                             }
-                            break;
                         }
                     }
                 }
@@ -948,7 +997,6 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                             string value2 = value + string(deliminater);
                             buf.append_str(value2);
                         }
-                        break;
                     }
                 }
             }
@@ -969,7 +1017,6 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                             string value2 = value + string(deliminater);
                             buf.append_str(value2);
                         }
-                        break;
                     }
                 }
             }
@@ -991,7 +1038,6 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                             string value2 = value + string(deliminater);
                             buf.append_str(value2);
                         }
-                        break;
                     }
                 }
             }
@@ -1011,7 +1057,6 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                             string value2 = value + string(deliminater);
                             buf.append_str(value2);
                         }
-                        break;
                     }
                 }
             }
@@ -1033,7 +1078,6 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                             string value2 = value + string(deliminater);
                             buf.append_str(value2);
                         }
-                        break;
                     }
                 }
             }
@@ -1053,7 +1097,6 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
                             string value2 = value + string(deliminater);
                             buf.append_str(value2);
                         }
-                        break;
                     }
                 }
             }
@@ -1145,16 +1188,10 @@ bool eval_select_from(const char* deliminater="\n", sInfo* info)
         
         if(str === "") {
             const char *not_found = "NOT FOUND\n";
-            write(info->socket, not_found, strlen(not_found));
-FILE* f = fopen("database.log", "a");
-fprintf(f, "%s\n", not_found);
-fclose(f);
+            write_response(info->socket, not_found);
         }
         else {
-            write(info->socket, str, str.length());
-FILE* f = fopen("database.log", "a");
-fprintf(f, "%s\n", str);
-fclose(f);
+            write_response_string(info->socket, str);
         }
     }
     else {
@@ -1168,6 +1205,9 @@ string show_tables(sInfo* info=info)
 {
     var buf = new buffer();
     Database*% current_db = gDatabases[info.current_db_name];
+    if(current_db == null) {
+        return xsprintf("");
+    }
     
     foreach(it, current_db.tables) {
         Table*% table = current_db.tables[it];
@@ -1197,17 +1237,16 @@ int main() {
         }
         data[size] = '\0';
         
-FILE* f = fopen("database.log", "a");
-fprintf(f, "Recived: %s\n", data);
-fclose(f);
+        string recv_log = xsprintf("Recived: %s\n", data);
+        write_log_message(recv_log);
         
         char* p = data;
         
-        info->p.p = p;
-        info->socket = it;
+        info.p = p;
+        info.socket = it;
         
-        if(strncmp(info->p.p, "use", strlen("use")) == 0) {
-            info->p.p += strlen("use");
+        if(strncmp(info.p, "use", strlen("use")) == 0) {
+            info.p += strlen("use");
             skip_spaces(&info);
             
             string word = parse_word(&info);
@@ -1216,41 +1255,29 @@ fclose(f);
                 info.current_db_name = word;
                 
                 const char *ok_message = "OK\n";
-                write(it, ok_message, strlen(ok_message));
-FILE* f = fopen("database.log", "a");
-fprintf(f, "%s\n", ok_message);
-fclose(f);
+                write_response(it, ok_message);
             }
             else {
                 const char *not_found = "NOT FOUND\n";
-                write(it, not_found, strlen(not_found));
-FILE* f = fopen("database.log", "a");
-fprintf(f, "%s\n", not_found);
-fclose(f);
+                write_response(it, not_found);
             }
         }
-        else if(strncmp(info->p.p, "show tables", strlen("show tables")) == 0) {
-            info->p.p += strlen("show tables");
+        else if(strncmp(info.p, "show tables", strlen("show tables")) == 0) {
+            info.p += strlen("show tables");
             skip_spaces(&info);
             
             if(info.current_db_name) {
                 string str = show_tables(&info);
                 
-                write(it, str, strlen(str));
-FILE* f = fopen("database.log", "a");
-fprintf(f, "%s\n", str);
-fclose(f);
+                write_response_string(it, str);
             }
             else {
                 const char *not_found = "NOT FOUND\n";
-                write(it, not_found, strlen(not_found));
-FILE* f = fopen("database.log", "a");
-fprintf(f, "%s\n", not_found);
-fclose(f);
+                write_response(it, not_found);
             }
         }
-        else if(strncmp(info->p.p, "CREATE DATABASE", strlen("CREATE DATABASE")) == 0) {
-            info->p.p += strlen("CREATE DATABASE");
+        else if(strncmp(info.p, "CREATE DATABASE", strlen("CREATE DATABASE")) == 0) {
+            info.p += strlen("CREATE DATABASE");
             skip_spaces(&info);
             
             string word = parse_word(&info);
@@ -1260,46 +1287,43 @@ fclose(f);
             }
             
             const char *ok_message = "OK\n";
-            write(it, ok_message, strlen(ok_message));
-FILE* f = fopen("database.log", "a");
-fprintf(f, "%s\n", ok_message);
-fclose(f);
+            write_response(it, ok_message);
         }
-        else if(strncmp(info->p.p, "CREATE TABLE", strlen("CREATE TABLE")) == 0) {
+        else if(strncmp(info.p, "CREATE TABLE", strlen("CREATE TABLE")) == 0) {
             if(!eval_create_table(&info)) {
-FILE* f = fopen("database.log", "a");
-fprintf(f, "FAILED\n");
-fclose(f);
+                const char *failed_message = "FAILED\n";
+                write_response(it, failed_message);
                 return;
             }
             
             const char *ok_message = "OK\n";
-            write(it, ok_message, strlen(ok_message));
-FILE* f = fopen("database.log", "a");
-fprintf(f, "%s\n", ok_message);
-fclose(f);
+            write_response(it, ok_message);
         }
-        else if(strncmp(info->p.p, "INSERT INTO", strlen("INSERT INTO")) == 0) {
+        else if(strncmp(info.p, "INSERT INTO", strlen("INSERT INTO")) == 0) {
             if(!eval_insert_into(&info)) {
+                const char *failed_message = "FAILED\n";
+                write_response(it, failed_message);
                 return;
             }
             
             const char *ok_message = "OK\n";
-            write(it, ok_message, strlen(ok_message));
-FILE* f = fopen("database.log", "a");
-fprintf(f, "%s\n", ok_message);
-fclose(f);
+            write_response(it, ok_message);
         }
-        else if(strncmp(info->p.p, "SELECT", strlen("SELECT")) == 0) {
+        else if(strncmp(info.p, "SELECT", strlen("SELECT")) == 0) {
             if(!eval_select_from("\n", &info)) {
+                const char *failed_message = "FAILED\n";
+                write_response(it, failed_message);
                 return;
             }
         }
-        else if(strncmp(info->p.p, "exit", strlen("exit")) == 0) {
+        else if(strncmp(info.p, "exit", strlen("exit")) == 0) {
             *it2 = true;
             return;
+        }
+        else {
+            const char *failed_message = "FAILED\n";
+            write_response(it, failed_message);
         }
     }
     return 0;
 }
-

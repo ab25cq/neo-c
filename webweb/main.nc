@@ -1,18 +1,18 @@
-#include <sys/stat.h>
 #include <neo-c-net.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <signal.h>
-#include <stdint.h>
 
 static SSL* gSSL = NULL;
 
 void handle_sigint(int sig) {
     printf("Caught signal %d, closing socket...\n", sig);
     if(gSSL) {
+        int fd = SSL_get_fd(gSSL);
         SSL_shutdown(gSSL);
         SSL_free(gSSL);
-        
-        int fd = SSL_get_fd(gSSL);
+
         if (fd >= 0) {
             close(fd);
         }
@@ -88,16 +88,175 @@ tuple2<string, int>*% xpopen(char** argv, string input)
             }
         }
         close(pipe_out[0]);
+
+        int status = 0;
+        waitpid(pid, &status, 0);
+
+        if(!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+            return t(output.to_string(), 1);
+        }
     }
 
     return t(output.to_string(), 0);
 }
 
+string get_cookie_header_value(string header)
+{
+    return header.scan("Cookie: ([^\r\n]+)")[0];
+}
+
+const char* get_content_type(string file_path)
+{
+    string ext_name = xextname(file_path);
+
+    if(ext_name === "jpg" || ext_name === "jpeg") {
+        return "image/jpeg";
+    }
+    else if(ext_name === "png") {
+        return "image/png";
+    }
+    else if(ext_name === "gif") {
+        return "image/gif";
+    }
+    else if(ext_name === "css") {
+        return "text/css; charset=UTF-8";
+    }
+    else if(ext_name === "js") {
+        return "application/javascript; charset=UTF-8";
+    }
+    else if(ext_name === "txt") {
+        return "text/plain; charset=UTF-8";
+    }
+
+    return "text/html; charset=UTF-8";
+}
+
+bool is_binary_file(string file_path)
+{
+    string ext_name = xextname(file_path);
+
+    return ext_name === "jpg" || ext_name === "jpeg" || ext_name === "png" || ext_name === "gif";
+}
+
+void send_not_found_http(int it)
+{
+    const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+                            "<html><body><h1>404 Not Found</h1></body></html>";
+    write(it, not_found, strlen(not_found));
+}
+
+void send_not_found_https(SSL* it)
+{
+    const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+                            "<html><body><h1>404 Not Found</h1></body></html>";
+    SSL_write(it, not_found, strlen(not_found));
+}
+
+void send_bad_request_http(int it)
+{
+    const char *bad_request = "HTTP/1.1 400 Bad Request\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+                              "<html><body><h1>400 Bad Request</h1></body></html>";
+    write(it, bad_request, strlen(bad_request));
+}
+
+void send_bad_request_https(SSL* it)
+{
+    const char *bad_request = "HTTP/1.1 400 Bad Request\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+                              "<html><body><h1>400 Bad Request</h1></body></html>";
+    SSL_write(it, bad_request, strlen(bad_request));
+}
+
+void serve_static_file_http(int it, string file_path)
+{
+    FILE *file = fopen(file_path, "rb");
+    if (file == NULL) {
+        send_not_found_http(it);
+        return;
+    }
+
+    if(is_binary_file(file_path)) {
+        struct stat stat_;
+        if(stat(file_path, &stat_) != 0) {
+            fclose(file);
+            send_not_found_http(it);
+            return;
+        }
+
+        char response_header[1024];
+        snprintf(response_header, sizeof(response_header),
+                 "HTTP/1.1 200 OK\r\n"
+                 "Content-Type: %s\r\n"
+                 "Content-Length: %ld\r\n"
+                 "Connection: close\r\n"
+                 "\r\n", get_content_type(file_path), stat_.st_size);
+        write(it, response_header, strlen(response_header));
+
+        size_t bytes_read;
+        char buf[1024];
+
+        while((bytes_read = fread(buf, 1, sizeof(buf), file)) > 0) {
+            write(it, buf, bytes_read);
+        }
+
+        fclose(file);
+    }
+    else {
+        fclose(file);
+
+        string file_contents = file_path.read().to_string();
+        string file_contents2 = parse_html(file_contents);
+        string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: %s\r\nContent-Length: %ld\r\n\r\n%s",
+                                   get_content_type(file_path), strlen(file_contents2), file_contents2);
+        write(it, response, strlen(response));
+    }
+}
+
+void serve_static_file_https(SSL* it, string file_path)
+{
+    FILE *file = fopen(file_path, "rb");
+    if (file == NULL) {
+        send_not_found_https(it);
+        return;
+    }
+
+    if(is_binary_file(file_path)) {
+        struct stat stat_;
+        if(stat(file_path, &stat_) != 0) {
+            fclose(file);
+            send_not_found_https(it);
+            return;
+        }
+
+        char response_header[1024];
+        snprintf(response_header, sizeof(response_header),
+                 "HTTP/1.1 200 OK\r\n"
+                 "Content-Type: %s\r\n"
+                 "Content-Length: %ld\r\n"
+                 "Connection: close\r\n"
+                 "\r\n", get_content_type(file_path), stat_.st_size);
+        SSL_write(it, response_header, strlen(response_header));
+
+        char buf[1024];
+        size_t bytes_read;
+        while ((bytes_read = fread(buf, 1, sizeof(buf), file)) > 0) {
+            SSL_write(it, buf, bytes_read);
+        }
+
+        fclose(file);
+    }
+    else {
+        fclose(file);
+
+        string file_contents = file_path.read().to_string();
+        string file_contents2 = parse_html(file_contents);
+        string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: %s\r\nContent-Length: %ld\r\n\r\n%s",
+                                   get_content_type(file_path), strlen(file_contents2), file_contents2);
+        SSL_write(it, response, strlen(response));
+    }
+}
+
 void run_post_cgi(SSL* it, string file_path, string header, string contents)
 {
-puts("POST");
-puts(header);
-puts(contents);
     setenv("REQUEST_METHOD", "POST", 1);
     
     string p = header.scan("Content-Length: ([0-9]+)")[0];
@@ -106,24 +265,16 @@ puts(contents);
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
     }
     
-    p = strstr(header, "Cookie: ").to_string();
+    p = get_cookie_header_value(header);
     if(p) {
-puts("SERVER COOKIE");
-puts(p);
         setenv("HTTP_COOKIE", p, 1);
     }
     
     char* argv[] = { file_path, NULL };
     
     var output,err = xpopen(argv, contents);
-puts("cgi output");
-puts(output);
-puts("cgi output end");
-    
     if(err != 0) {
-        const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                "<html><body><h1>404 Not Found</h1></body></html>";
-        SSL_write(it, not_found, strlen(not_found));
+        send_not_found_https(it);
     }
     else if(output.match("Location:")) {
         SSL_write(it, output, strlen(output));
@@ -132,43 +283,32 @@ puts("cgi output end");
         string file_contents = output;
         string file_contents2 = parse_html(file_contents);
         
-        string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n%s", file_contents2);
+        string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: %ld\r\nConnection: close\r\n\r\n%s",
+                                   strlen(file_contents2), file_contents2);
         SSL_write(it, response, strlen(response));
     }
 }
 
 void run_post_cgi_http(int it, string file_path, string header, string contents)
 {
-puts("POST");
-puts(header);
-puts(contents);
     setenv("REQUEST_METHOD", "POST", 1);
     
     string p = header.scan("Content-Length: ([0-9]+)")[0];
     if(p) {
         int content_length = atoi(p);
-printf("content_length %d\n", content_length);
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
     }
     
-    p = strstr(header, "Cookie: ").to_string();
+    p = get_cookie_header_value(header);
     if(p) {
-puts("SERVER COOKIE");
-puts(p);
         setenv("HTTP_COOKIE", p, 1);
     }
     
     char* argv[] = { file_path, NULL };
     
     var output,err = xpopen(argv, contents);
-puts("cgi output");
-puts(output);
-puts("cgi output end");
-    
     if(err != 0) {
-        const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                "<html><body><h1>404 Not Found</h1></body></html>";
-        write(it, not_found, strlen(not_found));
+        send_not_found_http(it);
     }
     else if(output.match("Location:")) {
         write(it, output, strlen(output));
@@ -177,7 +317,8 @@ puts("cgi output end");
         string file_contents = output;
         string file_contents2 = parse_html(file_contents);
         
-        string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n%s", file_contents2);
+        string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: %ld\r\nConnection: close\r\n\r\n%s",
+                                   strlen(file_contents2), file_contents2);
         write(it, response, strlen(response));
     }
 }
@@ -193,32 +334,27 @@ void run_get_cgi(SSL* it, string cgi_path, string header, string contents, strin
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
     }
     
-    p = header.scan("Cookie: (.+)")[0];
+    p = get_cookie_header_value(header);
     if(p) {
         setenv("HTTP_COOKIE", p, 1);
     }
     
-    FILE* f = popen(s"\{cgi_path}", "r");
-    
-    if(f == null) {
-        const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                "<html><body><h1>404 Not Found</h1></body></html>";
-        SSL_write(it, not_found, strlen(not_found));
+    char* argv[] = { cgi_path, NULL };
+    var output,err = xpopen(argv, xsprintf(""));
+
+    if(err != 0) {
+        send_not_found_https(it);
+    }
+    else if(output.match("Location:")) {
+        SSL_write(it, output, strlen(output));
     }
     else {
-        string output = f.read().to_string();
-        pclose(f);
+        string file_contents = output;
+        string file_contents2 = parse_html(file_contents);
         
-        if(output.match("Location:")) {
-            SSL_write(it, output, strlen(output));
-        }
-        else {
-            string file_contents = output
-            string file_contents2 = parse_html(file_contents);
-            
-            string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n%s", file_contents2);
-            SSL_write(it, response, strlen(response));
-        }
+        string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: %ld\r\nConnection: close\r\n\r\n%s",
+                                   strlen(file_contents2), file_contents2);
+        SSL_write(it, response, strlen(response));
     }
 }
 
@@ -233,32 +369,27 @@ void run_get_cgi_http(int it, string cgi_path, string header, string contents, s
         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
     }
     
-    p = header.scan("Cookie: (.+)")[0];
+    p = get_cookie_header_value(header);
     if(p) {
         setenv("HTTP_COOKIE", p, 1);
     }
     
-    FILE* f = popen(s"\{cgi_path}", "r");
-    
-    if(f == null) {
-        const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                "<html><body><h1>404 Not Found</h1></body></html>";
-        write(it, not_found, strlen(not_found));
+    char* argv[] = { cgi_path, NULL };
+    var output,err = xpopen(argv, xsprintf(""));
+
+    if(err != 0) {
+        send_not_found_http(it);
+    }
+    else if(output.match("Location:")) {
+        write(it, output, strlen(output));
     }
     else {
-        string output = f.read().to_string();
-        pclose(f);
+        string file_contents = output;
+        string file_contents2 = parse_html(file_contents);
         
-        if(output.match("Location:")) {
-            write(it, output, strlen(output));
-        }
-        else {
-            string file_contents = output
-            string file_contents2 = parse_html(file_contents);
-            
-            string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n%s", file_contents2);
-            write(it, response, strlen(response));
-        }
+        string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: %ld\r\nConnection: close\r\n\r\n%s",
+                                   strlen(file_contents2), file_contents2);
+        write(it, response, strlen(response));
     }
 }
 
@@ -283,19 +414,12 @@ int main(int argc, char **argv)
     
     initialize_modules();
     
-    string cgi_redirect_path = null;
-    
-int count = 0;
     while(true) {
         if(http) {
             httpd_socket(port:8080, reuse:true) {
                 char data[1024*2*2*2] = {0};
                 int size = read(it, data, 1024*2*2*2-1);
-printf("size %d\n", size);
                 
-                data[size] = '\0';
-puts("data");
-printf("%s\n", data);
                 if(size < 0) {
                     puts("read");
                     exit(2);
@@ -305,166 +429,86 @@ printf("%s\n", data);
                     *it2 = true;
                     return;
                 }
+
+                data[size] = '\0';
                 
                 char* p = strstr(data, "\r\n\r\n");
                 
                 if(p == null) {
-                    *it2 = true;
+                    send_bad_request_http(it);
                     return;
                 }
                 
+                int header_size = p - data;
+
                 var buf = new buffer();
-                buf.append(data, p - data);
+                buf.append(data, header_size);
                 
                 var header = buf.to_string();
-puts("header");
-puts(header);
-puts("header end");
                 
+                int body_size = size - ((p + 4) - data);
+
                 var buf2 = new buffer();
-                buf2.append(p + 4, p + 4 - data);
+                buf2.append(p + 4, body_size);
                 
                 var contents = buf2.to_string();
-puts("contents");
-puts(contents);
-puts("contents end");
         
-                if(header.match("^GET ") && header.match("Accept: text\/html")) {
-puts("GET");
+                if(header.match("^GET ")) {
                     string str = header.scan("GET (.+) HTTP")[0];
-puts(str);
                     
                     if(str === "/") {
                         str = s"/index.html";
                     }
                     
                     string file_path = str.substring(1,-1);  // remove /
-                    
-                    char* p2 = strstr(file_path, "?");
-puts("file_path");
-puts(file_path);
-                    
-                    if(p2 == NULL) {
-                        string ext_name = xextname(file_path);
-                        
-                        /// cgi ///
+
+                    if(strstr(file_path, "..") != NULL) {
+                        send_not_found_http(it);
+                    }
+                    else {
+                        string request_path = file_path;
+                        string query_string = xsprintf("");
+                        char* p2 = strstr(file_path, "?");
+
+                        if(p2 != NULL) {
+                            char* query_head = p2 + 1;
+                            query_string = query_head.to_string();
+
+                            var request_path_buf = new buffer();
+                            request_path_buf.append(file_path, p2 - file_path);
+                            request_path = request_path_buf.to_string();
+                        }
+
+                        string ext_name = xextname(request_path);
+
                         if(ext_name === "cgi") {
-                            run_post_cgi_http(it, file_path, header, contents);
+                            run_get_cgi_http(it, request_path, header, contents, query_string);
                         }
                         else {
-                            FILE *file = fopen(file_path, "r");
-                            if (file == NULL) {
-                                const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                                        "<html><body><h1>404 Not Found</h1></body></html>";
-                                write(it, not_found, strlen(not_found));
-                            }
-                            else {
-                                fclose(file);
-                                
-                                string file_contents = file_path.read().to_string();
-                                string file_contents2 = parse_html(file_contents);
-                                
-                                string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n%s", file_contents2);
-                                write(it, response, strlen(response));
-                            }
+                            serve_static_file_http(it, request_path);
                         }
-                    }
-                    else {
-                        p2++;
-                        
-                        string query_string = string(p2);
-                        
-                        var cgi_path = new buffer();
-                        char* p = strstr(file_path, "?");
-                        cgi_path.append(file_path, p - file_path);
-                        
-                        run_get_cgi_http(it, cgi_path.to_string(), header, contents, query_string);
-                    }
-                }
-                /// image ///
-                else if(header.match("^GET ") && header.match("Accept: image")) {
-puts("GET image");
-                    string str = header.scan("GET (.+) HTTP")[0];
-                    
-                    string file_path = str.substring(1,-1);  // remove /
-                    
-puts("file_path");
-puts(file_path);
-                    FILE *file = fopen(file_path, "r");
-                    if (file == NULL) {
-                        const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                                "<html><body><h1>404 Not Found</h1></body></html>";
-                        write(it, not_found, strlen(not_found));
-                    }
-                    else {
-                        fclose(file);
-                        
-                        FILE *image_file = fopen(file_path, "rb");
-                        if (image_file == NULL) {
-                            const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                                    "<html><body><h1>404 Not Found</h1></body></html>";
-                            write(it, not_found, strlen(not_found));
-                        }
-                        struct stat stat_;
-                        stat(file_path, &stat_);
-                        
-                        long image_size = stat_.st_size;
-printf("image_size %ld\n", image_size);
-                    
-                        char header[1024];
-                        snprintf(header, sizeof(header),
-                                 "HTTP/1.1 200 OK\r\n"
-                                 "Content-Type: image/jpeg\r\n"
-                                 "Content-Length: %ld\r\n"
-                                 "Connection: keep-alive\r\n"
-                                 "\r\n", image_size);
-                        write(it, header, strlen(header));
-                        
-                        size_t bytes_read;
-                        char buf[1024];
-                        
-                        while((bytes_read = fread(buf, 1, sizeof(buf), image_file)) > 0) {
-                            write(it, buf, bytes_read);
-                        }
-                    
-                        fclose(image_file);
                     }
                 }
                 else if(header.match("^POST ")) {
-puts("POST");
-                    string str = header.scan("POST (.+) ")[0];
+                    string str = header.scan("POST (.+) HTTP")[0];
                     
                     if(str === "/") {
                         str = s"/index.html";
                     }
                     
                     string file_path = str.substring(1,-1);
-puts("file_path");
-puts(file_path);
-                    
-                    run_post_cgi_http(it, file_path, header, contents);
+
+                    if(strstr(file_path, "..") != NULL) {
+                        send_not_found_http(it);
+                    }
+                    else {
+                        run_post_cgi_http(it, file_path, header, contents);
+                    }
                 }
                 else {
-                    const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                            "<html><body><h1>404 Not Found</h1></body></html>";
-                    write(it, not_found, strlen(not_found));
+                    send_not_found_http(it);
                 }
-/*
-count++;
-printf("count %d\n", count);
-if(count >= 10) {
-*it2 = true;
-return;
-}
-*/
             }
-            
-/*
-printf("COUNT %d\n", count);
-if(count >= 10) {
-    break;
-}
-*/
         }
         else {
             signal(SIGINT, handle_sigint);
@@ -487,24 +531,27 @@ if(count >= 10) {
                 }
                 
                 char* p = strstr(data, "\r\n\r\n");
+
+                if(p == null) {
+                    send_bad_request_https(it);
+                    return;
+                }
                 
+                int header_size = p - data;
+
                 var buf = new buffer();
-                buf.append(data, p - data);
+                buf.append(data, header_size);
                 
                 var header = buf.to_string();
-puts("header");
-puts(header);
-puts("header end");
                 
+                int body_size = size - ((p + 4) - data);
+
                 var buf2 = new buffer();
-                buf2.append(p + 4, p + 4 - data);
+                buf2.append(p + 4, body_size);
                 
                 var contents = buf2.to_string();
-puts("contents");
-puts(contents);
-puts("contents end");
         
-                if(header.match("^GET ") && header.match("Accept: text\/html")) {
+                if(header.match("^GET ")) {
                     string str = header.scan("GET (.+) HTTP")[0];
                     
                     if(str === "/") {
@@ -512,108 +559,52 @@ puts("contents end");
                     }
                     
                     string file_path = str.substring(1,-1);  // remove /
-                    
-                    char* p2 = strstr(file_path, "?");
-                    
-                    if(p2 == NULL) {
-                        string ext_name = xextname(file_path);
-                        
-                        /// cgi ///
+
+                    if(strstr(file_path, "..") != NULL) {
+                        send_not_found_https(it);
+                    }
+                    else {
+                        string request_path = file_path;
+                        string query_string = xsprintf("");
+                        char* p2 = strstr(file_path, "?");
+
+                        if(p2 != NULL) {
+                            char* query_head = p2 + 1;
+                            query_string = query_head.to_string();
+
+                            var request_path_buf = new buffer();
+                            request_path_buf.append(file_path, p2 - file_path);
+                            request_path = request_path_buf.to_string();
+                        }
+
+                        string ext_name = xextname(request_path);
+
                         if(ext_name === "cgi") {
-                            run_post_cgi(it, file_path, header, contents);
+                            run_get_cgi(it, request_path, header, contents, query_string);
                         }
                         else {
-                            FILE *file = fopen(file_path, "r");
-                            if (file == NULL) {
-                                const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                                        "<html><body><h1>404 Not Found</h1></body></html>";
-                                SSL_write(it, not_found, strlen(not_found));
-                            }
-                            else {
-                                fclose(file);
-                                
-                                string file_contents = file_path.read().to_string();
-                                string file_contents2 = parse_html(file_contents);
-                                
-                                string response = xsprintf("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n%s", file_contents2);
-                                SSL_write(it, response, strlen(response));
-                            }
+                            serve_static_file_https(it, request_path);
                         }
-                    }
-                    else {
-                        p2++;
-                        
-                        string query_string = string(p2);
-                        
-                        var cgi_path = new buffer();
-                        char* p = strstr(file_path, "?");
-                        cgi_path.append(file_path, p - file_path);
-                        
-                        run_get_cgi(it, cgi_path.to_string(), header, contents, query_string);
-                    }
-                }
-                /// image ///
-                else if(header.match("^GET ") && header.match("Accept: image")) {
-                    string str = header.scan("GET (.+) HTTP")[0];
-                    
-                    string file_path = str.substring(1,-1);  // remove /
-                    
-                    FILE *file = fopen(file_path, "r");
-                    if (file == NULL) {
-                        const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                                "<html><body><h1>404 Not Found</h1></body></html>";
-                        SSL_write(it, not_found, strlen(not_found));
-                    }
-                    else {
-                        fclose(file);
-                        
-                        FILE *image_file = fopen(file_path, "rb");
-                        if (image_file == NULL) {
-                            const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                                    "<html><body><h1>404 Not Found</h1></body></html>";
-                            SSL_write(it, not_found, strlen(not_found));
-                        }
-                        
-                        struct stat stat_;
-                        stat(file_path, &stat_);
-                        
-                        long image_size = stat_.st_size;
-printf("image_size %ld\n", image_size);
-                    
-                        char header[1024];
-                        snprintf(header, sizeof(header),
-                                 "HTTP/1.1 200 OK\r\n"
-                                 "Content-Type: image/jpeg\r\n"
-                                 "Content-Length: %ld\r\n"
-                                 "Connection: keep-alive\r\n"
-                                 "\r\n", image_size);
-                    
-                        SSL_write(it, header, strlen(header));
-                    
-                        char buf[1024];
-                        size_t bytes_read;
-                        while ((bytes_read = fread(buf, 1, sizeof(buf), image_file)) > 0) {
-                            SSL_write(it, buf, bytes_read);
-                        }
-                    
-                        fclose(image_file);
                     }
                 }
                 else if(header.match("^POST ")) {
-                    string str = header.scan("POST (.+) ")[0];
+                    string str = header.scan("POST (.+) HTTP")[0];
                     
                     if(str === "/") {
                         str = s"/index.html";
                     }
                     
                     string file_path = str.substring(1,-1);
-                    
-                    run_post_cgi(it, file_path, header, contents);
+
+                    if(strstr(file_path, "..") != NULL) {
+                        send_not_found_https(it);
+                    }
+                    else {
+                        run_post_cgi(it, file_path, header, contents);
+                    }
                 }
                 else {
-                    const char *not_found = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
-                                            "<html><body><h1>404 Not Found</h1></body></html>";
-                    SSL_write(it, not_found, strlen(not_found));
+                    send_not_found_https(it);
                 }
             }
         }
@@ -623,5 +614,3 @@ printf("image_size %ld\n", image_size);
     
     return 0;
 }
-
-

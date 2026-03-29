@@ -8,9 +8,9 @@ int main(int argc, char** argv)
     
     char *cookie = getenv("HTTP_COOKIE");
     
-    char username[1024];
+    char username[1024] = {0};
     if (cookie) {
-        sscanf(cookie, "Cookie: username=%s", username);
+        sscanf(cookie, "username=%1023[^;]", username);
     }
     
     puts("""
@@ -42,4 +42,3 @@ int main(int argc, char** argv)
 
     return 0;
 }
-

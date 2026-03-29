@@ -9,12 +9,12 @@ int main(int argc, char** argv)
     
     char *cookie = getenv("HTTP_COOKIE");
     
-    char username[1024];
+    char username[1024] = {0};
     if (cookie) {
-        sscanf(cookie, "Cookie: username=%s", username);
+        sscanf(cookie, "username=%1023[^;]", username);
     }
     
-    if(username) {
+    if(username[0] != '\0') {
         const char *query1 = "CREATE DATABASE testdb";
         (void)client_socket2(port:3366, query1);
         
@@ -129,7 +129,22 @@ int main(int argc, char** argv)
             }
         }
     }
+    else {
+        puts("""
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1, user-scalable=no">
+    <title>ログインが必要です</title>
+</head>
+<body>
+<p>ログインが必要です。</p>
+<a href="/index.html" rel="nofollow">戻る</a>
+</body>
+</html>
+        """);
+    }
 
     return 0;
 }
-
