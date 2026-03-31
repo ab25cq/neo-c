@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export EDITOR=vim
+export EDITOR=vin
 git config --global user.email ab25cq@icloud.com
 git config --global user.name ab25cq
 

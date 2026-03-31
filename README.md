@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.1.1
+version 1.0.1.4
 
 ``` C
 #include <neo-c.h>
@@ -128,9 +128,20 @@ to build fastest binary
 sh build-fastest.sh
 ```
 
+`webweb` is a good reference if you want a general web server in neo-c.
+It serves static files, runs CGI, supports HTTP and HTTPS, and has a small database server example with `dbdb`.
+
+neo-cで一般的なWebサーバーを書きたいなら`webweb`が良いサンプルです。
+静的ファイル配信、CGI実行、HTTP/HTTPS対応、`dbdb`を使った小さなDBサーバー例まで入っています。
+
+See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) for quick start and usage examples.
+
 # Histories
 
 ```
+1.0.1.4 rewrite neo-c-net.h manual to use begin/end/next loop style like webweb.
+1.0.1.3 add quick start for webweb.
+1.0.1.2 recommend webweb as a general web server.
 1.0.1.1 document neo-c-str.h.
 1.0.1.0 document neo-c-net.h zero cost iterator API.
 1.0.0.9 optimize more faster.
@@ -3082,9 +3093,12 @@ See neo-c-net.h
 
 It's very slow the transpile.
 
-`neo-c-net.h` now fits the zero cost iterator style like `iter()` and `for_each()`.
+For `neo-c-net.h`, use normal loops with `begin()`, `next()`, and `end()` like `webweb`.
+The old backtick zero cost iterator style is no longer the recommended API here.
 
-ネットワークAPIは`neo-c-net.h`をincludeして使います。method blockではなく、zero cost iteratorとして使います。
+ネットワークAPIは`neo-c-net.h`をincludeして使います。
+`webweb` と同じように `begin()`, `next()`, `end()` を使う普通のループで扱ってください。
+backtick の zero cost iterator スタイルは、この用途では前提にしません。
 
 ```C
 #include <neo-c-net.h>
@@ -3102,12 +3116,14 @@ httpd_socket_iterator*% httpd_socket(int port=8080, int socket_family=AF_INET, i
 httpsd_socket_iterator*% httpsd_socket(int port=443, bool reuse=false);
 ```
 
-All of them can be used by zero cost iterator DSL.
+Use these APIs with explicit loops.
 
-全部zero cost iterator DSLで使えます。
+明示的なループで使います。
 
 ```C
-httpd_socket(port:8080, reuse:true).`iter().`for_each {
+var server = httpd_socket(port:8080, reuse:true);
+
+for(var it = server.begin(); !server.end(); it = server.next()) {
     char buf[1024] = { 0 };
     int size = read(it, buf, 1023);
     
@@ -3122,12 +3138,12 @@ httpd_socket(port:8080, reuse:true).`iter().`for_each {
         "hello\n";
     
     write(it, response, strlen(response));
-};
+}
 ```
 
-The generated C becomes a loop with `begin/end/next`. It doesn't call a method block callback.
+`webweb/main.nc` uses this same style for both HTTP and HTTPS servers.
 
-生成されるCは`begin/end/next`を使うループになります。method block callbackにはなりません。
+`webweb/main.nc` でも HTTP/HTTPS の両方でこの形を使っています。
 
 ## neo-c-net.h manual
 
@@ -3158,7 +3174,7 @@ int main()
 {
     var server = server_socket(port:3366, reuse:true);
     
-    server.`iter().`for_each {
+    for(var it = server.begin(); !server.end(); it = server.next()) {
         char buf[1024] = { 0 };
         int size = read(it, buf, 1023);
         
@@ -3174,7 +3190,7 @@ int main()
         }
         
         it.write(xsprintf("echo: %s\n", buf));
-    };
+    }
     
     return 0;
 }
@@ -3184,18 +3200,20 @@ int main()
 
 This opens one TCP client connection.
 `begin()` connects once and returns the socket.
-`next()` returns the same socket, so `take(1)` or `break` is usually useful.
+`next()` returns the same socket, so `break` is usually useful.
 
 1回TCP接続を開くクライアントです。
 `begin()`で1回connectしてsocketを返します。
-`next()`でも同じsocketが返るので、通常は`take(1)`か`break`を使います。
+`next()`でも同じsocketが返るので、通常は`break`を使います。
 
 ```C
 #include <neo-c-net.h>
 
 int main()
 {
-    client_socket(port:3366).`iter().`take(1).`for_each {
+    var client = client_socket(port:3366);
+
+    for(var it = client.begin(); !client.end(); it = client.next()) {
         it.write(s"ping");
         
         char buf[1024] = { 0 };
@@ -3205,7 +3223,9 @@ int main()
             buf[size] = '\0';
             puts(buf);
         }
-    };
+
+        break;
+    }
     
     return 0;
 }
@@ -3239,7 +3259,9 @@ Each iteration accepts a new client socket.
 
 int main()
 {
-    httpd_socket(port:8080, reuse:true).`iter().`for_each {
+    var server = httpd_socket(port:8080, reuse:true);
+
+    for(var it = server.begin(); !server.end(); it = server.next()) {
         char data[2048] = { 0 };
         int size = read(it, data, 2047);
         
@@ -3254,7 +3276,7 @@ int main()
             "OK\n";
         
         write(it, response, strlen(response));
-    };
+    }
     
     return 0;
 }
@@ -3277,7 +3299,9 @@ SSL版です。
 
 int main()
 {
-    httpsd_socket(port:443, reuse:true).`iter().`for_each {
+    var server = httpsd_socket(port:443, reuse:true);
+
+    for(var it = server.begin(); !server.end(); it = server.next()) {
         char data[2048] = { 0 };
         int size = SSL_read(it, data, 2047);
         
@@ -3292,30 +3316,15 @@ int main()
             "HTTPS OK\n";
         
         SSL_write(it, response, strlen(response));
-    };
+    }
     
     return 0;
 }
 ```
 
-`filter()`, `take()`, `skip()`, `take_while()`, `skip_while()`, `step_by()`, `inspect()`, `find()`, `each()`, and `for_each()` are also available on these iterators.
+Use `break` when you want one-shot connect/accept behavior in these loops.
 
-これらのiteratorでも`filter()`, `take()`, `skip()`, `take_while()`, `skip_while()`, `step_by()`, `inspect()`, `find()`, `each()`, `for_each()`が使えます。
-
-Example:
-
-```C
-httpd_socket(port:8080, reuse:true)
-    .`iter()
-    .`take(10)
-    .`for_each {
-        puts("accepted");
-    };
-```
-
-Use `take(1)` when you want one-shot connect/accept behavior.
-
-1回だけconnect/acceptしたいなら`take(1)`を使ってください。
+このループでは、1回だけconnect/acceptしたいなら`break`を使ってください。
 
 # Omit return statment
 

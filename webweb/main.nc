@@ -416,13 +416,14 @@ int main(int argc, char **argv)
     
     while(true) {
         if(http) {
-            httpd_socket(port:8080, reuse:true).`iter().`for_each {
+            var server = httpd_socket(port:8080, reuse:true);
+            for(var it = server.begin(); !server.end(); it = server.next()) {
                 char data[1024*2*2*2] = {0};
                 int size = read(it, data, 1024*2*2*2-1);
                 
                 if(size < 0) {
-                    puts("read");
-                    exit(2);
+                    perror("read");
+                    continue;
                 }
                 
                 if(size == 0) {
@@ -438,7 +439,7 @@ int main(int argc, char **argv)
                     continue;
                 }
                 
-                int header_size = p - data;
+                int header_size = (int)(p - data);
 
                 var buf = new buffer();
                 buf.append(data, header_size);
@@ -507,26 +508,28 @@ int main(int argc, char **argv)
                 else {
                     send_not_found_http(it);
                 }
-            };
+            }
         }
         else {
             signal(SIGINT, handle_sigint);
             
-            httpsd_socket(reuse:true).`iter().`for_each {
+            var server = httpsd_socket(reuse:true);
+            for(var it = server.begin(); !server.end(); it = server.next()) {
                 gSSL = it;
         
                 char data[1024*2*2] = {0};
                 int size = SSL_read(it, data, 1024*2*2-1);
                 
-                data[size] = '\0';
                 if(size < 0) {
-                    puts("read");
-                    exit(2);
+                    perror("SSL_read");
+                    continue;
                 }
                 
                 if(size == 0) {
                     continue;
                 }
+
+                data[size] = '\0';
                 
                 char* p = strstr(data, "\r\n\r\n");
 
@@ -535,7 +538,7 @@ int main(int argc, char **argv)
                     continue;
                 }
                 
-                int header_size = p - data;
+                int header_size = (int)(p - data);
 
                 var buf = new buffer();
                 buf.append(data, header_size);
@@ -604,7 +607,7 @@ int main(int argc, char **argv)
                 else {
                     send_not_found_https(it);
                 }
-            };
+            }
         }
     }
     
