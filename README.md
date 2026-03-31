@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.1.0
+version 1.0.1.1
 
 ``` C
 #include <neo-c.h>
@@ -131,6 +131,7 @@ sh build-fastest.sh
 # Histories
 
 ```
+1.0.1.1 document neo-c-str.h.
 1.0.1.0 document neo-c-net.h zero cost iterator API.
 1.0.0.9 optimize more faster.
 1.0.0.8 optimize more faster.
@@ -2459,6 +2460,20 @@ int main(int argc, char** argv)
 
 SEE neo-c.h. The regex engine is implemented using the standard C libraries. 
 
+If you only want string, buffer, list, and regex helpers, you can include `neo-c-str.h`.
+
+文字列、buffer、list、regex helperだけ使いたいなら`neo-c-str.h`だけincludeできます。
+
+```C
+#include <neo-c-str.h>
+```
+
+`neo-c-str.h` can be used without `neo-c.h`.
+It provides `string`, `buffer`, `list<T>`, `xsprintf()`, substring/delete/reverse helpers, and regex-based string methods.
+
+`neo-c-str.h`は`neo-c.h`なしでも使えます。
+`string`, `buffer`, `list<T>`, `xsprintf()`, substring/delete/reverse系, regexベースの文字列メソッドを持っています。
+
 sample
 
 ``` C
@@ -2524,6 +2539,207 @@ int main()
     xassert("regex test", "ABC".scan(".").join("") === "ABC");
     
     xassert("regex equals test", "aaa" === "aaa");
+    
+    return 0;
+}
+```
+
+## neo-c-str.h manual
+
+`string`
+
+`string` is `typedef char*% string;`.
+It is a heap-managed string type.
+
+`string`は`typedef char*% string;`です。
+ヒープ管理される文字列型です。
+
+```C
+#include <neo-c-str.h>
+
+int main()
+{
+    string a = xsprintf("%s %d", "value", 10);
+    puts(a);
+    
+    return 0;
+}
+```
+
+Core string helpers
+
+```C
+int char*::length(const char* str);
+string char*::substring(const char* str, int head, int tail);
+string char*::delete(char* str, int head, int tail);
+string char*::reverse(const char* str);
+string char*::printable(char* str);
+string char*::sub_plain(char* self, char* str, char* replace);
+```
+
+`substring(head, tail)` supports negative indexes.
+`delete(head, tail)` removes a range.
+`printable()` escapes control characters for debugging.
+`sub_plain()` is plain string replacement without regex.
+
+`substring(head, tail)`は負のindexを使えます。
+`delete(head, tail)`は範囲削除です。
+`printable()`はデバッグ用に制御文字を見える形にします。
+`sub_plain()`はregexを使わない通常の置換です。
+
+```C
+#include <neo-c-str.h>
+
+int main()
+{
+    puts("ABCDE".substring(1, 4));   // BCD
+    puts("ABCDE".substring(-3, -1)); // CD
+    puts("ABCDE".delete(1, 3));      // ADE
+    puts("ABC".reverse());           // CBA
+    puts("A\tB\n".printable());      // A\tB\n
+    puts("abcabc".sub_plain("ab", "XY")); // XYcXYc
+    
+    return 0;
+}
+```
+
+Regex string helpers
+
+```C
+bool char*::match(char* self, const char* reg, bool ignore_case=false);
+int char*::index_regex(const char* self, const char* reg, int default_value=-1, bool ignore_case=false);
+int char*::rindex_regex(const char* self, const char* reg, int default_value=-1, bool ignore_case=false);
+list<string>*% char*::scan(const char* self, const char* reg, bool ignore_case=false);
+list<string>*% char*::split(const char* self, const char* reg, bool ignore_case=false);
+list<string>*% char*::split_str(const char* self, const char* str);
+list<string>*% char*::split_char(char* self, char c);
+string char*::sub(char* self, const char* reg, const char* replace, bool global=true, bool ignore_case=false);
+string char*::sub_block(char* self, const char* reg, bool global=true, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings));
+list<string>*% char*::scan_block(const char* self, const char* reg, bool ignore_case=false, void* parent, string (*block)(void* parent, char* match_string, list<string>* group_strings));
+```
+
+`scan()` returns all matches.
+`split()` uses regex separators.
+`split_str()` and `split_char()` use plain separators.
+`sub()` uses regex replacement.
+`sub_block()` and `scan_block()` let you transform each match.
+
+`scan()`は全matchを返します。
+`split()`はregex区切りです。
+`split_str()`と`split_char()`は通常の区切りです。
+`sub()`はregex置換です。
+`sub_block()`と`scan_block()`は各matchごとに変換できます。
+
+```C
+#include <neo-c-str.h>
+
+int main()
+{
+    xassert("match", "Hello123".match("[0-9]+"));
+    xassert("index_regex", "abc123xyz".index_regex("[0-9]+", -1) == 3);
+    xassert("rindex_regex", "ab12cd34".rindex_regex("[0-9]+", -1) == 6);
+    
+    var a = "A,B,C".split_str(",");
+    var b = "A B\tC".split("[ \t]+");
+    var c = "ABCABC".scan("ABC");
+    
+    xassert("split_str", a.length() == 3 && a[0] === "A" && a[2] === "C");
+    xassert("split regex", b.length() == 3 && b[1] === "B");
+    xassert("scan", c.length() == 2 && c[0] === "ABC");
+    
+    puts("abc123".sub("[0-9]+", "X")); // abcX
+    puts("123 456 789".scan_block("[0-9]+") { it.substring(0, 1) }.join("")); // 147
+    puts("abc123def".sub_block("[0-9]+") { s"[" + it + s"]" }); // abc[123]def
+    
+    return 0;
+}
+```
+
+`buffer`
+
+```C
+buffer*% buffer*::initialize(buffer*% self);
+buffer* buffer*::append(buffer* self, const char* mem, size_t size);
+buffer* buffer*::append_str(buffer* self, const char* mem);
+buffer* buffer*::append_char(buffer* self, char c);
+buffer* buffer*::append_format(buffer* self, const char* msg, ...);
+void buffer*::reset(buffer* self);
+int buffer*::length(buffer* self);
+string buffer*::to_string(buffer* self);
+```
+
+Use `buffer` when you want efficient incremental string building.
+
+文字列を段階的に組み立てたいときは`buffer`を使います。
+
+```C
+#include <neo-c-str.h>
+
+int main()
+{
+    var buf = new buffer();
+    
+    buf.append_str("neo");
+    buf.append_char('-');
+    buf.append_format("%s %d", "c", 11);
+    
+    xassert("buffer", buf.to_string() === "neo-c 11");
+    
+    buf.reset();
+    buf.append_str("reset ok");
+    puts(buf.to_string());
+    
+    return 0;
+}
+```
+
+`list<T>`
+
+`neo-c-str.h` also contains `list<T>`.
+So you can use regex/string APIs without `neo-c.h` and still get `list<string>*%` results directly.
+
+`neo-c-str.h`には`list<T>`も入っています。
+そのため`neo-c.h`なしでもregex/string APIの戻り値である`list<string>*%`をそのまま使えます。
+
+```C
+#include <neo-c-str.h>
+
+int main()
+{
+    var li = "A,B,C".split_str(",");
+    
+    foreach(it, li) {
+        puts(it);
+    }
+    
+    return 0;
+}
+```
+
+`wstring`
+
+Wide string helpers are also available.
+
+```C
+wstring wchar_t*::substring(const wchar_t* str, int head, int tail);
+wstring wchar_t*::delete(wchar_t* str, int head, int tail);
+wstring wchar_t*::reverse(const wchar_t* str);
+wstring wchar_t*::printable(const wchar_t* str);
+string wchar_t*::to_string(const wchar_t* wstr);
+```
+
+Use this when you want wide-character string slicing and conversion.
+
+ワイド文字列の切り出しや変換に使えます。
+
+```C
+#include <neo-c-str.h>
+
+int main()
+{
+    wstring ws = wstring("ABC");
+    xassert("wstring", ws.substring(0, 2) === wstring("AB"));
+    puts(ws.to_string());
     
     return 0;
 }
