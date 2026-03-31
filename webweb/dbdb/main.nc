@@ -2428,12 +2428,13 @@ int main() {
     sInfo info;
     info.current_db_name = null;
     
-    server_socket(port:3366, reuse:true) {
+    var server = server_socket(port:3366, reuse:true);
+    server.`iter().`for_each {
         char data[1024] = {0};
         int size = read(it, data, 1023);
         if(size <= 0) {
-            *it3 = true;
-            return;
+            server.reconnect();
+            continue;
         }
         data[size] = '\0';
         
@@ -2494,7 +2495,7 @@ int main() {
             if(!eval_create_database(&info)) {
                 const char *failed_message = "FAILED\n";
                 write_response(it, failed_message);
-                return;
+                continue;
             }
 
             const char *ok_message = "OK\n";
@@ -2504,7 +2505,7 @@ int main() {
             if(!eval_create_table(&info)) {
                 const char *failed_message = "FAILED\n";
                 write_response(it, failed_message);
-                return;
+                continue;
             }
             
             const char *ok_message = "OK\n";
@@ -2514,7 +2515,7 @@ int main() {
             if(!eval_insert_into(&info)) {
                 const char *failed_message = "FAILED\n";
                 write_response(it, failed_message);
-                return;
+                continue;
             }
             
             const char *ok_message = "OK\n";
@@ -2524,7 +2525,7 @@ int main() {
             if(!eval_delete_from(&info)) {
                 const char *failed_message = "FAILED\n";
                 write_response(it, failed_message);
-                return;
+                continue;
             }
 
             const char *ok_message = "OK\n";
@@ -2534,7 +2535,7 @@ int main() {
             if(!eval_update(&info)) {
                 const char *failed_message = "FAILED\n";
                 write_response(it, failed_message);
-                return;
+                continue;
             }
 
             const char *ok_message = "OK\n";
@@ -2544,7 +2545,7 @@ int main() {
             if(!eval_alter_table(&info)) {
                 const char *failed_message = "FAILED\n";
                 write_response(it, failed_message);
-                return;
+                continue;
             }
 
             const char *ok_message = "OK\n";
@@ -2554,14 +2555,14 @@ int main() {
             if(!eval_select_from("\n", &info)) {
                 const char *failed_message = "FAILED\n";
                 write_response(it, failed_message);
-                return;
+                continue;
             }
         }
         else if(strncmp(info.p, "DROP DATABASE", strlen("DROP DATABASE")) == 0) {
             if(!eval_drop_database(&info)) {
                 const char *failed_message = "FAILED\n";
                 write_response(it, failed_message);
-                return;
+                continue;
             }
 
             const char *ok_message = "OK\n";
@@ -2571,7 +2572,7 @@ int main() {
             if(!eval_drop_table(&info)) {
                 const char *failed_message = "FAILED\n";
                 write_response(it, failed_message);
-                return;
+                continue;
             }
 
             const char *ok_message = "OK\n";
@@ -2606,13 +2607,12 @@ int main() {
             }
         }
         else if(strncmp(info.p, "exit", strlen("exit")) == 0) {
-            *it2 = true;
-            return;
+            break;
         }
         else {
             const char *failed_message = "FAILED\n";
             write_response(it, failed_message);
         }
-    }
+    };
     return 0;
 }

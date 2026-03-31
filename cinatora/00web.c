@@ -16,7 +16,7 @@ int main(int argc, char **argv)
     
     while(true) {
         Cinatora cinatora;
-        httpd_socket(port:8080, reuse:true) {
+        httpd_socket(port:8080, reuse:true).`iter().`for_each {
             /// get header and contents ///
             char data[1024*2*2*2] = {0};
             int size = read(it, data, 1024*2*2*2-1);
@@ -28,15 +28,13 @@ int main(int argc, char **argv)
             }
             
             if(size == 0) {
-                *it2 = true;
-                return;
+                continue;
             }
             
             char* p = strstr(data, "\r\n\r\n");
             
             if(p == null) {
-                *it2 = true;
-                return;
+                continue;
             }
             
             var buf = new buffer();
@@ -187,9 +185,8 @@ puts("POST");
                                         "<html><body><h1>404 Not Found</h1></body></html>";
                 write(it, not_found, strlen(not_found));
             }
-        }
+        };
     }
     
     return 0;
 }
-

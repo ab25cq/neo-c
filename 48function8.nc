@@ -258,7 +258,7 @@ sNode*% parse_function(sInfo* info)
         
         return new sLambdaNode(fun, info) implements sNode;
     }
-    else if(info.impl_type && info.generics_type_names.length() > 0) {
+    else if(info.impl_type && (info.generics_type_names.length() > 0 || result_type->mClass->mIter)) {
         if(result_type->mClass->mIter) {
             string none_generics_name = get_none_generics_name(info.impl_type.mClass.mName);
             

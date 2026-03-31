@@ -4381,7 +4381,7 @@ struct sNode* parse_function(struct sInfo*  info  )
         come_call_finalizer(sFun_finalize, fun, (void*)0, (void*)0, 0, 0, 0, (void*)0, "48function8.nc}", 501, 475);
         come_call_finalizer(sFun_finalize, fun2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "48function8.nc}", 501, 476);
     }
-    else if(info->impl_type&&list$1char$ph_length(info->generics_type_names)>0) {
+    else if(info->impl_type&&(list$1char$ph_length(info->generics_type_names)>0||result_type->mClass->mIter)) {
         if(result_type->mClass->mIter) {
             __right_value0 = (void*)0;
             none_generics_name=(char* )come_increment_ref_count(get_none_generics_name(info->impl_type->mClass->mName), "48function8.nc", 263, 477);
@@ -6751,4 +6751,3 @@ static void map$2char$phsVar$ph_finalize(struct map$2char$phsVar$ph* self)
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3396, 852));
             neo_current_frame = fr.prev;
 }
-

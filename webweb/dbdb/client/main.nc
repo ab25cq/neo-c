@@ -5,7 +5,7 @@
 int main(int argc, char** argv)
 {
     int n = 0;
-    client_socket(port:3366) {
+    client_socket(port:3366).`iter().`for_each {
         char* messages[] = { 
             "show databases",
             "CREATE DATABASE testdb", 
@@ -101,8 +101,7 @@ puts(message);
         n++;
         
         if(messages[n] == NULL) {
-            *it2 = true;
-            return;
+            break;
         }
-    }
+    };
 }

@@ -416,7 +416,7 @@ int main(int argc, char **argv)
     
     while(true) {
         if(http) {
-            httpd_socket(port:8080, reuse:true) {
+            httpd_socket(port:8080, reuse:true).`iter().`for_each {
                 char data[1024*2*2*2] = {0};
                 int size = read(it, data, 1024*2*2*2-1);
                 
@@ -426,8 +426,7 @@ int main(int argc, char **argv)
                 }
                 
                 if(size == 0) {
-                    *it2 = true;
-                    return;
+                    continue;
                 }
 
                 data[size] = '\0';
@@ -436,7 +435,7 @@ int main(int argc, char **argv)
                 
                 if(p == null) {
                     send_bad_request_http(it);
-                    return;
+                    continue;
                 }
                 
                 int header_size = p - data;
@@ -508,12 +507,12 @@ int main(int argc, char **argv)
                 else {
                     send_not_found_http(it);
                 }
-            }
+            };
         }
         else {
             signal(SIGINT, handle_sigint);
             
-            httpsd_socket(reuse:true) {
+            httpsd_socket(reuse:true).`iter().`for_each {
                 gSSL = it;
         
                 char data[1024*2*2] = {0};
@@ -526,15 +525,14 @@ int main(int argc, char **argv)
                 }
                 
                 if(size == 0) {
-                    *it2 = true;
-                    return;
+                    continue;
                 }
                 
                 char* p = strstr(data, "\r\n\r\n");
 
                 if(p == null) {
                     send_bad_request_https(it);
-                    return;
+                    continue;
                 }
                 
                 int header_size = p - data;
@@ -606,7 +604,7 @@ int main(int argc, char **argv)
                 else {
                     send_not_found_https(it);
                 }
-            }
+            };
         }
     }
     
