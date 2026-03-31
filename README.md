@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.0.9
+version 1.0.1.0
 
 ``` C
 #include <neo-c.h>
@@ -131,6 +131,7 @@ sh build-fastest.sh
 # Histories
 
 ```
+1.0.1.0 document neo-c-net.h zero cost iterator API.
 1.0.0.9 optimize more faster.
 1.0.0.8 optimize more faster.
 1.0.0.7 optimize more faster.
@@ -2864,6 +2865,241 @@ Please use the C language extension library. The strength of neo-c is that the C
 See neo-c-net.h
 
 It's very slow the transpile.
+
+`neo-c-net.h` now fits the zero cost iterator style like `iter()` and `for_each()`.
+
+ネットワークAPIは`neo-c-net.h`をincludeして使います。method blockではなく、zero cost iteratorとして使います。
+
+```C
+#include <neo-c-net.h>
+```
+
+Available APIs
+
+利用できるAPI
+
+```C
+server_socket_iterator*% server_socket(int port=8080, int socket_family=AF_INET, int socket_type=SOCK_STREAM, int protocol=0, bool reuse=false);
+client_socket_iterator*% client_socket(int port=8080, char* address="127.0.0.1");
+string client_socket2(int port, const char* data, const char* address="127.0.0.1");
+httpd_socket_iterator*% httpd_socket(int port=8080, int socket_family=AF_INET, int socket_type=SOCK_STREAM, int protocol=0, bool reuse=false);
+httpsd_socket_iterator*% httpsd_socket(int port=443, bool reuse=false);
+```
+
+All of them can be used by zero cost iterator DSL.
+
+全部zero cost iterator DSLで使えます。
+
+```C
+httpd_socket(port:8080, reuse:true).`iter().`for_each {
+    char buf[1024] = { 0 };
+    int size = read(it, buf, 1023);
+    
+    if(size <= 0) {
+        continue;
+    }
+    
+    const char* response =
+        "HTTP/1.1 200 OK\r\n"
+        "Content-Type: text/plain\r\n"
+        "\r\n"
+        "hello\n";
+    
+    write(it, response, strlen(response));
+};
+```
+
+The generated C becomes a loop with `begin/end/next`. It doesn't call a method block callback.
+
+生成されるCは`begin/end/next`を使うループになります。method block callbackにはなりません。
+
+## neo-c-net.h manual
+
+`socket_fd`
+
+`socket_fd` is `typedef int socket_fd;`.
+`socket_fd::write(string)` is a shortcut of `write(fd, str, str.length())`.
+
+`socket_fd`は`typedef int socket_fd;`です。
+`socket_fd::write(string)`は`write(fd, str, str.length())`の短縮です。
+
+`server_socket()`
+
+This is for stateful TCP servers.
+The first iteration accepts one connection.
+After that, `next()` returns the same socket again unless you call `server.reconnect()`.
+Use this when you want to keep one client session and explicitly accept the next client only after disconnect or protocol end.
+
+状態を持つTCPサーバです。
+最初の反復で1接続acceptします。
+その後は`server.reconnect()`を呼ばない限り、`next()`でも同じsocketが返ります。
+1クライアントを継続的に処理し、切断時だけ次のacceptに進みたいときに使います。
+
+```C
+#include <neo-c-net.h>
+
+int main()
+{
+    var server = server_socket(port:3366, reuse:true);
+    
+    server.`iter().`for_each {
+        char buf[1024] = { 0 };
+        int size = read(it, buf, 1023);
+        
+        if(size <= 0) {
+            server.reconnect();
+            continue;
+        }
+        
+        buf[size] = '\0';
+        
+        if(strcmp(buf, "exit") == 0) {
+            break;
+        }
+        
+        it.write(xsprintf("echo: %s\n", buf));
+    };
+    
+    return 0;
+}
+```
+
+`client_socket()`
+
+This opens one TCP client connection.
+`begin()` connects once and returns the socket.
+`next()` returns the same socket, so `take(1)` or `break` is usually useful.
+
+1回TCP接続を開くクライアントです。
+`begin()`で1回connectしてsocketを返します。
+`next()`でも同じsocketが返るので、通常は`take(1)`か`break`を使います。
+
+```C
+#include <neo-c-net.h>
+
+int main()
+{
+    client_socket(port:3366).`iter().`take(1).`for_each {
+        it.write(s"ping");
+        
+        char buf[1024] = { 0 };
+        int size = read(it, buf, 1023);
+        
+        if(size > 0) {
+            buf[size] = '\0';
+            puts(buf);
+        }
+    };
+    
+    return 0;
+}
+```
+
+`client_socket2()`
+
+This is a simple helper.
+It connects, writes all `data`, reads one response, closes the socket, and returns the response string.
+
+簡易ヘルパです。
+connectして、`data`を全部writeして、1回readして、socketを閉じて、その応答文字列を返します。
+
+```C
+string result = client_socket2(3366, "ping");
+puts(result);
+```
+
+`httpd_socket()`
+
+This is for simple HTTP servers.
+Each iteration accepts a new client socket.
+`next()` closes the current client and accepts the next one.
+
+単純なHTTPサーバ向けです。
+各反復ごとに新しいclient socketをacceptします。
+`next()`では現在のclientを閉じて次をacceptします。
+
+```C
+#include <neo-c-net.h>
+
+int main()
+{
+    httpd_socket(port:8080, reuse:true).`iter().`for_each {
+        char data[2048] = { 0 };
+        int size = read(it, data, 2047);
+        
+        if(size <= 0) {
+            continue;
+        }
+        
+        const char* response =
+            "HTTP/1.1 200 OK\r\n"
+            "Content-Type: text/plain\r\n"
+            "\r\n"
+            "OK\n";
+        
+        write(it, response, strlen(response));
+    };
+    
+    return 0;
+}
+```
+
+`httpsd_socket()`
+
+This is the SSL version.
+Each iteration accepts one SSL connection.
+You need `cert.pem` and `key.pem` in the current directory.
+Use `SSL_read()` and `SSL_write()` on `it`.
+
+SSL版です。
+各反復で1つのSSL接続をacceptします。
+カレントディレクトリに`cert.pem`と`key.pem`が必要です。
+`it`には`SSL_read()`と`SSL_write()`を使います。
+
+```C
+#include <neo-c-net.h>
+
+int main()
+{
+    httpsd_socket(port:443, reuse:true).`iter().`for_each {
+        char data[2048] = { 0 };
+        int size = SSL_read(it, data, 2047);
+        
+        if(size <= 0) {
+            continue;
+        }
+        
+        const char* response =
+            "HTTP/1.1 200 OK\r\n"
+            "Content-Type: text/plain\r\n"
+            "\r\n"
+            "HTTPS OK\n";
+        
+        SSL_write(it, response, strlen(response));
+    };
+    
+    return 0;
+}
+```
+
+`filter()`, `take()`, `skip()`, `take_while()`, `skip_while()`, `step_by()`, `inspect()`, `find()`, `each()`, and `for_each()` are also available on these iterators.
+
+これらのiteratorでも`filter()`, `take()`, `skip()`, `take_while()`, `skip_while()`, `step_by()`, `inspect()`, `find()`, `each()`, `for_each()`が使えます。
+
+Example:
+
+```C
+httpd_socket(port:8080, reuse:true)
+    .`iter()
+    .`take(10)
+    .`for_each {
+        puts("accepted");
+    };
+```
+
+Use `take(1)` when you want one-shot connect/accept behavior.
+
+1回だけconnect/acceptしたいなら`take(1)`を使ってください。
 
 # Omit return statment
 
