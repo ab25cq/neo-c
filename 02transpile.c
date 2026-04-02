@@ -2959,7 +2959,7 @@ static void sType_finalize(struct sType*  self  )
         come_call_finalizer(sType_finalize, self->mChannelType, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 3, 21);
     }
     if(self!=((void*)0)&&self->mGenericsTypes!=((void*)0)) {
-        come_call_finalizer(list$1sType$ph$p_finalize, self->mGenericsTypes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 4, 24);
+        come_call_finalizer(list$1sType$ph$p_finalize, self->mGenericsTypes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 26, 24);
     }
     if(self!=((void*)0)&&self->mNoSolvedGenericsType!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->mNoSolvedGenericsType, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 5, 25);
@@ -2995,13 +2995,13 @@ static void sType_finalize(struct sType*  self  )
         (self->mAsmName = come_decrement_ref_count(self->mAsmName, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 15, 35));
     }
     if(self!=((void*)0)&&self->mArrayNum!=((void*)0)) {
-        come_call_finalizer(list$1sNode$ph$p_finalize, self->mArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 16, 38);
+        come_call_finalizer(list$1sNode$ph$p_finalize, self->mArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 2, 38);
     }
     if(self!=((void*)0)&&self->mVarNameArrayNum!=((void*)0)) {
         come_call_finalizer(list$1sNode$ph$p_finalize, self->mVarNameArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 17, 39);
     }
     if(self!=((void*)0)&&self->mArrayStatic!=((void*)0)) {
-        come_call_finalizer(list$1int$$p_finalize, self->mArrayStatic, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 18, 41);
+        come_call_finalizer(list$1int$$p_finalize, self->mArrayStatic, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 2, 41);
     }
     if(self!=((void*)0)&&self->mArrayRestrict!=((void*)0)) {
         come_call_finalizer(list$1int$$p_finalize, self->mArrayRestrict, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 19, 42);
@@ -3016,7 +3016,7 @@ static void sType_finalize(struct sType*  self  )
         come_call_finalizer(list$1sType$ph$p_finalize, self->mParamTypes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 22, 45);
     }
     if(self!=((void*)0)&&self->mParamNames!=((void*)0)) {
-        come_call_finalizer(list$1char$ph$p_finalize, self->mParamNames, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 23, 48);
+        come_call_finalizer(list$1char$ph$p_finalize, self->mParamNames, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 0, 48);
     }
     if(self!=((void*)0)&&self->mResultType!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->mResultType, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 24, 49);
@@ -3263,7 +3263,7 @@ static void init_classes(struct sInfo*  info  )
     char*  __dec_obj14  ;
     struct sType* type_;
     struct sType* __dec_obj15;
-    map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string("int","02transpile.nc",287), "02transpile.nc", 287, 114),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "02transpile.nc", 287, 115, "struct sClass* "), "02transpile.nc", 287, 116),(char*)come_increment_ref_count(xsprintf("int"), "02transpile.nc", 287, 117),(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "02transpile.nc", 287, 118),(_Bool)0);
+    map$2char$phsClass$ph_insert(info->classes,(char* )come_increment_ref_count(__builtin_string("int","02transpile.nc",287), "02transpile.nc", 381, 114),(struct sClass*)come_increment_ref_count(sClass_initialize((struct sClass* )come_increment_ref_count((struct sClass *)come_calloc(1, sizeof(struct sClass )*(1), "02transpile.nc", 287, 115, "struct sClass* "), "02transpile.nc", 287, 116),(char*)come_increment_ref_count(xsprintf("int"), "02transpile.nc", 287, 117),(_Bool)1,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,(_Bool)0,-1,-1,(_Bool)0,(_Bool)0,(_Bool)0,info,(_Bool)0), "02transpile.nc", 381, 118),(_Bool)0);
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __right_value2 = (void*)0;
@@ -3399,7 +3399,7 @@ static void init_classes(struct sInfo*  info  )
         type->mOriginalTypeName=(char* )come_increment_ref_count(__builtin_string("__builtin_va_list","02transpile.nc",330), "02transpile.nc", 330, 244);
         __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0, "02transpile.nc", 330, 243);
         __right_value0 = (void*)0;
-        map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(type_name,"02transpile.nc",332), "02transpile.nc", 332, 266),(struct sType* )come_increment_ref_count(type, "02transpile.nc", 332, 267),(_Bool)0);
+        map$2char$phsType$ph_insert(info->types,(char* )come_increment_ref_count(__builtin_string(type_name,"02transpile.nc",332), "02transpile.nc", 3, 266),(struct sType* )come_increment_ref_count(type, "02transpile.nc", 3, 267),(_Bool)0);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -3408,7 +3408,7 @@ static void init_classes(struct sInfo*  info  )
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
-        list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "02transpile.nc", 336, 289, "struct tuple2$2char$phsType$ph"), "02transpile.nc", 336, 299),(char* )come_increment_ref_count(__builtin_string("v1","02transpile.nc",336), "02transpile.nc", 336, 300),(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "02transpile.nc", 336, 286, "struct sType* "), "02transpile.nc", 336, 287),(char*)come_increment_ref_count(xsprintf("char*"), "02transpile.nc", 336, 288),(_Bool)0,info,(_Bool)0,0), "02transpile.nc", 336, 301)), "02transpile.nc", 336, 302));
+        list$1tuple2$2char$phsType$ph$ph_push_back(klass->mFields,(struct tuple2$2char$phsType$ph*)come_increment_ref_count(tuple2$2char$phsType$ph_initialize((struct tuple2$2char$phsType$ph*)come_increment_ref_count((struct tuple2$2char$phsType$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsType$ph)*(1), "02transpile.nc", 336, 289, "struct tuple2$2char$phsType$ph"), "02transpile.nc", 3, 299),(char* )come_increment_ref_count(__builtin_string("v1","02transpile.nc",336), "02transpile.nc", 3, 300),(struct sType*)come_increment_ref_count(sType_initialize((struct sType* )come_increment_ref_count((struct sType *)come_calloc(1, sizeof(struct sType )*(1), "02transpile.nc", 336, 286, "struct sType* "), "02transpile.nc", 336, 287),(char*)come_increment_ref_count(xsprintf("char*"), "02transpile.nc", 336, 288),(_Bool)0,info,(_Bool)0,0), "02transpile.nc", 3, 301)), "02transpile.nc", 3, 302));
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -3598,7 +3598,7 @@ static struct map$2char$phsClass$ph* map$2char$phsClass$ph_insert(struct map$2ch
         }
     }
     if(add_to_key_list) {
-        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key, "./neo-c.h", 3938, 111));
+        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key, "./neo-c.h", 3, 111));
     }
         __result_obj__0 = self;
     (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3941, 112));
@@ -3614,7 +3614,7 @@ static void sClass_finalize(struct sClass*  self  )
         (self->mName = come_decrement_ref_count(self->mName, (void*)0, (void*)0, 0, 0, (void*)0, "sClass_finalize", 2, 68));
     }
     if(self!=((void*)0)&&self->mFields!=((void*)0)) {
-        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, self->mFields, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sClass_finalize}", 3, 73);
+        come_call_finalizer(list$1tuple2$2char$phsType$ph$ph$p_finalize, self->mFields, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sClass_finalize}", 5, 73);
     }
     if(self!=((void*)0)&&self->mParentClassName!=((void*)0)) {
         (self->mParentClassName = come_decrement_ref_count(self->mParentClassName, (void*)0, (void*)0, 0, 0, (void*)0, "sClass_finalize", 4, 74));
@@ -4290,7 +4290,7 @@ int come_main(int argc, char** argv)
     int __result_obj__0;
     memset(&info, 0, sizeof(info));
     start_num=1;
-    files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "02transpile.nc", 428, 409, "struct list$1char$ph*"), "02transpile.nc", 428, 413)), "02transpile.nc", 428, 414);
+    files=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "02transpile.nc", 428, 409, "struct list$1char$ph*"), "02transpile.nc", 498, 413)), "02transpile.nc", 428, 414);
     for(i=start_num    ;i<argc;i++){
         __right_value0 = (void*)0;
         ext_name=(char* )come_increment_ref_count(xextname(argv[i]), "02transpile.nc", 430, 415);
@@ -4347,8 +4347,8 @@ int come_main(int argc, char** argv)
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj18=info.funcs,
-        info.funcs=(struct map$2char$phsFun$ph*)come_increment_ref_count(map$2char$phsFun$ph_initialize((struct map$2char$phsFun$ph*)come_increment_ref_count((struct map$2char$phsFun$ph*)come_calloc(1, sizeof(struct map$2char$phsFun$ph)*(1), "02transpile.nc", 447, 557, "struct map$2char$phsFun$ph*"), "02transpile.nc", 447, 574)), "02transpile.nc", 447, 581);
-        come_call_finalizer(map$2char$phsFun$ph_finalize, __dec_obj18,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 447, 580);
+        info.funcs=(struct map$2char$phsFun$ph*)come_increment_ref_count(map$2char$phsFun$ph_initialize((struct map$2char$phsFun$ph*)come_increment_ref_count((struct map$2char$phsFun$ph*)come_calloc(1, sizeof(struct map$2char$phsFun$ph)*(1), "02transpile.nc", 447, 557, "struct map$2char$phsFun$ph*"), "02transpile.nc", 2, 574)), "02transpile.nc", 2, 581);
+        come_call_finalizer(map$2char$phsFun$ph_finalize, __dec_obj18,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 2, 580);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj19=info.uniq_funcs,
@@ -4357,8 +4357,8 @@ int come_main(int argc, char** argv)
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj21=info.struct_definition,
-        info.struct_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.nc", 449, 586, "struct map$2char$phbuffer$ph*"), "02transpile.nc", 449, 602)), "02transpile.nc", 449, 609);
-        come_call_finalizer(map$2char$phbuffer$ph_finalize, __dec_obj21,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 449, 608);
+        info.struct_definition=(struct map$2char$phbuffer$ph*)come_increment_ref_count(map$2char$phbuffer$ph_initialize((struct map$2char$phbuffer$ph*)come_increment_ref_count((struct map$2char$phbuffer$ph*)come_calloc(1, sizeof(struct map$2char$phbuffer$ph)*(1), "02transpile.nc", 449, 586, "struct map$2char$phbuffer$ph*"), "02transpile.nc", 2, 602)), "02transpile.nc", 2, 609);
+        come_call_finalizer(map$2char$phbuffer$ph_finalize, __dec_obj21,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 2, 608);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj22=info.var_definition,
@@ -4367,8 +4367,8 @@ int come_main(int argc, char** argv)
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj24=info.uniq_definition,
-        info.uniq_definition=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count((struct map$2char$phchar$ph*)come_calloc(1, sizeof(struct map$2char$phchar$ph)*(1), "02transpile.nc", 451, 614, "struct map$2char$phchar$ph*"), "02transpile.nc", 451, 630)), "02transpile.nc", 451, 637);
-        come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj24,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 451, 636);
+        info.uniq_definition=(struct map$2char$phchar$ph*)come_increment_ref_count(map$2char$phchar$ph_initialize((struct map$2char$phchar$ph*)come_increment_ref_count((struct map$2char$phchar$ph*)come_calloc(1, sizeof(struct map$2char$phchar$ph)*(1), "02transpile.nc", 451, 614, "struct map$2char$phchar$ph*"), "02transpile.nc", 2, 630)), "02transpile.nc", 2, 637);
+        come_call_finalizer(map$2char$phchar$ph_finalize, __dec_obj24,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 2, 636);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj25=info.previous_struct_definition,
@@ -4387,8 +4387,8 @@ int come_main(int argc, char** argv)
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj29=info.named_child_struct,
-        info.named_child_struct=(struct map$2char$phsType$ph*)come_increment_ref_count(map$2char$phsType$ph_initialize((struct map$2char$phsType$ph*)come_increment_ref_count((struct map$2char$phsType$ph*)come_calloc(1, sizeof(struct map$2char$phsType$ph)*(1), "02transpile.nc", 455, 650, "struct map$2char$phsType$ph*"), "02transpile.nc", 455, 666)), "02transpile.nc", 455, 673);
-        come_call_finalizer(map$2char$phsType$ph_finalize, __dec_obj29,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 455, 672);
+        info.named_child_struct=(struct map$2char$phsType$ph*)come_increment_ref_count(map$2char$phsType$ph_initialize((struct map$2char$phsType$ph*)come_increment_ref_count((struct map$2char$phsType$ph*)come_calloc(1, sizeof(struct map$2char$phsType$ph)*(1), "02transpile.nc", 455, 650, "struct map$2char$phsType$ph*"), "02transpile.nc", 2, 666)), "02transpile.nc", 2, 673);
+        come_call_finalizer(map$2char$phsType$ph_finalize, __dec_obj29,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 2, 672);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj30=info.reflection_vars,
@@ -4397,13 +4397,13 @@ int come_main(int argc, char** argv)
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj32=info.generics_funcs,
-        info.generics_funcs=(struct map$2char$phsGenericsFun$ph*)come_increment_ref_count(map$2char$phsGenericsFun$ph_initialize((struct map$2char$phsGenericsFun$ph*)come_increment_ref_count((struct map$2char$phsGenericsFun$ph*)come_calloc(1, sizeof(struct map$2char$phsGenericsFun$ph)*(1), "02transpile.nc", 457, 678, "struct map$2char$phsGenericsFun$ph*"), "02transpile.nc", 457, 694)), "02transpile.nc", 457, 701);
-        come_call_finalizer(map$2char$phsGenericsFun$ph_finalize, __dec_obj32,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 457, 700);
+        info.generics_funcs=(struct map$2char$phsGenericsFun$ph*)come_increment_ref_count(map$2char$phsGenericsFun$ph_initialize((struct map$2char$phsGenericsFun$ph*)come_increment_ref_count((struct map$2char$phsGenericsFun$ph*)come_calloc(1, sizeof(struct map$2char$phsGenericsFun$ph)*(1), "02transpile.nc", 457, 678, "struct map$2char$phsGenericsFun$ph*"), "02transpile.nc", 2, 694)), "02transpile.nc", 2, 701);
+        come_call_finalizer(map$2char$phsGenericsFun$ph_finalize, __dec_obj32,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 2, 700);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj34=info.classes,
-        info.classes=(struct map$2char$phsClass$ph*)come_increment_ref_count(map$2char$phsClass$ph_initialize((struct map$2char$phsClass$ph*)come_increment_ref_count((struct map$2char$phsClass$ph*)come_calloc(1, sizeof(struct map$2char$phsClass$ph)*(1), "02transpile.nc", 458, 702, "struct map$2char$phsClass$ph*"), "02transpile.nc", 458, 718)), "02transpile.nc", 458, 725);
-        come_call_finalizer(map$2char$phsClass$ph_finalize, __dec_obj34,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 458, 724);
+        info.classes=(struct map$2char$phsClass$ph*)come_increment_ref_count(map$2char$phsClass$ph_initialize((struct map$2char$phsClass$ph*)come_increment_ref_count((struct map$2char$phsClass$ph*)come_calloc(1, sizeof(struct map$2char$phsClass$ph)*(1), "02transpile.nc", 458, 702, "struct map$2char$phsClass$ph*"), "02transpile.nc", 2, 718)), "02transpile.nc", 2, 725);
+        come_call_finalizer(map$2char$phsClass$ph_finalize, __dec_obj34,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 2, 724);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj35=info.types,
@@ -4417,13 +4417,13 @@ int come_main(int argc, char** argv)
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj37=info.right_value_objects,
-        info.right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(list$1sRightValueObject$ph_initialize((struct list$1sRightValueObject$ph*)come_increment_ref_count((struct list$1sRightValueObject$ph*)come_calloc(1, sizeof(struct list$1sRightValueObject$ph)*(1), "02transpile.nc", 461, 734, "struct list$1sRightValueObject$ph*"), "02transpile.nc", 461, 738)), "02transpile.nc", 461, 741);
-        come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj37,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 461, 740);
+        info.right_value_objects=(struct list$1sRightValueObject$ph*)come_increment_ref_count(list$1sRightValueObject$ph_initialize((struct list$1sRightValueObject$ph*)come_increment_ref_count((struct list$1sRightValueObject$ph*)come_calloc(1, sizeof(struct list$1sRightValueObject$ph)*(1), "02transpile.nc", 461, 734, "struct list$1sRightValueObject$ph*"), "02transpile.nc", 2, 738)), "02transpile.nc", 2, 741);
+        come_call_finalizer(list$1sRightValueObject$ph_finalize, __dec_obj37,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 2, 740);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj38=info.stack,
-        info.stack=(struct list$1CVALUE$ph*)come_increment_ref_count(list$1CVALUE$ph_initialize((struct list$1CVALUE$ph*)come_increment_ref_count((struct list$1CVALUE$ph*)come_calloc(1, sizeof(struct list$1CVALUE$ph)*(1), "02transpile.nc", 462, 742, "struct list$1CVALUE$ph*"), "02transpile.nc", 462, 746)), "02transpile.nc", 462, 749);
-        come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj38,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 462, 748);
+        info.stack=(struct list$1CVALUE$ph*)come_increment_ref_count(list$1CVALUE$ph_initialize((struct list$1CVALUE$ph*)come_increment_ref_count((struct list$1CVALUE$ph*)come_calloc(1, sizeof(struct list$1CVALUE$ph)*(1), "02transpile.nc", 462, 742, "struct list$1CVALUE$ph*"), "02transpile.nc", 2, 746)), "02transpile.nc", 2, 749);
+        come_call_finalizer(list$1CVALUE$ph_finalize, __dec_obj38,(void*)0, (void*)0, 0, 0, 0, (void*)0, "02transpile.nc", 2, 748);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj39=info.gv_table,
@@ -4593,25 +4593,25 @@ static void sInfo_finalize(struct sInfo*  self  )
         (self->caller_sname = come_decrement_ref_count(self->caller_sname, (void*)0, (void*)0, 0, 0, (void*)0, "sInfo_finalize", 10, 429));
     }
     if(self!=((void*)0)&&self->funcs!=((void*)0)) {
-        come_call_finalizer(map$2char$phsFun$ph$p_finalize, self->funcs, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 11, 461);
+        come_call_finalizer(map$2char$phsFun$ph$p_finalize, self->funcs, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 54, 461);
     }
     if(self!=((void*)0)&&self->uniq_funcs!=((void*)0)) {
         come_call_finalizer(map$2char$phsFun$ph$p_finalize, self->uniq_funcs, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 12, 462);
     }
     if(self!=((void*)0)&&self->generics_funcs!=((void*)0)) {
-        come_call_finalizer(map$2char$phsGenericsFun$ph$p_finalize, self->generics_funcs, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 13, 478);
+        come_call_finalizer(map$2char$phsGenericsFun$ph$p_finalize, self->generics_funcs, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 3, 478);
     }
     if(self!=((void*)0)&&self->classes!=((void*)0)) {
-        come_call_finalizer(map$2char$phsClass$ph$p_finalize, self->classes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 14, 484);
+        come_call_finalizer(map$2char$phsClass$ph$p_finalize, self->classes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 11, 484);
     }
     if(self!=((void*)0)&&self->types!=((void*)0)) {
-        come_call_finalizer(map$2char$phsType$ph$p_finalize, self->types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 15, 490);
+        come_call_finalizer(map$2char$phsType$ph$p_finalize, self->types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 11, 490);
     }
     if(self!=((void*)0)&&self->generics_classes!=((void*)0)) {
         come_call_finalizer(map$2char$phsClass$ph$p_finalize, self->generics_classes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 16, 491);
     }
     if(self!=((void*)0)&&self->struct_definition!=((void*)0)) {
-        come_call_finalizer(map$2char$phbuffer$ph$p_finalize, self->struct_definition, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 17, 497);
+        come_call_finalizer(map$2char$phbuffer$ph$p_finalize, self->struct_definition, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 11, 497);
     }
     if(self!=((void*)0)&&self->c_include_definition!=((void*)0)) {
         come_call_finalizer(map$2char$phbuffer$ph$p_finalize, self->c_include_definition, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 18, 498);
@@ -4629,7 +4629,7 @@ static void sInfo_finalize(struct sInfo*  self  )
         come_call_finalizer(map$2char$phsType$ph$p_finalize, self->named_child_struct, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 22, 502);
     }
     if(self!=((void*)0)&&self->reflection_vars!=((void*)0)) {
-        come_call_finalizer(map$2char$phchar$ph$p_finalize, self->reflection_vars, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 23, 508);
+        come_call_finalizer(map$2char$phchar$ph$p_finalize, self->reflection_vars, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 11, 508);
     }
     if(self!=((void*)0)&&self->module!=((void*)0)) {
         come_call_finalizer(sModule_finalize, self->module, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 24, 514);
@@ -4638,7 +4638,7 @@ static void sInfo_finalize(struct sInfo*  self  )
         come_call_finalizer(sType_finalize, self->type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 25, 515);
     }
     if(self!=((void*)0)&&self->right_value_objects!=((void*)0)) {
-        come_call_finalizer(list$1sRightValueObject$ph$p_finalize, self->right_value_objects, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 26, 523);
+        come_call_finalizer(list$1sRightValueObject$ph$p_finalize, self->right_value_objects, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 6, 523);
     }
     if(self!=((void*)0)&&self->generics_type!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->generics_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 27, 524);
@@ -4647,7 +4647,7 @@ static void sInfo_finalize(struct sInfo*  self  )
         come_call_finalizer(list$1sType$ph$p_finalize, self->method_generics_types, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 28, 525);
     }
     if(self!=((void*)0)&&self->stack!=((void*)0)) {
-        come_call_finalizer(list$1CVALUE$ph$p_finalize, self->stack, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 29, 528);
+        come_call_finalizer(list$1CVALUE$ph$p_finalize, self->stack, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 6, 528);
     }
     if(self!=((void*)0)&&self->come_function_result_type!=((void*)0)) {
         come_call_finalizer(sType_finalize, self->come_function_result_type, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sInfo_finalize}", 30, 529);
@@ -4776,7 +4776,7 @@ static void sFun_finalize(struct sFun*  self  )
         come_call_finalizer(sType_finalize, self->mLambdaType, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sFun_finalize}", 7, 435);
     }
     if(self!=((void*)0)&&self->mAllVar!=((void*)0)) {
-        come_call_finalizer(list$1sVar$ph$p_finalize, self->mAllVar, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sFun_finalize}", 8, 442);
+        come_call_finalizer(list$1sVar$ph$p_finalize, self->mAllVar, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sFun_finalize}", 19, 442);
     }
     if(self!=((void*)0)&&self->mBlock!=((void*)0)) {
         come_call_finalizer(sBlock_finalize, self->mBlock, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sFun_finalize}", 9, 445);
@@ -5161,8 +5161,8 @@ static struct map$2char$phsFun$ph* map$2char$phsFun$ph_initialize(struct map$2ch
     self->len=0;
     __right_value0 = (void*)0;
     __dec_obj17=self->key_list,
-    self->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 3338, 566, "struct list$1char$ph*"), "./neo-c.h", 3338, 567)), "./neo-c.h", 3338, 570);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj17,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 3338, 569);
+    self->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 3338, 566, "struct list$1char$ph*"), "./neo-c.h", 3338, 567)), "./neo-c.h", 2, 570);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj17,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 2, 569);
     self->it=0;
         __result_obj__0 = (struct map$2char$phsFun$ph*)come_increment_ref_count(self, "./neo-c.h", 3342, 571);
     come_call_finalizer(map$2char$phsFun$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3342, 572);
