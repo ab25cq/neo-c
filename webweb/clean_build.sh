@@ -1,4 +1,4 @@
-(cd dbdb && make clean)
-(cd cgi-bin && make clean)
-(make clean)
+#!/bin/sh
+set -eu
 
+make clean

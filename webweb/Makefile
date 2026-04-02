@@ -20,7 +20,7 @@ CC=neo-c
 INSTALL=install
 CFLAGS= -Og -g -I..
 CFLAGS_DEBUG= -gdwarf-4 -cg -net -I..
-LIBS=-lssl
+LIBS=-lssl -lz
 OS=linux
 DESTDIR=/usr/local/
 SRCS=$(wildcard *.nc)
@@ -29,12 +29,16 @@ OBJS=$(SINGLE_SRCS:.nc=.o)
 DEBUG_OBJS=$(SINGLE_SRCS:.nc=.debug.o)
 TARGET=webweb2
 TARGET_DEBUG=webweb2-debug
+CGI_DIR=cgi-bin
+DB_DIR=dbdb
+
+.PHONY: all install clean distclean uninstall run run-http run-https compile debug help
 
 #########################################
 # main
 #########################################
 all: $(TARGET)
-	(cd cgi-bin && make)
+	$(MAKE) -C $(CGI_DIR)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
@@ -68,7 +72,11 @@ install:
 #########################################
 clean:
 	rm -fR *.o *.c.i *.c.out *.c webweb2 *.log *.out webweb2-debug
-	(cd dbdb && make clean)
+	$(MAKE) -C $(CGI_DIR) clean
+	$(MAKE) -C $(DB_DIR) clean
+
+distclean: clean
+	rm -f cert.pem key.pem cert.p12
 
 #########################################
 # uninstall
@@ -77,14 +85,30 @@ uninstall:
 	rm -f "$(DESTDIR)"/bin/webweb2
 	rm -f "$(DESTDIR)/share/doc/webweb2/README.md"
 
-run: webweb2
-	(cd dbdb && make run)
-	(cd cgi-bin && make)
+run: run-http
+
+run-http: webweb2
+	$(MAKE) -C $(DB_DIR) run
+	$(MAKE) -C $(CGI_DIR)
 	rm -f *.log
 	./webweb2 -http
+
+run-https: webweb2
+	$(MAKE) -C $(CGI_DIR)
+	rm -f *.log
+	./webweb2
 
 compile: webweb2
 
 debug: webweb2-debug
 	rm -f *.log
 	./webweb2-debug
+
+help:
+	@printf '%s\n' \
+	'Targets:' \
+	'  make           Build webweb2 and CGI programs' \
+	'  make run-http  Build and run HTTP mode with dbdb' \
+	'  make run-https Build and run HTTPS mode' \
+	'  make clean     Remove build outputs from webweb, cgi-bin, and dbdb' \
+	'  make distclean Remove build outputs plus generated certificates'
