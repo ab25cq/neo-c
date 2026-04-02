@@ -150,6 +150,8 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     char* p = info.p;
     char* head = info.head;
     int sline = info.sline;
+    int sline_real = info.sline_real;
+    int sline_top = info.sline_top;
     
     info.source = method_block2;
     if(info.p == null) {
@@ -158,6 +160,8 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     info.p = borrow info.source.buf;
     info.head = borrow info.source.buf;
     info.sline = method_block_sline;
+    info.sline_real = method_block_sline;
+    info.sline_top = method_block_sline;
    
     sNode*% node = parse_function(info);
     
@@ -195,6 +199,8 @@ bool compile_method_block(buffer* method_block, list<CVALUE*%>* come_params, sFu
     info.p = p;
     info.head = head;
     info.sline = sline;
+    info.sline_real = sline_real;
+    info.sline_top = sline_top;
     
     info->current_stack_frame_struct = current_stack_frame_struct;
     info->come_method_block_function_result_type = clone info->function_result_type;
@@ -484,6 +490,10 @@ class sMethodCallNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
+        string call_sname = self.sname();
+        int call_sline = self.sline();
+        int call_sline_real = self.sline_real();
+
         string fun_name = self.fun_name;
         list<tuple2<string, sNode*%>*%>*% params = self.params;
         sNode*% obj = create_heap_checker(self.obj);
@@ -648,6 +658,10 @@ class sMethodCallNode extends sNodeBase
             }
             info->no_output_come_code = no_output_come_code;
         }
+
+        info.sname = string(call_sname);
+        info.sline = call_sline;
+        info.sline_real = call_sline_real;
         
         sClass* klass = obj_type.mClass;
         
@@ -745,6 +759,10 @@ class sMethodCallNode extends sNodeBase
         }
         else {
             var generics_fun_name, fun, generics_fun = get_method(fun_name, obj_type, info);
+
+            info.sname = string(call_sname);
+            info.sline = call_sline;
+            info.sline_real = call_sline_real;
             
             if(fun == null) {
                 err_msg(info, "function not found(%s, %s) at method(%s)(ZY)", generics_fun_name, fun_name, info.come_fun.mName);
@@ -909,6 +927,8 @@ class sMethodCallNode extends sNodeBase
                         char* p = info.p;
                         char* head = info.head;
                         int sline = info.sline;
+                        int sline_real = info.sline_real;
+                        int sline_top = info.sline_top;
                         
                         info.source = default_param.to_buffer();
                         if(info.p == null) {
@@ -916,6 +936,8 @@ class sMethodCallNode extends sNodeBase
                         }
                         info.p = borrow info.source.buf;
                         info.head = borrow info.source.buf;
+                        info.sline_real = sline_real;
+                        info.sline_top = sline_top;
                         
                         bool no_output_come_code = info.no_output_come_code;
                         info.no_output_come_code = true;
@@ -932,10 +954,12 @@ class sMethodCallNode extends sNodeBase
     if(info.p == null) {
         info.p = borrow info.source.buf;
     }
-    info.p = borrow info.source.buf;
+                        info.p = borrow info.source.buf;
     info.p = p;
                         info.head = head;
                         info.sline = sline;
+                        info.sline_real = sline_real;
+                        info.sline_top = sline_top;
                 
                         CVALUE*% come_value = get_value_from_stack(-1, info);
                         come_value.type = solve_generics(come_value.type, info->generics_type, info);
@@ -1119,10 +1143,14 @@ class sIterCallNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
+        string call_sname = self.sname();
+        int call_sline = self.sline();
+        int call_sline_real = self.sline_real();
         string fun_name = self.fun_name;
         list<tuple2<string, sNode*%>*%>*% params = self.params;
         sNode*% obj = clone self.obj;
         buffer*% method_block = clone self.method_block;
+        int method_block_sline = self.method_block_sline;
         sNode*% parent_call_node = clone self.parent_call_node;
         bool recursive = info.iter_buffer != null;
         
@@ -1280,7 +1308,13 @@ class sIterCallNode extends sNodeBase
                     p+=strlen("`block()");
                     if(!use_iter_next) {
                         string method_block2 = trim_last_bracket(method_block.to_string()[1..-1]);
+                        if(method_block_sline > 0) {
+                            buf.append_str(xsprintf("#line %d \"%s\"\n", method_block_sline, call_sname));
+                        }
                         buf.append_str(method_block2);
+                        if(method_block_sline > 0) {
+                            buf.append_str(xsprintf("\n#line %d \"%s\"\n", call_sline, call_sname));
+                        }
                     }
                     else {
                         info.use_iter_next = false;
@@ -1328,6 +1362,11 @@ class sIterCallNode extends sNodeBase
             char* p = info.p;
             char* head = info.head;
             char* end = info.end;
+            int sline = info.sline;
+            int sline_real = info.sline_real;
+            int sline_top = info.sline_top;
+            int iter_sline = method_block_sline > 0 ? method_block_sline : call_sline;
+            int iter_sline_real = method_block_sline > 0 ? method_block_sline : (call_sline_real > 0 ? call_sline_real : call_sline);
             
             sType*% generics_type = info.generics_type;
             list<string>*% generics_type_names = info.generics_type_names;
@@ -1343,6 +1382,10 @@ class sIterCallNode extends sNodeBase
             info.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
             info.end = info.source.buf + info.source.len;
+            info.sname = string(call_sname);
+            info.sline = iter_sline;
+            info.sline_real = iter_sline_real;
+            info.sline_top = iter_sline_real;
             
             if(obj_type.mNoSolvedGenericsType) {
                 info.generics_type = obj_type.mNoSolvedGenericsType;
@@ -1373,6 +1416,10 @@ class sIterCallNode extends sNodeBase
             info.p = borrow info.source.buf;
             info.head = borrow info.source.buf;
             info.end = info.source.buf + info.source.len;
+            info.sname = string(call_sname);
+            info.sline = iter_sline;
+            info.sline_real = iter_sline_real;
+            info.sline_top = iter_sline_real;
             
             info.generics_type_names = second_pass_generics_type_names;
             
@@ -1388,6 +1435,10 @@ class sIterCallNode extends sNodeBase
     info.p = p;
             info.head = head;
             info.end = end;
+            info.sname = string(call_sname);
+            info.sline = sline;
+            info.sline_real = sline_real;
+            info.sline_top = sline_top;
             
             info.generics_type = generics_type;
             info.generics_type_names = generics_type_names;
@@ -1430,7 +1481,13 @@ class sIterCallNode extends sNodeBase
                     p+=strlen("`block()");
                     if(!use_iter_next) {
                         string method_block2 = trim_last_bracket(method_block.to_string()[1..-1]);
+                        if(method_block_sline > 0) {
+                            buf.append_str(xsprintf("#line %d \"%s\"\n", method_block_sline, call_sname));
+                        }
                         buf.append_str(method_block2);
+                        if(method_block_sline > 0) {
+                            buf.append_str(xsprintf("\n#line %d \"%s\"\n", call_sline, call_sname));
+                        }
                     }
                     else {
                         info.use_iter_next = false;

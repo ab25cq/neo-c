@@ -746,6 +746,8 @@ class sFunCallNode extends sNodeBase
                     char* p = info.p;
                     char* head = info.head;
                     int sline = info.sline;
+                    int sline_real = info.sline_real;
+                    int sline_top = info.sline_top;
                     
                     info.source = default_param.to_buffer();
                     if(info.p == null) {
@@ -753,6 +755,8 @@ class sFunCallNode extends sNodeBase
                     }
                     info.p = borrow info.source.buf;
                     info.head = borrow info.source.buf;
+                    info.sline_real = sline_real;
+                    info.sline_top = sline_top;
                     
                     bool no_output_come_code = info.no_output_come_code;
                     info.no_output_come_code = true;
@@ -773,6 +777,8 @@ class sFunCallNode extends sNodeBase
     info.p = p;
                     info.head = head;
                     info.sline = sline;
+                    info.sline_real = sline_real;
+                    info.sline_top = sline_top;
             
                     CVALUE*% come_value = get_value_from_stack(-1, info);
                     

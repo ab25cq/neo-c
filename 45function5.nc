@@ -51,11 +51,13 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
             info.writing_source_file_position = true;
             
             int sline = info.sline;
+            int sline_real = info.sline_real;
             string sname = string(info.sname);
             
             info->last_statment_is_return = false;
             
             info.sline = node.sline();
+            info.sline_real = node.sline_real();
             info.sname = node.sname();
             
             node_compile(node).elif {
@@ -67,6 +69,7 @@ int transpile_block(sBlock* block, list<sType*%>* param_types, list<string>* par
             }
             
             info.sline = sline;
+            info.sline_real = sline_real;
             info.sname = string(sname);
     
             /// return if result value

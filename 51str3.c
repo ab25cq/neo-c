@@ -2633,26 +2633,32 @@ struct sNode* parse_vector(struct sInfo*  info  );
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
 {
+    # 38 "/usr/include/bits/byteswap.h"
         return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
 }
 static inline unsigned int  __bswap_32(unsigned int  __bsx  )
 {
+    # 51 "/usr/include/bits/byteswap.h"
         return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
 }
 static inline unsigned long  int  __bswap_64(unsigned long  int  __bsx  )
 {
+    # 64 "/usr/include/bits/byteswap.h"
         return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
 }
 static inline unsigned short int  __uint16_identity(unsigned short int  __x  )
 {
+    # 35 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 static inline unsigned int  __uint32_identity(unsigned int  __x  )
 {
+    # 41 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
+    # 47 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 
@@ -2789,130 +2795,225 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
     memset(&c_58, 0, sizeof(c_58));
     memset(&quote, 0, sizeof(quote));
     memset(&size_64, 0, sizeof(size_64));
+    # 1499 "51str3.nc"
     if(*info->p==34&&*(info->p+1)==34&&*(info->p+2)==34&&*(info->p+3)==10) {
+        # 7 "51str3.nc"
         sline_real=info->sline_real;
+        # 8 "51str3.nc"
         info->sline_real=info->sline;
+        # 9 "51str3.nc"
         info->p+=4;
+        # 10 "51str3.nc"
         info->sline++;
+        # 12 "51str3.nc"
         sline=info->sline;
-        exps=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 14, 1, "struct list$1sNode$ph*"), "51str3.nc", 1494, 7)), "51str3.nc", 14, 8);
+        # 14 "51str3.nc"
+        exps=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 14, 1, "struct list$1sNode$ph*"), "51str3.nc", 14, 7)), "51str3.nc", 14, 8);
+        # 15 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 15, 9, "struct buffer* "), "51str3.nc", 15, 10)), "51str3.nc", 15, 11);
+        # 17 "51str3.nc"
         head_of_last_line=((void*)0);
+        # 147 "51str3.nc"
         while(1) {
+            # 145 "51str3.nc"
             if(*info->p==34&&*(info->p+1)==34&&*(info->p+2)==34) {
+                # 22 "51str3.nc"
                 info->p+=3;
+                # 24 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 25 "51str3.nc"
                 break;
             }
             else if(*info->p==37) {
+                # 28 "51str3.nc"
                 buffer_append_char(value,37);
+                # 29 "51str3.nc"
                 buffer_append_char(value,37);
+                # 30 "51str3.nc"
                 info->p++;
             }
             else if(*info->p==34) {
+                # 33 "51str3.nc"
                 buffer_append_char(value,92);
+                # 34 "51str3.nc"
                 buffer_append_char(value,34);
+                # 35 "51str3.nc"
                 info->p++;
             }
             else if(*info->p==92) {
+                # 38 "51str3.nc"
                 buffer_append_char(value,92);
+                # 39 "51str3.nc"
                 info->p++;
+                # 124 "51str3.nc"
                 if(xisdigit(*info->p)) {
+                    # 42 "51str3.nc"
                     len=0;
+                    # 48 "51str3.nc"
                     while(xisdigit(*info->p)&&len<3) {
+                        # 44 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 45 "51str3.nc"
                         info->p++;
+                        # 46 "51str3.nc"
                         len++;
                     }
                 }
                 else if(*info->p==120||*info->p==88) {
+                    # 50 "51str3.nc"
                     buffer_append_char(value,*info->p);
+                    # 51 "51str3.nc"
                     info->p++;
+                    # 57 "51str3.nc"
                     while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        # 54 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 55 "51str3.nc"
                         info->p++;
                     }
                 }
                 else if(*info->p==123) {
+                    # 59 "51str3.nc"
                     info->p++;
+                    # 61 "51str3.nc"
                     __right_value0 = (void*)0;
                     exp=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 61, 12);
-                    list$1sNode$ph_add(exps,(struct sNode*)come_increment_ref_count(exp, "51str3.nc", 2, 27));
+                    # 63 "51str3.nc"
+                    list$1sNode$ph_add(exps,(struct sNode*)come_increment_ref_count(exp, "51str3.nc", 63, 27));
+                    # 69 "51str3.nc"
                     if(*info->p==125) {
+                        # 66 "51str3.nc"
                         info->p++;
                     }
+                    # 69 "51str3.nc"
                     buffer_append_str(value,"%s");
                     ((exp) ? exp = come_decrement_ref_count(exp, ((struct sNode*)exp)->finalize, ((struct sNode*)exp)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 124, 28):(void*)0);
                 }
                 else {
+                    # 123 "51str3.nc"
                     switch (                    *info->p) {
+                        # 74 "51str3.nc"
                         case 48:
+                        # 74 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 75 "51str3.nc"
                         info->p++;
+                        # 76 "51str3.nc"
                         break;
+                        # 79 "51str3.nc"
                         case 110:
+                        # 79 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 80 "51str3.nc"
                         info->p++;
+                        # 81 "51str3.nc"
                         break;
+                        # 84 "51str3.nc"
                         case 116:
+                        # 84 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 85 "51str3.nc"
                         info->p++;
+                        # 86 "51str3.nc"
                         break;
+                        # 89 "51str3.nc"
                         case 114:
+                        # 89 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 90 "51str3.nc"
                         info->p++;
+                        # 91 "51str3.nc"
                         break;
+                        # 94 "51str3.nc"
                         case 118:
+                        # 94 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 95 "51str3.nc"
                         info->p++;
+                        # 96 "51str3.nc"
                         break;
+                        # 99 "51str3.nc"
                         case 102:
+                        # 99 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 100 "51str3.nc"
                         info->p++;
+                        # 101 "51str3.nc"
                         break;
+                        # 104 "51str3.nc"
                         case 97:
+                        # 104 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 105 "51str3.nc"
                         info->p++;
+                        # 106 "51str3.nc"
                         break;
+                        # 109 "51str3.nc"
                         case 98:
+                        # 109 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 110 "51str3.nc"
                         info->p++;
+                        # 111 "51str3.nc"
                         break;
+                        # 114 "51str3.nc"
                         case 92:
+                        # 114 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 115 "51str3.nc"
                         info->p++;
+                        # 116 "51str3.nc"
                         break;
+                        # 119 "51str3.nc"
                         default:
+                        # 119 "51str3.nc"
                         buffer_append_char(value,*info->p);
+                        # 120 "51str3.nc"
                         info->p++;
+                        # 121 "51str3.nc"
                         break;
                     }
                 }
             }
             else if(*info->p==0) {
+                # 126 "51str3.nc"
                 sline2=info->sline;
+                # 127 "51str3.nc"
                 info->sline=sline;
+                # 128 "51str3.nc"
                 err_msg(info,"close \" to make embbeded string value");
+                # 129 "51str3.nc"
                 exit(2);
             }
             else {
+                # 144 "51str3.nc"
                 if(*info->p==10) {
+                    # 133 "51str3.nc"
                     buffer_append_char(value,92);
+                    # 134 "51str3.nc"
                     buffer_append_char(value,110);
+                    # 135 "51str3.nc"
                     info->p++;
+                    # 136 "51str3.nc"
                     info->sline++;
+                    # 138 "51str3.nc"
                     head_of_last_line=info->p;
                 }
                 else {
+                    # 141 "51str3.nc"
                     buffer_append_char(value,*info->p);
+                    # 142 "51str3.nc"
                     info->p++;
                 }
             }
         }
+        # 147 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 149 "51str3.nc"
         info->sline_real=sline_real;
+        # 150 "51str3.nc"
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value1=create_sstring_node((char* )come_increment_ref_count(buffer_to_string(value), "51str3.nc", 150, 29),(struct list$1sNode$ph*)come_increment_ref_count(exps, "51str3.nc", 150, 30),sline,info))), "51str3.nc", 150, 31);
@@ -2926,58 +3027,94 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(buffer_finalize, value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 37);
     }
     else if(*info->p==117&&*(info->p+1)==56&&*(info->p+2)==34) {
+        # 154 "51str3.nc"
         sline_real_2=info->sline_real;
+        # 155 "51str3.nc"
         info->sline_real=info->sline;
+        # 157 "51str3.nc"
         info->p+=3;
+        # 159 "51str3.nc"
         sline_3=info->sline;
+        # 161 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_4=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 161, 38, "struct buffer* "), "51str3.nc", 161, 39)), "51str3.nc", 161, 40);
+        # 211 "51str3.nc"
         while(1) {
+            # 209 "51str3.nc"
             if(*info->p==34) {
+                # 165 "51str3.nc"
                 info->p++;
+                # 167 "51str3.nc"
                 p=info->p;
+                # 168 "51str3.nc"
                 sline_5=info->sline;
+                # 170 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 174 "51str3.nc"
                 parse_sharp_v5(info);
+                # 182 "51str3.nc"
                 if(*info->p==117&&*(info->p+1)==56&&*(info->p+2)==34) {
+                    # 175 "51str3.nc"
                     info->p+=3;
                 }
                 else {
+                    # 178 "51str3.nc"
                     info->p=p;
+                    # 179 "51str3.nc"
                     info->sline=sline_5;
+                    # 180 "51str3.nc"
                     break;
                 }
             }
             else if(*info->p==92) {
+                # 184 "51str3.nc"
                 buffer_append_char(value_4,92);
+                # 185 "51str3.nc"
                 info->p++;
+                # 195 "51str3.nc"
                 if(*info->p==34) {
+                    # 188 "51str3.nc"
                     buffer_append_char(value_4,34);
+                    # 189 "51str3.nc"
                     info->p++;
                 }
                 else {
+                    # 192 "51str3.nc"
                     buffer_append_char(value_4,*info->p);
+                    # 193 "51str3.nc"
                     info->p++;
                 }
             }
             else if(*info->p==0) {
+                # 197 "51str3.nc"
                 sline2_6=info->sline;
+                # 198 "51str3.nc"
                 info->sline=sline_3;
+                # 199 "51str3.nc"
                 err_msg(info,"close \" to make c string value");
+                # 200 "51str3.nc"
                 info->sline=sline2_6;
+                # 201 "51str3.nc"
                 exit(2);
             }
             else {
+                # 206 "51str3.nc"
                 if(*info->p==10) {
+                    # 204 "51str3.nc"
                     info->sline++;
                 }
+                # 206 "51str3.nc"
                 buffer_append_char(value_4,*info->p);
+                # 207 "51str3.nc"
                 info->p++;
             }
         }
+        # 211 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 213 "51str3.nc"
         info->sline_real=sline_real_2;
+        # 214 "51str3.nc"
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value2=create_prefixed_string_node((char* )come_increment_ref_count(buffer_to_string(value_4), "51str3.nc", 214, 41),(char* )come_increment_ref_count(xsprintf("u8"), "51str3.nc", 214, 42),sline_3,info))), "51str3.nc", 214, 43);
@@ -2989,59 +3126,96 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(buffer_finalize, value_4, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 47);
     }
     else if((*info->p==117||*info->p==85)&&*(info->p+1)==34) {
+        # 218 "51str3.nc"
         sline_real_7=info->sline_real;
+        # 219 "51str3.nc"
         info->sline_real=info->sline;
+        # 221 "51str3.nc"
         prefix=*info->p;
+        # 222 "51str3.nc"
         info->p+=2;
+        # 224 "51str3.nc"
         sline_8=info->sline;
+        # 226 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_9=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 226, 48, "struct buffer* "), "51str3.nc", 226, 49)), "51str3.nc", 226, 50);
+        # 276 "51str3.nc"
         while(1) {
+            # 274 "51str3.nc"
             if(*info->p==34) {
+                # 230 "51str3.nc"
                 info->p++;
+                # 232 "51str3.nc"
                 p_10=info->p;
+                # 233 "51str3.nc"
                 sline_11=info->sline;
+                # 235 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 239 "51str3.nc"
                 parse_sharp_v5(info);
+                # 247 "51str3.nc"
                 if(*info->p==prefix&&*(info->p+1)==34) {
+                    # 240 "51str3.nc"
                     info->p+=2;
                 }
                 else {
+                    # 243 "51str3.nc"
                     info->p=p_10;
+                    # 244 "51str3.nc"
                     info->sline=sline_11;
+                    # 245 "51str3.nc"
                     break;
                 }
             }
             else if(*info->p==92) {
+                # 249 "51str3.nc"
                 buffer_append_char(value_9,92);
+                # 250 "51str3.nc"
                 info->p++;
+                # 260 "51str3.nc"
                 if(*info->p==34) {
+                    # 253 "51str3.nc"
                     buffer_append_char(value_9,34);
+                    # 254 "51str3.nc"
                     info->p++;
                 }
                 else {
+                    # 257 "51str3.nc"
                     buffer_append_char(value_9,*info->p);
+                    # 258 "51str3.nc"
                     info->p++;
                 }
             }
             else if(*info->p==0) {
+                # 262 "51str3.nc"
                 sline2_12=info->sline;
+                # 263 "51str3.nc"
                 info->sline=sline_8;
+                # 264 "51str3.nc"
                 err_msg(info,"close \" to make c string value");
+                # 265 "51str3.nc"
                 info->sline=sline2_12;
+                # 266 "51str3.nc"
                 exit(2);
             }
             else {
+                # 271 "51str3.nc"
                 if(*info->p==10) {
+                    # 269 "51str3.nc"
                     info->sline++;
                 }
+                # 271 "51str3.nc"
                 buffer_append_char(value_9,*info->p);
+                # 272 "51str3.nc"
                 info->p++;
             }
         }
+        # 276 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 278 "51str3.nc"
         info->sline_real=sline_real_7;
+        # 279 "51str3.nc"
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -3054,58 +3228,94 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(buffer_finalize, value_9, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 57);
     }
     else if(*info->p==34) {
+        # 283 "51str3.nc"
         sline_real_13=info->sline_real;
+        # 284 "51str3.nc"
         info->sline_real=info->sline;
+        # 285 "51str3.nc"
         info->p++;
+        # 287 "51str3.nc"
         sline_14=info->sline;
+        # 289 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_15=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 289, 58, "struct buffer* "), "51str3.nc", 289, 59)), "51str3.nc", 289, 60);
+        # 339 "51str3.nc"
         while(1) {
+            # 337 "51str3.nc"
             if(*info->p==34) {
+                # 293 "51str3.nc"
                 info->p++;
+                # 295 "51str3.nc"
                 p_16=info->p;
+                # 296 "51str3.nc"
                 sline_17=info->sline;
+                # 298 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 302 "51str3.nc"
                 parse_sharp_v5(info);
+                # 310 "51str3.nc"
                 if(*info->p==34) {
+                    # 303 "51str3.nc"
                     info->p++;
                 }
                 else {
+                    # 306 "51str3.nc"
                     info->p=p_16;
+                    # 307 "51str3.nc"
                     info->sline=sline_17;
+                    # 308 "51str3.nc"
                     break;
                 }
             }
             else if(*info->p==92) {
+                # 312 "51str3.nc"
                 buffer_append_char(value_15,92);
+                # 313 "51str3.nc"
                 info->p++;
+                # 323 "51str3.nc"
                 if(*info->p==34) {
+                    # 316 "51str3.nc"
                     buffer_append_char(value_15,34);
+                    # 317 "51str3.nc"
                     info->p++;
                 }
                 else {
+                    # 320 "51str3.nc"
                     buffer_append_char(value_15,*info->p);
+                    # 321 "51str3.nc"
                     info->p++;
                 }
             }
             else if(*info->p==0) {
+                # 325 "51str3.nc"
                 sline2_18=info->sline;
+                # 326 "51str3.nc"
                 info->sline=sline_14;
+                # 327 "51str3.nc"
                 err_msg(info,"close \" to make c string value");
+                # 328 "51str3.nc"
                 info->sline=sline2_18;
+                # 329 "51str3.nc"
                 exit(2);
             }
             else {
+                # 334 "51str3.nc"
                 if(*info->p==10) {
+                    # 332 "51str3.nc"
                     info->sline++;
                 }
+                # 334 "51str3.nc"
                 buffer_append_char(value_15,*info->p);
+                # 335 "51str3.nc"
                 info->p++;
             }
         }
+        # 339 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 341 "51str3.nc"
         info->sline_real=sline_real_13;
+        # 342 "51str3.nc"
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value1=create_str_node((char* )come_increment_ref_count(buffer_to_string(value_15), "51str3.nc", 342, 61),sline_14,info))), "51str3.nc", 342, 62);
@@ -3117,122 +3327,217 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(buffer_finalize, value_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 66);
     }
     else if((*info->p==98||*info->p==66)&&*(info->p+1)==34) {
+        # 346 "51str3.nc"
         sline_real_19=info->sline_real;
+        # 347 "51str3.nc"
         info->sline_real=info->sline;
+        # 348 "51str3.nc"
         info->p+=2;
+        # 350 "51str3.nc"
         sline_20=info->sline;
+        # 352 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_21=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 352, 67, "struct buffer* "), "51str3.nc", 352, 68)), "51str3.nc", 352, 69);
+        # 354 "51str3.nc"
         size=0;
+        # 476 "51str3.nc"
         while(1) {
+            # 474 "51str3.nc"
             if(*info->p==34) {
+                # 358 "51str3.nc"
                 info->p++;
+                # 360 "51str3.nc"
                 p_22=info->p;
+                # 361 "51str3.nc"
                 sline_23=info->sline;
+                # 363 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 373 "51str3.nc"
                 if(*info->p==34) {
+                    # 366 "51str3.nc"
                     info->p++;
                 }
                 else {
+                    # 369 "51str3.nc"
                     info->p=p_22;
+                    # 370 "51str3.nc"
                     info->sline=sline_23;
+                    # 371 "51str3.nc"
                     break;
                 }
             }
             else if(*info->p==92) {
+                # 375 "51str3.nc"
                 buffer_append_char(value_21,92);
+                # 376 "51str3.nc"
                 info->p++;
+                # 460 "51str3.nc"
                 if(xisdigit(*info->p)) {
+                    # 379 "51str3.nc"
                     len_24=0;
+                    # 385 "51str3.nc"
                     while(xisdigit(*info->p)&&len_24<3) {
+                        # 381 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 382 "51str3.nc"
                         info->p++;
+                        # 383 "51str3.nc"
                         len_24++;
                     }
+                    # 385 "51str3.nc"
                     size++;
                 }
                 else if(*info->p==120||*info->p==88) {
+                    # 388 "51str3.nc"
                     buffer_append_char(value_21,*info->p);
+                    # 389 "51str3.nc"
                     info->p++;
+                    # 395 "51str3.nc"
                     while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        # 392 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 393 "51str3.nc"
                         info->p++;
                     }
+                    # 395 "51str3.nc"
                     size++;
                 }
                 else {
+                    # 459 "51str3.nc"
                     switch (                    *info->p) {
+                        # 400 "51str3.nc"
                         case 48:
+                        # 400 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 401 "51str3.nc"
                         info->p++;
+                        # 402 "51str3.nc"
                         size++;
+                        # 403 "51str3.nc"
                         break;
+                        # 406 "51str3.nc"
                         case 110:
+                        # 406 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 407 "51str3.nc"
                         info->p++;
+                        # 408 "51str3.nc"
                         size++;
+                        # 409 "51str3.nc"
                         break;
+                        # 412 "51str3.nc"
                         case 116:
+                        # 412 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 413 "51str3.nc"
                         info->p++;
+                        # 414 "51str3.nc"
                         size++;
+                        # 415 "51str3.nc"
                         break;
+                        # 418 "51str3.nc"
                         case 114:
+                        # 418 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 419 "51str3.nc"
                         info->p++;
+                        # 420 "51str3.nc"
                         size++;
+                        # 421 "51str3.nc"
                         break;
+                        # 424 "51str3.nc"
                         case 118:
+                        # 424 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 425 "51str3.nc"
                         info->p++;
+                        # 426 "51str3.nc"
                         size++;
+                        # 427 "51str3.nc"
                         break;
+                        # 430 "51str3.nc"
                         case 102:
+                        # 430 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 431 "51str3.nc"
                         info->p++;
+                        # 432 "51str3.nc"
                         size++;
+                        # 433 "51str3.nc"
                         break;
+                        # 436 "51str3.nc"
                         case 97:
+                        # 436 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 437 "51str3.nc"
                         info->p++;
+                        # 438 "51str3.nc"
                         size++;
+                        # 439 "51str3.nc"
                         break;
+                        # 442 "51str3.nc"
                         case 98:
+                        # 442 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 443 "51str3.nc"
                         info->p++;
+                        # 444 "51str3.nc"
                         size++;
+                        # 445 "51str3.nc"
                         break;
+                        # 448 "51str3.nc"
                         case 92:
+                        # 448 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 449 "51str3.nc"
                         info->p++;
+                        # 450 "51str3.nc"
                         size++;
+                        # 451 "51str3.nc"
                         break;
+                        # 454 "51str3.nc"
                         default:
+                        # 454 "51str3.nc"
                         buffer_append_char(value_21,*info->p);
+                        # 455 "51str3.nc"
                         info->p++;
+                        # 456 "51str3.nc"
                         size++;
+                        # 457 "51str3.nc"
                         break;
                     }
                 }
             }
             else if(*info->p==0) {
+                # 462 "51str3.nc"
                 sline2_25=info->sline;
+                # 463 "51str3.nc"
                 info->sline=sline_20;
+                # 464 "51str3.nc"
                 err_msg(info,"close \" to make embbeded string value");
+                # 465 "51str3.nc"
                 exit(2);
             }
             else {
+                # 470 "51str3.nc"
                 if(*info->p==10) {
+                    # 468 "51str3.nc"
                     info->sline++;
                 }
+                # 470 "51str3.nc"
                 buffer_append_char(value_21,*info->p);
+                # 471 "51str3.nc"
                 info->p++;
+                # 472 "51str3.nc"
                 size++;
             }
         }
+        # 476 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 478 "51str3.nc"
         info->sline_real=sline_real_19;
+        # 479 "51str3.nc"
                 __right_value0 = (void*)0;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_buffer_node((struct buffer* )come_increment_ref_count(value_21, "51str3.nc", 479, 70),size,info))), "51str3.nc", 479, 71);
         come_call_finalizer(buffer_finalize, value_21, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 479, 72);
@@ -3243,70 +3548,102 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(buffer_finalize, value_21, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 75);
     }
     else if(*info->p==47&&*(info->p-1)!=42&&*(info->p+1)!=42) {
+        # 482 "51str3.nc"
         sline_real_26=info->sline_real;
+        # 483 "51str3.nc"
         info->sline_real=info->sline;
+        # 484 "51str3.nc"
         info->p++;
+        # 486 "51str3.nc"
         sline_27=info->sline;
+        # 488 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         buf=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 488, 76, "struct buffer* "), "51str3.nc", 488, 77)), "51str3.nc", 488, 78);
+        # 509 "51str3.nc"
         while((_Bool)1) {
+            # 507 "51str3.nc"
             if(*info->p==92&&*(info->p+1)==47) {
+                # 491 "51str3.nc"
                 info->p++;
+                # 492 "51str3.nc"
                 buffer_append_char(buf,*info->p);
+                # 493 "51str3.nc"
                 info->p++;
             }
             else if(*info->p==47) {
+                # 496 "51str3.nc"
                 info->p++;
+                # 497 "51str3.nc"
                 break;
             }
             else if(*info->p==0) {
+                # 500 "51str3.nc"
                 err_msg(info,"require closing / for regex");
+                # 501 "51str3.nc"
                 exit(5);
             }
             else {
+                # 504 "51str3.nc"
                 buffer_append_char(buf,*info->p);
+                # 505 "51str3.nc"
                 info->p++;
             }
         }
+        # 509 "51str3.nc"
         global=(_Bool)0;
+        # 510 "51str3.nc"
         ignore_case=(_Bool)0;
+        # 525 "51str3.nc"
         while(*info->p==103||*info->p==105) {
+            # 523 "51str3.nc"
             if(*info->p==103) {
+                # 513 "51str3.nc"
                 info->p++;
+                # 514 "51str3.nc"
                 global=(_Bool)1;
             }
             else if(*info->p==105) {
+                # 517 "51str3.nc"
                 info->p++;
+                # 518 "51str3.nc"
                 ignore_case=(_Bool)1;
             }
             else {
+                # 521 "51str3.nc"
                 break;
             }
         }
+        # 525 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 527 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         obj=(struct sNode*)come_increment_ref_count(create_str_node((char* )come_increment_ref_count(buffer_to_string(buf), "51str3.nc", 527, 79),sline_27,info), "51str3.nc", 527, 80);
+        # 529 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "51str3.nc", 529, 81, "struct list$1tuple2$2char$phsNode$ph$ph*"), "51str3.nc", 2, 89)), "51str3.nc", 529, 90);
+        params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "51str3.nc", 529, 81, "struct list$1tuple2$2char$phsNode$ph$ph*"), "51str3.nc", 529, 89)), "51str3.nc", 529, 90);
+        # 531 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 531, 105, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 3, 115),(char*)come_increment_ref_count(xsprintf("self"), "51str3.nc", 3, 116),(struct sNode*)come_increment_ref_count(obj, "51str3.nc", 3, 117)), "51str3.nc", 3, 118));
+        list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 531, 105, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 3, 115),(char*)come_increment_ref_count(xsprintf("self"), "51str3.nc", 3, 116),(struct sNode*)come_increment_ref_count(obj, "51str3.nc", 3, 117)), "51str3.nc", 531, 118));
+        # 532 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 532, 121, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 532, 122),(char*)come_increment_ref_count(xsprintf("ignore_case"), "51str3.nc", 532, 123),(struct sNode*)come_increment_ref_count(((ignore_case)?(((struct sNode*)(__right_value2=create_int_node((char* )come_increment_ref_count(int_to_string(1), "51str3.nc", 532, 119),info)))):(((struct sNode*)(__right_value4=create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 532, 120),info))))), "51str3.nc", 532, 124)), "51str3.nc", 532, 125));
         ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 532, 126):(void*)0);
         ((__right_value4) ? __right_value4 = come_decrement_ref_count(__right_value4, ((struct sNode*)__right_value4)->finalize, ((struct sNode*)__right_value4)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 532, 127):(void*)0);
+        # 533 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 533, 129, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 533, 130),(char*)come_increment_ref_count(xsprintf("multiline"), "51str3.nc", 533, 131),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 533, 128),info), "51str3.nc", 533, 132)), "51str3.nc", 533, 133));
+        # 534 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -3317,44 +3654,55 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 534, 136, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 534, 137),(char*)come_increment_ref_count(xsprintf("global"), "51str3.nc", 534, 138),(struct sNode*)come_increment_ref_count(((global)?(((struct sNode*)(__right_value2=create_int_node((char* )come_increment_ref_count(int_to_string(1), "51str3.nc", 534, 134),info)))):(((struct sNode*)(__right_value4=create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 534, 135),info))))), "51str3.nc", 534, 139)), "51str3.nc", 534, 140));
         ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 534, 141):(void*)0);
         ((__right_value4) ? __right_value4 = come_decrement_ref_count(__right_value4, ((struct sNode*)__right_value4)->finalize, ((struct sNode*)__right_value4)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 534, 142):(void*)0);
+        # 535 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 535, 144, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 535, 145),(char*)come_increment_ref_count(xsprintf("extended"), "51str3.nc", 535, 146),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 535, 143),info), "51str3.nc", 535, 147)), "51str3.nc", 535, 148));
+        # 536 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 536, 150, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 536, 151),(char*)come_increment_ref_count(xsprintf("dotall"), "51str3.nc", 536, 152),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 536, 149),info), "51str3.nc", 536, 153)), "51str3.nc", 536, 154));
+        # 537 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 537, 156, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 537, 157),(char*)come_increment_ref_count(xsprintf("anchored"), "51str3.nc", 537, 158),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 537, 155),info), "51str3.nc", 537, 159)), "51str3.nc", 537, 160));
+        # 538 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 538, 162, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 538, 163),(char*)come_increment_ref_count(xsprintf("dollar_endonly"), "51str3.nc", 538, 164),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 538, 161),info), "51str3.nc", 538, 165)), "51str3.nc", 538, 166));
+        # 539 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 539, 168, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 539, 169),(char*)come_increment_ref_count(xsprintf("ungreedy"), "51str3.nc", 539, 170),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 539, 167),info), "51str3.nc", 539, 171)), "51str3.nc", 539, 172));
+        # 541 "51str3.nc"
         method_block=((void*)0);
+        # 543 "51str3.nc"
         method_block_sline=info->sline;
+        # 545 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        method_generics_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "51str3.nc", 545, 173, "struct list$1sType$ph*"), "51str3.nc", 3, 207)), "51str3.nc", 545, 208);
+        method_generics_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "51str3.nc", 545, 173, "struct list$1sType$ph*"), "51str3.nc", 545, 207)), "51str3.nc", 545, 208);
+        # 547 "51str3.nc"
         __right_value0 = (void*)0;
         node=(struct sNode*)come_increment_ref_count(create_method_call("to_regex",(struct sNode*)come_increment_ref_count(obj, "51str3.nc", 547, 209),params,method_block,method_block_sline,method_generics_types,info,(_Bool)0), "51str3.nc", 547, 210);
+        # 549 "51str3.nc"
         info->sline_real=sline_real_26;
+        # 550 "51str3.nc"
                 __result_obj__0 = (struct sNode*)come_increment_ref_count(node, "51str3.nc", 550, 211);
         come_call_finalizer(buffer_finalize, buf, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 550, 212);
         ((obj) ? obj = come_decrement_ref_count(obj, ((struct sNode*)obj)->finalize, ((struct sNode*)obj)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 550, 213):(void*)0);
@@ -3371,132 +3719,224 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1499, 222):(void*)0);
     }
     else if((*info->p==82||*info->p==114)&&*(info->p+1)==34) {
+        # 553 "51str3.nc"
         sline_real_30=info->sline_real;
+        # 554 "51str3.nc"
         info->sline_real=info->sline;
+        # 555 "51str3.nc"
         info->p+=2;
+        # 557 "51str3.nc"
         sline_31=info->sline;
+        # 559 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_32=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 559, 223, "struct buffer* "), "51str3.nc", 559, 224)), "51str3.nc", 559, 225);
+        # 667 "51str3.nc"
         while(1) {
+            # 665 "51str3.nc"
             if(*info->p==34) {
+                # 562 "51str3.nc"
                 info->p++;
+                # 564 "51str3.nc"
                 p_33=info->p;
+                # 565 "51str3.nc"
                 sline_34=info->sline;
+                # 567 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 577 "51str3.nc"
                 if(*info->p==34) {
+                    # 570 "51str3.nc"
                     info->p++;
                 }
                 else {
+                    # 573 "51str3.nc"
                     info->p=p_33;
+                    # 574 "51str3.nc"
                     info->sline=sline_34;
+                    # 575 "51str3.nc"
                     break;
                 }
             }
             else if(*info->p==92) {
+                # 579 "51str3.nc"
                 buffer_append_char(value_32,92);
+                # 580 "51str3.nc"
                 info->p++;
+                # 652 "51str3.nc"
                 if(xisdigit(*info->p)) {
+                    # 583 "51str3.nc"
                     len_35=0;
+                    # 589 "51str3.nc"
                     while(xisdigit(*info->p)&&len_35<3) {
+                        # 585 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 586 "51str3.nc"
                         info->p++;
+                        # 587 "51str3.nc"
                         len_35++;
                     }
                 }
                 else if(*info->p==120||*info->p==88) {
+                    # 591 "51str3.nc"
                     buffer_append_char(value_32,*info->p);
+                    # 592 "51str3.nc"
                     info->p++;
+                    # 598 "51str3.nc"
                     while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        # 595 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 596 "51str3.nc"
                         info->p++;
                     }
                 }
                 else {
+                    # 651 "51str3.nc"
                     switch (                    *info->p) {
+                        # 602 "51str3.nc"
                         case 48:
+                        # 602 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 603 "51str3.nc"
                         info->p++;
+                        # 604 "51str3.nc"
                         break;
+                        # 607 "51str3.nc"
                         case 110:
+                        # 607 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 608 "51str3.nc"
                         info->p++;
+                        # 609 "51str3.nc"
                         break;
+                        # 612 "51str3.nc"
                         case 116:
+                        # 612 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 613 "51str3.nc"
                         info->p++;
+                        # 614 "51str3.nc"
                         break;
+                        # 617 "51str3.nc"
                         case 114:
+                        # 617 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 618 "51str3.nc"
                         info->p++;
+                        # 619 "51str3.nc"
                         break;
+                        # 622 "51str3.nc"
                         case 118:
+                        # 622 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 623 "51str3.nc"
                         info->p++;
+                        # 624 "51str3.nc"
                         break;
+                        # 627 "51str3.nc"
                         case 102:
+                        # 627 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 628 "51str3.nc"
                         info->p++;
+                        # 629 "51str3.nc"
                         break;
+                        # 632 "51str3.nc"
                         case 97:
+                        # 632 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 633 "51str3.nc"
                         info->p++;
+                        # 634 "51str3.nc"
                         break;
+                        # 637 "51str3.nc"
                         case 98:
+                        # 637 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 638 "51str3.nc"
                         info->p++;
+                        # 639 "51str3.nc"
                         break;
+                        # 642 "51str3.nc"
                         case 92:
+                        # 642 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 643 "51str3.nc"
                         info->p++;
+                        # 644 "51str3.nc"
                         break;
+                        # 647 "51str3.nc"
                         default:
+                        # 647 "51str3.nc"
                         buffer_append_char(value_32,*info->p);
+                        # 648 "51str3.nc"
                         info->p++;
+                        # 649 "51str3.nc"
                         break;
                     }
                 }
             }
             else if(*info->p==0) {
+                # 654 "51str3.nc"
                 sline2_36=info->sline;
+                # 655 "51str3.nc"
                 info->sline=sline_31;
+                # 656 "51str3.nc"
                 err_msg(info,"close \" to make embbeded string value");
+                # 657 "51str3.nc"
                 exit(2);
             }
             else {
+                # 662 "51str3.nc"
                 if(*info->p==10) {
+                    # 660 "51str3.nc"
                     info->sline++;
                 }
+                # 662 "51str3.nc"
                 buffer_append_char(value_32,*info->p);
+                # 663 "51str3.nc"
                 info->p++;
             }
         }
+        # 667 "51str3.nc"
         global_37=(_Bool)0;
+        # 668 "51str3.nc"
         ignore_case_38=(_Bool)0;
+        # 683 "51str3.nc"
         while(*info->p==103||*info->p==105) {
+            # 681 "51str3.nc"
             if(*info->p==103) {
+                # 671 "51str3.nc"
                 info->p++;
+                # 672 "51str3.nc"
                 global_37=(_Bool)1;
             }
             else if(*info->p==105) {
+                # 675 "51str3.nc"
                 info->p++;
+                # 676 "51str3.nc"
                 ignore_case_38=(_Bool)1;
             }
             else {
+                # 679 "51str3.nc"
                 break;
             }
         }
+        # 683 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 685 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         obj_39=(struct sNode*)come_increment_ref_count(create_str_node((char* )come_increment_ref_count(buffer_to_string(value_32), "51str3.nc", 685, 226),sline_31,info), "51str3.nc", 685, 227);
+        # 687 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         params_40=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "51str3.nc", 687, 228, "struct list$1tuple2$2char$phsNode$ph$ph*"), "51str3.nc", 687, 229)), "51str3.nc", 687, 230);
+        # 689 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params_40,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 689, 231, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 689, 232),(char*)come_increment_ref_count(xsprintf("self"), "51str3.nc", 689, 233),(struct sNode*)come_increment_ref_count(obj_39, "51str3.nc", 689, 234)), "51str3.nc", 689, 235));
+        # 690 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -3507,12 +3947,14 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         list$1tuple2$2char$phsNode$ph$ph_add(params_40,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 690, 238, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 690, 239),(char*)come_increment_ref_count(xsprintf("ignore_case"), "51str3.nc", 690, 240),(struct sNode*)come_increment_ref_count(((ignore_case_38)?(((struct sNode*)(__right_value2=create_int_node((char* )come_increment_ref_count(int_to_string(1), "51str3.nc", 690, 236),info)))):(((struct sNode*)(__right_value4=create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 690, 237),info))))), "51str3.nc", 690, 241)), "51str3.nc", 690, 242));
         ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 690, 243):(void*)0);
         ((__right_value4) ? __right_value4 = come_decrement_ref_count(__right_value4, ((struct sNode*)__right_value4)->finalize, ((struct sNode*)__right_value4)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 690, 244):(void*)0);
+        # 691 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params_40,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 691, 246, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 691, 247),(char*)come_increment_ref_count(xsprintf("multiline"), "51str3.nc", 691, 248),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 691, 245),info), "51str3.nc", 691, 249)), "51str3.nc", 691, 250));
+        # 692 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
@@ -3523,44 +3965,55 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         list$1tuple2$2char$phsNode$ph$ph_add(params_40,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 692, 253, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 692, 254),(char*)come_increment_ref_count(xsprintf("global"), "51str3.nc", 692, 255),(struct sNode*)come_increment_ref_count(((global_37)?(((struct sNode*)(__right_value2=create_int_node((char* )come_increment_ref_count(int_to_string(1), "51str3.nc", 692, 251),info)))):(((struct sNode*)(__right_value4=create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 692, 252),info))))), "51str3.nc", 692, 256)), "51str3.nc", 692, 257));
         ((__right_value2) ? __right_value2 = come_decrement_ref_count(__right_value2, ((struct sNode*)__right_value2)->finalize, ((struct sNode*)__right_value2)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 692, 258):(void*)0);
         ((__right_value4) ? __right_value4 = come_decrement_ref_count(__right_value4, ((struct sNode*)__right_value4)->finalize, ((struct sNode*)__right_value4)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 692, 259):(void*)0);
+        # 693 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params_40,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 693, 261, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 693, 262),(char*)come_increment_ref_count(xsprintf("extended"), "51str3.nc", 693, 263),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 693, 260),info), "51str3.nc", 693, 264)), "51str3.nc", 693, 265));
+        # 694 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params_40,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 694, 267, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 694, 268),(char*)come_increment_ref_count(xsprintf("dotall"), "51str3.nc", 694, 269),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 694, 266),info), "51str3.nc", 694, 270)), "51str3.nc", 694, 271));
+        # 695 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params_40,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 695, 273, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 695, 274),(char*)come_increment_ref_count(xsprintf("anchored"), "51str3.nc", 695, 275),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 695, 272),info), "51str3.nc", 695, 276)), "51str3.nc", 695, 277));
+        # 696 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params_40,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 696, 279, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 696, 280),(char*)come_increment_ref_count(xsprintf("dollar_endonly"), "51str3.nc", 696, 281),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 696, 278),info), "51str3.nc", 696, 282)), "51str3.nc", 696, 283));
+        # 697 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
         __right_value3 = (void*)0;
         __right_value4 = (void*)0;
         list$1tuple2$2char$phsNode$ph$ph_add(params_40,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 697, 285, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 697, 286),(char*)come_increment_ref_count(xsprintf("ungreedy"), "51str3.nc", 697, 287),(struct sNode*)come_increment_ref_count(create_int_node((char* )come_increment_ref_count(int_to_string(0), "51str3.nc", 697, 284),info), "51str3.nc", 697, 288)), "51str3.nc", 697, 289));
+        # 699 "51str3.nc"
         method_block_41=((void*)0);
+        # 701 "51str3.nc"
         method_block_sline_42=info->sline;
+        # 703 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         method_generics_types_43=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "51str3.nc", 703, 290, "struct list$1sType$ph*"), "51str3.nc", 703, 291)), "51str3.nc", 703, 292);
+        # 705 "51str3.nc"
         __right_value0 = (void*)0;
         node_44=(struct sNode*)come_increment_ref_count(create_method_call("to_regex",(struct sNode*)come_increment_ref_count(obj_39, "51str3.nc", 705, 293),params_40,method_block_41,method_block_sline_42,method_generics_types_43,info,(_Bool)0), "51str3.nc", 705, 294);
+        # 707 "51str3.nc"
         info->sline_real=sline_real_30;
+        # 708 "51str3.nc"
                 __result_obj__0 = (struct sNode*)come_increment_ref_count(node_44, "51str3.nc", 708, 295);
         come_call_finalizer(buffer_finalize, value_32, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 708, 296);
         ((obj_39) ? obj_39 = come_decrement_ref_count(obj_39, ((struct sNode*)obj_39)->finalize, ((struct sNode*)obj_39)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 708, 297):(void*)0);
@@ -3577,105 +4030,190 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         ((node_44) ? node_44 = come_decrement_ref_count(node_44, ((struct sNode*)node_44)->finalize, ((struct sNode*)node_44)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1499, 306):(void*)0);
     }
     else if((*info->p==117||*info->p==85)&&*(info->p+1)==39) {
+        # 711 "51str3.nc"
         sline_real_45=info->sline_real;
+        # 712 "51str3.nc"
         info->sline_real=info->sline;
+        # 714 "51str3.nc"
         prefix_46=*info->p;
+        # 715 "51str3.nc"
         info->p+=2;
+        # 717 "51str3.nc"
+        # 821 "51str3.nc"
         if(*info->p==92) {
+            # 720 "51str3.nc"
             info->p++;
+            # 815 "51str3.nc"
             if(xisdigit(*info->p)) {
+                # 723 "51str3.nc"
                 n=0;
+                # 729 "51str3.nc"
                 while(xisdigit(*info->p)) {
+                    # 725 "51str3.nc"
                     n=n*8+*info->p-48;
+                    # 726 "51str3.nc"
                     info->p++;
                 }
+                # 729 "51str3.nc"
                 c=n;
             }
             else {
+                # 814 "51str3.nc"
                 switch (                *info->p) {
+                    # 734 "51str3.nc"
                     case 110:
+                    # 734 "51str3.nc"
                     c=10;
+                    # 735 "51str3.nc"
                     info->p++;
+                    # 736 "51str3.nc"
                     break;
+                    # 739 "51str3.nc"
                     case 116:
+                    # 739 "51str3.nc"
                     c=9;
+                    # 740 "51str3.nc"
                     info->p++;
+                    # 741 "51str3.nc"
                     break;
+                    # 744 "51str3.nc"
                     case 114:
+                    # 744 "51str3.nc"
                     c=13;
+                    # 745 "51str3.nc"
                     info->p++;
+                    # 746 "51str3.nc"
                     break;
+                    # 749 "51str3.nc"
                     case 97:
+                    # 749 "51str3.nc"
                     c=7;
+                    # 750 "51str3.nc"
                     info->p++;
+                    # 751 "51str3.nc"
                     break;
+                    # 754 "51str3.nc"
                     case 102:
+                    # 754 "51str3.nc"
                     c=12;
+                    # 755 "51str3.nc"
                     info->p++;
+                    # 756 "51str3.nc"
                     break;
+                    # 759 "51str3.nc"
                     case 118:
+                    # 759 "51str3.nc"
                     c=11;
+                    # 760 "51str3.nc"
                     info->p++;
+                    # 761 "51str3.nc"
                     break;
+                    # 764 "51str3.nc"
                     case 98:
+                    # 764 "51str3.nc"
                     c=8;
+                    # 765 "51str3.nc"
                     info->p++;
+                    # 766 "51str3.nc"
                     break;
+                    # 769 "51str3.nc"
                     case 92:
+                    # 769 "51str3.nc"
                     c=92;
+                    # 770 "51str3.nc"
                     info->p++;
+                    # 771 "51str3.nc"
                     break;
+                    # 774 "51str3.nc"
                     case 48:
+                    # 774 "51str3.nc"
                     c=0;
+                    # 775 "51str3.nc"
                     info->p++;
+                    # 787 "51str3.nc"
                     if(xisdigit(*info->p)) {
+                        # 778 "51str3.nc"
                         n_47=0;
+                        # 785 "51str3.nc"
                         while(xisdigit(*info->p)) {
+                            # 780 "51str3.nc"
                             n_47=n_47*8+*info->p-48;
+                            # 781 "51str3.nc"
                             info->p++;
+                            # 782 "51str3.nc"
                             skip_spaces_and_lf(info);
                         }
+                        # 785 "51str3.nc"
                         c=n_47;
                     }
+                    # 787 "51str3.nc"
                     break;
+                    # 790 "51str3.nc"
                     case 120:
+                    # 790 "51str3.nc"
                     case 88:
+                    # 807 "51str3.nc"
                     {
+                        # 791 "51str3.nc"
                         info->p++;
+                        # 793 "51str3.nc"
                         char buf_48[128];
                         memset(&buf_48, 0, sizeof(buf_48));
+                        # 794 "51str3.nc"
                         strncpy(buf_48,"0x",128);
+                        # 803 "51str3.nc"
                         while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                            # 796 "51str3.nc"
                             char buf2[2];
                             memset(&buf2, 0, sizeof(buf2));
+                            # 797 "51str3.nc"
                             buf2[0]=*info->p;
+                            # 798 "51str3.nc"
                             buf2[1]=0;
+                            # 799 "51str3.nc"
                             info->p++;
+                            # 800 "51str3.nc"
                             strncat(buf_48,buf2,128);
                         }
+                        # 803 "51str3.nc"
                         n_49=strtoll(buf_48,((void*)0),0);
+                        # 805 "51str3.nc"
                         c=n_49;
                     }
+                    # 807 "51str3.nc"
                     break;
+                    # 810 "51str3.nc"
                     default:
+                    # 810 "51str3.nc"
                     c=*info->p;
+                    # 811 "51str3.nc"
                     info->p++;
+                    # 812 "51str3.nc"
                     break;
                 }
             }
         }
         else {
+            # 817 "51str3.nc"
             c=*info->p;
+            # 818 "51str3.nc"
             info->p++;
         }
+        # 833 "51str3.nc"
         if(*info->p!=39) {
+            # 822 "51str3.nc"
             err_msg(info,"close \' to make character value");
+            # 823 "51str3.nc"
             exit(1);
         }
         else {
+            # 826 "51str3.nc"
             info->p++;
+            # 828 "51str3.nc"
             skip_spaces_and_lf(info);
+            # 830 "51str3.nc"
             info->sline_real=sline_real_45;
+            # 831 "51str3.nc"
                         __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value1=create_prefixed_char_node(c,(char* )come_increment_ref_count(xsprintf("%c",prefix_46), "51str3.nc", 831, 307),info))), "51str3.nc", 831, 308);
@@ -3686,104 +4224,188 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         }
     }
     else if(*info->p==39) {
+        # 835 "51str3.nc"
         sline_real_50=info->sline_real;
+        # 836 "51str3.nc"
         info->sline_real=info->sline;
+        # 837 "51str3.nc"
         info->p++;
+        # 839 "51str3.nc"
+        # 943 "51str3.nc"
         if(*info->p==92) {
+            # 842 "51str3.nc"
             info->p++;
+            # 937 "51str3.nc"
             if(xisdigit(*info->p)) {
+                # 845 "51str3.nc"
                 n_52=0;
+                # 851 "51str3.nc"
                 while(xisdigit(*info->p)) {
+                    # 847 "51str3.nc"
                     n_52=n_52*8+*info->p-48;
+                    # 848 "51str3.nc"
                     info->p++;
                 }
+                # 851 "51str3.nc"
                 c_51=n_52;
             }
             else {
+                # 936 "51str3.nc"
                 switch (                *info->p) {
+                    # 856 "51str3.nc"
                     case 110:
+                    # 856 "51str3.nc"
                     c_51=10;
+                    # 857 "51str3.nc"
                     info->p++;
+                    # 858 "51str3.nc"
                     break;
+                    # 861 "51str3.nc"
                     case 116:
+                    # 861 "51str3.nc"
                     c_51=9;
+                    # 862 "51str3.nc"
                     info->p++;
+                    # 863 "51str3.nc"
                     break;
+                    # 866 "51str3.nc"
                     case 114:
+                    # 866 "51str3.nc"
                     c_51=13;
+                    # 867 "51str3.nc"
                     info->p++;
+                    # 868 "51str3.nc"
                     break;
+                    # 871 "51str3.nc"
                     case 97:
+                    # 871 "51str3.nc"
                     c_51=7;
+                    # 872 "51str3.nc"
                     info->p++;
+                    # 873 "51str3.nc"
                     break;
+                    # 876 "51str3.nc"
                     case 102:
+                    # 876 "51str3.nc"
                     c_51=12;
+                    # 877 "51str3.nc"
                     info->p++;
+                    # 878 "51str3.nc"
                     break;
+                    # 881 "51str3.nc"
                     case 118:
+                    # 881 "51str3.nc"
                     c_51=11;
+                    # 882 "51str3.nc"
                     info->p++;
+                    # 883 "51str3.nc"
                     break;
+                    # 886 "51str3.nc"
                     case 98:
+                    # 886 "51str3.nc"
                     c_51=8;
+                    # 887 "51str3.nc"
                     info->p++;
+                    # 888 "51str3.nc"
                     break;
+                    # 891 "51str3.nc"
                     case 92:
+                    # 891 "51str3.nc"
                     c_51=92;
+                    # 892 "51str3.nc"
                     info->p++;
+                    # 893 "51str3.nc"
                     break;
+                    # 896 "51str3.nc"
                     case 48:
+                    # 896 "51str3.nc"
                     c_51=0;
+                    # 897 "51str3.nc"
                     info->p++;
+                    # 909 "51str3.nc"
                     if(xisdigit(*info->p)) {
+                        # 900 "51str3.nc"
                         n_53=0;
+                        # 907 "51str3.nc"
                         while(xisdigit(*info->p)) {
+                            # 902 "51str3.nc"
                             n_53=n_53*8+*info->p-48;
+                            # 903 "51str3.nc"
                             info->p++;
+                            # 904 "51str3.nc"
                             skip_spaces_and_lf(info);
                         }
+                        # 907 "51str3.nc"
                         c_51=n_53;
                     }
+                    # 909 "51str3.nc"
                     break;
+                    # 912 "51str3.nc"
                     case 120:
+                    # 912 "51str3.nc"
                     case 88:
+                    # 929 "51str3.nc"
                     {
+                        # 913 "51str3.nc"
                         info->p++;
+                        # 915 "51str3.nc"
                         char buf_54[128];
                         memset(&buf_54, 0, sizeof(buf_54));
+                        # 916 "51str3.nc"
                         strncpy(buf_54,"0x",128);
+                        # 925 "51str3.nc"
                         while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                            # 918 "51str3.nc"
                             char buf2_55[2];
                             memset(&buf2_55, 0, sizeof(buf2_55));
+                            # 919 "51str3.nc"
                             buf2_55[0]=*info->p;
+                            # 920 "51str3.nc"
                             buf2_55[1]=0;
+                            # 921 "51str3.nc"
                             info->p++;
+                            # 922 "51str3.nc"
                             strncat(buf_54,buf2_55,128);
                         }
+                        # 925 "51str3.nc"
                         n_56=strtoll(buf_54,((void*)0),0);
+                        # 927 "51str3.nc"
                         c_51=n_56;
                     }
+                    # 929 "51str3.nc"
                     break;
+                    # 932 "51str3.nc"
                     default:
+                    # 932 "51str3.nc"
                     c_51=*info->p;
+                    # 933 "51str3.nc"
                     info->p++;
+                    # 934 "51str3.nc"
                     break;
                 }
             }
         }
         else {
+            # 939 "51str3.nc"
             c_51=*info->p;
+            # 940 "51str3.nc"
             info->p++;
         }
+        # 955 "51str3.nc"
         if(*info->p!=39) {
+            # 944 "51str3.nc"
             err_msg(info,"close \' to make character value");
+            # 945 "51str3.nc"
             exit(1);
         }
         else {
+            # 948 "51str3.nc"
             info->p++;
+            # 950 "51str3.nc"
             skip_spaces_and_lf(info);
+            # 952 "51str3.nc"
             info->sline_real=sline_real_50;
+            # 953 "51str3.nc"
                         __right_value0 = (void*)0;
             __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_char_node(c_51,info))), "51str3.nc", 953, 311);
             ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 953, 312):(void*)0);
@@ -3793,121 +4415,214 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         }
     }
     else if(*info->p==76&&*(info->p+1)==39) {
+        # 959 "51str3.nc"
         sline_real_57=info->sline_real;
+        # 960 "51str3.nc"
         info->sline_real=info->sline;
+        # 961 "51str3.nc"
         info->p+=2;
+        # 963 "51str3.nc"
+        # 964 "51str3.nc"
+        # 1088 "51str3.nc"
         if(*info->p==92) {
+            # 967 "51str3.nc"
             quote=(_Bool)1;
+            # 968 "51str3.nc"
             info->p++;
+            # 1049 "51str3.nc"
             if(xisdigit(*info->p)) {
+                # 971 "51str3.nc"
                 n_59=0;
+                # 977 "51str3.nc"
                 while(xisdigit(*info->p)) {
+                    # 973 "51str3.nc"
                     n_59=n_59*8+*info->p-48;
+                    # 974 "51str3.nc"
                     info->p++;
                 }
+                # 977 "51str3.nc"
                 c_58=n_59;
             }
             else {
+                # 1048 "51str3.nc"
                 switch (                *info->p) {
+                    # 982 "51str3.nc"
                     case 110:
+                    # 982 "51str3.nc"
                     c_58=10;
+                    # 983 "51str3.nc"
                     info->p++;
+                    # 984 "51str3.nc"
                     break;
+                    # 987 "51str3.nc"
                     case 116:
+                    # 987 "51str3.nc"
                     c_58=9;
+                    # 988 "51str3.nc"
                     info->p++;
+                    # 989 "51str3.nc"
                     break;
+                    # 992 "51str3.nc"
                     case 114:
+                    # 992 "51str3.nc"
                     c_58=13;
+                    # 993 "51str3.nc"
                     info->p++;
+                    # 994 "51str3.nc"
                     break;
+                    # 997 "51str3.nc"
                     case 97:
+                    # 997 "51str3.nc"
                     c_58=7;
+                    # 998 "51str3.nc"
                     info->p++;
+                    # 999 "51str3.nc"
                     break;
+                    # 1002 "51str3.nc"
                     case 92:
+                    # 1002 "51str3.nc"
                     c_58=92;
+                    # 1003 "51str3.nc"
                     info->p++;
+                    # 1004 "51str3.nc"
                     break;
+                    # 1007 "51str3.nc"
                     case 48:
+                    # 1007 "51str3.nc"
                     c_58=0;
+                    # 1009 "51str3.nc"
                     info->p++;
+                    # 1021 "51str3.nc"
                     if(xisdigit(*info->p)) {
+                        # 1012 "51str3.nc"
                         n_60=0;
+                        # 1019 "51str3.nc"
                         while(xisdigit(*info->p)) {
+                            # 1014 "51str3.nc"
                             n_60=n_60*8+*info->p-48;
+                            # 1015 "51str3.nc"
                             info->p++;
+                            # 1016 "51str3.nc"
                             skip_spaces_and_lf(info);
                         }
+                        # 1019 "51str3.nc"
                         c_58=n_60;
                     }
+                    # 1021 "51str3.nc"
                     break;
+                    # 1024 "51str3.nc"
                     case 120:
+                    # 1024 "51str3.nc"
                     case 88:
+                    # 1041 "51str3.nc"
                     {
+                        # 1025 "51str3.nc"
                         info->p++;
+                        # 1027 "51str3.nc"
                         char buf_61[128];
                         memset(&buf_61, 0, sizeof(buf_61));
+                        # 1028 "51str3.nc"
                         strncpy(buf_61,"0x",128);
+                        # 1037 "51str3.nc"
                         while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                            # 1030 "51str3.nc"
                             char buf2_62[2];
                             memset(&buf2_62, 0, sizeof(buf2_62));
+                            # 1031 "51str3.nc"
                             buf2_62[0]=*info->p;
+                            # 1032 "51str3.nc"
                             buf2_62[1]=0;
+                            # 1033 "51str3.nc"
                             info->p++;
+                            # 1034 "51str3.nc"
                             strncat(buf_61,buf2_62,128);
                         }
+                        # 1037 "51str3.nc"
                         n_63=strtoll(buf_61,((void*)0),0);
+                        # 1039 "51str3.nc"
                         c_58=n_63;
                     }
+                    # 1041 "51str3.nc"
                     break;
+                    # 1044 "51str3.nc"
                     default:
+                    # 1044 "51str3.nc"
                     c_58=*info->p;
+                    # 1045 "51str3.nc"
                     info->p++;
+                    # 1046 "51str3.nc"
                     break;
                 }
             }
         }
         else {
+            # 1051 "51str3.nc"
             quote=(_Bool)0;
+            # 1052 "51str3.nc"
             p2=*(unsigned char*)info->p;
+            # 1086 "51str3.nc"
             if(p2>127) {
+                # 1056 "51str3.nc"
+                # 1057 "51str3.nc"
                 char str[16+1];
                 memset(&str, 0, sizeof(str));
+                # 1059 "51str3.nc"
                 size_64=((p2&0x80)>>7)+((p2&0x40)>>6)+((p2&0x20)>>5)+((p2&0x10)>>4);
+                # 1080 "51str3.nc"
                 if(size_64>16) {
+                    # 1062 "51str3.nc"
                     err_msg(info,"invalid utf-8 character. MB_LEN_MAX");
+                    # 1063 "51str3.nc"
                     info->err_num++;
+                    # 1064 "51str3.nc"
                     exit(2);
                 }
                 else {
+                    # 1067 "51str3.nc"
                     memcpy(str,info->p,size_64);
+                    # 1068 "51str3.nc"
                     str[size_64]=0;
+                    # 1079 "51str3.nc"
                     if(mbtowc(&c_58,str,size_64)<0) {
+                        # 1071 "51str3.nc"
                         perror("mbtowc");
+                        # 1072 "51str3.nc"
                         err_msg(info,"invalid utf-8 character. mbtowc");
+                        # 1073 "51str3.nc"
                         info->err_num++;
+                        # 1074 "51str3.nc"
                         exit(2);
                     }
                     else {
+                        # 1077 "51str3.nc"
                         info->p+=size_64;
                     }
                 }
             }
             else {
+                # 1083 "51str3.nc"
                 c_58=*info->p;
+                # 1084 "51str3.nc"
                 info->p++;
             }
         }
+        # 1101 "51str3.nc"
         if(*info->p!=39) {
+            # 1089 "51str3.nc"
             err_msg(info,"close \' to make character value");
+            # 1090 "51str3.nc"
             info->err_num++;
+            # 1091 "51str3.nc"
             exit(2);
         }
         else {
+            # 1094 "51str3.nc"
             info->p++;
+            # 1096 "51str3.nc"
             skip_spaces_and_lf(info);
+            # 1098 "51str3.nc"
             info->sline_real=sline_real_57;
+            # 1099 "51str3.nc"
                         __right_value0 = (void*)0;
             __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_wchar_node(c_58,quote,info))), "51str3.nc", 1099, 314);
             ((__right_value0) ? __right_value0 = come_decrement_ref_count(__right_value0, ((struct sNode*)__right_value0)->finalize, ((struct sNode*)__right_value0)->_protocol_obj, 1, 0,(void*)0, "51str3.nc", 1099, 315):(void*)0);
@@ -3917,65 +4632,106 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         }
     }
     else if(*info->p==76&&*(info->p+1)==34) {
+        # 1104 "51str3.nc"
         sline_real_65=info->sline_real;
+        # 1105 "51str3.nc"
         info->sline_real=info->sline;
+        # 1106 "51str3.nc"
         info->p+=2;
+        # 1108 "51str3.nc"
         sline_66=info->sline;
+        # 1110 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_67=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 1110, 317, "struct buffer* "), "51str3.nc", 1110, 318)), "51str3.nc", 1110, 319);
+        # 1157 "51str3.nc"
         while(1) {
+            # 1155 "51str3.nc"
             if(*info->p==34) {
+                # 1114 "51str3.nc"
                 info->p++;
+                # 1116 "51str3.nc"
                 p_68=info->p;
+                # 1117 "51str3.nc"
                 sline_69=info->sline;
+                # 1119 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 1129 "51str3.nc"
                 if(*info->p==34) {
+                    # 1122 "51str3.nc"
                     info->p++;
                 }
                 else {
+                    # 1125 "51str3.nc"
                     info->p=p_68;
+                    # 1126 "51str3.nc"
                     info->sline=sline_69;
+                    # 1127 "51str3.nc"
                     break;
                 }
             }
             else if(*info->p==92) {
+                # 1131 "51str3.nc"
                 buffer_append_char(value_67,92);
+                # 1132 "51str3.nc"
                 info->p++;
+                # 1142 "51str3.nc"
                 if(*info->p==34) {
+                    # 1135 "51str3.nc"
                     buffer_append_char(value_67,34);
+                    # 1136 "51str3.nc"
                     info->p++;
                 }
                 else {
+                    # 1139 "51str3.nc"
                     buffer_append_char(value_67,*info->p);
+                    # 1140 "51str3.nc"
                     info->p++;
                 }
             }
             else if(*info->p==0) {
+                # 1144 "51str3.nc"
                 sline2_70=info->sline;
+                # 1145 "51str3.nc"
                 info->sline=sline_66;
+                # 1146 "51str3.nc"
                 err_msg(info,"close \" to make c string value");
+                # 1147 "51str3.nc"
                 exit(2);
             }
             else {
+                # 1152 "51str3.nc"
                 if(*info->p==10) {
+                    # 1150 "51str3.nc"
                     info->sline++;
                 }
+                # 1152 "51str3.nc"
                 buffer_append_char(value_67,*info->p);
+                # 1153 "51str3.nc"
                 info->p++;
             }
         }
+        # 1157 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 1159 "51str3.nc"
         len_71=value_67->len;
+        # 1161 "51str3.nc"
         __right_value0 = (void*)0;
         wstr=(int* )come_increment_ref_count((int *)come_calloc(1, sizeof(int )*(1*(len_71+1)), "51str3.nc", 1161, 320, "int* "), "51str3.nc", 1161, 321);
+        # 1163 "51str3.nc"
         str_72=value_67->buf;
+        # 1170 "51str3.nc"
         if(mbstowcs(wstr,str_72,len_71+1)<0) {
+            # 1166 "51str3.nc"
             perror("mbstowcs");
+            # 1167 "51str3.nc"
             exit(1);
         }
+        # 1170 "51str3.nc"
         wstr[len_71]=0;
+        # 1172 "51str3.nc"
         info->sline_real=sline_real_65;
+        # 1173 "51str3.nc"
                 __right_value0 = (void*)0;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_wstring_node((int* )come_increment_ref_count(wstr, "51str3.nc", 1173, 322),sline_66,info))), "51str3.nc", 1173, 323);
         come_call_finalizer(buffer_finalize, value_67, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1173, 324);
@@ -3988,127 +4744,218 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         (wstr = come_decrement_ref_count(wstr, (void*)0, (void*)0, 0, 0, (void*)0, "51str3.nc", 1499, 329));
     }
     else if((*info->p==115||*info->p==83)&&*(info->p+1)==34) {
+        # 1178 "51str3.nc"
         sline_real_73=info->sline_real;
+        # 1179 "51str3.nc"
         info->sline_real=info->sline;
+        # 1180 "51str3.nc"
         info->p+=2;
+        # 1182 "51str3.nc"
         sline_74=info->sline;
+        # 1184 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         exps_75=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 1184, 330, "struct list$1sNode$ph*"), "51str3.nc", 1184, 331)), "51str3.nc", 1184, 332);
+        # 1185 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         value_76=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 1185, 333, "struct buffer* "), "51str3.nc", 1185, 334)), "51str3.nc", 1185, 335);
+        # 1330 "51str3.nc"
         while(1) {
+            # 1328 "51str3.nc"
             if(*info->p==34) {
+                # 1189 "51str3.nc"
                 info->p++;
+                # 1191 "51str3.nc"
                 p_77=info->p;
+                # 1192 "51str3.nc"
                 sline_78=info->sline;
+                # 1194 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 1204 "51str3.nc"
                 if(*info->p==34) {
+                    # 1197 "51str3.nc"
                     info->p++;
                 }
                 else {
+                    # 1200 "51str3.nc"
                     info->p=p_77;
+                    # 1201 "51str3.nc"
                     info->sline=sline_78;
+                    # 1202 "51str3.nc"
                     break;
                 }
             }
             else if(*info->p==37) {
+                # 1206 "51str3.nc"
                 buffer_append_char(value_76,37);
+                # 1207 "51str3.nc"
                 buffer_append_char(value_76,37);
+                # 1208 "51str3.nc"
                 info->p++;
             }
             else if(*info->p==92) {
+                # 1229 "51str3.nc"
                 buffer_append_char(value_76,92);
+                # 1230 "51str3.nc"
                 info->p++;
+                # 1315 "51str3.nc"
                 if(xisdigit(*info->p)) {
+                    # 1233 "51str3.nc"
                     len_79=0;
+                    # 1239 "51str3.nc"
                     while(xisdigit(*info->p)&&len_79<3) {
+                        # 1235 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1236 "51str3.nc"
                         info->p++;
+                        # 1237 "51str3.nc"
                         len_79++;
                     }
                 }
                 else if(*info->p==120||*info->p==88) {
+                    # 1241 "51str3.nc"
                     buffer_append_char(value_76,*info->p);
+                    # 1242 "51str3.nc"
                     info->p++;
+                    # 1248 "51str3.nc"
                     while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
+                        # 1245 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1246 "51str3.nc"
                         info->p++;
                     }
                 }
                 else if(*info->p==123) {
+                    # 1250 "51str3.nc"
                     info->p++;
+                    # 1252 "51str3.nc"
                     __right_value0 = (void*)0;
                     exp_80=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1252, 336);
+                    # 1254 "51str3.nc"
                     list$1sNode$ph_add(exps_75,(struct sNode*)come_increment_ref_count(exp_80, "51str3.nc", 1254, 337));
+                    # 1260 "51str3.nc"
                     if(*info->p==125) {
+                        # 1257 "51str3.nc"
                         info->p++;
                     }
+                    # 1260 "51str3.nc"
                     buffer_append_str(value_76,"%s");
                     ((exp_80) ? exp_80 = come_decrement_ref_count(exp_80, ((struct sNode*)exp_80)->finalize, ((struct sNode*)exp_80)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1315, 338):(void*)0);
                 }
                 else {
+                    # 1314 "51str3.nc"
                     switch (                    *info->p) {
+                        # 1265 "51str3.nc"
                         case 48:
+                        # 1265 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1266 "51str3.nc"
                         info->p++;
+                        # 1267 "51str3.nc"
                         break;
+                        # 1270 "51str3.nc"
                         case 110:
+                        # 1270 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1271 "51str3.nc"
                         info->p++;
+                        # 1272 "51str3.nc"
                         break;
+                        # 1275 "51str3.nc"
                         case 116:
+                        # 1275 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1276 "51str3.nc"
                         info->p++;
+                        # 1277 "51str3.nc"
                         break;
+                        # 1280 "51str3.nc"
                         case 114:
+                        # 1280 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1281 "51str3.nc"
                         info->p++;
+                        # 1282 "51str3.nc"
                         break;
+                        # 1285 "51str3.nc"
                         case 118:
+                        # 1285 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1286 "51str3.nc"
                         info->p++;
+                        # 1287 "51str3.nc"
                         break;
+                        # 1290 "51str3.nc"
                         case 102:
+                        # 1290 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1291 "51str3.nc"
                         info->p++;
+                        # 1292 "51str3.nc"
                         break;
+                        # 1295 "51str3.nc"
                         case 97:
+                        # 1295 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1296 "51str3.nc"
                         info->p++;
+                        # 1297 "51str3.nc"
                         break;
+                        # 1300 "51str3.nc"
                         case 98:
+                        # 1300 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1301 "51str3.nc"
                         info->p++;
+                        # 1302 "51str3.nc"
                         break;
+                        # 1305 "51str3.nc"
                         case 92:
+                        # 1305 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1306 "51str3.nc"
                         info->p++;
+                        # 1307 "51str3.nc"
                         break;
+                        # 1310 "51str3.nc"
                         default:
+                        # 1310 "51str3.nc"
                         buffer_append_char(value_76,*info->p);
+                        # 1311 "51str3.nc"
                         info->p++;
+                        # 1312 "51str3.nc"
                         break;
                     }
                 }
             }
             else if(*info->p==0) {
+                # 1317 "51str3.nc"
                 sline2_81=info->sline;
+                # 1318 "51str3.nc"
                 info->sline=sline_74;
+                # 1319 "51str3.nc"
                 err_msg(info,"close \" to make embbeded string value");
+                # 1320 "51str3.nc"
                 exit(2);
             }
             else {
+                # 1325 "51str3.nc"
                 if(*info->p==10) {
+                    # 1323 "51str3.nc"
                     info->sline++;
                 }
+                # 1325 "51str3.nc"
                 buffer_append_char(value_76,*info->p);
+                # 1326 "51str3.nc"
                 info->p++;
             }
         }
+        # 1330 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 1332 "51str3.nc"
         info->sline_real=sline_real_73;
+        # 1333 "51str3.nc"
                 __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value1=create_sstring_node((char* )come_increment_ref_count(buffer_to_string(value_76), "51str3.nc", 1333, 339),(struct list$1sNode$ph*)come_increment_ref_count(exps_75, "51str3.nc", 1333, 340),sline_74,info))), "51str3.nc", 1333, 341);
@@ -4122,44 +4969,73 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(buffer_finalize, value_76, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 347);
     }
     else if(*info->p==91) {
+        # 1336 "51str3.nc"
         sline_real_82=info->sline_real;
+        # 1337 "51str3.nc"
         info->sline_real=info->sline;
+        # 1338 "51str3.nc"
         info->p++;
+        # 1339 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 1341 "51str3.nc"
         p_83=info->p;
+        # 1343 "51str3.nc"
         no_comma=info->no_comma;
+        # 1344 "51str3.nc"
         info->no_comma=(_Bool)1;
+        # 1346 "51str3.nc"
         __right_value0 = (void*)0;
         node_84=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1346, 348);
+        # 1348 "51str3.nc"
         info->no_comma=no_comma;
+        # 1350 "51str3.nc"
         p2_85=info->p;
+        # 1352 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         first_element_source=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 1352, 349, "struct buffer* "), "51str3.nc", 1352, 350)), "51str3.nc", 1352, 351);
+        # 1354 "51str3.nc"
         buffer_append(first_element_source,p_83,p2_85-p_83);
+        # 1355 "51str3.nc"
         buffer_append_char(first_element_source,0);
+        # 1357 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         list_elements=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 1357, 352, "struct list$1sNode$ph*"), "51str3.nc", 1357, 353)), "51str3.nc", 1357, 354);
+        # 1359 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         map_keys=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 1359, 355, "struct list$1sNode$ph*"), "51str3.nc", 1359, 356)), "51str3.nc", 1359, 357);
+        # 1360 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         map_elements=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 1360, 358, "struct list$1sNode$ph*"), "51str3.nc", 1360, 359)), "51str3.nc", 1360, 360);
+        # 1478 "51str3.nc"
         if(*info->p==58) {
+            # 1364 "51str3.nc"
             info->p++;
+            # 1365 "51str3.nc"
             skip_spaces_and_lf(info);
-            list$1sNode$ph_push_back(map_keys,(struct sNode*)come_increment_ref_count(node_84, "51str3.nc", 2, 375));
+            # 1367 "51str3.nc"
+            list$1sNode$ph_push_back(map_keys,(struct sNode*)come_increment_ref_count(node_84, "51str3.nc", 1367, 375));
+            # 1369 "51str3.nc"
             no_comma_88=info->no_comma;
+            # 1370 "51str3.nc"
             info->no_comma=(_Bool)1;
+            # 1373 "51str3.nc"
             __right_value0 = (void*)0;
             node2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1373, 376);
+            # 1375 "51str3.nc"
             info->no_comma=no_comma_88;
+            # 1377 "51str3.nc"
             list$1sNode$ph_push_back(map_elements,(struct sNode*)come_increment_ref_count(node2, "51str3.nc", 1377, 377));
+            # 1430 "51str3.nc"
             if(*info->p==93) {
+                # 1380 "51str3.nc"
                 info->p++;
+                # 1381 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 1383 "51str3.nc"
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_map_node((struct list$1sNode$ph*)come_increment_ref_count(map_keys, "51str3.nc", 1383, 378),(struct list$1sNode$ph*)come_increment_ref_count(map_elements, "51str3.nc", 1383, 379),info))), "51str3.nc", 1383, 380);
                 ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1383, 381):(void*)0);
@@ -4174,43 +5050,67 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 return __result_obj__0;
             }
             else {
+                # 1386 "51str3.nc"
                 expected_next_character(44,info);
+                # 1428 "51str3.nc"
                 while((_Bool)1) {
+                    # 1389 "51str3.nc"
                     no_comma_89=info->no_comma;
+                    # 1390 "51str3.nc"
                     info->no_comma=(_Bool)1;
+                    # 1392 "51str3.nc"
                     __right_value0 = (void*)0;
                     node2_90=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1392, 389);
+                    # 1394 "51str3.nc"
                     info->no_comma=no_comma_89;
+                    # 1396 "51str3.nc"
                     list$1sNode$ph_push_back(map_keys,(struct sNode*)come_increment_ref_count(node2_90, "51str3.nc", 1396, 390));
+                    # 1398 "51str3.nc"
                     expected_next_character(58,info);
+                    # 1400 "51str3.nc"
                     no_comma_89=info->no_comma;
+                    # 1401 "51str3.nc"
                     info->no_comma=(_Bool)1;
+                    # 1403 "51str3.nc"
                     __right_value0 = (void*)0;
                     node3=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1403, 391);
+                    # 1405 "51str3.nc"
                     info->no_comma=no_comma_89;
+                    # 1407 "51str3.nc"
                     list$1sNode$ph_push_back(map_elements,(struct sNode*)come_increment_ref_count(node3, "51str3.nc", 1407, 392));
+                    # 1426 "51str3.nc"
                     if(*info->p==0) {
+                        # 1410 "51str3.nc"
                         err_msg(info,"invalid source end");
+                        # 1411 "51str3.nc"
                         exit(2);
                     }
                     else if(*info->p==44) {
+                        # 1414 "51str3.nc"
                         info->p++;
+                        # 1415 "51str3.nc"
                         skip_spaces_and_lf(info);
                     }
                     else if(*info->p==93) {
+                        # 1418 "51str3.nc"
                         info->p++;
+                        # 1419 "51str3.nc"
                         skip_spaces_and_lf(info);
+                        # 1420 "51str3.nc"
                         ((node2_90) ? node2_90 = come_decrement_ref_count(node2_90, ((struct sNode*)node2_90)->finalize, ((struct sNode*)node2_90)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1420, 393):(void*)0);
                         ((node3) ? node3 = come_decrement_ref_count(node3, ((struct sNode*)node3)->finalize, ((struct sNode*)node3)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1420, 394):(void*)0);
                         break;
                     }
                     else {
+                        # 1423 "51str3.nc"
                         err_msg(info,"invalid character(3)(%c)",*info->p);
+                        # 1424 "51str3.nc"
                         exit(2);
                     }
                     ((node2_90) ? node2_90 = come_decrement_ref_count(node2_90, ((struct sNode*)node2_90)->finalize, ((struct sNode*)node2_90)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1428, 395):(void*)0);
                     ((node3) ? node3 = come_decrement_ref_count(node3, ((struct sNode*)node3)->finalize, ((struct sNode*)node3)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1428, 396):(void*)0);
                 }
+                # 1428 "51str3.nc"
                                 __right_value0 = (void*)0;
                 __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_map_node((struct list$1sNode$ph*)come_increment_ref_count(map_keys, "51str3.nc", 1428, 397),(struct list$1sNode$ph*)come_increment_ref_count(map_elements, "51str3.nc", 1428, 398),info))), "51str3.nc", 1428, 399);
                 ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1428, 400):(void*)0);
@@ -4227,48 +5127,75 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1478, 408):(void*)0);
         }
         else if(*info->p==93) {
+            # 1433 "51str3.nc"
             info->p++;
+            # 1434 "51str3.nc"
             skip_spaces_and_lf(info);
+            # 1436 "51str3.nc"
             list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node_84, "51str3.nc", 1436, 409));
         }
         else if(*info->p==44) {
+            # 1439 "51str3.nc"
             info->p++;
+            # 1440 "51str3.nc"
             skip_spaces_and_lf(info);
+            # 1442 "51str3.nc"
             list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node_84, "51str3.nc", 1442, 410));
+            # 1472 "51str3.nc"
             while((_Bool)1) {
+                # 1445 "51str3.nc"
                 no_comma_91=info->no_comma;
+                # 1446 "51str3.nc"
                 info->no_comma=(_Bool)1;
+                # 1448 "51str3.nc"
                 __right_value0 = (void*)0;
                 node2_92=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1448, 411);
+                # 1450 "51str3.nc"
                 info->no_comma=no_comma_91;
+                # 1452 "51str3.nc"
                 list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node2_92, "51str3.nc", 1452, 412));
+                # 1471 "51str3.nc"
                 if(*info->p==0) {
+                    # 1455 "51str3.nc"
                     err_msg(info,"invalid source end");
+                    # 1456 "51str3.nc"
                     exit(2);
                 }
                 else if(*info->p==44) {
+                    # 1459 "51str3.nc"
                     info->p++;
+                    # 1460 "51str3.nc"
                     skip_spaces_and_lf(info);
                 }
                 else if(*info->p==93) {
+                    # 1463 "51str3.nc"
                     info->p++;
+                    # 1464 "51str3.nc"
                     skip_spaces_and_lf(info);
+                    # 1465 "51str3.nc"
                     ((node2_92) ? node2_92 = come_decrement_ref_count(node2_92, ((struct sNode*)node2_92)->finalize, ((struct sNode*)node2_92)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1465, 413):(void*)0);
                     break;
                 }
                 else {
+                    # 1468 "51str3.nc"
                     err_msg(info,"invalid character(4)(%c)",*info->p);
+                    # 1469 "51str3.nc"
                     exit(2);
                 }
                 ((node2_92) ? node2_92 = come_decrement_ref_count(node2_92, ((struct sNode*)node2_92)->finalize, ((struct sNode*)node2_92)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1472, 414):(void*)0);
             }
         }
         else {
+            # 1474 "51str3.nc"
             err_msg(info,"invalid character(5)(%c)",*info->p);
+            # 1475 "51str3.nc"
             exit(2);
         }
+        # 1486 "51str3.nc"
         if(list$1sNode$ph_length(list_elements)>0) {
+            # 1479 "51str3.nc"
             info->sline_real=sline_real_82;
+            # 1480 "51str3.nc"
                         __right_value0 = (void*)0;
             __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_list_node((struct list$1sNode$ph*)come_increment_ref_count(list_elements, "51str3.nc", 1480, 415),info))), "51str3.nc", 1480, 416);
             ((node_84) ? node_84 = come_decrement_ref_count(node_84, ((struct sNode*)node_84)->finalize, ((struct sNode*)node_84)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1480, 417):(void*)0);
@@ -4282,7 +5209,9 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
             return __result_obj__0;
         }
         else {
+            # 1483 "51str3.nc"
             err_msg(info,"invalid vector");
+            # 1484 "51str3.nc"
                         __result_obj__0 = (struct sNode*)come_increment_ref_count(((void*)0), "51str3.nc", 1484, 424);
             ((node_84) ? node_84 = come_decrement_ref_count(node_84, ((struct sNode*)node_84)->finalize, ((struct sNode*)node_84)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1484, 425):(void*)0);
             come_call_finalizer(buffer_finalize, first_element_source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1484, 426);
@@ -4300,14 +5229,20 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         come_call_finalizer(list$1sNode$ph$p_finalize, map_elements, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1499, 435);
     }
     else if(*info->p==118&&*(info->p+1)==40) {
+        # 1488 "51str3.nc"
         sline_real_93=info->sline_real;
+        # 1489 "51str3.nc"
         info->sline_real=info->sline;
+        # 1490 "51str3.nc"
         info->p+=2;
+        # 1491 "51str3.nc"
         skip_spaces_and_lf(info);
     }
     else {
+        # 1495 "51str3.nc"
         __right_value0 = (void*)0;
         node_94=(struct sNode*)come_increment_ref_count(expression_node_v95(info), "51str3.nc", 1495, 436);
+        # 1496 "51str3.nc"
                 __result_obj__0 = (struct sNode*)come_increment_ref_count(node_94, "51str3.nc", 1496, 437);
         ((node_94) ? node_94 = come_decrement_ref_count(node_94, ((struct sNode*)node_94)->finalize, ((struct sNode*)node_94)->_protocol_obj, 0, 1,(void*)0, "51str3.nc", 1496, 438):(void*)0);
         neo_current_frame = fr.prev;
@@ -4315,6 +5250,7 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
         return __result_obj__0;
         ((node_94) ? node_94 = come_decrement_ref_count(node_94, ((struct sNode*)node_94)->finalize, ((struct sNode*)node_94)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1499, 440):(void*)0);
     }
+    # 1499 "51str3.nc"
         __result_obj__0 = (struct sNode*)come_increment_ref_count((struct sNode*)((void*)0), "51str3.nc", 1499, 441);
     neo_current_frame = fr.prev;
     ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "51str3.nc", 1499, 442):(void*)0);
@@ -4325,9 +5261,13 @@ static struct list$1sNode$ph* list$1sNode$ph_initialize(struct list$1sNode$ph* s
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph_initialize"; neo_current_frame = &fr;
     struct list$1sNode$ph* __result_obj__0;
+    # 1481 "./neo-c.h"
     self->head=((void*)0);
+    # 1482 "./neo-c.h"
     self->tail=((void*)0);
+    # 1483 "./neo-c.h"
     self->len=0;
+    # 1485 "./neo-c.h"
         __result_obj__0 = (struct list$1sNode$ph*)come_increment_ref_count(self, "./neo-c.h", 1485, 2);
     come_call_finalizer(list$1sNode$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 1494, 5);
     neo_current_frame = fr.prev;
@@ -4340,14 +5280,21 @@ static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sNode$ph* it;
     struct list_item$1sNode$ph* prev_it;
+    # 1502 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1500 "./neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
+    # 1502 "./neo-c.h"
     it=self->head;
+    # 1508 "./neo-c.h"
     while(it!=((void*)0)) {
+        # 1504 "./neo-c.h"
         prev_it=it;
+        # 1505 "./neo-c.h"
         it=it->next;
+        # 1506 "./neo-c.h"
         come_call_finalizer(list_item$1sNode$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 1506, 4);
     }
         neo_current_frame = fr.prev;
@@ -4356,7 +5303,10 @@ static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
 static void list_item$1sNode$ph$p_finalize(struct list_item$1sNode$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1sNode$ph$p_finalize"; neo_current_frame = &fr;
+    # 1 "list_item$1sNode$ph$p_finalize"
+    # 3 "list_item$1sNode$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
+        # 2 "list_item$1sNode$ph$p_finalize"
         ((self->item) ? self->item = come_decrement_ref_count(self->item, ((struct sNode*)self->item)->finalize, ((struct sNode*)self->item)->_protocol_obj, 0, 0,(void*)0, "list_item$1sNode$ph$p_finalize", 2, 3):(void*)0);
     }
             neo_current_frame = fr.prev;
@@ -4373,45 +5323,68 @@ static struct list$1sNode$ph* list$1sNode$ph_add(struct list$1sNode$ph* self, st
     struct sNode* __dec_obj2;
     struct list_item$1sNode$ph* litem_1;
     struct sNode* __dec_obj3;
+    # 1533 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1531 "./neo-c.h"
                 __result_obj__0 = self;
         ((item) ? item = come_decrement_ref_count(item, ((struct sNode*)item)->finalize, ((struct sNode*)item)->_protocol_obj, 0, 0,(void*)0, "./neo-c.h", 1531, 13):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
+    # 1564 "./neo-c.h"
     if(self->len==0) {
+        # 1534 "./neo-c.h"
         litem=(struct list_item$1sNode$ph*)come_increment_ref_count(((struct list_item$1sNode$ph*)(__right_value0=(struct list_item$1sNode$ph*)come_calloc(1, sizeof(struct list_item$1sNode$ph)*(1), "./neo-c.h", 1534, 14, "struct list_item$1sNode$ph*"))), "./neo-c.h", 1534, 15);
+        # 1536 "./neo-c.h"
         litem->prev=((void*)0);
+        # 1537 "./neo-c.h"
         litem->next=((void*)0);
+        # 1538 "./neo-c.h"
         __dec_obj1=litem->item,
         litem->item=(struct sNode*)come_increment_ref_count(item, "./neo-c.h", 1538, 17);
         (__dec_obj1 ? __dec_obj1 = come_decrement_ref_count(__dec_obj1, ((struct sNode*)__dec_obj1)->finalize, ((struct sNode*)__dec_obj1)->_protocol_obj, 0,0, (void*)0, "./neo-c.h", 1538, 16) :0);
+        # 1540 "./neo-c.h"
         self->tail=litem;
+        # 1541 "./neo-c.h"
         self->head=litem;
     }
     else if(self->len==1) {
+        # 1544 "./neo-c.h"
         __right_value0 = (void*)0;
         litem_0=(struct list_item$1sNode$ph*)come_increment_ref_count(((struct list_item$1sNode$ph*)(__right_value0=(struct list_item$1sNode$ph*)come_calloc(1, sizeof(struct list_item$1sNode$ph)*(1), "./neo-c.h", 1544, 18, "struct list_item$1sNode$ph*"))), "./neo-c.h", 1544, 19);
+        # 1546 "./neo-c.h"
         litem_0->prev=self->head;
+        # 1547 "./neo-c.h"
         litem_0->next=((void*)0);
+        # 1548 "./neo-c.h"
         __dec_obj2=litem_0->item,
         litem_0->item=(struct sNode*)come_increment_ref_count(item, "./neo-c.h", 1548, 21);
         (__dec_obj2 ? __dec_obj2 = come_decrement_ref_count(__dec_obj2, ((struct sNode*)__dec_obj2)->finalize, ((struct sNode*)__dec_obj2)->_protocol_obj, 0,0, (void*)0, "./neo-c.h", 1548, 20) :0);
+        # 1550 "./neo-c.h"
         self->tail=litem_0;
+        # 1551 "./neo-c.h"
         self->head->next=litem_0;
     }
     else {
+        # 1554 "./neo-c.h"
         __right_value0 = (void*)0;
         litem_1=(struct list_item$1sNode$ph*)come_increment_ref_count(((struct list_item$1sNode$ph*)(__right_value0=(struct list_item$1sNode$ph*)come_calloc(1, sizeof(struct list_item$1sNode$ph)*(1), "./neo-c.h", 1554, 22, "struct list_item$1sNode$ph*"))), "./neo-c.h", 1554, 23);
+        # 1556 "./neo-c.h"
         litem_1->prev=self->tail;
+        # 1557 "./neo-c.h"
         litem_1->next=((void*)0);
+        # 1558 "./neo-c.h"
         __dec_obj3=litem_1->item,
         litem_1->item=(struct sNode*)come_increment_ref_count(item, "./neo-c.h", 1558, 25);
         (__dec_obj3 ? __dec_obj3 = come_decrement_ref_count(__dec_obj3, ((struct sNode*)__dec_obj3)->finalize, ((struct sNode*)__dec_obj3)->_protocol_obj, 0,0, (void*)0, "./neo-c.h", 1558, 24) :0);
+        # 1560 "./neo-c.h"
         self->tail->next=litem_1;
+        # 1561 "./neo-c.h"
         self->tail=litem_1;
     }
+    # 1564 "./neo-c.h"
     self->len++;
+    # 1566 "./neo-c.h"
         __result_obj__0 = self;
     ((item) ? item = come_decrement_ref_count(item, ((struct sNode*)item)->finalize, ((struct sNode*)item)->_protocol_obj, 0, 0,(void*)0, "./neo-c.h", 1566, 26):(void*)0);
     neo_current_frame = fr.prev;
@@ -4422,9 +5395,13 @@ static struct list$1tuple2$2char$phsNode$ph$ph* list$1tuple2$2char$phsNode$ph$ph
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple2$2char$phsNode$ph$ph_initialize"; neo_current_frame = &fr;
     struct list$1tuple2$2char$phsNode$ph$ph* __result_obj__0;
+    # 1481 "./neo-c.h"
     self->head=((void*)0);
+    # 1482 "./neo-c.h"
     self->tail=((void*)0);
+    # 1483 "./neo-c.h"
     self->len=0;
+    # 1485 "./neo-c.h"
         __result_obj__0 = (struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(self, "./neo-c.h", 1485, 82);
     come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 2, 87);
     neo_current_frame = fr.prev;
@@ -4437,14 +5414,21 @@ static void list$1tuple2$2char$phsNode$ph$ph$p_finalize(struct list$1tuple2$2cha
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple2$2char$phsNode$ph$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1tuple2$2char$phsNode$ph$ph* it;
     struct list_item$1tuple2$2char$phsNode$ph$ph* prev_it;
+    # 1502 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1500 "./neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
+    # 1502 "./neo-c.h"
     it=self->head;
+    # 1508 "./neo-c.h"
     while(it!=((void*)0)) {
+        # 1504 "./neo-c.h"
         prev_it=it;
+        # 1505 "./neo-c.h"
         it=it->next;
+        # 1506 "./neo-c.h"
         come_call_finalizer(list_item$1tuple2$2char$phsNode$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 1506, 86);
     }
         neo_current_frame = fr.prev;
@@ -4453,7 +5437,10 @@ static void list$1tuple2$2char$phsNode$ph$ph$p_finalize(struct list$1tuple2$2cha
 static void list_item$1tuple2$2char$phsNode$ph$ph$p_finalize(struct list_item$1tuple2$2char$phsNode$ph$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1tuple2$2char$phsNode$ph$ph$p_finalize"; neo_current_frame = &fr;
+    # 1 "list_item$1tuple2$2char$phsNode$ph$ph$p_finalize"
+    # 3 "list_item$1tuple2$2char$phsNode$ph$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
+        # 2 "list_item$1tuple2$2char$phsNode$ph$ph$p_finalize"
         come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "list_item$1tuple2$2char$phsNode$ph$ph$p_finalize}", 2, 85);
     }
             neo_current_frame = fr.prev;
@@ -4462,10 +5449,15 @@ static void list_item$1tuple2$2char$phsNode$ph$ph$p_finalize(struct list_item$1t
 static void tuple2$2char$phsNode$ph$p_finalize(struct tuple2$2char$phsNode$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple2$2char$phsNode$ph$p_finalize"; neo_current_frame = &fr;
+    # 1 "tuple2$2char$phsNode$ph$p_finalize"
+    # 3 "tuple2$2char$phsNode$ph$p_finalize"
     if(self!=((void*)0)&&self->v1!=((void*)0)) {
+        # 2 "tuple2$2char$phsNode$ph$p_finalize"
         (self->v1 = come_decrement_ref_count(self->v1, (void*)0, (void*)0, 0, 0, (void*)0, "tuple2$2char$phsNode$ph$p_finalize", 2, 83));
     }
+    # 4 "tuple2$2char$phsNode$ph$p_finalize"
     if(self!=((void*)0)&&self->v2!=((void*)0)) {
+        # 3 "tuple2$2char$phsNode$ph$p_finalize"
         ((self->v2) ? self->v2 = come_decrement_ref_count(self->v2, ((struct sNode*)self->v2)->finalize, ((struct sNode*)self->v2)->_protocol_obj, 0, 0,(void*)0, "tuple2$2char$phsNode$ph$p_finalize", 3, 84):(void*)0);
     }
             neo_current_frame = fr.prev;
@@ -4482,45 +5474,68 @@ static struct list$1tuple2$2char$phsNode$ph$ph* list$1tuple2$2char$phsNode$ph$ph
     struct tuple2$2char$phsNode$ph* __dec_obj5;
     struct list_item$1tuple2$2char$phsNode$ph$ph* litem_29;
     struct tuple2$2char$phsNode$ph* __dec_obj6;
+    # 1533 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1531 "./neo-c.h"
                 __result_obj__0 = self;
         come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 1531, 91);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
+    # 1564 "./neo-c.h"
     if(self->len==0) {
+        # 1534 "./neo-c.h"
         litem=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsNode$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsNode$ph$ph)*(1), "./neo-c.h", 1534, 92, "struct list_item$1tuple2$2char$phsNode$ph$ph*"))), "./neo-c.h", 1534, 93);
+        # 1536 "./neo-c.h"
         litem->prev=((void*)0);
+        # 1537 "./neo-c.h"
         litem->next=((void*)0);
+        # 1538 "./neo-c.h"
         __dec_obj4=litem->item,
         litem->item=(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(item, "./neo-c.h", 1538, 95);
         come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, __dec_obj4,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 1538, 94);
+        # 1540 "./neo-c.h"
         self->tail=litem;
+        # 1541 "./neo-c.h"
         self->head=litem;
     }
     else if(self->len==1) {
+        # 1544 "./neo-c.h"
         __right_value0 = (void*)0;
         litem_28=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsNode$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsNode$ph$ph)*(1), "./neo-c.h", 1544, 96, "struct list_item$1tuple2$2char$phsNode$ph$ph*"))), "./neo-c.h", 1544, 97);
+        # 1546 "./neo-c.h"
         litem_28->prev=self->head;
+        # 1547 "./neo-c.h"
         litem_28->next=((void*)0);
+        # 1548 "./neo-c.h"
         __dec_obj5=litem_28->item,
         litem_28->item=(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(item, "./neo-c.h", 1548, 99);
         come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, __dec_obj5,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 1548, 98);
+        # 1550 "./neo-c.h"
         self->tail=litem_28;
+        # 1551 "./neo-c.h"
         self->head->next=litem_28;
     }
     else {
+        # 1554 "./neo-c.h"
         __right_value0 = (void*)0;
         litem_29=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsNode$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsNode$ph$ph)*(1), "./neo-c.h", 1554, 100, "struct list_item$1tuple2$2char$phsNode$ph$ph*"))), "./neo-c.h", 1554, 101);
+        # 1556 "./neo-c.h"
         litem_29->prev=self->tail;
+        # 1557 "./neo-c.h"
         litem_29->next=((void*)0);
+        # 1558 "./neo-c.h"
         __dec_obj6=litem_29->item,
         litem_29->item=(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(item, "./neo-c.h", 1558, 103);
         come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, __dec_obj6,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 1558, 102);
+        # 1560 "./neo-c.h"
         self->tail->next=litem_29;
+        # 1561 "./neo-c.h"
         self->tail=litem_29;
     }
+    # 1564 "./neo-c.h"
     self->len++;
+    # 1566 "./neo-c.h"
         __result_obj__0 = self;
     come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 1566, 104);
     neo_current_frame = fr.prev;
@@ -4533,12 +5548,15 @@ static struct tuple2$2char$phsNode$ph* tuple2$2char$phsNode$ph_initialize(struct
     char*  __dec_obj7  ;
     struct sNode* __dec_obj8;
     struct tuple2$2char$phsNode$ph* __result_obj__0;
+    # 4420 "./neo-c.h"
     __dec_obj7=self->v1,
     self->v1=(char*)come_increment_ref_count(v1, "./neo-c.h", 4420, 107);
     __dec_obj7 = come_decrement_ref_count(__dec_obj7, (void*)0, (void*)0, 0,0, (void*)0, "./neo-c.h", 4420, 106);
+    # 4421 "./neo-c.h"
     __dec_obj8=self->v2,
     self->v2=(struct sNode*)come_increment_ref_count(v2, "./neo-c.h", 4421, 109);
     (__dec_obj8 ? __dec_obj8 = come_decrement_ref_count(__dec_obj8, ((struct sNode*)__dec_obj8)->finalize, ((struct sNode*)__dec_obj8)->_protocol_obj, 0,0, (void*)0, "./neo-c.h", 4421, 108) :0);
+    # 4423 "./neo-c.h"
         __result_obj__0 = (struct tuple2$2char$phsNode$ph*)come_increment_ref_count(self, "./neo-c.h", 4423, 110);
     come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4423, 111);
     (v1 = come_decrement_ref_count(v1, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 4423, 112));
@@ -4552,9 +5570,13 @@ static struct list$1sType$ph* list$1sType$ph_initialize(struct list$1sType$ph* s
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sType$ph_initialize"; neo_current_frame = &fr;
     struct list$1sType$ph* __result_obj__0;
+    # 1481 "./neo-c.h"
     self->head=((void*)0);
+    # 1482 "./neo-c.h"
     self->tail=((void*)0);
+    # 1483 "./neo-c.h"
     self->len=0;
+    # 1485 "./neo-c.h"
         __result_obj__0 = (struct list$1sType$ph*)come_increment_ref_count(self, "./neo-c.h", 1485, 174);
     come_call_finalizer(list$1sType$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3, 205);
     neo_current_frame = fr.prev;
@@ -4567,14 +5589,21 @@ static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sType$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sType$ph* it;
     struct list_item$1sType$ph* prev_it;
+    # 1502 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1500 "./neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
+    # 1502 "./neo-c.h"
     it=self->head;
+    # 1508 "./neo-c.h"
     while(it!=((void*)0)) {
+        # 1504 "./neo-c.h"
         prev_it=it;
+        # 1505 "./neo-c.h"
         it=it->next;
+        # 1506 "./neo-c.h"
         come_call_finalizer(list_item$1sType$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 1506, 204);
     }
         neo_current_frame = fr.prev;
@@ -4583,7 +5612,10 @@ static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
 static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1sType$ph$p_finalize"; neo_current_frame = &fr;
+    # 1 "list_item$1sType$ph$p_finalize"
+    # 3 "list_item$1sType$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
+        # 2 "list_item$1sType$ph$p_finalize"
         come_call_finalizer(sType_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "list_item$1sType$ph$p_finalize}", 2, 203);
     }
             neo_current_frame = fr.prev;
@@ -4592,79 +5624,130 @@ static void list_item$1sType$ph$p_finalize(struct list_item$1sType$ph* self)
 static void sType_finalize(struct sType*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sType_finalize"; neo_current_frame = &fr;
+    # 1 "sType_finalize"
+    # 3 "sType_finalize"
     if(self!=((void*)0)&&self->mOriginalLoadVarType!=((void*)0)) {
+        # 2 "sType_finalize"
         come_call_finalizer(sType_finalize, self->mOriginalLoadVarType, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 2, 175);
     }
+    # 4 "sType_finalize"
     if(self!=((void*)0)&&self->mChannelType!=((void*)0)) {
+        # 3 "sType_finalize"
         come_call_finalizer(sType_finalize, self->mChannelType, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 3, 176);
     }
+    # 5 "sType_finalize"
     if(self!=((void*)0)&&self->mGenericsTypes!=((void*)0)) {
+        # 4 "sType_finalize"
         come_call_finalizer(list$1sType$ph$p_finalize, self->mGenericsTypes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 4, 177);
     }
+    # 6 "sType_finalize"
     if(self!=((void*)0)&&self->mNoSolvedGenericsType!=((void*)0)) {
+        # 5 "sType_finalize"
         come_call_finalizer(sType_finalize, self->mNoSolvedGenericsType, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 5, 178);
     }
+    # 7 "sType_finalize"
     if(self!=((void*)0)&&self->mSizeNum!=((void*)0)) {
+        # 6 "sType_finalize"
         ((self->mSizeNum) ? self->mSizeNum = come_decrement_ref_count(self->mSizeNum, ((struct sNode*)self->mSizeNum)->finalize, ((struct sNode*)self->mSizeNum)->_protocol_obj, 0, 0,(void*)0, "sType_finalize", 6, 179):(void*)0);
     }
+    # 8 "sType_finalize"
     if(self!=((void*)0)&&self->mAlignas!=((void*)0)) {
+        # 7 "sType_finalize"
         ((self->mAlignas) ? self->mAlignas = come_decrement_ref_count(self->mAlignas, ((struct sNode*)self->mAlignas)->finalize, ((struct sNode*)self->mAlignas)->_protocol_obj, 0, 0,(void*)0, "sType_finalize", 7, 180):(void*)0);
     }
+    # 9 "sType_finalize"
     if(self!=((void*)0)&&self->mTupleName!=((void*)0)) {
+        # 8 "sType_finalize"
         (self->mTupleName = come_decrement_ref_count(self->mTupleName, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 8, 181));
     }
+    # 10 "sType_finalize"
     if(self!=((void*)0)&&self->mAttribute!=((void*)0)) {
+        # 9 "sType_finalize"
         (self->mAttribute = come_decrement_ref_count(self->mAttribute, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 9, 182));
     }
+    # 11 "sType_finalize"
     if(self!=((void*)0)&&self->mVarAttribute!=((void*)0)) {
+        # 10 "sType_finalize"
         (self->mVarAttribute = come_decrement_ref_count(self->mVarAttribute, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 10, 183));
     }
+    # 12 "sType_finalize"
     if(self!=((void*)0)&&self->mMiddleAttribute!=((void*)0)) {
+        # 11 "sType_finalize"
         (self->mMiddleAttribute = come_decrement_ref_count(self->mMiddleAttribute, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 11, 184));
     }
+    # 13 "sType_finalize"
     if(self!=((void*)0)&&self->mPointerAttribute!=((void*)0)) {
+        # 12 "sType_finalize"
         (self->mPointerAttribute = come_decrement_ref_count(self->mPointerAttribute, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 12, 185));
     }
+    # 14 "sType_finalize"
     if(self!=((void*)0)&&self->mAnonymousName!=((void*)0)) {
+        # 13 "sType_finalize"
         (self->mAnonymousName = come_decrement_ref_count(self->mAnonymousName, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 13, 186));
     }
+    # 15 "sType_finalize"
     if(self!=((void*)0)&&self->mInnerStructName!=((void*)0)) {
+        # 14 "sType_finalize"
         (self->mInnerStructName = come_decrement_ref_count(self->mInnerStructName, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 14, 187));
     }
+    # 16 "sType_finalize"
     if(self!=((void*)0)&&self->mAsmName!=((void*)0)) {
+        # 15 "sType_finalize"
         (self->mAsmName = come_decrement_ref_count(self->mAsmName, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 15, 188));
     }
+    # 17 "sType_finalize"
     if(self!=((void*)0)&&self->mArrayNum!=((void*)0)) {
+        # 16 "sType_finalize"
         come_call_finalizer(list$1sNode$ph$p_finalize, self->mArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 16, 189);
     }
+    # 18 "sType_finalize"
     if(self!=((void*)0)&&self->mVarNameArrayNum!=((void*)0)) {
+        # 17 "sType_finalize"
         come_call_finalizer(list$1sNode$ph$p_finalize, self->mVarNameArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 17, 190);
     }
+    # 19 "sType_finalize"
     if(self!=((void*)0)&&self->mArrayStatic!=((void*)0)) {
+        # 18 "sType_finalize"
         come_call_finalizer(list$1int$$p_finalize, self->mArrayStatic, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 26, 192);
     }
+    # 20 "sType_finalize"
     if(self!=((void*)0)&&self->mArrayRestrict!=((void*)0)) {
+        # 19 "sType_finalize"
         come_call_finalizer(list$1int$$p_finalize, self->mArrayRestrict, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 19, 193);
     }
+    # 21 "sType_finalize"
     if(self!=((void*)0)&&self->mTypedefOriginalType!=((void*)0)) {
+        # 20 "sType_finalize"
         come_call_finalizer(sType_finalize, self->mTypedefOriginalType, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 20, 194);
     }
+    # 22 "sType_finalize"
     if(self!=((void*)0)&&self->mOriginalTypeName!=((void*)0)) {
+        # 21 "sType_finalize"
         (self->mOriginalTypeName = come_decrement_ref_count(self->mOriginalTypeName, (void*)0, (void*)0, 0, 0, (void*)0, "sType_finalize", 21, 195));
     }
+    # 23 "sType_finalize"
     if(self!=((void*)0)&&self->mParamTypes!=((void*)0)) {
+        # 22 "sType_finalize"
         come_call_finalizer(list$1sType$ph$p_finalize, self->mParamTypes, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 22, 196);
     }
+    # 24 "sType_finalize"
     if(self!=((void*)0)&&self->mParamNames!=((void*)0)) {
+        # 23 "sType_finalize"
         come_call_finalizer(list$1char$ph$p_finalize, self->mParamNames, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 0, 199);
     }
+    # 25 "sType_finalize"
     if(self!=((void*)0)&&self->mResultType!=((void*)0)) {
+        # 24 "sType_finalize"
         come_call_finalizer(sType_finalize, self->mResultType, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 24, 200);
     }
+    # 26 "sType_finalize"
     if(self!=((void*)0)&&self->mTypeOfNode!=((void*)0)) {
+        # 25 "sType_finalize"
         ((self->mTypeOfNode) ? self->mTypeOfNode = come_decrement_ref_count(self->mTypeOfNode, ((struct sNode*)self->mTypeOfNode)->finalize, ((struct sNode*)self->mTypeOfNode)->_protocol_obj, 0, 0,(void*)0, "sType_finalize", 25, 201):(void*)0);
     }
+    # 27 "sType_finalize"
     if(self!=((void*)0)&&self->mHeapArrayNum!=((void*)0)) {
+        # 26 "sType_finalize"
         come_call_finalizer(list$1sNode$ph$p_finalize, self->mHeapArrayNum, (void*)0, (void*)0, 0, 0, 0, (void*)0, "sType_finalize}", 26, 202);
     }
             neo_current_frame = fr.prev;
@@ -4675,14 +5758,21 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    # 1502 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1500 "./neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
+    # 1502 "./neo-c.h"
     it=self->head;
+    # 1508 "./neo-c.h"
     while(it!=((void*)0)) {
+        # 1504 "./neo-c.h"
         prev_it=it;
+        # 1505 "./neo-c.h"
         it=it->next;
+        # 1506 "./neo-c.h"
         come_call_finalizer(list_item$1int$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 1506, 191);
     }
             neo_current_frame = fr.prev;
@@ -4691,6 +5781,7 @@ static void list$1int$$p_finalize(struct list$1int$* self)
 static void list_item$1int$$p_finalize(struct list_item$1int$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1int$$p_finalize"; neo_current_frame = &fr;
+    # 1 "list_item$1int$$p_finalize"
             neo_current_frame = fr.prev;
 }
 
@@ -4699,14 +5790,21 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    # 1502 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1500 "./neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
+    # 1502 "./neo-c.h"
     it=self->head;
+    # 1508 "./neo-c.h"
     while(it!=((void*)0)) {
+        # 1504 "./neo-c.h"
         prev_it=it;
+        # 1505 "./neo-c.h"
         it=it->next;
+        # 1506 "./neo-c.h"
         come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 1506, 198);
     }
             neo_current_frame = fr.prev;
@@ -4715,7 +5813,10 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
 static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$ph$p_finalize"; neo_current_frame = &fr;
+    # 1 "list_item$1char$ph$p_finalize"
+    # 3 "list_item$1char$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
+        # 2 "list_item$1char$ph$p_finalize"
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0, "list_item$1char$ph$p_finalize", 2, 197));
     }
             neo_current_frame = fr.prev;
@@ -4732,45 +5833,68 @@ static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* se
     struct sNode* __dec_obj10;
     struct list_item$1sNode$ph* litem_87;
     struct sNode* __dec_obj11;
+    # 1618 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1615 "./neo-c.h"
                 __result_obj__0 = self;
         ((item) ? item = come_decrement_ref_count(item, ((struct sNode*)item)->finalize, ((struct sNode*)item)->_protocol_obj, 0, 0,(void*)0, "./neo-c.h", 1615, 361):(void*)0);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
+    # 1649 "./neo-c.h"
     if(self->len==0) {
+        # 1619 "./neo-c.h"
         litem=(struct list_item$1sNode$ph*)come_increment_ref_count(((struct list_item$1sNode$ph*)(__right_value0=(struct list_item$1sNode$ph*)come_calloc(1, sizeof(struct list_item$1sNode$ph)*(1), "./neo-c.h", 1619, 362, "struct list_item$1sNode$ph*"))), "./neo-c.h", 1619, 363);
+        # 1621 "./neo-c.h"
         litem->prev=((void*)0);
+        # 1622 "./neo-c.h"
         litem->next=((void*)0);
+        # 1623 "./neo-c.h"
         __dec_obj9=litem->item,
         litem->item=(struct sNode*)come_increment_ref_count(item, "./neo-c.h", 1623, 365);
         (__dec_obj9 ? __dec_obj9 = come_decrement_ref_count(__dec_obj9, ((struct sNode*)__dec_obj9)->finalize, ((struct sNode*)__dec_obj9)->_protocol_obj, 0,0, (void*)0, "./neo-c.h", 1623, 364) :0);
+        # 1625 "./neo-c.h"
         self->tail=litem;
+        # 1626 "./neo-c.h"
         self->head=litem;
     }
     else if(self->len==1) {
+        # 1629 "./neo-c.h"
         __right_value0 = (void*)0;
         litem_86=(struct list_item$1sNode$ph*)come_increment_ref_count(((struct list_item$1sNode$ph*)(__right_value0=(struct list_item$1sNode$ph*)come_calloc(1, sizeof(struct list_item$1sNode$ph)*(1), "./neo-c.h", 1629, 366, "struct list_item$1sNode$ph*"))), "./neo-c.h", 1629, 367);
+        # 1631 "./neo-c.h"
         litem_86->prev=self->head;
+        # 1632 "./neo-c.h"
         litem_86->next=((void*)0);
+        # 1633 "./neo-c.h"
         __dec_obj10=litem_86->item,
         litem_86->item=(struct sNode*)come_increment_ref_count(item, "./neo-c.h", 1633, 369);
         (__dec_obj10 ? __dec_obj10 = come_decrement_ref_count(__dec_obj10, ((struct sNode*)__dec_obj10)->finalize, ((struct sNode*)__dec_obj10)->_protocol_obj, 0,0, (void*)0, "./neo-c.h", 1633, 368) :0);
+        # 1635 "./neo-c.h"
         self->tail=litem_86;
+        # 1636 "./neo-c.h"
         self->head->next=litem_86;
     }
     else {
+        # 1639 "./neo-c.h"
         __right_value0 = (void*)0;
         litem_87=(struct list_item$1sNode$ph*)come_increment_ref_count(((struct list_item$1sNode$ph*)(__right_value0=(struct list_item$1sNode$ph*)come_calloc(1, sizeof(struct list_item$1sNode$ph)*(1), "./neo-c.h", 1639, 370, "struct list_item$1sNode$ph*"))), "./neo-c.h", 1639, 371);
+        # 1641 "./neo-c.h"
         litem_87->prev=self->tail;
+        # 1642 "./neo-c.h"
         litem_87->next=((void*)0);
+        # 1643 "./neo-c.h"
         __dec_obj11=litem_87->item,
         litem_87->item=(struct sNode*)come_increment_ref_count(item, "./neo-c.h", 1643, 373);
         (__dec_obj11 ? __dec_obj11 = come_decrement_ref_count(__dec_obj11, ((struct sNode*)__dec_obj11)->finalize, ((struct sNode*)__dec_obj11)->_protocol_obj, 0,0, (void*)0, "./neo-c.h", 1643, 372) :0);
+        # 1645 "./neo-c.h"
         self->tail->next=litem_87;
+        # 1646 "./neo-c.h"
         self->tail=litem_87;
     }
+    # 1649 "./neo-c.h"
     self->len++;
+    # 1651 "./neo-c.h"
         __result_obj__0 = self;
     ((item) ? item = come_decrement_ref_count(item, ((struct sNode*)item)->finalize, ((struct sNode*)item)->_protocol_obj, 0, 0,(void*)0, "./neo-c.h", 1651, 374):(void*)0);
     neo_current_frame = fr.prev;
@@ -4780,10 +5904,13 @@ static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* se
 static int list$1sNode$ph_length(struct list$1sNode$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph_length"; neo_current_frame = &fr;
+    # 1772 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1770 "./neo-c.h"
                 neo_current_frame = fr.prev;
         return 0;
     }
+    # 1772 "./neo-c.h"
         neo_current_frame = fr.prev;
     return self->len;
             neo_current_frame = fr.prev;
@@ -4804,46 +5931,68 @@ struct sNode* parse_tuple(struct sInfo*  info  , _Bool named_tuple)
     void* __right_value2 = (void*)0;
     struct sNode* __result_obj__0;
     memset(&name, 0, sizeof(name));
+    # 1504 "51str3.nc"
     tuple_elements=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "51str3.nc", 1504, 443, "struct list$1tuple2$2char$phsNode$ph$ph*"), "51str3.nc", 1504, 444)), "51str3.nc", 1504, 445);
+    # 1540 "51str3.nc"
     while((_Bool)1) {
+        # 1506 "51str3.nc"
         p=info->p;
+        # 1508 "51str3.nc"
+        # 1515 "51str3.nc"
         if(named_tuple) {
+            # 1510 "51str3.nc"
             __right_value0 = (void*)0;
             __dec_obj12=name,
             name=(char* )come_increment_ref_count(parse_word((_Bool)0,info), "51str3.nc", 1510, 447);
             __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0, "51str3.nc", 1510, 446);
+            # 1512 "51str3.nc"
             expected_next_character(58,info);
         }
+        # 1515 "51str3.nc"
         no_comma=info->no_comma;
+        # 1516 "51str3.nc"
         info->no_comma=(_Bool)1;
+        # 1518 "51str3.nc"
         __right_value0 = (void*)0;
         node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1518, 448);
+        # 1519 "51str3.nc"
         __right_value0 = (void*)0;
         __dec_obj13=node,
         node=(struct sNode*)come_increment_ref_count(post_position_operator_v99((struct sNode*)come_increment_ref_count(node, "51str3.nc", 1519, 449),info), "51str3.nc", 1519, 451);
         (__dec_obj13 ? __dec_obj13 = come_decrement_ref_count(__dec_obj13, ((struct sNode*)__dec_obj13)->finalize, ((struct sNode*)__dec_obj13)->_protocol_obj, 0,0, (void*)0, "51str3.nc", 1519, 450) :0);
+        # 1521 "51str3.nc"
         info->no_comma=no_comma;
+        # 1523 "51str3.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        list$1tuple2$2char$phsNode$ph$ph_push_back(tuple_elements,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 1523, 467, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 1523, 468),(char* )come_increment_ref_count((char* )come_memdup(name, "51str3.nc", 1523, 466, "char* "), "51str3.nc", 1523, 469),(struct sNode*)come_increment_ref_count(node, "51str3.nc", 1523, 470)), "51str3.nc", 1534, 471));
+        list$1tuple2$2char$phsNode$ph$ph_push_back(tuple_elements,(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(tuple2$2char$phsNode$ph_initialize((struct tuple2$2char$phsNode$ph*)come_increment_ref_count((struct tuple2$2char$phsNode$ph*)come_calloc(1, sizeof(struct tuple2$2char$phsNode$ph)*(1), "51str3.nc", 1523, 467, "struct tuple2$2char$phsNode$ph"), "51str3.nc", 1523, 468),(char* )come_increment_ref_count((char* )come_memdup(name, "51str3.nc", 1523, 466, "char* "), "51str3.nc", 1523, 469),(struct sNode*)come_increment_ref_count(node, "51str3.nc", 1523, 470)), "51str3.nc", 1523, 471));
+        # 1538 "51str3.nc"
         if(*info->p==44) {
+            # 1526 "51str3.nc"
             info->p++;
+            # 1527 "51str3.nc"
             skip_spaces_and_lf(info);
         }
         else if(*info->p==41) {
+            # 1530 "51str3.nc"
             info->p++;
+            # 1531 "51str3.nc"
             skip_spaces_and_lf(info);
+            # 1532 "51str3.nc"
             (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "51str3.nc", 1532, 472));
             ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1532, 473):(void*)0);
             break;
         }
         else {
+            # 1535 "51str3.nc"
             err_msg(info,"invalid character in tuple expression (%c)",*info->p);
+            # 1536 "51str3.nc"
             exit(2);
         }
         (name = come_decrement_ref_count(name, (void*)0, (void*)0, 0, 0, (void*)0, "51str3.nc", 1540, 474));
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1540, 475):(void*)0);
     }
+    # 1540 "51str3.nc"
         __right_value0 = (void*)0;
     __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_tuple_node((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(tuple_elements, "51str3.nc", 1540, 476),info))), "51str3.nc", 1540, 477);
     come_call_finalizer(list$1tuple2$2char$phsNode$ph$ph$p_finalize, tuple_elements, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1540, 478);
@@ -4864,45 +6013,68 @@ static struct list$1tuple2$2char$phsNode$ph$ph* list$1tuple2$2char$phsNode$ph$ph
     struct tuple2$2char$phsNode$ph* __dec_obj15;
     struct list_item$1tuple2$2char$phsNode$ph$ph* litem_96;
     struct tuple2$2char$phsNode$ph* __dec_obj16;
+    # 1618 "./neo-c.h"
     if(self==((void*)0)) {
+        # 1615 "./neo-c.h"
                 __result_obj__0 = self;
         come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 1615, 452);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
+    # 1649 "./neo-c.h"
     if(self->len==0) {
+        # 1619 "./neo-c.h"
         litem=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsNode$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsNode$ph$ph)*(1), "./neo-c.h", 1619, 453, "struct list_item$1tuple2$2char$phsNode$ph$ph*"))), "./neo-c.h", 1619, 454);
+        # 1621 "./neo-c.h"
         litem->prev=((void*)0);
+        # 1622 "./neo-c.h"
         litem->next=((void*)0);
+        # 1623 "./neo-c.h"
         __dec_obj14=litem->item,
         litem->item=(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(item, "./neo-c.h", 1623, 456);
         come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, __dec_obj14,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 1623, 455);
+        # 1625 "./neo-c.h"
         self->tail=litem;
+        # 1626 "./neo-c.h"
         self->head=litem;
     }
     else if(self->len==1) {
+        # 1629 "./neo-c.h"
         __right_value0 = (void*)0;
         litem_95=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsNode$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsNode$ph$ph)*(1), "./neo-c.h", 1629, 457, "struct list_item$1tuple2$2char$phsNode$ph$ph*"))), "./neo-c.h", 1629, 458);
+        # 1631 "./neo-c.h"
         litem_95->prev=self->head;
+        # 1632 "./neo-c.h"
         litem_95->next=((void*)0);
+        # 1633 "./neo-c.h"
         __dec_obj15=litem_95->item,
         litem_95->item=(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(item, "./neo-c.h", 1633, 460);
         come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, __dec_obj15,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 1633, 459);
+        # 1635 "./neo-c.h"
         self->tail=litem_95;
+        # 1636 "./neo-c.h"
         self->head->next=litem_95;
     }
     else {
+        # 1639 "./neo-c.h"
         __right_value0 = (void*)0;
         litem_96=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(((struct list_item$1tuple2$2char$phsNode$ph$ph*)(__right_value0=(struct list_item$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list_item$1tuple2$2char$phsNode$ph$ph)*(1), "./neo-c.h", 1639, 461, "struct list_item$1tuple2$2char$phsNode$ph$ph*"))), "./neo-c.h", 1639, 462);
+        # 1641 "./neo-c.h"
         litem_96->prev=self->tail;
+        # 1642 "./neo-c.h"
         litem_96->next=((void*)0);
+        # 1643 "./neo-c.h"
         __dec_obj16=litem_96->item,
         litem_96->item=(struct tuple2$2char$phsNode$ph*)come_increment_ref_count(item, "./neo-c.h", 1643, 464);
         come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, __dec_obj16,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 1643, 463);
+        # 1645 "./neo-c.h"
         self->tail->next=litem_96;
+        # 1646 "./neo-c.h"
         self->tail=litem_96;
     }
+    # 1649 "./neo-c.h"
     self->len++;
+    # 1651 "./neo-c.h"
         __result_obj__0 = self;
     come_call_finalizer(tuple2$2char$phsNode$ph$p_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 1651, 465);
     neo_current_frame = fr.prev;
@@ -4926,69 +6098,110 @@ struct sNode* parse_vector(struct sInfo*  info  )
     _Bool no_comma_97;
     struct sNode* node2;
     struct sNode* __result_obj__0;
+    # 1545 "51str3.nc"
     p=info->p;
+    # 1547 "51str3.nc"
     sline_real=info->sline;
+    # 1549 "51str3.nc"
     no_comma=info->no_comma;
+    # 1550 "51str3.nc"
     info->no_comma=(_Bool)1;
+    # 1552 "51str3.nc"
     node=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1552, 481);
+    # 1554 "51str3.nc"
     info->no_comma=no_comma;
+    # 1556 "51str3.nc"
     p2=info->p;
+    # 1558 "51str3.nc"
     __right_value0 = (void*)0;
     first_element_source=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "51str3.nc", 1558, 482, "struct buffer* "), "51str3.nc", 1558, 483)), "51str3.nc", 1558, 484);
+    # 1560 "51str3.nc"
     buffer_append(first_element_source,p,p2-p);
+    # 1561 "51str3.nc"
     buffer_append_char(first_element_source,0);
+    # 1563 "51str3.nc"
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     list_elements=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 1563, 485, "struct list$1sNode$ph*"), "51str3.nc", 1563, 486)), "51str3.nc", 1563, 487);
+    # 1565 "51str3.nc"
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     map_keys=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 1565, 488, "struct list$1sNode$ph*"), "51str3.nc", 1565, 489)), "51str3.nc", 1565, 490);
+    # 1566 "51str3.nc"
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     map_elements=(struct list$1sNode$ph*)come_increment_ref_count(list$1sNode$ph_initialize((struct list$1sNode$ph*)come_increment_ref_count((struct list$1sNode$ph*)come_calloc(1, sizeof(struct list$1sNode$ph)*(1), "51str3.nc", 1566, 491, "struct list$1sNode$ph*"), "51str3.nc", 1566, 492)), "51str3.nc", 1566, 493);
+    # 1615 "51str3.nc"
     if(*info->p==93) {
+        # 1570 "51str3.nc"
         info->p++;
+        # 1571 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 1573 "51str3.nc"
         list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node, "51str3.nc", 1573, 494));
     }
     else if(*info->p==44) {
+        # 1576 "51str3.nc"
         info->p++;
+        # 1577 "51str3.nc"
         skip_spaces_and_lf(info);
+        # 1579 "51str3.nc"
         list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node, "51str3.nc", 1579, 495));
+        # 1609 "51str3.nc"
         while((_Bool)1) {
+            # 1582 "51str3.nc"
             no_comma_97=info->no_comma;
+            # 1583 "51str3.nc"
             info->no_comma=(_Bool)1;
+            # 1585 "51str3.nc"
             __right_value0 = (void*)0;
             node2=(struct sNode*)come_increment_ref_count(expression_v13(info,(_Bool)0), "51str3.nc", 1585, 496);
+            # 1587 "51str3.nc"
             info->no_comma=no_comma_97;
+            # 1589 "51str3.nc"
             list$1sNode$ph_push_back(list_elements,(struct sNode*)come_increment_ref_count(node2, "51str3.nc", 1589, 497));
+            # 1608 "51str3.nc"
             if(*info->p==0) {
+                # 1592 "51str3.nc"
                 err_msg(info,"invalid source end");
+                # 1593 "51str3.nc"
                 exit(2);
             }
             else if(*info->p==44) {
+                # 1596 "51str3.nc"
                 info->p++;
+                # 1597 "51str3.nc"
                 skip_spaces_and_lf(info);
             }
             else if(*info->p==93) {
+                # 1600 "51str3.nc"
                 info->p++;
+                # 1601 "51str3.nc"
                 skip_spaces_and_lf(info);
+                # 1602 "51str3.nc"
                 ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1602, 498):(void*)0);
                 break;
             }
             else {
+                # 1605 "51str3.nc"
                 err_msg(info,"invalid character(4)(%c)",*info->p);
+                # 1606 "51str3.nc"
                 exit(2);
             }
             ((node2) ? node2 = come_decrement_ref_count(node2, ((struct sNode*)node2)->finalize, ((struct sNode*)node2)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1609, 499):(void*)0);
         }
     }
     else {
+        # 1611 "51str3.nc"
         err_msg(info,"invalid character(5)(%c)",*info->p);
+        # 1612 "51str3.nc"
         exit(2);
     }
+    # 1620 "51str3.nc"
     if(list$1sNode$ph_length(list_elements)>0) {
+        # 1616 "51str3.nc"
         info->sline_real=sline_real;
+        # 1617 "51str3.nc"
                 __right_value0 = (void*)0;
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((struct sNode*)(__right_value0=create_vector_node((struct list$1sNode$ph*)come_increment_ref_count(list_elements, "51str3.nc", 1617, 500),info))), "51str3.nc", 1617, 501);
         ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1617, 502):(void*)0);
@@ -5001,7 +6214,9 @@ struct sNode* parse_vector(struct sInfo*  info  )
         ((__result_obj__0) ? __result_obj__0 = come_decrement_ref_count(__result_obj__0, ((struct sNode*)__result_obj__0)->finalize, ((struct sNode*)__result_obj__0)->_protocol_obj, 0, 1,(void*)0, "51str3.nc", 1617, 508):(void*)0);
         return __result_obj__0;
     }
+    # 1620 "51str3.nc"
     err_msg(info,"invalid vector");
+    # 1622 "51str3.nc"
         __result_obj__0 = (struct sNode*)come_increment_ref_count(((void*)0), "51str3.nc", 1622, 509);
     ((node) ? node = come_decrement_ref_count(node, ((struct sNode*)node)->finalize, ((struct sNode*)node)->_protocol_obj, 0, 0,(void*)0, "51str3.nc", 1622, 510):(void*)0);
     come_call_finalizer(buffer_finalize, first_element_source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "51str3.nc}", 1622, 511);

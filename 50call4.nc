@@ -151,7 +151,14 @@ class sReturnNode extends sNodeBase
 
 sNode*% create_return_node(sNode*% value, sInfo* info=info)
 {
-    return new sReturnNode(value, info) implements sNode;
+    int sline_real = info.sline_real;
+    info.sline_real = info.sline;
+
+    sNode*% result = new sReturnNode(value, info) implements sNode;
+
+    info.sline_real = sline_real;
+
+    return result;
 }
 
 class sCSourceNode extends sNodeBase
@@ -784,13 +791,13 @@ sNode*% expression_node(sInfo* info=info) version 98
         skip_spaces_and_lf();
         
         if(*info->p == ';') {
-            return new sReturnNode(null, info) implements sNode;
+            return create_return_node(null);
         }
         else {
             sNode*% value = expression();
             value = post_position_operator(value, info);
             
-            return new sReturnNode(value, info) implements sNode;
+            return create_return_node(value);
         }
     }
     else if(*info->p == '/' && *(info->p+1) == '*') {
