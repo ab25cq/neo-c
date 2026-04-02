@@ -1046,6 +1046,18 @@ test: *.nc
 	test ! -e c_test_compat253; \
 	! grep -q "^error:" c_test_compat253.out; \
 	rm -f c_test_compat253.out
+	@set -eu; \
+	echo "neo-c zz_line_plain.nc (expect matching warning line info)"; \
+	rm -f zz_line_plain; \
+	$(NEO_C) -I. zz_line_plain.nc -o zz_line_plain > zz_line_plain.out 2>&1 || true; \
+	grep -Eq "zz_line_plain\\.nc 5\\(5\\): \\[warning\\] invalid assign non-pointer from pointer" zz_line_plain.out; \
+	rm -f zz_line_plain zz_line_plain.out zz_line_plain.c
+	@set -eu; \
+	echo "neo-c zz_line_generics.nc (expect matching warning line info in generics body)"; \
+	rm -f zz_line_generics; \
+	$(NEO_C) -I. zz_line_generics.nc -o zz_line_generics > zz_line_generics.out 2>&1 || true; \
+	grep -Eq "zz_line_generics\\.nc 7\\(7\\): \\[warning\\] invalid assign non-pointer from pointer" zz_line_generics.out; \
+	rm -f zz_line_generics zz_line_generics.out zz_line_generics.c
 	$(NEO_C) test_control_flow.nc
 	./test_control_flow
 	$(NEO_C) test_control.nc

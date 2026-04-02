@@ -32,6 +32,8 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     
     char* p = info.p;
     int sline = info.sline;
+    int sline_real = info.sline_real;
+    int sline_top = info.sline_top;
     string sname = info.sname;
     char* head = info.head;
     buffer*% source = info.source;
@@ -58,6 +60,8 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     info.generics_type_names = clone generics_fun.mGenericsTypeNames;
     
     info.sline = generics_fun->mGenericsSLine;
+    info.sline_real = generics_fun->mGenericsSLine;
+    info.sline_top = generics_fun->mGenericsSLine;
     info.sname = generics_fun->mGenericsSName;
     
     sBlock*% block = parse_block(in_function:true);
@@ -70,6 +74,8 @@ string, bool create_generics_fun(string fun_name, sGenericsFun* generics_fun, sT
     info.p = borrow info.source.buf;
     info.p = p;
     info.sline = sline;
+    info.sline_real = sline_real;
+    info.sline_top = sline_top;
     info.sname = sname;
     
     result_type->mInline = false;
@@ -136,6 +142,8 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     
     char* p = info.p;
     int sline = info.sline;
+    int sline_real = info.sline_real;
+    int sline_top = info.sline_top;
     string sname = info.sname;
     char* head = info.head;
     buffer*% source = info.source;
@@ -158,6 +166,8 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     info.generics_type_names = clone generics_fun.mGenericsTypeNames;
     
     info.sline = generics_fun->mGenericsSLine;
+    info.sline_real = generics_fun->mGenericsSLine;
+    info.sline_top = generics_fun->mGenericsSLine;
     info.sname = generics_fun->mGenericsSName;
     
     sBlock*% block = parse_block(in_function:true);
@@ -170,6 +180,8 @@ bool create_method_generics_fun(string fun_name, sGenericsFun* generics_fun, sIn
     info.p = borrow info.source.buf;
     info.p = p;
     info.sline = sline;
+    info.sline_real = sline_real;
+    info.sline_top = sline_top;
     info.sname = sname;
     
     result_type->mInline = false;
@@ -285,6 +297,8 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     
     char* p = info.p;
     int sline = info.sline;
+    int sline_real = info.sline_real;
+    int sline_top = info.sline_top;
     string sname = info.sname;
     char* head = info.head;
     buffer*% source = info.source;
@@ -297,6 +311,8 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     info.head = borrow info.source.buf;
     
     info.sline = fun->mTextBlockSline;
+    info.sline_real = fun->mTextBlockSline;
+    info.sline_top = fun->mTextBlockSline;
     info.sname = fun->mTextBlockSName;
     
     sClass* defining_class = info.defining_class;
@@ -316,6 +332,8 @@ sFun*% compile_uniq_function(sFun* fun, sInfo* info=info)
     info.p = borrow info.source.buf;
     info.p = p;
     info.sline = sline;
+    info.sline_real = sline_real;
+    info.sline_top = sline_top;
     info.sname = sname;
     
     result_type->mInline = false;
