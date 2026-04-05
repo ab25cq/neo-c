@@ -5591,7 +5591,7 @@ void ViWin_inputHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
     int key;
     # 503 "17hvisual.nc"
     key=ViWin_getKey_v14(self,(_Bool)0);
-    # 605 "17hvisual.nc"
+    # 613 "17hvisual.nc"
     switch (    key) {
         # 507 "17hvisual.nc"
         case 108:
@@ -5672,86 +5672,98 @@ void ViWin_inputHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         # 554 "17hvisual.nc"
         break;
         # 557 "17hvisual.nc"
-        case 121:
+        case 47:
         # 557 "17hvisual.nc"
-        ViWin_yankOnHorizonVisualMode(self,nvi);
+        Vi_enterSearchMode_v9(nvi,(_Bool)0,(_Bool)0);
         # 558 "17hvisual.nc"
-        Vi_exitFromVisualMode(nvi);
-        # 559 "17hvisual.nc"
         break;
+        # 561 "17hvisual.nc"
+        case 63:
+        # 561 "17hvisual.nc"
+        Vi_enterSearchMode_v9(nvi,(_Bool)0,(_Bool)1);
         # 562 "17hvisual.nc"
+        break;
+        # 565 "17hvisual.nc"
+        case 121:
+        # 565 "17hvisual.nc"
+        ViWin_yankOnHorizonVisualMode(self,nvi);
+        # 566 "17hvisual.nc"
+        Vi_exitFromVisualMode(nvi);
+        # 567 "17hvisual.nc"
+        break;
+        # 570 "17hvisual.nc"
         case 100:
-        # 562 "17hvisual.nc"
+        # 570 "17hvisual.nc"
         ViWin_deleteOnHorizonVisualMode(self,nvi);
-        # 563 "17hvisual.nc"
+        # 571 "17hvisual.nc"
         Vi_exitFromVisualMode(nvi);
-        # 564 "17hvisual.nc"
-        break;
-        # 567 "17hvisual.nc"
-        case 126:
-        # 567 "17hvisual.nc"
-        ViWin_changeCaseHorizonVisualMode(self,nvi);
-        # 568 "17hvisual.nc"
-        Vi_exitFromVisualMode(nvi);
-        # 569 "17hvisual.nc"
-        break;
         # 572 "17hvisual.nc"
-        case 99:
-        # 572 "17hvisual.nc"
-        ViWin_deleteOnHorizonVisualMode(self,nvi);
-        # 573 "17hvisual.nc"
-        Vi_exitFromVisualMode(nvi);
-        # 574 "17hvisual.nc"
-        Vi_enterInsertMode_v5(nvi);
+        break;
         # 575 "17hvisual.nc"
-        break;
-        # 578 "17hvisual.nc"
-        case 114:
-        # 578 "17hvisual.nc"
-        ViWin_rewriteOnHorizonVisualMode(self,nvi);
-        # 579 "17hvisual.nc"
+        case 126:
+        # 575 "17hvisual.nc"
+        ViWin_changeCaseHorizonVisualMode(self,nvi);
+        # 576 "17hvisual.nc"
         Vi_exitFromVisualMode(nvi);
+        # 577 "17hvisual.nc"
+        break;
         # 580 "17hvisual.nc"
-        break;
-        # 583 "17hvisual.nc"
-        case 67:
-        # 583 "17hvisual.nc"
-        ViWin_deleteUntilTail(self);
-        # 584 "17hvisual.nc"
+        case 99:
+        # 580 "17hvisual.nc"
         ViWin_deleteOnHorizonVisualMode(self,nvi);
-        # 585 "17hvisual.nc"
+        # 581 "17hvisual.nc"
         Vi_exitFromVisualMode(nvi);
-        # 589 "17hvisual.nc"
+        # 582 "17hvisual.nc"
+        Vi_enterInsertMode_v5(nvi);
+        # 583 "17hvisual.nc"
+        break;
+        # 586 "17hvisual.nc"
+        case 114:
+        # 586 "17hvisual.nc"
+        ViWin_rewriteOnHorizonVisualMode(self,nvi);
+        # 587 "17hvisual.nc"
+        Vi_exitFromVisualMode(nvi);
+        # 588 "17hvisual.nc"
+        break;
+        # 591 "17hvisual.nc"
+        case 67:
+        # 591 "17hvisual.nc"
+        ViWin_deleteUntilTail(self);
+        # 592 "17hvisual.nc"
+        ViWin_deleteOnHorizonVisualMode(self,nvi);
+        # 593 "17hvisual.nc"
+        Vi_exitFromVisualMode(nvi);
+        # 597 "17hvisual.nc"
         if(list$1int$ph_length(self->texts)!=0) {
-            # 587 "17hvisual.nc"
+            # 595 "17hvisual.nc"
             self->cursorX++;
         }
-        # 589 "17hvisual.nc"
+        # 597 "17hvisual.nc"
         Vi_enterInsertMode_v5(nvi);
-        # 590 "17hvisual.nc"
+        # 598 "17hvisual.nc"
         break;
-        # 593 "17hvisual.nc"
+        # 601 "17hvisual.nc"
         case 119:
-        # 594 "17hvisual.nc"
+        # 602 "17hvisual.nc"
         case 101:
-        # 594 "17hvisual.nc"
+        # 602 "17hvisual.nc"
         ViWin_forwardWord(self);
-        # 595 "17hvisual.nc"
-        break;
-        # 598 "17hvisual.nc"
-        case 98:
-        # 598 "17hvisual.nc"
-        ViWin_backwardWord_v4(self);
-        # 599 "17hvisual.nc"
-        break;
-        # 602 "17hvisual.nc"
-        case 27:
-        # 602 "17hvisual.nc"
-        Vi_exitFromVisualMode(nvi);
         # 603 "17hvisual.nc"
         break;
+        # 606 "17hvisual.nc"
+        case 98:
+        # 606 "17hvisual.nc"
+        ViWin_backwardWord_v4(self);
+        # 607 "17hvisual.nc"
+        break;
+        # 610 "17hvisual.nc"
+        case 27:
+        # 610 "17hvisual.nc"
+        Vi_exitFromVisualMode(nvi);
+        # 611 "17hvisual.nc"
+        break;
     }
-    # 605 "17hvisual.nc"
+    # 613 "17hvisual.nc"
     ViWin_saveInputedKey_v14(self);
     neo_current_frame = fr.prev;
 }
@@ -5774,13 +5786,13 @@ static int list$1int$ph_length(struct list$1int$ph* self)
 void ViWin_input_v17(struct ViWin*  self  , struct Vi*  nvi  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_input_v17"; neo_current_frame = &fr;
-    # 616 "17hvisual.nc"
+    # 624 "17hvisual.nc"
     if(nvi->mode==(5)) {
-        # 611 "17hvisual.nc"
+        # 619 "17hvisual.nc"
         ViWin_inputHorizonVisualMode(self,nvi);
     }
     else {
-        # 614 "17hvisual.nc"
+        # 622 "17hvisual.nc"
         ViWin_input_v12(self,nvi);
     }
     neo_current_frame = fr.prev;
@@ -5789,13 +5801,13 @@ void ViWin_input_v17(struct ViWin*  self  , struct Vi*  nvi  )
 void Vi_enterHorizonVisualMode(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_enterHorizonVisualMode"; neo_current_frame = &fr;
-    # 620 "17hvisual.nc"
+    # 628 "17hvisual.nc"
     self->mode=(5);
-    # 621 "17hvisual.nc"
+    # 629 "17hvisual.nc"
     self->activeWin->visualModeHorizonHeadScroll=self->activeWin->scroll;
-    # 622 "17hvisual.nc"
+    # 630 "17hvisual.nc"
     self->activeWin->visualModeHorizonHeadX=self->activeWin->cursorX;
-    # 623 "17hvisual.nc"
+    # 631 "17hvisual.nc"
     self->activeWin->visualModeHorizonHeadY=self->activeWin->cursorY;
     neo_current_frame = fr.prev;
 }
@@ -5803,9 +5815,9 @@ void Vi_enterHorizonVisualMode(struct Vi*  self  )
 static void lambda1(struct Vi*  self  , int key)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
-    # 632 "17hvisual.nc"
+    # 640 "17hvisual.nc"
     Vi_enterHorizonVisualMode(self);
-    # 633 "17hvisual.nc"
+    # 641 "17hvisual.nc"
     ViWin_saveInputedKey_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -5816,16 +5828,16 @@ struct Vi*  Vi_initialize_v17(struct Vi*  self  )
     void* __right_value0 = (void*)0;
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
-    # 628 "17hvisual.nc"
-    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v16((struct Vi* )come_increment_ref_count(self, "17hvisual.nc", 628, 298)), "17hvisual.nc", 628, 299);
-    # 634 "17hvisual.nc"
-    list$1lambda$_replace(result->events,118,lambda1);
     # 636 "17hvisual.nc"
-        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "17hvisual.nc", 636, 306);
-    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "17hvisual.nc}", 636, 314);
-    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "17hvisual.nc}", 636, 315);
+    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v16((struct Vi* )come_increment_ref_count(self, "17hvisual.nc", 636, 298)), "17hvisual.nc", 636, 299);
+    # 642 "17hvisual.nc"
+    list$1lambda$_replace(result->events,118,lambda1);
+    # 644 "17hvisual.nc"
+        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "17hvisual.nc", 644, 306);
+    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "17hvisual.nc}", 644, 314);
+    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "17hvisual.nc}", 644, 315);
     neo_current_frame = fr.prev;
-    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "17hvisual.nc}", 636, 316);
+    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "17hvisual.nc}", 644, 316);
     return __result_obj__0;
 }
 

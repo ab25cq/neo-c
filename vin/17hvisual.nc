@@ -553,6 +553,14 @@ void ViWin*::inputHorizonVisualMode(ViWin* self, Vi* nvi)
             self.keyG(nvi);
             break;
 
+        case '/':
+            nvi.enterSearchMode(false, false);
+            break;
+
+        case '?':
+            nvi.enterSearchMode(false, true);
+            break;
+
         case 'y':
             self.yankOnHorizonVisualMode(nvi);
             nvi.exitFromVisualMode();

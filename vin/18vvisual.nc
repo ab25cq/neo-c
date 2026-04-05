@@ -334,6 +334,14 @@ void ViWin*::inputVerticalVisualMode(ViWin* self, Vi* nvi)
             case 'g':
                 self.keyG(nvi);
                 break;
+
+            case '/':
+                nvi.enterSearchMode(false, false);
+                break;
+
+            case '?':
+                nvi.enterSearchMode(false, true);
+                break;
     
             case 'd':
                 self.deleteOnVerticalVisualMode(nvi);

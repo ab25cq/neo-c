@@ -4581,7 +4581,7 @@ void ViWin_inputVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_inputVerticalVisualMode"; neo_current_frame = &fr;
     int key;
-    # 386 "18vvisual.nc"
+    # 394 "18vvisual.nc"
     if(self->visualModeVerticalInserting) {
         # 284 "18vvisual.nc"
         ViWin_insertOnVerticalVisualMode(self,nvi);
@@ -4589,7 +4589,7 @@ void ViWin_inputVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
     else {
         # 287 "18vvisual.nc"
         key=ViWin_getKey_v14(self,(_Bool)0);
-        # 385 "18vvisual.nc"
+        # 393 "18vvisual.nc"
         switch (        key) {
             # 291 "18vvisual.nc"
             case 108:
@@ -4667,82 +4667,94 @@ void ViWin_inputVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
             # 336 "18vvisual.nc"
             break;
             # 339 "18vvisual.nc"
-            case 100:
+            case 47:
             # 339 "18vvisual.nc"
-            ViWin_deleteOnVerticalVisualMode(self,nvi);
+            Vi_enterSearchMode_v9(nvi,(_Bool)0,(_Bool)0);
             # 340 "18vvisual.nc"
-            Vi_exitFromVisualMode(nvi);
-            # 341 "18vvisual.nc"
             break;
+            # 343 "18vvisual.nc"
+            case 63:
+            # 343 "18vvisual.nc"
+            Vi_enterSearchMode_v9(nvi,(_Bool)0,(_Bool)1);
             # 344 "18vvisual.nc"
-            case 99:
-            # 344 "18vvisual.nc"
-            ViWin_deleteOnVerticalVisualMode(self,nvi);
-            # 345 "18vvisual.nc"
-            Vi_exitFromVisualMode(nvi);
-            # 346 "18vvisual.nc"
-            Vi_enterInsertMode_v5(nvi);
+            break;
             # 347 "18vvisual.nc"
-            break;
-            # 350 "18vvisual.nc"
-            case 68:
-            # 350 "18vvisual.nc"
-            ViWin_deleteLinesOnVerticalVisualMode(self,nvi);
-            # 351 "18vvisual.nc"
+            case 100:
+            # 347 "18vvisual.nc"
+            ViWin_deleteOnVerticalVisualMode(self,nvi);
+            # 348 "18vvisual.nc"
             Vi_exitFromVisualMode(nvi);
+            # 349 "18vvisual.nc"
+            break;
             # 352 "18vvisual.nc"
-            break;
-            # 355 "18vvisual.nc"
-            case 67:
-            # 355 "18vvisual.nc"
-            ViWin_deleteLinesOnVerticalVisualMode(self,nvi);
-            # 356 "18vvisual.nc"
+            case 99:
+            # 352 "18vvisual.nc"
+            ViWin_deleteOnVerticalVisualMode(self,nvi);
+            # 353 "18vvisual.nc"
             Vi_exitFromVisualMode(nvi);
-            # 357 "18vvisual.nc"
+            # 354 "18vvisual.nc"
             Vi_enterInsertMode_v5(nvi);
+            # 355 "18vvisual.nc"
+            break;
             # 358 "18vvisual.nc"
-            break;
-            # 361 "18vvisual.nc"
-            case 126:
-            # 361 "18vvisual.nc"
-            ViWin_changeCaseVerticalVisualMode(self,nvi);
-            # 362 "18vvisual.nc"
+            case 68:
+            # 358 "18vvisual.nc"
+            ViWin_deleteLinesOnVerticalVisualMode(self,nvi);
+            # 359 "18vvisual.nc"
             Vi_exitFromVisualMode(nvi);
+            # 360 "18vvisual.nc"
+            break;
             # 363 "18vvisual.nc"
-            break;
+            case 67:
+            # 363 "18vvisual.nc"
+            ViWin_deleteLinesOnVerticalVisualMode(self,nvi);
+            # 364 "18vvisual.nc"
+            Vi_exitFromVisualMode(nvi);
+            # 365 "18vvisual.nc"
+            Vi_enterInsertMode_v5(nvi);
             # 366 "18vvisual.nc"
+            break;
+            # 369 "18vvisual.nc"
+            case 126:
+            # 369 "18vvisual.nc"
+            ViWin_changeCaseVerticalVisualMode(self,nvi);
+            # 370 "18vvisual.nc"
+            Vi_exitFromVisualMode(nvi);
+            # 371 "18vvisual.nc"
+            break;
+            # 374 "18vvisual.nc"
             case 114:
-            # 366 "18vvisual.nc"
+            # 374 "18vvisual.nc"
             ViWin_rewriteOnVerticalVisualMode(self,nvi);
-            # 367 "18vvisual.nc"
+            # 375 "18vvisual.nc"
             Vi_exitFromVisualMode(nvi);
-            # 368 "18vvisual.nc"
+            # 376 "18vvisual.nc"
             break;
-            # 371 "18vvisual.nc"
+            # 379 "18vvisual.nc"
             case 73:
-            # 371 "18vvisual.nc"
+            # 379 "18vvisual.nc"
             ViWin_pushUndo_v5(self);
-            # 372 "18vvisual.nc"
+            # 380 "18vvisual.nc"
             self->visualModeVerticalInserting=(_Bool)1;
-            # 373 "18vvisual.nc"
+            # 381 "18vvisual.nc"
             break;
-            # 376 "18vvisual.nc"
+            # 384 "18vvisual.nc"
             case 36:
-            # 376 "18vvisual.nc"
+            # 384 "18vvisual.nc"
             ViWin_moveAtTail(self);
-            # 377 "18vvisual.nc"
+            # 385 "18vvisual.nc"
             self->visualModeVerticalLen=self->cursorX;
-            # 378 "18vvisual.nc"
+            # 386 "18vvisual.nc"
             break;
-            # 381 "18vvisual.nc"
+            # 389 "18vvisual.nc"
             case 27:
-            # 381 "18vvisual.nc"
+            # 389 "18vvisual.nc"
             Vi_exitFromVisualMode(nvi);
-            # 382 "18vvisual.nc"
+            # 390 "18vvisual.nc"
             break;
         }
     }
-    # 386 "18vvisual.nc"
+    # 394 "18vvisual.nc"
     ViWin_saveInputedKey_v14(self);
     neo_current_frame = fr.prev;
 }
@@ -4750,13 +4762,13 @@ void ViWin_inputVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
 void ViWin_input_v18(struct ViWin*  self  , struct Vi*  nvi  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_input_v18"; neo_current_frame = &fr;
-    # 397 "18vvisual.nc"
+    # 405 "18vvisual.nc"
     if(nvi->mode==(6)) {
-        # 392 "18vvisual.nc"
+        # 400 "18vvisual.nc"
         ViWin_inputVerticalVisualMode(self,nvi);
     }
     else {
-        # 395 "18vvisual.nc"
+        # 403 "18vvisual.nc"
         ViWin_input_v17(self,nvi);
     }
     neo_current_frame = fr.prev;
@@ -4765,21 +4777,21 @@ void ViWin_input_v18(struct ViWin*  self  , struct Vi*  nvi  )
 void Vi_enterVerticalVisualMode(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_enterVerticalVisualMode"; neo_current_frame = &fr;
-    # 401 "18vvisual.nc"
-    self->mode=(6);
-    # 403 "18vvisual.nc"
-    self->activeWin->visualModeVerticalHeadY=self->activeWin->scroll+self->activeWin->cursorY;
-    # 405 "18vvisual.nc"
-    self->activeWin->visualModeVerticalHeadX=self->activeWin->cursorX;
-    # 406 "18vvisual.nc"
-    self->activeWin->visualModeVerticalLen=1;
     # 409 "18vvisual.nc"
-    self->activeWin->visualModeVerticalStartY=self->activeWin->cursorY;
+    self->mode=(6);
     # 411 "18vvisual.nc"
-    self->activeWin->visualModeVerticalStartScroll=self->activeWin->scroll;
+    self->activeWin->visualModeVerticalHeadY=self->activeWin->scroll+self->activeWin->cursorY;
     # 413 "18vvisual.nc"
+    self->activeWin->visualModeVerticalHeadX=self->activeWin->cursorX;
+    # 414 "18vvisual.nc"
+    self->activeWin->visualModeVerticalLen=1;
+    # 417 "18vvisual.nc"
+    self->activeWin->visualModeVerticalStartY=self->activeWin->cursorY;
+    # 419 "18vvisual.nc"
+    self->activeWin->visualModeVerticalStartScroll=self->activeWin->scroll;
+    # 421 "18vvisual.nc"
     self->activeWin->visualModeVerticalStartX=self->activeWin->cursorX;
-    # 415 "18vvisual.nc"
+    # 423 "18vvisual.nc"
     self->activeWin->visualModeVerticalInserting=(_Bool)0;
     neo_current_frame = fr.prev;
 }
@@ -4787,9 +4799,9 @@ void Vi_enterVerticalVisualMode(struct Vi*  self  )
 static void lambda1(struct Vi*  self  , int key)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
-    # 423 "18vvisual.nc"
+    # 431 "18vvisual.nc"
     Vi_enterVerticalVisualMode(self);
-    # 424 "18vvisual.nc"
+    # 432 "18vvisual.nc"
     ViWin_saveInputedKey_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -4800,16 +4812,16 @@ struct Vi*  Vi_initialize_v18(struct Vi*  self  )
     void* __right_value0 = (void*)0;
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
-    # 420 "18vvisual.nc"
-    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v17((struct Vi* )come_increment_ref_count(self, "18vvisual.nc", 420, 156)), "18vvisual.nc", 420, 157);
-    # 425 "18vvisual.nc"
+    # 428 "18vvisual.nc"
+    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v17((struct Vi* )come_increment_ref_count(self, "18vvisual.nc", 428, 156)), "18vvisual.nc", 428, 157);
+    # 433 "18vvisual.nc"
     list$1lambda$_replace(result->events,86-65+1,lambda1);
-    # 427 "18vvisual.nc"
-        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "18vvisual.nc", 427, 164);
-    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "18vvisual.nc}", 427, 172);
-    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "18vvisual.nc}", 427, 173);
+    # 435 "18vvisual.nc"
+        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "18vvisual.nc", 435, 164);
+    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "18vvisual.nc}", 435, 172);
+    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "18vvisual.nc}", 435, 173);
     neo_current_frame = fr.prev;
-    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "18vvisual.nc}", 427, 174);
+    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "18vvisual.nc}", 435, 174);
     return __result_obj__0;
 }
 

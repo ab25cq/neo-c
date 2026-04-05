@@ -388,10 +388,23 @@ void ViWin*::deleteCursorCharactor(ViWin* self)
         int num = self.digitInput + 1;
         
         auto line = self.texts.item(self.scroll+self.cursorY, null);
+        int deleted_num = 0;
         
         for(int i= 0; i<num; i++) {
+            if(self.cursorX >= line.length()) {
+                break;
+            }
             line.delete(self.cursorX, self.cursorX+1);
-            
+            deleted_num++;
+        }
+
+        int len = self.texts_length.item(self.scroll+self.cursorY, -1);
+        if(len != -1) {
+            len -= deleted_num;
+            if(len < 0) {
+                len = 0;
+            }
+            self.texts_length.replace(self.scroll+self.cursorY, len);
         }
     
         self.modifyOverCursorXValue();
