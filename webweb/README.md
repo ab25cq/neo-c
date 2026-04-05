@@ -4,7 +4,7 @@
 It is not just a toy HTTP sample. It behaves like a small general-purpose web server:
 
 - serves static files such as `.html`, `.css`, `.js`, `.jpg`, `.png`, and `.gif`
-- routes `/` to `index.html`
+- routes `/` to a directory index such as `index.html` or `index.htm`
 - executes `.cgi` programs for dynamic pages
 - supports HTTP/1.1 keep-alive
 - accepts both `Content-Length` and chunked request bodies
@@ -21,7 +21,7 @@ It is not just a toy HTTP sample. It behaves like a small general-purpose web se
 単なるHTTPサンプルではなく、小さな汎用Webサーバーのように動きます。
 
 - `.html`, `.css`, `.js`, `.jpg`, `.png`, `.gif` などの静的ファイルを配信します
-- `/` は `index.html` にルーティングされます
+- `/` は `index.html` や `index.htm` などのディレクトリインデックスにルーティングされます
 - `.cgi` を動的ページとして実行できます
 - HTTP/1.1 の keep-alive に対応しています
 - `Content-Length` と chunked のリクエストボディを扱えます
@@ -36,14 +36,22 @@ It is not just a toy HTTP sample. It behaves like a small general-purpose web se
 - Static file serving
 - CGI execution for GET and POST
 - HTTP/1.1 keep-alive connections
+- Keep-Alive response headers for persistent connections
+- `Expect: 100-continue` for staged request bodies
 - Chunked request body parsing
+- Case-insensitive request header handling
 - `HEAD` for static content
+- `HEAD` for CGI responses
+- `OPTIONS *` and resource-specific `OPTIONS`
+- Core CGI environment variables including `REQUEST_URI`, `SCRIPT_NAME`, `PATH_INFO`, and forwarded `HTTP_*` headers
+- Directory index resolution for `index.html` and `index.htm`
+- Directory slash redirects for index-based directories
 - `ETag`, `Last-Modified`, `If-None-Match`, and `If-Modified-Since`
 - Single `Range: bytes=...` requests with `206` / `416`
 - Gzip compression for text responses
 - Host-based virtual document roots
 - Fork-based parallel connection handling
-- Content-Type switching by extension
+- Broader Content-Type switching by extension with octet-stream fallback
 - Request timeout and payload size checks
 - Path normalization and percent-decoding checks
 - Explicit 400/403/404/405/408/413/500 responses
@@ -177,7 +185,7 @@ curl -k -i https://127.0.0.1/
 
 `webweb` behaves in a familiar web-server style:
 
-- `GET /` -> `index.html`
+- `GET /` -> the first matching directory index such as `index.html` or `index.htm`
 - `HEAD /index.html` -> headers only for the same static resource
 - `GET /foo.html` -> static file
 - `GET /cgi-bin/main.cgi?...` -> CGI execution
@@ -223,7 +231,7 @@ Static requests support validators and ranges:
 - `Range: bytes=...` can return `206 Partial Content`
 - invalid ranges return `416 Range Not Satisfiable`
 
-ディレクトリを指す静的パスは、`index.html` があればそのファイルに解決されます。
+ディレクトリを指す静的パスは、`index.html` や `index.htm` があればそのファイルに解決されます。
 
 For request bodies, the current implementation accepts both normal `Content-Length` bodies and chunked transfer encoding.
 

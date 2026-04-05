@@ -220,10 +220,10 @@ extern tuple2<ZVALUE*%,bool>*% str_method(string fun_name,ZVALUE* obj,list<ZVALU
 extern tuple2<ZVALUE*%,bool>*% str_method(string fun_name,ZVALUE* obj,list<ZVALUE*%>* params,buffer* codes,sInfo* info) version 3;
 extern void handle_sigint(int sig);
 extern string parse_html(string file_contents);
-extern void run_post_cgi(SSL* it,string file_path,string header,string contents);
-extern void run_post_cgi_http(int it,string file_path,string header,string contents);
-extern void run_get_cgi(SSL* it,string cgi_path,string header,string contents,string query_string);
-extern void run_get_cgi_http(int it,string cgi_path,string header,string contents,string query_string);
+extern void run_post_cgi(SSL* it,string file_path,string header,string contents,string request_target,string script_relative_path,string path_info,string http_version);
+extern void run_post_cgi_http(int it,string file_path,string header,string contents,string request_target,string script_relative_path,string path_info,string http_version);
+extern void run_get_cgi(SSL* it,string cgi_path,string header,string contents,string query_string,string method,string request_target,string script_relative_path,string path_info,string http_version);
+extern void run_get_cgi_http(int it,string cgi_path,string header,string contents,string query_string,string method,string request_target,string script_relative_path,string path_info,string http_version);
 extern int main(int argc,char** argv);
 
 #endif

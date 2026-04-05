@@ -10,11 +10,16 @@
 #include <time.h>
 #include <zlib.h>
 
+extern char** environ;
+
 static SSL* gSSL = NULL;
 static bool gKeepAlive = false;
 static bool gCloseConnection = false;
 static bool gAcceptGzip = false;
 static bool gHeadRequest = false;
+static bool gIsHttps = false;
+
+string create_range_string(char* head, int len);
 
 void handle_sigint(int sig) {
     printf("Caught signal %d, closing socket...\n", sig);
@@ -40,6 +45,15 @@ string parse_html(string file_contents)
     contents.append_str(p);
     
     return contents.to_string();
+}
+
+bool is_text_like_content_type(const char* content_type)
+{
+    return strncmp(content_type, "text/", 5) == 0
+        || strcmp(content_type, "application/javascript; charset=UTF-8") == 0
+        || strcmp(content_type, "application/json; charset=UTF-8") == 0
+        || strcmp(content_type, "application/xml; charset=UTF-8") == 0
+        || strcmp(content_type, "image/svg+xml; charset=UTF-8") == 0;
 }
 
 tuple2<string, int>*% xpopen(char** argv, string input)
@@ -110,16 +124,6 @@ tuple2<string, int>*% xpopen(char** argv, string input)
     return t(output.to_string(), 0);
 }
 
-string get_cookie_header_value(string header)
-{
-    return header.scan("Cookie: ([^\r\n]+)")[0];
-}
-
-string get_host_header_value(string header)
-{
-    return header.scan("Host: ([^\r\n]+)")[0];
-}
-
 string to_lower_string(string value)
 {
     var buf = new buffer();
@@ -133,6 +137,119 @@ string to_lower_string(string value)
     return buf.to_string();
 }
 
+bool is_header_trim_char(char c)
+{
+    return c == ' ' || c == '\t';
+}
+
+string trim_header_value(char* head, char* tail)
+{
+    while(head < tail && is_header_trim_char(*head)) {
+        head++;
+    }
+
+    while(tail > head && is_header_trim_char(*(tail - 1))) {
+        tail--;
+    }
+
+    return create_range_string(head, tail - head);
+}
+
+bool header_name_equals_ignore_case(char* head, int len, const char* name)
+{
+    int name_len = strlen(name);
+    if(len != name_len) {
+        return false;
+    }
+
+    for(int i=0; i<len; i++) {
+        if(tolower((unsigned char)head[i]) != tolower((unsigned char)name[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+string get_header_value(string header, const char* name)
+{
+    char* p = borrow header;
+
+    while(*p) {
+        char* line_head = p;
+        char* line_end = strstr(p, "\r\n");
+
+        if(line_end == null) {
+            line_end = p + strlen(p);
+        }
+
+        char* colon = line_head;
+        while(colon < line_end && *colon != ':') {
+            colon++;
+        }
+
+        if(colon < line_end && header_name_equals_ignore_case(line_head, colon - line_head, name)) {
+            return trim_header_value(colon + 1, line_end);
+        }
+
+        if(*line_end == '\0') {
+            break;
+        }
+
+        p = line_end + 2;
+    }
+
+    return null;
+}
+
+string header_name_to_cgi_env_name(char* head, int len)
+{
+    var buf = new buffer();
+    buf.append_str("HTTP_");
+
+    for(int i=0; i<len; i++) {
+        char c = head[i];
+
+        if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+            buf.append_char(toupper((unsigned char)c));
+        }
+        else if(c >= '0' && c <= '9') {
+            buf.append_char(c);
+        }
+        else if(c == '-') {
+            buf.append_char('_');
+        }
+        else {
+            return null;
+        }
+    }
+
+    return buf.to_string();
+}
+
+bool header_value_contains(string header, const char* name, const char* token)
+{
+    string value = get_header_value(header, name);
+    if(value == null) {
+        return false;
+    }
+
+    string lower_value = to_lower_string(value);
+    string lower_token = to_lower_string(xsprintf("%s", token));
+
+    return strstr(lower_value, lower_token) != NULL;
+}
+
+string get_cookie_header_value(string header)
+{
+    return get_header_value(header, "Cookie");
+}
+
+string get_host_header_value(string header)
+{
+    return get_header_value(header, "Host");
+}
+
 const char* connection_header_value()
 {
     if(gKeepAlive && !gCloseConnection) {
@@ -142,22 +259,24 @@ const char* connection_header_value()
     return "close";
 }
 
+const char* keep_alive_header_value()
+{
+    return "timeout=5";
+}
+
 bool header_has_chunked_transfer_encoding(string header)
 {
-    string lower_header = to_lower_string(header);
-    return strstr(lower_header, "transfer-encoding: chunked") != NULL;
+    return header_value_contains(header, "Transfer-Encoding", "chunked");
 }
 
 bool header_has_connection_close(string header)
 {
-    string lower_header = to_lower_string(header);
-    return strstr(lower_header, "connection: close") != NULL;
+    return header_value_contains(header, "Connection", "close");
 }
 
 bool header_has_connection_keep_alive(string header)
 {
-    string lower_header = to_lower_string(header);
-    return strstr(lower_header, "connection: keep-alive") != NULL;
+    return header_value_contains(header, "Connection", "keep-alive");
 }
 
 bool request_should_keep_alive(string http_version, string header)
@@ -195,27 +314,28 @@ string format_http_date(time_t value)
 string build_standard_headers(const char* extra_headers="")
 {
     string date_header = format_http_date(time(NULL));
+    if(gKeepAlive && !gCloseConnection) {
+        return xsprintf("Date: %s\r\nServer: webweb/1.0\r\nKeep-Alive: %s\r\n%s",
+                        borrow date_header, keep_alive_header_value(), extra_headers);
+    }
+
     return xsprintf("Date: %s\r\nServer: webweb/1.0\r\n%s", borrow date_header, extra_headers);
 }
 
 bool request_accepts_gzip(string header)
 {
-    string lower_header = to_lower_string(header);
-
-    char* p = strstr(lower_header, "accept-encoding:");
-    if(p == null) {
+    string accept_encoding = get_header_value(header, "Accept-Encoding");
+    if(accept_encoding == null) {
         return false;
     }
 
-    char* line_end = strstr(p, "\r\n");
-    if(line_end == null) {
-        return strstr(p, "gzip") != NULL;
-    }
+    string lower_accept_encoding = to_lower_string(accept_encoding);
+    return strstr(lower_accept_encoding, "gzip") != NULL;
+}
 
-    var line_buf = new buffer();
-    line_buf.append(p, line_end - p);
-    string line = line_buf.to_string();
-    return strstr(line, "gzip") != NULL;
+bool header_has_expect_100_continue(string header)
+{
+    return header_value_contains(header, "Expect", "100-continue");
 }
 
 bool is_safe_host_char(char c)
@@ -349,14 +469,14 @@ bool header_matches_etag(string header_value, string etag)
 
 bool request_matches_not_modified(string header, long file_size, time_t modified_time)
 {
-    string if_none_match = header.scan("If-None-Match: ([^\r\n]+)")[0];
+    string if_none_match = get_header_value(header, "If-None-Match");
     string etag = build_file_etag(file_size, modified_time);
 
     if(if_none_match) {
         return header_matches_etag(if_none_match, etag);
     }
 
-    string if_modified_since = header.scan("If-Modified-Since: ([^\r\n]+)")[0];
+    string if_modified_since = get_header_value(header, "If-Modified-Since");
     if(if_modified_since) {
         time_t condition_time = parse_http_date(if_modified_since);
         if(condition_time != (time_t)-1 && modified_time <= condition_time) {
@@ -369,14 +489,22 @@ bool request_matches_not_modified(string header, long file_size, time_t modified
 
 string build_file_path(string document_root, string relative_path);
 string create_range_string(char* head, int len);
+string resolve_directory_index_path(string directory_path);
+tuple2<string, string>*% split_cgi_path_info(string relative_path);
 
 tuple3<long, long, int>*% parse_range_request(string header, long file_size)
 {
-    string range_value = header.scan("Range: bytes=([^\r\n]+)")[0];
+    string range_value = get_header_value(header, "Range");
 
     if(range_value == null) {
         return t(0L, 0L, 0);
     }
+
+    if(strncmp(range_value, "bytes=", 6) != 0) {
+        return t(0L, 0L, 2);
+    }
+
+    range_value = range_value.substring(6, -1);
 
     if(strstr(range_value, ",") != NULL) {
         return t(0L, 0L, 2);
@@ -440,6 +568,7 @@ tuple3<long, long, int>*% parse_range_request(string header, long file_size)
 }
 
 bool is_existing_directory(string path);
+bool is_readable_static_file(string file_path);
 
 bool is_existing_directory(string path)
 {
@@ -476,6 +605,48 @@ string build_file_path(string document_root, string relative_path)
     }
 
     return xsprintf("%s/%s", document_root, relative_path);
+}
+
+string resolve_directory_index_path(string directory_path)
+{
+    const char* index_names[] = {
+        "index.html",
+        "index.htm",
+        NULL
+    };
+
+    for(int i=0; index_names[i] != NULL; i++) {
+        string index_path = build_file_path(directory_path, xsprintf("%s", index_names[i]));
+        if(is_readable_static_file(index_path)) {
+            return index_path;
+        }
+    }
+
+    return null;
+}
+
+tuple2<string, string>*% split_cgi_path_info(string relative_path)
+{
+    char* head = borrow relative_path;
+    char* cgi_pos = strstr(relative_path, ".cgi");
+
+    if(cgi_pos == null) {
+        return null;
+    }
+
+    char* tail = cgi_pos + 4;
+    if(*tail == '\0') {
+        return t(relative_path, xsprintf(""));
+    }
+
+    if(*tail != '/') {
+        return null;
+    }
+
+    string script_path = create_range_string(head, tail - head);
+    string path_info = tail.to_string();
+
+    return t(script_path, path_info);
 }
 
 string create_range_string(char* head, int len)
@@ -571,10 +742,19 @@ void write_https_data(SSL* it, const void* data, int size)
     SSL_write(it, data, size);
 }
 
+void send_continue_http(int it)
+{
+    write_http_data(it, "HTTP/1.1 100 Continue\r\n\r\n", 25);
+}
+
+void send_continue_https(SSL* it)
+{
+    write_https_data(it, "HTTP/1.1 100 Continue\r\n\r\n", 25);
+}
+
 bool can_gzip_content_type(const char* content_type)
 {
-    return strncmp(content_type, "text/", 5) == 0
-        || strcmp(content_type, "application/javascript; charset=UTF-8") == 0;
+    return is_text_like_content_type(content_type);
 }
 
 void send_chunk_http(int it, const unsigned char* data, int size)
@@ -807,18 +987,43 @@ void send_payload_too_large_https(SSL* it)
     send_html_response_https(it, "413 Payload Too Large", "<html><body><h1>413 Payload Too Large</h1></body></html>");
 }
 
-void send_method_not_allowed_http(int it)
+const char* allow_header_all_methods()
+{
+    return "Allow: GET, HEAD, POST, OPTIONS\r\n";
+}
+
+const char* allow_header_static_methods()
+{
+    return "Allow: GET, HEAD, OPTIONS\r\n";
+}
+
+const char* allow_header_cgi_methods()
+{
+    return "Allow: GET, HEAD, POST, OPTIONS\r\n";
+}
+
+void send_method_not_allowed_http_with_allow(int it, const char* allow_header)
 {
     send_html_response_http(it, "405 Method Not Allowed",
                             "<html><body><h1>405 Method Not Allowed</h1></body></html>",
-                            "Allow: GET, HEAD, POST\r\n");
+                            allow_header);
+}
+
+void send_method_not_allowed_https_with_allow(SSL* it, const char* allow_header)
+{
+    send_html_response_https(it, "405 Method Not Allowed",
+                             "<html><body><h1>405 Method Not Allowed</h1></body></html>",
+                             allow_header);
+}
+
+void send_method_not_allowed_http(int it)
+{
+    send_method_not_allowed_http_with_allow(it, allow_header_all_methods());
 }
 
 void send_method_not_allowed_https(SSL* it)
 {
-    send_html_response_https(it, "405 Method Not Allowed",
-                             "<html><body><h1>405 Method Not Allowed</h1></body></html>",
-                             "Allow: GET, HEAD, POST\r\n");
+    send_method_not_allowed_https_with_allow(it, allow_header_all_methods());
 }
 
 void send_forbidden_http(int it)
@@ -829,6 +1034,32 @@ void send_forbidden_http(int it)
 void send_forbidden_https(SSL* it)
 {
     send_html_response_https(it, "403 Forbidden", "<html><body><h1>403 Forbidden</h1></body></html>");
+}
+
+void send_directory_redirect_http(int it, string location)
+{
+    string extra_headers = xsprintf("Location: %s\r\n", borrow location);
+    send_html_response_http(it, "301 Moved Permanently",
+                            "<html><body><h1>301 Moved Permanently</h1></body></html>",
+                            borrow extra_headers);
+}
+
+void send_directory_redirect_https(SSL* it, string location)
+{
+    string extra_headers = xsprintf("Location: %s\r\n", borrow location);
+    send_html_response_https(it, "301 Moved Permanently",
+                             "<html><body><h1>301 Moved Permanently</h1></body></html>",
+                             borrow extra_headers);
+}
+
+void send_options_response_http(int it, const char* allow_header)
+{
+    send_empty_response_http(it, "204 No Content", allow_header);
+}
+
+void send_options_response_https(SSL* it, const char* allow_header)
+{
+    send_empty_response_https(it, "204 No Content", allow_header);
 }
 
 void send_internal_server_error_http(int it)
@@ -843,9 +1074,12 @@ void send_internal_server_error_https(SSL* it)
 
 int get_content_length(string header)
 {
-    string p = header.scan("Content-Length: ([0-9]+)")[0];
+    string p = get_header_value(header, "Content-Length");
     if(p) {
-        return atoi(p);
+        int content_length = parse_non_negative_number(p);
+        if(content_length >= 0) {
+            return content_length;
+        }
     }
 
     return 0;
@@ -956,7 +1190,7 @@ string normalize_request_path(string raw_path)
     }
 
     if(decoded_path === "/") {
-        return xsprintf("index.html");
+        return xsprintf(".");
     }
 
     var normalized = new buffer();
@@ -996,7 +1230,7 @@ string normalize_request_path(string raw_path)
     }
 
     if(normalized.length() == 0) {
-        return xsprintf("index.html");
+        return xsprintf(".");
     }
 
     return normalized.to_string();
@@ -1023,6 +1257,50 @@ tuple2<string, string>*% parse_request_target(string request_target)
     }
 
     return t(normalized_path, query_string);
+}
+
+string get_raw_path_from_request_target(string request_target)
+{
+    if(request_target == null) {
+        return null;
+    }
+
+    char* p = strstr(request_target, "?");
+    if(p != null) {
+        return request_target.substring(0, p - request_target);
+    }
+
+    return request_target;
+}
+
+bool request_target_has_trailing_slash(string request_target)
+{
+    string raw_path = get_raw_path_from_request_target(request_target);
+    if(raw_path == null) {
+        return false;
+    }
+
+    int len = strlen(raw_path);
+    return len > 0 && raw_path[len-1] == '/';
+}
+
+string build_directory_redirect_target(string request_target)
+{
+    string raw_path = get_raw_path_from_request_target(request_target);
+    if(raw_path == null) {
+        return null;
+    }
+
+    if(request_target_has_trailing_slash(request_target)) {
+        return raw_path;
+    }
+
+    char* p = strstr(request_target, "?");
+    if(p != null) {
+        return xsprintf("%s/%s", borrow raw_path, p);
+    }
+
+    return xsprintf("%s/", borrow raw_path);
 }
 
 tuple3<string, string, string>*% parse_request_line(string header)
@@ -1084,6 +1362,8 @@ void log_access(const char* protocol, string method, string request_target, int 
 
 tuple3<string, string, int>*% read_http_request(int it, buffer* request_buffer)
 {
+    bool expect_continue_sent = false;
+
     while(true) {
         string request = request_buffer.to_string();
         char* p = strstr(request, "\r\n\r\n");
@@ -1105,6 +1385,10 @@ tuple3<string, string, int>*% read_http_request(int it, buffer* request_buffer)
                 else if(chunked_status == 2) {
                     return t((string)null, (string)null, 1);
                 }
+                else if(!expect_continue_sent && header_has_expect_100_continue(header)) {
+                    send_continue_http(it);
+                    expect_continue_sent = true;
+                }
             }
             else {
                 int content_length = get_content_length(header);
@@ -1114,6 +1398,10 @@ tuple3<string, string, int>*% read_http_request(int it, buffer* request_buffer)
                     string body = create_range_string(p + 4, content_length);
                     consume_request_buffer(request_buffer, body_offset + content_length);
                     return t(header, body, 0);
+                }
+                else if(content_length > 0 && !expect_continue_sent && header_has_expect_100_continue(header)) {
+                    send_continue_http(it);
+                    expect_continue_sent = true;
                 }
             }
         }
@@ -1147,6 +1435,8 @@ tuple3<string, string, int>*% read_http_request(int it, buffer* request_buffer)
 
 tuple3<string, string, int>*% read_https_request(SSL* it, buffer* request_buffer)
 {
+    bool expect_continue_sent = false;
+
     while(true) {
         string request = request_buffer.to_string();
         char* p = strstr(request, "\r\n\r\n");
@@ -1168,6 +1458,10 @@ tuple3<string, string, int>*% read_https_request(SSL* it, buffer* request_buffer
                 else if(chunked_status == 2) {
                     return t((string)null, (string)null, 1);
                 }
+                else if(!expect_continue_sent && header_has_expect_100_continue(header)) {
+                    send_continue_https(it);
+                    expect_continue_sent = true;
+                }
             }
             else {
                 int content_length = get_content_length(header);
@@ -1177,6 +1471,10 @@ tuple3<string, string, int>*% read_https_request(SSL* it, buffer* request_buffer
                     string body = create_range_string(p + 4, content_length);
                     consume_request_buffer(request_buffer, body_offset + content_length);
                     return t(header, body, 0);
+                }
+                else if(content_length > 0 && !expect_continue_sent && header_has_expect_100_continue(header)) {
+                    send_continue_https(it);
+                    expect_continue_sent = true;
                 }
             }
         }
@@ -1221,24 +1519,55 @@ const char* get_content_type(string file_path)
     else if(ext_name === "gif") {
         return "image/gif";
     }
+    else if(ext_name === "webp") {
+        return "image/webp";
+    }
+    else if(ext_name === "svg") {
+        return "image/svg+xml; charset=UTF-8";
+    }
+    else if(ext_name === "ico") {
+        return "image/x-icon";
+    }
     else if(ext_name === "css") {
         return "text/css; charset=UTF-8";
     }
     else if(ext_name === "js") {
         return "application/javascript; charset=UTF-8";
     }
+    else if(ext_name === "json") {
+        return "application/json; charset=UTF-8";
+    }
+    else if(ext_name === "xml") {
+        return "application/xml; charset=UTF-8";
+    }
     else if(ext_name === "txt") {
         return "text/plain; charset=UTF-8";
     }
+    else if(ext_name === "pdf") {
+        return "application/pdf";
+    }
+    else if(ext_name === "wasm") {
+        return "application/wasm";
+    }
+    else if(ext_name === "zip") {
+        return "application/zip";
+    }
+    else if(ext_name === "mp4") {
+        return "video/mp4";
+    }
+    else if(ext_name === "webm") {
+        return "video/webm";
+    }
+    else if(ext_name === "html" || ext_name === "htm") {
+        return "text/html; charset=UTF-8";
+    }
 
-    return "text/html; charset=UTF-8";
+    return "application/octet-stream";
 }
 
 bool is_binary_file(string file_path)
 {
-    string ext_name = xextname(file_path);
-
-    return ext_name === "jpg" || ext_name === "jpeg" || ext_name === "png" || ext_name === "gif";
+    return !is_text_like_content_type(get_content_type(file_path));
 }
 
 bool cgi_output_is_raw_response(string output)
@@ -1288,6 +1617,146 @@ int extract_response_status_code(string output)
     }
 
     return 200;
+}
+
+string insert_response_headers(string output, const char* extra_headers)
+{
+    char* p = strstr(output, "\r\n\r\n");
+    if(p != null) {
+        string head = create_range_string(borrow output, p - borrow output);
+        string body = (p + 4).to_string();
+        return xsprintf("%s\r\n%s\r\n%s", borrow head, extra_headers, borrow body);
+    }
+
+    return xsprintf("%s\r\n%s\r\n", borrow output, extra_headers);
+}
+
+string add_connection_management_headers(string output)
+{
+    var extra = new buffer();
+
+    if(get_header_value(output, "Connection") == null) {
+        extra.append_str(xsprintf("Connection: %s\r\n", connection_header_value()));
+    }
+
+    if(gKeepAlive && !gCloseConnection && get_header_value(output, "Keep-Alive") == null) {
+        extra.append_str(xsprintf("Keep-Alive: %s\r\n", keep_alive_header_value()));
+    }
+
+    if(extra.length() == 0) {
+        return output;
+    }
+
+    return insert_response_headers(output, extra.to_string());
+}
+
+void clear_cgi_environment()
+{
+    while(true) {
+        bool removed_header_env = false;
+
+        for(char** p = environ; *p; p++) {
+            if(strncmp(*p, "HTTP_", 5) == 0) {
+                char* eq = strstr(*p, "=");
+                if(eq != null) {
+                    string env_name = create_range_string(*p, eq - *p);
+                    unsetenv(env_name);
+                    removed_header_env = true;
+                    break;
+                }
+            }
+        }
+
+        if(!removed_header_env) {
+            break;
+        }
+    }
+
+    unsetenv("REQUEST_METHOD");
+    unsetenv("QUERY_STRING");
+    unsetenv("CONTENT_LENGTH");
+    unsetenv("CONTENT_TYPE");
+    unsetenv("REQUEST_URI");
+    unsetenv("SCRIPT_NAME");
+    unsetenv("PATH_INFO");
+    unsetenv("SERVER_PROTOCOL");
+    unsetenv("GATEWAY_INTERFACE");
+    unsetenv("SERVER_SOFTWARE");
+    unsetenv("SERVER_PORT");
+    unsetenv("HTTPS");
+}
+
+void apply_http_headers_to_cgi_environment(string header)
+{
+    char* p = borrow header;
+
+    while(*p) {
+        char* line_head = p;
+        char* line_end = strstr(p, "\r\n");
+
+        if(line_end == null) {
+            line_end = p + strlen(p);
+        }
+
+        char* colon = line_head;
+        while(colon < line_end && *colon != ':') {
+            colon++;
+        }
+
+        if(colon < line_end) {
+            int header_name_len = colon - line_head;
+
+            if(!header_name_equals_ignore_case(line_head, header_name_len, "Content-Length")
+                && !header_name_equals_ignore_case(line_head, header_name_len, "Content-Type"))
+            {
+                string env_name = header_name_to_cgi_env_name(line_head, colon - line_head);
+                if(env_name != null) {
+                    string header_value = trim_header_value(colon + 1, line_end);
+                    setenv(env_name, header_value, 1);
+                }
+            }
+        }
+
+        if(*line_end == '\0') {
+            break;
+        }
+
+        p = line_end + 2;
+    }
+}
+
+void configure_cgi_environment(char* method, string header, char* request_target, char* script_relative_path, char* path_info, char* query_string, char* http_version)
+{
+    clear_cgi_environment();
+
+    setenv("REQUEST_METHOD", method, 1);
+    setenv("QUERY_STRING", query_string, 1);
+    setenv("REQUEST_URI", request_target, 1);
+    setenv("SCRIPT_NAME", xsprintf("/%s", borrow script_relative_path), 1);
+    setenv("SERVER_PROTOCOL", xsprintf("HTTP/%s", borrow http_version), 1);
+    setenv("GATEWAY_INTERFACE", "CGI/1.1", 1);
+    setenv("SERVER_SOFTWARE", "webweb/1.0", 1);
+    setenv("SERVER_PORT", gIsHttps ? "443" : "8080", 1);
+    setenv("HTTPS", gIsHttps ? "on" : "off", 1);
+
+    if(path_info != null && *path_info != '\0') {
+        setenv("PATH_INFO", path_info, 1);
+    }
+
+    string content_length_value = get_header_value(header, "Content-Length");
+    if(content_length_value != null) {
+        int content_length = parse_non_negative_number(content_length_value);
+        if(content_length >= 0) {
+            setenv("CONTENT_LENGTH", content_length_value, 1);
+        }
+    }
+
+    string content_type = get_header_value(header, "Content-Type");
+    if(content_type != null) {
+        setenv("CONTENT_TYPE", content_type, 1);
+    }
+
+    apply_http_headers_to_cgi_environment(header);
 }
 
 int serve_static_file_http(int it, string file_path, string header)
@@ -1473,19 +1942,9 @@ int serve_static_file_https(SSL* it, string file_path, string header)
     return 200;
 }
 
-int run_post_cgi(SSL* it, string file_path, string header, string contents)
+int run_post_cgi(SSL* it, string file_path, string header, string contents, string request_target, string script_relative_path, string path_info, string http_version)
 {
-    setenv("REQUEST_METHOD", "POST", 1);
-    
-    int content_length = get_content_length(header);
-    if(content_length > 0) {
-        setenv("CONTENT_LENGTH", s"\{content_length}", 1);
-    }
-    
-    string cookie = get_cookie_header_value(header);
-    if(cookie) {
-        setenv("HTTP_COOKIE", cookie, 1);
-    }
+    configure_cgi_environment("POST", header, borrow request_target, borrow script_relative_path, borrow path_info, "", borrow http_version);
     
     char* argv[] = { file_path, NULL };
     
@@ -1504,6 +1963,7 @@ int run_post_cgi(SSL* it, string file_path, string header, string contents)
             gCloseConnection = true;
         }
 
+        response_output = add_connection_management_headers(response_output);
         write_https_data(it, response_output, strlen(response_output));
         return extract_response_status_code(response_output);
     }
@@ -1515,19 +1975,9 @@ int run_post_cgi(SSL* it, string file_path, string header, string contents)
     }
 }
 
-int run_post_cgi_http(int it, string file_path, string header, string contents)
+int run_post_cgi_http(int it, string file_path, string header, string contents, string request_target, string script_relative_path, string path_info, string http_version)
 {
-    setenv("REQUEST_METHOD", "POST", 1);
-    
-    int content_length = get_content_length(header);
-    if(content_length > 0) {
-        setenv("CONTENT_LENGTH", s"\{content_length}", 1);
-    }
-    
-    string cookie = get_cookie_header_value(header);
-    if(cookie) {
-        setenv("HTTP_COOKIE", cookie, 1);
-    }
+    configure_cgi_environment("POST", header, borrow request_target, borrow script_relative_path, borrow path_info, "", borrow http_version);
     
     char* argv[] = { file_path, NULL };
     
@@ -1546,6 +1996,7 @@ int run_post_cgi_http(int it, string file_path, string header, string contents)
             gCloseConnection = true;
         }
 
+        response_output = add_connection_management_headers(response_output);
         write_http_data(it, response_output, strlen(response_output));
         return extract_response_status_code(response_output);
     }
@@ -1557,20 +2008,9 @@ int run_post_cgi_http(int it, string file_path, string header, string contents)
     }
 }
 
-int run_get_cgi(SSL* it, string cgi_path, string header, string contents, string query_string)
+int run_get_cgi(SSL* it, string cgi_path, string header, string contents, string query_string, string method, string request_target, string script_relative_path, string path_info, string http_version)
 {
-    setenv("REQUEST_METHOD", "GET", 1);
-    setenv("QUERY_STRING", query_string, 1);
-    
-    int content_length = get_content_length(header);
-    if(content_length > 0) {
-        setenv("CONTENT_LENGTH", s"\{content_length}", 1);
-    }
-    
-    string cookie = get_cookie_header_value(header);
-    if(cookie) {
-        setenv("HTTP_COOKIE", cookie, 1);
-    }
+    configure_cgi_environment(borrow method, header, borrow request_target, borrow script_relative_path, borrow path_info, borrow query_string, borrow http_version);
     
     char* argv[] = { cgi_path, NULL };
     var output,err = xpopen(argv, xsprintf(""));
@@ -1589,6 +2029,7 @@ int run_get_cgi(SSL* it, string cgi_path, string header, string contents, string
             gCloseConnection = true;
         }
 
+        response_output = add_connection_management_headers(response_output);
         write_https_data(it, response_output, strlen(response_output));
         return extract_response_status_code(response_output);
     }
@@ -1600,20 +2041,9 @@ int run_get_cgi(SSL* it, string cgi_path, string header, string contents, string
     }
 }
 
-int run_get_cgi_http(int it, string cgi_path, string header, string contents, string query_string)
+int run_get_cgi_http(int it, string cgi_path, string header, string contents, string query_string, string method, string request_target, string script_relative_path, string path_info, string http_version)
 {
-    setenv("REQUEST_METHOD", "GET", 1);
-    setenv("QUERY_STRING", query_string, 1);
-    
-    int content_length = get_content_length(header);
-    if(content_length > 0) {
-        setenv("CONTENT_LENGTH", s"\{content_length}", 1);
-    }
-    
-    string cookie = get_cookie_header_value(header);
-    if(cookie) {
-        setenv("HTTP_COOKIE", cookie, 1);
-    }
+    configure_cgi_environment(borrow method, header, borrow request_target, borrow script_relative_path, borrow path_info, borrow query_string, borrow http_version);
     
     char* argv[] = { cgi_path, NULL };
     var output,err = xpopen(argv, xsprintf(""));
@@ -1632,6 +2062,7 @@ int run_get_cgi_http(int it, string cgi_path, string header, string contents, st
             gCloseConnection = true;
         }
 
+        response_output = add_connection_management_headers(response_output);
         write_http_data(it, response_output, strlen(response_output));
         return extract_response_status_code(response_output);
     }
@@ -1654,6 +2085,7 @@ void finalize_modules()
 void process_http_client(int it)
 {
     var request_buffer = new buffer();
+    gIsHttps = false;
 
     while(true) {
         set_client_timeout(it);
@@ -1703,7 +2135,7 @@ void process_http_client(int it)
         gAcceptGzip = request_accepts_gzip(header);
         gHeadRequest = parsed_method === "HEAD";
 
-        if(parsed_method !== "GET" && parsed_method !== "POST" && parsed_method !== "HEAD") {
+        if(parsed_method !== "GET" && parsed_method !== "POST" && parsed_method !== "HEAD" && parsed_method !== "OPTIONS") {
             send_method_not_allowed_http(it);
             status_code = 405;
         }
@@ -1719,6 +2151,10 @@ void process_http_client(int it)
                 send_bad_request_http(it);
                 status_code = 400;
             }
+            else if(parsed_method === "OPTIONS" && parsed_target === "*") {
+                send_options_response_http(it, allow_header_all_methods());
+                status_code = 204;
+            }
             else {
                 var relative_path, query_string = parse_request_target(parsed_target);
 
@@ -1727,17 +2163,44 @@ void process_http_client(int it)
                     status_code = 400;
                 }
                 else {
-                    string file_path = build_file_path(document_root, relative_path);
+                    var cgi_relative_path, path_info = split_cgi_path_info(relative_path);
+                    bool cgi_request = cgi_relative_path != null;
+                    string resolved_relative_path = cgi_request ? cgi_relative_path : relative_path;
+                    string file_path = build_file_path(document_root, resolved_relative_path);
                     string ext_name = xextname(file_path);
 
-                    if(parsed_method === "GET" || parsed_method === "HEAD") {
-                        if(ext_name === "cgi") {
-                            if(parsed_method === "HEAD") {
-                                send_method_not_allowed_http(it);
-                                status_code = 405;
+                    if(parsed_method === "OPTIONS") {
+                        if(cgi_request) {
+                            if(is_executable_cgi(file_path)) {
+                                send_options_response_http(it, allow_header_cgi_methods());
+                                status_code = 204;
                             }
-                            else if(is_executable_cgi(file_path)) {
-                                status_code = run_get_cgi_http(it, file_path, header, contents, query_string);
+                            else if(access(file_path, F_OK) == 0) {
+                                send_forbidden_http(it);
+                                status_code = 403;
+                            }
+                            else {
+                                send_not_found_http(it);
+                                status_code = 404;
+                            }
+                        }
+                        else if(is_existing_directory(file_path) || is_readable_static_file(file_path)) {
+                            send_options_response_http(it, allow_header_static_methods());
+                            status_code = 204;
+                        }
+                        else if(access(file_path, F_OK) == 0) {
+                            send_forbidden_http(it);
+                            status_code = 403;
+                        }
+                        else {
+                            send_not_found_http(it);
+                            status_code = 404;
+                        }
+                    }
+                    else if(parsed_method === "GET" || parsed_method === "HEAD") {
+                        if(cgi_request) {
+                            if(is_executable_cgi(file_path)) {
+                                status_code = run_get_cgi_http(it, file_path, header, contents, query_string, parsed_method, parsed_target, cgi_relative_path, path_info, http_version);
                             }
                             else if(access(file_path, F_OK) == 0) {
                                 send_forbidden_http(it);
@@ -1750,8 +2213,15 @@ void process_http_client(int it)
                         }
                         else {
                             if(is_existing_directory(file_path)) {
-                                if(is_readable_static_file(build_file_path(file_path, xsprintf("index.html")))) {
-                                    status_code = serve_static_file_http(it, build_file_path(file_path, xsprintf("index.html")), header);
+                                string index_path = resolve_directory_index_path(file_path);
+
+                                if(!request_target_has_trailing_slash(parsed_target)) {
+                                    string location = build_directory_redirect_target(parsed_target);
+                                    send_directory_redirect_http(it, location);
+                                    status_code = 301;
+                                }
+                                else if(index_path != null) {
+                                    status_code = serve_static_file_http(it, index_path, header);
                                 }
                                 else if(access(file_path, F_OK) == 0) {
                                     send_forbidden_http(it);
@@ -1776,9 +2246,9 @@ void process_http_client(int it)
                         }
                     }
                     else {
-                        if(ext_name !== "cgi") {
+                        if(!cgi_request) {
                             if(access(file_path, F_OK) == 0) {
-                                send_method_not_allowed_http(it);
+                                send_method_not_allowed_http_with_allow(it, allow_header_static_methods());
                                 status_code = 405;
                             }
                             else {
@@ -1787,7 +2257,7 @@ void process_http_client(int it)
                             }
                         }
                         else if(is_executable_cgi(file_path)) {
-                            status_code = run_post_cgi_http(it, file_path, header, contents);
+                            status_code = run_post_cgi_http(it, file_path, header, contents, parsed_target, cgi_relative_path, path_info, http_version);
                         }
                         else if(access(file_path, F_OK) == 0) {
                             send_forbidden_http(it);
@@ -1816,6 +2286,7 @@ void process_http_client(int it)
 void process_https_client(SSL* it)
 {
     var request_buffer = new buffer();
+    gIsHttps = true;
 
     while(true) {
         set_client_timeout(SSL_get_fd(it));
@@ -1865,7 +2336,7 @@ void process_https_client(SSL* it)
         gAcceptGzip = request_accepts_gzip(header);
         gHeadRequest = parsed_method === "HEAD";
 
-        if(parsed_method !== "GET" && parsed_method !== "POST" && parsed_method !== "HEAD") {
+        if(parsed_method !== "GET" && parsed_method !== "POST" && parsed_method !== "HEAD" && parsed_method !== "OPTIONS") {
             send_method_not_allowed_https(it);
             status_code = 405;
         }
@@ -1881,6 +2352,10 @@ void process_https_client(SSL* it)
                 status_code = 400;
                 send_bad_request_https(it);
             }
+            else if(parsed_method === "OPTIONS" && parsed_target === "*") {
+                send_options_response_https(it, allow_header_all_methods());
+                status_code = 204;
+            }
             else {
                 var relative_path, query_string = parse_request_target(parsed_target);
 
@@ -1889,17 +2364,44 @@ void process_https_client(SSL* it)
                     status_code = 400;
                 }
                 else {
-                    string file_path = build_file_path(document_root, relative_path);
+                    var cgi_relative_path, path_info = split_cgi_path_info(relative_path);
+                    bool cgi_request = cgi_relative_path != null;
+                    string resolved_relative_path = cgi_request ? cgi_relative_path : relative_path;
+                    string file_path = build_file_path(document_root, resolved_relative_path);
                     string ext_name = xextname(file_path);
 
-                    if(parsed_method === "GET" || parsed_method === "HEAD") {
-                        if(ext_name === "cgi") {
-                            if(parsed_method === "HEAD") {
-                                send_method_not_allowed_https(it);
-                                status_code = 405;
+                    if(parsed_method === "OPTIONS") {
+                        if(cgi_request) {
+                            if(is_executable_cgi(file_path)) {
+                                send_options_response_https(it, allow_header_cgi_methods());
+                                status_code = 204;
                             }
-                            else if(is_executable_cgi(file_path)) {
-                                status_code = run_get_cgi(it, file_path, header, contents, query_string);
+                            else if(access(file_path, F_OK) == 0) {
+                                send_forbidden_https(it);
+                                status_code = 403;
+                            }
+                            else {
+                                send_not_found_https(it);
+                                status_code = 404;
+                            }
+                        }
+                        else if(is_existing_directory(file_path) || is_readable_static_file(file_path)) {
+                            send_options_response_https(it, allow_header_static_methods());
+                            status_code = 204;
+                        }
+                        else if(access(file_path, F_OK) == 0) {
+                            send_forbidden_https(it);
+                            status_code = 403;
+                        }
+                        else {
+                            send_not_found_https(it);
+                            status_code = 404;
+                        }
+                    }
+                    else if(parsed_method === "GET" || parsed_method === "HEAD") {
+                        if(cgi_request) {
+                            if(is_executable_cgi(file_path)) {
+                                status_code = run_get_cgi(it, file_path, header, contents, query_string, parsed_method, parsed_target, cgi_relative_path, path_info, http_version);
                             }
                             else if(access(file_path, F_OK) == 0) {
                                 send_forbidden_https(it);
@@ -1912,8 +2414,15 @@ void process_https_client(SSL* it)
                         }
                         else {
                             if(is_existing_directory(file_path)) {
-                                if(is_readable_static_file(build_file_path(file_path, xsprintf("index.html")))) {
-                                    status_code = serve_static_file_https(it, build_file_path(file_path, xsprintf("index.html")), header);
+                                string index_path = resolve_directory_index_path(file_path);
+
+                                if(!request_target_has_trailing_slash(parsed_target)) {
+                                    string location = build_directory_redirect_target(parsed_target);
+                                    send_directory_redirect_https(it, location);
+                                    status_code = 301;
+                                }
+                                else if(index_path != null) {
+                                    status_code = serve_static_file_https(it, index_path, header);
                                 }
                                 else if(access(file_path, F_OK) == 0) {
                                     send_forbidden_https(it);
@@ -1938,9 +2447,9 @@ void process_https_client(SSL* it)
                         }
                     }
                     else {
-                        if(ext_name !== "cgi") {
+                        if(!cgi_request) {
                             if(access(file_path, F_OK) == 0) {
-                                send_method_not_allowed_https(it);
+                                send_method_not_allowed_https_with_allow(it, allow_header_static_methods());
                                 status_code = 405;
                             }
                             else {
@@ -1949,7 +2458,7 @@ void process_https_client(SSL* it)
                             }
                         }
                         else if(is_executable_cgi(file_path)) {
-                            status_code = run_post_cgi(it, file_path, header, contents);
+                            status_code = run_post_cgi(it, file_path, header, contents, parsed_target, cgi_relative_path, path_info, http_version);
                         }
                         else if(access(file_path, F_OK) == 0) {
                             send_forbidden_https(it);
