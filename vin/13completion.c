@@ -1417,6 +1417,30 @@ struct list$1lambda$
     struct list_item$1lambda$* it;
 };
 
+struct map$2int$list$1int$ph$ph
+{
+    int* keys;
+    unsigned int* hashes;
+    _Bool* item_existance;
+    struct list$1int$ph** items;
+    int size;
+    int len;
+    struct list$1int$* key_list;
+    int it;
+};
+
+struct map$2int$int$
+{
+    int* keys;
+    unsigned int* hashes;
+    _Bool* item_existance;
+    int* items;
+    int size;
+    int len;
+    struct list$1int$* key_list;
+    int it;
+};
+
 struct Vi
 {
     struct list$1ViWin$ph* wins;
@@ -1428,15 +1452,27 @@ struct Vi
     struct list$1int$ph* yank;
     struct list$1int$ph* fileYank;
     int yankKind;
+    struct map$2int$list$1int$ph$ph* registers;
+    struct map$2int$int$* registerKinds;
+    int selectedRegister;
     int  searchString[128]  ;
     _Bool searchReverse;
     _Bool regexSearch;
+    _Bool searchWholeWord;
+    _Bool searchIgnoreCase;
+    _Bool searchSmartCase;
     int modeBeforeSearch;
+    int modeBeforeCommand;
     char commandString[128];
+    struct list$1char$ph* commandHistory;
+    int commandHistoryIndex;
+    _Bool commandHistoryBrowsing;
+    char commandStringBeforeHistory[128];
 };
 
 enum { kYankKindLine 
 ,kYankKindNoLine 
+,kYankKindBlock 
 };
 
 enum  eRepeatForwardNextCharacter { kRFNCNone 
@@ -2982,6 +3018,10 @@ struct Vi*  Vi_initialize_v3(struct Vi*  self  );
 int Vi_main_loop_v3(struct Vi*  self  );
 void ViWin_forwardWord(struct ViWin*  self  );
 void ViWin_forwardWord2(struct ViWin*  self  );
+void ViWin_forwardBigWord(struct ViWin*  self  );
+void ViWin_forwardBigWord2(struct ViWin*  self  );
+void ViWin_backwardBigWord(struct ViWin*  self  );
+void ViWin_backwardEndWord(struct ViWin*  self  );
 void ViWin_backwardWord_v4(struct ViWin*  self  );
 struct Vi*  Vi_initialize_v4(struct Vi*  self  );
 struct ViWin*  ViWin_initialize_v5(struct ViWin*  self  , int y, int x, int width, int height, struct Vi*  vi  );
@@ -2998,9 +3038,12 @@ void ViWin_openFile_v6(struct ViWin*  self  , char*  file_name  , int line_num, 
 void ViWin_makeTmpFile(struct ViWin*  self  );
 void ViWin_deleteTmpFile(struct ViWin*  self  );
 void ViWin_writeFile(struct ViWin*  self  , _Bool binary_mode);
+void ViWin_writeFileAs(struct ViWin*  self  , char*  file_name  , _Bool binary_mode, _Bool update_current_file);
 void ViWin_writedFlagOn_v6(struct ViWin*  self  );
 _Bool ViWin_saveDotToFile_v6(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_resetForOpen(struct ViWin*  self  );
 void Vi_openNewFile(struct Vi*  self  , char*  file_name  );
+void Vi_editActiveFile(struct Vi*  self  , char*  file_name  , _Bool force);
 void Vi_closeActiveWin(struct Vi*  self  );
 void Vi_exitFromApp_v6(struct Vi*  self  );
 void Vi_toggleWin(struct Vi*  self  );
@@ -3042,10 +3085,12 @@ void Vi_enterVisualMode(struct Vi*  self  );
 void Vi_exitFromVisualMode(struct Vi*  self  );
 void ViWin_searchModeView(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v9(struct ViWin*  self  , struct Vi*  nvi  );
-void ViWin_search(struct ViWin*  self  , struct Vi*  nvi  );
-void ViWin_searchReverse(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_search(struct ViWin*  self  , struct Vi*  nvi  , _Bool whole_word);
+void ViWin_searchReverse(struct ViWin*  self  , struct Vi*  nvi  , _Bool whole_word);
 void ViWin_searchWordOnCursor(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_searchWordOnCursorReverse(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_searchWordOnCursor2(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_searchWordOnCursorReverse2(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_inputSearchlMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v9(struct ViWin*  self  , struct Vi*  nvi  );
 void Vi_saveSearchString(struct Vi*  self  , const char* file_name);
@@ -3092,8 +3137,13 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_commandModeInput(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v12(struct ViWin*  self  , struct Vi*  nvi  );
-void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_yankLinesFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_copyLinesFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_moveLinesFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_deleteLinesFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_filterTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_filterVerticalTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
 void Vi_enterComandMode(struct Vi*  self  );
 void Vi_exitFromComandMode(struct Vi*  self  );
 struct Vi*  Vi_initialize_v12(struct Vi*  self  );
@@ -3131,9 +3181,12 @@ struct ViWin*  ViWin_initialize_v18(struct ViWin*  self  , int y, int x, int wid
 void ViWin_verticalVisualModeView(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v18(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_deleteOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_yankOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_deleteLinesOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_changeCaseVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_rewriteOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_indentVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_backIndentVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_insertOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_inputVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v18(struct ViWin*  self  , struct Vi*  nvi  );

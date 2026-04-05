@@ -248,6 +248,11 @@ void ViWin*::deleteTmpFile(ViWin* self)
 
 void ViWin*::writeFile(ViWin* self, bool binary_mode=false) 
 {
+    self.writeFileAs(self.fileName, binary_mode, true);
+}
+
+void ViWin*::writeFileAs(ViWin* self, string file_name, bool binary_mode=false, bool update_current_file=false)
+{
     /// back up /// 
     char* home = getenv("HOME");
     
@@ -265,13 +270,15 @@ void ViWin*::writeFile(ViWin* self, bool binary_mode=false)
     
     char cmd[BUFSIZ];
     
-    snprintf(cmd, BUFSIZ, "cp %s %s/.vin/backup", self.fileName, home);
-    
-    (void)system(cmd);
+    if(access(file_name, F_OK) == 0) {
+        snprintf(cmd, BUFSIZ, "cp %s %s/.vin/backup", file_name, home);
+        
+        (void)system(cmd);
+    }
     
     /// write ///
     if(binary_mode) {
-        FILE* f = fopen(self.fileName, "wb");
+        FILE* f = fopen(file_name, "wb");
     
         if(f != null) {
             int i = 0;
@@ -298,7 +305,7 @@ void ViWin*::writeFile(ViWin* self, bool binary_mode=false)
         }
     }
     else {
-        FILE* f = fopen(self.fileName, "w");
+        FILE* f = fopen(file_name, "w");
     
         if(f != null) {
             foreach(it, self.texts) {
@@ -309,9 +316,13 @@ void ViWin*::writeFile(ViWin* self, bool binary_mode=false)
         fclose(f);
     }
 
-    self.writed = false;
-    self.saveCursorPosition(self.fileName);
-    self.saveDotToFile(self.vi);
+    if(update_current_file) {
+        self.fileName = clone file_name;
+        self.writed = false;
+        self.saveCursorPosition(self.fileName);
+        ((Vi*)self.vi).saveLastOpenFile(file_name);
+        self.saveDotToFile(self.vi);
+    }
 }
 
 void ViWin*::writedFlagOn(ViWin* self) version 6
@@ -322,6 +333,23 @@ void ViWin*::writedFlagOn(ViWin* self) version 6
 bool ViWin*::saveDotToFile(ViWin* self, Vi* nvi) version 6
 {
     /// implementad after layer
+}
+
+void ViWin*::resetForOpen(ViWin* self)
+{
+    self.texts.reset();
+    self.texts_length.reset();
+
+    self.undo.reset();
+    self.undoScroll.reset();
+    self.undoCursorX.reset();
+    self.undoCursorY.reset();
+    self.undoIndex = 0;
+
+    self.cursorY = 0;
+    self.cursorX = 0;
+    self.scroll = 0;
+    self.writed = false;
 }
 
 void Vi*::openNewFile(Vi* self, string file_name) 
@@ -348,6 +376,22 @@ void Vi*::openNewFile(Vi* self, string file_name)
         }
         it2++;
     }
+}
+
+void Vi*::editActiveFile(Vi* self, string file_name, bool force=false)
+{
+    if(file_name == null) {
+        return;
+    }
+
+    if(self.activeWin.writed && !force) {
+        return;
+    }
+
+    self.activeWin.saveCursorPosition(self.activeWin.fileName);
+    self.activeWin.resetForOpen();
+    self.activeWin.openFile(file_name, -1, gBinaryMode);
+    self.saveLastOpenFile(file_name);
 }
 
 void Vi*::closeActiveWin(Vi* self) 

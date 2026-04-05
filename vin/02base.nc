@@ -426,6 +426,18 @@ void ViWin*::keyG(ViWin* self, Vi* nvi)
             self.moveTop();
             break;
 
+        case 'e':
+            self.backwardEndWord();
+            break;
+
+        case '*':
+            self.searchWordOnCursor2(nvi);
+            break;
+
+        case '#':
+            self.searchWordOnCursorReverse2(nvi);
+            break;
+
         case 'v':
             self.restoreVisualMode(nvi);
             break;

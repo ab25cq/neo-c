@@ -121,14 +121,25 @@ struct Vi
     list<wstring>*% yank;
     list<wstring>*% fileYank;
     int yankKind;
+    map<int, list<wstring>*%>*% registers;
+    map<int, int>*% registerKinds;
+    int selectedRegister;
 
 
     wchar_t searchString[128];
     bool searchReverse;
     bool regexSearch;
+    bool searchWholeWord;
+    bool searchIgnoreCase;
+    bool searchSmartCase;
     int modeBeforeSearch;
+    int modeBeforeCommand;
 
     char commandString[128];
+    list<string>*% commandHistory;
+    int commandHistoryIndex;
+    bool commandHistoryBrowsing;
+    char commandStringBeforeHistory[128];
 };
 
 extern int gBinaryMode;
@@ -219,6 +230,10 @@ int Vi*::main_loop(Vi* self) version 3;
 ////////////////////////////
 void ViWin*::forwardWord(ViWin* self);
 void ViWin*::forwardWord2(ViWin* self);
+void ViWin*::forwardBigWord(ViWin* self);
+void ViWin*::forwardBigWord2(ViWin* self);
+void ViWin*::backwardBigWord(ViWin* self);
+void ViWin*::backwardEndWord(ViWin* self);
 void ViWin*::backwardWord(ViWin* self) version 4;
 Vi*% Vi*::initialize(Vi*% self) version 4;
 
@@ -243,9 +258,12 @@ void ViWin*::openFile(ViWin* self, string file_name, int line_num, bool binary_m
 void ViWin*::makeTmpFile(ViWin* self);
 void ViWin*::deleteTmpFile(ViWin* self);
 void ViWin*::writeFile(ViWin* self, bool binary_mode=false);
+void ViWin*::writeFileAs(ViWin* self, string file_name, bool binary_mode=false, bool update_current_file=false);
 void ViWin*::writedFlagOn(ViWin* self) version 6;
 bool ViWin*::saveDotToFile(ViWin* self, Vi* nvi) version 6;
+void ViWin*::resetForOpen(ViWin* self);
 void Vi*::openNewFile(Vi* self, string file_name);
+void Vi*::editActiveFile(Vi* self, string file_name, bool force=false);
 void Vi*::closeActiveWin(Vi* self);
 void Vi*::exitFromApp(Vi* self) version 6;
 void Vi*::toggleWin(Vi* self);
@@ -261,7 +279,7 @@ void Vi*::openFile(Vi* self, string file_name, int line_num, bool binary_mode=fa
 // src/07yank.c
 ////////////////////////////
 
-enum { kYankKindLine, kYankKindNoLine };
+enum { kYankKindLine, kYankKindNoLine, kYankKindBlock };
 
 
 bool ViWin*::saveYankToFile(ViWin* self, Vi* nvi);
@@ -309,10 +327,12 @@ enum eRepeatForwardNextCharacter {
 
 void ViWin*::searchModeView(ViWin* self, Vi* nvi);
 void ViWin*::view(ViWin* self, Vi* nvi) version 9;
-void ViWin*::search(ViWin* self, Vi* nvi);
-void ViWin*::searchReverse(ViWin* self, Vi* nvi);
+void ViWin*::search(ViWin* self, Vi* nvi, bool whole_word=false);
+void ViWin*::searchReverse(ViWin* self, Vi* nvi, bool whole_word=false);
 void ViWin*::searchWordOnCursor(ViWin* self, Vi* nvi);
 void ViWin*::searchWordOnCursorReverse(ViWin* self, Vi* nvi);
+void ViWin*::searchWordOnCursor2(ViWin* self, Vi* nvi);
+void ViWin*::searchWordOnCursorReverse2(ViWin* self, Vi* nvi);
 void ViWin*::inputSearchlMode(ViWin* self, Vi* nvi);
 void ViWin*::input(ViWin* self, Vi* nvi) version 9;
 void Vi*::saveSearchString(Vi* self, const char* file_name);
@@ -371,8 +391,13 @@ void ViWin*::fileCompetion(ViWin* self, Vi* nvi);
 void ViWin*::commandModeInput(ViWin* self, Vi* nvi);
 void ViWin*::view(ViWin* self, Vi* nvi) version 12;
 void ViWin*::input(ViWin* self, Vi* nvi) version 12;
-void ViWin*::subAllTextsFromCommandMode(ViWin* self, Vi* nvi);
+bool ViWin*::subAllTextsFromCommandMode(ViWin* self, Vi* nvi);
+bool ViWin*::yankLinesFromCommandMode(ViWin* self, Vi* nvi);
+bool ViWin*::copyLinesFromCommandMode(ViWin* self, Vi* nvi);
+bool ViWin*::moveLinesFromCommandMode(ViWin* self, Vi* nvi);
+bool ViWin*::deleteLinesFromCommandMode(ViWin* self, Vi* nvi);
 void ViWin*::filterTextsFromCommandMode(ViWin* self, Vi* nvi);
+void ViWin*::filterVerticalTextsFromCommandMode(ViWin* self, Vi* nvi);
 void Vi*::enterComandMode(Vi* self);
 void Vi*::exitFromComandMode(Vi* self);
 Vi*% Vi*::initialize(Vi*% self) version 12;
@@ -437,9 +462,12 @@ ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi
 void ViWin*::verticalVisualModeView(ViWin* self, Vi* nvi);
 void ViWin*::view(ViWin* self, Vi* nvi) version 18;
 void ViWin*::deleteOnVerticalVisualMode(ViWin* self, Vi* nvi);
+void ViWin*::yankOnVerticalVisualMode(ViWin* self, Vi* nvi);
 void ViWin*::deleteLinesOnVerticalVisualMode(ViWin* self, Vi* nvi);
 void ViWin*::changeCaseVerticalVisualMode(ViWin* self, Vi* nvi);
 void ViWin*::rewriteOnVerticalVisualMode(ViWin* self, Vi* nvi);
+void ViWin*::indentVerticalVisualMode(ViWin* self, Vi* nvi);
+void ViWin*::backIndentVerticalVisualMode(ViWin* self, Vi* nvi);
 void ViWin*::insertOnVerticalVisualMode(ViWin* self, Vi* nvi);
 void ViWin*::inputVerticalVisualMode(ViWin* self, Vi* nvi);
 void ViWin*::input(ViWin* self, Vi* nvi) version 18;

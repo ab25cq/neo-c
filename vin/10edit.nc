@@ -1,5 +1,741 @@
 #include "common.h"
 
+enum {
+    kOperatorDelete,
+    kOperatorChange,
+    kOperatorYank,
+};
+
+static bool is_text_object_word_char(wchar_t c)
+{
+    return xiswalnum(c) || c == '_';
+}
+
+static void normalize_operator_range(int* head_y, int* head_x, int* tail_y, int* tail_x)
+{
+    if(*head_y > *tail_y || (*head_y == *tail_y && *head_x > *tail_x)) {
+        int tmp = *head_y;
+        *head_y = *tail_y;
+        *tail_y = tmp;
+
+        tmp = *head_x;
+        *head_x = *tail_x;
+        *tail_x = tmp;
+    }
+}
+
+static void clamp_operator_position(ViWin* self, int y, int* x)
+{
+    auto line = self.texts.item(y, wstring(""));
+
+    if(*x < 0) {
+        *x = 0;
+    }
+    if(*x > line.length()) {
+        *x = line.length();
+    }
+}
+
+static int operator_repeat_count(ViWin* self)
+{
+    if(self.digitInput > 0) {
+        return self.digitInput + 1;
+    }
+
+    return 1;
+}
+
+static bool yank_operator_range(ViWin* self, Vi* nvi, int head_y, int head_x, int tail_y, int tail_x)
+{
+    normalize_operator_range(&head_y, &head_x, &tail_y, &tail_x);
+    clamp_operator_position(self, head_y, &head_x);
+    clamp_operator_position(self, tail_y, &tail_x);
+
+    if(head_y == tail_y && head_x == tail_x) {
+        return false;
+    }
+
+    nvi.yank.reset();
+    nvi.yankKind = kYankKindNoLine;
+
+    if(head_y == tail_y) {
+        auto line = self.texts.item(head_y, wstring(""));
+        nvi.yank.push_back(line.substring(head_x, tail_x));
+    }
+    else {
+        auto first_line = self.texts.item(head_y, wstring(""));
+        nvi.yank.push_back(first_line.substring(head_x, -1));
+
+        for(int i=head_y+1; i<tail_y; i++) {
+            nvi.yank.push_back(clone self.texts.item(i, wstring("")));
+        }
+
+        auto last_line = self.texts.item(tail_y, wstring(""));
+        nvi.yank.push_back(last_line.substring(0, tail_x));
+    }
+
+    self.saveYankToFile(nvi);
+
+    return true;
+}
+
+static bool delete_operator_range(ViWin* self, Vi* nvi, int head_y, int head_x, int tail_y, int tail_x)
+{
+    normalize_operator_range(&head_y, &head_x, &tail_y, &tail_x);
+    clamp_operator_position(self, head_y, &head_x);
+    clamp_operator_position(self, tail_y, &tail_x);
+
+    if(head_y == tail_y && head_x == tail_x) {
+        return false;
+    }
+
+    if(!yank_operator_range(self, nvi, head_y, head_x, tail_y, tail_x)) {
+        return false;
+    }
+
+    self.pushUndo();
+
+    if(head_y == tail_y) {
+        auto line = self.texts.item(head_y, wstring(""));
+        line.delete(head_x, tail_x);
+        self.texts_length.replace(head_y, wcslen(line));
+    }
+    else {
+        auto first_line = self.texts.item(head_y, wstring(""));
+        auto last_line = self.texts.item(tail_y, wstring(""));
+        auto new_line = xsprintf("%ls%ls", first_line.substring(0, head_x), last_line.substring(tail_x, -1)).to_wstring();
+
+        self.texts.replace(head_y, clone new_line);
+        self.texts_length.replace(head_y, wcslen(new_line));
+        self.texts.delete(head_y+1, tail_y+1);
+        self.texts_length.delete(head_y+1, tail_y+1);
+    }
+
+    self.cursorY = head_y - self.scroll;
+    self.modifyUnderCursorYValue();
+    self.modifyOverCursorYValue();
+    self.cursorX = head_x;
+    self.modifyUnderCursorXValue();
+    self.modifyOverCursorXValue();
+
+    return true;
+}
+
+static bool get_find_motion_range(ViWin* self, int motion, int find_char, int* head_y, int* head_x, int* tail_y, int* tail_x)
+{
+    auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+    int count = operator_repeat_count(self);
+    int match_x = -1;
+
+    switch(motion) {
+        case 'f': {
+            int start = self.cursorX + 1;
+            for(int i=0; i<count; i++) {
+                match_x = -1;
+                for(int j=start; j<line.length(); j++) {
+                    if(line[j] == find_char) {
+                        match_x = j;
+                        start = j + 1;
+                        break;
+                    }
+                }
+                if(match_x == -1) {
+                    return false;
+                }
+            }
+
+            *head_y = self.scroll+self.cursorY;
+            *head_x = self.cursorX;
+            *tail_y = self.scroll+self.cursorY;
+            *tail_x = match_x + 1;
+            return true;
+        }
+
+        case 't': {
+            int start = self.cursorX + 1;
+            for(int i=0; i<count; i++) {
+                match_x = -1;
+                for(int j=start; j<line.length(); j++) {
+                    if(line[j] == find_char) {
+                        match_x = j;
+                        start = j + 1;
+                        break;
+                    }
+                }
+                if(match_x == -1) {
+                    return false;
+                }
+            }
+
+            *head_y = self.scroll+self.cursorY;
+            *head_x = self.cursorX;
+            *tail_y = self.scroll+self.cursorY;
+            *tail_x = match_x;
+            return true;
+        }
+
+        case 'F': {
+            int start = self.cursorX - 1;
+            for(int i=0; i<count; i++) {
+                match_x = -1;
+                for(int j=start; j>=0; j--) {
+                    if(line[j] == find_char) {
+                        match_x = j;
+                        start = j - 1;
+                        break;
+                    }
+                }
+                if(match_x == -1) {
+                    return false;
+                }
+            }
+
+            *head_y = self.scroll+self.cursorY;
+            *head_x = match_x;
+            *tail_y = self.scroll+self.cursorY;
+            *tail_x = self.cursorX + 1;
+            return true;
+        }
+
+        case 'T': {
+            int start = self.cursorX - 1;
+            for(int i=0; i<count; i++) {
+                match_x = -1;
+                for(int j=start; j>=0; j--) {
+                    if(line[j] == find_char) {
+                        match_x = j;
+                        start = j - 1;
+                        break;
+                    }
+                }
+                if(match_x == -1) {
+                    return false;
+                }
+            }
+
+            *head_y = self.scroll+self.cursorY;
+            *head_x = match_x + 1;
+            *tail_y = self.scroll+self.cursorY;
+            *tail_x = self.cursorX + 1;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+static bool get_motion_range(ViWin* self, int motion, int* head_y, int* head_x, int* tail_y, int* tail_x)
+{
+    int scroll_before = self.scroll;
+    int cursor_y_before = self.cursorY;
+    int cursor_x_before = self.cursorX;
+    int count = operator_repeat_count(self);
+
+    switch(motion) {
+        case '$': {
+            auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+
+            *head_y = self.scroll+self.cursorY;
+            *head_x = self.cursorX;
+            *tail_y = self.scroll+self.cursorY;
+            *tail_x = line.length();
+            return *head_x != *tail_x;
+        }
+
+        case 'w':
+            for(int i=0; i<count; i++) {
+                self.forwardWord();
+            }
+            *head_y = scroll_before + cursor_y_before;
+            *head_x = cursor_x_before;
+            *tail_y = self.scroll+self.cursorY;
+            *tail_x = self.cursorX;
+            break;
+
+        case 'e':
+            for(int i=0; i<count; i++) {
+                self.forwardWord2();
+            }
+            *head_y = scroll_before + cursor_y_before;
+            *head_x = cursor_x_before;
+            *tail_y = self.scroll+self.cursorY;
+            *tail_x = self.cursorX + 1;
+            break;
+
+        case 'b':
+            for(int i=0; i<count; i++) {
+                self.backwardWord();
+            }
+            *head_y = self.scroll+self.cursorY;
+            *head_x = self.cursorX;
+            *tail_y = scroll_before + cursor_y_before;
+            *tail_x = cursor_x_before + 1;
+            break;
+
+        case 'W':
+            for(int i=0; i<count; i++) {
+                self.forwardBigWord();
+            }
+            *head_y = scroll_before + cursor_y_before;
+            *head_x = cursor_x_before;
+            *tail_y = self.scroll+self.cursorY;
+            *tail_x = self.cursorX;
+            break;
+
+        case 'E':
+            for(int i=0; i<count; i++) {
+                self.forwardBigWord2();
+            }
+            *head_y = scroll_before + cursor_y_before;
+            *head_x = cursor_x_before;
+            *tail_y = self.scroll+self.cursorY;
+            *tail_x = self.cursorX + 1;
+            break;
+
+        case 'B':
+            for(int i=0; i<count; i++) {
+                self.backwardBigWord();
+            }
+            *head_y = self.scroll+self.cursorY;
+            *head_x = self.cursorX;
+            *tail_y = scroll_before + cursor_y_before;
+            *tail_x = cursor_x_before + 1;
+            break;
+
+        default:
+            return false;
+    }
+
+    self.scroll = scroll_before;
+    self.cursorY = cursor_y_before;
+    self.cursorX = cursor_x_before;
+
+    normalize_operator_range(head_y, head_x, tail_y, tail_x);
+    clamp_operator_position(self, *head_y, head_x);
+    clamp_operator_position(self, *tail_y, tail_x);
+
+    return !(*head_y == *tail_y && *head_x == *tail_x);
+}
+
+static bool get_ge_motion_range(ViWin* self, int* head_y, int* head_x, int* tail_y, int* tail_x)
+{
+    int scroll_before = self.scroll;
+    int cursor_y_before = self.cursorY;
+    int cursor_x_before = self.cursorX;
+    int count = operator_repeat_count(self);
+
+    for(int i=0; i<count; i++) {
+        self.backwardEndWord();
+    }
+
+    *head_y = self.scroll+self.cursorY;
+    *head_x = self.cursorX;
+    *tail_y = scroll_before + cursor_y_before;
+    *tail_x = cursor_x_before + 1;
+
+    self.scroll = scroll_before;
+    self.cursorY = cursor_y_before;
+    self.cursorX = cursor_x_before;
+
+    normalize_operator_range(head_y, head_x, tail_y, tail_x);
+    clamp_operator_position(self, *head_y, head_x);
+    clamp_operator_position(self, *tail_y, tail_x);
+
+    return !(*head_y == *tail_y && *head_x == *tail_x);
+}
+
+static bool get_word_text_object_range(ViWin* self, bool around, int* head, int* tail)
+{
+    auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+
+    if(line.length() == 0) {
+        return false;
+    }
+
+    int pos = self.cursorX;
+    if(pos >= line.length()) {
+        pos = line.length()-1;
+    }
+    if(pos < 0) {
+        pos = 0;
+    }
+
+    if(!is_text_object_word_char(line[pos])) {
+        while(pos < line.length() && !is_text_object_word_char(line[pos])) {
+            pos++;
+        }
+
+        if(pos >= line.length()) {
+            pos = self.cursorX;
+            if(pos >= line.length()) {
+                pos = line.length()-1;
+            }
+
+            while(pos >= 0 && !is_text_object_word_char(line[pos])) {
+                pos--;
+            }
+        }
+    }
+
+    if(pos < 0 || pos >= line.length() || !is_text_object_word_char(line[pos])) {
+        return false;
+    }
+
+    *head = pos;
+    while(*head > 0 && is_text_object_word_char(line[*head-1])) {
+        (*head)--;
+    }
+
+    *tail = pos + 1;
+    while(*tail < line.length() && is_text_object_word_char(line[*tail])) {
+        (*tail)++;
+    }
+
+    if(around) {
+        int tail2 = *tail;
+        while(tail2 < line.length() && xiswblank(line[tail2])) {
+            tail2++;
+        }
+
+        if(tail2 > *tail) {
+            *tail = tail2;
+        }
+        else {
+            int head2 = *head;
+            while(head2 > 0 && xiswblank(line[head2-1])) {
+                head2--;
+            }
+            *head = head2;
+        }
+    }
+
+    return true;
+}
+
+static bool get_quote_text_object_range(ViWin* self, wchar_t quote, bool around, int* head, int* tail)
+{
+    auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+
+    if(line.length() == 0) {
+        return false;
+    }
+
+    int pos = self.cursorX;
+    if(pos >= line.length()) {
+        pos = line.length()-1;
+    }
+    if(pos < 0) {
+        pos = 0;
+    }
+
+    int left = -1;
+    for(int i=pos; i>=0; i--) {
+        if(line[i] == quote) {
+            left = i;
+            break;
+        }
+    }
+
+    if(left == -1) {
+        return false;
+    }
+
+    int right = -1;
+    for(int i=left+1; i<line.length(); i++) {
+        if(line[i] == quote) {
+            right = i;
+            break;
+        }
+    }
+
+    if(right == -1) {
+        return false;
+    }
+
+    if(around) {
+        *head = left;
+        *tail = right + 1;
+    }
+    else {
+        *head = left + 1;
+        *tail = right;
+    }
+
+    return *head <= *tail;
+}
+
+static bool get_block_text_object_range(ViWin* self, wchar_t open_brace, wchar_t close_brace, bool around, int* head, int* tail)
+{
+    auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+
+    if(line.length() == 0) {
+        return false;
+    }
+
+    int pos = self.cursorX;
+    if(pos >= line.length()) {
+        pos = line.length()-1;
+    }
+    if(pos < 0) {
+        pos = 0;
+    }
+
+    int left = -1;
+    int nest = 0;
+    for(int i=pos; i>=0; i--) {
+        if(line[i] == open_brace) {
+            if(nest == 0) {
+                left = i;
+                break;
+            }
+            nest--;
+        }
+        else if(line[i] == close_brace) {
+            nest++;
+        }
+    }
+
+    if(left == -1) {
+        return false;
+    }
+
+    int right = -1;
+    nest = 0;
+    for(int i=left; i<line.length(); i++) {
+        if(line[i] == open_brace) {
+            nest++;
+        }
+        else if(line[i] == close_brace) {
+            nest--;
+
+            if(nest == 0) {
+                right = i;
+                break;
+            }
+        }
+    }
+
+    if(right == -1 || right < left) {
+        return false;
+    }
+
+    if(around) {
+        *head = left;
+        *tail = right + 1;
+    }
+    else {
+        *head = left + 1;
+        *tail = right;
+    }
+
+    return *head <= *tail;
+}
+
+static bool get_text_object_range(ViWin* self, bool around, int key, int* head, int* tail)
+{
+    switch(key) {
+        case 'w':
+            return get_word_text_object_range(self, around, head, tail);
+
+        case '"':
+        case '\'':
+            return get_quote_text_object_range(self, key, around, head, tail);
+
+        case '(':
+        case ')':
+            return get_block_text_object_range(self, '(', ')', around, head, tail);
+
+        case '[':
+        case ']':
+            return get_block_text_object_range(self, '[', ']', around, head, tail);
+
+        case '{':
+        case '}':
+            return get_block_text_object_range(self, '{', '}', around, head, tail);
+    }
+
+    return false;
+}
+
+static bool yank_text_object(ViWin* self, Vi* nvi, bool around, int key)
+{
+    int head;
+    int tail;
+
+    if(!get_text_object_range(self, around, key, &head, &tail)) {
+        return false;
+    }
+
+    auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+
+    nvi.yank.reset();
+    nvi.yank.push_back(line.substring(head, tail));
+    nvi.yankKind = kYankKindNoLine;
+    self.saveYankToFile(nvi);
+
+    return true;
+}
+
+static bool delete_text_object(ViWin* self, Vi* nvi, bool around, int key)
+{
+    int head;
+    int tail;
+
+    if(!get_text_object_range(self, around, key, &head, &tail)) {
+        return false;
+    }
+
+    auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+
+    nvi.yank.reset();
+    nvi.yank.push_back(line.substring(head, tail));
+    nvi.yankKind = kYankKindNoLine;
+    self.saveYankToFile(nvi);
+
+    self.pushUndo();
+    line.delete(head, tail);
+    self.texts_length.replace(self.scroll+self.cursorY, wcslen(line));
+    self.cursorX = head;
+    self.modifyUnderCursorXValue();
+    self.modifyOverCursorXValue();
+
+    return true;
+}
+
+static bool apply_text_object_operator(Vi* self, int operator_kind, bool around, int key)
+{
+    switch(operator_kind) {
+        case kOperatorDelete:
+            if(delete_text_object(self.activeWin, self, around, key)) {
+                self.activeWin.writed = true;
+                return true;
+            }
+            break;
+
+        case kOperatorChange:
+            if(delete_text_object(self.activeWin, self, around, key)) {
+                self.enterInsertMode2();
+                self.activeWin.writed = true;
+                return true;
+            }
+            break;
+
+        case kOperatorYank:
+            return yank_text_object(self.activeWin, self, around, key);
+    }
+
+    return false;
+}
+
+static bool apply_motion_operator(Vi* self, int operator_kind, int motion, int motion_key)
+{
+    int head_y;
+    int head_x;
+    int tail_y;
+    int tail_x;
+    bool result = false;
+
+    if(motion == 'f' || motion == 't' || motion == 'F' || motion == 'T') {
+        result = get_find_motion_range(self.activeWin, motion, motion_key, &head_y, &head_x, &tail_y, &tail_x);
+    }
+    else if(motion == 'g' && motion_key == 'e') {
+        result = get_ge_motion_range(self.activeWin, &head_y, &head_x, &tail_y, &tail_x);
+    }
+    else {
+        result = get_motion_range(self.activeWin, motion, &head_y, &head_x, &tail_y, &tail_x);
+    }
+
+    if(!result) {
+        return false;
+    }
+
+    switch(operator_kind) {
+        case kOperatorDelete:
+            if(delete_operator_range(self.activeWin, self, head_y, head_x, tail_y, tail_x)) {
+                self.activeWin.writed = true;
+                return true;
+            }
+            break;
+
+        case kOperatorChange:
+            if(delete_operator_range(self.activeWin, self, head_y, head_x, tail_y, tail_x)) {
+                self.enterInsertMode2();
+                self.activeWin.writed = true;
+                return true;
+            }
+            break;
+
+        case kOperatorYank:
+            return yank_operator_range(self.activeWin, self, head_y, head_x, tail_y, tail_x);
+    }
+
+    return false;
+}
+
+static void run_operator_pending(Vi* self, int operator_kind)
+{
+    auto key2 = self.activeWin.getKey(true);
+    bool handled = false;
+
+    switch(key2) {
+        case 'd':
+            if(operator_kind == kOperatorDelete) {
+                self.activeWin.deleteOneLine(self);
+                self.activeWin.writed = true;
+                handled = true;
+            }
+            break;
+
+        case 'c':
+            if(operator_kind == kOperatorChange) {
+                self.activeWin.deleteOneLine2(self);
+                self.enterInsertMode();
+                if(self.activeWin.texts.length() != 0) {
+                    self.activeWin.cursorX = 0;
+                }
+                self.activeWin.writed = true;
+                handled = true;
+            }
+            break;
+
+        case 'y':
+            if(operator_kind == kOperatorYank) {
+                self.activeWin.yankOneLine(self);
+                handled = true;
+            }
+            break;
+
+        case 'i':
+        case 'a':
+            handled = apply_text_object_operator(self, operator_kind, key2 == 'a', self.activeWin.getKey(false));
+            break;
+
+        case 'w':
+        case 'e':
+        case 'b':
+        case 'W':
+        case 'E':
+        case 'B':
+        case '$':
+            handled = apply_motion_operator(self, operator_kind, key2, -1);
+            break;
+
+        case 'f':
+        case 't':
+        case 'F':
+        case 'T':
+            handled = apply_motion_operator(self, operator_kind, key2, self.activeWin.getKey(false));
+            break;
+
+        case 'g':
+            handled = apply_motion_operator(self, operator_kind, key2, self.activeWin.getKey(false));
+            break;
+    }
+
+    self.activeWin.digitInput = 0;
+    self.activeWin.saveInputedKey();
+}
+
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 10
 {
     auto result = inherit(self, y, x, width, height, vi);
@@ -913,90 +1649,14 @@ Vi*% Vi*::initialize(Vi*% self) version 10
     auto result = inherit(self);
 
     result.events.replace('d', void lambda(Vi* self, int key) {
-        auto key2 = self.activeWin.getKey(true);
-
-        switch(key2) {
-            case 'd':
-                self.activeWin.deleteOneLine(self);
-                self.activeWin.writed = true;
-                break;
-            
-            case 'w':
-            case 'e':
-                self.activeWin.deleteWord(self);
-                self.activeWin.writed = true;
-                break;
-            
-            case 'f':
-                self.activeWin.deleteForNextCharacter();
-                self.activeWin.writed = true;
-                break;
-                
-            case 't':
-                self.activeWin.deleteForNextCharacter2();
-                self.activeWin.writed = true;
-                break;
-                
-            case '$':
-                self.activeWin.deleteUntilTail();
-                self.activeWin.writed = true;
-                break;
-        }
-
-        self.activeWin.saveInputedKey();
+        run_operator_pending(self, kOperatorDelete);
     });
 
     result.events.replace('c', void lambda(Vi* self, int key) {
-        auto key2 = self.activeWin.getKey(true);
-
-        switch(key2) {
-            case '$':
-                self.activeWin.deleteUntilTail();
-                self.enterInsertMode();
-                if(self.activeWin.texts.length() != 0) {
-                    self.activeWin.cursorX++;
-                }
-                self.activeWin.writed = true;
-                break;
-                
-            case 'c':
-                self.activeWin.deleteOneLine2(self);
-                self.enterInsertMode();
-                if(self.activeWin.texts.length() != 0) {
-                    self.activeWin.cursorX = 0;
-                }
-                self.activeWin.writed = true;
-                break;
-                
-                
-            case 'w':
-            case 'e':
-                self.activeWin.deleteWord(self);
-                self.enterInsertMode2();
-                self.activeWin.writed = true;
-                break;
-                
-            case 't':
-                self.activeWin.deleteForNextCharacter2();
-                self.enterInsertMode();
-                self.activeWin.writed = true;
-                break;
-                
-            case 'f':
-                self.activeWin.deleteForNextCharacter();
-                self.enterInsertMode();
-                self.activeWin.writed = true;
-                break;
-        }
+        run_operator_pending(self, kOperatorChange);
     });
     result.events.replace('y', void lambda(Vi* self, int key) {
-        auto key2 = self.activeWin.getKey(true);
-
-        switch(key2) {
-            case 'y':
-                self.activeWin.yankOneLine(self);
-                break;
-        }
+        run_operator_pending(self, kOperatorYank);
     });
     result.events.replace('Y', void lambda(Vi* self, int key) {
         self.activeWin.yankOneLine(self);

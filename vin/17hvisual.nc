@@ -553,6 +553,10 @@ void ViWin*::inputHorizonVisualMode(ViWin* self, Vi* nvi)
             self.keyG(nvi);
             break;
 
+        case ':':
+            nvi.enterComandMode();
+            break;
+
         case '/':
             nvi.enterSearchMode(false, false);
             break;
@@ -598,12 +602,27 @@ void ViWin*::inputHorizonVisualMode(ViWin* self, Vi* nvi)
             break;
             
         case 'w':
-        case 'e':
             self.forwardWord();
+            break;
+
+        case 'e':
+            self.forwardWord2();
             break;
         
         case 'b':
             self.backwardWord();
+            break;
+
+        case 'W':
+            self.forwardBigWord();
+            break;
+
+        case 'E':
+            self.forwardBigWord2();
+            break;
+
+        case 'B':
+            self.backwardBigWord();
             break;
 
         case 27:

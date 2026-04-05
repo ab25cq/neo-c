@@ -17,17 +17,29 @@ static bool is_directory_path(char* path)
 
 static string parse_sp_path(char* command_string)
 {
-    if(strncmp(command_string, "sp", 2) != 0) {
+    char* p = command_string;
+    while(*p == ' ' || *p == '\t') {
+        p++;
+    }
+
+    int command_len = 0;
+    if(strncmp(p, "sp", 2) == 0 && (p[2] == '\0' || p[2] == ' ' || p[2] == '\t')) {
+        command_len = 2;
+    }
+    else if(strncmp(p, "split", 5) == 0 && (p[5] == '\0' || p[5] == ' ' || p[5] == '\t')) {
+        command_len = 5;
+    }
+    else {
         return null;
     }
 
-    char* p = command_string + 2;
+    p += command_len;
     while(*p == ' ' || *p == '\t') {
         p++;
     }
 
     if(*p == '\0') {
-        return null;
+        return string("");
     }
 
     char* tail = command_string + strlen(command_string);
@@ -46,22 +58,407 @@ static string parse_sp_path(char* command_string)
     return string(buf);
 }
 
-static string parse_filter_command(char* command_string)
+static void skip_command_spaces(char** p)
 {
-    if(strncmp(command_string, ".!", 2) != 0) {
+    while(**p == ' ' || **p == '\t') {
+        (*p)++;
+    }
+}
+
+static bool parse_command_name(char* command_string, char* short_name, char* long_name, bool* force)
+{
+    char* p = command_string;
+    skip_command_spaces(&p);
+
+    int len = 0;
+
+    if(short_name != null && strncmp(p, short_name, strlen(short_name)) == 0) {
+        len = strlen(short_name);
+    }
+    else if(long_name != null && strncmp(p, long_name, strlen(long_name)) == 0) {
+        len = strlen(long_name);
+    }
+    else {
+        return false;
+    }
+
+    p += len;
+
+    if(force != null) {
+        *force = false;
+
+        if(*p == '!') {
+            *force = true;
+            p++;
+        }
+    }
+
+    skip_command_spaces(&p);
+    return *p == '\0';
+}
+
+static string parse_edit_path(char* command_string, bool* force)
+{
+    char* p = command_string;
+    skip_command_spaces(&p);
+
+    int command_len = 0;
+    if(strncmp(p, "e", 1) == 0 && (p[1] == '\0' || p[1] == '!' || p[1] == ' ' || p[1] == '\t')) {
+        command_len = 1;
+    }
+    else if(strncmp(p, "edit", 4) == 0 && (p[4] == '\0' || p[4] == '!' || p[4] == ' ' || p[4] == '\t')) {
+        command_len = 4;
+    }
+    else {
         return null;
     }
 
-    char* p = command_string + 2;
-    while(*p == ' ' || *p == '\t') {
+    p += command_len;
+    *force = false;
+    if(*p == '!') {
+        *force = true;
         p++;
     }
+
+    skip_command_spaces(&p);
+
+    if(*p == '\0') {
+        return string("");
+    }
+
+    char* tail = command_string + strlen(command_string);
+    while(tail > p && (tail[-1] == ' ' || tail[-1] == '\t')) {
+        tail--;
+    }
+
+    char buf[tail-p+1];
+    memcpy(buf, p, tail-p);
+    buf[tail-p] = '\0';
+
+    return string(buf);
+}
+
+static bool get_visual_command_range(Vi* nvi, ViWin* self, int* head, int* tail)
+{
+    if(nvi.modeBeforeCommand == kVisualMode) {
+        *head = self.visualModeHead;
+        *tail = self.scroll + self.cursorY;
+        return true;
+    }
+    else if(nvi.modeBeforeCommand == kHorizonVisualMode) {
+        *head = self.visualModeHorizonHeadScroll + self.visualModeHorizonHeadY;
+        *tail = self.scroll + self.cursorY;
+        return true;
+    }
+    else if(nvi.modeBeforeCommand == kVerticalVisualMode) {
+        *head = self.visualModeVerticalHeadY;
+        *tail = self.scroll + self.cursorY;
+        return true;
+    }
+
+    return false;
+}
+
+static bool parse_ex_address(char** p, Vi* nvi, ViWin* self, int* value)
+{
+    if(**p == '.') {
+        *value = self.scroll + self.cursorY;
+        (*p)++;
+        return true;
+    }
+    else if(**p == '$') {
+        *value = self.texts.length() - 1;
+        (*p)++;
+        return true;
+    }
+    else if(**p >= '0' && **p <= '9') {
+        *value = atoi(*p) - 1;
+        while(**p >= '0' && **p <= '9') {
+            (*p)++;
+        }
+        return true;
+    }
+    else if(**p == '\'' && ((*p)[1] == '<' || (*p)[1] == '>')) {
+        int head = 0;
+        int tail = 0;
+
+        if(!get_visual_command_range(nvi, self, &head, &tail)) {
+            return false;
+        }
+
+        if(head > tail) {
+            int tmp = head;
+            head = tail;
+            tail = tmp;
+        }
+
+        *value = (*p)[1] == '<' ? head : tail;
+        *p += 2;
+        return true;
+    }
+
+    return false;
+}
+
+static bool parse_ex_range(char** p, Vi* nvi, ViWin* self, int* range_head, int* range_tail, bool* has_range)
+{
+    int current_line = self.scroll + self.cursorY;
+    if(current_line < 0) {
+        current_line = 0;
+    }
+    if(current_line >= self.texts.length()) {
+        current_line = self.texts.length() - 1;
+    }
+
+    *range_head = current_line;
+    *range_tail = current_line;
+    *has_range = false;
+
+    skip_command_spaces(p);
+
+    if(**p == '%') {
+        *range_head = 0;
+        *range_tail = self.texts.length() - 1;
+        *has_range = true;
+        (*p)++;
+        return true;
+    }
+
+    int head = 0;
+    if(!parse_ex_address(p, nvi, self, &head)) {
+        return true;
+    }
+
+    *has_range = true;
+    *range_head = head;
+    *range_tail = head;
+
+    skip_command_spaces(p);
+
+    if(**p == ',') {
+        int tail = 0;
+
+        (*p)++;
+        skip_command_spaces(p);
+
+        if(!parse_ex_address(p, nvi, self, &tail)) {
+            return false;
+        }
+
+        *range_tail = tail;
+    }
+
+    return true;
+}
+
+static string parse_filter_command(char* command_string, Vi* nvi, ViWin* self, int* range_head, int* range_tail)
+{
+    char* p = command_string;
+    bool has_range = false;
+
+    if(!parse_ex_range(&p, nvi, self, range_head, range_tail, &has_range) || !has_range) {
+        return null;
+    }
+
+    skip_command_spaces(&p);
+    if(*p != '!') {
+        return null;
+    }
+
+    p++;
+    skip_command_spaces(&p);
 
     if(*p == '\0') {
         return null;
     }
 
     return string(p);
+}
+
+static string parse_shell_command(char* command_string)
+{
+    char* p = command_string;
+    skip_command_spaces(&p);
+
+    if(*p != '!') {
+        return null;
+    }
+
+    p++;
+    skip_command_spaces(&p);
+
+    if(*p == '\0') {
+        return null;
+    }
+
+    return string(p);
+}
+
+static bool parse_write_quit_command(char* command_string, bool* write, bool* quit, bool* force)
+{
+    *write = false;
+    *quit = false;
+    *force = false;
+
+    if(parse_command_name(command_string, "w", "write", force)) {
+        *write = true;
+        return true;
+    }
+    else if(parse_command_name(command_string, "q", "quit", force)) {
+        *quit = true;
+        return true;
+    }
+    else if(parse_command_name(command_string, "wq", null, force)
+        || parse_command_name(command_string, "x", null, force)
+        || parse_command_name(command_string, "xit", null, force))
+    {
+        *write = true;
+        *quit = true;
+        return true;
+    }
+
+    return false;
+}
+
+static string parse_write_path(char* command_string, bool* force)
+{
+    char* p = command_string;
+    skip_command_spaces(&p);
+
+    int command_len = 0;
+    if(strncmp(p, "w", 1) == 0 && (p[1] == '\0' || p[1] == '!' || p[1] == ' ' || p[1] == '\t')) {
+        command_len = 1;
+    }
+    else if(strncmp(p, "write", 5) == 0 && (p[5] == '\0' || p[5] == '!' || p[5] == ' ' || p[5] == '\t')) {
+        command_len = 5;
+    }
+    else {
+        return null;
+    }
+
+    p += command_len;
+    *force = false;
+    if(*p == '!') {
+        *force = true;
+        p++;
+    }
+
+    skip_command_spaces(&p);
+    if(*p == '\0') {
+        return null;
+    }
+
+    char* tail = command_string + strlen(command_string);
+    while(tail > p && (tail[-1] == ' ' || tail[-1] == '\t')) {
+        tail--;
+    }
+
+    char buf[tail-p+1];
+    memcpy(buf, p, tail-p);
+    buf[tail-p] = '\0';
+
+    return string(buf);
+}
+
+static string parse_saveas_path(char* command_string, bool* force)
+{
+    char* p = command_string;
+    skip_command_spaces(&p);
+
+    if(strncmp(p, "saveas", 6) != 0 || (p[6] != '\0' && p[6] != '!' && p[6] != ' ' && p[6] != '\t')) {
+        return null;
+    }
+
+    p += 6;
+    *force = false;
+    if(*p == '!') {
+        *force = true;
+        p++;
+    }
+
+    skip_command_spaces(&p);
+    if(*p == '\0') {
+        return null;
+    }
+
+    char* tail = command_string + strlen(command_string);
+    while(tail > p && (tail[-1] == ' ' || tail[-1] == '\t')) {
+        tail--;
+    }
+
+    char buf[tail-p+1];
+    memcpy(buf, p, tail-p);
+    buf[tail-p] = '\0';
+
+    return string(buf);
+}
+
+static int parse_set_paste_command(char* command_string)
+{
+    if(parse_command_name(command_string, null, "set paste", null)
+        || parse_command_name(command_string, null, "paste", null))
+    {
+        return 1;
+    }
+    else if(parse_command_name(command_string, null, "set nopaste", null)
+        || parse_command_name(command_string, null, "nopaste", null))
+    {
+        return -1;
+    }
+
+    return 0;
+}
+
+static void run_shell_command(string command)
+{
+    endwin();
+    (void)system(command);
+    printf("\nPress ENTER to continue");
+    fflush(stdout);
+
+    int c = 0;
+    while((c = getchar()) != '\n' && c != EOF) {
+    }
+}
+
+static list<string>*% run_filter_command_with_input(string command, list<string>* input_lines)
+{
+    auto input_path = xsprintf("/tmp/vin-filter-input-%d", getpid());
+    auto output_path = xsprintf("/tmp/vin-filter-output-%d", getpid());
+    auto result = new list<string>.initialize();
+
+    FILE* input_fp = fopen(input_path, "w");
+    if(input_fp == null) {
+        return result;
+    }
+
+    foreach(it, input_lines) {
+        fprintf(input_fp, "%s\n", it);
+    }
+    fclose(input_fp);
+
+    (void)system(xsprintf("(%s) < '%s' > '%s'", command, input_path, output_path));
+
+    FILE* output_fp = fopen(output_path, "r");
+    if(output_fp != null) {
+        char line[4096];
+
+        while(fgets(line, 4096, output_fp) != null) {
+            int len = strlen(line);
+            if(len > 0 && line[len-1] == '\n') {
+                line[len-1] = '\0';
+            }
+
+            result.push_back(string(line));
+        }
+
+        fclose(output_fp);
+    }
+
+    unlink(input_path);
+    unlink(output_path);
+
+    return result;
 }
 
 static void append_command_string(char* command_string, char* str)
@@ -73,6 +470,302 @@ static void append_command_string(char* command_string, char* str)
     }
 
     strncat(command_string, str, 127-len);
+}
+
+static void remember_command_line_for_history(Vi* nvi)
+{
+    if(!nvi.commandHistoryBrowsing) {
+        strncpy(nvi.commandStringBeforeHistory, nvi.commandString, 128);
+        nvi.commandHistoryBrowsing = true;
+    }
+}
+
+static void stop_command_history_browsing(Vi* nvi)
+{
+    nvi.commandHistoryBrowsing = false;
+    nvi.commandHistoryIndex = nvi.commandHistory.length();
+}
+
+static void browse_command_history_prev(Vi* nvi)
+{
+    if(nvi.commandHistory.length() == 0) {
+        return;
+    }
+
+    remember_command_line_for_history(nvi);
+
+    if(nvi.commandHistoryIndex <= 0) {
+        nvi.commandHistoryIndex = 0;
+    }
+    else {
+        nvi.commandHistoryIndex--;
+    }
+
+    auto command = nvi.commandHistory.item(nvi.commandHistoryIndex, string(""));
+    strncpy(nvi.commandString, command, 128);
+}
+
+static void browse_command_history_next(Vi* nvi)
+{
+    if(!nvi.commandHistoryBrowsing) {
+        return;
+    }
+
+    if(nvi.commandHistoryIndex < nvi.commandHistory.length() - 1) {
+        nvi.commandHistoryIndex++;
+        auto command = nvi.commandHistory.item(nvi.commandHistoryIndex, string(""));
+        strncpy(nvi.commandString, command, 128);
+    }
+    else {
+        strncpy(nvi.commandString, nvi.commandStringBeforeHistory, 128);
+        stop_command_history_browsing(nvi);
+    }
+}
+
+static void add_command_history(Vi* nvi)
+{
+    if(nvi.commandString[0] == '\0') {
+        return;
+    }
+
+    nvi.commandHistory.push_back(string(nvi.commandString));
+    stop_command_history_browsing(nvi);
+    strncpy(nvi.commandStringBeforeHistory, "", 128);
+}
+
+static bool parse_substitute_token(char** p, char* buf, int buf_size)
+{
+    int len = 0;
+
+    while(**p != '\0' && **p != '/') {
+        if(**p == '\\' && (*p)[1] != '\0') {
+            (*p)++;
+        }
+
+        if(len < buf_size - 1) {
+            buf[len++] = **p;
+        }
+
+        (*p)++;
+    }
+
+    buf[len] = '\0';
+
+    if(**p != '/') {
+        return false;
+    }
+
+    (*p)++;
+
+    return true;
+}
+
+static bool parse_substitute_command(char* command_string, Vi* nvi, ViWin* self, int* range_head, int* range_tail, char* match, int match_size, char* replace, int replace_size, bool* global)
+{
+    char* p = command_string;
+    bool has_range = false;
+    *global = false;
+
+    if(!parse_ex_range(&p, nvi, self, range_head, range_tail, &has_range)) {
+        return false;
+    }
+
+    skip_command_spaces(&p);
+    if(*p != 's') {
+        return false;
+    }
+    p++;
+
+    if(*p != '/') {
+        return false;
+    }
+    p++;
+
+    if(!parse_substitute_token(&p, match, match_size)) {
+        return false;
+    }
+
+    if(!parse_substitute_token(&p, replace, replace_size)) {
+        return false;
+    }
+
+    while(*p == ' ' || *p == '\t') {
+        p++;
+    }
+
+    while(*p != '\0') {
+        if(*p == 'g') {
+            *global = true;
+        }
+        else if(*p != ' ' && *p != '\t') {
+            return false;
+        }
+
+        p++;
+    }
+
+    return match[0] != '\0';
+}
+
+static bool parse_delete_command(char* command_string, Vi* nvi, ViWin* self, int* range_head, int* range_tail)
+{
+    char* p = command_string;
+    bool has_range = false;
+
+    if(!parse_ex_range(&p, nvi, self, range_head, range_tail, &has_range)) {
+        return false;
+    }
+
+    skip_command_spaces(&p);
+
+    if(strncmp(p, "d", 1) == 0 && (p[1] == '\0' || p[1] == ' ' || p[1] == '\t')) {
+        p++;
+    }
+    else if(strncmp(p, "delete", 6) == 0 && (p[6] == '\0' || p[6] == ' ' || p[6] == '\t')) {
+        p += 6;
+    }
+    else {
+        return false;
+    }
+
+    skip_command_spaces(&p);
+
+    return *p == '\0';
+}
+
+static bool parse_goto_line_command(char* command_string, Vi* nvi, ViWin* self, int* line)
+{
+    char* p = command_string;
+    bool has_range = false;
+    int head = 0;
+    int tail = 0;
+
+    if(!parse_ex_range(&p, nvi, self, &head, &tail, &has_range) || !has_range) {
+        return false;
+    }
+
+    skip_command_spaces(&p);
+    if(*p != '\0' || head != tail) {
+        return false;
+    }
+
+    *line = head;
+    return true;
+}
+
+static bool parse_copy_move_destination(char** p, Vi* nvi, ViWin* self, int* dest)
+{
+    skip_command_spaces(p);
+
+    if(!parse_ex_address(p, nvi, self, dest)) {
+        return false;
+    }
+
+    skip_command_spaces(p);
+
+    return **p == '\0';
+}
+
+static bool parse_yank_command(char* command_string, Vi* nvi, ViWin* self, int* range_head, int* range_tail)
+{
+    char* p = command_string;
+    bool has_range = false;
+
+    if(!parse_ex_range(&p, nvi, self, range_head, range_tail, &has_range)) {
+        return false;
+    }
+
+    skip_command_spaces(&p);
+
+    if(strncmp(p, "y", 1) == 0 && (p[1] == '\0' || p[1] == ' ' || p[1] == '\t')) {
+        p++;
+    }
+    else if(strncmp(p, "yank", 4) == 0 && (p[4] == '\0' || p[4] == ' ' || p[4] == '\t')) {
+        p += 4;
+    }
+    else {
+        return false;
+    }
+
+    skip_command_spaces(&p);
+
+    return *p == '\0';
+}
+
+static bool parse_copy_command(char* command_string, Vi* nvi, ViWin* self, int* range_head, int* range_tail, int* dest)
+{
+    char* p = command_string;
+    bool has_range = false;
+
+    if(!parse_ex_range(&p, nvi, self, range_head, range_tail, &has_range)) {
+        return false;
+    }
+
+    skip_command_spaces(&p);
+
+    if(strncmp(p, "t", 1) == 0) {
+        p++;
+    }
+    else if(strncmp(p, "co", 2) == 0 && !(xiswalpha(p[2]) || p[2] == '_')) {
+        p += 2;
+    }
+    else if(strncmp(p, "copy", 4) == 0 && !(xiswalpha(p[4]) || p[4] == '_')) {
+        p += 4;
+    }
+    else {
+        return false;
+    }
+
+    return parse_copy_move_destination(&p, nvi, self, dest);
+}
+
+static bool parse_move_command(char* command_string, Vi* nvi, ViWin* self, int* range_head, int* range_tail, int* dest)
+{
+    char* p = command_string;
+    bool has_range = false;
+
+    if(!parse_ex_range(&p, nvi, self, range_head, range_tail, &has_range)) {
+        return false;
+    }
+
+    skip_command_spaces(&p);
+
+    if(strncmp(p, "m", 1) == 0) {
+        p++;
+    }
+    else if(strncmp(p, "move", 4) == 0 && !(xiswalpha(p[4]) || p[4] == '_')) {
+        p += 4;
+    }
+    else {
+        return false;
+    }
+
+    return parse_copy_move_destination(&p, nvi, self, dest);
+}
+
+static list<wstring>*% clone_line_range(ViWin* self, int head, int tail)
+{
+    auto result = new list<wstring>.initialize();
+
+    for(int i=head; i<=tail; i++) {
+        result.push_back(clone self.texts.item(i, wstring("")));
+    }
+
+    return result;
+}
+
+static string replace_first_plain(string line, char* match, char* replace)
+{
+    int index = line.index(match, -1);
+
+    if(index < 0) {
+        return line;
+    }
+
+    return xsprintf("%s%s%s"
+            , line.substring(0, index)
+            , replace
+            , line.substring(index + strlen(match), -1));
 }
 
 void ViWin*::commandModeView(ViWin* self, Vi* nvi) 
@@ -378,12 +1071,24 @@ if(key == 410) { // For iPhone + clicks
 
     switch(key) {
         case '\n':
+            add_command_history(nvi);
             nvi.exitFromComandMode();
             break;
 
         case 3:
         case 27:
+            stop_command_history_browsing(nvi);
             nvi.mode = kEditMode;
+            break;
+
+        case KEY_UP:
+        case 'P'-'A'+1:
+            browse_command_history_prev(nvi);
+            break;
+
+        case KEY_DOWN:
+        case 'N'-'A'+1:
+            browse_command_history_next(nvi);
             break;
             
         case 'V'-'A'+1: {
@@ -393,12 +1098,14 @@ if(key == 410) { // For iPhone + clicks
                 char a[128];
                 a[0] = 13;
                 a[1] = '\0';
+                stop_command_history_browsing(nvi);
                 append_command_string(nvi.commandString, a);
             }
             else {
                 char a[128];
                 a[0] = key2;
                 a[1] = '\0';
+                stop_command_history_browsing(nvi);
                 append_command_string(nvi.commandString, a);
             }
             }
@@ -413,12 +1120,14 @@ if(key == 410) { // For iPhone + clicks
         case KEY_BACKSPACE: {
             int len = strlen(nvi.commandString);
             if(len > 0) {
+                stop_command_history_browsing(nvi);
                 nvi.commandString[len-1] = '\0';
             }
             }
             break;
 
         default: {
+            stop_command_history_browsing(nvi);
             append_command_string(nvi.commandString, a);
             }
             break;
@@ -445,81 +1154,390 @@ void ViWin*::input(ViWin* self, Vi* nvi) version 12
     }
 }
 
-void ViWin*::subAllTextsFromCommandMode(ViWin* self, Vi* nvi) 
+bool ViWin*::subAllTextsFromCommandMode(ViWin* self, Vi* nvi) 
 {
-    var p = strstr(nvi.commandString, "%s/") + strlen("%s/");
-    
-    var p2 = strstr(p, "/") + strlen("/");
-    var p3 = strstr(p2, "/");
-    
-    if(p && p2 && p3) {
-        auto str = p.substring(0, p2 -p -1);
-        auto replace = p2.substring(0, p3 - p2);
-        
-        if(str != null && replace != null) {
-            self.pushUndo();
-            int it2 = 0;
-            foreach(it, self.texts) {
-                wstring new_line = it.to_string().sub_plain(str, replace).to_wstring();
-                
-                self.texts.replace(it2, new_line);
-                self.texts_length.replace(it2, wcslen(new_line));
-    
-                it2++;
+    char match[128];
+    char replace[128];
+    int head = 0;
+    int tail = 0;
+    bool global = false;
+
+    if(!parse_substitute_command(nvi.commandString, nvi, self, &head, &tail, match, 128, replace, 128, &global)) {
+        return false;
+    }
+
+    if(self.texts.length() == 0) {
+        return true;
+    }
+
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
+    }
+
+    if(head < 0) {
+        head = 0;
+    }
+    if(tail >= self.texts.length()) {
+        tail = self.texts.length() - 1;
+    }
+
+    bool changed = false;
+
+    for(int i=head; i<=tail; i++) {
+        auto line = self.texts.item(i, wstring("")).to_string();
+        auto new_line = global ? line.sub_plain(match, replace) : replace_first_plain(line, match, replace);
+
+        if(strcmp(line, new_line) != 0) {
+            if(!changed) {
+                self.pushUndo();
+                changed = true;
             }
+
+            auto wide_line = new_line.to_wstring();
+            self.texts.replace(i, clone wide_line);
+            self.texts_length.replace(i, wcslen(wide_line));
         }
     }
+
+    if(changed) {
+        self.writed = true;
+        self.modifyUnderCursorYValue();
+        self.modifyOverCursorYValue();
+        self.modifyOverCursorXValue();
+    }
+
+    return true;
+}
+
+bool ViWin*::deleteLinesFromCommandMode(ViWin* self, Vi* nvi)
+{
+    int head = 0;
+    int tail = 0;
+
+    if(!parse_delete_command(nvi.commandString, nvi, self, &head, &tail)) {
+        return false;
+    }
+
+    if(self.texts.length() == 0) {
+        return true;
+    }
+
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
+    }
+
+    if(head < 0) {
+        head = 0;
+    }
+    if(tail >= self.texts.length()) {
+        tail = self.texts.length() - 1;
+    }
+
+    self.pushUndo();
+
+    nvi.yank.reset();
+    nvi.yankKind = kYankKindLine;
+    for(int i=head; i<=tail; i++) {
+        nvi.yank.push_back(clone self.texts.item(i, wstring("")));
+    }
+    self.saveYankToFile(nvi);
+
+    self.texts.delete(head, tail+1);
+    self.texts_length.delete(head, tail+1);
+
+    if(self.texts.length() == 0) {
+        self.texts.push_back(wstring(""));
+        self.texts_length.push_back(0);
+    }
+
+    self.scroll = 0;
+    self.cursorY = head;
+    self.modifyUnderCursorYValue();
+    self.modifyOverCursorYValue();
+    self.cursorX = 0;
+    self.modifyUnderCursorXValue();
+    self.modifyOverCursorXValue();
+    self.writed = true;
+
+    return true;
+}
+
+bool ViWin*::yankLinesFromCommandMode(ViWin* self, Vi* nvi)
+{
+    int head = 0;
+    int tail = 0;
+
+    if(!parse_yank_command(nvi.commandString, nvi, self, &head, &tail)) {
+        return false;
+    }
+
+    if(self.texts.length() == 0) {
+        return true;
+    }
+
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
+    }
+
+    if(head < 0) {
+        head = 0;
+    }
+    if(tail >= self.texts.length()) {
+        tail = self.texts.length() - 1;
+    }
+
+    nvi.yank = clone_line_range(self, head, tail);
+    nvi.yankKind = kYankKindLine;
+    self.saveYankToFile(nvi);
+
+    self.scroll = 0;
+    self.cursorY = head;
+    self.modifyUnderCursorYValue();
+    self.modifyOverCursorYValue();
+    self.cursorX = 0;
+    self.modifyUnderCursorXValue();
+    self.modifyOverCursorXValue();
+
+    return true;
+}
+
+bool ViWin*::copyLinesFromCommandMode(ViWin* self, Vi* nvi)
+{
+    int head = 0;
+    int tail = 0;
+    int dest = 0;
+
+    if(!parse_copy_command(nvi.commandString, nvi, self, &head, &tail, &dest)) {
+        return false;
+    }
+
+    if(self.texts.length() == 0) {
+        return true;
+    }
+
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
+    }
+
+    if(head < 0) {
+        head = 0;
+    }
+    if(tail >= self.texts.length()) {
+        tail = self.texts.length() - 1;
+    }
+    if(dest < -1) {
+        dest = -1;
+    }
+    if(dest >= self.texts.length()) {
+        dest = self.texts.length() - 1;
+    }
+
+    auto lines = clone_line_range(self, head, tail);
+
+    self.pushUndo();
+
+    for(int i=0; i<lines.length(); i++) {
+        auto line = lines.item(i, wstring(""));
+        self.texts.insert(dest + 1 + i, clone line);
+        self.texts_length.insert(dest + 1 + i, wcslen(line));
+    }
+
+    self.scroll = 0;
+    self.cursorY = dest + 1;
+    self.modifyUnderCursorYValue();
+    self.modifyOverCursorYValue();
+    self.cursorX = 0;
+    self.modifyUnderCursorXValue();
+    self.modifyOverCursorXValue();
+    self.writed = true;
+
+    return true;
+}
+
+bool ViWin*::moveLinesFromCommandMode(ViWin* self, Vi* nvi)
+{
+    int head = 0;
+    int tail = 0;
+    int dest = 0;
+
+    if(!parse_move_command(nvi.commandString, nvi, self, &head, &tail, &dest)) {
+        return false;
+    }
+
+    if(self.texts.length() == 0) {
+        return true;
+    }
+
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
+    }
+
+    if(head < 0) {
+        head = 0;
+    }
+    if(tail >= self.texts.length()) {
+        tail = self.texts.length() - 1;
+    }
+    if(dest < -1) {
+        dest = -1;
+    }
+    if(dest >= self.texts.length()) {
+        dest = self.texts.length() - 1;
+    }
+
+    if(dest >= head && dest <= tail) {
+        return true;
+    }
+
+    auto lines = clone_line_range(self, head, tail);
+    int len = tail - head + 1;
+
+    self.pushUndo();
+
+    self.texts.delete(head, tail+1);
+    self.texts_length.delete(head, tail+1);
+
+    if(dest > tail) {
+        dest -= len;
+    }
+
+    for(int i=0; i<lines.length(); i++) {
+        auto line = lines.item(i, wstring(""));
+        self.texts.insert(dest + 1 + i, clone line);
+        self.texts_length.insert(dest + 1 + i, wcslen(line));
+    }
+
+    self.scroll = 0;
+    self.cursorY = dest + 1;
+    self.modifyUnderCursorYValue();
+    self.modifyOverCursorYValue();
+    self.cursorX = 0;
+    self.modifyUnderCursorXValue();
+    self.modifyOverCursorXValue();
+    self.writed = true;
+
+    return true;
 }
 
 void ViWin*::filterTextsFromCommandMode(ViWin* self, Vi* nvi)
 {
-    var command = parse_filter_command(nvi.commandString);
+    int head = 0;
+    int tail = 0;
+    var command = parse_filter_command(nvi.commandString, nvi, self, &head, &tail);
 
     if(command == null) {
         return;
     }
 
-    var output = new buffer();
-
-    char buf[BUFSIZ];
-
-    FILE* fp = popen(command, "r");
-    if(fp == null) {
-        return;
+    auto input_lines = new list<string>.initialize();
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
     }
 
-    while(fgets(buf, BUFSIZ, fp) != NULL) {
-        output.append_str(buf);
+    if(head < 0) {
+        head = 0;
     }
-    pclose(fp);
-
-    auto lines = output.to_string().split("\n");
-
-    if(lines.length() > 0 && lines.item(-1, string("")).equals("")) {
-        lines.delete(-1, -1);
+    if(tail >= self.texts.length()) {
+        tail = self.texts.length() - 1;
     }
+
+    for(int i=head; i<=tail; i++) {
+        input_lines.push_back(self.texts.item(i, wstring("")).to_string());
+    }
+    auto lines = run_filter_command_with_input(command, input_lines);
 
     self.pushUndo();
 
-    int y = self.scroll + self.cursorY;
-
     if(lines.length() == 0) {
-        self.texts.replace(y, wstring(""));
-        self.texts_length.replace(y, 0);
+        self.texts.delete(head, tail+1);
+        self.texts_length.delete(head, tail+1);
+        self.texts.insert(head, wstring(""));
+        self.texts_length.insert(head, 0);
     }
     else {
-        self.texts.replace(y, lines.item(0, string("")).to_wstring());
-        self.texts_length.replace(y, lines.item(0, string("")).length());
+        self.texts.replace(head, lines.item(0, string("")).to_wstring());
+        self.texts_length.replace(head, lines.item(0, string("")).length());
 
         for(int i=1; i<lines.length(); i++) {
-            self.texts.insert(y+i, lines.item(i, string("")).to_wstring());
-            self.texts_length.insert(y+i, lines.item(i, string("")).length());
+            if(head + i <= tail) {
+                self.texts.replace(head+i, lines.item(i, string("")).to_wstring());
+                self.texts_length.replace(head+i, lines.item(i, string("")).length());
+            }
+            else {
+                self.texts.insert(head+i, lines.item(i, string("")).to_wstring());
+                self.texts_length.insert(head+i, lines.item(i, string("")).length());
+            }
         }
 
-        self.cursorY += lines.length() - 1;
+        if(head + lines.length() <= tail) {
+            self.texts.delete(head + lines.length(), tail + 1);
+            self.texts_length.delete(head + lines.length(), tail + 1);
+        }
     }
 
+    self.scroll = 0;
+    self.cursorY = head;
     self.cursorX = 0;
+    self.modifyUnderCursorYValue();
+    self.modifyOverCursorYValue();
+    self.modifyOverCursorXValue();
+    self.writed = true;
+}
+
+void ViWin*::filterVerticalTextsFromCommandMode(ViWin* self, Vi* nvi)
+{
+    int head = 0;
+    int tail = 0;
+    var command = parse_filter_command(nvi.commandString, nvi, self, &head, &tail);
+
+    if(command == null) {
+        return;
+    }
+
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
+    }
+
+    auto input_lines = new list<string>.initialize();
+
+    for(int i=head; i<=tail; i++) {
+        auto line = self.texts.item(i, wstring(""));
+        input_lines.push_back(line.substring(self.visualModeVerticalHeadX
+                , self.visualModeVerticalHeadX + self.visualModeVerticalLen).to_string());
+    }
+
+    auto lines = run_filter_command_with_input(command, input_lines);
+
+    self.pushUndo();
+
+    for(int i=head; i<=tail; i++) {
+        auto line = self.texts.item(i, wstring(""));
+        auto head_line = line.substring(0, self.visualModeVerticalHeadX);
+        auto tail_line = line.substring(self.visualModeVerticalHeadX + self.visualModeVerticalLen, -1);
+        auto middle_line = lines.item(i-head, string("")).to_wstring();
+        auto new_line = xsprintf("%ls%ls%ls", head_line, middle_line, tail_line).to_wstring();
+
+        self.texts.replace(i, clone new_line);
+        self.texts_length.replace(i, wcslen(new_line));
+    }
+
+    self.cursorY = self.visualModeVerticalStartY;
+    self.scroll = self.visualModeVerticalStartScroll;
+    self.cursorX = self.visualModeVerticalStartX;
     self.modifyUnderCursorYValue();
     self.modifyOverCursorYValue();
     self.modifyOverCursorXValue();
@@ -528,37 +1546,120 @@ void ViWin*::filterTextsFromCommandMode(ViWin* self, Vi* nvi)
 
 void Vi*::enterComandMode(Vi* self) 
 {
+    self.modeBeforeCommand = self.mode;
     self.mode = kCommandMode;
-    strncpy(self.commandString, "", 128);
+
+    if(self.modeBeforeCommand == kVisualMode
+        || self.modeBeforeCommand == kHorizonVisualMode
+        || self.modeBeforeCommand == kVerticalVisualMode)
+    {
+        strncpy(self.commandString, "'<,'>", 128);
+    }
+    else {
+        strncpy(self.commandString, "", 128);
+    }
+
+    self.commandHistoryIndex = self.commandHistory.length();
+    self.commandHistoryBrowsing = false;
+    strncpy(self.commandStringBeforeHistory, self.commandString, 128);
 }
 
 void Vi*::exitFromComandMode(Vi* self) 
 {
-    if(strncmp(self.commandString, "sp", 2) == 0 && (self.commandString[2] == ' ' || self.commandString[2] == '\t' || self.commandString[2] == '\0')) {
-        var path = parse_sp_path(self.commandString);
-        if(path) {
-            self.openNewFile(path);
+    bool force_edit = false;
+    bool force_write = false;
+    bool force_saveas = false;
+    bool write = false;
+    bool quit = false;
+    bool force_command = false;
+    int filter_head = 0;
+    int filter_tail = 0;
+    int goto_line = 0;
+    var edit_path = parse_edit_path(self.commandString, &force_edit);
+    var write_path = parse_write_path(self.commandString, &force_write);
+    var saveas_path = parse_saveas_path(self.commandString, &force_saveas);
+    var split_path = parse_sp_path(self.commandString);
+    int set_paste = parse_set_paste_command(self.commandString);
+    var shell_command = parse_shell_command(self.commandString);
+    var filter_command = parse_filter_command(self.commandString, self, self.activeWin, &filter_head, &filter_tail);
+
+    if(split_path != null) {
+        if(split_path.length() == 0) {
+            self.openNewFile(self.activeWin.fileName);
+        }
+        else {
+            self.openNewFile(split_path);
         }
     }
-    else if(string(self.commandString).index("paste", -1) == 0) {
-        self.activeWin.pasteMode = !self.activeWin.pasteMode;
+    else if(saveas_path != null) {
+        self.activeWin.writeFileAs(saveas_path, gBinaryMode, true);
     }
-    else if(strncmp(self.commandString, ".!", 2) == 0) {
-        self.activeWin.filterTextsFromCommandMode(self);
+    else if(write_path != null) {
+        self.activeWin.writeFileAs(write_path, gBinaryMode, false);
     }
-    else {
-        if(string(self.commandString).index("%", -1) != -1) {
-            self.activeWin.subAllTextsFromCommandMode(self);
-            self.mode = kEditMode;
+    else if(edit_path != null) {
+        if(edit_path.length() == 0) {
+            self.editActiveFile(self.activeWin.fileName, force_edit);
         }
-        if(string(self.commandString).index("w", -1) != -1) {
+        else {
+            self.editActiveFile(edit_path, force_edit);
+        }
+    }
+    else if(parse_command_name(self.commandString, "bn", "bnext", null)) {
+        self.nextWin();
+    }
+    else if(parse_command_name(self.commandString, "bp", "bprevious", null)) {
+        self.prevWin();
+    }
+    else if(parse_command_name(self.commandString, "bd", "bdelete", &force_command)) {
+        if(self.wins.length() > 1) {
+            self.closeActiveWin();
+        }
+    }
+    else if(set_paste != 0) {
+        self.activeWin.pasteMode = set_paste > 0;
+    }
+    else if(filter_command != null) {
+        if(self.modeBeforeCommand == kVerticalVisualMode) {
+            self.activeWin.filterVerticalTextsFromCommandMode(self);
+        }
+        else {
+            self.activeWin.filterTextsFromCommandMode(self);
+        }
+    }
+    else if(self.activeWin.moveLinesFromCommandMode(self)) {
+    }
+    else if(self.activeWin.copyLinesFromCommandMode(self)) {
+    }
+    else if(self.activeWin.yankLinesFromCommandMode(self)) {
+    }
+    else if(self.activeWin.deleteLinesFromCommandMode(self)) {
+    }
+    else if(self.activeWin.subAllTextsFromCommandMode(self)) {
+    }
+    else if(parse_goto_line_command(self.commandString, self, self.activeWin, &goto_line)) {
+        self.activeWin.scroll = 0;
+        self.activeWin.cursorY = goto_line;
+        self.activeWin.modifyUnderCursorYValue();
+        self.activeWin.modifyOverCursorYValue();
+        self.activeWin.modifyUnderCursorXValue();
+        self.activeWin.modifyOverCursorXValue();
+    }
+    else if(shell_command != null) {
+        run_shell_command(shell_command);
+        self.init_curses();
+    }
+    else if(parse_write_quit_command(self.commandString, &write, &quit, &force_command)) {
+        if(write) {
             self.activeWin.writeFile(gBinaryMode);
         }
-        if(string(self.commandString).index("q", -1) != -1) {
+
+        if(quit) {
             bool writed = self.activeWin.writed;
-            
-            if(!writed || string(self.commandString).index("!", -1) != -1) {
+
+            if(!writed || force_command || write) {
                 if(self.wins.length() == 1) {
+                    self.activeWin.saveCursorPosition(self.activeWin.fileName);
                     self.appEnd = true;
                 }
                 else {
@@ -566,7 +1667,9 @@ void Vi*::exitFromComandMode(Vi* self)
                 }
             }
         }
-        if(string(self.commandString).index("shell", -1) != -1) {
+    }
+    else {
+        if(parse_command_name(self.commandString, null, "shell", null)) {
             endwin();
             
             (void)system("bash");
@@ -575,12 +1678,9 @@ void Vi*::exitFromComandMode(Vi* self)
         }
     }
 
-    if(string(self.commandString).index("paste", -1) == 0) {
-        self.enterInsertMode();
-    }
-    else {
-        self.mode = kEditMode;
-    }
+    self.mode = kEditMode;
+
+    self.modeBeforeCommand = kEditMode;
 }
 
 Vi*% Vi*::initialize(Vi*% self) version 12
@@ -588,6 +1688,11 @@ Vi*% Vi*::initialize(Vi*% self) version 12
     auto result = inherit(self);
 
     strncpy(result.commandString, "", 128);
+    result.commandHistory = new list<string>.initialize();
+    result.commandHistoryIndex = 0;
+    result.commandHistoryBrowsing = false;
+    strncpy(result.commandStringBeforeHistory, "", 128);
+    result.modeBeforeCommand = kEditMode;
 
     result.events.replace(':', void lambda(Vi* self, int key) {
         self.enterComandMode();

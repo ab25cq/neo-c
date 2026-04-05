@@ -1,8 +1,92 @@
 #include "common.h"
 
+static bool is_named_register(int key)
+{
+    return key >= 'a' && key <= 'z';
+}
+
+static void save_yank_to_named_register(Vi* nvi)
+{
+    if(is_named_register(nvi.selectedRegister)) {
+        nvi.registers.insert(nvi.selectedRegister, clone nvi.yank);
+        nvi.registerKinds.insert(nvi.selectedRegister, nvi.yankKind);
+        nvi.selectedRegister = -1;
+    }
+}
+
+static bool load_yank_from_named_register(Vi* nvi)
+{
+    if(!is_named_register(nvi.selectedRegister)) {
+        return false;
+    }
+
+    auto register_yank = nvi.registers.at(nvi.selectedRegister, null);
+    if(register_yank == null) {
+        nvi.selectedRegister = -1;
+        return false;
+    }
+
+    nvi.yank = clone register_yank;
+    nvi.yankKind = nvi.registerKinds.at(nvi.selectedRegister, kYankKindNoLine);
+    nvi.selectedRegister = -1;
+
+    return true;
+}
+
+static void ensure_line_has_width(ViWin* self, int y, int width)
+{
+    auto line = self.texts.item(y, wstring(""));
+
+    if(line.length() < width) {
+        auto new_line = xsprintf("%ls%ls", line, wstring(" ").multiply(width - line.length())).to_wstring();
+        self.texts.replace(y, clone new_line);
+        self.texts_length.replace(y, wcslen(new_line));
+    }
+}
+
+static void paste_block(ViWin* self, Vi* nvi, int insert_x)
+{
+    self.pushUndo();
+
+    for(int i=0; i<nvi.yank.length(); i++) {
+        int y = self.scroll + self.cursorY + i;
+
+        while(y >= self.texts.length()) {
+            self.texts.push_back(wstring(""));
+            self.texts_length.push_back(0);
+        }
+
+        ensure_line_has_width(self, y, insert_x);
+
+        auto line = self.texts.item(y, wstring(""));
+        auto yank_line = nvi.yank.item(i, wstring(""));
+        auto new_line = xsprintf("%ls%ls%ls"
+                , line.substring(0, insert_x)
+                , yank_line
+                , line.substring(insert_x, -1)).to_wstring();
+
+        self.texts.replace(y, clone new_line);
+        self.texts_length.replace(y, wcslen(new_line));
+    }
+}
+
+static bool prepare_yank_for_paste(ViWin* self, Vi* nvi)
+{
+    if(is_named_register(nvi.selectedRegister)) {
+        return load_yank_from_named_register(nvi);
+    }
+
+    if(nvi.yank.length() > 0) {
+        return true;
+    }
+
+    return self.loadYankFromFile(nvi);
+}
+
 bool ViWin*::saveYankToFile(ViWin* self, Vi* nvi)
 {
     char* home = getenv("HOME");
+    save_yank_to_named_register(nvi);
     if(home == null) {
         return false;
     }
@@ -13,6 +97,8 @@ bool ViWin*::saveYankToFile(ViWin* self, Vi* nvi)
     if(f == null) {
         return false;
     }
+
+    fprintf(f, "__VIN_YANK_KIND__:%d\n", nvi.yankKind);
 
     foreach(it, nvi.yank) {
         fputs(it.to_string(), f);
@@ -26,6 +112,10 @@ bool ViWin*::saveYankToFile(ViWin* self, Vi* nvi)
 
 bool ViWin*::loadYankFromFile(ViWin* self, Vi* nvi)
 {
+    if(load_yank_from_named_register(nvi)) {
+        return true;
+    }
+
     char* home = getenv("HOME");
     if(home == null) {
         return false;
@@ -42,11 +132,19 @@ bool ViWin*::loadYankFromFile(ViWin* self, Vi* nvi)
 
     nvi.yank.reset();
 
+    bool first_line = true;
+
     while(fgets(line, 4096, f) != NULL)
     {
         char c = line[strlen(line)-1];
         line[strlen(line)-1] = '\0';
+        if(first_line && strncmp(line, "__VIN_YANK_KIND__:", 18) == 0) {
+            nvi.yankKind = atoi(line + 18);
+            first_line = false;
+            continue;
+        }
         nvi.yank.push_back(wstring(line))
+        first_line = false;
     }
 
     fclose(f);
@@ -110,7 +208,7 @@ bool ViWin*::loadFileYankFromFile(ViWin* self, Vi* nvi)
 
 void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi) 
 {
-    self.loadYankFromFile(nvi);
+    prepare_yank_for_paste(self, nvi);
     if(nvi.yankKind == kYankKindLine) {
         self.pushUndo();
 
@@ -120,6 +218,9 @@ void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi)
             self.texts_length.insert(self.scroll+self.cursorY+it2+1, wcslen(it));
             it2++;
         }
+    }
+    else if(nvi.yankKind == kYankKindBlock) {
+        paste_block(self, nvi, self.cursorX+1);
     }
     else {
         self.pushUndo();
@@ -188,7 +289,7 @@ void ViWin*::pasteAfterCursor(ViWin* self, Vi* nvi)
 
 void ViWin*::pasteBeforeCursor(ViWin* self, Vi* nvi) 
 {
-    self.loadYankFromFile(nvi);
+    prepare_yank_for_paste(self, nvi);
     if(nvi.yankKind == kYankKindLine) {
         self.pushUndo();
         int it2 = 0;
@@ -197,6 +298,9 @@ void ViWin*::pasteBeforeCursor(ViWin* self, Vi* nvi)
             self.texts_length.insert(self.scroll+self.cursorY+it2, wcslen(it));
             it2++;
         }
+    }
+    else if(nvi.yankKind == kYankKindBlock) {
+        paste_block(self, nvi, self.cursorX);
     }
     else {
         self.pushUndo();
@@ -346,8 +450,17 @@ Vi*% Vi*::initialize(Vi*% self) version 7
 
     result.yank = new list<wstring>.initialize();
     result.fileYank = new list<wstring>.initialize();
+    result.registers = new map<int, list<wstring>*%>.initialize();
+    result.registerKinds = new map<int, int>.initialize();
+    result.selectedRegister = -1;
 
     result.yankKind = 0;
+
+    result.events.replace('"', void lambda(Vi* self, int key)
+    {
+        self.selectedRegister = self.activeWin.getKey(false);
+        self.activeWin.saveInputedKey();
+    });
 
     result.events.replace('p', void lambda(Vi* self, int key) 
     {
@@ -371,4 +484,3 @@ Vi*% Vi*::initialize(Vi*% self) version 7
 
     return result;
 }
-

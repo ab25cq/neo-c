@@ -1,5 +1,171 @@
 #include "common.h"
 
+static bool search_has_uppercase(wchar_t* pattern)
+{
+    for(int i=0; pattern[i] != 0; i++) {
+        if(pattern[i] >= 'A' && pattern[i] <= 'Z') {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+static bool search_ignore_case(Vi* nvi)
+{
+    if(!nvi.searchIgnoreCase) {
+        return false;
+    }
+
+    if(nvi.searchSmartCase && search_has_uppercase(nvi.searchString)) {
+        return false;
+    }
+
+    return true;
+}
+
+static bool is_search_word_char(char c)
+{
+    return xisalnum(c) || c == '_';
+}
+
+static bool match_plain_at(string text, string pattern, int index, bool ignore_case)
+{
+    if(index < 0 || index + pattern.length() > text.length()) {
+        return false;
+    }
+
+    for(int i=0; i<pattern.length(); i++) {
+        char c1 = text[index+i];
+        char c2 = pattern[i];
+
+        if(ignore_case) {
+            if(c1 >= 'A' && c1 <= 'Z') {
+                c1 = c1 - 'A' + 'a';
+            }
+            if(c2 >= 'A' && c2 <= 'Z') {
+                c2 = c2 - 'A' + 'a';
+            }
+        }
+
+        if(c1 != c2) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+static bool is_whole_word_match(string text, string pattern, int index)
+{
+    int head = index - 1;
+    int tail = index + pattern.length();
+
+    bool head_ok = head < 0 || !is_search_word_char(text[head]);
+    bool tail_ok = tail >= text.length() || !is_search_word_char(text[tail]);
+
+    return head_ok && tail_ok;
+}
+
+static int find_plain_match(string text, string pattern, int start, bool reverse, bool ignore_case, bool whole_word)
+{
+    if(pattern.length() == 0) {
+        return -1;
+    }
+
+    if(reverse) {
+        int limit = start;
+        if(limit > text.length() - pattern.length()) {
+            limit = text.length() - pattern.length();
+        }
+
+        for(int i=limit; i>=0; i--) {
+            if(match_plain_at(text, pattern, i, ignore_case)) {
+                if(!whole_word || is_whole_word_match(text, pattern, i)) {
+                    return i;
+                }
+            }
+        }
+    }
+    else {
+        if(start < 0) {
+            start = 0;
+        }
+
+        for(int i=start; i + pattern.length() <= text.length(); i++) {
+            if(match_plain_at(text, pattern, i, ignore_case)) {
+                if(!whole_word || is_whole_word_match(text, pattern, i)) {
+                    return i;
+                }
+            }
+        }
+    }
+
+    return -1;
+}
+
+static int find_match_in_line(string text, Vi* nvi, int start, bool reverse, bool whole_word)
+{
+    auto pattern = ((wchar_t*)nvi.searchString).to_string();
+    bool ignore_case = search_ignore_case(nvi);
+
+    if(nvi.regexSearch) {
+        if(reverse) {
+            return text.rindex_regex(pattern, -1, ignore_case);
+        }
+        else {
+            if(start <= 0) {
+                return text.index_regex(pattern, -1, ignore_case);
+            }
+
+            auto sub = text.substring(start, -1);
+            int x = sub.index_regex(pattern, -1, ignore_case);
+            return x < 0 ? -1 : x + start;
+        }
+    }
+
+    return find_plain_match(text, pattern, start, reverse, ignore_case, whole_word);
+}
+
+static void search_word_on_cursor(ViWin* self, Vi* nvi, bool reverse, bool whole_word)
+{
+    auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+
+    if(self.cursorX >= line.length()) {
+        return;
+    }
+
+    auto line_string = line.to_string();
+    int pos = self.cursorX;
+    if(!is_search_word_char(line_string[pos])) {
+        return;
+    }
+
+    while(pos > 0 && is_search_word_char(line_string[pos-1])) {
+        pos--;
+    }
+    int head = pos;
+
+    while(pos < line.length() && is_search_word_char(line_string[pos])) {
+        pos++;
+    }
+
+    auto search_word = line.substring(head, pos);
+
+    wcsncpy(nvi.searchString, search_word, 128);
+    nvi.searchReverse = reverse;
+    nvi.regexSearch = false;
+    nvi.searchWholeWord = whole_word;
+
+    if(reverse) {
+        self.searchReverse(nvi, whole_word);
+    }
+    else {
+        self.search(nvi, whole_word);
+    }
+    nvi.saveSearchString("searchString.vin");
+}
+
 void ViWin*::searchModeView(ViWin* self, Vi* nvi)
 {
     werase(self.win);
@@ -28,36 +194,24 @@ void ViWin*::view(ViWin* self, Vi* nvi) version 9
     }
 }
 
-void ViWin*::search(ViWin* self, Vi* nvi) 
+void ViWin*::search(ViWin* self, Vi* nvi, bool whole_word=false) 
 {
     if(wcscmp(nvi.searchString, wstring("")) == 0) 
     {
         return;
     }
     
-    auto cursor_line = self.texts.item(self.scroll+self.cursorY, null);
-
-    int x = cursor_line.substring(self.cursorX+1, -1).index(nvi.searchString, -1);
+    auto cursor_line = self.texts.item(self.scroll+self.cursorY, null).to_string();
+    int x = find_match_in_line(cursor_line, nvi, self.cursorX+1, false, whole_word);
 
     if(x != -1) {
         self.saveReturnPoint();
-
-        x += self.cursorX + 1;
         self.cursorX = x;
     }
     else {
         int it2 = 0;
         foreach(it, self.texts.sublist(self.scroll+self.cursorY+1, -1)) {
-            int x;
-            
-            if(nvi.regexSearch) {
-                ((wchar_t*)nvi.searchString).to_string().if {
-                    x = it.to_string().index_regex(Value, -1);
-                }
-            }
-            else {
-                x = it.index(nvi.searchString, -1);
-            }
+            int x = find_match_in_line(it.to_string(), nvi, 0, false, whole_word);
 
             if(x != -1) {
                 self.saveReturnPoint();
@@ -69,26 +223,42 @@ void ViWin*::search(ViWin* self, Vi* nvi)
             }
             it2++;
         }
+
+        if(it2 == self.texts.sublist(self.scroll+self.cursorY+1, -1).length()) {
+            int current_y = self.scroll + self.cursorY;
+
+            for(int i=0; i<current_y; i++) {
+                auto line = self.texts.item(i, wstring(""));
+                x = find_match_in_line(line.to_string(), nvi, 0, false, whole_word);
+
+                if(x != -1) {
+                    self.saveReturnPoint();
+                    self.scroll = 0;
+                    self.cursorY = i;
+                    self.modifyOverCursorYValue();
+                    self.cursorX = x;
+                    return;
+                }
+            }
+
+            x = find_match_in_line(cursor_line, nvi, 0, false, whole_word);
+            if(x != -1 && x <= self.cursorX) {
+                self.saveReturnPoint();
+                self.cursorX = x;
+            }
+        }
     }
 }
 
-void ViWin*::searchReverse(ViWin* self, Vi* nvi) 
+void ViWin*::searchReverse(ViWin* self, Vi* nvi, bool whole_word=false) 
 {
     if(wcscmp(nvi.searchString, wstring("")) == 0) 
     {
         return;
     }
     
-    auto cursor_line = self.texts.item(self.scroll+self.cursorY, null);
-
-    int x;
-    if(self.cursorX < ((wchar_t*)nvi.searchString).length())
-    {
-        x = -1;
-    }
-    else {
-        x = cursor_line.substring(0, self.cursorX-1).rindex(nvi.searchString, -1)
-    }
+    auto cursor_line = self.texts.item(self.scroll+self.cursorY, null).to_string();
+    int x = find_match_in_line(cursor_line, nvi, self.cursorX-1, true, whole_word);
 
     if(x != -1) {
         self.saveReturnPoint();
@@ -98,15 +268,7 @@ void ViWin*::searchReverse(ViWin* self, Vi* nvi)
     else {
         int it2 = 0;
         foreach(it, self.texts.sublist(0, self.scroll+self.cursorY).reverse()) {
-            int x;
-            if(nvi.regexSearch) {
-                ((wchar_t*)nvi.searchString).to_string().if {
-                    x = it.to_string().index_regex(Value, -1);
-                }
-            }
-            else {
-                x = it.rindex(nvi.searchString, -1);
-            }
+            int x = find_match_in_line(it.to_string(), nvi, it.to_string().length()-1, true, whole_word);
 
             if(x != -1) {
                 self.saveReturnPoint();
@@ -119,100 +281,51 @@ void ViWin*::searchReverse(ViWin* self, Vi* nvi)
 
             it2++;
         }
+
+        if(it2 == self.texts.sublist(0, self.scroll+self.cursorY).length()) {
+            int current_y = self.scroll + self.cursorY;
+
+            for(int i=self.texts.length()-1; i>current_y; i--) {
+                auto line = self.texts.item(i, wstring(""));
+                x = find_match_in_line(line.to_string(), nvi, line.to_string().length()-1, true, whole_word);
+
+                if(x != -1) {
+                    self.saveReturnPoint();
+                    self.scroll = 0;
+                    self.cursorY = i;
+                    self.modifyOverCursorYValue();
+                    self.cursorX = x;
+                    return;
+                }
+            }
+
+            x = find_match_in_line(cursor_line, nvi, cursor_line.length()-1, true, whole_word);
+            if(x != -1 && x >= self.cursorX) {
+                self.saveReturnPoint();
+                self.cursorX = x;
+            }
+        }
     }
 }
 
 void ViWin*::searchWordOnCursor(ViWin* self, Vi* nvi)
 {
-    auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
-
-    if(self.cursorX < line.length()) {
-        int cursor_x_before = self.cursorX;
-        wchar_t* p = line + self.cursorX;
-
-        if((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9') || *p == '_')
-        {
-            while((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9') || *p == '_')
-            {
-                p--;
-                self.cursorX--;
-            }
-            
-            if(self.cursorX < 0) {
-                self.cursorX = 0;
-                p = borrow line;
-            }
-            else {
-                self.cursorX++;
-                p++;
-            }
-        }
-        
-        int word_head = self.cursorX;
-        
-        if((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9') || *p == '_')
-        {
-            while((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9') || *p == '_')
-            {
-                p++;
-                self.cursorX++;
-            }
-        }
-
-        auto search_word = line.substring(word_head, self.cursorX);
-        wcsncpy(nvi.searchString, search_word, 128);
-        
-        self.cursorX = cursor_x_before;
-
-        nvi.searchReverse = false;
-        self.search(nvi);
-    }
+    search_word_on_cursor(self, nvi, false, true);
 }
 
 void ViWin*::searchWordOnCursorReverse(ViWin* self, Vi* nvi)
 {
-    auto line = self.texts.item(self.scroll+self.cursorY, wstring(""));
+    search_word_on_cursor(self, nvi, true, true);
+}
 
-    if(self.cursorX < line.length()) {
-        int cursor_x_before = self.cursorX;
-        wchar_t* p = line + self.cursorX;
+void ViWin*::searchWordOnCursor2(ViWin* self, Vi* nvi)
+{
+    search_word_on_cursor(self, nvi, false, false);
+}
 
-        if((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9') || *p == '_')
-        {
-            while((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9') || *p == '_')
-            {
-                p--;
-                self.cursorX--;
-            }
-            
-            if(self.cursorX < 0) {
-                self.cursorX = 0;
-                p = borrow line;
-            }
-            else {
-                self.cursorX++;
-                p++;
-            }
-        }
-        
-        int word_head = self.cursorX;
-        
-        if((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9') || *p == '_')
-        {
-            while((*p >= 'a' && *p <= 'z') || (*p >= 'A' && *p <= 'Z') || (*p >= '0' && *p <= '9') || *p == '_')
-            {
-                p++;
-                self.cursorX++;
-            }
-        }
-
-        auto search_word = line.substring(word_head, self.cursorX);
-        wcsncpy(nvi.searchString, search_word, 128);
-        
-        self.cursorX = cursor_x_before;
-        nvi.searchReverse = true;
-        self.searchReverse(nvi);
-    }
+void ViWin*::searchWordOnCursorReverse2(ViWin* self, Vi* nvi)
+{
+    search_word_on_cursor(self, nvi, true, false);
 }
 
 void ViWin*::inputSearchlMode(ViWin* self, Vi* nvi)
@@ -257,11 +370,12 @@ void ViWin*::inputSearchlMode(ViWin* self, Vi* nvi)
 
         case 10:
             if(nvi.searchReverse) {
-                self.searchReverse(nvi);
+                self.searchReverse(nvi, nvi.searchWholeWord);
             }
             else {
-                self.search(nvi);
+                self.search(nvi, nvi.searchWholeWord);
             }
+            nvi.saveSearchString("searchString.vin");
             nvi.exitFromSearchMode();
             break;
             
@@ -354,6 +468,7 @@ void Vi*::enterSearchMode(Vi* self, bool regex_search, bool reverse) version 9
     wcsncpy(self.searchString, wstring(""), 128);
     self.regexSearch = regex_search;
     self.searchReverse = reverse;
+    self.searchWholeWord = false;
 }
 
 void Vi*::exitFromSearchMode(Vi* self) 
@@ -368,6 +483,8 @@ Vi*% Vi*::initialize(Vi*% self) version 9
     
     result.readSearchString("searchString.vin");
     result.modeBeforeSearch = kEditMode;
+    result.searchIgnoreCase = true;
+    result.searchSmartCase = true;
 
     result.events.replace('/', void lambda(Vi* self, int key) 
     {
@@ -384,10 +501,10 @@ Vi*% Vi*::initialize(Vi*% self) version 9
     result.events.replace('n', void lambda(Vi* self, int key) 
     {
         if(self.searchReverse) {
-            self.activeWin.searchReverse(self);
+            self.activeWin.searchReverse(self, self.searchWholeWord);
         }
         else {
-            self.activeWin.search(self);
+            self.activeWin.search(self, self.searchWholeWord);
         }
         self.activeWin.saveInputedKeyOnTheMovingCursor();
         //self.activeWin.saveInputedKey();
@@ -395,10 +512,10 @@ Vi*% Vi*::initialize(Vi*% self) version 9
     result.events.replace('N', void lambda(Vi* self, int key) 
     {
         if(self.searchReverse) {
-            self.activeWin.search(self);
+            self.activeWin.search(self, self.searchWholeWord);
         }
         else {
-            self.activeWin.searchReverse(self);
+            self.activeWin.searchReverse(self, self.searchWholeWord);
         }
         self.activeWin.saveInputedKeyOnTheMovingCursor();
         //self.activeWin.saveInputedKey();

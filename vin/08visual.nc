@@ -129,6 +129,7 @@ void ViWin*::indentVisualMode(ViWin* self, Vi* nvi)
     }
 
     self.modifyOverCursorXValue();
+    self.writed = true;
 }
 
 void ViWin*::backIndentVisualMode(ViWin* self, Vi* nvi) 
@@ -156,11 +157,24 @@ void ViWin*::backIndentVisualMode(ViWin* self, Vi* nvi)
             self.texts.replace(it2+head, new_line);
             self.texts_length.replace(it2+head, wcslen(new_line));
         }
+        else {
+            int removed = 0;
+            while(removed < 4 && new_line.length() > 0 && new_line[0] == ' ') {
+                new_line.delete(0, 1);
+                removed++;
+            }
+
+            if(removed > 0) {
+                self.texts.replace(it2+head, new_line);
+                self.texts_length.replace(it2+head, wcslen(new_line));
+            }
+        }
 
         it2++;
     }
 
     self.modifyOverCursorXValue();
+    self.writed = true;
 }
 
 void ViWin*::changeCaseVisualMode(ViWin* self, Vi* nvi) 
@@ -493,6 +507,10 @@ void ViWin*::inputVisualMode(ViWin* self, Vi* nvi)
             self.keyG(nvi);
             break;
 
+        case ':':
+            nvi.enterComandMode();
+            break;
+
         case '/':
             nvi.enterSearchMode(false, false);
             break;
@@ -521,6 +539,7 @@ void ViWin*::inputVisualMode(ViWin* self, Vi* nvi)
         case '>':
             self.indentVisualMode(nvi);
             nvi.exitFromVisualMode();
+            nvi.clearView();
     
             self.makeInputedKeyGVIndent(nvi);
             break;
@@ -528,6 +547,7 @@ void ViWin*::inputVisualMode(ViWin* self, Vi* nvi)
         case '<':
             self.backIndentVisualMode(nvi);
             nvi.exitFromVisualMode();
+            nvi.clearView();
             self.makeInputedKeyGVDeIndent(nvi);
             break;
 

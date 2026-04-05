@@ -1417,6 +1417,30 @@ struct list$1lambda$
     struct list_item$1lambda$* it;
 };
 
+struct map$2int$list$1int$ph$ph
+{
+    int* keys;
+    unsigned int* hashes;
+    _Bool* item_existance;
+    struct list$1int$ph** items;
+    int size;
+    int len;
+    struct list$1int$* key_list;
+    int it;
+};
+
+struct map$2int$int$
+{
+    int* keys;
+    unsigned int* hashes;
+    _Bool* item_existance;
+    int* items;
+    int size;
+    int len;
+    struct list$1int$* key_list;
+    int it;
+};
+
 struct Vi
 {
     struct list$1ViWin$ph* wins;
@@ -1428,15 +1452,27 @@ struct Vi
     struct list$1int$ph* yank;
     struct list$1int$ph* fileYank;
     int yankKind;
+    struct map$2int$list$1int$ph$ph* registers;
+    struct map$2int$int$* registerKinds;
+    int selectedRegister;
     int  searchString[128]  ;
     _Bool searchReverse;
     _Bool regexSearch;
+    _Bool searchWholeWord;
+    _Bool searchIgnoreCase;
+    _Bool searchSmartCase;
     int modeBeforeSearch;
+    int modeBeforeCommand;
     char commandString[128];
+    struct list$1char$ph* commandHistory;
+    int commandHistoryIndex;
+    _Bool commandHistoryBrowsing;
+    char commandStringBeforeHistory[128];
 };
 
 enum { kYankKindLine 
 ,kYankKindNoLine 
+,kYankKindBlock 
 };
 
 enum  eRepeatForwardNextCharacter { kRFNCNone 
@@ -2982,6 +3018,10 @@ struct Vi*  Vi_initialize_v3(struct Vi*  self  );
 int Vi_main_loop_v3(struct Vi*  self  );
 void ViWin_forwardWord(struct ViWin*  self  );
 void ViWin_forwardWord2(struct ViWin*  self  );
+void ViWin_forwardBigWord(struct ViWin*  self  );
+void ViWin_forwardBigWord2(struct ViWin*  self  );
+void ViWin_backwardBigWord(struct ViWin*  self  );
+void ViWin_backwardEndWord(struct ViWin*  self  );
 void ViWin_backwardWord_v4(struct ViWin*  self  );
 struct Vi*  Vi_initialize_v4(struct Vi*  self  );
 struct ViWin*  ViWin_initialize_v5(struct ViWin*  self  , int y, int x, int width, int height, struct Vi*  vi  );
@@ -2998,9 +3038,12 @@ void ViWin_openFile_v6(struct ViWin*  self  , char*  file_name  , int line_num, 
 void ViWin_makeTmpFile(struct ViWin*  self  );
 void ViWin_deleteTmpFile(struct ViWin*  self  );
 void ViWin_writeFile(struct ViWin*  self  , _Bool binary_mode);
+void ViWin_writeFileAs(struct ViWin*  self  , char*  file_name  , _Bool binary_mode, _Bool update_current_file);
 void ViWin_writedFlagOn_v6(struct ViWin*  self  );
 _Bool ViWin_saveDotToFile_v6(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_resetForOpen(struct ViWin*  self  );
 void Vi_openNewFile(struct Vi*  self  , char*  file_name  );
+void Vi_editActiveFile(struct Vi*  self  , char*  file_name  , _Bool force);
 void Vi_closeActiveWin(struct Vi*  self  );
 void Vi_exitFromApp_v6(struct Vi*  self  );
 void Vi_toggleWin(struct Vi*  self  );
@@ -3042,10 +3085,12 @@ void Vi_enterVisualMode(struct Vi*  self  );
 void Vi_exitFromVisualMode(struct Vi*  self  );
 void ViWin_searchModeView(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v9(struct ViWin*  self  , struct Vi*  nvi  );
-void ViWin_search(struct ViWin*  self  , struct Vi*  nvi  );
-void ViWin_searchReverse(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_search(struct ViWin*  self  , struct Vi*  nvi  , _Bool whole_word);
+void ViWin_searchReverse(struct ViWin*  self  , struct Vi*  nvi  , _Bool whole_word);
 void ViWin_searchWordOnCursor(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_searchWordOnCursorReverse(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_searchWordOnCursor2(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_searchWordOnCursorReverse2(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_inputSearchlMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v9(struct ViWin*  self  , struct Vi*  nvi  );
 void Vi_saveSearchString(struct Vi*  self  , const char* file_name);
@@ -3092,8 +3137,13 @@ void ViWin_fileCompetion(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_commandModeInput(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v12(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v12(struct ViWin*  self  , struct Vi*  nvi  );
-void ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_subAllTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_yankLinesFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_copyLinesFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_moveLinesFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+_Bool ViWin_deleteLinesFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_filterTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_filterVerticalTextsFromCommandMode(struct ViWin*  self  , struct Vi*  nvi  );
 void Vi_enterComandMode(struct Vi*  self  );
 void Vi_exitFromComandMode(struct Vi*  self  );
 struct Vi*  Vi_initialize_v12(struct Vi*  self  );
@@ -3127,9 +3177,12 @@ struct ViWin*  ViWin_initialize_v18(struct ViWin*  self  , int y, int x, int wid
 void ViWin_verticalVisualModeView(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v18(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_deleteOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_yankOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_deleteLinesOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_changeCaseVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_rewriteOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_indentVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
+void ViWin_backIndentVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_insertOnVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_inputVerticalVisualMode(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_input_v18(struct ViWin*  self  , struct Vi*  nvi  );
@@ -3201,6 +3254,10 @@ static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self);
 static void list_item$1ViWin$ph$p_finalize(struct list_item$1ViWin$ph* self);
 static void list$1lambda$$p_finalize(struct list$1lambda$* self);
 static void list_item$1lambda$$p_finalize(struct list_item$1lambda$* self);
+static void map$2int$list$1int$ph$ph$p_finalize(struct map$2int$list$1int$ph$ph* self);
+static void map$2int$int$$p_finalize(struct map$2int$int$* self);
+static void list$1char$ph$p_finalize(struct list$1char$ph* self);
+static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self);
 // uniq global variable
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
@@ -5591,7 +5648,7 @@ void ViWin_inputHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
     int key;
     # 503 "17hvisual.nc"
     key=ViWin_getKey_v14(self,(_Bool)0);
-    # 613 "17hvisual.nc"
+    # 632 "17hvisual.nc"
     switch (    key) {
         # 507 "17hvisual.nc"
         case 108:
@@ -5672,98 +5729,126 @@ void ViWin_inputHorizonVisualMode(struct ViWin*  self  , struct Vi*  nvi  )
         # 554 "17hvisual.nc"
         break;
         # 557 "17hvisual.nc"
-        case 47:
+        case 58:
         # 557 "17hvisual.nc"
-        Vi_enterSearchMode_v9(nvi,(_Bool)0,(_Bool)0);
+        Vi_enterComandMode(nvi);
         # 558 "17hvisual.nc"
         break;
         # 561 "17hvisual.nc"
-        case 63:
+        case 47:
         # 561 "17hvisual.nc"
-        Vi_enterSearchMode_v9(nvi,(_Bool)0,(_Bool)1);
+        Vi_enterSearchMode_v9(nvi,(_Bool)0,(_Bool)0);
         # 562 "17hvisual.nc"
         break;
         # 565 "17hvisual.nc"
-        case 121:
+        case 63:
         # 565 "17hvisual.nc"
-        ViWin_yankOnHorizonVisualMode(self,nvi);
+        Vi_enterSearchMode_v9(nvi,(_Bool)0,(_Bool)1);
         # 566 "17hvisual.nc"
-        Vi_exitFromVisualMode(nvi);
-        # 567 "17hvisual.nc"
         break;
+        # 569 "17hvisual.nc"
+        case 121:
+        # 569 "17hvisual.nc"
+        ViWin_yankOnHorizonVisualMode(self,nvi);
         # 570 "17hvisual.nc"
-        case 100:
-        # 570 "17hvisual.nc"
-        ViWin_deleteOnHorizonVisualMode(self,nvi);
+        Vi_exitFromVisualMode(nvi);
         # 571 "17hvisual.nc"
-        Vi_exitFromVisualMode(nvi);
-        # 572 "17hvisual.nc"
         break;
+        # 574 "17hvisual.nc"
+        case 100:
+        # 574 "17hvisual.nc"
+        ViWin_deleteOnHorizonVisualMode(self,nvi);
         # 575 "17hvisual.nc"
-        case 126:
-        # 575 "17hvisual.nc"
-        ViWin_changeCaseHorizonVisualMode(self,nvi);
+        Vi_exitFromVisualMode(nvi);
         # 576 "17hvisual.nc"
-        Vi_exitFromVisualMode(nvi);
-        # 577 "17hvisual.nc"
         break;
+        # 579 "17hvisual.nc"
+        case 126:
+        # 579 "17hvisual.nc"
+        ViWin_changeCaseHorizonVisualMode(self,nvi);
         # 580 "17hvisual.nc"
-        case 99:
-        # 580 "17hvisual.nc"
-        ViWin_deleteOnHorizonVisualMode(self,nvi);
+        Vi_exitFromVisualMode(nvi);
         # 581 "17hvisual.nc"
-        Vi_exitFromVisualMode(nvi);
-        # 582 "17hvisual.nc"
-        Vi_enterInsertMode_v5(nvi);
-        # 583 "17hvisual.nc"
         break;
-        # 586 "17hvisual.nc"
-        case 114:
-        # 586 "17hvisual.nc"
-        ViWin_rewriteOnHorizonVisualMode(self,nvi);
-        # 587 "17hvisual.nc"
-        Vi_exitFromVisualMode(nvi);
-        # 588 "17hvisual.nc"
-        break;
-        # 591 "17hvisual.nc"
-        case 67:
-        # 591 "17hvisual.nc"
-        ViWin_deleteUntilTail(self);
-        # 592 "17hvisual.nc"
+        # 584 "17hvisual.nc"
+        case 99:
+        # 584 "17hvisual.nc"
         ViWin_deleteOnHorizonVisualMode(self,nvi);
-        # 593 "17hvisual.nc"
+        # 585 "17hvisual.nc"
         Vi_exitFromVisualMode(nvi);
+        # 586 "17hvisual.nc"
+        Vi_enterInsertMode_v5(nvi);
+        # 587 "17hvisual.nc"
+        break;
+        # 590 "17hvisual.nc"
+        case 114:
+        # 590 "17hvisual.nc"
+        ViWin_rewriteOnHorizonVisualMode(self,nvi);
+        # 591 "17hvisual.nc"
+        Vi_exitFromVisualMode(nvi);
+        # 592 "17hvisual.nc"
+        break;
+        # 595 "17hvisual.nc"
+        case 67:
+        # 595 "17hvisual.nc"
+        ViWin_deleteUntilTail(self);
+        # 596 "17hvisual.nc"
+        ViWin_deleteOnHorizonVisualMode(self,nvi);
         # 597 "17hvisual.nc"
+        Vi_exitFromVisualMode(nvi);
+        # 601 "17hvisual.nc"
         if(list$1int$ph_length(self->texts)!=0) {
-            # 595 "17hvisual.nc"
+            # 599 "17hvisual.nc"
             self->cursorX++;
         }
-        # 597 "17hvisual.nc"
-        Vi_enterInsertMode_v5(nvi);
-        # 598 "17hvisual.nc"
-        break;
         # 601 "17hvisual.nc"
+        Vi_enterInsertMode_v5(nvi);
+        # 602 "17hvisual.nc"
+        break;
+        # 605 "17hvisual.nc"
         case 119:
-        # 602 "17hvisual.nc"
-        case 101:
-        # 602 "17hvisual.nc"
+        # 605 "17hvisual.nc"
         ViWin_forwardWord(self);
-        # 603 "17hvisual.nc"
-        break;
         # 606 "17hvisual.nc"
+        break;
+        # 609 "17hvisual.nc"
+        case 101:
+        # 609 "17hvisual.nc"
+        ViWin_forwardWord2(self);
+        # 610 "17hvisual.nc"
+        break;
+        # 613 "17hvisual.nc"
         case 98:
-        # 606 "17hvisual.nc"
+        # 613 "17hvisual.nc"
         ViWin_backwardWord_v4(self);
-        # 607 "17hvisual.nc"
+        # 614 "17hvisual.nc"
         break;
-        # 610 "17hvisual.nc"
+        # 617 "17hvisual.nc"
+        case 87:
+        # 617 "17hvisual.nc"
+        ViWin_forwardBigWord(self);
+        # 618 "17hvisual.nc"
+        break;
+        # 621 "17hvisual.nc"
+        case 69:
+        # 621 "17hvisual.nc"
+        ViWin_forwardBigWord2(self);
+        # 622 "17hvisual.nc"
+        break;
+        # 625 "17hvisual.nc"
+        case 66:
+        # 625 "17hvisual.nc"
+        ViWin_backwardBigWord(self);
+        # 626 "17hvisual.nc"
+        break;
+        # 629 "17hvisual.nc"
         case 27:
-        # 610 "17hvisual.nc"
+        # 629 "17hvisual.nc"
         Vi_exitFromVisualMode(nvi);
-        # 611 "17hvisual.nc"
+        # 630 "17hvisual.nc"
         break;
     }
-    # 613 "17hvisual.nc"
+    # 632 "17hvisual.nc"
     ViWin_saveInputedKey_v14(self);
     neo_current_frame = fr.prev;
 }
@@ -5786,13 +5871,13 @@ static int list$1int$ph_length(struct list$1int$ph* self)
 void ViWin_input_v17(struct ViWin*  self  , struct Vi*  nvi  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_input_v17"; neo_current_frame = &fr;
-    # 624 "17hvisual.nc"
+    # 643 "17hvisual.nc"
     if(nvi->mode==(5)) {
-        # 619 "17hvisual.nc"
+        # 638 "17hvisual.nc"
         ViWin_inputHorizonVisualMode(self,nvi);
     }
     else {
-        # 622 "17hvisual.nc"
+        # 641 "17hvisual.nc"
         ViWin_input_v12(self,nvi);
     }
     neo_current_frame = fr.prev;
@@ -5801,13 +5886,13 @@ void ViWin_input_v17(struct ViWin*  self  , struct Vi*  nvi  )
 void Vi_enterHorizonVisualMode(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_enterHorizonVisualMode"; neo_current_frame = &fr;
-    # 628 "17hvisual.nc"
+    # 647 "17hvisual.nc"
     self->mode=(5);
-    # 629 "17hvisual.nc"
+    # 648 "17hvisual.nc"
     self->activeWin->visualModeHorizonHeadScroll=self->activeWin->scroll;
-    # 630 "17hvisual.nc"
+    # 649 "17hvisual.nc"
     self->activeWin->visualModeHorizonHeadX=self->activeWin->cursorX;
-    # 631 "17hvisual.nc"
+    # 650 "17hvisual.nc"
     self->activeWin->visualModeHorizonHeadY=self->activeWin->cursorY;
     neo_current_frame = fr.prev;
 }
@@ -5815,9 +5900,9 @@ void Vi_enterHorizonVisualMode(struct Vi*  self  )
 static void lambda1(struct Vi*  self  , int key)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
-    # 640 "17hvisual.nc"
+    # 659 "17hvisual.nc"
     Vi_enterHorizonVisualMode(self);
-    # 641 "17hvisual.nc"
+    # 660 "17hvisual.nc"
     ViWin_saveInputedKey_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -5828,16 +5913,16 @@ struct Vi*  Vi_initialize_v17(struct Vi*  self  )
     void* __right_value0 = (void*)0;
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
-    # 636 "17hvisual.nc"
-    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v16((struct Vi* )come_increment_ref_count(self, "17hvisual.nc", 636, 298)), "17hvisual.nc", 636, 299);
-    # 642 "17hvisual.nc"
+    # 655 "17hvisual.nc"
+    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v16((struct Vi* )come_increment_ref_count(self, "17hvisual.nc", 655, 298)), "17hvisual.nc", 655, 299);
+    # 661 "17hvisual.nc"
     list$1lambda$_replace(result->events,118,lambda1);
-    # 644 "17hvisual.nc"
-        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "17hvisual.nc", 644, 306);
-    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "17hvisual.nc}", 644, 314);
-    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "17hvisual.nc}", 644, 315);
+    # 663 "17hvisual.nc"
+        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "17hvisual.nc", 663, 306);
+    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "17hvisual.nc}", 663, 326);
+    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "17hvisual.nc}", 663, 327);
     neo_current_frame = fr.prev;
-    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "17hvisual.nc}", 644, 316);
+    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "17hvisual.nc}", 663, 328);
     return __result_obj__0;
 }
 
@@ -5986,7 +6071,7 @@ static void Vi_finalize(struct Vi*  self  )
     # 3 "Vi_finalize"
     if(self!=((void*)0)&&self->wins!=((void*)0)) {
         # 2 "Vi_finalize"
-        come_call_finalizer(list$1ViWin$ph$p_finalize, self->wins, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 5, 309);
+        come_call_finalizer(list$1ViWin$ph$p_finalize, self->wins, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 8, 309);
     }
     # 4 "Vi_finalize"
     if(self!=((void*)0)&&self->events!=((void*)0)) {
@@ -6002,6 +6087,21 @@ static void Vi_finalize(struct Vi*  self  )
     if(self!=((void*)0)&&self->fileYank!=((void*)0)) {
         # 5 "Vi_finalize"
         come_call_finalizer(list$1int$ph$p_finalize, self->fileYank, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 5, 313);
+    }
+    # 7 "Vi_finalize"
+    if(self!=((void*)0)&&self->registers!=((void*)0)) {
+        # 6 "Vi_finalize"
+        come_call_finalizer(map$2int$list$1int$ph$ph$p_finalize, self->registers, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 0, 318);
+    }
+    # 8 "Vi_finalize"
+    if(self!=((void*)0)&&self->registerKinds!=((void*)0)) {
+        # 7 "Vi_finalize"
+        come_call_finalizer(map$2int$int$$p_finalize, self->registerKinds, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 0, 322);
+    }
+    # 9 "Vi_finalize"
+    if(self!=((void*)0)&&self->commandHistory!=((void*)0)) {
+        # 8 "Vi_finalize"
+        come_call_finalizer(list$1char$ph$p_finalize, self->commandHistory, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 0, 325);
     }
         neo_current_frame = fr.prev;
 }
@@ -6072,6 +6172,122 @@ static void list_item$1lambda$$p_finalize(struct list_item$1lambda$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1lambda$$p_finalize"; neo_current_frame = &fr;
     # 1 "list_item$1lambda$$p_finalize"
+            neo_current_frame = fr.prev;
+}
+
+static void map$2int$list$1int$ph$ph$p_finalize(struct map$2int$list$1int$ph$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
+    int i;
+    int i_68;
+    # 3373 "/usr/local/include/neo-c.h"
+    # 3382 "/usr/local/include/neo-c.h"
+    for(i=0    ;i<self->size;i++){
+        # 3381 "/usr/local/include/neo-c.h"
+        if(self->item_existance[i]) {
+            # 3380 "/usr/local/include/neo-c.h"
+            if(1) {
+                # 3378 "/usr/local/include/neo-c.h"
+                come_call_finalizer(list$1int$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3378, 314);
+            }
+        }
+    }
+    # 3382 "/usr/local/include/neo-c.h"
+    come_free((char*)self->items);
+    # 3391 "/usr/local/include/neo-c.h"
+    for(i_68=0    ;i_68<self->size;i_68++){
+        # 3390 "/usr/local/include/neo-c.h"
+        if(self->item_existance[i_68]) {
+            # 3389 "/usr/local/include/neo-c.h"
+            if(0) {
+                # 3387 "/usr/local/include/neo-c.h"
+            }
+        }
+    }
+    # 3391 "/usr/local/include/neo-c.h"
+    come_free((char*)self->keys);
+    # 3393 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 315);
+    # 3395 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 316));
+    # 3396 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 317));
+            neo_current_frame = fr.prev;
+}
+
+static void map$2int$int$$p_finalize(struct map$2int$int$* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$int$$p_finalize"; neo_current_frame = &fr;
+    int i;
+    int i_69;
+    # 3373 "/usr/local/include/neo-c.h"
+    # 3382 "/usr/local/include/neo-c.h"
+    for(i=0    ;i<self->size;i++){
+        # 3381 "/usr/local/include/neo-c.h"
+        if(self->item_existance[i]) {
+            # 3380 "/usr/local/include/neo-c.h"
+            if(0) {
+                # 3378 "/usr/local/include/neo-c.h"
+            }
+        }
+    }
+    # 3382 "/usr/local/include/neo-c.h"
+    come_free((char*)self->items);
+    # 3391 "/usr/local/include/neo-c.h"
+    for(i_69=0    ;i_69<self->size;i_69++){
+        # 3390 "/usr/local/include/neo-c.h"
+        if(self->item_existance[i_69]) {
+            # 3389 "/usr/local/include/neo-c.h"
+            if(0) {
+                # 3387 "/usr/local/include/neo-c.h"
+            }
+        }
+    }
+    # 3391 "/usr/local/include/neo-c.h"
+    come_free((char*)self->keys);
+    # 3393 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 319);
+    # 3395 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 320));
+    # 3396 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 321));
+            neo_current_frame = fr.prev;
+}
+
+static void list$1char$ph$p_finalize(struct list$1char$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
+    struct list_item$1char$ph* it;
+    struct list_item$1char$ph* prev_it;
+    # 1502 "/usr/local/include/neo-c.h"
+    if(self==((void*)0)) {
+        # 1500 "/usr/local/include/neo-c.h"
+                neo_current_frame = fr.prev;
+        return;
+    }
+    # 1502 "/usr/local/include/neo-c.h"
+    it=self->head;
+    # 1508 "/usr/local/include/neo-c.h"
+    while(it!=((void*)0)) {
+        # 1504 "/usr/local/include/neo-c.h"
+        prev_it=it;
+        # 1505 "/usr/local/include/neo-c.h"
+        it=it->next;
+        # 1506 "/usr/local/include/neo-c.h"
+        come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 324);
+    }
+            neo_current_frame = fr.prev;
+}
+
+static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$ph$p_finalize"; neo_current_frame = &fr;
+    # 1 "list_item$1char$ph$p_finalize"
+    # 3 "list_item$1char$ph$p_finalize"
+    if(self!=((void*)0)&&self->item!=((void*)0)) {
+        # 2 "list_item$1char$ph$p_finalize"
+        (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0, "list_item$1char$ph$p_finalize", 2, 323));
+    }
             neo_current_frame = fr.prev;
 }
 

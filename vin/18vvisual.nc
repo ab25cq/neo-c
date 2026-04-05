@@ -75,6 +75,29 @@ void ViWin*::view(ViWin* self, Vi* nvi) version 18
     }
 }
 
+void ViWin*::yankOnVerticalVisualMode(ViWin* self, Vi* nvi)
+{
+    int head = self.visualModeVerticalHeadY;
+    int tail = self.cursorY + self.scroll;
+
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
+    }
+
+    nvi.yank.reset();
+
+    for(int i=head; i<=tail; i++) {
+        auto line = self.texts.item(i, wstring(""));
+        nvi.yank.push_back(line.substring(self.visualModeVerticalHeadX
+                , self.visualModeVerticalHeadX + self.visualModeVerticalLen));
+    }
+
+    nvi.yankKind = kYankKindBlock;
+    self.saveYankToFile(nvi);
+}
+
 void ViWin*::deleteOnVerticalVisualMode(ViWin* self, Vi* nvi) 
 {
     self.pushUndo();
@@ -209,6 +232,97 @@ void ViWin*::rewriteOnVerticalVisualMode(ViWin* self, Vi* nvi)
     self.cursorX = self.visualModeVerticalStartX;
 }
 
+void ViWin*::indentVerticalVisualMode(ViWin* self, Vi* nvi)
+{
+    self.pushUndo();
+
+    int head = self.visualModeVerticalHeadY;
+    int tail = self.scroll + self.cursorY;
+
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
+    }
+
+    for(int i=head; i<=tail; i++) {
+        auto line = self.texts.item(i, wstring(""));
+        auto new_line = xsprintf("%ls%ls", wstring("    "), line).to_wstring();
+
+        self.texts.replace(i, clone new_line);
+        self.texts_length.replace(i, wcslen(new_line));
+    }
+
+    self.cursorY = self.visualModeVerticalStartY;
+    self.scroll = self.visualModeVerticalStartScroll;
+    self.cursorX = self.visualModeVerticalStartX + 4;
+    self.visualModeVerticalHeadX += 4;
+    self.modifyUnderCursorYValue();
+    self.modifyOverCursorYValue();
+    self.modifyOverCursorXValue();
+    self.writed = true;
+}
+
+void ViWin*::backIndentVerticalVisualMode(ViWin* self, Vi* nvi)
+{
+    self.pushUndo();
+
+    int head = self.visualModeVerticalHeadY;
+    int tail = self.scroll + self.cursorY;
+
+    if(head > tail) {
+        int tmp = head;
+        head = tail;
+        tail = tmp;
+    }
+
+    int deleted_columns = 4;
+
+    for(int i=head; i<=tail; i++) {
+        auto line = self.texts.item(i, wstring(""));
+        auto new_line = clone line;
+
+        if(new_line.index(wstring("    "), -1) == 0) {
+            for(int j=0; j<4; j++) {
+                new_line.delete(0, 1);
+            }
+        }
+        else {
+            int removed = 0;
+            while(removed < 4 && new_line.length() > 0 && new_line[0] == ' ') {
+                new_line.delete(0, 1);
+                removed++;
+            }
+
+            if(removed < deleted_columns) {
+                deleted_columns = removed;
+            }
+        }
+
+        self.texts.replace(i, clone new_line);
+        self.texts_length.replace(i, wcslen(new_line));
+    }
+
+    if(deleted_columns < 0) {
+        deleted_columns = 0;
+    }
+
+    self.cursorY = self.visualModeVerticalStartY;
+    self.scroll = self.visualModeVerticalStartScroll;
+    self.cursorX = self.visualModeVerticalStartX - deleted_columns;
+    if(self.cursorX < 0) {
+        self.cursorX = 0;
+    }
+    self.visualModeVerticalHeadX -= deleted_columns;
+    if(self.visualModeVerticalHeadX < 0) {
+        self.visualModeVerticalHeadX = 0;
+    }
+    self.modifyUnderCursorYValue();
+    self.modifyOverCursorYValue();
+    self.modifyOverCursorXValue();
+    self.writed = true;
+}
+
 void ViWin*::insertOnVerticalVisualMode(ViWin* self, Vi* nvi) 
 {
     auto key = self.getKey(false);
@@ -335,6 +449,10 @@ void ViWin*::inputVerticalVisualMode(ViWin* self, Vi* nvi)
                 self.keyG(nvi);
                 break;
 
+            case ':':
+                nvi.enterComandMode();
+                break;
+
             case '/':
                 nvi.enterSearchMode(false, false);
                 break;
@@ -345,6 +463,11 @@ void ViWin*::inputVerticalVisualMode(ViWin* self, Vi* nvi)
     
             case 'd':
                 self.deleteOnVerticalVisualMode(nvi);
+                nvi.exitFromVisualMode();
+                break;
+
+            case 'y':
+                self.yankOnVerticalVisualMode(nvi);
                 nvi.exitFromVisualMode();
                 break;
     
@@ -373,6 +496,18 @@ void ViWin*::inputVerticalVisualMode(ViWin* self, Vi* nvi)
             case 'r':
                 self.rewriteOnVerticalVisualMode(nvi);
                 nvi.exitFromVisualMode();
+                break;
+
+            case '>':
+                self.indentVerticalVisualMode(nvi);
+                nvi.exitFromVisualMode();
+                nvi.clearView();
+                break;
+
+            case '<':
+                self.backIndentVerticalVisualMode(nvi);
+                nvi.exitFromVisualMode();
+                nvi.clearView();
                 break;
                 
             case 'I':
