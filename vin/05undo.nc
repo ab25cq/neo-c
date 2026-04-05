@@ -98,5 +98,7 @@ void Vi*::enterInsertMode(Vi* self) version 5
 {
     inherit(self);
 
-    self.activeWin.pushUndo();
+    if(!(self.activeWin.autoInput && !self.activeWin.pressedDot)) {
+        self.activeWin.pushUndo();
+    }
 }
