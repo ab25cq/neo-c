@@ -305,6 +305,7 @@ static void init_classes(sInfo* info)
     info.classes.insert(string("iter_begin"), new sClass(s"iter_begin", iter_:true));
     info.classes.insert(string("iter_end"), new sClass(s"iter_end", iter_:true));
     info.classes.insert(string("iter"), new sClass(s"iter", iter_:true));
+    info.generics_classes.insert(string("Result"), new sClass(s"Result", generics:true, generics_num:1));
     for(int i=0; i<GENERICS_TYPE_MAX; i++) {
         string generics_type = xsprintf("__generics_type%d", i);
         info.classes.insert(generics_type, new sClass(generics_type, generics:true, generics_num:i));

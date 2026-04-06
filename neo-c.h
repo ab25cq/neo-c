@@ -986,7 +986,7 @@ impl optional<T>
 //////////////////////////////
 // result
 //////////////////////////////
-// Result<T> is tuple2<T, bool>*%
+// RESULT(T) and Result<T> are both tuple2<T, bool>*%
 #define RESULT(T) tuple2<T, bool>*%
 #define SOME(o) t(o, false)
 #define NONE(o) t(o, true)
@@ -1770,6 +1770,14 @@ impl list <T>
             return 0;
         }
         return self.len;
+    }
+    int len(list<T>* self)
+    {
+        return self.length();
+    }
+    bool is_empty(list<T>* self)
+    {
+        return self.len() == 0;
     }
     
     list<T>* insert(list<T>* self, int position, T item)
@@ -3069,6 +3077,14 @@ impl vector<T>
         
         return self.len;
     }
+    int len(vector<T>* self)
+    {
+        return self.length();
+    }
+    bool is_empty(vector<T>* self)
+    {
+        return self.len() == 0;
+    }
     
     int alloc_size(vector<T>* self)
     {
@@ -3577,6 +3593,14 @@ impl map <T, T2>
             return 0;
         }
         return self.len;
+    }
+    int len(map<T, T2>* self)
+    {
+        return self.length();
+    }
+    bool is_empty(map<T, T2>* self)
+    {
+        return self.len() == 0;
     }
     bool any(map<T, T2>* self, void* parent, bool (*block)(void*, T))
     {
@@ -4405,6 +4429,17 @@ impl tuple1 <T>
         }
         return "(" + self.v1.to_string() + ")";
     }
+    int len(tuple1<T>* self)
+    {
+        if(self == null) {
+            return 0;
+        }
+        return 1;
+    }
+    int count(tuple1<T>* self)
+    {
+        return self.len();
+    }
 }
 
 struct tuple2<T, T2>
@@ -4467,16 +4502,57 @@ impl tuple2 <T, T2>
     bool operator_not_equals(tuple2<T,T2>* left, tuple2<T,T2>* right) {
         return !left.operator_equals(right);
     }
+    int len(tuple2<T, T2>* self)
+    {
+        if(self == null) {
+            return 0;
+        }
+        return 2;
+    }
+    int count(tuple2<T, T2>* self)
+    {
+        return self.len();
+    }
+    bool is_ok(tuple2<T, T2>* self)
+    {
+        return self != null && self.v2 == false;
+    }
+    bool is_err(tuple2<T, T2>* self)
+    {
+        return !self.is_ok();
+    }
+    T unwrap_or(tuple2<T, T2>* self, T^ default_value) {
+        if(self.is_err()) {
+            return dummy_heap default_value;
+        }
+        
+        return dummy_heap self.v1;
+    }
+    T unwrap_or_default(tuple2<T, T2>* self) {
+        T default_value;
+        memset(&default_value, 0, sizeof(T));
+        
+        return self.unwrap_or(default_value);
+    }
+    T expect(tuple2<T, T2>* self, const char* message) {
+        if(self.is_err()) {
+            puts(message);
+            stackframe2(self);
+            exit(2);
+        }
+        
+        return dummy_heap self.v1;
+    }
     
     /// tuple2 is Result<T>
     T unwrap(tuple2<T,T2>* self) {
-        if(self.v2 == true) {
+        if(self.is_err()) {
             puts("exception");
             stackframe2(self);
             exit(2);
         }
         
-        return self.v1;
+        return dummy_heap self.v1;
     }
 }
 
@@ -4548,6 +4624,17 @@ impl tuple3 <T, T2, T3>
     }
     bool operator_not_equals(tuple3<T,T2,T3>* left, tuple3<T,T2,T3>* right) {
         return !left.operator_equals(right);
+    }
+    int len(tuple3<T, T2, T3>* self)
+    {
+        if(self == null) {
+            return 0;
+        }
+        return 3;
+    }
+    int count(tuple3<T, T2, T3>* self)
+    {
+        return self.len();
     }
 }
 
@@ -4626,6 +4713,17 @@ impl tuple4 <T, T2, T3, T4>
     }
     bool operator_not_equals(tuple4<T,T2,T3,T4>* left, tuple4<T,T2,T3,T4>* right) {
         return !left.operator_equals(right);
+    }
+    int len(tuple4<T, T2, T3, T4>* self)
+    {
+        if(self == null) {
+            return 0;
+        }
+        return 4;
+    }
+    int count(tuple4<T, T2, T3, T4>* self)
+    {
+        return self.len();
     }
 }
 
@@ -4712,6 +4810,17 @@ impl tuple5 <T, T2, T3, T4, T5>
     }
     bool operator_not_equals(tuple5<T,T2,T3,T4,T5>* left, tuple5<T,T2,T3,T4,T5>* right) {
         return !left.operator_equals(right);
+    }
+    int len(tuple5<T, T2, T3, T4, T5>* self)
+    {
+        if(self == null) {
+            return 0;
+        }
+        return 5;
+    }
+    int count(tuple5<T, T2, T3, T4, T5>* self)
+    {
+        return self.len();
     }
 }
 

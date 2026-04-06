@@ -51,6 +51,10 @@ test: *.nc
 	./test_iter_rust_like
 	$(NEO_C) test_collection_terminals.nc
 	./test_collection_terminals
+	$(NEO_C) test_tuple_rust_like.nc
+	./test_tuple_rust_like
+	$(NEO_C) test_result_bang.nc
+	./test_result_bang
 	$(NEO_C) comelang2.nc
 	./comelang2
 	$(NEO_C) comelang3.nc

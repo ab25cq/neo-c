@@ -1446,6 +1446,54 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             type = parse_pointer_attribute(type);
         }
+        else if(type_name === "Result" && *info.p == '<') {
+            info->p++;
+            skip_spaces_and_lf();
+            
+            var result_type, var_name, err = parse_type(parse_multiple_type:false);
+            
+            if(!err) {
+                return t((sType*%)null, (string)null, false);
+            }
+            
+            if(*info.p != '>') {
+                err_msg(info, "invalid Result type arguments");
+                return t((sType*%)null, (string)null, false);
+            }
+            
+            info->p++;
+            skip_spaces_and_lf();
+            
+            type = new sType(s"tuple2");
+            type->mGenericsTypes.push_back(result_type);
+            type->mGenericsTypes.push_back(new sType(s"_Bool"));
+            type->mPointerNum = 1;
+            type->mHeap = true;
+            
+            if(is_contained_generics_class(type, info)) {
+                type = solve_generics(type, info.generics_type, info);
+            }
+            else {
+                if(!output_generics_struct(type, type, info))
+                {
+                    string new_name = create_generics_name(type, info);
+                    printf("%s %d: output generics is failed(%s)\n", info->sname, info->sline, new_name);
+                    exit(7);
+                }
+            }
+            
+            apply_type_qualifiers(type, constant, complex_, atomic_, thread_local, thread_, alignas_double, register_, unsigned_, noreturn_, volatile_, uniq_, static_, extern_, inline_, restrict_, long_long, long_, short_, norecord, weak_);
+            type->mAlignas = alignas_;
+            type->mPointerNum += pointer_num;
+            type->mHeap = type->mHeap || heap;
+            type->mChannel = type->mChannel || channel;
+            type->mDefferRightValue = type->mDefferRightValue || deffer_;
+            type->mTupleName = tuple_name;
+            
+            type_name = type->mClass->mName;
+            
+            type = parse_pointer_attribute(type);
+        }
         else if(*info.p == '<') {
             info->p++;
             skip_spaces_and_lf();
