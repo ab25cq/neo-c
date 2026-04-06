@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.1.5
+version 1.0.1.7
 
 ``` C
 #include <neo-c.h>
@@ -139,6 +139,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.1.7 add Rust-like payload enum syntax with generated variant constructors and predicate/getter methods.
 1.0.1.5 support both RESULT(T) and Result<T>, and allow ! unwrap on both.
 1.0.1.4 rewrite neo-c-net.h manual to use begin/end/next loop style like webweb.
 1.0.1.3 add quick start for webweb.
@@ -3940,6 +3941,34 @@ int main(){
 
 Well, I know it's nonsense.
 
+
+# Payload enum
+
+Rust like payload enum syntax is available.
+
+Rust風のpayload付きenumが使えます。
+
+```C
+enum Option<T> {
+    Some(T),
+    None,
+};
+
+var some = new Option<int>.Some(123);
+var none = new Option<int>.None();
+
+xassert("some", some.is_Some());
+xassert("none", none.is_None());
+xassert("payload", some.get_Some() == 123);
+```
+
+`new Type.Variant(...)` creates a value of that variant.
+`is_Variant()` is generated for every variant.
+`get_Variant()` is generated when the variant has one payload value.
+
+`new Type.Variant(...)` でそのvariantの値を作れます。
+`is_Variant()` は全variantに自動生成されます。
+`get_Variant()` はpayloadが1つのvariantに対して自動生成されます。
 
 # Result<T>
 
