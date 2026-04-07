@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.1.8
+version 1.0.1.9
 
 ``` C
 #include <neo-c.h>
@@ -139,6 +139,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.1.9 document `??` propagation for `Result<T>` / `RESULT(T)`.
 1.0.1.8 fix anonymous enum regressions around payload enum parsing and self-hosted comelang compilation.
 1.0.1.7 add Rust-like payload enum syntax with generated variant constructors and predicate/getter methods.
 1.0.1.5 support both RESULT(T) and Result<T>, and allow ! unwrap on both.
@@ -4008,6 +4009,107 @@ Both `RESULT(T)` and `Result<T>` are available, and they mean the same thing.
 `Result<T>` style helpers `is_ok()`, `is_err()`, `unwrap_or(default)`, `unwrap_or_default()`, and `expect(message)` are also available.
 
 `Result<T>` 風の補助メソッドとして `is_ok()`, `is_err()`, `unwrap_or(default)`, `unwrap_or_default()`, `expect(message)` も使えます。
+
+`result??` is also available for propagation. It unwraps the `Ok` value and returns an error result from the current function when `v2 == true`.
+It uses `??` instead of `?` to avoid ambiguity with the conditional operator.
+
+`result??` による伝播も使えます。`v2 == true` なら現在の関数からエラー結果を返し、そうでなければ `Ok` 側の値を取り出します。
+条件演算子との曖昧さを避けるため、`?` ではなく `??` にしています。
+
+`??` is a postfix operator.
+You can use it only inside a function that returns `Result<T>` or `RESULT(T)`.
+When the source result is success, `expr??` becomes the unwrapped value.
+When the source result is error, the current function returns an error result immediately.
+
+`??` は後置演算子です。
+`Result<T>` または `RESULT(T)` を返す関数の中で使えます。
+成功時は `expr??` が中身の値になります。
+失敗時は現在の関数から直ちにエラー結果を返します。
+
+Typical form:
+
+典型的な書き方:
+
+```C
+Result<int> fun()
+{
+    int value = may_fail()??;
+    return t(value + 1, false);
+}
+```
+
+```C
+#include <neo-c.h>
+
+Result<FILE*> xfopen2(const char* file_name, const char* mode)
+{
+    FILE* f = fopen(file_name, mode);
+
+    if(f == NULL) {
+        return t(f, true);
+    }
+
+    return t(f, false);
+}
+
+Result<int> read_first_byte(const char* file_name)
+{
+    FILE* f = xfopen2(file_name, "r")??;
+    int ch = fgetc(f);
+    
+    f.fclose();
+    
+    if(ch == EOF) {
+        return t(0, true);
+    }
+    
+    return t(ch, false);
+}
+```
+
+You can also chain multiple `??` calls.
+
+`??` は複数回つなげて使うこともできます。
+
+```C
+#include <neo-c.h>
+
+Result<FILE*> xfopen2(const char* file_name, const char* mode)
+{
+    FILE* f = fopen(file_name, mode);
+    
+    if(f == NULL) {
+        return t(NULL, true);
+    }
+    
+    return t(f, false);
+}
+
+Result<char*> read_line2(FILE* f)
+{
+    char* buf = calloc(1, 128);
+    
+    if(fgets(buf, 128, f) == NULL) {
+        free(buf);
+        return t(NULL, true);
+    }
+    
+    return t(buf, false);
+}
+
+Result<int> read_line_len(const char* file_name)
+{
+    FILE* f = xfopen2(file_name, "r")??;
+    char* line = read_line2(f)??;
+    
+    int len = strlen(line);
+    
+    free(line);
+    fclose(f);
+    
+    return t(len, false);
+}
+```
 
 You can write it either way.
 

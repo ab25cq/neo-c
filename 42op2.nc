@@ -2194,7 +2194,13 @@ sNode*% conditional_exp(sInfo* info)
     skip_spaces_and_lf();
 
     while(*info.p) {
-        if(*info.p == '?') {
+        if(*info.p == '?' && *(info->p+1) == '?') {
+            info->p += 2;
+            skip_spaces_and_lf();
+            
+            node = create_try_operator_node(node, info);
+        }
+        else if(*info.p == '?') {
             info->p++;
             int sline_real = info.sline_real;
             info.sline_real = info.sline;

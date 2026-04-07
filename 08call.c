@@ -2471,6 +2471,7 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
 struct sNode* create_comma_exp(struct sNode* node, struct sNode* node2, struct sInfo*  info  );
 struct sNode* create_less(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sNode* create_null_node(struct sInfo*  info  );
+struct sNode* create_try_operator_node(struct sNode* node, struct sInfo*  info  );
 struct sNode* conditional_node(struct sNode* value1, struct sNode* value2, struct sNode* value3, struct sInfo*  info  );
 _Bool operator_overload_fun(struct sType*  type  , const char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE*  left_value  , struct CVALUE*  right_value  , _Bool break_guard, struct sInfo*  info  );
 struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp);

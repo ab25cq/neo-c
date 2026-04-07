@@ -922,7 +922,7 @@ bool output_source_file(sInfo* info)
             sFun*% new_fun = compile_uniq_function(it2, info);
             
             if(new_fun == null) {
-                err_msg(info, "compile %s failed");
+                err_msg(info, "compile %s failed", string(it));
                 exit(3);
             }
             

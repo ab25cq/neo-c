@@ -20639,6 +20639,7 @@ static inline void __attribute__((unused))  (*ossl_check_X509_INFO_freefunc_type
 static inline unsigned long  int lh_OPENSSL_STRING_hash_thunk(const void* data, unsigned long  int (*hfn)(const void*)  )
 {
     unsigned long  int (*hfn_conv)(const char** );
+    memset(&hfn_conv, 0, sizeof(hfn_conv));
     # 156 "/usr/include/openssl/lhash.h"
     hfn_conv=(unsigned long  int (*)(const char** ))hfn;
     # 156 "/usr/include/openssl/lhash.h"
@@ -20647,6 +20648,7 @@ static inline unsigned long  int lh_OPENSSL_STRING_hash_thunk(const void* data, 
 static inline int lh_OPENSSL_STRING_comp_thunk(const void* da, const void* db, int (*cfn)(const void*,const void*)  )
 {
     int (*cfn_conv)(const char** ,const char** );
+    memset(&cfn_conv, 0, sizeof(cfn_conv));
     # 156 "/usr/include/openssl/lhash.h"
     cfn_conv=(int (*)(const char** ,const char** ))cfn;
     # 156 "/usr/include/openssl/lhash.h"
@@ -20655,6 +20657,7 @@ static inline int lh_OPENSSL_STRING_comp_thunk(const void* da, const void* db, i
 static inline void lh_OPENSSL_STRING_doall_thunk(void* node, void (*doall)(void*)  )
 {
     void (*doall_conv)(char** );
+    memset(&doall_conv, 0, sizeof(doall_conv));
     # 156 "/usr/include/openssl/lhash.h"
     doall_conv=(void (*)(char** ))doall;
     # 156 "/usr/include/openssl/lhash.h"
@@ -20663,6 +20666,7 @@ static inline void lh_OPENSSL_STRING_doall_thunk(void* node, void (*doall)(void*
 static inline void lh_OPENSSL_STRING_doall_arg_thunk(void* node, void* arg, void (*doall)(void*,void*)  )
 {
     void (*doall_conv)(char** ,void*);
+    memset(&doall_conv, 0, sizeof(doall_conv));
     # 156 "/usr/include/openssl/lhash.h"
     doall_conv=(void (*)(char** ,void*))doall;
     # 156 "/usr/include/openssl/lhash.h"
@@ -20706,6 +20710,7 @@ static inline void __attribute__((unused))  (*ossl_check_OPENSSL_STRING_lh_doall
 static inline unsigned long  int lh_OPENSSL_CSTRING_hash_thunk(const void* data, unsigned long  int (*hfn)(const void*)  )
 {
     unsigned long  int (*hfn_conv)(const char** );
+    memset(&hfn_conv, 0, sizeof(hfn_conv));
     # 171 "/usr/include/openssl/lhash.h"
     hfn_conv=(unsigned long  int (*)(const char** ))hfn;
     # 171 "/usr/include/openssl/lhash.h"
@@ -20714,6 +20719,7 @@ static inline unsigned long  int lh_OPENSSL_CSTRING_hash_thunk(const void* data,
 static inline int lh_OPENSSL_CSTRING_comp_thunk(const void* da, const void* db, int (*cfn)(const void*,const void*)  )
 {
     int (*cfn_conv)(const char** ,const char** );
+    memset(&cfn_conv, 0, sizeof(cfn_conv));
     # 171 "/usr/include/openssl/lhash.h"
     cfn_conv=(int (*)(const char** ,const char** ))cfn;
     # 171 "/usr/include/openssl/lhash.h"
@@ -20722,6 +20728,7 @@ static inline int lh_OPENSSL_CSTRING_comp_thunk(const void* da, const void* db, 
 static inline void lh_OPENSSL_CSTRING_doall_thunk(void* node, void (*doall)(void*)  )
 {
     void (*doall_conv)(const char** );
+    memset(&doall_conv, 0, sizeof(doall_conv));
     # 171 "/usr/include/openssl/lhash.h"
     doall_conv=(void (*)(const char** ))doall;
     # 171 "/usr/include/openssl/lhash.h"
@@ -20730,6 +20737,7 @@ static inline void lh_OPENSSL_CSTRING_doall_thunk(void* node, void (*doall)(void
 static inline void lh_OPENSSL_CSTRING_doall_arg_thunk(void* node, void* arg, void (*doall)(void*,void*)  )
 {
     void (*doall_conv)(const char** ,void*);
+    memset(&doall_conv, 0, sizeof(doall_conv));
     # 171 "/usr/include/openssl/lhash.h"
     doall_conv=(void (*)(const char** ,void*))doall;
     # 171 "/usr/include/openssl/lhash.h"
@@ -21013,6 +21021,7 @@ static inline void __attribute__((unused))  (*ossl_check_CONF_VALUE_freefunc_typ
 static inline unsigned long  int lh_CONF_VALUE_hash_thunk(const void* data, unsigned long  int (*hfn)(const void*)  )
 {
     unsigned long  int (*hfn_conv)(const struct anonymous_typeX115* );
+    memset(&hfn_conv, 0, sizeof(hfn_conv));
     # 70 "/usr/include/openssl/conf.h"
     hfn_conv=(unsigned long  int (*)(const struct anonymous_typeX115* ))hfn;
     # 70 "/usr/include/openssl/conf.h"
@@ -21021,6 +21030,7 @@ static inline unsigned long  int lh_CONF_VALUE_hash_thunk(const void* data, unsi
 static inline int lh_CONF_VALUE_comp_thunk(const void* da, const void* db, int (*cfn)(const void*,const void*)  )
 {
     int (*cfn_conv)(const struct anonymous_typeX115* ,const struct anonymous_typeX115* );
+    memset(&cfn_conv, 0, sizeof(cfn_conv));
     # 70 "/usr/include/openssl/conf.h"
     cfn_conv=(int (*)(const struct anonymous_typeX115* ,const struct anonymous_typeX115* ))cfn;
     # 70 "/usr/include/openssl/conf.h"
@@ -21029,6 +21039,7 @@ static inline int lh_CONF_VALUE_comp_thunk(const void* da, const void* db, int (
 static inline void lh_CONF_VALUE_doall_thunk(void* node, void (*doall)(void*)  )
 {
     void (*doall_conv)(struct anonymous_typeX115* );
+    memset(&doall_conv, 0, sizeof(doall_conv));
     # 70 "/usr/include/openssl/conf.h"
     doall_conv=(void (*)(struct anonymous_typeX115* ))doall;
     # 70 "/usr/include/openssl/conf.h"
@@ -21037,6 +21048,7 @@ static inline void lh_CONF_VALUE_doall_thunk(void* node, void (*doall)(void*)  )
 static inline void lh_CONF_VALUE_doall_arg_thunk(void* node, void* arg, void (*doall)(void*,void*)  )
 {
     void (*doall_conv)(struct anonymous_typeX115* ,void*);
+    memset(&doall_conv, 0, sizeof(doall_conv));
     # 70 "/usr/include/openssl/conf.h"
     doall_conv=(void (*)(struct anonymous_typeX115* ,void*))doall;
     # 70 "/usr/include/openssl/conf.h"
@@ -21252,6 +21264,7 @@ static inline int  __attribute__((unused))  ERR_COMMON_ERROR(unsigned long  int 
 static inline unsigned long  int lh_ERR_STRING_DATA_hash_thunk(const void* data, unsigned long  int (*hfn)(const void*)  )
 {
     unsigned long  int (*hfn_conv)(const struct ERR_string_data_st* );
+    memset(&hfn_conv, 0, sizeof(hfn_conv));
     # 372 "/usr/include/openssl/err.h"
     hfn_conv=(unsigned long  int (*)(const struct ERR_string_data_st* ))hfn;
     # 372 "/usr/include/openssl/err.h"
@@ -21260,6 +21273,7 @@ static inline unsigned long  int lh_ERR_STRING_DATA_hash_thunk(const void* data,
 static inline int lh_ERR_STRING_DATA_comp_thunk(const void* da, const void* db, int (*cfn)(const void*,const void*)  )
 {
     int (*cfn_conv)(const struct ERR_string_data_st* ,const struct ERR_string_data_st* );
+    memset(&cfn_conv, 0, sizeof(cfn_conv));
     # 372 "/usr/include/openssl/err.h"
     cfn_conv=(int (*)(const struct ERR_string_data_st* ,const struct ERR_string_data_st* ))cfn;
     # 372 "/usr/include/openssl/err.h"
@@ -21268,6 +21282,7 @@ static inline int lh_ERR_STRING_DATA_comp_thunk(const void* da, const void* db, 
 static inline void lh_ERR_STRING_DATA_doall_thunk(void* node, void (*doall)(void*)  )
 {
     void (*doall_conv)(struct ERR_string_data_st* );
+    memset(&doall_conv, 0, sizeof(doall_conv));
     # 372 "/usr/include/openssl/err.h"
     doall_conv=(void (*)(struct ERR_string_data_st* ))doall;
     # 372 "/usr/include/openssl/err.h"
@@ -21276,6 +21291,7 @@ static inline void lh_ERR_STRING_DATA_doall_thunk(void* node, void (*doall)(void
 static inline void lh_ERR_STRING_DATA_doall_arg_thunk(void* node, void* arg, void (*doall)(void*,void*)  )
 {
     void (*doall_conv)(struct ERR_string_data_st* ,void*);
+    memset(&doall_conv, 0, sizeof(doall_conv));
     # 372 "/usr/include/openssl/err.h"
     doall_conv=(void (*)(struct ERR_string_data_st* ,void*))doall;
     # 372 "/usr/include/openssl/err.h"

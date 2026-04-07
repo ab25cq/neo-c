@@ -3354,6 +3354,10 @@ static struct map$2int$list$1int$ph$ph* map$2int$list$1int$ph$ph_insert(struct m
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&add_to_key_list, 0, sizeof(add_to_key_list));
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 3889 "/usr/local/include/neo-c.h"
     # 3895 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -3475,6 +3479,8 @@ static void list$1int$ph$p_finalize(struct list$1int$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -3523,6 +3529,18 @@ static void map$2int$list$1int$ph$ph_rehash(struct map$2int$list$1int$ph$ph* sel
     unsigned int key_hash;
     unsigned int hash;
     int n;
+    memset(&old_size, 0, sizeof(old_size));
+    memset(&size, 0, sizeof(size));
+    memset(&keys, 0, sizeof(keys));
+    memset(&items, 0, sizeof(items));
+    memset(&hashes, 0, sizeof(hashes));
+    memset(&item_existance, 0, sizeof(item_existance));
+    memset(&i, 0, sizeof(i));
+    memset(&len, 0, sizeof(len));
+    memset(&i_0, 0, sizeof(i_0));
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&n, 0, sizeof(n));
     # 3806 "/usr/local/include/neo-c.h"
     # 3808 "/usr/local/include/neo-c.h"
     old_size=self->size;
@@ -3638,6 +3656,10 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
     struct list_item$1int$ph* it;
     int i_3;
     int*  __dec_obj4  ;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&it, 0, sizeof(it));
+    memset(&i_3, 0, sizeof(i_3));
     # 2027 "/usr/local/include/neo-c.h"
     # 2033 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -3716,6 +3738,9 @@ static struct list$1int$ph* list$1int$ph_push_back(struct list$1int$ph* self, in
     int*  __dec_obj2  ;
     struct list_item$1int$ph* litem_2;
     int*  __dec_obj3  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_1, 0, sizeof(litem_1));
+    memset(&litem_2, 0, sizeof(litem_2));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -3788,6 +3813,7 @@ static void map$2int$list$1int$ph$ph_remove_ordered_entry(struct map$2int$list$1
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1int$ph$ph_remove_ordered_entry"; neo_current_frame = &fr;
     int pos;
+    memset(&pos, 0, sizeof(pos));
     # 3434 "/usr/local/include/neo-c.h"
     pos=map$2int$list$1int$ph$ph_key_position(self,key,by_pointer);
     # 3438 "/usr/local/include/neo-c.h"
@@ -3803,6 +3829,8 @@ static int map$2int$list$1int$ph$ph_key_position(struct map$2int$list$1int$ph$ph
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1int$ph$ph_key_position"; neo_current_frame = &fr;
     int pos;
     struct list_item$1int$* it;
+    memset(&pos, 0, sizeof(pos));
+    memset(&it, 0, sizeof(it));
     # 3420 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 3417 "/usr/local/include/neo-c.h"
@@ -3848,6 +3876,18 @@ static struct list$1int$* list$1int$_delete(struct list$1int$* self, int head, i
     struct list_item$1int$* tail_it;
     int i_8;
     struct list_item$1int$* prev_it_9;
+    memset(&tmp, 0, sizeof(tmp));
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
+    memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it_4, 0, sizeof(it_4));
+    memset(&i_5, 0, sizeof(i_5));
+    memset(&prev_it_6, 0, sizeof(prev_it_6));
+    memset(&it_7, 0, sizeof(it_7));
+    memset(&head_prev_it, 0, sizeof(head_prev_it));
+    memset(&tail_it, 0, sizeof(tail_it));
+    memset(&i_8, 0, sizeof(i_8));
+    memset(&prev_it_9, 0, sizeof(prev_it_9));
     # 1899 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1896 "/usr/local/include/neo-c.h"
@@ -4038,6 +4078,8 @@ static struct list$1int$* list$1int$_reset(struct list$1int$* self)
     struct list$1int$* __result_obj__0;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1860 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1857 "/usr/local/include/neo-c.h"
@@ -4083,6 +4125,9 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
     struct list_item$1int$* litem;
     struct list_item$1int$* litem_10;
     struct list_item$1int$* litem_11;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_10, 0, sizeof(litem_10));
+    memset(&litem_11, 0, sizeof(litem_11));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -4151,6 +4196,8 @@ static struct list$1int$ph* list$1int$ph$p_clone(struct list$1int$ph* self)
     void* __right_value1 = (void*)0;
     struct list$1int$ph* result;
     struct list_item$1int$ph* it;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
     # 1513 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1511 "/usr/local/include/neo-c.h"
@@ -4216,6 +4263,9 @@ static struct list$1int$ph* list$1int$ph_add(struct list$1int$ph* self, int*  it
     int*  __dec_obj6  ;
     struct list_item$1int$ph* litem_13;
     int*  __dec_obj7  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_12, 0, sizeof(litem_12));
+    memset(&litem_13, 0, sizeof(litem_13));
     # 1533 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1531 "/usr/local/include/neo-c.h"
@@ -4292,6 +4342,10 @@ static struct map$2int$int$* map$2int$int$_insert(struct map$2int$int$* self, in
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&add_to_key_list, 0, sizeof(add_to_key_list));
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 3889 "/usr/local/include/neo-c.h"
     # 3895 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -4421,6 +4475,18 @@ static void map$2int$int$_rehash(struct map$2int$int$* self)
     unsigned int key_hash;
     unsigned int hash;
     int n;
+    memset(&old_size, 0, sizeof(old_size));
+    memset(&size, 0, sizeof(size));
+    memset(&keys, 0, sizeof(keys));
+    memset(&items, 0, sizeof(items));
+    memset(&hashes, 0, sizeof(hashes));
+    memset(&item_existance, 0, sizeof(item_existance));
+    memset(&i, 0, sizeof(i));
+    memset(&len, 0, sizeof(len));
+    memset(&i_14, 0, sizeof(i_14));
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&n, 0, sizeof(n));
     # 3806 "/usr/local/include/neo-c.h"
     # 3808 "/usr/local/include/neo-c.h"
     old_size=self->size;
@@ -4521,6 +4587,7 @@ static void map$2int$int$_remove_ordered_entry(struct map$2int$int$* self, int k
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$int$_remove_ordered_entry"; neo_current_frame = &fr;
     int pos;
+    memset(&pos, 0, sizeof(pos));
     # 3434 "/usr/local/include/neo-c.h"
     pos=map$2int$int$_key_position(self,key,by_pointer);
     # 3438 "/usr/local/include/neo-c.h"
@@ -4536,6 +4603,8 @@ static int map$2int$int$_key_position(struct map$2int$int$* self, int key, _Bool
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$int$_key_position"; neo_current_frame = &fr;
     int pos;
     struct list_item$1int$* it;
+    memset(&pos, 0, sizeof(pos));
+    memset(&it, 0, sizeof(it));
     # 3420 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 3417 "/usr/local/include/neo-c.h"
@@ -4572,6 +4641,7 @@ static _Bool load_yank_from_named_register(struct Vi*  nvi  )
     struct list$1int$ph* register_yank;
     _Bool __result_obj__0;
     struct list$1int$ph* __dec_obj8;
+    memset(&register_yank, 0, sizeof(register_yank));
     # 23 "07yank.nc"
     if(!is_named_register(nvi->selectedRegister)) {
         # 20 "07yank.nc"
@@ -4613,6 +4683,9 @@ static struct list$1int$ph* map$2int$list$1int$ph$ph_at(struct map$2int$list$1in
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 3509 "/usr/local/include/neo-c.h"
     # 3515 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -4679,6 +4752,8 @@ static void list$1int$ph_finalize(struct list$1int$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -4705,6 +4780,9 @@ static int map$2int$int$_at(struct map$2int$int$* self, int key, int default_val
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 3509 "/usr/local/include/neo-c.h"
     # 3515 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -4761,6 +4839,8 @@ static void ensure_line_has_width(struct ViWin*  self  , int y, int width)
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
     int*  new_line  ;
+    memset(&line, 0, sizeof(line));
+    memset(&new_line, 0, sizeof(new_line));
     # 38 "07yank.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","07yank.nc",38)))), "07yank.nc", 38, 119);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "07yank.nc", 38, 120));
@@ -4790,6 +4870,8 @@ static int*  list$1int$ph_item(struct list$1int$ph* self, int position, int*  de
     int*  __result_obj__0  ;
     struct list_item$1int$ph* it;
     int i;
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
     # 1750 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1747 "/usr/local/include/neo-c.h"
@@ -4838,6 +4920,10 @@ static struct list$1int$* list$1int$_replace(struct list$1int$* self, int positi
     int default_value;
     struct list_item$1int$* it;
     int i_15;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&it, 0, sizeof(it));
+    memset(&i_15, 0, sizeof(i_15));
     # 2027 "/usr/local/include/neo-c.h"
     # 2033 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -4911,6 +4997,11 @@ static void paste_block(struct ViWin*  self  , struct Vi*  nvi  , int insert_x)
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
     int*  new_line  ;
+    memset(&i, 0, sizeof(i));
+    memset(&y, 0, sizeof(y));
+    memset(&line, 0, sizeof(line));
+    memset(&yank_line, 0, sizeof(yank_line));
+    memset(&new_line, 0, sizeof(new_line));
     # 49 "07yank.nc"
     ViWin_pushUndo_v5(self);
     # 71 "07yank.nc"
@@ -5000,6 +5091,11 @@ _Bool ViWin_saveYankToFile(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool __result_obj__0;
     struct list$1int$ph* _o2_saved_1;
     int*  it  ;
+    memset(&home, 0, sizeof(home));
+    memset(&path, 0, sizeof(path));
+    memset(&f, 0, sizeof(f));
+    memset(&_o2_saved_1, 0, sizeof(_o2_saved_1));
+    memset(&it, 0, sizeof(it));
     # 88 "07yank.nc"
     home=getenv("HOME");
     # 89 "07yank.nc"
@@ -5132,6 +5228,11 @@ _Bool ViWin_loadYankFromFile(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool __result_obj__0;
     _Bool first_line;
     char c;
+    memset(&home, 0, sizeof(home));
+    memset(&path, 0, sizeof(path));
+    memset(&f, 0, sizeof(f));
+    memset(&first_line, 0, sizeof(first_line));
+    memset(&c, 0, sizeof(c));
     # 119 "07yank.nc"
     if(load_yank_from_named_register(nvi)) {
         # 116 "07yank.nc"
@@ -5201,6 +5302,8 @@ static struct list$1int$ph* list$1int$ph_reset(struct list$1int$ph* self)
     struct list$1int$ph* __result_obj__0;
     struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1860 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1857 "/usr/local/include/neo-c.h"
@@ -5241,6 +5344,11 @@ _Bool ViWin_saveFileYankToFile(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool __result_obj__0;
     struct list$1int$ph* _o2_saved_2;
     int*  it  ;
+    memset(&home, 0, sizeof(home));
+    memset(&path, 0, sizeof(path));
+    memset(&f, 0, sizeof(f));
+    memset(&_o2_saved_2, 0, sizeof(_o2_saved_2));
+    memset(&it, 0, sizeof(it));
     # 157 "07yank.nc"
     home=getenv("HOME");
     # 162 "07yank.nc"
@@ -5289,6 +5397,10 @@ _Bool ViWin_loadFileYankFromFile(struct ViWin*  self  , struct Vi*  nvi  )
     struct _IO_FILE*  f  ;
     _Bool __result_obj__0;
     char c;
+    memset(&home, 0, sizeof(home));
+    memset(&path, 0, sizeof(path));
+    memset(&f, 0, sizeof(f));
+    memset(&c, 0, sizeof(c));
     # 181 "07yank.nc"
     home=getenv("HOME");
     # 186 "07yank.nc"
@@ -5362,6 +5474,25 @@ void ViWin_pasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool _conditional_value_X2;
     int*  yank_last_line_31  ;
     int*  new_line2_32  ;
+    memset(&it2, 0, sizeof(it2));
+    memset(&_o2_saved_3, 0, sizeof(_o2_saved_3));
+    memset(&it, 0, sizeof(it));
+    memset(&line, 0, sizeof(line));
+    memset(&yank_first_line, 0, sizeof(yank_first_line));
+    memset(&new_line, 0, sizeof(new_line));
+    memset(&yank_first_line_24, 0, sizeof(yank_first_line_24));
+    memset(&new_line_25, 0, sizeof(new_line_25));
+    memset(&after_line, 0, sizeof(after_line));
+    memset(&yank_last_line, 0, sizeof(yank_last_line));
+    memset(&new_line2, 0, sizeof(new_line2));
+    memset(&yank_first_line_26, 0, sizeof(yank_first_line_26));
+    memset(&new_line_27, 0, sizeof(new_line_27));
+    memset(&after_line_28, 0, sizeof(after_line_28));
+    memset(&it2_29, 0, sizeof(it2_29));
+    memset(&_o2_saved_4, 0, sizeof(_o2_saved_4));
+    memset(&it_30, 0, sizeof(it_30));
+    memset(&yank_last_line_31, 0, sizeof(yank_last_line_31));
+    memset(&new_line2_32, 0, sizeof(new_line2_32));
     # 211 "07yank.nc"
     prepare_yank_for_paste(self,nvi);
     # 288 "07yank.nc"
@@ -5516,6 +5647,13 @@ static struct list$1int$ph* list$1int$ph_insert(struct list$1int$ph* self, int p
     int i_19;
     struct list_item$1int$ph* litem_20;
     int*  __dec_obj11  ;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_18, 0, sizeof(litem_18));
+    memset(&it, 0, sizeof(it));
+    memset(&i_19, 0, sizeof(i_19));
+    memset(&litem_20, 0, sizeof(litem_20));
     # 1785 "/usr/local/include/neo-c.h"
     # 1790 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -5647,6 +5785,13 @@ static struct list$1int$* list$1int$_insert(struct list$1int$* self, int positio
     struct list_item$1int$* it;
     int i_22;
     struct list_item$1int$* litem_23;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_21, 0, sizeof(litem_21));
+    memset(&it, 0, sizeof(it));
+    memset(&i_22, 0, sizeof(i_22));
+    memset(&litem_23, 0, sizeof(litem_23));
     # 1785 "/usr/local/include/neo-c.h"
     # 1790 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -5764,6 +5909,9 @@ static struct list$1int$ph* list$1int$ph_sublist(struct list$1int$ph* self, int 
     struct list$1int$ph* result;
     struct list_item$1int$ph* it;
     int i;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
     # 2115 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 2112 "/usr/local/include/neo-c.h"
@@ -5859,6 +6007,25 @@ void ViWin_pasteBeforeCursor(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool _conditional_value_X2;
     int*  yank_last_line_40  ;
     int*  new_line2_41  ;
+    memset(&it2, 0, sizeof(it2));
+    memset(&_o2_saved_5, 0, sizeof(_o2_saved_5));
+    memset(&it, 0, sizeof(it));
+    memset(&line, 0, sizeof(line));
+    memset(&yank_first_line, 0, sizeof(yank_first_line));
+    memset(&new_line, 0, sizeof(new_line));
+    memset(&yank_first_line_33, 0, sizeof(yank_first_line_33));
+    memset(&new_line_34, 0, sizeof(new_line_34));
+    memset(&after_line, 0, sizeof(after_line));
+    memset(&yank_last_line, 0, sizeof(yank_last_line));
+    memset(&new_line2, 0, sizeof(new_line2));
+    memset(&yank_first_line_35, 0, sizeof(yank_first_line_35));
+    memset(&new_line_36, 0, sizeof(new_line_36));
+    memset(&after_line_37, 0, sizeof(after_line_37));
+    memset(&it2_38, 0, sizeof(it2_38));
+    memset(&_o2_saved_6, 0, sizeof(_o2_saved_6));
+    memset(&it_39, 0, sizeof(it_39));
+    memset(&yank_last_line_40, 0, sizeof(yank_last_line_40));
+    memset(&new_line2_41, 0, sizeof(new_line2_41));
     # 292 "07yank.nc"
     prepare_yank_for_paste(self,nvi);
     # 367 "07yank.nc"
@@ -6026,6 +6193,25 @@ void ViWin_filePasteAfterCursor(struct ViWin*  self  , struct Vi*  nvi  )
     _Bool _conditional_value_X2;
     int*  yank_last_line_49  ;
     int*  new_line2_50  ;
+    memset(&it2, 0, sizeof(it2));
+    memset(&_o2_saved_7, 0, sizeof(_o2_saved_7));
+    memset(&it, 0, sizeof(it));
+    memset(&line, 0, sizeof(line));
+    memset(&yank_first_line, 0, sizeof(yank_first_line));
+    memset(&new_line, 0, sizeof(new_line));
+    memset(&yank_first_line_42, 0, sizeof(yank_first_line_42));
+    memset(&new_line_43, 0, sizeof(new_line_43));
+    memset(&after_line, 0, sizeof(after_line));
+    memset(&yank_last_line, 0, sizeof(yank_last_line));
+    memset(&new_line2, 0, sizeof(new_line2));
+    memset(&yank_first_line_44, 0, sizeof(yank_first_line_44));
+    memset(&new_line_45, 0, sizeof(new_line_45));
+    memset(&after_line_46, 0, sizeof(after_line_46));
+    memset(&it2_47, 0, sizeof(it2_47));
+    memset(&_o2_saved_8, 0, sizeof(_o2_saved_8));
+    memset(&it_48, 0, sizeof(it_48));
+    memset(&yank_last_line_49, 0, sizeof(yank_last_line_49));
+    memset(&new_line2_50, 0, sizeof(new_line2_50));
     # 371 "07yank.nc"
     ViWin_loadFileYankFromFile(self,nvi);
     # 445 "07yank.nc"
@@ -6201,6 +6387,7 @@ struct Vi*  Vi_initialize_v7(struct Vi*  self  )
     struct map$2int$list$1int$ph$ph* __dec_obj15;
     struct map$2int$int$* __dec_obj17;
     struct Vi*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 449 "07yank.nc"
     result=(struct Vi* )come_increment_ref_count(Vi_initialize_v6((struct Vi* )come_increment_ref_count(self, "07yank.nc", 449, 347)), "07yank.nc", 449, 348);
     # 451 "07yank.nc"
@@ -6253,6 +6440,7 @@ static struct map$2int$list$1int$ph$ph* map$2int$list$1int$ph$ph_initialize(stru
     void* __right_value1 = (void*)0;
     struct list$1int$* __dec_obj14;
     struct map$2int$list$1int$ph$ph* __result_obj__0;
+    memset(&i, 0, sizeof(i));
     # 3338 "/usr/local/include/neo-c.h"
     # 3340 "/usr/local/include/neo-c.h"
     self->keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(128)), "/usr/local/include/neo-c.h", 3340, 358, "int*"))), "/usr/local/include/neo-c.h", 3340, 359);
@@ -6314,6 +6502,8 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6339,6 +6529,8 @@ static void list$1int$_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6364,6 +6556,8 @@ static void map$2int$list$1int$ph$ph$p_finalize(struct map$2int$list$1int$ph$ph*
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_51;
+    memset(&i, 0, sizeof(i));
+    memset(&i_51, 0, sizeof(i_51));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -6404,6 +6598,8 @@ static void map$2int$list$1int$ph$ph_finalize(struct map$2int$list$1int$ph$ph* s
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1int$ph$ph_finalize"; neo_current_frame = &fr;
     int i;
     int i_52;
+    memset(&i, 0, sizeof(i));
+    memset(&i_52, 0, sizeof(i_52));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -6447,6 +6643,7 @@ static struct map$2int$int$* map$2int$int$_initialize(struct map$2int$int$* self
     void* __right_value1 = (void*)0;
     struct list$1int$* __dec_obj16;
     struct map$2int$int$* __result_obj__0;
+    memset(&i, 0, sizeof(i));
     # 3338 "/usr/local/include/neo-c.h"
     # 3340 "/usr/local/include/neo-c.h"
     self->keys=(int*)come_increment_ref_count(((int*)(__right_value0=(int*)come_calloc(1, sizeof(int)*(1*(128)), "/usr/local/include/neo-c.h", 3340, 390, "int*"))), "/usr/local/include/neo-c.h", 3340, 391);
@@ -6490,6 +6687,8 @@ static void map$2int$int$$p_finalize(struct map$2int$int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$int$$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_53;
+    memset(&i, 0, sizeof(i));
+    memset(&i_53, 0, sizeof(i_53));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -6529,6 +6728,8 @@ static void map$2int$int$_finalize(struct map$2int$int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$int$_finalize"; neo_current_frame = &fr;
     int i;
     int i_54;
+    memset(&i, 0, sizeof(i));
+    memset(&i_54, 0, sizeof(i_54));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -6572,6 +6773,10 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     void (*default_value)(struct Vi* ,int);
     struct list_item$1lambda$* it;
     int i_57;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&it, 0, sizeof(it));
+    memset(&i_57, 0, sizeof(i_57));
     # 2027 "/usr/local/include/neo-c.h"
     # 2033 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -6641,6 +6846,9 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
     struct list_item$1lambda$* litem;
     struct list_item$1lambda$* litem_55;
     struct list_item$1lambda$* litem_56;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_55, 0, sizeof(litem_55));
+    memset(&litem_56, 0, sizeof(litem_56));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -6748,6 +6956,8 @@ static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1ViWin$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1ViWin$ph* it;
     struct list_item$1ViWin$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6884,6 +7094,8 @@ static void list$1tuple3$3int$int$int$$ph$p_finalize(struct list$1tuple3$3int$in
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1tuple3$3int$int$int$$ph* it;
     struct list_item$1tuple3$3int$int$int$$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6921,6 +7133,8 @@ static void list$1list$1int$ph$ph$p_finalize(struct list$1list$1int$ph$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1list$1int$ph$ph* it;
     struct list_item$1list$1int$ph$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6958,6 +7172,8 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_58;
+    memset(&i, 0, sizeof(i));
+    memset(&i_58, 0, sizeof(i_58));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -6998,6 +7214,8 @@ static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1list$1int$$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1list$1int$$ph* it;
     struct list_item$1list$1int$$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -7035,6 +7253,8 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_59;
+    memset(&i, 0, sizeof(i));
+    memset(&i_59, 0, sizeof(i_59));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -7075,6 +7295,8 @@ static void list$1lambda$$p_finalize(struct list$1lambda$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1lambda$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1lambda$* it;
     struct list_item$1lambda$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -7107,6 +7329,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"

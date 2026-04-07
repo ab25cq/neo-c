@@ -3345,6 +3345,13 @@ int main(int argc, char** argv)
     struct Vi*  vi  ;
     int result;
     int __result_obj__0;
+    memset(&line_num, 0, sizeof(line_num));
+    memset(&num_file_names, 0, sizeof(num_file_names));
+    memset(&binary_mode, 0, sizeof(binary_mode));
+    memset(&i, 0, sizeof(i));
+    memset(&p, 0, sizeof(p));
+    memset(&vi, 0, sizeof(vi));
+    memset(&result, 0, sizeof(result));
     # 50 "main.nc"
     line_num=-1;
     # 51 "main.nc"
@@ -3478,6 +3485,8 @@ static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1ViWin$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1ViWin$ph* it;
     struct list_item$1ViWin$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -3607,6 +3616,8 @@ static void list$1int$ph$p_finalize(struct list$1int$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -3644,6 +3655,8 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -3683,6 +3696,8 @@ static void list$1tuple3$3int$int$int$$ph$p_finalize(struct list$1tuple3$3int$in
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1tuple3$3int$int$int$$ph* it;
     struct list_item$1tuple3$3int$int$int$$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -3720,6 +3735,8 @@ static void list$1list$1int$ph$ph$p_finalize(struct list$1list$1int$ph$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1list$1int$ph$ph* it;
     struct list_item$1list$1int$ph$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -3757,6 +3774,8 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_0;
+    memset(&i, 0, sizeof(i));
+    memset(&i_0, 0, sizeof(i_0));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -3797,6 +3816,8 @@ static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1list$1int$$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1list$1int$$ph* it;
     struct list_item$1list$1int$$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -3834,6 +3855,8 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_1;
+    memset(&i, 0, sizeof(i));
+    memset(&i_1, 0, sizeof(i_1));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -3874,6 +3897,8 @@ static void list$1lambda$$p_finalize(struct list$1lambda$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1lambda$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1lambda$* it;
     struct list_item$1lambda$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -3906,6 +3931,8 @@ static void map$2int$list$1int$ph$ph$p_finalize(struct map$2int$list$1int$ph$ph*
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_2;
+    memset(&i, 0, sizeof(i));
+    memset(&i_2, 0, sizeof(i_2));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -3946,6 +3973,8 @@ static void map$2int$int$$p_finalize(struct map$2int$int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$int$$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_3;
+    memset(&i, 0, sizeof(i));
+    memset(&i_3, 0, sizeof(i_3));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -3985,6 +4014,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -4022,6 +4053,8 @@ void stackframe()
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "stackframe"; neo_current_frame = &fr;
     struct neo_frame*  f  ;
     char* fun_name;
+    memset(&f, 0, sizeof(f));
+    memset(&fun_name, 0, sizeof(fun_name));
     # 177 "/usr/local/include/neo-c.h"
     f=neo_current_frame;
     # 184 "/usr/local/include/neo-c.h"
@@ -4042,6 +4075,9 @@ void stackframe2(void* mem)
     struct sMemHeader*  it  ;
     struct neo_frame*  f  ;
     char* fun_name;
+    memset(&it, 0, sizeof(it));
+    memset(&f, 0, sizeof(f));
+    memset(&fun_name, 0, sizeof(fun_name));
     # 196 "/usr/local/include/neo-c.h"
     if(come_is_alive(mem)&&mem) {
         # 191 "/usr/local/include/neo-c.h"
@@ -4098,6 +4134,10 @@ void come_memleak_checker()
     int n;
     _Bool flag;
     int i;
+    memset(&it, 0, sizeof(it));
+    memset(&n, 0, sizeof(n));
+    memset(&flag, 0, sizeof(flag));
+    memset(&i, 0, sizeof(i));
     # 244 "/usr/local/include/neo-c.h"
     # 246 "/usr/local/include/neo-c.h"
     it=gAllocMem;
@@ -4149,6 +4189,9 @@ void* alloc_from_pages(unsigned long  int  size  )
     struct sMemHeader*  it_prev  ;
     void* __result_obj__0;
     struct sMemHeader*  it_4  ;
+    memset(&it, 0, sizeof(it));
+    memset(&it_prev, 0, sizeof(it_prev));
+    memset(&it_4, 0, sizeof(it_4));
     # 272 "/usr/local/include/neo-c.h"
     # 274 "/usr/local/include/neo-c.h"
     it=gFreeMem;
@@ -4196,6 +4239,10 @@ void come_free_mem_of_heap_pool(void* mem)
     struct sMemHeader*  prev_it  ;
     struct sMemHeader*  next_it  ;
     unsigned long  int  size  ;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
+    memset(&next_it, 0, sizeof(next_it));
+    memset(&size, 0, sizeof(size));
     # 298 "/usr/local/include/neo-c.h"
     # 340 "/usr/local/include/neo-c.h"
     if(mem) {
@@ -4259,6 +4306,12 @@ void* come_alloc_mem_from_heap_pool(unsigned long  int  compiletime_size  , unsi
     struct neo_frame*  f  ;
     char* fun_name;
     void* __result_obj__0;
+    memset(&size2, 0, sizeof(size2));
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
+    memset(&n, 0, sizeof(n));
+    memset(&f, 0, sizeof(f));
+    memset(&fun_name, 0, sizeof(fun_name));
     # 344 "/usr/local/include/neo-c.h"
     # 346 "/usr/local/include/neo-c.h"
     size2=size+sizeof(struct sMemHeader );
@@ -4325,6 +4378,7 @@ char* come_dynamic_typeof(void* mem)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_dynamic_typeof"; neo_current_frame = &fr;
     struct sMemHeader*  it  ;
     char* __result_obj__0;
+    memset(&it, 0, sizeof(it));
     # 395 "/usr/local/include/neo-c.h"
     # 403 "/usr/local/include/neo-c.h"
     if(!come_is_alive(mem)) {
@@ -4357,6 +4411,8 @@ unsigned long  int  dynamic_sizeof(void* mem)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "dynamic_sizeof"; neo_current_frame = &fr;
     struct sMemHeader*  it  ;
     unsigned long  int  size  ;
+    memset(&it, 0, sizeof(it));
+    memset(&size, 0, sizeof(size));
     # 416 "/usr/local/include/neo-c.h"
     # 424 "/usr/local/include/neo-c.h"
     if(!come_is_alive(mem)) {
@@ -4393,6 +4449,9 @@ void* come_calloc(unsigned long  int  count  , unsigned long  int  size  , const
     unsigned long  int*  ref_count  ;
     unsigned long  int*  size2  ;
     void* __result_obj__0;
+    memset(&mem, 0, sizeof(mem));
+    memset(&ref_count, 0, sizeof(ref_count));
+    memset(&size2, 0, sizeof(size2));
     # 443 "/usr/local/include/neo-c.h"
     # 445 "/usr/local/include/neo-c.h"
     mem=come_alloc_mem_from_heap_pool(count*size,sizeof(unsigned long  int )+sizeof(unsigned long  int )+count*size,sname,sline,id,class_name);
@@ -4414,6 +4473,7 @@ _Bool come_is_alive(void* mem)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_is_alive"; neo_current_frame = &fr;
     struct sMemHeader*  it  ;
+    memset(&it, 0, sizeof(it));
     # 463 "/usr/local/include/neo-c.h"
     if(mem==((void*)0)) {
         # 461 "/usr/local/include/neo-c.h"
@@ -4432,6 +4492,7 @@ void come_free(void* mem)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_free"; neo_current_frame = &fr;
     unsigned long  int*  ref_count  ;
+    memset(&ref_count, 0, sizeof(ref_count));
     # 470 "/usr/local/include/neo-c.h"
     # 476 "/usr/local/include/neo-c.h"
     if(mem==((void*)0)) {
@@ -4467,6 +4528,10 @@ void* come_memdup(void* block, char* sname, int sline, int id, const char* class
     unsigned long  int*  size_p  ;
     unsigned long  int  size  ;
     void* result;
+    memset(&mem, 0, sizeof(mem));
+    memset(&size_p, 0, sizeof(size_p));
+    memset(&size, 0, sizeof(size));
+    memset(&result, 0, sizeof(result));
     # 489 "/usr/local/include/neo-c.h"
     # 495 "/usr/local/include/neo-c.h"
     if(block==((void*)0)) {
@@ -4513,6 +4578,7 @@ void* come_increment_ref_count(void* mem, char* sname, int sline, int id)
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
     unsigned long  int*  ref_count  ;
+    memset(&ref_count, 0, sizeof(ref_count));
     # 516 "/usr/local/include/neo-c.h"
     # 521 "/usr/local/include/neo-c.h"
     if(mem==((void*)0)) {
@@ -4549,6 +4615,7 @@ void* come_print_ref_count(void* mem)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_print_ref_count"; neo_current_frame = &fr;
     void* __result_obj__0;
     unsigned long  int*  ref_count  ;
+    memset(&ref_count, 0, sizeof(ref_count));
     # 536 "/usr/local/include/neo-c.h"
     # 541 "/usr/local/include/neo-c.h"
     if(mem==((void*)0)) {
@@ -4580,6 +4647,7 @@ int come_get_ref_count(void* mem)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "come_get_ref_count"; neo_current_frame = &fr;
     unsigned long  int*  ref_count  ;
+    memset(&ref_count, 0, sizeof(ref_count));
     # 556 "/usr/local/include/neo-c.h"
     # 561 "/usr/local/include/neo-c.h"
     if(mem==((void*)0)) {
@@ -4615,6 +4683,9 @@ void* come_decrement_ref_count(void* mem, void* protocol_fun, void* protocol_obj
     long* ref_count;
     long count;
     void (*finalizer)(void*);
+    memset(&ref_count, 0, sizeof(ref_count));
+    memset(&count, 0, sizeof(count));
+    memset(&finalizer, 0, sizeof(finalizer));
     # 574 "/usr/local/include/neo-c.h"
     # 581 "/usr/local/include/neo-c.h"
     if(result_obj) {
@@ -4694,6 +4765,14 @@ void come_call_finalizer(void* fun, void* mem, void* protocol_fun, void* protoco
     void (*finalizer_7)(void*);
     void (*finalizer_8)(void*);
     void (*finalizer_9)(void*);
+    memset(&finalizer, 0, sizeof(finalizer));
+    memset(&finalizer_5, 0, sizeof(finalizer_5));
+    memset(&finalizer_6, 0, sizeof(finalizer_6));
+    memset(&ref_count, 0, sizeof(ref_count));
+    memset(&count, 0, sizeof(count));
+    memset(&finalizer_7, 0, sizeof(finalizer_7));
+    memset(&finalizer_8, 0, sizeof(finalizer_8));
+    memset(&finalizer_9, 0, sizeof(finalizer_9));
     # 613 "/usr/local/include/neo-c.h"
     # 620 "/usr/local/include/neo-c.h"
     if(result_obj) {
@@ -4901,6 +4980,8 @@ char*  __builtin_string(const char* str, char* sname, int sline)
     char*  __result_obj__0  ;
     int len;
     char* result;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
     # 725 "/usr/local/include/neo-c.h"
     if(str==((void*)0)) {
         # 723 "/usr/local/include/neo-c.h"
@@ -4990,6 +5071,7 @@ struct buffer*  buffer_clone(struct buffer*  self  )
     void* __right_value0 = (void*)0;
     struct buffer*  result  ;
     char* __dec_obj3;
+    memset(&result, 0, sizeof(result));
     # 4863 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 4860 "/usr/local/include/neo-c.h"
@@ -5109,6 +5191,9 @@ struct buffer*  buffer_append(struct buffer*  self  , const char* mem, unsigned 
     char* old_buf;
     int new_size;
     char* __dec_obj4;
+    memset(&old_len, 0, sizeof(old_len));
+    memset(&old_buf, 0, sizeof(old_buf));
+    memset(&new_size, 0, sizeof(new_size));
     # 4922 "/usr/local/include/neo-c.h"
     if(self==((void*)0)||mem==((void*)0)) {
         # 4920 "/usr/local/include/neo-c.h"
@@ -5160,6 +5245,9 @@ struct buffer*  buffer_append_char(struct buffer*  self  , char c)
     char* old_buf;
     int new_size;
     char* __dec_obj5;
+    memset(&old_len, 0, sizeof(old_len));
+    memset(&old_buf, 0, sizeof(old_buf));
+    memset(&new_size, 0, sizeof(new_size));
     # 4946 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 4944 "/usr/local/include/neo-c.h"
@@ -5212,6 +5300,10 @@ struct buffer*  buffer_append_str(struct buffer*  self  , const char* mem)
     char* old_buf;
     int new_size;
     char* __dec_obj6;
+    memset(&size, 0, sizeof(size));
+    memset(&old_len, 0, sizeof(old_len));
+    memset(&old_buf, 0, sizeof(old_buf));
+    memset(&new_size, 0, sizeof(new_size));
     # 4972 "/usr/local/include/neo-c.h"
     if(self==((void*)0)||mem==((void*)0)) {
         # 4969 "/usr/local/include/neo-c.h"
@@ -5271,6 +5363,12 @@ struct buffer*  buffer_append_format(struct buffer*  self  , const char* msg, ..
     int new_size;
     char* __dec_obj7;
     memset(&result, 0, sizeof(result));
+    memset(&len, 0, sizeof(len));
+    memset(&mem, 0, sizeof(mem));
+    memset(&size, 0, sizeof(size));
+    memset(&old_len, 0, sizeof(old_len));
+    memset(&old_buf, 0, sizeof(old_buf));
+    memset(&new_size, 0, sizeof(new_size));
     # 5036 "/usr/local/include/neo-c.h"
     if(self==((void*)0)||msg==((void*)0)) {
         # 5033 "/usr/local/include/neo-c.h"
@@ -5346,6 +5444,10 @@ struct buffer*  buffer_append_nullterminated_str(struct buffer*  self  , const c
     char* old_buf;
     int new_size;
     char* __dec_obj8;
+    memset(&size, 0, sizeof(size));
+    memset(&old_len, 0, sizeof(old_len));
+    memset(&old_buf, 0, sizeof(old_buf));
+    memset(&new_size, 0, sizeof(new_size));
     # 5075 "/usr/local/include/neo-c.h"
     if(self==((void*)0)||mem==((void*)0)) {
         # 5073 "/usr/local/include/neo-c.h"
@@ -5403,6 +5505,11 @@ struct buffer*  buffer_append_int(struct buffer*  self  , int value)
     char* old_buf;
     int new_size;
     char* __dec_obj9;
+    memset(&mem, 0, sizeof(mem));
+    memset(&size, 0, sizeof(size));
+    memset(&old_len, 0, sizeof(old_len));
+    memset(&old_buf, 0, sizeof(old_buf));
+    memset(&new_size, 0, sizeof(new_size));
     # 5100 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 5098 "/usr/local/include/neo-c.h"
@@ -5460,6 +5567,11 @@ struct buffer*  buffer_append_long(struct buffer*  self  , long value)
     char* old_buf;
     int new_size;
     char* __dec_obj10;
+    memset(&mem, 0, sizeof(mem));
+    memset(&size, 0, sizeof(size));
+    memset(&old_len, 0, sizeof(old_len));
+    memset(&old_buf, 0, sizeof(old_buf));
+    memset(&new_size, 0, sizeof(new_size));
     # 5126 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 5124 "/usr/local/include/neo-c.h"
@@ -5517,6 +5629,11 @@ struct buffer*  buffer_append_short(struct buffer*  self  , short value)
     char* old_buf;
     int new_size;
     char* __dec_obj11;
+    memset(&mem, 0, sizeof(mem));
+    memset(&size, 0, sizeof(size));
+    memset(&old_len, 0, sizeof(old_len));
+    memset(&old_buf, 0, sizeof(old_buf));
+    memset(&new_size, 0, sizeof(new_size));
     # 5153 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 5150 "/usr/local/include/neo-c.h"
@@ -5574,6 +5691,11 @@ struct buffer*  buffer_alignment(struct buffer*  self  )
     int new_size;
     char* __dec_obj12;
     int i;
+    memset(&len, 0, sizeof(len));
+    memset(&old_len, 0, sizeof(old_len));
+    memset(&old_buf, 0, sizeof(old_buf));
+    memset(&new_size, 0, sizeof(new_size));
+    memset(&i, 0, sizeof(i));
     # 5180 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 5177 "/usr/local/include/neo-c.h"
@@ -5653,6 +5775,7 @@ struct buffer*  charp_to_buffer(const char* self)
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 5220 "/usr/local/include/neo-c.h"
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 5220, 178, "struct buffer* "), "/usr/local/include/neo-c.h", 5220, 179)), "/usr/local/include/neo-c.h", 5220, 180);
     # 5226 "/usr/local/include/neo-c.h"
@@ -5721,6 +5844,7 @@ struct buffer*  chara_to_buffer(char* self, unsigned long  int  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 5250 "/usr/local/include/neo-c.h"
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 5250, 193, "struct buffer* "), "/usr/local/include/neo-c.h", 5250, 194)), "/usr/local/include/neo-c.h", 5250, 195);
     # 5254 "/usr/local/include/neo-c.h"
@@ -5750,6 +5874,8 @@ struct buffer*  charpa_to_buffer(char** self, unsigned long  int  len  )
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
     int i;
+    memset(&result, 0, sizeof(result));
+    memset(&i, 0, sizeof(i));
     # 5260 "/usr/local/include/neo-c.h"
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 5260, 202, "struct buffer* "), "/usr/local/include/neo-c.h", 5260, 203)), "/usr/local/include/neo-c.h", 5260, 204);
     # 5264 "/usr/local/include/neo-c.h"
@@ -5781,6 +5907,7 @@ struct buffer*  shorta_to_buffer(short* self, unsigned long  int  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 5272 "/usr/local/include/neo-c.h"
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 5272, 211, "struct buffer* "), "/usr/local/include/neo-c.h", 5272, 212)), "/usr/local/include/neo-c.h", 5272, 213);
     # 5276 "/usr/local/include/neo-c.h"
@@ -5809,6 +5936,7 @@ struct buffer*  inta_to_buffer(int* self, unsigned long  int  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 5282 "/usr/local/include/neo-c.h"
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 5282, 220, "struct buffer* "), "/usr/local/include/neo-c.h", 5282, 221)), "/usr/local/include/neo-c.h", 5282, 222);
     # 5286 "/usr/local/include/neo-c.h"
@@ -5837,6 +5965,7 @@ struct buffer*  longa_to_buffer(long* self, unsigned long  int  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 5292 "/usr/local/include/neo-c.h"
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 5292, 229, "struct buffer* "), "/usr/local/include/neo-c.h", 5292, 230)), "/usr/local/include/neo-c.h", 5292, 231);
     # 5296 "/usr/local/include/neo-c.h"
@@ -5865,6 +5994,7 @@ struct buffer*  floata_to_buffer(float* self, unsigned long  int  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 5302 "/usr/local/include/neo-c.h"
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 5302, 238, "struct buffer* "), "/usr/local/include/neo-c.h", 5302, 239)), "/usr/local/include/neo-c.h", 5302, 240);
     # 5306 "/usr/local/include/neo-c.h"
@@ -5893,6 +6023,7 @@ struct buffer*  doublea_to_buffer(double* self, unsigned long  int  len  )
     void* __right_value1 = (void*)0;
     struct buffer*  result  ;
     struct buffer*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 5312 "/usr/local/include/neo-c.h"
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "/usr/local/include/neo-c.h", 5312, 247, "struct buffer* "), "/usr/local/include/neo-c.h", 5312, 248)), "/usr/local/include/neo-c.h", 5312, 249);
     # 5316 "/usr/local/include/neo-c.h"
@@ -5924,6 +6055,11 @@ char*  buffer_printable(struct buffer*  self  )
     int n;
     int i;
     unsigned char c;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
+    memset(&n, 0, sizeof(n));
+    memset(&i, 0, sizeof(i));
+    memset(&c, 0, sizeof(c));
     # 5322 "/usr/local/include/neo-c.h"
     len=self->len;
     # 5323 "/usr/local/include/neo-c.h"
@@ -5974,6 +6110,7 @@ static struct list$1char$* list$1char$_initialize_with_values(struct list$1char$
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1char$* __result_obj__0;
+    memset(&i, 0, sizeof(i));
     # 1489 "/usr/local/include/neo-c.h"
     self->head=((void*)0);
     # 1490 "/usr/local/include/neo-c.h"
@@ -6001,6 +6138,9 @@ static struct list$1char$* list$1char$_push_back(struct list$1char$* self, char 
     struct list_item$1char$* litem;
     struct list_item$1char$* litem_10;
     struct list_item$1char$* litem_11;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_10, 0, sizeof(litem_10));
+    memset(&litem_11, 0, sizeof(litem_11));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -6066,6 +6206,8 @@ static void list$1char$$p_finalize(struct list$1char$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$* it;
     struct list_item$1char$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6112,6 +6254,7 @@ static struct list$1char$p* list$1char$p_initialize_with_values(struct list$1cha
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$p_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1char$p* __result_obj__0;
+    memset(&i, 0, sizeof(i));
     # 1489 "/usr/local/include/neo-c.h"
     self->head=((void*)0);
     # 1490 "/usr/local/include/neo-c.h"
@@ -6139,6 +6282,9 @@ static struct list$1char$p* list$1char$p_push_back(struct list$1char$p* self, ch
     struct list_item$1char$p* litem;
     struct list_item$1char$p* litem_12;
     struct list_item$1char$p* litem_13;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_12, 0, sizeof(litem_12));
+    memset(&litem_13, 0, sizeof(litem_13));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -6204,6 +6350,8 @@ static void list$1char$p$p_finalize(struct list$1char$p* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$p$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$p* it;
     struct list_item$1char$p* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6250,6 +6398,7 @@ static struct list$1short$* list$1short$_initialize_with_values(struct list$1sho
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1short$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1short$* __result_obj__0;
+    memset(&i, 0, sizeof(i));
     # 1489 "/usr/local/include/neo-c.h"
     self->head=((void*)0);
     # 1490 "/usr/local/include/neo-c.h"
@@ -6277,6 +6426,9 @@ static struct list$1short$* list$1short$_push_back(struct list$1short$* self, sh
     struct list_item$1short$* litem;
     struct list_item$1short$* litem_14;
     struct list_item$1short$* litem_15;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_14, 0, sizeof(litem_14));
+    memset(&litem_15, 0, sizeof(litem_15));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -6342,6 +6494,8 @@ static void list$1short$$p_finalize(struct list$1short$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1short$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1short$* it;
     struct list_item$1short$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6388,6 +6542,7 @@ static struct list$1int$* list$1int$_initialize_with_values(struct list$1int$* s
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1int$* __result_obj__0;
+    memset(&i, 0, sizeof(i));
     # 1489 "/usr/local/include/neo-c.h"
     self->head=((void*)0);
     # 1490 "/usr/local/include/neo-c.h"
@@ -6415,6 +6570,9 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
     struct list_item$1int$* litem;
     struct list_item$1int$* litem_16;
     struct list_item$1int$* litem_17;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_16, 0, sizeof(litem_16));
+    memset(&litem_17, 0, sizeof(litem_17));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -6494,6 +6652,7 @@ static struct list$1long$* list$1long$_initialize_with_values(struct list$1long$
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1long$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1long$* __result_obj__0;
+    memset(&i, 0, sizeof(i));
     # 1489 "/usr/local/include/neo-c.h"
     self->head=((void*)0);
     # 1490 "/usr/local/include/neo-c.h"
@@ -6521,6 +6680,9 @@ static struct list$1long$* list$1long$_push_back(struct list$1long$* self, long 
     struct list_item$1long$* litem;
     struct list_item$1long$* litem_18;
     struct list_item$1long$* litem_19;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_18, 0, sizeof(litem_18));
+    memset(&litem_19, 0, sizeof(litem_19));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -6586,6 +6748,8 @@ static void list$1long$$p_finalize(struct list$1long$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1long$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1long$* it;
     struct list_item$1long$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6632,6 +6796,7 @@ static struct list$1float$* list$1float$_initialize_with_values(struct list$1flo
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1float$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1float$* __result_obj__0;
+    memset(&i, 0, sizeof(i));
     # 1489 "/usr/local/include/neo-c.h"
     self->head=((void*)0);
     # 1490 "/usr/local/include/neo-c.h"
@@ -6659,6 +6824,9 @@ static struct list$1float$* list$1float$_push_back(struct list$1float$* self, fl
     struct list_item$1float$* litem;
     struct list_item$1float$* litem_20;
     struct list_item$1float$* litem_21;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_20, 0, sizeof(litem_20));
+    memset(&litem_21, 0, sizeof(litem_21));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -6724,6 +6892,8 @@ static void list$1float$$p_finalize(struct list$1float$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1float$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1float$* it;
     struct list_item$1float$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -6770,6 +6940,7 @@ static struct list$1double$* list$1double$_initialize_with_values(struct list$1d
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1double$_initialize_with_values"; neo_current_frame = &fr;
     int i;
     struct list$1double$* __result_obj__0;
+    memset(&i, 0, sizeof(i));
     # 1489 "/usr/local/include/neo-c.h"
     self->head=((void*)0);
     # 1490 "/usr/local/include/neo-c.h"
@@ -6797,6 +6968,9 @@ static struct list$1double$* list$1double$_push_back(struct list$1double$* self,
     struct list_item$1double$* litem;
     struct list_item$1double$* litem_22;
     struct list_item$1double$* litem_23;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_22, 0, sizeof(litem_22));
+    memset(&litem_23, 0, sizeof(litem_23));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -6862,6 +7036,8 @@ static void list$1double$$p_finalize(struct list$1double$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1double$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1double$* it;
     struct list_item$1double$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -7288,6 +7464,8 @@ char*  charp_operator_add(const char* self, const char* right)
     char*  __result_obj__0  ;
     int len;
     char* result;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
     # 5649 "/usr/local/include/neo-c.h"
     if(self==((void*)0)||right==((void*)0)) {
         # 5647 "/usr/local/include/neo-c.h"
@@ -7321,6 +7499,8 @@ char*  string_operator_add(char* self, const char* right)
     char*  __result_obj__0  ;
     int len;
     char* result;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
     # 5664 "/usr/local/include/neo-c.h"
     if(self==((void*)0)||right==((void*)0)) {
         # 5662 "/usr/local/include/neo-c.h"
@@ -7355,6 +7535,8 @@ char*  charp_operator_mult(const char* self, int right)
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     int i;
+    memset(&buf, 0, sizeof(buf));
+    memset(&i, 0, sizeof(i));
     # 5679 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 5677 "/usr/local/include/neo-c.h"
@@ -7390,6 +7572,8 @@ char*  string_operator_mult(const char* self, int right)
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     int i;
+    memset(&buf, 0, sizeof(buf));
+    memset(&i, 0, sizeof(i));
     # 5693 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 5691 "/usr/local/include/neo-c.h"
@@ -7422,6 +7606,8 @@ _Bool charpa_contained(const char* self[], unsigned long  int  len  , const char
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charpa_contained"; neo_current_frame = &fr;
     _Bool result;
     int i;
+    memset(&result, 0, sizeof(result));
+    memset(&i, 0, sizeof(i));
     # 5709 "/usr/local/include/neo-c.h"
     result=(_Bool)0;
     # 5713 "/usr/local/include/neo-c.h"
@@ -7567,6 +7753,7 @@ unsigned int charp_get_hash_key(const char* value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_get_hash_key"; neo_current_frame = &fr;
     int result;
+    memset(&result, 0, sizeof(result));
     # 5800 "/usr/local/include/neo-c.h"
     if(value==((void*)0)) {
         # 5798 "/usr/local/include/neo-c.h"
@@ -7595,6 +7782,8 @@ unsigned int string_get_hash_key(char* value)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "string_get_hash_key"; neo_current_frame = &fr;
     int result;
     char* p;
+    memset(&result, 0, sizeof(result));
+    memset(&p, 0, sizeof(p));
     # 5814 "/usr/local/include/neo-c.h"
     if(value==((void*)0)) {
         # 5812 "/usr/local/include/neo-c.h"
@@ -7703,6 +7892,7 @@ _Bool xisalpha(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xisalpha"; neo_current_frame = &fr;
     _Bool result;
+    memset(&result, 0, sizeof(result));
     # 5882 "/usr/local/include/neo-c.h"
     result=(c>=97&&c<=122)||(c>=65&&c<=90);
     # 5883 "/usr/local/include/neo-c.h"
@@ -7751,6 +7941,7 @@ _Bool xisascii(char c)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xisascii"; neo_current_frame = &fr;
     _Bool result;
+    memset(&result, 0, sizeof(result));
     # 5908 "/usr/local/include/neo-c.h"
     result=(c>=32&&c<=126);
     # 5909 "/usr/local/include/neo-c.h"
@@ -7821,6 +8012,9 @@ char*  charp_reverse(const char* str)
     int len;
     char* result;
     int i;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
+    memset(&i, 0, sizeof(i));
     # 5953 "/usr/local/include/neo-c.h"
     if(str==((void*)0)) {
         # 5951 "/usr/local/include/neo-c.h"
@@ -7858,6 +8052,8 @@ char*  string_operator_load_range_element(char* str, int head, int tail)
     int len;
     void* __right_value1 = (void*)0;
     char*  result  ;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
     # 5971 "/usr/local/include/neo-c.h"
     if(str==((void*)0)) {
         # 5968 "/usr/local/include/neo-c.h"
@@ -7943,6 +8139,8 @@ char*  charp_operator_load_range_element(char* str, int head, int tail)
     int len;
     void* __right_value1 = (void*)0;
     char*  result  ;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
     # 6014 "/usr/local/include/neo-c.h"
     if(str==((void*)0)) {
         # 6011 "/usr/local/include/neo-c.h"
@@ -8028,6 +8226,8 @@ char*  charp_substring(const char* str, int head, int tail)
     int len;
     void* __right_value1 = (void*)0;
     char*  result  ;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
     # 6057 "/usr/local/include/neo-c.h"
     if(str==((void*)0)) {
         # 6054 "/usr/local/include/neo-c.h"
@@ -8115,6 +8315,8 @@ char*  xsprintf(const char* msg, ...)
     int len;
     char*  result2  ;
     memset(&result, 0, sizeof(result));
+    memset(&len, 0, sizeof(len));
+    memset(&result2, 0, sizeof(result2));
     # 6099 "/usr/local/include/neo-c.h"
     if(msg==((void*)0)) {
         # 6097 "/usr/local/include/neo-c.h"
@@ -8162,6 +8364,8 @@ char*  charp_delete(char* str, int head, int tail)
     char*  __result_obj__0  ;
     int len;
     char* result;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
     # 6122 "/usr/local/include/neo-c.h"
     if(str==((void*)0)) {
         # 6119 "/usr/local/include/neo-c.h"
@@ -8269,6 +8473,9 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
     char*  __dec_obj14  ;
     struct list_item$1char$ph* litem_25;
     char*  __dec_obj15  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_24, 0, sizeof(litem_24));
+    memset(&litem_25, 0, sizeof(litem_25));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -8347,6 +8554,10 @@ struct list$1char$ph* charp_split_char(char* self, char c)
     struct buffer*  str  ;
     int self_len;
     int i;
+    memset(&result, 0, sizeof(result));
+    memset(&str, 0, sizeof(str));
+    memset(&self_len, 0, sizeof(self_len));
+    memset(&i, 0, sizeof(i));
     # 6168 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 6165 "/usr/local/include/neo-c.h"
@@ -8432,6 +8643,11 @@ char*  charp_printable(char* str)
     int n;
     int i;
     char c;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
+    memset(&n, 0, sizeof(n));
+    memset(&i, 0, sizeof(i));
+    memset(&c, 0, sizeof(c));
     # 6204 "/usr/local/include/neo-c.h"
     if(str==((void*)0)) {
         # 6202 "/usr/local/include/neo-c.h"
@@ -8496,6 +8712,9 @@ char*  charp_sub_plain(char* self, char* str, char* replace)
     struct buffer*  result  ;
     char* p;
     char* p2;
+    memset(&result, 0, sizeof(result));
+    memset(&p, 0, sizeof(p));
+    memset(&p2, 0, sizeof(p2));
     # 6238 "/usr/local/include/neo-c.h"
     if(self==((void*)0)||str==((void*)0)||replace==((void*)0)) {
         # 6235 "/usr/local/include/neo-c.h"
@@ -8551,6 +8770,7 @@ char*  xbasename(char* path)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     char* p;
+    memset(&p, 0, sizeof(p));
     # 6271 "/usr/local/include/neo-c.h"
     if(path==((void*)0)) {
         # 6269 "/usr/local/include/neo-c.h"
@@ -8609,6 +8829,8 @@ char*  xnoextname(char* path)
     char*  __result_obj__0  ;
     char*  path2  ;
     char* p;
+    memset(&path2, 0, sizeof(path2));
+    memset(&p, 0, sizeof(p));
     # 6297 "/usr/local/include/neo-c.h"
     if(path==((void*)0)) {
         # 6295 "/usr/local/include/neo-c.h"
@@ -8672,6 +8894,7 @@ char*  xextname(char* path)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     char* p;
+    memset(&p, 0, sizeof(p));
     # 6325 "/usr/local/include/neo-c.h"
     if(path==((void*)0)) {
         # 6323 "/usr/local/include/neo-c.h"
@@ -9267,6 +9490,7 @@ void int_times(int self, void* parent, void (*block)(void*,int))
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "int_times"; neo_current_frame = &fr;
     int i;
+    memset(&i, 0, sizeof(i));
     # 6684 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self;i++){
         # 6682 "/usr/local/include/neo-c.h"
@@ -9283,6 +9507,8 @@ struct buffer*  FILE_read(struct _IO_FILE*  f  )
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
     int size;
+    memset(&buf, 0, sizeof(buf));
+    memset(&size, 0, sizeof(size));
     # 6696 "/usr/local/include/neo-c.h"
     if(f==((void*)0)) {
         # 6694 "/usr/local/include/neo-c.h"
@@ -9337,6 +9563,7 @@ int FILE_fclose(struct _IO_FILE*  f  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "FILE_fclose"; neo_current_frame = &fr;
     int result;
+    memset(&result, 0, sizeof(result));
     # 6728 "/usr/local/include/neo-c.h"
     if(f==((void*)0)) {
         # 6725 "/usr/local/include/neo-c.h"
@@ -9363,6 +9590,7 @@ struct _IO_FILE*  FILE_fprintf(struct _IO_FILE*  f  , const char* msg, ...)
     struct _IO_FILE*  __result_obj__0  ;
     __builtin_va_list  args  ;
     int result;
+    memset(&result, 0, sizeof(result));
     # 6742 "/usr/local/include/neo-c.h"
     if(f==((void*)0)||msg==((void*)0)) {
         # 6740 "/usr/local/include/neo-c.h"
@@ -9402,6 +9630,8 @@ int charp_write(const char* self, const char* file_name, _Bool append)
     int result;
     int result2;
     memset(&f, 0, sizeof(f));
+    memset(&result, 0, sizeof(result));
+    memset(&result2, 0, sizeof(result2));
     # 6764 "/usr/local/include/neo-c.h"
     if(self==((void*)0)||file_name==((void*)0)) {
         # 6761 "/usr/local/include/neo-c.h"
@@ -9456,6 +9686,10 @@ struct buffer*  charp_read(const char* file_name)
     struct buffer*  buf  ;
     int size;
     int result2;
+    memset(&f, 0, sizeof(f));
+    memset(&buf, 0, sizeof(buf));
+    memset(&size, 0, sizeof(size));
+    memset(&result2, 0, sizeof(result2));
     # 6797 "/usr/local/include/neo-c.h"
     if(file_name==((void*)0)) {
         # 6794 "/usr/local/include/neo-c.h"
@@ -9523,6 +9757,7 @@ struct list$1char$ph* FILE_readlines(struct _IO_FILE*  f  )
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
     struct list$1char$ph* __result_obj__0;
+    memset(&result, 0, sizeof(result));
     # 6828 "/usr/local/include/neo-c.h"
     result=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "/usr/local/include/neo-c.h", 6828, 684, "struct list$1char$ph*"), "/usr/local/include/neo-c.h", 6828, 685)), "/usr/local/include/neo-c.h", 6828, 686);
     # 6834 "/usr/local/include/neo-c.h"
@@ -9560,6 +9795,7 @@ _Bool xiswalpha(int  c  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xiswalpha"; neo_current_frame = &fr;
     _Bool result;
+    memset(&result, 0, sizeof(result));
     # 6849 "/usr/local/include/neo-c.h"
     result=(c>=97&&c<=122)||(c>=65&&c<=90);
     # 6850 "/usr/local/include/neo-c.h"
@@ -9599,6 +9835,7 @@ _Bool xiswascii(int  c  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xiswascii"; neo_current_frame = &fr;
     _Bool result;
+    memset(&result, 0, sizeof(result));
     # 6870 "/usr/local/include/neo-c.h"
     result=(c>=32&&c<=126);
     # 6871 "/usr/local/include/neo-c.h"
@@ -9620,6 +9857,7 @@ int charp_index(const char* str, const char* search_str, int default_value)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "charp_index"; neo_current_frame = &fr;
     char* head;
+    memset(&head, 0, sizeof(head));
     # 7217 "/usr/local/include/neo-c.h"
     if(str==((void*)0)||search_str==((void*)0)) {
         # 7214 "/usr/local/include/neo-c.h"

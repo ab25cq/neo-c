@@ -642,6 +642,60 @@ sNode*% automatically_unwrap(sNode*% node, sInfo* info=info)
     return new sAutomaticallyUnwrapNode(node, info) implements sNode;
 }
 
+static sType*% get_result_value_type(sType* type, sInfo* info=info)
+{
+    if(type == null) {
+        return null;
+    }
+    
+    sType*% type2 = clone type;
+    if(type2->mNoSolvedGenericsType) {
+        type2 = clone type2->mNoSolvedGenericsType;
+    }
+    
+    if(type2->mClass == null || type2->mClass->mName == null) {
+        return null;
+    }
+    
+    if(type2->mClass->mName !== "tuple2") {
+        return null;
+    }
+    
+    if(type2->mGenericsTypes.length() != 2) {
+        return null;
+    }
+    
+    sType* second_type = borrow type2->mGenericsTypes[1];
+    if(second_type->mNoSolvedGenericsType) {
+        second_type = borrow second_type->mNoSolvedGenericsType;
+    }
+    
+    if(second_type->mClass == null || second_type->mClass->mName == null) {
+        return null;
+    }
+    
+    if(second_type->mClass->mName !== "_Bool" && second_type->mClass->mName !== "bool") {
+        return null;
+    }
+    
+    sType* first_type = borrow type2->mGenericsTypes[0];
+    
+    return clone first_type;
+}
+
+static string create_zero_value_code(sType* type, sInfo* info=info)
+{
+    sType*% type2_ = solve_generics(type, info->generics_type, info);
+    sType*% type2 = solve_method_generics(type2_, info);
+    
+    string type_name = make_type_name_string(type2, no_static:true, typedef_extended:true);
+    
+    static int n = 0;
+    string var_name = xsprintf("__zero_value%d", ++n);
+    
+    return xsprintf("({ %s %s; memset(&%s, 0, sizeof(%s)); %s; })", type_name, var_name, var_name, type_name, var_name);
+}
+
 class sUnwrapNode extends sNodeBase
 {
     new(sNode*% node, sInfo* info=info, bool check=true, bool no_unwrap=false)
@@ -677,6 +731,197 @@ class sUnwrapNode extends sNodeBase
     }
 };
 
+class sZeroValueNode extends sNodeBase
+{
+    new(sType*% type, sInfo* info=info)
+    {
+        self.super();
+        
+        sType*% self.type = clone type;
+    }
+    
+    string kind()
+    {
+        return string("sZeroValueNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sType*% type = self.type;
+        
+        CVALUE*% come_value = new CVALUE();
+        
+        come_value.c_value = create_zero_value_code(type, info);
+        come_value.type = solve_method_generics(solve_generics(type, info->generics_type, info), info);
+        come_value.var = null;
+        
+        add_come_last_code(info, "%s", come_value.c_value);
+        
+        info.stack.push_back(come_value);
+        
+        return true;
+    }
+};
+
+class sTryOperatorNode extends sNodeBase
+{
+    new(sNode*% node, sInfo* info=info)
+    {
+        self.super();
+        
+        sNode*% self.node = clone node;
+    }
+    
+    string kind()
+    {
+        return string("sTryOperatorNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        if(info->come_fun == null) {
+            err_msg(info, "?? requires function context");
+            return false;
+        }
+        
+        sNode*% node = self.node;
+        
+        buffer*% if_expression_buffer = clone info.if_expression_buffer;
+        info.if_expression_buffer = new buffer();
+        
+        node_compile(node).elif {
+            info.if_expression_buffer = if_expression_buffer;
+            return false;
+        }
+        
+        CVALUE*% node_value = get_value_from_stack(-1, info);
+        
+        sType*% result_value_type = get_result_value_type(node_value.type, info);
+        
+        if(result_value_type == null) {
+            err_msg(info, "?? requires Result<T> value");
+            info.if_expression_buffer = if_expression_buffer;
+            return false;
+        }
+        
+        sType*% function_result_type_ = clone info->come_fun->mResultType;
+        sType*% function_result_type2_ = solve_generics(function_result_type_, info->generics_type, info);
+        sType*% function_result_type = solve_method_generics(function_result_type2_, info);
+        
+        sType*% function_result_value_type = get_result_value_type(function_result_type, info);
+        
+        if(function_result_value_type == null) {
+            err_msg(info, "?? requires Result<T> return type");
+            info.if_expression_buffer = if_expression_buffer;
+            return false;
+        }
+        
+        remove_value_from_right_value_objects(node_value, info);
+        
+        static int n = 0;
+        string var_name = xsprintf("__try_value%d", ++n);
+        
+        sType*% node_type = clone node_value.type;
+        node_type->mDefferRightValue = true;
+        
+        add_variable_to_table(var_name, clone node_type, info, false@function_param, false);
+        
+        sVar* var_ = get_variable_from_table(info->lv_table, var_name);
+        
+        add_come_code_at_function_head(info, "%s;\n", make_define_var(node_type, var_->mCValueName));
+        
+        bool no_output_come_code = info.no_output_come_code;
+        
+        sNode*% error_node = load_field(create_load_var(var_name), s"v2");
+        info.no_output_come_code = true;
+        node_compile(error_node).elif {
+            info.no_output_come_code = no_output_come_code;
+            info.if_expression_buffer = if_expression_buffer;
+            return false;
+        }
+        CVALUE*% error_value = get_value_from_stack(-1, info);
+        info.no_output_come_code = no_output_come_code;
+        
+        sNode*% success_node = load_field(create_load_var(var_name), s"v1");
+        info.no_output_come_code = true;
+        node_compile(success_node).elif {
+            info.no_output_come_code = no_output_come_code;
+            info.if_expression_buffer = if_expression_buffer;
+            return false;
+        }
+        CVALUE*% success_value = get_value_from_stack(-1, info);
+        info.no_output_come_code = no_output_come_code;
+        
+        string success_var_name = xsprintf("__try_result%d", n);
+        sType*% success_type = clone result_value_type;
+        success_type->mDefferRightValue = true;
+        
+        add_variable_to_table(success_var_name, clone success_type, info, false@function_param, false);
+        
+        sVar* success_var = get_variable_from_table(info->lv_table, success_var_name);
+        
+        add_come_code_at_function_head(info, "%s;\n", make_define_var(success_type, success_var->mCValueName));
+        add_come_code_at_function_head(info, "%s = %s;\n", success_var->mCValueName, create_zero_value_code(success_type, info));
+        
+        string result_var_name = string(var_->mCValueName);
+        string field_name = xsprintf("%s%sv1", result_var_name, node_type->mPointerNum > 0 ? "->" : ".");
+        
+        add_come_code(info, "({");
+        add_come_code(info, "%s=%s;\n", var_->mCValueName, node_value.c_value);
+        add_come_code(info, "if(%s) {\n", error_value.c_value);
+        
+        list<tuple2<string, sNode*%>*%>*% tuple_elements = new list<tuple2<string, sNode*%>*%>();
+        tuple_elements.add(t((string)null, new sZeroValueNode(function_result_value_type, info) implements sNode));
+        tuple_elements.add(t((string)null, create_true_object(info)));
+        
+        sNode*% return_node = create_return_node(create_tuple_node(tuple_elements, info), info);
+        
+        bool last_statment_is_return = info.last_statment_is_return;
+        bool inhibits_output_code = info.inhibits_output_code;
+        
+        node_compile(return_node).elif {
+            info.last_statment_is_return = last_statment_is_return;
+            info.inhibits_output_code = inhibits_output_code;
+            info.if_expression_buffer = if_expression_buffer;
+            return false;
+        }
+        
+        info.last_statment_is_return = last_statment_is_return;
+        info.inhibits_output_code = inhibits_output_code;
+        
+        add_come_code(info, "}\n");
+        add_come_code(info, "%s=%s;\n", success_var->mCValueName, success_value.c_value);
+        add_come_code(info, "%s=%s;\n", field_name, create_zero_value_code(result_value_type, info));
+        add_come_code(info, "(%s = come_decrement_ref_count(%s, (void*)0, (void*)0, 0, 0, (void*)0, \"%s\", %d, %d));\n", result_var_name, result_var_name, info->sname, info->sline, ++info->id);
+        var_->mCValueName = null;
+        add_come_code(info, "%s;})", success_var->mCValueName);
+        
+        CVALUE*% come_value = new CVALUE();
+        
+        come_value.c_value = info.if_expression_buffer.to_string();
+        come_value.type = clone result_value_type;
+        come_value.var = null;
+        
+        if(come_value.type->mHeap) {
+            append_object_to_right_values(come_value, come_value.type, info, obj_type:success_type, obj_value:success_var->mCValueName, obj_var:success_var);
+        }
+        else if(success_var) {
+            append_object_to_right_values(come_value, come_value.type, info, obj_type:success_type, obj_value:success_var->mCValueName, obj_var:success_var);
+        }
+        
+        add_come_last_code(info, "%s", come_value.c_value);
+        
+        info.stack.push_back(come_value);
+        info.if_expression_buffer = if_expression_buffer;
+        
+        return true;
+    }
+};
+
+sNode*% create_try_operator_node(sNode*% node, sInfo* info=info)
+{
+    return new sTryOperatorNode(node, info) implements sNode;
+}
 
 sNode*% load_field(sNode*% left, string name, sInfo* info=info)
 {

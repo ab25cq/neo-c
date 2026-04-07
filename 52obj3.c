@@ -2462,6 +2462,7 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
 struct sNode* create_comma_exp(struct sNode* node, struct sNode* node2, struct sInfo*  info  );
 struct sNode* create_less(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sNode* create_null_node(struct sInfo*  info  );
+struct sNode* create_try_operator_node(struct sNode* node, struct sInfo*  info  );
 struct sNode* conditional_node(struct sNode* value1, struct sNode* value2, struct sNode* value3, struct sInfo*  info  );
 _Bool operator_overload_fun(struct sType*  type  , const char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE*  left_value  , struct CVALUE*  right_value  , _Bool break_guard, struct sInfo*  info  );
 struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp);
@@ -2781,11 +2782,73 @@ struct sNode* string_node_v21(char* buf, char* head, int head_sline, struct sInf
     _Bool no_comma_72;
     struct sNode* __dec_obj21;
     struct sNode* __dec_obj22;
+    memset(&exp, 0, sizeof(exp));
+    memset(&obj, 0, sizeof(obj));
+    memset(&fun_name, 0, sizeof(fun_name));
+    memset(&initializer, 0, sizeof(initializer));
+    memset(&word, 0, sizeof(word));
+    memset(&no_comma, 0, sizeof(no_comma));
+    memset(&exp_0, 0, sizeof(exp_0));
+    memset(&exp_3, 0, sizeof(exp_3));
+    memset(&block, 0, sizeof(block));
+    memset(&node, 0, sizeof(node));
+    memset(&node_4, 0, sizeof(node_4));
+    memset(&node_5, 0, sizeof(node_5));
+    memset(&node_6, 0, sizeof(node_6));
+    memset(&node_7, 0, sizeof(node_7));
+    memset(&node_8, 0, sizeof(node_8));
+    memset(&node_9, 0, sizeof(node_9));
+    memset(&node_10, 0, sizeof(node_10));
+    memset(&node_11, 0, sizeof(node_11));
+    memset(&type2_, 0, sizeof(type2_));
+    memset(&type2, 0, sizeof(type2));
+    memset(&type2__16, 0, sizeof(type2__16));
+    memset(&type2_17, 0, sizeof(type2_17));
+    memset(&node_18, 0, sizeof(node_18));
+    memset(&node_19, 0, sizeof(node_19));
+    memset(&node_20, 0, sizeof(node_20));
+    memset(&come_c, 0, sizeof(come_c));
+    memset(&node_21, 0, sizeof(node_21));
+    memset(&come_safe, 0, sizeof(come_safe));
+    memset(&node_22, 0, sizeof(node_22));
+    memset(&come_safe_23, 0, sizeof(come_safe_23));
+    memset(&node_24, 0, sizeof(node_24));
+    memset(&no_comma_25, 0, sizeof(no_comma_25));
+    memset(&exp_26, 0, sizeof(exp_26));
+    memset(&types, 0, sizeof(types));
+    memset(&exps, 0, sizeof(exps));
+    memset(&default_exp, 0, sizeof(default_exp));
+    memset(&no_comma_27, 0, sizeof(no_comma_27));
+    memset(&no_comma_33, 0, sizeof(no_comma_33));
+    memset(&node_34, 0, sizeof(node_34));
+    memset(&word_40, 0, sizeof(word_40));
+    memset(&paren, 0, sizeof(paren));
+    memset(&is_type_name_flag, 0, sizeof(is_type_name_flag));
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
+    memset(&word_41, 0, sizeof(word_41));
     memset(&exp_45, 0, sizeof(exp_45));
+    memset(&no_comma_46, 0, sizeof(no_comma_46));
+    memset(&paren_47, 0, sizeof(paren_47));
     memset(&exp_48, 0, sizeof(exp_48));
+    memset(&no_comma_49, 0, sizeof(no_comma_49));
+    memset(&paren_50, 0, sizeof(paren_50));
     memset(&exp_51, 0, sizeof(exp_51));
+    memset(&no_comma_52, 0, sizeof(no_comma_52));
+    memset(&paren_53, 0, sizeof(paren_53));
+    memset(&is_type_name_flag_54, 0, sizeof(is_type_name_flag_54));
+    memset(&p_55, 0, sizeof(p_55));
+    memset(&sline_56, 0, sizeof(sline_56));
+    memset(&word_57, 0, sizeof(word_57));
     memset(&exp_61, 0, sizeof(exp_61));
+    memset(&no_comma_62, 0, sizeof(no_comma_62));
+    memset(&paren_63, 0, sizeof(paren_63));
+    memset(&is_type_name_flag_64, 0, sizeof(is_type_name_flag_64));
+    memset(&p_65, 0, sizeof(p_65));
+    memset(&sline_66, 0, sizeof(sline_66));
+    memset(&word_67, 0, sizeof(word_67));
     memset(&exp_71, 0, sizeof(exp_71));
+    memset(&no_comma_72, 0, sizeof(no_comma_72));
     # 713 "52obj3.nc"
     if(!gComeC&&charp_operator_equals(buf,"new")) {
         # 6 "52obj3.nc"
@@ -4159,6 +4222,8 @@ static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sType$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sType$ph* it;
     struct list_item$1sType$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4196,6 +4261,8 @@ static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sNode$ph* it;
     struct list_item$1sNode$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4233,6 +4300,8 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4265,6 +4334,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4303,6 +4374,7 @@ static struct sNode* sNode_clone(struct sNode* self)
     struct sNode* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct sNode* result;
+    memset(&result, 0, sizeof(result));
     # 3 "sNode_clone"
     # 5 "sNode_clone"
     if(self==(void*)0) {
@@ -4395,6 +4467,8 @@ static void list$1tuple2$2char$phsNode$ph$ph$p_finalize(struct list$1tuple2$2cha
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple2$2char$phsNode$ph$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1tuple2$2char$phsNode$ph$ph* it;
     struct list_item$1tuple2$2char$phsNode$ph$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4455,6 +4529,9 @@ static struct list$1tuple2$2char$phsNode$ph$ph* list$1tuple2$2char$phsNode$ph$ph
     struct tuple2$2char$phsNode$ph* __dec_obj2;
     struct list_item$1tuple2$2char$phsNode$ph$ph* litem_2;
     struct tuple2$2char$phsNode$ph* __dec_obj3;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_1, 0, sizeof(litem_1));
+    memset(&litem_2, 0, sizeof(litem_2));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -4611,6 +4688,9 @@ static struct list$1sType$ph* list$1sType$ph_add(struct list$1sType$ph* self, st
     struct sType*  __dec_obj8  ;
     struct list_item$1sType$ph* litem_32;
     struct sType*  __dec_obj9  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_31, 0, sizeof(litem_31));
+    memset(&litem_32, 0, sizeof(litem_32));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -4690,6 +4770,9 @@ static struct list$1sNode$ph* list$1sNode$ph_add(struct list$1sNode$ph* self, st
     struct sNode* __dec_obj11;
     struct list_item$1sNode$ph* litem_36;
     struct sNode* __dec_obj12;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_35, 0, sizeof(litem_35));
+    memset(&litem_36, 0, sizeof(litem_36));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -4766,6 +4849,9 @@ struct sNode* top_level_v94(char* buf, char* head, int head_sline, struct sInfo*
     _Bool come_c;
     _Bool come_safe;
     _Bool come_safe_73;
+    memset(&come_c, 0, sizeof(come_c));
+    memset(&come_safe, 0, sizeof(come_safe));
+    memset(&come_safe_73, 0, sizeof(come_safe_73));
     # 805 "52obj3.nc"
     if(charp_operator_equals(buf,"using")) {
         # 802 "52obj3.nc"

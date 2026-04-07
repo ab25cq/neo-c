@@ -2454,6 +2454,7 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
 struct sNode* create_comma_exp(struct sNode* node, struct sNode* node2, struct sInfo*  info  );
 struct sNode* create_less(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sNode* create_null_node(struct sInfo*  info  );
+struct sNode* create_try_operator_node(struct sNode* node, struct sInfo*  info  );
 struct sNode* conditional_node(struct sNode* value1, struct sNode* value2, struct sNode* value3, struct sInfo*  info  );
 _Bool operator_overload_fun(struct sType*  type  , const char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE*  left_value  , struct CVALUE*  right_value  , _Bool break_guard, struct sInfo*  info  );
 struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp);
@@ -2715,6 +2716,9 @@ void std_move(struct sType*  left_type  , struct sType*  right_type  , struct CV
     char*  __dec_obj1  ;
     void* __right_value0 = (void*)0;
     char*  __dec_obj2  ;
+    memset(&it, 0, sizeof(it));
+    memset(&_o2_saved_3, 0, sizeof(_o2_saved_3));
+    memset(&it2, 0, sizeof(it2));
     # 8 "04heap.nc"
     if(gComeC) {
         # 6 "04heap.nc"
@@ -2835,6 +2839,8 @@ static void list$1sRightValueObject$ph$p_finalize(struct list$1sRightValueObject
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sRightValueObject$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sRightValueObject$ph* it;
     struct list_item$1sRightValueObject$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3036,6 +3042,8 @@ static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sType$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sType$ph* it;
     struct list_item$1sType$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3073,6 +3081,8 @@ static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sNode$ph* it;
     struct list_item$1sNode$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3110,6 +3120,8 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3142,6 +3154,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3247,6 +3261,62 @@ struct sType*  solve_generics(struct sType*  type  , struct sType*  generics_typ
     struct sType*  it_42  ;
     struct sType*  type_43  ;
     char*  new_name  ;
+    memset(&result, 0, sizeof(result));
+    memset(&pointer_num, 0, sizeof(pointer_num));
+    memset(&heap, 0, sizeof(heap));
+    memset(&node, 0, sizeof(node));
+    memset(&no_output_come_code, 0, sizeof(no_output_come_code));
+    memset(&Value, 0, sizeof(Value));
+    memset(&come_value, 0, sizeof(come_value));
+    memset(&klass, 0, sizeof(klass));
+    memset(&result_type, 0, sizeof(result_type));
+    memset(&_o2_saved_4, 0, sizeof(_o2_saved_4));
+    memset(&it, 0, sizeof(it));
+    memset(&new_param_type, 0, sizeof(new_param_type));
+    memset(&generics_number, 0, sizeof(generics_number));
+    memset(&array_num, 0, sizeof(array_num));
+    memset(&pointer_num_14, 0, sizeof(pointer_num_14));
+    memset(&heap_15, 0, sizeof(heap_15));
+    memset(&deffer_right_value, 0, sizeof(deffer_right_value));
+    memset(&const_, 0, sizeof(const_));
+    memset(&norecord_, 0, sizeof(norecord_));
+    memset(&refference_, 0, sizeof(refference_));
+    memset(&optional_, 0, sizeof(optional_));
+    memset(&no_heap, 0, sizeof(no_heap));
+    memset(&minus_pointer_num, 0, sizeof(minus_pointer_num));
+    memset(&no_calling_destructor, 0, sizeof(no_calling_destructor));
+    memset(&minus_pointer_num_16, 0, sizeof(minus_pointer_num_16));
+    memset(&generics_type_19, 0, sizeof(generics_type_19));
+    memset(&type_20, 0, sizeof(type_20));
+    memset(&type2, 0, sizeof(type2));
+    memset(&generics_type_21, 0, sizeof(generics_type_21));
+    memset(&type_22, 0, sizeof(type_22));
+    memset(&type2_23, 0, sizeof(type2_23));
+    memset(&generics_number_24, 0, sizeof(generics_number_24));
+    memset(&klass2, 0, sizeof(klass2));
+    memset(&generics_number2, 0, sizeof(generics_number2));
+    memset(&array_num_25, 0, sizeof(array_num_25));
+    memset(&pointer_num_26, 0, sizeof(pointer_num_26));
+    memset(&heap_27, 0, sizeof(heap_27));
+    memset(&deffer_right_value_28, 0, sizeof(deffer_right_value_28));
+    memset(&norecord__29, 0, sizeof(norecord__29));
+    memset(&refference__30, 0, sizeof(refference__30));
+    memset(&optional__31, 0, sizeof(optional__31));
+    memset(&no_heap_32, 0, sizeof(no_heap_32));
+    memset(&no_calling_destructor_33, 0, sizeof(no_calling_destructor_33));
+    memset(&multiple_types, 0, sizeof(multiple_types));
+    memset(&const__34, 0, sizeof(const__34));
+    memset(&minus_pointer_num_35, 0, sizeof(minus_pointer_num_35));
+    memset(&generics_type_36, 0, sizeof(generics_type_36));
+    memset(&type_37, 0, sizeof(type_37));
+    memset(&type2_38, 0, sizeof(type2_38));
+    memset(&generics_type_39, 0, sizeof(generics_type_39));
+    memset(&type_40, 0, sizeof(type_40));
+    memset(&type2_41, 0, sizeof(type2_41));
+    memset(&_o2_saved_5, 0, sizeof(_o2_saved_5));
+    memset(&it_42, 0, sizeof(it_42));
+    memset(&type_43, 0, sizeof(type_43));
+    memset(&new_name, 0, sizeof(new_name));
     # 25 "04heap.nc"
     result=(struct sType* )come_increment_ref_count(sType_clone(type), "04heap.nc", 25, 219);
     # 59 "04heap.nc"
@@ -3764,6 +3834,7 @@ static struct sType*  sType_clone(struct sType*  self  )
     struct sType*  __dec_obj34  ;
     struct sNode* __dec_obj35;
     struct list$1sNode$ph* __dec_obj36;
+    memset(&result, 0, sizeof(result));
     # 3 "sType_clone"
     # 5 "sType_clone"
     if(self==(void*)0) {
@@ -4219,6 +4290,8 @@ static struct list$1sType$ph* list$1sType$ph$p_clone(struct list$1sType$ph* self
     void* __right_value1 = (void*)0;
     struct list$1sType$ph* result;
     struct list_item$1sType$ph* it;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
     # 1513 "./neo-c.h"
     if(self==((void*)0)) {
         # 1511 "./neo-c.h"
@@ -4284,6 +4357,9 @@ static struct list$1sType$ph* list$1sType$ph_add(struct list$1sType$ph* self, st
     struct sType*  __dec_obj6  ;
     struct list_item$1sType$ph* litem_3;
     struct sType*  __dec_obj7  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_2, 0, sizeof(litem_2));
+    memset(&litem_3, 0, sizeof(litem_3));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -4357,6 +4433,8 @@ static void list$1sType$ph_finalize(struct list$1sType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sType$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1sType$ph* it;
     struct list_item$1sType$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4383,6 +4461,7 @@ static struct sNode* sNode_clone(struct sNode* self)
     struct sNode* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct sNode* result;
+    memset(&result, 0, sizeof(result));
     # 3 "sNode_clone"
     # 5 "sNode_clone"
     if(self==(void*)0) {
@@ -4460,6 +4539,8 @@ static struct list$1sNode$ph* list$1sNode$ph$p_clone(struct list$1sNode$ph* self
     void* __right_value1 = (void*)0;
     struct list$1sNode$ph* result;
     struct list_item$1sNode$ph* it;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
     # 1513 "./neo-c.h"
     if(self==((void*)0)) {
         # 1511 "./neo-c.h"
@@ -4525,6 +4606,9 @@ static struct list$1sNode$ph* list$1sNode$ph_add(struct list$1sNode$ph* self, st
     struct sNode* __dec_obj21;
     struct list_item$1sNode$ph* litem_5;
     struct sNode* __dec_obj22;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_4, 0, sizeof(litem_4));
+    memset(&litem_5, 0, sizeof(litem_5));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -4598,6 +4682,8 @@ static void list$1sNode$ph_finalize(struct list$1sNode$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1sNode$ph* it;
     struct list_item$1sNode$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4626,6 +4712,8 @@ static struct list$1int$* list$1int$$p_clone(struct list$1int$* self)
     void* __right_value1 = (void*)0;
     struct list$1int$* result;
     struct list_item$1int$* it;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
     # 1513 "./neo-c.h"
     if(self==((void*)0)) {
         # 1511 "./neo-c.h"
@@ -4686,6 +4774,9 @@ static struct list$1int$* list$1int$_add(struct list$1int$* self, int item)
     struct list_item$1int$* litem;
     struct list_item$1int$* litem_6;
     struct list_item$1int$* litem_7;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_6, 0, sizeof(litem_6));
+    memset(&litem_7, 0, sizeof(litem_7));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -4751,6 +4842,8 @@ static void list$1int$_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4779,6 +4872,8 @@ static struct list$1char$ph* list$1char$ph$p_clone(struct list$1char$ph* self)
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
     struct list_item$1char$ph* it;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
     # 1513 "./neo-c.h"
     if(self==((void*)0)) {
         # 1511 "./neo-c.h"
@@ -4844,6 +4939,9 @@ static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self, char*
     char*  __dec_obj31  ;
     struct list_item$1char$ph* litem_9;
     char*  __dec_obj32  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_8, 0, sizeof(litem_8));
+    memset(&litem_9, 0, sizeof(litem_9));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -4917,6 +5015,8 @@ static void list$1char$ph_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -5005,6 +5105,8 @@ static struct list$1sType$ph* list$1sType$ph_reset(struct list$1sType$ph* self)
     struct list$1sType$ph* __result_obj__0;
     struct list_item$1sType$ph* it;
     struct list_item$1sType$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1860 "./neo-c.h"
     if(self==((void*)0)) {
         # 1857 "./neo-c.h"
@@ -5125,6 +5227,9 @@ static struct list$1sType$ph* list$1sType$ph_push_back(struct list$1sType$ph* se
     struct sType*  __dec_obj40  ;
     struct list_item$1sType$ph* litem_13;
     struct sType*  __dec_obj41  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_12, 0, sizeof(litem_12));
+    memset(&litem_13, 0, sizeof(litem_13));
     # 1618 "./neo-c.h"
     if(self==((void*)0)) {
         # 1615 "./neo-c.h"
@@ -5201,6 +5306,8 @@ static struct sType*  list$1sType$ph$p_operator_load_element(struct list$1sType$
     struct list_item$1sType$ph* it;
     int i;
     struct sType*  default_value_17  ;
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
     # 2153 "./neo-c.h"
     # 2161 "./neo-c.h"
     if(self==((void*)0)) {
@@ -5258,6 +5365,8 @@ static struct sType*  list$1sType$ph_operator_load_element(struct list$1sType$ph
     struct list_item$1sType$ph* it;
     int i;
     struct sType*  default_value_18  ;
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
     # 2153 "./neo-c.h"
     # 2161 "./neo-c.h"
     if(self==((void*)0)) {
@@ -5345,6 +5454,32 @@ struct sType*  solve_method_generics(struct sType*  type  , struct sInfo*  info 
     struct sType*  it_50  ;
     struct sType*  __dec_obj55  ;
     struct sType*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
+    memset(&klass, 0, sizeof(klass));
+    memset(&generics_number, 0, sizeof(generics_number));
+    memset(&array_num, 0, sizeof(array_num));
+    memset(&pointer_num, 0, sizeof(pointer_num));
+    memset(&heap, 0, sizeof(heap));
+    memset(&deffer_right_value, 0, sizeof(deffer_right_value));
+    memset(&norecord_, 0, sizeof(norecord_));
+    memset(&refference_, 0, sizeof(refference_));
+    memset(&optional_, 0, sizeof(optional_));
+    memset(&no_heap, 0, sizeof(no_heap));
+    memset(&no_calling_destructor, 0, sizeof(no_calling_destructor));
+    memset(&constant_, 0, sizeof(constant_));
+    memset(&norecord__44, 0, sizeof(norecord__44));
+    memset(&minus_pointer_num, 0, sizeof(minus_pointer_num));
+    memset(&generics_type, 0, sizeof(generics_type));
+    memset(&type_45, 0, sizeof(type_45));
+    memset(&type2, 0, sizeof(type2));
+    memset(&generics_type_46, 0, sizeof(generics_type_46));
+    memset(&type_47, 0, sizeof(type_47));
+    memset(&type2_48, 0, sizeof(type2_48));
+    memset(&i, 0, sizeof(i));
+    memset(&_o2_saved_6, 0, sizeof(_o2_saved_6));
+    memset(&it, 0, sizeof(it));
+    memset(&_o2_saved_7, 0, sizeof(_o2_saved_7));
+    memset(&it_50, 0, sizeof(it_50));
     # 279 "04heap.nc"
     result=(struct sType* )come_increment_ref_count(sType_clone(type), "04heap.nc", 279, 387);
     # 281 "04heap.nc"
@@ -5569,6 +5704,10 @@ static struct list$1sType$ph* list$1sType$ph_replace(struct list$1sType$ph* self
     struct list_item$1sType$ph* it;
     int i_49;
     struct sType*  __dec_obj54  ;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&it, 0, sizeof(it));
+    memset(&i_49, 0, sizeof(i_49));
     # 2027 "./neo-c.h"
     # 2033 "./neo-c.h"
     if(self==((void*)0)) {
@@ -5651,6 +5790,9 @@ void append_object_to_right_values(struct CVALUE*  come_value  , struct sType*  
     char*  __dec_obj64  ;
     void* __right_value1 = (void*)0;
     char*  __dec_obj65  ;
+    memset(&new_value, 0, sizeof(new_value));
+    memset(&already_defined, 0, sizeof(already_defined));
+    memset(&buf, 0, sizeof(buf));
     # 389 "04heap.nc"
     if(gComeC) {
         # 387 "04heap.nc"
@@ -5766,6 +5908,9 @@ static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_push_back(s
     struct sRightValueObject*  __dec_obj62  ;
     struct list_item$1sRightValueObject$ph* litem_52;
     struct sRightValueObject*  __dec_obj63  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_51, 0, sizeof(litem_51));
+    memset(&litem_52, 0, sizeof(litem_52));
     # 1618 "./neo-c.h"
     if(self==((void*)0)) {
         # 1615 "./neo-c.h"
@@ -5842,6 +5987,11 @@ void remove_object_from_right_values(int right_value_num, struct sInfo*  info  )
     struct list$1sRightValueObject$ph* _o2_saved_8;
     struct sRightValueObject*  it  ;
     int id;
+    memset(&i, 0, sizeof(i));
+    memset(&found, 0, sizeof(found));
+    memset(&_o2_saved_8, 0, sizeof(_o2_saved_8));
+    memset(&it, 0, sizeof(it));
+    memset(&id, 0, sizeof(id));
     # 443 "04heap.nc"
     if(gComeC) {
         # 441 "04heap.nc"
@@ -5906,6 +6056,18 @@ static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_delete(stru
     struct list_item$1sRightValueObject$ph* tail_it;
     int i_57;
     struct list_item$1sRightValueObject$ph* prev_it_58;
+    memset(&tmp, 0, sizeof(tmp));
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
+    memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it_53, 0, sizeof(it_53));
+    memset(&i_54, 0, sizeof(i_54));
+    memset(&prev_it_55, 0, sizeof(prev_it_55));
+    memset(&it_56, 0, sizeof(it_56));
+    memset(&head_prev_it, 0, sizeof(head_prev_it));
+    memset(&tail_it, 0, sizeof(tail_it));
+    memset(&i_57, 0, sizeof(i_57));
+    memset(&prev_it_58, 0, sizeof(prev_it_58));
     # 1899 "./neo-c.h"
     if(self==((void*)0)) {
         # 1896 "./neo-c.h"
@@ -6096,6 +6258,8 @@ static struct list$1sRightValueObject$ph* list$1sRightValueObject$ph_reset(struc
     struct list$1sRightValueObject$ph* __result_obj__0;
     struct list_item$1sRightValueObject$ph* it;
     struct list_item$1sRightValueObject$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1860 "./neo-c.h"
     if(self==((void*)0)) {
         # 1857 "./neo-c.h"
@@ -6131,6 +6295,8 @@ void remove_value_from_right_value_objects(struct CVALUE*  come_value  , struct 
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "remove_value_from_right_value_objects"; neo_current_frame = &fr;
     struct sRightValueObject*  right_value_objects  ;
     int right_value_id;
+    memset(&right_value_objects, 0, sizeof(right_value_objects));
+    memset(&right_value_id, 0, sizeof(right_value_id));
     # 478 "04heap.nc"
     if(come_value->type->mPointerNum>0) {
         # 469 "04heap.nc"
@@ -6156,6 +6322,8 @@ char*  increment_ref_count_object(struct sType*  type  , char* obj, struct sInfo
     char*  __result_obj__0  ;
     struct sClass*  klass  ;
     char*  type_name  ;
+    memset(&klass, 0, sizeof(klass));
+    memset(&type_name, 0, sizeof(type_name));
     # 485 "04heap.nc"
     if(gComeC) {
         # 483 "04heap.nc"
@@ -6239,7 +6407,27 @@ void decrement_ref_count_object(struct sType*  type  , char* obj, struct sInfo* 
     char*  str_63  ;
     struct list$1sRightValueObject$ph* __dec_obj68;
     struct list$1CVALUE$ph* __dec_obj69;
+    memset(&stack_saved, 0, sizeof(stack_saved));
+    memset(&right_value_objects, 0, sizeof(right_value_objects));
+    memset(&klass, 0, sizeof(klass));
+    memset(&name, 0, sizeof(name));
+    memset(&no_decrement, 0, sizeof(no_decrement));
+    memset(&c_value, 0, sizeof(c_value));
+    memset(&klass_59, 0, sizeof(klass_59));
+    memset(&class_name, 0, sizeof(class_name));
+    memset(&type2, 0, sizeof(type2));
+    memset(&fun_name2, 0, sizeof(fun_name2));
+    memset(&type_, 0, sizeof(type_));
+    memset(&finalizer, 0, sizeof(finalizer));
+    memset(&none_generics_name, 0, sizeof(none_generics_name));
+    memset(&generics_fun_name, 0, sizeof(generics_fun_name));
+    memset(&generics_fun, 0, sizeof(generics_fun));
     memset(&i, 0, sizeof(i));
+    memset(&new_fun_name, 0, sizeof(new_fun_name));
+    memset(&type_name, 0, sizeof(type_name));
+    memset(&type_name_62, 0, sizeof(type_name_62));
+    memset(&str, 0, sizeof(str));
+    memset(&str_63, 0, sizeof(str_63));
     # 500 "04heap.nc"
     if(gComeC) {
         # 498 "04heap.nc"
@@ -6519,6 +6707,9 @@ static struct sFun*  map$2char$phsFun$ph$p_operator_load_element(struct map$2cha
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -6685,6 +6876,8 @@ static void list$1sVar$ph$p_finalize(struct list$1sVar$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sVar$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sVar$ph* it;
     struct list_item$1sVar$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -6769,6 +6962,9 @@ static struct sFun*  map$2char$phsFun$ph_operator_load_element(struct map$2char$
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -6841,6 +7037,9 @@ static struct sGenericsFun*  map$2char$phsGenericsFun$ph$p_operator_load_element
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -6970,6 +7169,9 @@ static struct sGenericsFun*  map$2char$phsGenericsFun$ph_operator_load_element(s
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -7063,6 +7265,8 @@ static void list$1sRightValueObject$ph_finalize(struct list$1sRightValueObject$p
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sRightValueObject$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1sRightValueObject$ph* it;
     struct list_item$1sRightValueObject$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -7088,6 +7292,8 @@ static void list$1CVALUE$ph_finalize(struct list$1CVALUE$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1CVALUE$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1CVALUE$ph* it;
     struct list_item$1CVALUE$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -7125,6 +7331,8 @@ static void list$1CVALUE$ph$p_finalize(struct list$1CVALUE$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1CVALUE$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1CVALUE$ph* it;
     struct list_item$1CVALUE$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"

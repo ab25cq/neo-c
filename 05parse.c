@@ -2449,6 +2449,7 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
 struct sNode* create_comma_exp(struct sNode* node, struct sNode* node2, struct sInfo*  info  );
 struct sNode* create_less(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sNode* create_null_node(struct sInfo*  info  );
+struct sNode* create_try_operator_node(struct sNode* node, struct sInfo*  info  );
 struct sNode* conditional_node(struct sNode* value1, struct sNode* value2, struct sNode* value3, struct sInfo*  info  );
 _Bool operator_overload_fun(struct sType*  type  , const char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE*  left_value  , struct CVALUE*  right_value  , _Bool break_guard, struct sInfo*  info  );
 struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp);
@@ -2668,6 +2669,8 @@ char* parsecmp_tail(const char* p2, struct sInfo*  info  )
     char* p;
     char* __result_obj__0;
     unsigned char c;
+    memset(&p, 0, sizeof(p));
+    memset(&c, 0, sizeof(c));
     # 5 "05parse.nc"
     p=info->p;
     # 15 "05parse.nc"
@@ -2713,6 +2716,7 @@ char* parsecmp_forward(const char* p2, struct sInfo*  info  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parsecmp_forward"; neo_current_frame = &fr;
     char* tail;
     char* __result_obj__0;
+    memset(&tail, 0, sizeof(tail));
     # 30 "05parse.nc"
     tail=parsecmp_tail(p2,info);
     # 34 "05parse.nc"
@@ -2730,6 +2734,7 @@ int match_common_attribute_keyword_len(const char* p)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "match_common_attribute_keyword_len"; neo_current_frame = &fr;
     int len;
+    memset(&len, 0, sizeof(len));
     # 45 "05parse.nc"
     if(p==((void*)0)||p[0]!=95||p[1]!=95) {
         # 42 "05parse.nc"
@@ -2942,6 +2947,7 @@ static int output_compile_message(struct sInfo*  info  , const char* level, cons
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "output_compile_message"; neo_current_frame = &fr;
     int sline_real;
+    memset(&sline_real, 0, sizeof(sline_real));
     # 226 "05parse.nc"
     sline_real=((info->sline_real>0)?(info->sline_real):(info->sline));
     # 235 "05parse.nc"
@@ -3074,6 +3080,13 @@ char*  parse_word(_Bool digits, struct sInfo*  info  )
     char*  result  ;
     char*  module_param  ;
     char*  __result_obj__0  ;
+    memset(&p, 0, sizeof(p));
+    memset(&head, 0, sizeof(head));
+    memset(&c, 0, sizeof(c));
+    memset(&len, 0, sizeof(len));
+    memset(&mem, 0, sizeof(mem));
+    memset(&result, 0, sizeof(result));
+    memset(&module_param, 0, sizeof(module_param));
     # 305 "05parse.nc"
     parse_sharp_v5(info);
     # 307 "05parse.nc"
@@ -3146,6 +3159,9 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -3218,6 +3234,9 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -3292,6 +3311,8 @@ char*  backtrace_parse_word(struct sInfo*  info  )
     char*  __dec_obj1  ;
     char*  __dec_obj2  ;
     char*  __result_obj__0  ;
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
     memset(&buf, 0, sizeof(buf));
     # 344 "05parse.nc"
     p=info->p;
@@ -3331,6 +3352,10 @@ static _Bool skip_comment(struct sInfo*  info  , _Bool skip_space_after)
     int sline;
     int sline_real;
     int nest;
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
+    memset(&sline_real, 0, sizeof(sline_real));
+    memset(&nest, 0, sizeof(nest));
     # 363 "05parse.nc"
     p=info->p;
     # 364 "05parse.nc"
@@ -3499,6 +3524,10 @@ static void skip_spaces_core(_Bool skip_lf, _Bool parse_sharp_after, _Bool stop_
     int sline;
     int sline_real;
     int nest;
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
+    memset(&sline_real, 0, sizeof(sline_real));
+    memset(&nest, 0, sizeof(nest));
     # 465 "05parse.nc"
     p=info->p;
     # 466 "05parse.nc"
@@ -3688,6 +3717,7 @@ static _Bool is_number_token(char* token)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_number_token"; neo_current_frame = &fr;
     char* p;
+    memset(&p, 0, sizeof(p));
     # 587 "05parse.nc"
     if(token==((void*)0)||*token==0) {
         # 585 "05parse.nc"
@@ -3736,6 +3766,8 @@ static char*  pack_stack_entry_id(char* entry)
     char* p;
     void* __right_value1 = (void*)0;
     struct buffer*  buf  ;
+    memset(&p, 0, sizeof(p));
+    memset(&buf, 0, sizeof(buf));
     # 608 "05parse.nc"
     if(entry==((void*)0)) {
         # 605 "05parse.nc"
@@ -3778,6 +3810,7 @@ static char*  pack_stack_entry_pragma(char* entry)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     char* p;
+    memset(&p, 0, sizeof(p));
     # 624 "05parse.nc"
     if(entry==((void*)0)) {
         # 621 "05parse.nc"
@@ -3854,6 +3887,33 @@ static void apply_pack_pragma_state(char*  pragma_line  , struct sInfo*  info  )
     char*  __dec_obj16  ;
     char*  __dec_obj17  ;
     char*  __dec_obj18  ;
+    memset(&compact_buf, 0, sizeof(compact_buf));
+    memset(&p, 0, sizeof(p));
+    memset(&compact, 0, sizeof(compact));
+    memset(&lparen_pos, 0, sizeof(lparen_pos));
+    memset(&rparen_pos, 0, sizeof(rparen_pos));
+    memset(&compact_len, 0, sizeof(compact_len));
+    memset(&i, 0, sizeof(i));
+    memset(&d, 0, sizeof(d));
+    memset(&tokens, 0, sizeof(tokens));
+    memset(&i_0, 0, sizeof(i_0));
+    memset(&tok, 0, sizeof(tok));
+    memset(&d_1, 0, sizeof(d_1));
+    memset(&tokens_len, 0, sizeof(tokens_len));
+    memset(&op, 0, sizeof(op));
+    memset(&push_id, 0, sizeof(push_id));
+    memset(&push_num, 0, sizeof(push_num));
+    memset(&i_4, 0, sizeof(i_4));
+    memset(&tok2, 0, sizeof(tok2));
+    memset(&pop_id, 0, sizeof(pop_id));
+    memset(&pop_num, 0, sizeof(pop_num));
+    memset(&i_5, 0, sizeof(i_5));
+    memset(&tok2_6, 0, sizeof(tok2_6));
+    memset(&found, 0, sizeof(found));
+    memset(&pragma_pack_stack_len, 0, sizeof(pragma_pack_stack_len));
+    memset(&i_7, 0, sizeof(i_7));
+    memset(&stack_id, 0, sizeof(stack_id));
+    memset(&len, 0, sizeof(len));
     # 637 "05parse.nc"
     if(info->pragma_pack_stack==((void*)0)) {
         # 635 "05parse.nc"
@@ -4189,6 +4249,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4226,6 +4288,8 @@ static void list$1char$ph_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4257,6 +4321,9 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
     char*  __dec_obj7  ;
     struct list_item$1char$ph* litem_3;
     char*  __dec_obj8  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_2, 0, sizeof(litem_2));
+    memset(&litem_3, 0, sizeof(litem_3));
     # 1618 "./neo-c.h"
     if(self==((void*)0)) {
         # 1615 "./neo-c.h"
@@ -4346,6 +4413,8 @@ static char*  list$1char$ph_item(struct list$1char$ph* self, int position, char*
     char*  __result_obj__0  ;
     struct list_item$1char$ph* it;
     int i;
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
     # 1750 "./neo-c.h"
     if(self==((void*)0)) {
         # 1747 "./neo-c.h"
@@ -4401,6 +4470,18 @@ static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, in
     struct list_item$1char$ph* tail_it;
     int i_12;
     struct list_item$1char$ph* prev_it_13;
+    memset(&tmp, 0, sizeof(tmp));
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
+    memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it_8, 0, sizeof(it_8));
+    memset(&i_9, 0, sizeof(i_9));
+    memset(&prev_it_10, 0, sizeof(prev_it_10));
+    memset(&it_11, 0, sizeof(it_11));
+    memset(&head_prev_it, 0, sizeof(head_prev_it));
+    memset(&tail_it, 0, sizeof(tail_it));
+    memset(&i_12, 0, sizeof(i_12));
+    memset(&prev_it_13, 0, sizeof(prev_it_13));
     # 1899 "./neo-c.h"
     if(self==((void*)0)) {
         # 1896 "./neo-c.h"
@@ -4591,6 +4672,8 @@ static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self)
     struct list$1char$ph* __result_obj__0;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1860 "./neo-c.h"
     if(self==((void*)0)) {
         # 1857 "./neo-c.h"
@@ -4643,6 +4726,20 @@ void parse_sharp_v5(struct sInfo*  info  )
     char* mem_21;
     char*  __dec_obj21  ;
     char*  __dec_obj22  ;
+    memset(&head, 0, sizeof(head));
+    memset(&len, 0, sizeof(len));
+    memset(&mem, 0, sizeof(mem));
+    memset(&pragma_line, 0, sizeof(pragma_line));
+    memset(&line, 0, sizeof(line));
+    memset(&fname_str, 0, sizeof(fname_str));
+    memset(&head_14, 0, sizeof(head_14));
+    memset(&len_15, 0, sizeof(len_15));
+    memset(&mem_16, 0, sizeof(mem_16));
+    memset(&line_17, 0, sizeof(line_17));
+    memset(&fname_str_18, 0, sizeof(fname_str_18));
+    memset(&head_19, 0, sizeof(head_19));
+    memset(&len_20, 0, sizeof(len_20));
+    memset(&mem_21, 0, sizeof(mem_21));
     # 956 "05parse.nc"
     while(1) {
         # 955 "05parse.nc"
@@ -4929,6 +5026,7 @@ void skip_paren(struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "skip_paren"; neo_current_frame = &fr;
     int nest;
+    memset(&nest, 0, sizeof(nest));
     # 960 "05parse.nc"
     nest=0;
     # 985 "05parse.nc"

@@ -2521,6 +2521,7 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
 struct sNode* create_comma_exp(struct sNode* node, struct sNode* node2, struct sInfo*  info  );
 struct sNode* create_less(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sNode* create_null_node(struct sInfo*  info  );
+struct sNode* create_try_operator_node(struct sNode* node, struct sInfo*  info  );
 struct sNode* conditional_node(struct sNode* value1, struct sNode* value2, struct sNode* value3, struct sInfo*  info  );
 _Bool operator_overload_fun(struct sType*  type  , const char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE*  left_value  , struct CVALUE*  right_value  , _Bool break_guard, struct sInfo*  info  );
 struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp);
@@ -2805,6 +2806,7 @@ _Bool sIntNode_compile(struct sIntNode* self, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     struct sType*  __dec_obj3  ;
     _Bool __result_obj__0;
+    memset(&come_value, 0, sizeof(come_value));
     # 19 "11number.nc"
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "11number.nc", 19, 15, "struct CVALUE* "), "11number.nc", 19, 16)), "11number.nc", 19, 17);
     # 21 "11number.nc"
@@ -2997,6 +2999,8 @@ static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sType$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sType$ph* it;
     struct list_item$1sType$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3034,6 +3038,8 @@ static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sNode$ph* it;
     struct list_item$1sNode$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3071,6 +3077,8 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3103,6 +3111,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3146,6 +3156,9 @@ static struct list$1CVALUE$ph* list$1CVALUE$ph_push_back(struct list$1CVALUE$ph*
     struct CVALUE*  __dec_obj5  ;
     struct list_item$1CVALUE$ph* litem_1;
     struct CVALUE*  __dec_obj6  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_0, 0, sizeof(litem_0));
+    memset(&litem_1, 0, sizeof(litem_1));
     # 1618 "./neo-c.h"
     if(self==((void*)0)) {
         # 1615 "./neo-c.h"
@@ -3291,6 +3304,7 @@ _Bool sUIntNode_compile(struct sUIntNode* self, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     struct sType*  __dec_obj9  ;
     _Bool __result_obj__0;
+    memset(&come_value, 0, sizeof(come_value));
     # 49 "11number.nc"
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "11number.nc", 49, 91, "struct CVALUE* "), "11number.nc", 49, 92)), "11number.nc", 49, 93);
     # 51 "11number.nc"
@@ -3379,6 +3393,7 @@ _Bool sLongNode_compile(struct sLongNode* self, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     struct sType*  __dec_obj12  ;
     _Bool __result_obj__0;
+    memset(&come_value, 0, sizeof(come_value));
     # 79 "11number.nc"
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "11number.nc", 79, 116, "struct CVALUE* "), "11number.nc", 79, 117)), "11number.nc", 79, 118);
     # 81 "11number.nc"
@@ -3467,6 +3482,7 @@ _Bool sULongNode_compile(struct sULongNode* self, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     struct sType*  __dec_obj15  ;
     _Bool __result_obj__0;
+    memset(&come_value, 0, sizeof(come_value));
     # 109 "11number.nc"
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "11number.nc", 109, 141, "struct CVALUE* "), "11number.nc", 109, 142)), "11number.nc", 109, 143);
     # 111 "11number.nc"
@@ -3554,6 +3570,7 @@ _Bool sFloatNode_compile(struct sFloatNode* self, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     struct sType*  __dec_obj18  ;
     _Bool __result_obj__0;
+    memset(&come_value, 0, sizeof(come_value));
     # 139 "11number.nc"
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "11number.nc", 139, 166, "struct CVALUE* "), "11number.nc", 139, 167)), "11number.nc", 139, 168);
     # 141 "11number.nc"
@@ -3642,6 +3659,7 @@ _Bool sComplexNode_compile(struct sComplexNode* self, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     struct sType*  __dec_obj21  ;
     _Bool __result_obj__0;
+    memset(&come_value, 0, sizeof(come_value));
     # 169 "11number.nc"
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "11number.nc", 169, 191, "struct CVALUE* "), "11number.nc", 169, 192)), "11number.nc", 169, 193);
     # 171 "11number.nc"
@@ -3732,6 +3750,7 @@ _Bool sDoubleNode_compile(struct sDoubleNode* self, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     struct sType*  __dec_obj24  ;
     _Bool __result_obj__0;
+    memset(&come_value, 0, sizeof(come_value));
     # 200 "11number.nc"
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "11number.nc", 200, 216, "struct CVALUE* "), "11number.nc", 200, 217)), "11number.nc", 200, 218);
     # 202 "11number.nc"
@@ -3820,6 +3839,7 @@ _Bool sDigitNode_compile(struct sDigitNode* self, struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     struct sType*  __dec_obj27  ;
     _Bool __result_obj__0;
+    memset(&come_value, 0, sizeof(come_value));
     # 230 "11number.nc"
     come_value=(struct CVALUE*)come_increment_ref_count(CVALUE_initialize((struct CVALUE* )come_increment_ref_count((struct CVALUE *)come_calloc(1, sizeof(struct CVALUE )*(1), "11number.nc", 230, 240, "struct CVALUE* "), "11number.nc", 230, 241)), "11number.nc", 230, 242);
     # 232 "11number.nc"
@@ -3902,6 +3922,7 @@ static struct sIntNode* sIntNode_clone(struct sIntNode* self)
     struct sIntNode*  result  ;
     char*  __dec_obj28  ;
     char*  __dec_obj29  ;
+    memset(&result, 0, sizeof(result));
     # 3 "sIntNode_clone"
     # 5 "sIntNode_clone"
     if(self==(void*)0) {
@@ -4254,6 +4275,7 @@ static struct sULongNode* sULongNode_clone(struct sULongNode* self)
     struct sULongNode*  result  ;
     char*  __dec_obj30  ;
     char*  __dec_obj31  ;
+    memset(&result, 0, sizeof(result));
     # 3 "sULongNode_clone"
     # 5 "sULongNode_clone"
     if(self==(void*)0) {
@@ -4305,6 +4327,7 @@ static struct sUIntNode* sUIntNode_clone(struct sUIntNode* self)
     struct sUIntNode*  result  ;
     char*  __dec_obj32  ;
     char*  __dec_obj33  ;
+    memset(&result, 0, sizeof(result));
     # 3 "sUIntNode_clone"
     # 5 "sUIntNode_clone"
     if(self==(void*)0) {
@@ -4356,6 +4379,7 @@ static struct sLongNode* sLongNode_clone(struct sLongNode* self)
     struct sLongNode*  result  ;
     char*  __dec_obj34  ;
     char*  __dec_obj35  ;
+    memset(&result, 0, sizeof(result));
     # 3 "sLongNode_clone"
     # 5 "sLongNode_clone"
     if(self==(void*)0) {
@@ -4421,6 +4445,8 @@ struct sNode* get_number(_Bool minus, struct sInfo*  info  )
     struct sComplexNode* _inf_obj_value14;
     struct sNode* _inf_value15;
     struct sDoubleNode* _inf_obj_value15;
+    memset(&p, 0, sizeof(p));
+    memset(&is_float, 0, sizeof(is_float));
     # 332 "11number.nc"
     const int buf_size=128;
     # 333 "11number.nc"
@@ -4789,6 +4815,7 @@ static struct sComplexNode* sComplexNode_clone(struct sComplexNode* self)
     struct sComplexNode*  result  ;
     char*  __dec_obj36  ;
     char*  __dec_obj37  ;
+    memset(&result, 0, sizeof(result));
     # 3 "sComplexNode_clone"
     # 5 "sComplexNode_clone"
     if(self==(void*)0) {
@@ -4840,6 +4867,7 @@ static struct sFloatNode* sFloatNode_clone(struct sFloatNode* self)
     struct sFloatNode*  result  ;
     char*  __dec_obj38  ;
     char*  __dec_obj39  ;
+    memset(&result, 0, sizeof(result));
     # 3 "sFloatNode_clone"
     # 5 "sFloatNode_clone"
     if(self==(void*)0) {
@@ -4891,6 +4919,7 @@ static struct sDoubleNode* sDoubleNode_clone(struct sDoubleNode* self)
     struct sDoubleNode*  result  ;
     char*  __dec_obj40  ;
     char*  __dec_obj41  ;
+    memset(&result, 0, sizeof(result));
     # 3 "sDoubleNode_clone"
     # 5 "sDoubleNode_clone"
     if(self==(void*)0) {
@@ -4942,6 +4971,9 @@ struct sNode* get_hex_number(_Bool minus, struct sInfo*  info  )
     _Bool has_digit;
     void* __right_value0 = (void*)0;
     struct sNode* __result_obj__0;
+    memset(&buf_size, 0, sizeof(buf_size));
+    memset(&p, 0, sizeof(p));
+    memset(&has_digit, 0, sizeof(has_digit));
     # 501 "11number.nc"
     buf_size=128;
     # 502 "11number.nc"
@@ -5012,6 +5044,9 @@ struct sNode* get_digits(struct sInfo*  info  )
     _Bool has_digit;
     void* __right_value0 = (void*)0;
     struct sNode* __result_obj__0;
+    memset(&buf_size, 0, sizeof(buf_size));
+    memset(&p, 0, sizeof(p));
+    memset(&has_digit, 0, sizeof(has_digit));
     # 542 "11number.nc"
     buf_size=128;
     # 543 "11number.nc"
@@ -5082,6 +5117,9 @@ struct sNode* get_oct_number(_Bool minus, struct sInfo*  info  )
     _Bool has_digit;
     void* __right_value0 = (void*)0;
     struct sNode* __result_obj__0;
+    memset(&buf_size, 0, sizeof(buf_size));
+    memset(&p, 0, sizeof(p));
+    memset(&has_digit, 0, sizeof(has_digit));
     # 581 "11number.nc"
     buf_size=128;
     # 582 "11number.nc"
@@ -5171,7 +5209,12 @@ struct sNode* expression_node_v99(struct sInfo*  info  )
     struct sNode* __dec_obj51;
     struct sNode* node_6;
     struct sNode* __dec_obj52;
+    memset(&node, 0, sizeof(node));
+    memset(&node_2, 0, sizeof(node_2));
+    memset(&node_3, 0, sizeof(node_3));
+    memset(&node_4, 0, sizeof(node_4));
     memset(&node_5, 0, sizeof(node_5));
+    memset(&node_6, 0, sizeof(node_6));
     # 624 "11number.nc"
     skip_spaces_and_lf(info);
     # 698 "11number.nc"

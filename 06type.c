@@ -2460,6 +2460,7 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
 struct sNode* create_comma_exp(struct sNode* node, struct sNode* node2, struct sInfo*  info  );
 struct sNode* create_less(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sNode* create_null_node(struct sInfo*  info  );
+struct sNode* create_try_operator_node(struct sNode* node, struct sInfo*  info  );
 struct sNode* conditional_node(struct sNode* value1, struct sNode* value2, struct sNode* value3, struct sInfo*  info  );
 _Bool operator_overload_fun(struct sType*  type  , const char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE*  left_value  , struct CVALUE*  right_value  , _Bool break_guard, struct sInfo*  info  );
 struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp);
@@ -2724,6 +2725,12 @@ _Bool is_type_name(char* buf, struct sInfo*  info  )
     _Bool mgenerics_type_name;
     int len;
     void* __right_value0 = (void*)0;
+    memset(&klass, 0, sizeof(klass));
+    memset(&type, 0, sizeof(type));
+    memset(&generics_class, 0, sizeof(generics_class));
+    memset(&generics_type_name, 0, sizeof(generics_type_name));
+    memset(&mgenerics_type_name, 0, sizeof(mgenerics_type_name));
+    memset(&len, 0, sizeof(len));
     # 7 "06type.nc"
     klass=((void*)0);
     # 8 "06type.nc"
@@ -3004,6 +3011,9 @@ static struct sClass*  map$2char$phsClass$ph$p_operator_load_element(struct map$
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -3100,6 +3110,8 @@ static void list$1tuple2$2char$phsType$ph$ph$p_finalize(struct list$1tuple2$2cha
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple2$2char$phsType$ph$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1tuple2$2char$phsType$ph$ph* it;
     struct list_item$1tuple2$2char$phsType$ph$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3286,6 +3298,8 @@ static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sType$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sType$ph* it;
     struct list_item$1sType$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3323,6 +3337,8 @@ static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sNode$ph* it;
     struct list_item$1sNode$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3360,6 +3376,8 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3392,6 +3410,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -3432,6 +3452,9 @@ static struct sClass*  map$2char$phsClass$ph_operator_load_element(struct map$2c
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -3504,6 +3527,9 @@ static struct sType*  map$2char$phsType$ph$p_operator_load_element(struct map$2c
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -3576,6 +3602,9 @@ static struct sType*  map$2char$phsType$ph_operator_load_element(struct map$2cha
     unsigned int key_hash;
     unsigned int hash;
     unsigned int it;
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
     # 4047 "./neo-c.h"
     # 4049 "./neo-c.h"
     # 4050 "./neo-c.h"
@@ -3644,6 +3673,7 @@ static _Bool list$1char$ph_contained(struct list$1char$ph* self, char*  item  , 
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_contained"; neo_current_frame = &fr;
     char*  it  ;
+    memset(&it, 0, sizeof(it));
     # 2253 "./neo-c.h"
     if(self==((void*)0)) {
         # 2250 "./neo-c.h"
@@ -3752,6 +3782,8 @@ _Bool is_contained_generics_class(struct sType*  type  , struct sInfo*  info  )
     struct sType*  it  ;
     _Bool __result_obj__0;
     memset(&type2, 0, sizeof(type2));
+    memset(&_o2_saved_3, 0, sizeof(_o2_saved_3));
+    memset(&it, 0, sizeof(it));
     # 217 "06type.nc"
     # 224 "06type.nc"
     if(type->mNoSolvedGenericsType) {
@@ -3885,6 +3917,9 @@ _Bool is_contained_generics_placeholder(struct sType*  type  , struct sInfo*  in
     void* __right_value0 = (void*)0;
     char*  class_name  ;
     memset(&type2, 0, sizeof(type2));
+    memset(&_o2_saved_4, 0, sizeof(_o2_saved_4));
+    memset(&it, 0, sizeof(it));
+    memset(&class_name, 0, sizeof(class_name));
     # 242 "06type.nc"
     # 250 "06type.nc"
     if(type->mNoSolvedGenericsType) {
@@ -3947,6 +3982,19 @@ struct tuple4$4list$1sType$ph$phlist$1char$ph$phlist$1char$ph$ph_Bool$* parse_pa
     _Bool no_comma;
     struct sNode* node;
     char* p2;
+    memset(&param_types, 0, sizeof(param_types));
+    memset(&param_names, 0, sizeof(param_names));
+    memset(&param_default_parametors, 0, sizeof(param_default_parametors));
+    memset(&var_args, 0, sizeof(var_args));
+    memset(&type_, 0, sizeof(type_));
+    memset(&void_param, 0, sizeof(void_param));
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
+    memset(&param_type2, 0, sizeof(param_type2));
+    memset(&p_16, 0, sizeof(p_16));
+    memset(&no_comma, 0, sizeof(no_comma));
+    memset(&node, 0, sizeof(node));
+    memset(&p2, 0, sizeof(p2));
     # 267 "06type.nc"
     param_types=(struct list$1sType$ph*)come_increment_ref_count(list$1sType$ph_initialize((struct list$1sType$ph*)come_increment_ref_count((struct list$1sType$ph*)come_calloc(1, sizeof(struct list$1sType$ph)*(1), "06type.nc", 267, 112, "struct list$1sType$ph*"), "06type.nc", 267, 116)), "06type.nc", 267, 117);
     # 268 "06type.nc"
@@ -4207,6 +4255,9 @@ static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self, char*
     char*  __dec_obj2  ;
     struct list_item$1char$ph* litem_5;
     char*  __dec_obj3  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_4, 0, sizeof(litem_4));
+    memset(&litem_5, 0, sizeof(litem_5));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -4306,6 +4357,7 @@ static struct sType*  sType_clone(struct sType*  self  )
     struct sType*  __dec_obj32  ;
     struct sNode* __dec_obj33;
     struct list$1sNode$ph* __dec_obj34;
+    memset(&result, 0, sizeof(result));
     # 3 "sType_clone"
     # 5 "sType_clone"
     if(self==(void*)0) {
@@ -4763,6 +4815,8 @@ static struct list$1sType$ph* list$1sType$ph$p_clone(struct list$1sType$ph* self
     void* __right_value1 = (void*)0;
     struct list$1sType$ph* result;
     struct list_item$1sType$ph* it;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
     # 1513 "./neo-c.h"
     if(self==((void*)0)) {
         # 1511 "./neo-c.h"
@@ -4810,6 +4864,9 @@ static struct list$1sType$ph* list$1sType$ph_add(struct list$1sType$ph* self, st
     struct sType*  __dec_obj7  ;
     struct list_item$1sType$ph* litem_7;
     struct sType*  __dec_obj8  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_6, 0, sizeof(litem_6));
+    memset(&litem_7, 0, sizeof(litem_7));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -4883,6 +4940,8 @@ static void list$1sType$ph_finalize(struct list$1sType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sType$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1sType$ph* it;
     struct list_item$1sType$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -4909,6 +4968,7 @@ static struct sNode* sNode_clone(struct sNode* self)
     struct sNode* __result_obj__0;
     void* __right_value0 = (void*)0;
     struct sNode* result;
+    memset(&result, 0, sizeof(result));
     # 3 "sNode_clone"
     # 5 "sNode_clone"
     if(self==(void*)0) {
@@ -4986,6 +5046,8 @@ static struct list$1sNode$ph* list$1sNode$ph$p_clone(struct list$1sNode$ph* self
     void* __right_value1 = (void*)0;
     struct list$1sNode$ph* result;
     struct list_item$1sNode$ph* it;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
     # 1513 "./neo-c.h"
     if(self==((void*)0)) {
         # 1511 "./neo-c.h"
@@ -5051,6 +5113,9 @@ static struct list$1sNode$ph* list$1sNode$ph_add(struct list$1sNode$ph* self, st
     struct sNode* __dec_obj22;
     struct list_item$1sNode$ph* litem_9;
     struct sNode* __dec_obj23;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_8, 0, sizeof(litem_8));
+    memset(&litem_9, 0, sizeof(litem_9));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -5124,6 +5189,8 @@ static void list$1sNode$ph_finalize(struct list$1sNode$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1sNode$ph* it;
     struct list_item$1sNode$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -5152,6 +5219,8 @@ static struct list$1int$* list$1int$$p_clone(struct list$1int$* self)
     void* __right_value1 = (void*)0;
     struct list$1int$* result;
     struct list_item$1int$* it;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
     # 1513 "./neo-c.h"
     if(self==((void*)0)) {
         # 1511 "./neo-c.h"
@@ -5212,6 +5281,9 @@ static struct list$1int$* list$1int$_add(struct list$1int$* self, int item)
     struct list_item$1int$* litem;
     struct list_item$1int$* litem_10;
     struct list_item$1int$* litem_11;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_10, 0, sizeof(litem_10));
+    memset(&litem_11, 0, sizeof(litem_11));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -5277,6 +5349,8 @@ static void list$1int$_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -5305,6 +5379,8 @@ static struct list$1char$ph* list$1char$ph$p_clone(struct list$1char$ph* self)
     void* __right_value1 = (void*)0;
     struct list$1char$ph* result;
     struct list_item$1char$ph* it;
+    memset(&result, 0, sizeof(result));
+    memset(&it, 0, sizeof(it));
     # 1513 "./neo-c.h"
     if(self==((void*)0)) {
         # 1511 "./neo-c.h"
@@ -5346,6 +5422,8 @@ static void list$1char$ph_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -5448,6 +5526,9 @@ static struct list$1sType$ph* list$1sType$ph_push_back(struct list$1sType$ph* se
     struct sType*  __dec_obj39  ;
     struct list_item$1sType$ph* litem_13;
     struct sType*  __dec_obj40  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_12, 0, sizeof(litem_12));
+    memset(&litem_13, 0, sizeof(litem_13));
     # 1618 "./neo-c.h"
     if(self==((void*)0)) {
         # 1615 "./neo-c.h"
@@ -5527,6 +5608,9 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
     char*  __dec_obj42  ;
     struct list_item$1char$ph* litem_15;
     char*  __dec_obj43  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_14, 0, sizeof(litem_14));
+    memset(&litem_15, 0, sizeof(litem_15));
     # 1618 "./neo-c.h"
     if(self==((void*)0)) {
         # 1615 "./neo-c.h"
@@ -5610,6 +5694,13 @@ char*  parse_square_attribute(struct sInfo*  info  )
     char* arg_tail;
     _Bool gnu_ns;
     _Bool mapped;
+    memset(&result, 0, sizeof(result));
+    memset(&ns, 0, sizeof(ns));
+    memset(&keyword, 0, sizeof(keyword));
+    memset(&arg_head, 0, sizeof(arg_head));
+    memset(&arg_tail, 0, sizeof(arg_tail));
+    memset(&gnu_ns, 0, sizeof(gnu_ns));
+    memset(&mapped, 0, sizeof(mapped));
     # 391 "06type.nc"
     skip_spaces_and_lf(info);
     # 396 "06type.nc"
@@ -5856,6 +5947,14 @@ char*  parse_declspec_attribute(struct sInfo*  info  )
     char* arg_tail;
     char* arg_head_17;
     char* arg_tail_18;
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
+    memset(&result, 0, sizeof(result));
+    memset(&keyword, 0, sizeof(keyword));
+    memset(&arg_head, 0, sizeof(arg_head));
+    memset(&arg_tail, 0, sizeof(arg_tail));
+    memset(&arg_head_17, 0, sizeof(arg_head_17));
+    memset(&arg_tail_18, 0, sizeof(arg_tail_18));
     # 533 "06type.nc"
     p=info->p;
     # 534 "06type.nc"
@@ -6024,6 +6123,20 @@ struct tuple2$2char$phchar$ph* parse_attribute(struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
     struct tuple2$2char$phchar$ph* __result_obj__0;
+    memset(&asm_fun_name, 0, sizeof(asm_fun_name));
+    memset(&attribute, 0, sizeof(attribute));
+    memset(&nest, 0, sizeof(nest));
+    memset(&nest_19, 0, sizeof(nest_19));
+    memset(&nest_20, 0, sizeof(nest_20));
+    memset(&nest_21, 0, sizeof(nest_21));
+    memset(&nest_22, 0, sizeof(nest_22));
+    memset(&attr, 0, sizeof(attr));
+    memset(&attr_23, 0, sizeof(attr_23));
+    memset(&attr_24, 0, sizeof(attr_24));
+    memset(&len, 0, sizeof(len));
+    memset(&in_dquort, 0, sizeof(in_dquort));
+    memset(&brace_num, 0, sizeof(brace_num));
+    memset(&brace_num_25, 0, sizeof(brace_num_25));
     # 633 "06type.nc"
     asm_fun_name=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "06type.nc", 633, 424, "struct buffer* "), "06type.nc", 633, 425)), "06type.nc", 633, 426);
     # 634 "06type.nc"
@@ -6479,6 +6592,7 @@ void parse_struct_attribute_skip_paren(struct sInfo*  info  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "parse_struct_attribute_skip_paren"; neo_current_frame = &fr;
     int nest;
+    memset(&nest, 0, sizeof(nest));
     # 912 "06type.nc"
     skip_spaces_and_lf(info);
     # 938 "06type.nc"
@@ -6531,6 +6645,10 @@ _Bool parse_attribute_keyword(struct buffer*  result  , const char* keyword, _Bo
     char* tail_keyword;
     char* head;
     char* tail;
+    memset(&p, 0, sizeof(p));
+    memset(&tail_keyword, 0, sizeof(tail_keyword));
+    memset(&head, 0, sizeof(head));
+    memset(&tail, 0, sizeof(tail));
     # 944 "06type.nc"
     p=parsecmp_tail(keyword,info);
     # 967 "06type.nc"
@@ -6578,6 +6696,10 @@ _Bool parse_common_attribute_keyword(struct buffer*  result  , struct sInfo*  in
     char* p;
     char* head;
     char* tail;
+    memset(&keyword_len, 0, sizeof(keyword_len));
+    memset(&p, 0, sizeof(p));
+    memset(&head, 0, sizeof(head));
+    memset(&tail, 0, sizeof(tail));
     # 972 "06type.nc"
     keyword_len=match_common_attribute_keyword_len(info->p);
     # 977 "06type.nc"
@@ -6627,6 +6749,9 @@ char*  parse_struct_attribute(struct sInfo*  info  , _Bool allow_end)
     char*  attr  ;
     char*  attr_26  ;
     char*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
+    memset(&attr, 0, sizeof(attr));
+    memset(&attr_26, 0, sizeof(attr_26));
     # 1000 "06type.nc"
     skip_spaces_and_lf(info);
     # 1001 "06type.nc"
@@ -6767,6 +6892,28 @@ struct tuple2$2sType$phchar$ph* parse_variable_name_on_multiple_declare(struct s
     struct sNode* node_37;
     char*  attribute  ;
     struct tuple2$2sType$phchar$ph* __result_obj__0;
+    memset(&result_type, 0, sizeof(result_type));
+    memset(&var_name, 0, sizeof(var_name));
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
+    memset(&word, 0, sizeof(word));
+    memset(&between_brace, 0, sizeof(between_brace));
+    memset(&p_27, 0, sizeof(p_27));
+    memset(&sline_28, 0, sizeof(sline_28));
+    memset(&word_29, 0, sizeof(word_29));
+    memset(&lambda_, 0, sizeof(lambda_));
+    memset(&p_30, 0, sizeof(p_30));
+    memset(&sline_31, 0, sizeof(sline_31));
+    memset(&word_32, 0, sizeof(word_32));
+    memset(&result_type2, 0, sizeof(result_type2));
+    memset(&node, 0, sizeof(node));
+    memset(&no_comma, 0, sizeof(no_comma));
+    memset(&node_33, 0, sizeof(node_33));
+    memset(&p_34, 0, sizeof(p_34));
+    memset(&sline_35, 0, sizeof(sline_35));
+    memset(&word_36, 0, sizeof(word_36));
+    memset(&node_37, 0, sizeof(node_37));
+    memset(&attribute, 0, sizeof(attribute));
     # 1049 "06type.nc"
     result_type=(struct sType* )come_increment_ref_count(sType_clone(base_type_name), "06type.nc", 1049, 481);
     # 1055 "06type.nc"
@@ -7121,6 +7268,9 @@ static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* se
     struct sNode* __dec_obj57;
     struct list_item$1sNode$ph* litem_39;
     struct sNode* __dec_obj58;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_38, 0, sizeof(litem_38));
+    memset(&litem_39, 0, sizeof(litem_39));
     # 1618 "./neo-c.h"
     if(self==((void*)0)) {
         # 1615 "./neo-c.h"
@@ -7239,6 +7389,10 @@ _Bool skip_pointer_attribute(struct sInfo*  info  )
     char*  word  ;
     int nest;
     _Bool __result_obj__0;
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
+    memset(&word, 0, sizeof(word));
+    memset(&nest, 0, sizeof(nest));
     # 1264 "06type.nc"
     p=info->p;
     # 1265 "06type.nc"
@@ -7347,6 +7501,11 @@ char*  parse_pointer_qualifier(struct sInfo*  info  )
     char*  word  ;
     int nest;
     char*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
+    memset(&word, 0, sizeof(word));
+    memset(&nest, 0, sizeof(nest));
     # 1324 "06type.nc"
     result=(struct buffer* )come_increment_ref_count(buffer_initialize((struct buffer* )come_increment_ref_count((struct buffer *)come_calloc(1, sizeof(struct buffer )*(1), "06type.nc", 1324, 570, "struct buffer* "), "06type.nc", 1324, 571)), "06type.nc", 1324, 572);
     # 1390 "06type.nc"
@@ -7474,6 +7633,8 @@ struct tuple3$3sType$phchar$ph_Bool$* backtrace_parse_type(_Bool parse_variable_
     _Bool err=0;
     void* __right_value1 = (void*)0;
     struct tuple3$3sType$phchar$ph_Bool$* __result_obj__0;
+    memset(&sline, 0, sizeof(sline));
+    memset(&no_output_come_code, 0, sizeof(no_output_come_code));
     # 1395 "06type.nc"
     sline=info->sline;
     # 1396 "06type.nc"
@@ -7546,6 +7707,16 @@ struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* backtrace_struct_union_enum(struc
     struct tuple5$5_Bool$_Bool$_Bool$_Bool$_Bool$* __result_obj__0;
     char*  struct_name  ;
     int nest;
+    memset(&define_only, 0, sizeof(define_only));
+    memset(&anonymous_name, 0, sizeof(anonymous_name));
+    memset(&struct_, 0, sizeof(struct_));
+    memset(&union_, 0, sizeof(union_));
+    memset(&enum_, 0, sizeof(enum_));
+    memset(&head, 0, sizeof(head));
+    memset(&head_sline, 0, sizeof(head_sline));
+    memset(&declare_name, 0, sizeof(declare_name));
+    memset(&struct_name, 0, sizeof(struct_name));
+    memset(&nest, 0, sizeof(nest));
     # 1410 "06type.nc"
     define_only=(_Bool)0;
     # 1411 "06type.nc"
@@ -7752,6 +7923,20 @@ struct sType*  parse_pointer_attribute(struct sType*  type  , struct sInfo*  inf
     char*  pointer_attr_47  ;
     char*  __dec_obj68  ;
     char*  __dec_obj69  ;
+    memset(&tmp_, 0, sizeof(tmp_));
+    memset(&pointer_attr, 0, sizeof(pointer_attr));
+    memset(&generics_type, 0, sizeof(generics_type));
+    memset(&type_40, 0, sizeof(type_40));
+    memset(&type2, 0, sizeof(type2));
+    memset(&generics_type_41, 0, sizeof(generics_type_41));
+    memset(&type_42, 0, sizeof(type_42));
+    memset(&type2_43, 0, sizeof(type2_43));
+    memset(&generics_type_44, 0, sizeof(generics_type_44));
+    memset(&type_45, 0, sizeof(type_45));
+    memset(&type2_46, 0, sizeof(type2_46));
+    memset(&p, 0, sizeof(p));
+    memset(&sline, 0, sizeof(sline));
+    memset(&pointer_attr_47, 0, sizeof(pointer_attr_47));
     # 1500 "06type.nc"
     tmp_=((void*)0);
     # 1698 "06type.nc"
@@ -8277,6 +8462,10 @@ char*  parse_variable_name_fun(struct sType*  type  , _Bool anonymous_name, _Boo
     struct sNode* __dec_obj80;
     char*  attribute2  ;
     char*  __result_obj__0  ;
+    memset(&var_name, 0, sizeof(var_name));
+    memset(&no_comma, 0, sizeof(no_comma));
+    memset(&node, 0, sizeof(node));
+    memset(&attribute2, 0, sizeof(attribute2));
     # 1792 "06type.nc"
     var_name=(char*)come_increment_ref_count(xsprintf(""), "06type.nc", 1792, 737);
     # 1798 "06type.nc"
@@ -8415,6 +8604,7 @@ _Bool is_null_pointer_constant(struct CVALUE*  come_value  , struct sInfo*  info
     void* __right_value0 = (void*)0;
     char*  s  ;
     _Bool __result_obj__0;
+    memset(&s, 0, sizeof(s));
     # 1868 "06type.nc"
     if(come_value==((void*)0)||come_value->c_value==((void*)0)) {
         # 1866 "06type.nc"
@@ -8475,6 +8665,14 @@ _Bool is_generic_void_pointer_compatible(struct sType*  left_type  , struct sTyp
     char*  right_wrapper  ;
     _Bool left_void_generic;
     _Bool right_void_generic;
+    memset(&left_type_name, 0, sizeof(left_type_name));
+    memset(&right_type_name, 0, sizeof(right_type_name));
+    memset(&left_generic_pos, 0, sizeof(left_generic_pos));
+    memset(&right_generic_pos, 0, sizeof(right_generic_pos));
+    memset(&left_wrapper, 0, sizeof(left_wrapper));
+    memset(&right_wrapper, 0, sizeof(right_wrapper));
+    memset(&left_void_generic, 0, sizeof(left_void_generic));
+    memset(&right_void_generic, 0, sizeof(right_void_generic));
     # 1889 "06type.nc"
     if(left_type==((void*)0)||right_type==((void*)0)) {
         # 1887 "06type.nc"
@@ -8551,6 +8749,7 @@ _Bool is_generic_placeholder_class_name(const char* class_name, struct sInfo*  i
     void* __right_value0 = (void*)0;
     char*  name  ;
     _Bool __result_obj__0;
+    memset(&name, 0, sizeof(name));
     # 1924 "06type.nc"
     if(class_name==((void*)0)) {
         # 1922 "06type.nc"
@@ -8596,6 +8795,7 @@ _Bool is_transparent_union_type(struct sType*  type  , struct sInfo*  info  )
     void* __right_value0 = (void*)0;
     char*  attr  ;
     _Bool __result_obj__0;
+    memset(&attr, 0, sizeof(attr));
     # 1951 "06type.nc"
     if(type==((void*)0)||type->mClass==((void*)0)||!type->mClass->mUnion) {
         # 1949 "06type.nc"
@@ -8623,6 +8823,7 @@ _Bool pointer_attr_has_word(struct sType*  type  , const char* word, struct sInf
     void* __right_value0 = (void*)0;
     char*  s  ;
     _Bool __result_obj__0;
+    memset(&s, 0, sizeof(s));
     # 1963 "06type.nc"
     if(type==((void*)0)||type->mPointerAttribute==((void*)0)||string_operator_equals(type->mPointerAttribute,"")) {
         # 1961 "06type.nc"
@@ -8712,6 +8913,7 @@ struct sType*  normalize_loadvar_type_for_compare(struct sType*  type  , struct 
     struct sType*  __result_obj__0  ;
     _Bool use_original;
     void* __right_value0 = (void*)0;
+    memset(&use_original, 0, sizeof(use_original));
     # 2003 "06type.nc"
     if(type==((void*)0)) {
         # 2001 "06type.nc"
@@ -8777,6 +8979,13 @@ struct sType*  expand_typedef_for_assign(struct sType*  type  , struct sInfo*  i
     struct sType*  __dec_obj86  ;
     struct sType*  __dec_obj87  ;
     struct sType*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
+    memset(&guard, 0, sizeof(guard));
+    memset(&orig, 0, sizeof(orig));
+    memset(&ptr, 0, sizeof(ptr));
+    memset(&suppress_ptr_restore, 0, sizeof(suppress_ptr_restore));
+    memset(&suppress_array_restore, 0, sizeof(suppress_array_restore));
+    memset(&array_ptr, 0, sizeof(array_ptr));
     # 2017 "06type.nc"
     result=(struct sType* )come_increment_ref_count(type, "06type.nc", 2017, 804);
     # 2018 "06type.nc"
@@ -8907,6 +9116,8 @@ static struct list$1sNode$ph* list$1sNode$ph_reset(struct list$1sNode$ph* self)
     struct list$1sNode$ph* __result_obj__0;
     struct list_item$1sNode$ph* it;
     struct list_item$1sNode$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1860 "./neo-c.h"
     if(self==((void*)0)) {
         # 1857 "./neo-c.h"
@@ -8957,6 +9168,7 @@ _Bool is_parent_class_of(struct sClass*  parent  , struct sClass*  child  , stru
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "is_parent_class_of"; neo_current_frame = &fr;
     struct sClass*  klass  ;
     void* __right_value0 = (void*)0;
+    memset(&klass, 0, sizeof(klass));
     # 2091 "06type.nc"
     if(parent==((void*)0)||child==((void*)0)) {
         # 2089 "06type.nc"
@@ -9002,6 +9214,12 @@ static _Bool is_same_type_ignoring_qualifier_core(struct sType*  left_type2  , s
     int i_51;
     struct sType*  lparam  ;
     struct sType*  rparam  ;
+    memset(&i, 0, sizeof(i));
+    memset(&left_g, 0, sizeof(left_g));
+    memset(&right_g, 0, sizeof(right_g));
+    memset(&i_51, 0, sizeof(i_51));
+    memset(&lparam, 0, sizeof(lparam));
+    memset(&rparam, 0, sizeof(rparam));
     # 2114 "06type.nc"
     if(left_type2==((void*)0)||right_type2==((void*)0)) {
         # 2111 "06type.nc"
@@ -9253,6 +9471,8 @@ static struct sType*  list$1sType$ph$p_operator_load_element(struct list$1sType$
     struct list_item$1sType$ph* it;
     int i;
     struct sType*  default_value_49  ;
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
     # 2153 "./neo-c.h"
     # 2161 "./neo-c.h"
     if(self==((void*)0)) {
@@ -9310,6 +9530,8 @@ static struct sType*  list$1sType$ph_operator_load_element(struct list$1sType$ph
     struct list_item$1sType$ph* it;
     int i;
     struct sType*  default_value_50  ;
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
     # 2153 "./neo-c.h"
     # 2161 "./neo-c.h"
     if(self==((void*)0)) {
@@ -9366,6 +9588,8 @@ _Bool is_same_type_ignoring_qualifier(struct sType*  left_type  , struct sType* 
     struct sType*  left_type2  ;
     struct sType*  right_type2  ;
     _Bool __result_obj__0;
+    memset(&left_type2, 0, sizeof(left_type2));
+    memset(&right_type2, 0, sizeof(right_type2));
     # 2220 "06type.nc"
     if(left_type==((void*)0)||right_type==((void*)0)) {
         # 2217 "06type.nc"
@@ -9392,6 +9616,8 @@ _Bool is_same_base_type_ignoring_qualifier(struct sType*  left_type  , struct sT
     struct sType*  left_type2  ;
     struct sType*  right_type2  ;
     _Bool __result_obj__0;
+    memset(&left_type2, 0, sizeof(left_type2));
+    memset(&right_type2, 0, sizeof(right_type2));
     # 2228 "06type.nc"
     left_type2=(struct sType* )come_increment_ref_count(normalize_loadvar_type_for_compare(left_type,info), "06type.nc", 2228, 896);
     # 2229 "06type.nc"
@@ -9467,6 +9693,33 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     _Bool right_heap_pointer;
     _Bool return_type_check;
     _Bool typedef_array_decay_scalar;
+    memset(&left_type2, 0, sizeof(left_type2));
+    memset(&right_type2, 0, sizeof(right_type2));
+    memset(&left_lambda, 0, sizeof(left_lambda));
+    memset(&right_lambda, 0, sizeof(right_lambda));
+    memset(&left_ptr, 0, sizeof(left_ptr));
+    memset(&right_ptr, 0, sizeof(right_ptr));
+    memset(&left_array, 0, sizeof(left_array));
+    memset(&right_array, 0, sizeof(right_array));
+    memset(&left_ptr_num, 0, sizeof(left_ptr_num));
+    memset(&right_ptr_num, 0, sizeof(right_ptr_num));
+    memset(&left_void, 0, sizeof(left_void));
+    memset(&right_void, 0, sizeof(right_void));
+    memset(&explicit_cast_value, 0, sizeof(explicit_cast_value));
+    memset(&left_void_ptr, 0, sizeof(left_void_ptr));
+    memset(&right_void_ptr, 0, sizeof(right_void_ptr));
+    memset(&right_const, 0, sizeof(right_const));
+    memset(&left_const, 0, sizeof(left_const));
+    memset(&right_volatile, 0, sizeof(right_volatile));
+    memset(&left_volatile, 0, sizeof(left_volatile));
+    memset(&right_restrict, 0, sizeof(right_restrict));
+    memset(&left_restrict, 0, sizeof(left_restrict));
+    memset(&parent_class, 0, sizeof(parent_class));
+    memset(&klass, 0, sizeof(klass));
+    memset(&left_ptr_num_52, 0, sizeof(left_ptr_num_52));
+    memset(&right_heap_pointer, 0, sizeof(right_heap_pointer));
+    memset(&return_type_check, 0, sizeof(return_type_check));
+    memset(&typedef_array_decay_scalar, 0, sizeof(typedef_array_decay_scalar));
     # 2256 "06type.nc"
     if(left_type==((void*)0)||right_type==((void*)0)) {
         # 2253 "06type.nc"

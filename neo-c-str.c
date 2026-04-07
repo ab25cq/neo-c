@@ -1528,6 +1528,8 @@ int re_matchp_ex(struct re_program*  pattern  , const char* text, int* matchleng
     struct regex_t*  start  ;
     struct anonymous_typeX25  ctx  ;
     int __result_obj__0;
+    memset(&program, 0, sizeof(program));
+    memset(&start, 0, sizeof(start));
     memset(&ctx, 0, sizeof(ctx));
     # 1330 "./neo-c-str.h"
     *matchlength=0;
@@ -1679,6 +1681,8 @@ struct re_program*  re_compile(const char* pattern)
     struct re_program*  __result_obj__0  ;
     memset(&program, 0, sizeof(program));
     memset(&state, 0, sizeof(state));
+    memset(&pos, 0, sizeof(pos));
+    memset(&head, 0, sizeof(head));
     # 1416 "./neo-c-str.h"
     static struct regex_t  re_compiled[64]  ;
     memset(&re_compiled, 0, sizeof(re_compiled));
@@ -1735,6 +1739,7 @@ void re_print(struct re_program*  pattern  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "re_print"; neo_current_frame = &fr;
     struct re_program*  program  ;
+    memset(&program, 0, sizeof(program));
     # 1454 "./neo-c-str.h"
     if(pattern==0) {
         # 1451 "./neo-c-str.h"
@@ -1758,6 +1763,7 @@ void clear_captures(struct anonymous_typeX25*  ctx  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "clear_captures"; neo_current_frame = &fr;
     int i;
+    memset(&i, 0, sizeof(i));
     # 1472 "./neo-c-str.h"
     if((ctx->captures==0)||(ctx->capture_capacity<=0)) {
         # 1469 "./neo-c-str.h"
@@ -1856,6 +1862,7 @@ struct regex_t*  new_token(struct anonymous_typeX24*  st  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "new_token"; neo_current_frame = &fr;
     struct regex_t*  __result_obj__0  ;
     struct regex_t*  token  ;
+    memset(&token, 0, sizeof(token));
     # 1531 "./neo-c-str.h"
     if(st->pool_size>=st->pool_capacity) {
         # 1528 "./neo-c-str.h"
@@ -1923,6 +1930,16 @@ struct regex_t*  compile_sequence(struct anonymous_typeX24*  st  , const char* p
     struct regex_t*  inner  ;
     struct regex_t*  tail_1  ;
     struct regex_t*  sentinel  ;
+    memset(&head, 0, sizeof(head));
+    memset(&tail, 0, sizeof(tail));
+    memset(&c, 0, sizeof(c));
+    memset(&token, 0, sizeof(token));
+    memset(&escaped, 0, sizeof(escaped));
+    memset(&buf_begin, 0, sizeof(buf_begin));
+    memset(&negated, 0, sizeof(negated));
+    memset(&inner, 0, sizeof(inner));
+    memset(&tail_1, 0, sizeof(tail_1));
+    memset(&sentinel, 0, sizeof(sentinel));
     # 1562 "./neo-c-str.h"
     head=(struct regex_t* )0;
     # 1563 "./neo-c-str.h"
@@ -2398,6 +2415,11 @@ const char* matchpattern(struct regex_t*  pattern  , const char* text, struct an
     struct regex_t*  owner  ;
     int idx;
     int start;
+    memset(&current, 0, sizeof(current));
+    memset(&next, 0, sizeof(next));
+    memset(&owner, 0, sizeof(owner));
+    memset(&idx, 0, sizeof(idx));
+    memset(&start, 0, sizeof(start));
     # 1814 "./neo-c-str.h"
     if(pattern==0) {
         # 1811 "./neo-c-str.h"
@@ -2567,6 +2589,9 @@ const char* matchgroup(struct regex_t*  token  , struct regex_t*  rest  , const 
     struct regex_t*  saved_next  ;
     int idx;
     const char* __result_obj__0;
+    memset(&end_token, 0, sizeof(end_token));
+    memset(&saved_next, 0, sizeof(saved_next));
+    memset(&idx, 0, sizeof(idx));
     # 1919 "./neo-c-str.h"
     struct re_capture  snapshot_entry[64]  ;
     memset(&snapshot_entry, 0, sizeof(snapshot_entry));
@@ -2888,6 +2913,9 @@ int matchrange(char c, const char* str, _Bool ignore_case)
     unsigned char needle;
     unsigned char start;
     unsigned char end;
+    memset(&needle, 0, sizeof(needle));
+    memset(&start, 0, sizeof(start));
+    memset(&end, 0, sizeof(end));
     # 2111 "./neo-c-str.h"
     needle=(unsigned char)c;
     # 2112 "./neo-c-str.h"
@@ -3000,6 +3028,7 @@ int matchcharclass(char c, const char* str, _Bool ignore_case)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "matchcharclass"; neo_current_frame = &fr;
     unsigned char needle;
+    memset(&needle, 0, sizeof(needle));
     # 2163 "./neo-c-str.h"
     needle=re_fold_char((unsigned char)c,ignore_case);
     # 2194 "./neo-c-str.h"
@@ -3049,6 +3078,7 @@ void re_print_internal(struct regex_t*  pattern  , int depth)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "re_print_internal"; neo_current_frame = &fr;
     int i;
+    memset(&i, 0, sizeof(i));
     # 2206 "./neo-c-str.h"
     const char* types[]={
     "RE_UNUSED", "RE_DOT", "RE_BEGIN", "RE_END", "RE_QUESTIONMARK", "RE_STAR", "RE_PLUS", "RE_CHAR",
@@ -3106,6 +3136,7 @@ int re_get_group_count(struct re_program*  pattern  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "re_get_group_count"; neo_current_frame = &fr;
     struct re_program*  program  ;
+    memset(&program, 0, sizeof(program));
     # 2251 "./neo-c-str.h"
     if(pattern==0) {
         # 2248 "./neo-c-str.h"
@@ -3131,6 +3162,14 @@ int charp_index_regex(const char* self, const char* reg, int default_value, _Boo
     int matchlength;
     int max_captures;
     int regex_result;
+    memset(&re, 0, sizeof(re));
+    memset(&result, 0, sizeof(result));
+    memset(&offset, 0, sizeof(offset));
+    memset(&n, 0, sizeof(n));
+    memset(&result_5, 0, sizeof(result_5));
+    memset(&matchlength, 0, sizeof(matchlength));
+    memset(&max_captures, 0, sizeof(max_captures));
+    memset(&regex_result, 0, sizeof(regex_result));
     # 2299 "./neo-c-str.h"
     if(self==((void*)0)||reg==((void*)0)) {
         # 2296 "./neo-c-str.h"
@@ -3197,6 +3236,15 @@ int charp_rindex_regex(const char* self, const char* reg, int default_value, _Bo
     int max_captures;
     int regex_result;
     int __result_obj__0;
+    memset(&re, 0, sizeof(re));
+    memset(&result, 0, sizeof(result));
+    memset(&offset, 0, sizeof(offset));
+    memset(&n, 0, sizeof(n));
+    memset(&self2, 0, sizeof(self2));
+    memset(&result_6, 0, sizeof(result_6));
+    memset(&matchlength, 0, sizeof(matchlength));
+    memset(&max_captures, 0, sizeof(max_captures));
+    memset(&regex_result, 0, sizeof(regex_result));
     # 2367 "./neo-c-str.h"
     if(self==((void*)0)||reg==((void*)0)) {
         # 2364 "./neo-c-str.h"
@@ -3258,6 +3306,7 @@ char*  string_chomp(const char* str)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     char*  result  ;
+    memset(&result, 0, sizeof(result));
     # 2432 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 2430 "./neo-c-str.h"
@@ -3317,6 +3366,12 @@ _Bool charp_match(char* self, const char* reg, _Bool ignore_case)
     int max_captures;
     int regex_result;
     _Bool __result_obj__0;
+    memset(&re, 0, sizeof(re));
+    memset(&offset, 0, sizeof(offset));
+    memset(&n, 0, sizeof(n));
+    memset(&matchlength, 0, sizeof(matchlength));
+    memset(&max_captures, 0, sizeof(max_captures));
+    memset(&regex_result, 0, sizeof(regex_result));
     # 2571 "./neo-c-str.h"
     if(self==((void*)0)||reg==((void*)0)) {
         # 2568 "./neo-c-str.h"
@@ -3383,6 +3438,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 178 "./neo-c-str.h"
     if(self==((void*)0)) {
         # 176 "./neo-c-str.h"
@@ -3426,6 +3483,9 @@ static struct list$1char$ph* list$1char$ph_add(struct list$1char$ph* self, char*
     char*  __dec_obj2  ;
     struct list_item$1char$ph* litem_8;
     char*  __dec_obj3  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_7, 0, sizeof(litem_7));
+    memset(&litem_8, 0, sizeof(litem_8));
     # 209 "./neo-c-str.h"
     if(self==((void*)0)) {
         # 207 "./neo-c-str.h"
@@ -3505,6 +3565,9 @@ static struct list$1char$ph* list$1char$ph_push_back(struct list$1char$ph* self,
     char*  __dec_obj5  ;
     struct list_item$1char$ph* litem_10;
     char*  __dec_obj6  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_9, 0, sizeof(litem_9));
+    memset(&litem_10, 0, sizeof(litem_10));
     # 294 "./neo-c-str.h"
     if(self==((void*)0)) {
         # 291 "./neo-c-str.h"
@@ -3592,6 +3655,19 @@ struct list$1char$ph* charp_scan(const char* self, const char* reg, _Bool ignore
     int i;
     struct re_capture*  cp  ;
     char*  match_string  ;
+    memset(&result, 0, sizeof(result));
+    memset(&re, 0, sizeof(re));
+    memset(&offset, 0, sizeof(offset));
+    memset(&n, 0, sizeof(n));
+    memset(&group_count, 0, sizeof(group_count));
+    memset(&matchlength, 0, sizeof(matchlength));
+    memset(&max_captures, 0, sizeof(max_captures));
+    memset(&regex_result, 0, sizeof(regex_result));
+    memset(&str, 0, sizeof(str));
+    memset(&capture_count, 0, sizeof(capture_count));
+    memset(&i, 0, sizeof(i));
+    memset(&cp, 0, sizeof(cp));
+    memset(&match_string, 0, sizeof(match_string));
     # 2603 "./neo-c-str.h"
     if(self==((void*)0)||reg==((void*)0)) {
         # 2601 "./neo-c-str.h"
@@ -3720,6 +3796,16 @@ struct list$1char$ph* charp_split(const char* self, const char* reg, _Bool ignor
     int regex_result;
     char*  str  ;
     char*  str_11  ;
+    memset(&result, 0, sizeof(result));
+    memset(&re, 0, sizeof(re));
+    memset(&offset, 0, sizeof(offset));
+    memset(&n, 0, sizeof(n));
+    memset(&group_count, 0, sizeof(group_count));
+    memset(&matchlength, 0, sizeof(matchlength));
+    memset(&max_captures, 0, sizeof(max_captures));
+    memset(&regex_result, 0, sizeof(regex_result));
+    memset(&str, 0, sizeof(str));
+    memset(&str_11, 0, sizeof(str_11));
     # 2675 "./neo-c-str.h"
     if(self==((void*)0)||reg==((void*)0)) {
         # 2672 "./neo-c-str.h"
@@ -3869,6 +3955,17 @@ char*  charp_sub(char* self, const char* reg, const char* replace, _Bool global,
     char*  str  ;
     char*  str_12  ;
     char*  str_13  ;
+    memset(&re, 0, sizeof(re));
+    memset(&offset, 0, sizeof(offset));
+    memset(&n, 0, sizeof(n));
+    memset(&result, 0, sizeof(result));
+    memset(&group_count, 0, sizeof(group_count));
+    memset(&matchlength, 0, sizeof(matchlength));
+    memset(&max_captures, 0, sizeof(max_captures));
+    memset(&regex_result, 0, sizeof(regex_result));
+    memset(&str, 0, sizeof(str));
+    memset(&str_12, 0, sizeof(str_12));
+    memset(&str_13, 0, sizeof(str_13));
     # 2755 "./neo-c-str.h"
     if(self==((void*)0)||reg==((void*)0)) {
         # 2752 "./neo-c-str.h"
@@ -3993,6 +4090,28 @@ char*  charp_sub_block(char* self, const char* reg, _Bool global, _Bool ignore_c
     char*  match_string_18  ;
     char*  block_result_19  ;
     char*  str_20  ;
+    memset(&result, 0, sizeof(result));
+    memset(&re, 0, sizeof(re));
+    memset(&offset, 0, sizeof(offset));
+    memset(&n, 0, sizeof(n));
+    memset(&group_count, 0, sizeof(group_count));
+    memset(&matchlength, 0, sizeof(matchlength));
+    memset(&max_captures, 0, sizeof(max_captures));
+    memset(&regex_result, 0, sizeof(regex_result));
+    memset(&str, 0, sizeof(str));
+    memset(&group_strings, 0, sizeof(group_strings));
+    memset(&match_string, 0, sizeof(match_string));
+    memset(&block_result, 0, sizeof(block_result));
+    memset(&str_14, 0, sizeof(str_14));
+    memset(&str_15, 0, sizeof(str_15));
+    memset(&group_strings_16, 0, sizeof(group_strings_16));
+    memset(&capture_count, 0, sizeof(capture_count));
+    memset(&i, 0, sizeof(i));
+    memset(&cp, 0, sizeof(cp));
+    memset(&match_string_17, 0, sizeof(match_string_17));
+    memset(&match_string_18, 0, sizeof(match_string_18));
+    memset(&block_result_19, 0, sizeof(block_result_19));
+    memset(&str_20, 0, sizeof(str_20));
     # 2813 "./neo-c-str.h"
     if(self==((void*)0)||reg==((void*)0)) {
         # 2810 "./neo-c-str.h"
@@ -4188,6 +4307,24 @@ struct list$1char$ph* charp_scan_block(const char* self, const char* reg, _Bool 
     char*  match_string_22  ;
     char*  match_string_23  ;
     char*  block_result_24  ;
+    memset(&result, 0, sizeof(result));
+    memset(&re, 0, sizeof(re));
+    memset(&offset, 0, sizeof(offset));
+    memset(&n, 0, sizeof(n));
+    memset(&group_count, 0, sizeof(group_count));
+    memset(&matchlength, 0, sizeof(matchlength));
+    memset(&max_captures, 0, sizeof(max_captures));
+    memset(&regex_result, 0, sizeof(regex_result));
+    memset(&group_strings, 0, sizeof(group_strings));
+    memset(&match_string, 0, sizeof(match_string));
+    memset(&block_result, 0, sizeof(block_result));
+    memset(&group_strings_21, 0, sizeof(group_strings_21));
+    memset(&capture_count, 0, sizeof(capture_count));
+    memset(&i, 0, sizeof(i));
+    memset(&cp, 0, sizeof(cp));
+    memset(&match_string_22, 0, sizeof(match_string_22));
+    memset(&match_string_23, 0, sizeof(match_string_23));
+    memset(&block_result_24, 0, sizeof(block_result_24));
     # 2912 "./neo-c-str.h"
     if(self==((void*)0)||reg==((void*)0)) {
         # 2910 "./neo-c-str.h"
@@ -4344,6 +4481,9 @@ int*  __builtin_wstring(const char* str, char* sname, int sline)
     int len;
     int*  wstr  ;
     int ret;
+    memset(&len, 0, sizeof(len));
+    memset(&wstr, 0, sizeof(wstr));
+    memset(&ret, 0, sizeof(ret));
     # 3010 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 3008 "./neo-c-str.h"
@@ -4419,6 +4559,9 @@ char*  string_lower_case(char* str)
     char*  result  ;
     int len;
     int i;
+    memset(&result, 0, sizeof(result));
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
     # 3051 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 3049 "./neo-c-str.h"
@@ -4457,6 +4600,9 @@ char*  string_upper_case(char* str)
     char*  result  ;
     int len;
     int i;
+    memset(&result, 0, sizeof(result));
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
     # 3067 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 3065 "./neo-c-str.h"
@@ -4494,6 +4640,8 @@ int*  wchar_tp_substring(const int*  str  , int head, int tail)
     int*  __result_obj__0  ;
     int len;
     int*  result  ;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
     # 3084 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 3081 "./neo-c-str.h"
@@ -4588,6 +4736,10 @@ int charp_index_count(const char* str, const char* search_str, int count, int de
     int len2;
     int i;
     int j;
+    memset(&n, 0, sizeof(n));
+    memset(&len, 0, sizeof(len));
+    memset(&len2, 0, sizeof(len2));
+    memset(&i, 0, sizeof(i));
     memset(&j, 0, sizeof(j));
     # 3131 "./neo-c-str.h"
     if(str==((void*)0)||search_str==((void*)0)) {
@@ -4636,6 +4788,9 @@ int charp_rindex(const char* str, const char* search_str, int default_value)
     int len;
     int str_len;
     char* p;
+    memset(&len, 0, sizeof(len));
+    memset(&str_len, 0, sizeof(str_len));
+    memset(&p, 0, sizeof(p));
     # 3160 "./neo-c-str.h"
     if(str==((void*)0)||search_str==((void*)0)) {
         # 3158 "./neo-c-str.h"
@@ -4683,6 +4838,9 @@ int charp_rindex_count(const char* str, const char* search_str, int count, int d
     int len;
     int str_len;
     int n;
+    memset(&len, 0, sizeof(len));
+    memset(&str_len, 0, sizeof(str_len));
+    memset(&n, 0, sizeof(n));
     # 3187 "./neo-c-str.h"
     if(str==((void*)0)||search_str==((void*)0)) {
         # 3185 "./neo-c-str.h"
@@ -4738,6 +4896,8 @@ char*  charp_strip(const char* self)
     char*  __result_obj__0  ;
     char*  result  ;
     int len;
+    memset(&result, 0, sizeof(result));
+    memset(&len, 0, sizeof(len));
     # 3219 "./neo-c-str.h"
     if(self==((void*)0)) {
         # 3216 "./neo-c-str.h"
@@ -4780,6 +4940,8 @@ char*  wchar_tp_to_string(const int*  wstr  )
     char*  __result_obj__0  ;
     int len;
     char*  result  ;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
     # 3242 "./neo-c-str.h"
     if(wstr==((void*)0)) {
         # 3239 "./neo-c-str.h"
@@ -4884,6 +5046,8 @@ int*  wchar_tp_delete(int*  str  , int head, int tail)
     int len;
     void* __right_value1 = (void*)0;
     int*  sub_str  ;
+    memset(&len, 0, sizeof(len));
+    memset(&sub_str, 0, sizeof(sub_str));
     # 3283 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 3281 "./neo-c-str.h"
@@ -4959,6 +5123,7 @@ int wchar_tp_index(const int*  str  , const int*  search_str  , int default_valu
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_index"; neo_current_frame = &fr;
     int*  head  ;
+    memset(&head, 0, sizeof(head));
     # 3322 "./neo-c-str.h"
     if(str==((void*)0)||search_str==((void*)0)) {
         # 3319 "./neo-c-str.h"
@@ -4987,6 +5152,10 @@ int wchar_tp_rindex(const int*  str  , const int*  search_str  , int default_val
     int len2;
     _Bool result;
     int i;
+    memset(&len, 0, sizeof(len));
+    memset(&p, 0, sizeof(p));
+    memset(&len2, 0, sizeof(len2));
+    memset(&result, 0, sizeof(result));
     memset(&i, 0, sizeof(i));
     # 3337 "./neo-c-str.h"
     if(str==((void*)0)||search_str==((void*)0)) {
@@ -5036,6 +5205,9 @@ int*  wchar_tp_reverse(const int*  str  )
     int len;
     int*  result  ;
     int i;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
+    memset(&i, 0, sizeof(i));
     # 3366 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 3363 "./neo-c-str.h"
@@ -5073,6 +5245,9 @@ int*  wchar_tp_multiply(const int*  str  , int n)
     int len;
     int*  result  ;
     int i;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
+    memset(&i, 0, sizeof(i));
     # 3384 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 3381 "./neo-c-str.h"
@@ -5112,6 +5287,11 @@ int*  wchar_tp_printable(const int*  str  )
     int n;
     int i;
     int  c  ;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
+    memset(&n, 0, sizeof(n));
+    memset(&i, 0, sizeof(i));
+    memset(&c, 0, sizeof(c));
     # 3402 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 3400 "./neo-c-str.h"
@@ -5276,6 +5456,7 @@ int*  wchar_tp_operator_add(const int*  left  , const int*  right  )
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
     int*  result  ;
+    memset(&result, 0, sizeof(result));
     # 3511 "./neo-c-str.h"
     if(left==((void*)0)||right==((void*)0)) {
         # 3509 "./neo-c-str.h"
@@ -5306,6 +5487,7 @@ int*  wstring_operator_add(const int*  left  , const int*  right  )
     void* __right_value0 = (void*)0;
     int*  __result_obj__0  ;
     int*  result  ;
+    memset(&result, 0, sizeof(result));
     # 3524 "./neo-c-str.h"
     if(left==((void*)0)||right==((void*)0)) {
         # 3522 "./neo-c-str.h"
@@ -5336,6 +5518,7 @@ char*  charp_replace(char* self, int index, char c)
     void* __right_value0 = (void*)0;
     char*  __result_obj__0  ;
     int len;
+    memset(&len, 0, sizeof(len));
     # 3538 "./neo-c-str.h"
     if(self==((void*)0)) {
         # 3536 "./neo-c-str.h"
@@ -5391,6 +5574,9 @@ char*  charp_multiply(const char* str, int n)
     int len;
     char* result;
     int i;
+    memset(&len, 0, sizeof(len));
+    memset(&result, 0, sizeof(result));
+    memset(&i, 0, sizeof(i));
     # 3566 "./neo-c-str.h"
     if(str==((void*)0)) {
         # 3564 "./neo-c-str.h"
@@ -5431,6 +5617,11 @@ struct list$1char$ph* charp_split_str(const char* self, const char* str)
     int self_len;
     int needle_len;
     int i;
+    memset(&result, 0, sizeof(result));
+    memset(&buf, 0, sizeof(buf));
+    memset(&self_len, 0, sizeof(self_len));
+    memset(&needle_len, 0, sizeof(needle_len));
+    memset(&i, 0, sizeof(i));
     # 3584 "./neo-c-str.h"
     if(self==((void*)0)||str==((void*)0)) {
         # 3582 "./neo-c-str.h"
@@ -5489,6 +5680,8 @@ unsigned int wchar_tp_get_hash_key(const int*  value  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "wchar_tp_get_hash_key"; neo_current_frame = &fr;
     int result;
     int*  p  ;
+    memset(&result, 0, sizeof(result));
+    memset(&p, 0, sizeof(p));
     # 3612 "./neo-c-str.h"
     if(value==((void*)0)) {
         # 3610 "./neo-c-str.h"
@@ -5588,6 +5781,8 @@ char*  xrealpath(const char* path)
     char*  __result_obj__0  ;
     char* result;
     char*  result2  ;
+    memset(&result, 0, sizeof(result));
+    memset(&result2, 0, sizeof(result2));
     # 3674 "./neo-c-str.h"
     if(path==((void*)0)) {
         # 3672 "./neo-c-str.h"
@@ -5642,6 +5837,8 @@ unsigned long  int  xwcslen(const int*  wstr  )
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xwcslen"; neo_current_frame = &fr;
     int*  p  ;
     unsigned long  int  len  ;
+    memset(&p, 0, sizeof(p));
+    memset(&len, 0, sizeof(len));
     # 3696 "./neo-c-str.h"
     if(wstr==((void*)0)) {
         # 3694 "./neo-c-str.h"

@@ -3350,6 +3350,7 @@ static void normalize_operator_range(int* head_y, int* head_x, int* tail_y, int*
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "normalize_operator_range"; neo_current_frame = &fr;
     int tmp;
+    memset(&tmp, 0, sizeof(tmp));
     # 25 "10edit.nc"
     if(*head_y>*tail_y||(*head_y==*tail_y&&*head_x>*tail_x)) {
         # 17 "10edit.nc"
@@ -3374,6 +3375,7 @@ static void clamp_operator_position(struct ViWin*  self  , int y, int* x)
     void* __right_value0 = (void*)0;
     void* __right_value1 = (void*)0;
     int*  line  ;
+    memset(&line, 0, sizeof(line));
     # 29 "10edit.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","10edit.nc",29)))), "10edit.nc", 29, 7);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 29, 8));
@@ -3397,6 +3399,8 @@ static int*  list$1int$ph_item(struct list$1int$ph* self, int position, int*  de
     int*  __result_obj__0  ;
     struct list_item$1int$ph* it;
     int i;
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
     # 1750 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1747 "/usr/local/include/neo-c.h"
@@ -3461,6 +3465,10 @@ static _Bool yank_operator_range(struct ViWin*  self  , struct Vi*  nvi  , int h
     int i;
     void* __right_value2 = (void*)0;
     int*  last_line  ;
+    memset(&line, 0, sizeof(line));
+    memset(&first_line, 0, sizeof(first_line));
+    memset(&i, 0, sizeof(i));
+    memset(&last_line, 0, sizeof(last_line));
     # 50 "10edit.nc"
     normalize_operator_range(&head_y,&head_x,&tail_y,&tail_x);
     # 51 "10edit.nc"
@@ -3530,6 +3538,8 @@ static struct list$1int$ph* list$1int$ph_reset(struct list$1int$ph* self)
     struct list$1int$ph* __result_obj__0;
     struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1860 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1857 "/usr/local/include/neo-c.h"
@@ -3583,6 +3593,9 @@ static struct list$1int$ph* list$1int$ph_push_back(struct list$1int$ph* self, in
     int*  __dec_obj2  ;
     struct list_item$1int$ph* litem_1;
     int*  __dec_obj3  ;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_0, 0, sizeof(litem_0));
+    memset(&litem_1, 0, sizeof(litem_1));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -3662,6 +3675,10 @@ static _Bool delete_operator_range(struct ViWin*  self  , struct Vi*  nvi  , int
     void* __right_value2 = (void*)0;
     void* __right_value3 = (void*)0;
     int*  new_line  ;
+    memset(&line, 0, sizeof(line));
+    memset(&first_line, 0, sizeof(first_line));
+    memset(&last_line, 0, sizeof(last_line));
+    memset(&new_line, 0, sizeof(new_line));
     # 84 "10edit.nc"
     normalize_operator_range(&head_y,&head_x,&tail_y,&tail_x);
     # 85 "10edit.nc"
@@ -3753,6 +3770,10 @@ static struct list$1int$* list$1int$_replace(struct list$1int$* self, int positi
     int default_value;
     struct list_item$1int$* it;
     int i_4;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&it, 0, sizeof(it));
+    memset(&i_4, 0, sizeof(i_4));
     # 2027 "/usr/local/include/neo-c.h"
     # 2033 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -3822,6 +3843,9 @@ static struct list$1int$* list$1int$_push_back(struct list$1int$* self, int item
     struct list_item$1int$* litem;
     struct list_item$1int$* litem_2;
     struct list_item$1int$* litem_3;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_2, 0, sizeof(litem_2));
+    memset(&litem_3, 0, sizeof(litem_3));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -3892,6 +3916,10 @@ static struct list$1int$ph* list$1int$ph_replace(struct list$1int$ph* self, int 
     struct list_item$1int$ph* it;
     int i_5;
     int*  __dec_obj4  ;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&it, 0, sizeof(it));
+    memset(&i_5, 0, sizeof(i_5));
     # 2027 "/usr/local/include/neo-c.h"
     # 2033 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -3975,6 +4003,18 @@ static struct list$1int$ph* list$1int$ph_delete(struct list$1int$ph* self, int h
     struct list_item$1int$ph* tail_it;
     int i_10;
     struct list_item$1int$ph* prev_it_11;
+    memset(&tmp, 0, sizeof(tmp));
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
+    memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it_6, 0, sizeof(it_6));
+    memset(&i_7, 0, sizeof(i_7));
+    memset(&prev_it_8, 0, sizeof(prev_it_8));
+    memset(&it_9, 0, sizeof(it_9));
+    memset(&head_prev_it, 0, sizeof(head_prev_it));
+    memset(&tail_it, 0, sizeof(tail_it));
+    memset(&i_10, 0, sizeof(i_10));
+    memset(&prev_it_11, 0, sizeof(prev_it_11));
     # 1899 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1896 "/usr/local/include/neo-c.h"
@@ -4175,6 +4215,18 @@ static struct list$1int$* list$1int$_delete(struct list$1int$* self, int head, i
     struct list_item$1int$* tail_it;
     int i_16;
     struct list_item$1int$* prev_it_17;
+    memset(&tmp, 0, sizeof(tmp));
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
+    memset(&prev_it, 0, sizeof(prev_it));
+    memset(&it_12, 0, sizeof(it_12));
+    memset(&i_13, 0, sizeof(i_13));
+    memset(&prev_it_14, 0, sizeof(prev_it_14));
+    memset(&it_15, 0, sizeof(it_15));
+    memset(&head_prev_it, 0, sizeof(head_prev_it));
+    memset(&tail_it, 0, sizeof(tail_it));
+    memset(&i_16, 0, sizeof(i_16));
+    memset(&prev_it_17, 0, sizeof(prev_it_17));
     # 1899 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1896 "/usr/local/include/neo-c.h"
@@ -4365,6 +4417,8 @@ static struct list$1int$* list$1int$_reset(struct list$1int$* self)
     struct list$1int$* __result_obj__0;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1860 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1857 "/usr/local/include/neo-c.h"
@@ -4423,6 +4477,21 @@ static _Bool get_find_motion_range(struct ViWin*  self  , int motion, int find_c
     int start_24;
     int i_25;
     int j_26;
+    memset(&line, 0, sizeof(line));
+    memset(&count, 0, sizeof(count));
+    memset(&match_x, 0, sizeof(match_x));
+    memset(&start, 0, sizeof(start));
+    memset(&i, 0, sizeof(i));
+    memset(&j, 0, sizeof(j));
+    memset(&start_18, 0, sizeof(start_18));
+    memset(&i_19, 0, sizeof(i_19));
+    memset(&j_20, 0, sizeof(j_20));
+    memset(&start_21, 0, sizeof(start_21));
+    memset(&i_22, 0, sizeof(i_22));
+    memset(&j_23, 0, sizeof(j_23));
+    memset(&start_24, 0, sizeof(start_24));
+    memset(&i_25, 0, sizeof(i_25));
+    memset(&j_26, 0, sizeof(j_26));
     # 126 "10edit.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","10edit.nc",126)))), "10edit.nc", 126, 80);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 126, 81));
@@ -4637,6 +4706,17 @@ static _Bool get_motion_range(struct ViWin*  self  , int motion, int* head_y, in
     int i_29;
     int i_30;
     int i_31;
+    memset(&scroll_before, 0, sizeof(scroll_before));
+    memset(&cursor_y_before, 0, sizeof(cursor_y_before));
+    memset(&cursor_x_before, 0, sizeof(cursor_x_before));
+    memset(&count, 0, sizeof(count));
+    memset(&line, 0, sizeof(line));
+    memset(&i, 0, sizeof(i));
+    memset(&i_27, 0, sizeof(i_27));
+    memset(&i_28, 0, sizeof(i_28));
+    memset(&i_29, 0, sizeof(i_29));
+    memset(&i_30, 0, sizeof(i_30));
+    memset(&i_31, 0, sizeof(i_31));
     # 229 "10edit.nc"
     scroll_before=self->scroll;
     # 230 "10edit.nc"
@@ -4803,6 +4883,11 @@ static _Bool get_ge_motion_range(struct ViWin*  self  , int* head_y, int* head_x
     int cursor_x_before;
     int count;
     int i;
+    memset(&scroll_before, 0, sizeof(scroll_before));
+    memset(&cursor_y_before, 0, sizeof(cursor_y_before));
+    memset(&cursor_x_before, 0, sizeof(cursor_x_before));
+    memset(&count, 0, sizeof(count));
+    memset(&i, 0, sizeof(i));
     # 322 "10edit.nc"
     scroll_before=self->scroll;
     # 323 "10edit.nc"
@@ -4852,6 +4937,10 @@ static _Bool get_word_text_object_range(struct ViWin*  self  , _Bool around, int
     int pos;
     int tail2;
     int head2;
+    memset(&line, 0, sizeof(line));
+    memset(&pos, 0, sizeof(pos));
+    memset(&tail2, 0, sizeof(tail2));
+    memset(&head2, 0, sizeof(head2));
     # 349 "10edit.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","10edit.nc",349)))), "10edit.nc", 349, 95);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 349, 96));
@@ -4965,6 +5054,12 @@ static _Bool get_quote_text_object_range(struct ViWin*  self  , int  quote  , _B
     int i;
     int right;
     int i_32;
+    memset(&line, 0, sizeof(line));
+    memset(&pos, 0, sizeof(pos));
+    memset(&left, 0, sizeof(left));
+    memset(&i, 0, sizeof(i));
+    memset(&right, 0, sizeof(right));
+    memset(&i_32, 0, sizeof(i_32));
     # 417 "10edit.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","10edit.nc",417)))), "10edit.nc", 417, 100);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 417, 101));
@@ -5061,6 +5156,13 @@ static _Bool get_block_text_object_range(struct ViWin*  self  , int  open_brace 
     int i;
     int right;
     int i_33;
+    memset(&line, 0, sizeof(line));
+    memset(&pos, 0, sizeof(pos));
+    memset(&left, 0, sizeof(left));
+    memset(&nest, 0, sizeof(nest));
+    memset(&i, 0, sizeof(i));
+    memset(&right, 0, sizeof(right));
+    memset(&i_33, 0, sizeof(i_33));
     # 469 "10edit.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","10edit.nc",469)))), "10edit.nc", 469, 106);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "10edit.nc", 469, 107));
@@ -5222,6 +5324,7 @@ static _Bool yank_text_object(struct ViWin*  self  , struct Vi*  nvi  , _Bool ar
     _Bool __result_obj__0;
     memset(&head, 0, sizeof(head));
     memset(&tail, 0, sizeof(tail));
+    memset(&line, 0, sizeof(line));
     # 562 "10edit.nc"
     # 563 "10edit.nc"
     # 569 "10edit.nc"
@@ -5260,6 +5363,7 @@ static _Bool delete_text_object(struct ViWin*  self  , struct Vi*  nvi  , _Bool 
     _Bool __result_obj__0;
     memset(&head, 0, sizeof(head));
     memset(&tail, 0, sizeof(tail));
+    memset(&line, 0, sizeof(line));
     # 581 "10edit.nc"
     # 582 "10edit.nc"
     # 588 "10edit.nc"
@@ -5356,6 +5460,7 @@ static _Bool apply_motion_operator(struct Vi*  self  , int operator_kind, int mo
     memset(&head_x, 0, sizeof(head_x));
     memset(&tail_y, 0, sizeof(tail_y));
     memset(&tail_x, 0, sizeof(tail_x));
+    memset(&result, 0, sizeof(result));
     # 632 "10edit.nc"
     # 633 "10edit.nc"
     # 634 "10edit.nc"
@@ -5426,6 +5531,8 @@ static void run_operator_pending(struct Vi*  self  , int operator_kind)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "run_operator_pending"; neo_current_frame = &fr;
     int key2;
     _Bool handled;
+    memset(&key2, 0, sizeof(key2));
+    memset(&handled, 0, sizeof(handled));
     # 677 "10edit.nc"
     key2=ViWin_getKey_v14(self->activeWin,(_Bool)1);
     # 678 "10edit.nc"
@@ -5549,6 +5656,7 @@ struct ViWin*  ViWin_initialize_v10(struct ViWin*  self  , int y, int x, int wid
     void* __right_value0 = (void*)0;
     struct ViWin*  result  ;
     struct ViWin*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 741 "10edit.nc"
     result=(struct ViWin* )come_increment_ref_count(ViWin_initialize_v8((struct ViWin* )come_increment_ref_count(self, "10edit.nc", 741, 121),y,x,width,height,vi), "10edit.nc", 741, 122);
     # 743 "10edit.nc"
@@ -5661,6 +5769,8 @@ static void list$1int$ph$p_finalize(struct list$1int$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -5686,6 +5796,8 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -5718,6 +5830,8 @@ static void list$1tuple3$3int$int$int$$ph$p_finalize(struct list$1tuple3$3int$in
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1tuple3$3int$int$int$$ph* it;
     struct list_item$1tuple3$3int$int$int$$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -5755,6 +5869,8 @@ static void list$1list$1int$ph$ph$p_finalize(struct list$1list$1int$ph$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1list$1int$ph$ph* it;
     struct list_item$1list$1int$ph$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -5792,6 +5908,8 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_34;
+    memset(&i, 0, sizeof(i));
+    memset(&i_34, 0, sizeof(i_34));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -5832,6 +5950,8 @@ static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1list$1int$$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1list$1int$$ph* it;
     struct list_item$1list$1int$$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -5869,6 +5989,8 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_35;
+    memset(&i, 0, sizeof(i));
+    memset(&i_35, 0, sizeof(i_35));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -5921,6 +6043,9 @@ void ViWin_deleteOneLine_v10(struct ViWin*  self  , struct Vi*  nvi  )
     void* __right_value0 = (void*)0;
     int*  line  ;
     int*  line_36  ;
+    memset(&i, 0, sizeof(i));
+    memset(&line, 0, sizeof(line));
+    memset(&line_36, 0, sizeof(line_36));
     # 794 "10edit.nc"
     if(self->digitInput>0&&!gBinaryMode) {
         # 758 "10edit.nc"
@@ -5988,6 +6113,9 @@ void ViWin_deleteOneLine2(struct ViWin*  self  , struct Vi*  nvi  )
     void* __right_value0 = (void*)0;
     int*  line  ;
     int*  line_37  ;
+    memset(&i, 0, sizeof(i));
+    memset(&line, 0, sizeof(line));
+    memset(&line_37, 0, sizeof(line_37));
     # 832 "10edit.nc"
     if(self->digitInput>0) {
         # 799 "10edit.nc"
@@ -6060,6 +6188,13 @@ static struct list$1int$ph* list$1int$ph_insert(struct list$1int$ph* self, int p
     int i_39;
     struct list_item$1int$ph* litem_40;
     int*  __dec_obj7  ;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_38, 0, sizeof(litem_38));
+    memset(&it, 0, sizeof(it));
+    memset(&i_39, 0, sizeof(i_39));
+    memset(&litem_40, 0, sizeof(litem_40));
     # 1785 "/usr/local/include/neo-c.h"
     # 1790 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -6191,6 +6326,13 @@ static struct list$1int$* list$1int$_insert(struct list$1int$* self, int positio
     struct list_item$1int$* it;
     int i_42;
     struct list_item$1int$* litem_43;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_41, 0, sizeof(litem_41));
+    memset(&it, 0, sizeof(it));
+    memset(&i_42, 0, sizeof(i_42));
+    memset(&litem_43, 0, sizeof(litem_43));
     # 1785 "/usr/local/include/neo-c.h"
     # 1790 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -6312,6 +6454,14 @@ void ViWin_deleteWord(struct ViWin*  self  , struct Vi*  nvi  )
     int*  line_44  ;
     int x_45;
     int*  p_46  ;
+    memset(&line, 0, sizeof(line));
+    memset(&count, 0, sizeof(count));
+    memset(&x, 0, sizeof(x));
+    memset(&i, 0, sizeof(i));
+    memset(&p, 0, sizeof(p));
+    memset(&line_44, 0, sizeof(line_44));
+    memset(&x_45, 0, sizeof(x_45));
+    memset(&p_46, 0, sizeof(p_46));
     # 836 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 979 "10edit.nc"
@@ -6520,7 +6670,16 @@ void ViWin_deleteForNextCharacter(struct ViWin*  self  )
     int*  line_48  ;
     int x_49;
     int*  p_50  ;
+    memset(&key, 0, sizeof(key));
+    memset(&line, 0, sizeof(line));
+    memset(&x, 0, sizeof(x));
+    memset(&count, 0, sizeof(count));
     memset(&p, 0, sizeof(p));
+    memset(&i, 0, sizeof(i));
+    memset(&key_47, 0, sizeof(key_47));
+    memset(&line_48, 0, sizeof(line_48));
+    memset(&x_49, 0, sizeof(x_49));
+    memset(&p_50, 0, sizeof(p_50));
     # 983 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1048 "10edit.nc"
@@ -6625,7 +6784,16 @@ void ViWin_deleteForNextCharacter2(struct ViWin*  self  )
     int*  line_52  ;
     int x_53;
     int*  p_54  ;
+    memset(&key, 0, sizeof(key));
+    memset(&line, 0, sizeof(line));
+    memset(&x, 0, sizeof(x));
+    memset(&count, 0, sizeof(count));
     memset(&p, 0, sizeof(p));
+    memset(&i, 0, sizeof(i));
+    memset(&key_51, 0, sizeof(key_51));
+    memset(&line_52, 0, sizeof(line_52));
+    memset(&x_53, 0, sizeof(x_53));
+    memset(&p_54, 0, sizeof(p_54));
     # 1052 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1117 "10edit.nc"
@@ -6729,6 +6897,16 @@ void ViWin_deleteCursorCharactor(struct ViWin*  self  )
     int*  new_line  ;
     int*  line_57  ;
     int len_58;
+    memset(&num, 0, sizeof(num));
+    memset(&line, 0, sizeof(line));
+    memset(&deleted_num, 0, sizeof(deleted_num));
+    memset(&i, 0, sizeof(i));
+    memset(&len, 0, sizeof(len));
+    memset(&line_55, 0, sizeof(line_55));
+    memset(&len_56, 0, sizeof(len_56));
+    memset(&new_line, 0, sizeof(new_line));
+    memset(&line_57, 0, sizeof(line_57));
+    memset(&len_58, 0, sizeof(len_58));
     # 1121 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1179 "10edit.nc"
@@ -6829,6 +7007,8 @@ static int list$1int$_item(struct list$1int$* self, int position, int default_va
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$_item"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     int i;
+    memset(&it, 0, sizeof(it));
+    memset(&i, 0, sizeof(i));
     # 1750 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1747 "/usr/local/include/neo-c.h"
@@ -6871,6 +7051,10 @@ void ViWin_deleteBack(struct ViWin*  self  )
     int*  line  ;
     int i;
     int*  line_59  ;
+    memset(&num, 0, sizeof(num));
+    memset(&line, 0, sizeof(line));
+    memset(&i, 0, sizeof(i));
+    memset(&line_59, 0, sizeof(line_59));
     # 1183 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1212 "10edit.nc"
@@ -6925,6 +7109,10 @@ void ViWin_getCursorNumber(struct ViWin*  self  , int* head, int* tail)
     int  c  ;
     int  c_60  ;
     int  c_61  ;
+    memset(&line, 0, sizeof(line));
+    memset(&c, 0, sizeof(c));
+    memset(&c_60, 0, sizeof(c_60));
+    memset(&c_61, 0, sizeof(c_61));
     # 1216 "10edit.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "10edit.nc", 1216, 243);
     # 1218 "10edit.nc"
@@ -7009,10 +7197,19 @@ void ViWin_incrementNumber(struct ViWin*  self  )
     char*  number_string_65  ;
     int n_66;
     int*  new_line_67  ;
+    memset(&num, 0, sizeof(num));
+    memset(&line, 0, sizeof(line));
     memset(&head, 0, sizeof(head));
     memset(&tail, 0, sizeof(tail));
+    memset(&number_string, 0, sizeof(number_string));
+    memset(&n, 0, sizeof(n));
+    memset(&new_line, 0, sizeof(new_line));
+    memset(&line_62, 0, sizeof(line_62));
     memset(&head_63, 0, sizeof(head_63));
     memset(&tail_64, 0, sizeof(tail_64));
+    memset(&number_string_65, 0, sizeof(number_string_65));
+    memset(&n_66, 0, sizeof(n_66));
+    memset(&new_line_67, 0, sizeof(new_line_67));
     # 1267 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1317 "10edit.nc"
@@ -7103,6 +7300,8 @@ void ViWin_replaceCursorCharactor(struct ViWin*  self  )
     int key;
     void* __right_value0 = (void*)0;
     int*  line  ;
+    memset(&key, 0, sizeof(key));
+    memset(&line, 0, sizeof(line));
     # 1321 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1323 "10edit.nc"
@@ -7124,6 +7323,11 @@ void ViWin_deleteUntilTail(struct ViWin*  self  )
     int i;
     int*  line_68  ;
     int*  line_69  ;
+    memset(&line, 0, sizeof(line));
+    memset(&num, 0, sizeof(num));
+    memset(&i, 0, sizeof(i));
+    memset(&line_68, 0, sizeof(line_68));
+    memset(&line_69, 0, sizeof(line_69));
     # 1346 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1377 "10edit.nc"
@@ -7181,6 +7385,9 @@ void ViWin_joinLines(struct ViWin*  self  )
     int*  next_line  ;
     void* __right_value1 = (void*)0;
     int*  line2  ;
+    memset(&line, 0, sizeof(line));
+    memset(&next_line, 0, sizeof(next_line));
+    memset(&line2, 0, sizeof(line2));
     # 1381 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1396 "10edit.nc"
@@ -7220,6 +7427,9 @@ void ViWin_yankOneLine(struct ViWin*  self  , struct Vi*  nvi  )
     void* __right_value0 = (void*)0;
     int*  line  ;
     int*  line_70  ;
+    memset(&i, 0, sizeof(i));
+    memset(&line, 0, sizeof(line));
+    memset(&line_70, 0, sizeof(line_70));
     # 1430 "10edit.nc"
     if(self->digitInput>0) {
         # 1402 "10edit.nc"
@@ -7275,6 +7485,8 @@ void ViWin_joinLines2_v10(struct ViWin*  self  )
     int*  line  ;
     void* __right_value1 = (void*)0;
     int*  next_line  ;
+    memset(&line, 0, sizeof(line));
+    memset(&next_line, 0, sizeof(next_line));
     # 1434 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1446 "10edit.nc"
@@ -7318,6 +7530,10 @@ void ViWin_forwardToNextCharacter1(struct ViWin*  self  , int key)
     void* __right_value2 = (void*)0;
     int cursor_x;
     int cursor_x_71;
+    memset(&line, 0, sizeof(line));
+    memset(&i, 0, sizeof(i));
+    memset(&cursor_x, 0, sizeof(cursor_x));
+    memset(&cursor_x_71, 0, sizeof(cursor_x_71));
     # 1451 "10edit.nc"
     self->mRepeatFowardNextCharacterKind=(1);
     # 1452 "10edit.nc"
@@ -7376,6 +7592,10 @@ void ViWin_forwardToNextCharacter2(struct ViWin*  self  , int key)
     void* __right_value2 = (void*)0;
     int cursor_x;
     int cursor_x_72;
+    memset(&line, 0, sizeof(line));
+    memset(&i, 0, sizeof(i));
+    memset(&cursor_x, 0, sizeof(cursor_x));
+    memset(&cursor_x_72, 0, sizeof(cursor_x_72));
     # 1482 "10edit.nc"
     self->mRepeatFowardNextCharacterKind=(2);
     # 1483 "10edit.nc"
@@ -7458,6 +7678,11 @@ void ViWin_backwardToNextCharacter1(struct ViWin*  self  )
     void* __right_value2 = (void*)0;
     int cursor_x;
     int cursor_x_73;
+    memset(&key, 0, sizeof(key));
+    memset(&line, 0, sizeof(line));
+    memset(&i, 0, sizeof(i));
+    memset(&cursor_x, 0, sizeof(cursor_x));
+    memset(&cursor_x_73, 0, sizeof(cursor_x_73));
     # 1527 "10edit.nc"
     key=ViWin_getKey_v14(self,(_Bool)0);
     # 1529 "10edit.nc"
@@ -7515,6 +7740,11 @@ void ViWin_backwardToNextCharacter2(struct ViWin*  self  )
     void* __right_value2 = (void*)0;
     int cursor_x;
     int cursor_x_74;
+    memset(&key, 0, sizeof(key));
+    memset(&line, 0, sizeof(line));
+    memset(&i, 0, sizeof(i));
+    memset(&cursor_x, 0, sizeof(cursor_x));
+    memset(&cursor_x_74, 0, sizeof(cursor_x_74));
     # 1557 "10edit.nc"
     key=ViWin_getKey_v14(self,(_Bool)0);
     # 1559 "10edit.nc"
@@ -7573,6 +7803,14 @@ void ViWin_changeCase(struct ViWin*  self  )
     int  c_76  ;
     int  c2_77  ;
     int  c2_78  ;
+    memset(&line, 0, sizeof(line));
+    memset(&i, 0, sizeof(i));
+    memset(&c, 0, sizeof(c));
+    memset(&c2, 0, sizeof(c2));
+    memset(&c2_75, 0, sizeof(c2_75));
+    memset(&c_76, 0, sizeof(c_76));
+    memset(&c2_77, 0, sizeof(c2_77));
+    memset(&c2_78, 0, sizeof(c2_78));
     # 1587 "10edit.nc"
     ViWin_pushUndo_v5(self);
     # 1589 "10edit.nc"
@@ -7637,6 +7875,7 @@ void ViWin_moveToHead(struct ViWin*  self  )
     void* __right_value0 = (void*)0;
     int*  line  ;
     int i;
+    memset(&line, 0, sizeof(line));
     memset(&i, 0, sizeof(i));
     # 1635 "10edit.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)), "10edit.nc", 1635, 337);
@@ -7809,6 +8048,7 @@ static void lambda14(struct Vi*  self  , int key)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda14"; neo_current_frame = &fr;
     int key2;
+    memset(&key2, 0, sizeof(key2));
     # 1731 "10edit.nc"
     key2=ViWin_getKey_v14(self->activeWin,(_Bool)0);
     # 1733 "10edit.nc"
@@ -7822,6 +8062,7 @@ static void lambda15(struct Vi*  self  , int key)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda15"; neo_current_frame = &fr;
     int key2;
+    memset(&key2, 0, sizeof(key2));
     # 1738 "10edit.nc"
     key2=ViWin_getKey_v14(self->activeWin,(_Bool)0);
     # 1740 "10edit.nc"
@@ -7965,6 +8206,7 @@ struct Vi*  Vi_initialize_v10(struct Vi*  self  )
     void* __right_value0 = (void*)0;
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
+    memset(&result, 0, sizeof(result));
     # 1649 "10edit.nc"
     result=(struct Vi* )come_increment_ref_count(Vi_initialize_v9((struct Vi* )come_increment_ref_count(self, "10edit.nc", 1649, 339)), "10edit.nc", 1649, 340);
     # 1653 "10edit.nc"
@@ -8035,6 +8277,10 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     void (*default_value)(struct Vi* ,int);
     struct list_item$1lambda$* it;
     int i_81;
+    memset(&len, 0, sizeof(len));
+    memset(&i, 0, sizeof(i));
+    memset(&it, 0, sizeof(it));
+    memset(&i_81, 0, sizeof(i_81));
     # 2027 "/usr/local/include/neo-c.h"
     # 2033 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
@@ -8104,6 +8350,9 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
     struct list_item$1lambda$* litem;
     struct list_item$1lambda$* litem_79;
     struct list_item$1lambda$* litem_80;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_79, 0, sizeof(litem_79));
+    memset(&litem_80, 0, sizeof(litem_80));
     # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1615 "/usr/local/include/neo-c.h"
@@ -8211,6 +8460,8 @@ static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1ViWin$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1ViWin$ph* it;
     struct list_item$1ViWin$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -8248,6 +8499,8 @@ static void list$1lambda$$p_finalize(struct list$1lambda$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1lambda$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1lambda$* it;
     struct list_item$1lambda$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"
@@ -8280,6 +8533,8 @@ static void map$2int$list$1int$ph$ph$p_finalize(struct map$2int$list$1int$ph$ph*
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_82;
+    memset(&i, 0, sizeof(i));
+    memset(&i_82, 0, sizeof(i_82));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -8320,6 +8575,8 @@ static void map$2int$int$$p_finalize(struct map$2int$int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$int$$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_83;
+    memset(&i, 0, sizeof(i));
+    memset(&i_83, 0, sizeof(i_83));
     # 3389 "/usr/local/include/neo-c.h"
     # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
@@ -8359,6 +8616,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
         # 1500 "/usr/local/include/neo-c.h"

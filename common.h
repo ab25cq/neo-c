@@ -1080,6 +1080,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
 sNode*% create_comma_exp(sNode*% node, sNode*% node2, sInfo* info);
 sNode*% create_less(sNode*% node, sNode*% right, sInfo* info);
 sNode*% create_null_node(sInfo* info=info);
+sNode*% create_try_operator_node(sNode*% node, sInfo* info=info);
 sNode*% conditional_node(sNode*% value1, sNode*% value2, sNode*% value3, sInfo* info);
 bool operator_overload_fun(sType* type, const char* fun_name, sNode*% left_node, sNode*% right_node, CVALUE* left_value, CVALUE* right_value, bool break_guard, sInfo* info);
 sNode*% expression(sInfo* info=info, bool type_name_exp=false) version 13;

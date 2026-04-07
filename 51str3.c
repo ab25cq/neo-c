@@ -2460,6 +2460,7 @@ struct sNode* string_node_v12(char* buf, char* head, int head_sline, struct sInf
 struct sNode* create_comma_exp(struct sNode* node, struct sNode* node2, struct sInfo*  info  );
 struct sNode* create_less(struct sNode* node, struct sNode* right, struct sInfo*  info  );
 struct sNode* create_null_node(struct sInfo*  info  );
+struct sNode* create_try_operator_node(struct sNode* node, struct sInfo*  info  );
 struct sNode* conditional_node(struct sNode* value1, struct sNode* value2, struct sNode* value3, struct sInfo*  info  );
 _Bool operator_overload_fun(struct sType*  type  , const char* fun_name, struct sNode* left_node, struct sNode* right_node, struct CVALUE*  left_value  , struct CVALUE*  right_value  , _Bool break_guard, struct sInfo*  info  );
 struct sNode* expression_v13(struct sInfo*  info  , _Bool type_name_exp);
@@ -2790,11 +2791,122 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
     struct sNode* node2_92;
     int sline_real_93;
     struct sNode* node_94;
+    memset(&sline_real, 0, sizeof(sline_real));
+    memset(&sline, 0, sizeof(sline));
+    memset(&exps, 0, sizeof(exps));
+    memset(&value, 0, sizeof(value));
+    memset(&head_of_last_line, 0, sizeof(head_of_last_line));
+    memset(&len, 0, sizeof(len));
+    memset(&exp, 0, sizeof(exp));
+    memset(&sline2, 0, sizeof(sline2));
+    memset(&sline_real_2, 0, sizeof(sline_real_2));
+    memset(&sline_3, 0, sizeof(sline_3));
+    memset(&value_4, 0, sizeof(value_4));
+    memset(&p, 0, sizeof(p));
+    memset(&sline_5, 0, sizeof(sline_5));
+    memset(&sline2_6, 0, sizeof(sline2_6));
+    memset(&sline_real_7, 0, sizeof(sline_real_7));
+    memset(&prefix, 0, sizeof(prefix));
+    memset(&sline_8, 0, sizeof(sline_8));
+    memset(&value_9, 0, sizeof(value_9));
+    memset(&p_10, 0, sizeof(p_10));
+    memset(&sline_11, 0, sizeof(sline_11));
+    memset(&sline2_12, 0, sizeof(sline2_12));
+    memset(&sline_real_13, 0, sizeof(sline_real_13));
+    memset(&sline_14, 0, sizeof(sline_14));
+    memset(&value_15, 0, sizeof(value_15));
+    memset(&p_16, 0, sizeof(p_16));
+    memset(&sline_17, 0, sizeof(sline_17));
+    memset(&sline2_18, 0, sizeof(sline2_18));
+    memset(&sline_real_19, 0, sizeof(sline_real_19));
+    memset(&sline_20, 0, sizeof(sline_20));
+    memset(&value_21, 0, sizeof(value_21));
+    memset(&size, 0, sizeof(size));
+    memset(&p_22, 0, sizeof(p_22));
+    memset(&sline_23, 0, sizeof(sline_23));
+    memset(&len_24, 0, sizeof(len_24));
+    memset(&sline2_25, 0, sizeof(sline2_25));
+    memset(&sline_real_26, 0, sizeof(sline_real_26));
+    memset(&sline_27, 0, sizeof(sline_27));
+    memset(&buf, 0, sizeof(buf));
+    memset(&global, 0, sizeof(global));
+    memset(&ignore_case, 0, sizeof(ignore_case));
+    memset(&obj, 0, sizeof(obj));
+    memset(&params, 0, sizeof(params));
+    memset(&method_block, 0, sizeof(method_block));
+    memset(&method_block_sline, 0, sizeof(method_block_sline));
+    memset(&method_generics_types, 0, sizeof(method_generics_types));
+    memset(&node, 0, sizeof(node));
+    memset(&sline_real_30, 0, sizeof(sline_real_30));
+    memset(&sline_31, 0, sizeof(sline_31));
+    memset(&value_32, 0, sizeof(value_32));
+    memset(&p_33, 0, sizeof(p_33));
+    memset(&sline_34, 0, sizeof(sline_34));
+    memset(&len_35, 0, sizeof(len_35));
+    memset(&sline2_36, 0, sizeof(sline2_36));
+    memset(&global_37, 0, sizeof(global_37));
+    memset(&ignore_case_38, 0, sizeof(ignore_case_38));
+    memset(&obj_39, 0, sizeof(obj_39));
+    memset(&params_40, 0, sizeof(params_40));
+    memset(&method_block_41, 0, sizeof(method_block_41));
+    memset(&method_block_sline_42, 0, sizeof(method_block_sline_42));
+    memset(&method_generics_types_43, 0, sizeof(method_generics_types_43));
+    memset(&node_44, 0, sizeof(node_44));
+    memset(&sline_real_45, 0, sizeof(sline_real_45));
+    memset(&prefix_46, 0, sizeof(prefix_46));
     memset(&c, 0, sizeof(c));
+    memset(&n, 0, sizeof(n));
+    memset(&n_47, 0, sizeof(n_47));
+    memset(&n_49, 0, sizeof(n_49));
+    memset(&sline_real_50, 0, sizeof(sline_real_50));
     memset(&c_51, 0, sizeof(c_51));
+    memset(&n_52, 0, sizeof(n_52));
+    memset(&n_53, 0, sizeof(n_53));
+    memset(&n_56, 0, sizeof(n_56));
+    memset(&sline_real_57, 0, sizeof(sline_real_57));
     memset(&c_58, 0, sizeof(c_58));
     memset(&quote, 0, sizeof(quote));
+    memset(&n_59, 0, sizeof(n_59));
+    memset(&n_60, 0, sizeof(n_60));
+    memset(&n_63, 0, sizeof(n_63));
+    memset(&p2, 0, sizeof(p2));
     memset(&size_64, 0, sizeof(size_64));
+    memset(&sline_real_65, 0, sizeof(sline_real_65));
+    memset(&sline_66, 0, sizeof(sline_66));
+    memset(&value_67, 0, sizeof(value_67));
+    memset(&p_68, 0, sizeof(p_68));
+    memset(&sline_69, 0, sizeof(sline_69));
+    memset(&sline2_70, 0, sizeof(sline2_70));
+    memset(&len_71, 0, sizeof(len_71));
+    memset(&wstr, 0, sizeof(wstr));
+    memset(&str_72, 0, sizeof(str_72));
+    memset(&sline_real_73, 0, sizeof(sline_real_73));
+    memset(&sline_74, 0, sizeof(sline_74));
+    memset(&exps_75, 0, sizeof(exps_75));
+    memset(&value_76, 0, sizeof(value_76));
+    memset(&p_77, 0, sizeof(p_77));
+    memset(&sline_78, 0, sizeof(sline_78));
+    memset(&len_79, 0, sizeof(len_79));
+    memset(&exp_80, 0, sizeof(exp_80));
+    memset(&sline2_81, 0, sizeof(sline2_81));
+    memset(&sline_real_82, 0, sizeof(sline_real_82));
+    memset(&p_83, 0, sizeof(p_83));
+    memset(&no_comma, 0, sizeof(no_comma));
+    memset(&node_84, 0, sizeof(node_84));
+    memset(&p2_85, 0, sizeof(p2_85));
+    memset(&first_element_source, 0, sizeof(first_element_source));
+    memset(&list_elements, 0, sizeof(list_elements));
+    memset(&map_keys, 0, sizeof(map_keys));
+    memset(&map_elements, 0, sizeof(map_elements));
+    memset(&no_comma_88, 0, sizeof(no_comma_88));
+    memset(&node2, 0, sizeof(node2));
+    memset(&no_comma_89, 0, sizeof(no_comma_89));
+    memset(&node2_90, 0, sizeof(node2_90));
+    memset(&node3, 0, sizeof(node3));
+    memset(&no_comma_91, 0, sizeof(no_comma_91));
+    memset(&node2_92, 0, sizeof(node2_92));
+    memset(&sline_real_93, 0, sizeof(sline_real_93));
+    memset(&node_94, 0, sizeof(node_94));
     # 1499 "51str3.nc"
     if(*info->p==34&&*(info->p+1)==34&&*(info->p+2)==34&&*(info->p+3)==10) {
         # 7 "51str3.nc"
@@ -5280,6 +5392,8 @@ static void list$1sNode$ph$p_finalize(struct list$1sNode$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sNode$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sNode$ph* it;
     struct list_item$1sNode$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -5323,6 +5437,9 @@ static struct list$1sNode$ph* list$1sNode$ph_add(struct list$1sNode$ph* self, st
     struct sNode* __dec_obj2;
     struct list_item$1sNode$ph* litem_1;
     struct sNode* __dec_obj3;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_0, 0, sizeof(litem_0));
+    memset(&litem_1, 0, sizeof(litem_1));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -5414,6 +5531,8 @@ static void list$1tuple2$2char$phsNode$ph$ph$p_finalize(struct list$1tuple2$2cha
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1tuple2$2char$phsNode$ph$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1tuple2$2char$phsNode$ph$ph* it;
     struct list_item$1tuple2$2char$phsNode$ph$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -5474,6 +5593,9 @@ static struct list$1tuple2$2char$phsNode$ph$ph* list$1tuple2$2char$phsNode$ph$ph
     struct tuple2$2char$phsNode$ph* __dec_obj5;
     struct list_item$1tuple2$2char$phsNode$ph$ph* litem_29;
     struct tuple2$2char$phsNode$ph* __dec_obj6;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_28, 0, sizeof(litem_28));
+    memset(&litem_29, 0, sizeof(litem_29));
     # 1533 "./neo-c.h"
     if(self==((void*)0)) {
         # 1531 "./neo-c.h"
@@ -5589,6 +5711,8 @@ static void list$1sType$ph$p_finalize(struct list$1sType$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1sType$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1sType$ph* it;
     struct list_item$1sType$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -5758,6 +5882,8 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$$p_finalize"; neo_current_frame = &fr;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -5790,6 +5916,8 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1char$ph$p_finalize"; neo_current_frame = &fr;
     struct list_item$1char$ph* it;
     struct list_item$1char$ph* prev_it;
+    memset(&it, 0, sizeof(it));
+    memset(&prev_it, 0, sizeof(prev_it));
     # 1502 "./neo-c.h"
     if(self==((void*)0)) {
         # 1500 "./neo-c.h"
@@ -5833,6 +5961,9 @@ static struct list$1sNode$ph* list$1sNode$ph_push_back(struct list$1sNode$ph* se
     struct sNode* __dec_obj10;
     struct list_item$1sNode$ph* litem_87;
     struct sNode* __dec_obj11;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_86, 0, sizeof(litem_86));
+    memset(&litem_87, 0, sizeof(litem_87));
     # 1618 "./neo-c.h"
     if(self==((void*)0)) {
         # 1615 "./neo-c.h"
@@ -5930,7 +6061,11 @@ struct sNode* parse_tuple(struct sInfo*  info  , _Bool named_tuple)
     struct sNode* __dec_obj13;
     void* __right_value2 = (void*)0;
     struct sNode* __result_obj__0;
+    memset(&tuple_elements, 0, sizeof(tuple_elements));
+    memset(&p, 0, sizeof(p));
     memset(&name, 0, sizeof(name));
+    memset(&no_comma, 0, sizeof(no_comma));
+    memset(&node, 0, sizeof(node));
     # 1504 "51str3.nc"
     tuple_elements=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(list$1tuple2$2char$phsNode$ph$ph_initialize((struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count((struct list$1tuple2$2char$phsNode$ph$ph*)come_calloc(1, sizeof(struct list$1tuple2$2char$phsNode$ph$ph)*(1), "51str3.nc", 1504, 443, "struct list$1tuple2$2char$phsNode$ph$ph*"), "51str3.nc", 1504, 444)), "51str3.nc", 1504, 445);
     # 1540 "51str3.nc"
@@ -6013,6 +6148,9 @@ static struct list$1tuple2$2char$phsNode$ph$ph* list$1tuple2$2char$phsNode$ph$ph
     struct tuple2$2char$phsNode$ph* __dec_obj15;
     struct list_item$1tuple2$2char$phsNode$ph$ph* litem_96;
     struct tuple2$2char$phsNode$ph* __dec_obj16;
+    memset(&litem, 0, sizeof(litem));
+    memset(&litem_95, 0, sizeof(litem_95));
+    memset(&litem_96, 0, sizeof(litem_96));
     # 1618 "./neo-c.h"
     if(self==((void*)0)) {
         # 1615 "./neo-c.h"
@@ -6098,6 +6236,17 @@ struct sNode* parse_vector(struct sInfo*  info  )
     _Bool no_comma_97;
     struct sNode* node2;
     struct sNode* __result_obj__0;
+    memset(&p, 0, sizeof(p));
+    memset(&sline_real, 0, sizeof(sline_real));
+    memset(&no_comma, 0, sizeof(no_comma));
+    memset(&node, 0, sizeof(node));
+    memset(&p2, 0, sizeof(p2));
+    memset(&first_element_source, 0, sizeof(first_element_source));
+    memset(&list_elements, 0, sizeof(list_elements));
+    memset(&map_keys, 0, sizeof(map_keys));
+    memset(&map_elements, 0, sizeof(map_elements));
+    memset(&no_comma_97, 0, sizeof(no_comma_97));
+    memset(&node2, 0, sizeof(node2));
     # 1545 "51str3.nc"
     p=info->p;
     # 1547 "51str3.nc"
