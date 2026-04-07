@@ -101,6 +101,10 @@ test: *.nc
 	./test_c_compat
 	$(NEO_C) test_typedefs.nc
 	./test_typedefs
+	$(NEO_C) test_anon_enum_typedef.nc
+	./test_anon_enum_typedef
+	$(NEO_C) test_anon_enum_member_dup.nc
+	./test_anon_enum_member_dup
 	$(NEO_C) test_c_compat2.nc
 	./test_c_compat2
 	$(NEO_C) test_c_compat3.nc

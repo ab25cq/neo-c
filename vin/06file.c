@@ -3569,38 +3569,38 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1list$1int$$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_0;
-    # 3373 "/usr/local/include/neo-c.h"
-    # 3382 "/usr/local/include/neo-c.h"
+    # 3389 "/usr/local/include/neo-c.h"
+    # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3381 "/usr/local/include/neo-c.h"
+        # 3397 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3380 "/usr/local/include/neo-c.h"
+            # 3396 "/usr/local/include/neo-c.h"
             if(1) {
-                # 3378 "/usr/local/include/neo-c.h"
+                # 3394 "/usr/local/include/neo-c.h"
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 2, 26);
             }
         }
     }
-    # 3382 "/usr/local/include/neo-c.h"
+    # 3398 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3391 "/usr/local/include/neo-c.h"
+    # 3407 "/usr/local/include/neo-c.h"
     for(i_0=0    ;i_0<self->size;i_0++){
-        # 3390 "/usr/local/include/neo-c.h"
+        # 3406 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_0]) {
-            # 3389 "/usr/local/include/neo-c.h"
+            # 3405 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3387 "/usr/local/include/neo-c.h"
+                # 3403 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3391 "/usr/local/include/neo-c.h"
+    # 3407 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3393 "/usr/local/include/neo-c.h"
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 27);
-    # 3395 "/usr/local/include/neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 28));
-    # 3396 "/usr/local/include/neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 29));
+    # 3409 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3409, 27);
+    # 3411 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3411, 28));
+    # 3412 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3412, 29));
             neo_current_frame = fr.prev;
 }
 
@@ -3646,38 +3646,38 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_1;
-    # 3373 "/usr/local/include/neo-c.h"
-    # 3382 "/usr/local/include/neo-c.h"
+    # 3389 "/usr/local/include/neo-c.h"
+    # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3381 "/usr/local/include/neo-c.h"
+        # 3397 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3380 "/usr/local/include/neo-c.h"
+            # 3396 "/usr/local/include/neo-c.h"
             if(1) {
-                # 3378 "/usr/local/include/neo-c.h"
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3378, 33);
+                # 3394 "/usr/local/include/neo-c.h"
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3394, 33);
             }
         }
     }
-    # 3382 "/usr/local/include/neo-c.h"
+    # 3398 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3391 "/usr/local/include/neo-c.h"
+    # 3407 "/usr/local/include/neo-c.h"
     for(i_1=0    ;i_1<self->size;i_1++){
-        # 3390 "/usr/local/include/neo-c.h"
+        # 3406 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_1]) {
-            # 3389 "/usr/local/include/neo-c.h"
+            # 3405 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3387 "/usr/local/include/neo-c.h"
+                # 3403 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3391 "/usr/local/include/neo-c.h"
+    # 3407 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3393 "/usr/local/include/neo-c.h"
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 34);
-    # 3395 "/usr/local/include/neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 35));
-    # 3396 "/usr/local/include/neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 36));
+    # 3409 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3409, 34);
+    # 3411 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3411, 35));
+    # 3412 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3412, 36));
             neo_current_frame = fr.prev;
 }
 
@@ -4473,42 +4473,42 @@ static int list$1int$$p_operator_load_element(struct list$1int$* self, int posit
     struct list_item$1int$* it;
     int i;
     int default_value_12;
-    # 2145 "/usr/local/include/neo-c.h"
     # 2153 "/usr/local/include/neo-c.h"
+    # 2161 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 2148 "/usr/local/include/neo-c.h"
-        # 2149 "/usr/local/include/neo-c.h"
+        # 2156 "/usr/local/include/neo-c.h"
+        # 2157 "/usr/local/include/neo-c.h"
         memset(&default_value,0,sizeof(int));
-        # 2150 "/usr/local/include/neo-c.h"
+        # 2158 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return default_value;
     }
-    # 2157 "/usr/local/include/neo-c.h"
+    # 2165 "/usr/local/include/neo-c.h"
     if(position<0) {
-        # 2154 "/usr/local/include/neo-c.h"
+        # 2162 "/usr/local/include/neo-c.h"
         position+=self->len;
     }
-    # 2157 "/usr/local/include/neo-c.h"
-    it=self->head;
-    # 2158 "/usr/local/include/neo-c.h"
-    i=0;
     # 2165 "/usr/local/include/neo-c.h"
+    it=self->head;
+    # 2166 "/usr/local/include/neo-c.h"
+    i=0;
+    # 2173 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 2163 "/usr/local/include/neo-c.h"
+        # 2171 "/usr/local/include/neo-c.h"
         if(position==i) {
-            # 2161 "/usr/local/include/neo-c.h"
+            # 2169 "/usr/local/include/neo-c.h"
                         neo_current_frame = fr.prev;
             return it->item;
         }
-        # 2163 "/usr/local/include/neo-c.h"
+        # 2171 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 2164 "/usr/local/include/neo-c.h"
+        # 2172 "/usr/local/include/neo-c.h"
         i++;
     }
-    # 2167 "/usr/local/include/neo-c.h"
-    # 2168 "/usr/local/include/neo-c.h"
+    # 2175 "/usr/local/include/neo-c.h"
+    # 2176 "/usr/local/include/neo-c.h"
     memset(&default_value_12,0,sizeof(int));
-    # 2169 "/usr/local/include/neo-c.h"
+    # 2177 "/usr/local/include/neo-c.h"
         neo_current_frame = fr.prev;
     return default_value_12;
                     neo_current_frame = fr.prev;
@@ -4521,42 +4521,42 @@ static int list$1int$_operator_load_element(struct list$1int$* self, int positio
     struct list_item$1int$* it;
     int i;
     int default_value_13;
-    # 2145 "/usr/local/include/neo-c.h"
     # 2153 "/usr/local/include/neo-c.h"
+    # 2161 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 2148 "/usr/local/include/neo-c.h"
-        # 2149 "/usr/local/include/neo-c.h"
+        # 2156 "/usr/local/include/neo-c.h"
+        # 2157 "/usr/local/include/neo-c.h"
         memset(&default_value,0,sizeof(int));
-        # 2150 "/usr/local/include/neo-c.h"
+        # 2158 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return default_value;
     }
-    # 2157 "/usr/local/include/neo-c.h"
+    # 2165 "/usr/local/include/neo-c.h"
     if(position<0) {
-        # 2154 "/usr/local/include/neo-c.h"
+        # 2162 "/usr/local/include/neo-c.h"
         position+=self->len;
     }
-    # 2157 "/usr/local/include/neo-c.h"
-    it=self->head;
-    # 2158 "/usr/local/include/neo-c.h"
-    i=0;
     # 2165 "/usr/local/include/neo-c.h"
+    it=self->head;
+    # 2166 "/usr/local/include/neo-c.h"
+    i=0;
+    # 2173 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 2163 "/usr/local/include/neo-c.h"
+        # 2171 "/usr/local/include/neo-c.h"
         if(position==i) {
-            # 2161 "/usr/local/include/neo-c.h"
+            # 2169 "/usr/local/include/neo-c.h"
                         neo_current_frame = fr.prev;
             return it->item;
         }
-        # 2163 "/usr/local/include/neo-c.h"
+        # 2171 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 2164 "/usr/local/include/neo-c.h"
+        # 2172 "/usr/local/include/neo-c.h"
         i++;
     }
-    # 2167 "/usr/local/include/neo-c.h"
-    # 2168 "/usr/local/include/neo-c.h"
+    # 2175 "/usr/local/include/neo-c.h"
+    # 2176 "/usr/local/include/neo-c.h"
     memset(&default_value_13,0,sizeof(int));
-    # 2169 "/usr/local/include/neo-c.h"
+    # 2177 "/usr/local/include/neo-c.h"
         neo_current_frame = fr.prev;
     return default_value_13;
                     neo_current_frame = fr.prev;
@@ -4610,31 +4610,31 @@ static struct list$1int$ph* list$1int$ph_reset(struct list$1int$ph* self)
     struct list$1int$ph* __result_obj__0;
     struct list_item$1int$ph* it;
     struct list_item$1int$ph* prev_it;
-    # 1852 "/usr/local/include/neo-c.h"
+    # 1860 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1849 "/usr/local/include/neo-c.h"
+        # 1857 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 1852 "/usr/local/include/neo-c.h"
-    it=self->head;
-    # 1859 "/usr/local/include/neo-c.h"
-    while(it!=((void*)0)) {
-        # 1854 "/usr/local/include/neo-c.h"
-        prev_it=it;
-        # 1855 "/usr/local/include/neo-c.h"
-        it=it->next;
-        # 1856 "/usr/local/include/neo-c.h"
-        come_call_finalizer(list_item$1int$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1856, 123);
-    }
-    # 1859 "/usr/local/include/neo-c.h"
-    self->head=((void*)0);
     # 1860 "/usr/local/include/neo-c.h"
+    it=self->head;
+    # 1867 "/usr/local/include/neo-c.h"
+    while(it!=((void*)0)) {
+        # 1862 "/usr/local/include/neo-c.h"
+        prev_it=it;
+        # 1863 "/usr/local/include/neo-c.h"
+        it=it->next;
+        # 1864 "/usr/local/include/neo-c.h"
+        come_call_finalizer(list_item$1int$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1864, 123);
+    }
+    # 1867 "/usr/local/include/neo-c.h"
+    self->head=((void*)0);
+    # 1868 "/usr/local/include/neo-c.h"
     self->tail=((void*)0);
-    # 1862 "/usr/local/include/neo-c.h"
+    # 1870 "/usr/local/include/neo-c.h"
     self->len=0;
-    # 1864 "/usr/local/include/neo-c.h"
+    # 1872 "/usr/local/include/neo-c.h"
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4646,31 +4646,31 @@ static struct list$1int$* list$1int$_reset(struct list$1int$* self)
     struct list$1int$* __result_obj__0;
     struct list_item$1int$* it;
     struct list_item$1int$* prev_it;
-    # 1852 "/usr/local/include/neo-c.h"
+    # 1860 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1849 "/usr/local/include/neo-c.h"
+        # 1857 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 1852 "/usr/local/include/neo-c.h"
-    it=self->head;
-    # 1859 "/usr/local/include/neo-c.h"
-    while(it!=((void*)0)) {
-        # 1854 "/usr/local/include/neo-c.h"
-        prev_it=it;
-        # 1855 "/usr/local/include/neo-c.h"
-        it=it->next;
-        # 1856 "/usr/local/include/neo-c.h"
-        come_call_finalizer(list_item$1int$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1856, 124);
-    }
-    # 1859 "/usr/local/include/neo-c.h"
-    self->head=((void*)0);
     # 1860 "/usr/local/include/neo-c.h"
+    it=self->head;
+    # 1867 "/usr/local/include/neo-c.h"
+    while(it!=((void*)0)) {
+        # 1862 "/usr/local/include/neo-c.h"
+        prev_it=it;
+        # 1863 "/usr/local/include/neo-c.h"
+        it=it->next;
+        # 1864 "/usr/local/include/neo-c.h"
+        come_call_finalizer(list_item$1int$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1864, 124);
+    }
+    # 1867 "/usr/local/include/neo-c.h"
+    self->head=((void*)0);
+    # 1868 "/usr/local/include/neo-c.h"
     self->tail=((void*)0);
-    # 1862 "/usr/local/include/neo-c.h"
+    # 1870 "/usr/local/include/neo-c.h"
     self->len=0;
-    # 1864 "/usr/local/include/neo-c.h"
+    # 1872 "/usr/local/include/neo-c.h"
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4682,31 +4682,31 @@ static struct list$1list$1int$ph$ph* list$1list$1int$ph$ph_reset(struct list$1li
     struct list$1list$1int$ph$ph* __result_obj__0;
     struct list_item$1list$1int$ph$ph* it;
     struct list_item$1list$1int$ph$ph* prev_it;
-    # 1852 "/usr/local/include/neo-c.h"
+    # 1860 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1849 "/usr/local/include/neo-c.h"
+        # 1857 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 1852 "/usr/local/include/neo-c.h"
-    it=self->head;
-    # 1859 "/usr/local/include/neo-c.h"
-    while(it!=((void*)0)) {
-        # 1854 "/usr/local/include/neo-c.h"
-        prev_it=it;
-        # 1855 "/usr/local/include/neo-c.h"
-        it=it->next;
-        # 1856 "/usr/local/include/neo-c.h"
-        come_call_finalizer(list_item$1list$1int$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1856, 125);
-    }
-    # 1859 "/usr/local/include/neo-c.h"
-    self->head=((void*)0);
     # 1860 "/usr/local/include/neo-c.h"
+    it=self->head;
+    # 1867 "/usr/local/include/neo-c.h"
+    while(it!=((void*)0)) {
+        # 1862 "/usr/local/include/neo-c.h"
+        prev_it=it;
+        # 1863 "/usr/local/include/neo-c.h"
+        it=it->next;
+        # 1864 "/usr/local/include/neo-c.h"
+        come_call_finalizer(list_item$1list$1int$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1864, 125);
+    }
+    # 1867 "/usr/local/include/neo-c.h"
+    self->head=((void*)0);
+    # 1868 "/usr/local/include/neo-c.h"
     self->tail=((void*)0);
-    # 1862 "/usr/local/include/neo-c.h"
+    # 1870 "/usr/local/include/neo-c.h"
     self->len=0;
-    # 1864 "/usr/local/include/neo-c.h"
+    # 1872 "/usr/local/include/neo-c.h"
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4861,52 +4861,52 @@ static struct ViWin*  list$1ViWin$ph$p_operator_load_element(struct list$1ViWin$
     struct list_item$1ViWin$ph* it;
     int i;
     struct ViWin*  default_value_18  ;
-    # 2145 "/usr/local/include/neo-c.h"
     # 2153 "/usr/local/include/neo-c.h"
+    # 2161 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 2148 "/usr/local/include/neo-c.h"
-        # 2149 "/usr/local/include/neo-c.h"
+        # 2156 "/usr/local/include/neo-c.h"
+        # 2157 "/usr/local/include/neo-c.h"
         memset(&default_value,0,sizeof(struct ViWin* ));
-        # 2150 "/usr/local/include/neo-c.h"
-                __result_obj__0 = (struct ViWin* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 2150, 145);
-        come_call_finalizer(ViWin_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2150, 146);
+        # 2158 "/usr/local/include/neo-c.h"
+                __result_obj__0 = (struct ViWin* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 2158, 145);
+        come_call_finalizer(ViWin_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2158, 146);
         neo_current_frame = fr.prev;
-        come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2150, 147);
+        come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2158, 147);
         return __result_obj__0;
-        come_call_finalizer(ViWin_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 2153, 148);
+        come_call_finalizer(ViWin_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 2161, 148);
     }
-    # 2157 "/usr/local/include/neo-c.h"
+    # 2165 "/usr/local/include/neo-c.h"
     if(position<0) {
-        # 2154 "/usr/local/include/neo-c.h"
+        # 2162 "/usr/local/include/neo-c.h"
         position+=self->len;
     }
-    # 2157 "/usr/local/include/neo-c.h"
-    it=self->head;
-    # 2158 "/usr/local/include/neo-c.h"
-    i=0;
     # 2165 "/usr/local/include/neo-c.h"
+    it=self->head;
+    # 2166 "/usr/local/include/neo-c.h"
+    i=0;
+    # 2173 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 2163 "/usr/local/include/neo-c.h"
+        # 2171 "/usr/local/include/neo-c.h"
         if(position==i) {
-            # 2161 "/usr/local/include/neo-c.h"
-                        __result_obj__0 = (struct ViWin* )come_increment_ref_count(it->item, "/usr/local/include/neo-c.h", 2161, 149);
+            # 2169 "/usr/local/include/neo-c.h"
+                        __result_obj__0 = (struct ViWin* )come_increment_ref_count(it->item, "/usr/local/include/neo-c.h", 2169, 149);
             neo_current_frame = fr.prev;
-            come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2161, 150);
+            come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2169, 150);
             return __result_obj__0;
         }
-        # 2163 "/usr/local/include/neo-c.h"
+        # 2171 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 2164 "/usr/local/include/neo-c.h"
+        # 2172 "/usr/local/include/neo-c.h"
         i++;
     }
-    # 2167 "/usr/local/include/neo-c.h"
-    # 2168 "/usr/local/include/neo-c.h"
+    # 2175 "/usr/local/include/neo-c.h"
+    # 2176 "/usr/local/include/neo-c.h"
     memset(&default_value_18,0,sizeof(struct ViWin* ));
-    # 2169 "/usr/local/include/neo-c.h"
-        __result_obj__0 = (struct ViWin* )come_increment_ref_count(default_value_18, "/usr/local/include/neo-c.h", 2169, 151);
-    come_call_finalizer(ViWin_finalize, default_value_18, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2169, 152);
+    # 2177 "/usr/local/include/neo-c.h"
+        __result_obj__0 = (struct ViWin* )come_increment_ref_count(default_value_18, "/usr/local/include/neo-c.h", 2177, 151);
+    come_call_finalizer(ViWin_finalize, default_value_18, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2177, 152);
     neo_current_frame = fr.prev;
-    come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2169, 153);
+    come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2177, 153);
     return __result_obj__0;
 }
 
@@ -4918,52 +4918,52 @@ static struct ViWin*  list$1ViWin$ph_operator_load_element(struct list$1ViWin$ph
     struct list_item$1ViWin$ph* it;
     int i;
     struct ViWin*  default_value_19  ;
-    # 2145 "/usr/local/include/neo-c.h"
     # 2153 "/usr/local/include/neo-c.h"
+    # 2161 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 2148 "/usr/local/include/neo-c.h"
-        # 2149 "/usr/local/include/neo-c.h"
+        # 2156 "/usr/local/include/neo-c.h"
+        # 2157 "/usr/local/include/neo-c.h"
         memset(&default_value,0,sizeof(struct ViWin* ));
-        # 2150 "/usr/local/include/neo-c.h"
-                __result_obj__0 = (struct ViWin* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 2150, 154);
-        come_call_finalizer(ViWin_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2150, 155);
+        # 2158 "/usr/local/include/neo-c.h"
+                __result_obj__0 = (struct ViWin* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 2158, 154);
+        come_call_finalizer(ViWin_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2158, 155);
         neo_current_frame = fr.prev;
-        come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2150, 156);
+        come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2158, 156);
         return __result_obj__0;
-        come_call_finalizer(ViWin_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 2153, 157);
+        come_call_finalizer(ViWin_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 2161, 157);
     }
-    # 2157 "/usr/local/include/neo-c.h"
+    # 2165 "/usr/local/include/neo-c.h"
     if(position<0) {
-        # 2154 "/usr/local/include/neo-c.h"
+        # 2162 "/usr/local/include/neo-c.h"
         position+=self->len;
     }
-    # 2157 "/usr/local/include/neo-c.h"
-    it=self->head;
-    # 2158 "/usr/local/include/neo-c.h"
-    i=0;
     # 2165 "/usr/local/include/neo-c.h"
+    it=self->head;
+    # 2166 "/usr/local/include/neo-c.h"
+    i=0;
+    # 2173 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 2163 "/usr/local/include/neo-c.h"
+        # 2171 "/usr/local/include/neo-c.h"
         if(position==i) {
-            # 2161 "/usr/local/include/neo-c.h"
-                        __result_obj__0 = (struct ViWin* )come_increment_ref_count(it->item, "/usr/local/include/neo-c.h", 2161, 158);
+            # 2169 "/usr/local/include/neo-c.h"
+                        __result_obj__0 = (struct ViWin* )come_increment_ref_count(it->item, "/usr/local/include/neo-c.h", 2169, 158);
             neo_current_frame = fr.prev;
-            come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2161, 159);
+            come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2169, 159);
             return __result_obj__0;
         }
-        # 2163 "/usr/local/include/neo-c.h"
+        # 2171 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 2164 "/usr/local/include/neo-c.h"
+        # 2172 "/usr/local/include/neo-c.h"
         i++;
     }
-    # 2167 "/usr/local/include/neo-c.h"
-    # 2168 "/usr/local/include/neo-c.h"
+    # 2175 "/usr/local/include/neo-c.h"
+    # 2176 "/usr/local/include/neo-c.h"
     memset(&default_value_19,0,sizeof(struct ViWin* ));
-    # 2169 "/usr/local/include/neo-c.h"
-        __result_obj__0 = (struct ViWin* )come_increment_ref_count(default_value_19, "/usr/local/include/neo-c.h", 2169, 160);
-    come_call_finalizer(ViWin_finalize, default_value_19, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2169, 161);
+    # 2177 "/usr/local/include/neo-c.h"
+        __result_obj__0 = (struct ViWin* )come_increment_ref_count(default_value_19, "/usr/local/include/neo-c.h", 2177, 160);
+    come_call_finalizer(ViWin_finalize, default_value_19, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2177, 161);
     neo_current_frame = fr.prev;
-    come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2169, 162);
+    come_call_finalizer(ViWin_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "/usr/local/include/neo-c.h}", 2177, 162);
     return __result_obj__0;
 }
 
@@ -5135,30 +5135,30 @@ static int list$1ViWin$ph_find(struct list$1ViWin$ph* self, struct ViWin*  item 
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1ViWin$ph_find"; neo_current_frame = &fr;
     int it2;
     struct list_item$1ViWin$ph* it;
-    # 2062 "/usr/local/include/neo-c.h"
+    # 2070 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 2059 "/usr/local/include/neo-c.h"
+        # 2067 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return default_value;
     }
-    # 2062 "/usr/local/include/neo-c.h"
+    # 2070 "/usr/local/include/neo-c.h"
     it2=0;
-    # 2063 "/usr/local/include/neo-c.h"
+    # 2071 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 2073 "/usr/local/include/neo-c.h"
+    # 2081 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 2068 "/usr/local/include/neo-c.h"
+        # 2076 "/usr/local/include/neo-c.h"
         if((!by_pointer&&ViWin_equals(it->item,item))||(by_pointer&&it->item==item)) {
-            # 2066 "/usr/local/include/neo-c.h"
+            # 2074 "/usr/local/include/neo-c.h"
                         neo_current_frame = fr.prev;
             return it2;
         }
-        # 2068 "/usr/local/include/neo-c.h"
+        # 2076 "/usr/local/include/neo-c.h"
         it2++;
-        # 2070 "/usr/local/include/neo-c.h"
+        # 2078 "/usr/local/include/neo-c.h"
         it=it->next;
     }
-    # 2073 "/usr/local/include/neo-c.h"
+    # 2081 "/usr/local/include/neo-c.h"
         neo_current_frame = fr.prev;
     return default_value;
         neo_current_frame = fr.prev;
@@ -5180,185 +5180,185 @@ static struct list$1ViWin$ph* list$1ViWin$ph_delete(struct list$1ViWin$ph* self,
     struct list_item$1ViWin$ph* tail_it;
     int i_26;
     struct list_item$1ViWin$ph* prev_it_27;
-    # 1891 "/usr/local/include/neo-c.h"
+    # 1899 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1888 "/usr/local/include/neo-c.h"
+        # 1896 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 1894 "/usr/local/include/neo-c.h"
+    # 1902 "/usr/local/include/neo-c.h"
     if(head<0) {
-        # 1892 "/usr/local/include/neo-c.h"
+        # 1900 "/usr/local/include/neo-c.h"
         head+=self->len;
     }
-    # 1898 "/usr/local/include/neo-c.h"
+    # 1906 "/usr/local/include/neo-c.h"
     if(tail<0) {
-        # 1895 "/usr/local/include/neo-c.h"
+        # 1903 "/usr/local/include/neo-c.h"
         tail+=self->len+1;
     }
-    # 1904 "/usr/local/include/neo-c.h"
+    # 1912 "/usr/local/include/neo-c.h"
     if(head>tail) {
-        # 1899 "/usr/local/include/neo-c.h"
+        # 1907 "/usr/local/include/neo-c.h"
         tmp=tail;
-        # 1900 "/usr/local/include/neo-c.h"
+        # 1908 "/usr/local/include/neo-c.h"
         tail=head;
-        # 1901 "/usr/local/include/neo-c.h"
+        # 1909 "/usr/local/include/neo-c.h"
         head=tmp;
     }
-    # 1908 "/usr/local/include/neo-c.h"
+    # 1916 "/usr/local/include/neo-c.h"
     if(head<0) {
-        # 1905 "/usr/local/include/neo-c.h"
+        # 1913 "/usr/local/include/neo-c.h"
         head=0;
     }
-    # 1912 "/usr/local/include/neo-c.h"
+    # 1920 "/usr/local/include/neo-c.h"
     if(tail>self->len) {
-        # 1909 "/usr/local/include/neo-c.h"
+        # 1917 "/usr/local/include/neo-c.h"
         tail=self->len;
     }
-    # 1916 "/usr/local/include/neo-c.h"
+    # 1924 "/usr/local/include/neo-c.h"
     if(head>=self->len) {
-        # 1913 "/usr/local/include/neo-c.h"
+        # 1921 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 1920 "/usr/local/include/neo-c.h"
+    # 1928 "/usr/local/include/neo-c.h"
     if(head==tail) {
-        # 1917 "/usr/local/include/neo-c.h"
+        # 1925 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 2015 "/usr/local/include/neo-c.h"
+    # 2023 "/usr/local/include/neo-c.h"
     if(head==0&&tail==self->len) {
-        # 1922 "/usr/local/include/neo-c.h"
+        # 1930 "/usr/local/include/neo-c.h"
         list$1ViWin$ph_reset(self);
     }
     else if(head==0) {
-        # 1925 "/usr/local/include/neo-c.h"
+        # 1933 "/usr/local/include/neo-c.h"
         it=self->head;
-        # 1926 "/usr/local/include/neo-c.h"
+        # 1934 "/usr/local/include/neo-c.h"
         i=0;
-        # 1948 "/usr/local/include/neo-c.h"
+        # 1956 "/usr/local/include/neo-c.h"
         while(it!=((void*)0)) {
-            # 1947 "/usr/local/include/neo-c.h"
+            # 1955 "/usr/local/include/neo-c.h"
             if(i<tail) {
-                # 1929 "/usr/local/include/neo-c.h"
+                # 1937 "/usr/local/include/neo-c.h"
                 prev_it=it;
-                # 1931 "/usr/local/include/neo-c.h"
+                # 1939 "/usr/local/include/neo-c.h"
                 it=it->next;
-                # 1932 "/usr/local/include/neo-c.h"
+                # 1940 "/usr/local/include/neo-c.h"
                 i++;
-                # 1934 "/usr/local/include/neo-c.h"
-                come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1934, 174);
-                # 1936 "/usr/local/include/neo-c.h"
+                # 1942 "/usr/local/include/neo-c.h"
+                come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1942, 174);
+                # 1944 "/usr/local/include/neo-c.h"
                 self->len--;
             }
             else if(i==tail) {
-                # 1939 "/usr/local/include/neo-c.h"
+                # 1947 "/usr/local/include/neo-c.h"
                 self->head=it;
-                # 1940 "/usr/local/include/neo-c.h"
+                # 1948 "/usr/local/include/neo-c.h"
                 self->head->prev=((void*)0);
-                # 1941 "/usr/local/include/neo-c.h"
+                # 1949 "/usr/local/include/neo-c.h"
                 break;
             }
             else {
-                # 1944 "/usr/local/include/neo-c.h"
+                # 1952 "/usr/local/include/neo-c.h"
                 it=it->next;
-                # 1945 "/usr/local/include/neo-c.h"
+                # 1953 "/usr/local/include/neo-c.h"
                 i++;
             }
         }
     }
     else if(tail==self->len) {
-        # 1950 "/usr/local/include/neo-c.h"
+        # 1958 "/usr/local/include/neo-c.h"
         it_22=self->head;
-        # 1951 "/usr/local/include/neo-c.h"
+        # 1959 "/usr/local/include/neo-c.h"
         i_23=0;
-        # 1973 "/usr/local/include/neo-c.h"
+        # 1981 "/usr/local/include/neo-c.h"
         while(it_22!=((void*)0)) {
-            # 1958 "/usr/local/include/neo-c.h"
+            # 1966 "/usr/local/include/neo-c.h"
             if(i_23==head) {
-                # 1954 "/usr/local/include/neo-c.h"
+                # 1962 "/usr/local/include/neo-c.h"
                 self->tail=it_22->prev;
-                # 1955 "/usr/local/include/neo-c.h"
+                # 1963 "/usr/local/include/neo-c.h"
                 self->tail->next=((void*)0);
             }
-            # 1972 "/usr/local/include/neo-c.h"
+            # 1980 "/usr/local/include/neo-c.h"
             if(i_23>=head) {
-                # 1959 "/usr/local/include/neo-c.h"
+                # 1967 "/usr/local/include/neo-c.h"
                 prev_it_24=it_22;
-                # 1961 "/usr/local/include/neo-c.h"
-                it_22=it_22->next;
-                # 1962 "/usr/local/include/neo-c.h"
-                i_23++;
-                # 1964 "/usr/local/include/neo-c.h"
-                come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it_24, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1964, 175);
-                # 1966 "/usr/local/include/neo-c.h"
-                self->len--;
-            }
-            else {
                 # 1969 "/usr/local/include/neo-c.h"
                 it_22=it_22->next;
                 # 1970 "/usr/local/include/neo-c.h"
+                i_23++;
+                # 1972 "/usr/local/include/neo-c.h"
+                come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it_24, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1972, 175);
+                # 1974 "/usr/local/include/neo-c.h"
+                self->len--;
+            }
+            else {
+                # 1977 "/usr/local/include/neo-c.h"
+                it_22=it_22->next;
+                # 1978 "/usr/local/include/neo-c.h"
                 i_23++;
             }
         }
     }
     else {
-        # 1975 "/usr/local/include/neo-c.h"
+        # 1983 "/usr/local/include/neo-c.h"
         it_25=self->head;
-        # 1977 "/usr/local/include/neo-c.h"
+        # 1985 "/usr/local/include/neo-c.h"
         head_prev_it=((void*)0);
-        # 1978 "/usr/local/include/neo-c.h"
+        # 1986 "/usr/local/include/neo-c.h"
         tail_it=((void*)0);
-        # 1981 "/usr/local/include/neo-c.h"
+        # 1989 "/usr/local/include/neo-c.h"
         i_26=0;
-        # 2007 "/usr/local/include/neo-c.h"
+        # 2015 "/usr/local/include/neo-c.h"
         while(it_25!=((void*)0)) {
-            # 1986 "/usr/local/include/neo-c.h"
+            # 1994 "/usr/local/include/neo-c.h"
             if(i_26==head) {
-                # 1984 "/usr/local/include/neo-c.h"
+                # 1992 "/usr/local/include/neo-c.h"
                 head_prev_it=it_25->prev;
             }
-            # 1990 "/usr/local/include/neo-c.h"
+            # 1998 "/usr/local/include/neo-c.h"
             if(i_26==tail) {
-                # 1987 "/usr/local/include/neo-c.h"
+                # 1995 "/usr/local/include/neo-c.h"
                 tail_it=it_25;
             }
-            # 2005 "/usr/local/include/neo-c.h"
+            # 2013 "/usr/local/include/neo-c.h"
             if(i_26>=head&&i_26<tail) {
-                # 1992 "/usr/local/include/neo-c.h"
+                # 2000 "/usr/local/include/neo-c.h"
                 prev_it_27=it_25;
-                # 1994 "/usr/local/include/neo-c.h"
-                it_25=it_25->next;
-                # 1995 "/usr/local/include/neo-c.h"
-                i_26++;
-                # 1997 "/usr/local/include/neo-c.h"
-                come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it_27, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1997, 176);
-                # 1999 "/usr/local/include/neo-c.h"
-                self->len--;
-            }
-            else {
                 # 2002 "/usr/local/include/neo-c.h"
                 it_25=it_25->next;
                 # 2003 "/usr/local/include/neo-c.h"
                 i_26++;
+                # 2005 "/usr/local/include/neo-c.h"
+                come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it_27, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 2005, 176);
+                # 2007 "/usr/local/include/neo-c.h"
+                self->len--;
+            }
+            else {
+                # 2010 "/usr/local/include/neo-c.h"
+                it_25=it_25->next;
+                # 2011 "/usr/local/include/neo-c.h"
+                i_26++;
             }
         }
-        # 2010 "/usr/local/include/neo-c.h"
+        # 2018 "/usr/local/include/neo-c.h"
         if(head_prev_it!=((void*)0)) {
-            # 2008 "/usr/local/include/neo-c.h"
+            # 2016 "/usr/local/include/neo-c.h"
             head_prev_it->next=tail_it;
         }
-        # 2013 "/usr/local/include/neo-c.h"
+        # 2021 "/usr/local/include/neo-c.h"
         if(tail_it!=((void*)0)) {
-            # 2011 "/usr/local/include/neo-c.h"
+            # 2019 "/usr/local/include/neo-c.h"
             tail_it->prev=head_prev_it;
         }
     }
-    # 2015 "/usr/local/include/neo-c.h"
+    # 2023 "/usr/local/include/neo-c.h"
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -5370,31 +5370,31 @@ static struct list$1ViWin$ph* list$1ViWin$ph_reset(struct list$1ViWin$ph* self)
     struct list$1ViWin$ph* __result_obj__0;
     struct list_item$1ViWin$ph* it;
     struct list_item$1ViWin$ph* prev_it;
-    # 1852 "/usr/local/include/neo-c.h"
+    # 1860 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1849 "/usr/local/include/neo-c.h"
+        # 1857 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 1852 "/usr/local/include/neo-c.h"
-    it=self->head;
-    # 1859 "/usr/local/include/neo-c.h"
-    while(it!=((void*)0)) {
-        # 1854 "/usr/local/include/neo-c.h"
-        prev_it=it;
-        # 1855 "/usr/local/include/neo-c.h"
-        it=it->next;
-        # 1856 "/usr/local/include/neo-c.h"
-        come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1856, 173);
-    }
-    # 1859 "/usr/local/include/neo-c.h"
-    self->head=((void*)0);
     # 1860 "/usr/local/include/neo-c.h"
+    it=self->head;
+    # 1867 "/usr/local/include/neo-c.h"
+    while(it!=((void*)0)) {
+        # 1862 "/usr/local/include/neo-c.h"
+        prev_it=it;
+        # 1863 "/usr/local/include/neo-c.h"
+        it=it->next;
+        # 1864 "/usr/local/include/neo-c.h"
+        come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1864, 173);
+    }
+    # 1867 "/usr/local/include/neo-c.h"
+    self->head=((void*)0);
+    # 1868 "/usr/local/include/neo-c.h"
     self->tail=((void*)0);
-    # 1862 "/usr/local/include/neo-c.h"
+    # 1870 "/usr/local/include/neo-c.h"
     self->len=0;
-    # 1864 "/usr/local/include/neo-c.h"
+    # 1872 "/usr/local/include/neo-c.h"
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -5580,62 +5580,62 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     void (*default_value)(struct Vi* ,int);
     struct list_item$1lambda$* it;
     int i_30;
-    # 2019 "/usr/local/include/neo-c.h"
-    # 2025 "/usr/local/include/neo-c.h"
+    # 2027 "/usr/local/include/neo-c.h"
+    # 2033 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 2022 "/usr/local/include/neo-c.h"
+        # 2030 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 2028 "/usr/local/include/neo-c.h"
+    # 2036 "/usr/local/include/neo-c.h"
     if(position<0) {
-        # 2026 "/usr/local/include/neo-c.h"
+        # 2034 "/usr/local/include/neo-c.h"
         position+=self->len;
     }
-    # 2032 "/usr/local/include/neo-c.h"
+    # 2040 "/usr/local/include/neo-c.h"
     if(position<0) {
-        # 2029 "/usr/local/include/neo-c.h"
+        # 2037 "/usr/local/include/neo-c.h"
         position=0;
     }
-    # 2043 "/usr/local/include/neo-c.h"
+    # 2051 "/usr/local/include/neo-c.h"
     if(self->len==0||position>=self->len) {
-        # 2033 "/usr/local/include/neo-c.h"
+        # 2041 "/usr/local/include/neo-c.h"
         len=self->len;
-        # 2039 "/usr/local/include/neo-c.h"
+        # 2047 "/usr/local/include/neo-c.h"
         for(i=0        ;i<position-len;i++){
-            # 2035 "/usr/local/include/neo-c.h"
-            # 2036 "/usr/local/include/neo-c.h"
+            # 2043 "/usr/local/include/neo-c.h"
+            # 2044 "/usr/local/include/neo-c.h"
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
-            # 2037 "/usr/local/include/neo-c.h"
+            # 2045 "/usr/local/include/neo-c.h"
             list$1lambda$_push_back(self,default_value);
         }
-        # 2039 "/usr/local/include/neo-c.h"
+        # 2047 "/usr/local/include/neo-c.h"
         list$1lambda$_push_back(self,item);
-        # 2040 "/usr/local/include/neo-c.h"
+        # 2048 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 2043 "/usr/local/include/neo-c.h"
+    # 2051 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 2044 "/usr/local/include/neo-c.h"
+    # 2052 "/usr/local/include/neo-c.h"
     i_30=0;
-    # 2054 "/usr/local/include/neo-c.h"
+    # 2062 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 2050 "/usr/local/include/neo-c.h"
+        # 2058 "/usr/local/include/neo-c.h"
         if(position==i_30) {
-            # 2047 "/usr/local/include/neo-c.h"
+            # 2055 "/usr/local/include/neo-c.h"
             it->item=item;
-            # 2048 "/usr/local/include/neo-c.h"
+            # 2056 "/usr/local/include/neo-c.h"
             break;
         }
-        # 2050 "/usr/local/include/neo-c.h"
+        # 2058 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 2051 "/usr/local/include/neo-c.h"
+        # 2059 "/usr/local/include/neo-c.h"
         i_30++;
     }
-    # 2054 "/usr/local/include/neo-c.h"
+    # 2062 "/usr/local/include/neo-c.h"
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -5788,38 +5788,38 @@ static void map$2int$list$1int$ph$ph$p_finalize(struct map$2int$list$1int$ph$ph*
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_31;
-    # 3373 "/usr/local/include/neo-c.h"
-    # 3382 "/usr/local/include/neo-c.h"
+    # 3389 "/usr/local/include/neo-c.h"
+    # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3381 "/usr/local/include/neo-c.h"
+        # 3397 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3380 "/usr/local/include/neo-c.h"
+            # 3396 "/usr/local/include/neo-c.h"
             if(1) {
-                # 3378 "/usr/local/include/neo-c.h"
-                come_call_finalizer(list$1int$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3378, 199);
+                # 3394 "/usr/local/include/neo-c.h"
+                come_call_finalizer(list$1int$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3394, 199);
             }
         }
     }
-    # 3382 "/usr/local/include/neo-c.h"
+    # 3398 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3391 "/usr/local/include/neo-c.h"
+    # 3407 "/usr/local/include/neo-c.h"
     for(i_31=0    ;i_31<self->size;i_31++){
-        # 3390 "/usr/local/include/neo-c.h"
+        # 3406 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_31]) {
-            # 3389 "/usr/local/include/neo-c.h"
+            # 3405 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3387 "/usr/local/include/neo-c.h"
+                # 3403 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3391 "/usr/local/include/neo-c.h"
+    # 3407 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3393 "/usr/local/include/neo-c.h"
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 200);
-    # 3395 "/usr/local/include/neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 201));
-    # 3396 "/usr/local/include/neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 202));
+    # 3409 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3409, 200);
+    # 3411 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3411, 201));
+    # 3412 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3412, 202));
             neo_current_frame = fr.prev;
 }
 
@@ -5828,37 +5828,37 @@ static void map$2int$int$$p_finalize(struct map$2int$int$* self)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2int$int$$p_finalize"; neo_current_frame = &fr;
     int i;
     int i_32;
-    # 3373 "/usr/local/include/neo-c.h"
-    # 3382 "/usr/local/include/neo-c.h"
+    # 3389 "/usr/local/include/neo-c.h"
+    # 3398 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3381 "/usr/local/include/neo-c.h"
+        # 3397 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3380 "/usr/local/include/neo-c.h"
+            # 3396 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3378 "/usr/local/include/neo-c.h"
+                # 3394 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3382 "/usr/local/include/neo-c.h"
+    # 3398 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3391 "/usr/local/include/neo-c.h"
+    # 3407 "/usr/local/include/neo-c.h"
     for(i_32=0    ;i_32<self->size;i_32++){
-        # 3390 "/usr/local/include/neo-c.h"
+        # 3406 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_32]) {
-            # 3389 "/usr/local/include/neo-c.h"
+            # 3405 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3387 "/usr/local/include/neo-c.h"
+                # 3403 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3391 "/usr/local/include/neo-c.h"
+    # 3407 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3393 "/usr/local/include/neo-c.h"
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3393, 204);
-    # 3395 "/usr/local/include/neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3395, 205));
-    # 3396 "/usr/local/include/neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3396, 206));
+    # 3409 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3409, 204);
+    # 3411 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3411, 205));
+    # 3412 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3412, 206));
             neo_current_frame = fr.prev;
 }
 

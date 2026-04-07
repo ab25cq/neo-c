@@ -285,12 +285,9 @@ sNode*% parse_global_variable(sInfo* info)
         }
     }
     else {
-        bool no_output_come_code = info.no_output_come_code;
-        info.no_output_come_code = true;
         skip_spaces_and_lf();
         var result_type, var_name,err = parse_type(parse_variable_name:true);
         skip_spaces_and_lf();
-        info.no_output_come_code = no_output_come_code;
         
         if(!err) {
             printf("%s %d: parse_type failed\n", info->sname, info->sline);

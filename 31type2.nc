@@ -1002,8 +1002,8 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
         }
         else if(enum_) {
             if(type_name === "") {
-                if(!info.no_output_err) {
-                    type_name = xsprintf("anonymous_typeY%d", anonymous_num);
+                if(info.no_output_come_code) {
+                    type_name = xsprintf("anonymous_typeY%d", anonymous_num+1);
                 }
                 else {
                     type_name = xsprintf("anonymous_typeY%d", ++anonymous_num);
@@ -1012,11 +1012,9 @@ tuple3<sType*%,string,bool>*% parse_type(sInfo* info=info, bool parse_variable_n
             
             sNode*% node = parse_enum(type_name, tag_attribute, info);
             
-            if(!info.no_output_err) {
-                node_compile(node).elif {
-                    printf("%s %d: compiling is failed(X)\n", info->sname, info->sline);
-                    return t((sType*%)null, (string)null, false);
-                }
+            node_compile(node).elif {
+                printf("%s %d: compiling is failed(X)\n", info->sname, info->sline);
+                return t((sType*%)null, (string)null, false);
             }
             
             type = clone info.types[type_name];

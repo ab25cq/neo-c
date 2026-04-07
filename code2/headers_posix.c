@@ -292,31 +292,31 @@ typedef unsigned long  int active_reg_t;
 
 typedef unsigned long  int reg_syntax_t;
 
-typedef enum anonymous_typeY13 reg_errcode_t;
+typedef enum anonymous_typeY14 reg_errcode_t;
 
 typedef struct re_pattern_buffer  regex_t  ;
 
 typedef int regoff_t;
 
-typedef struct anonymous_typeX14 regmatch_t;
+typedef struct anonymous_typeX15 regmatch_t;
 
 typedef unsigned long  int  rlim_t  ;
 
 typedef unsigned long  int  rlim64_t  ;
 
-typedef enum __rlimit_resource __rlimit_resource_t;
+typedef enum __rlimit_resource  __rlimit_resource_t  ;
 
-typedef enum __rusage_who __rusage_who_t;
+typedef enum __rusage_who  __rusage_who_t  ;
 
-typedef enum __priority_which __priority_which_t;
+typedef enum __priority_which  __priority_which_t  ;
 
-typedef enum __itimer_which __itimer_which_t;
+typedef enum __itimer_which  __itimer_which_t  ;
 
 typedef int  sig_atomic_t  ;
 
 typedef union sigval  __sigval_t  ;
 
-typedef struct anonymous_typeX43 siginfo_t;
+typedef struct anonymous_typeX44 siginfo_t;
 
 typedef union sigval  sigval_t  ;
 
@@ -328,13 +328,13 @@ typedef void (*sighandler_t)(int)  ;
 
 typedef void (*sig_t)(int)  ;
 
-typedef struct anonymous_typeX76 stack_t;
+typedef struct anonymous_typeX77 stack_t;
 
 typedef long long int greg_t;
 
 typedef struct _libc_fpstate*  fpregset_t  ;
 
-typedef struct anonymous_typeX77 mcontext_t;
+typedef struct anonymous_typeX78 mcontext_t;
 
 typedef struct ucontext_t  ucontext_t  ;
 
@@ -342,7 +342,7 @@ typedef long  int  intptr_t  ;
 
 typedef unsigned int  socklen_t  ;
 
-typedef enum anonymous_typeY77 idtype_t;
+typedef enum anonymous_typeY79 idtype_t;
 
 typedef unsigned char cc_t;
 
@@ -426,7 +426,7 @@ F_OWNER_PID
 
 struct f_owner_ex
 {
-    enum __pid_type type;
+    enum __pid_type  type  ;
     int  pid  ;
 };
 
@@ -653,7 +653,7 @@ char __size[4];
 int __align;
 };
 
-enum  anonymous_typeY13 { _REG_ENOSYS=(-1),
+enum  anonymous_typeY14 { _REG_ENOSYS=(-1),
 _REG_NOERROR=(0),
 _REG_NOMATCH 
 ,_REG_BADPAT 
@@ -698,7 +698,7 @@ struct re_registers
     int*  end  ;
 };
 
-struct anonymous_typeX14
+struct anonymous_typeX15
 {
     int  rm_so  ;
     int  rm_eo  ;
@@ -750,12 +750,6 @@ RUSAGE_CHILDREN=(-1),
 RUSAGE_THREAD=(1)
 };
 
-union anonymous_typeZ15
-{
-long  int ru_maxrss;
-long  int  __ru_maxrss_word  ;
-};
-
 union anonymous_typeZ16
 {
 long  int ru_maxrss;
@@ -764,8 +758,8 @@ long  int  __ru_maxrss_word  ;
 
 union anonymous_typeZ17
 {
-long  int ru_ixrss;
-long  int  __ru_ixrss_word  ;
+long  int ru_maxrss;
+long  int  __ru_maxrss_word  ;
 };
 
 union anonymous_typeZ18
@@ -776,8 +770,8 @@ long  int  __ru_ixrss_word  ;
 
 union anonymous_typeZ19
 {
-long  int ru_idrss;
-long  int  __ru_idrss_word  ;
+long  int ru_ixrss;
+long  int  __ru_ixrss_word  ;
 };
 
 union anonymous_typeZ20
@@ -788,8 +782,8 @@ long  int  __ru_idrss_word  ;
 
 union anonymous_typeZ21
 {
-long  int ru_isrss;
-long  int  __ru_isrss_word  ;
+long  int ru_idrss;
+long  int  __ru_idrss_word  ;
 };
 
 union anonymous_typeZ22
@@ -800,8 +794,8 @@ long  int  __ru_isrss_word  ;
 
 union anonymous_typeZ23
 {
-long  int ru_minflt;
-long  int  __ru_minflt_word  ;
+long  int ru_isrss;
+long  int  __ru_isrss_word  ;
 };
 
 union anonymous_typeZ24
@@ -812,8 +806,8 @@ long  int  __ru_minflt_word  ;
 
 union anonymous_typeZ25
 {
-long  int ru_majflt;
-long  int  __ru_majflt_word  ;
+long  int ru_minflt;
+long  int  __ru_minflt_word  ;
 };
 
 union anonymous_typeZ26
@@ -824,8 +818,8 @@ long  int  __ru_majflt_word  ;
 
 union anonymous_typeZ27
 {
-long  int ru_nswap;
-long  int  __ru_nswap_word  ;
+long  int ru_majflt;
+long  int  __ru_majflt_word  ;
 };
 
 union anonymous_typeZ28
@@ -836,8 +830,8 @@ long  int  __ru_nswap_word  ;
 
 union anonymous_typeZ29
 {
-long  int ru_inblock;
-long  int  __ru_inblock_word  ;
+long  int ru_nswap;
+long  int  __ru_nswap_word  ;
 };
 
 union anonymous_typeZ30
@@ -848,8 +842,8 @@ long  int  __ru_inblock_word  ;
 
 union anonymous_typeZ31
 {
-long  int ru_oublock;
-long  int  __ru_oublock_word  ;
+long  int ru_inblock;
+long  int  __ru_inblock_word  ;
 };
 
 union anonymous_typeZ32
@@ -860,8 +854,8 @@ long  int  __ru_oublock_word  ;
 
 union anonymous_typeZ33
 {
-long  int ru_msgsnd;
-long  int  __ru_msgsnd_word  ;
+long  int ru_oublock;
+long  int  __ru_oublock_word  ;
 };
 
 union anonymous_typeZ34
@@ -872,8 +866,8 @@ long  int  __ru_msgsnd_word  ;
 
 union anonymous_typeZ35
 {
-long  int ru_msgrcv;
-long  int  __ru_msgrcv_word  ;
+long  int ru_msgsnd;
+long  int  __ru_msgsnd_word  ;
 };
 
 union anonymous_typeZ36
@@ -884,8 +878,8 @@ long  int  __ru_msgrcv_word  ;
 
 union anonymous_typeZ37
 {
-long  int ru_nsignals;
-long  int  __ru_nsignals_word  ;
+long  int ru_msgrcv;
+long  int  __ru_msgrcv_word  ;
 };
 
 union anonymous_typeZ38
@@ -896,8 +890,8 @@ long  int  __ru_nsignals_word  ;
 
 union anonymous_typeZ39
 {
-long  int ru_nvcsw;
-long  int  __ru_nvcsw_word  ;
+long  int ru_nsignals;
+long  int  __ru_nsignals_word  ;
 };
 
 union anonymous_typeZ40
@@ -908,11 +902,17 @@ long  int  __ru_nvcsw_word  ;
 
 union anonymous_typeZ41
 {
+long  int ru_nvcsw;
+long  int  __ru_nvcsw_word  ;
+};
+
+union anonymous_typeZ42
+{
 long  int ru_nivcsw;
 long  int  __ru_nivcsw_word  ;
 };
 
-union anonymous_typeZ42
+union anonymous_typeZ43
 {
 long  int ru_nivcsw;
 long  int  __ru_nivcsw_word  ;
@@ -1107,23 +1107,16 @@ int sival_int;
 void* sival_ptr;
 };
 
-struct anonymous_typeX45
+struct anonymous_typeX46
 {
     int  si_pid  ;
     unsigned int  si_uid  ;
-};
-
-struct anonymous_typeX46
-{
-    int si_tid;
-    int si_overrun;
-    union sigval  si_sigval  ;
 };
 
 struct anonymous_typeX47
 {
-    int  si_pid  ;
-    unsigned int  si_uid  ;
+    int si_tid;
+    int si_overrun;
     union sigval  si_sigval  ;
 };
 
@@ -1131,18 +1124,25 @@ struct anonymous_typeX48
 {
     int  si_pid  ;
     unsigned int  si_uid  ;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX49
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
     int si_status;
     long  int  si_utime  ;
     long  int  si_stime  ;
 };
 
-struct anonymous_typeX51
+struct anonymous_typeX52
 {
     void* _lower;
     void* _upper;
 };
 
-union anonymous_typeZ50
+union anonymous_typeZ51
 {
     struct {
         void* _lower;
@@ -1151,13 +1151,13 @@ union anonymous_typeZ50
 unsigned int  _pkey  ;
 };
 
-struct anonymous_typeX53
+struct anonymous_typeX54
 {
     void* _lower;
     void* _upper;
 };
 
-union anonymous_typeZ52
+union anonymous_typeZ53
 {
     struct {
         void* _lower;
@@ -1166,7 +1166,7 @@ union anonymous_typeZ52
 unsigned int  _pkey  ;
 };
 
-struct anonymous_typeX49
+struct anonymous_typeX50
 {
     void* si_addr;
     short int si_addr_lsb;
@@ -1179,20 +1179,20 @@ struct anonymous_typeX49
     } _bounds;
 };
 
-struct anonymous_typeX54
+struct anonymous_typeX55
 {
     long  int si_band;
     int si_fd;
 };
 
-struct anonymous_typeX55
+struct anonymous_typeX56
 {
     void* _call_addr;
     int _syscall;
     unsigned int _arch;
 };
 
-union anonymous_typeZ44
+union anonymous_typeZ45
 {
 int _pad[((128/sizeof(int))-4)];
     struct {
@@ -1238,23 +1238,16 @@ int _pad[((128/sizeof(int))-4)];
     } _sigsys;
 };
 
-struct anonymous_typeX57
+struct anonymous_typeX58
 {
     int  si_pid  ;
     unsigned int  si_uid  ;
-};
-
-struct anonymous_typeX58
-{
-    int si_tid;
-    int si_overrun;
-    union sigval  si_sigval  ;
 };
 
 struct anonymous_typeX59
 {
-    int  si_pid  ;
-    unsigned int  si_uid  ;
+    int si_tid;
+    int si_overrun;
     union sigval  si_sigval  ;
 };
 
@@ -1262,18 +1255,25 @@ struct anonymous_typeX60
 {
     int  si_pid  ;
     unsigned int  si_uid  ;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX61
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
     int si_status;
     long  int  si_utime  ;
     long  int  si_stime  ;
 };
 
-struct anonymous_typeX63
+struct anonymous_typeX64
 {
     void* _lower;
     void* _upper;
 };
 
-union anonymous_typeZ62
+union anonymous_typeZ63
 {
     struct {
         void* _lower;
@@ -1282,13 +1282,13 @@ union anonymous_typeZ62
 unsigned int  _pkey  ;
 };
 
-struct anonymous_typeX65
+struct anonymous_typeX66
 {
     void* _lower;
     void* _upper;
 };
 
-union anonymous_typeZ64
+union anonymous_typeZ65
 {
     struct {
         void* _lower;
@@ -1297,7 +1297,7 @@ union anonymous_typeZ64
 unsigned int  _pkey  ;
 };
 
-struct anonymous_typeX61
+struct anonymous_typeX62
 {
     void* si_addr;
     short int si_addr_lsb;
@@ -1310,20 +1310,20 @@ struct anonymous_typeX61
     } _bounds;
 };
 
-struct anonymous_typeX66
+struct anonymous_typeX67
 {
     long  int si_band;
     int si_fd;
 };
 
-struct anonymous_typeX67
+struct anonymous_typeX68
 {
     void* _call_addr;
     int _syscall;
     unsigned int _arch;
 };
 
-union anonymous_typeZ56
+union anonymous_typeZ57
 {
 int _pad[((128/sizeof(int))-4)];
     struct {
@@ -1369,7 +1369,7 @@ int _pad[((128/sizeof(int))-4)];
     } _sigsys;
 };
 
-struct anonymous_typeX43
+struct anonymous_typeX44
 {
     int si_signo;
     int si_errno;
@@ -1498,13 +1498,13 @@ POLL_OUT
 ,POLL_HUP 
 };
 
-struct anonymous_typeX69
+struct anonymous_typeX70
 {
     void (*_function)(union sigval );
     union pthread_attr_t*  _attribute  ;
 };
 
-union anonymous_typeZ68
+union anonymous_typeZ69
 {
 int _pad[((64/sizeof(int))-4)];
 int  _tid  ;
@@ -1514,13 +1514,13 @@ int  _tid  ;
     } _sigev_thread;
 };
 
-struct anonymous_typeX71
+struct anonymous_typeX72
 {
     void (*_function)(union sigval );
     union pthread_attr_t*  _attribute  ;
 };
 
-union anonymous_typeZ70
+union anonymous_typeZ71
 {
 int _pad[((64/sizeof(int))-4)];
 int  _tid  ;
@@ -1551,23 +1551,23 @@ SIGEV_NONE
 ,SIGEV_THREAD_ID=(4)
 };
 
-union anonymous_typeZ72
-{
-void (*sa_handler)(int)  ;
-void (*sa_sigaction)(int,struct anonymous_typeX43* ,void*);
-};
-
 union anonymous_typeZ73
 {
 void (*sa_handler)(int)  ;
-void (*sa_sigaction)(int,struct anonymous_typeX43* ,void*);
+void (*sa_sigaction)(int,struct anonymous_typeX44* ,void*);
+};
+
+union anonymous_typeZ74
+{
+void (*sa_handler)(int)  ;
+void (*sa_sigaction)(int,struct anonymous_typeX44* ,void*);
 };
 
 struct sigaction
 {
     union {
         void (*sa_handler)(int)  ;
-        void (*sa_sigaction)(int,struct anonymous_typeX43* ,void*);
+        void (*sa_sigaction)(int,struct anonymous_typeX44* ,void*);
     } __sigaction_handler;
     struct {
         unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
@@ -1618,13 +1618,13 @@ struct _fpstate
     unsigned int  __glibc_reserved1[24]  ;
 };
 
-union anonymous_typeZ74
+union anonymous_typeZ75
 {
 struct _fpstate*  fpstate  ;
 unsigned long  int  __fpstate_word  ;
 };
 
-union anonymous_typeZ75
+union anonymous_typeZ76
 {
 struct _fpstate*  fpstate  ;
 unsigned long  int  __fpstate_word  ;
@@ -1684,7 +1684,7 @@ struct _xstate
     struct _ymmh_state  ymmh  ;
 };
 
-struct anonymous_typeX76
+struct anonymous_typeX77
 {
     void* ss_sp;
     int ss_flags;
@@ -1745,7 +1745,7 @@ struct _libc_fpstate
     unsigned int  __glibc_reserved1[24]  ;
 };
 
-struct anonymous_typeX77
+struct anonymous_typeX78
 {
     long long int  gregs[23]  ;
     struct _libc_fpstate*  fpregs  ;
@@ -2091,31 +2091,31 @@ struct sigstack
     int ss_onstack;
 };
 
-enum  anonymous_typeY77 { P_ALL 
+enum  anonymous_typeY79 { P_ALL 
 ,P_PID 
 ,P_PGID 
 ,P_PIDFD 
 };
 
-union anonymous_typeZ78
-{
-unsigned int  __ispeed  ;
-unsigned int  c_ispeed  ;
-};
-
-union anonymous_typeZ79
-{
-unsigned int  __ispeed  ;
-unsigned int  c_ispeed  ;
-};
-
 union anonymous_typeZ80
+{
+unsigned int  __ispeed  ;
+unsigned int  c_ispeed  ;
+};
+
+union anonymous_typeZ81
+{
+unsigned int  __ispeed  ;
+unsigned int  c_ispeed  ;
+};
+
+union anonymous_typeZ82
 {
 unsigned int  __ospeed  ;
 unsigned int  c_ospeed  ;
 };
 
-union anonymous_typeZ81
+union anonymous_typeZ83
 {
 unsigned int  __ospeed  ;
 unsigned int  c_ospeed  ;
@@ -2241,7 +2241,7 @@ int  re_match(struct re_pattern_buffer*  __buffer  , const char* __String, int  
 int  re_match_2(struct re_pattern_buffer*  __buffer  , const char* __string1, int  __length1  , const char* __string2, int  __length2  , int  __start  , struct re_registers*  __regs  , int  __stop  );
 void re_set_registers(struct re_pattern_buffer*  __buffer  , struct re_registers*  __regs  , unsigned int  __num_regs  , int*  __starts  , int*  __ends  );
 int regcomp(struct re_pattern_buffer* __restrict  __preg  , const char* __restrict __pattern, int __cflags);
-int regexec(const struct re_pattern_buffer* __restrict  __preg  , const char* __restrict __String, unsigned long  int  __nmatch  , struct anonymous_typeX14  __pmatch[]  , int __eflags);
+int regexec(const struct re_pattern_buffer* __restrict  __preg  , const char* __restrict __String, unsigned long  int  __nmatch  , struct anonymous_typeX15  __pmatch[]  , int __eflags);
 unsigned long  int  regerror(int __errcode, const struct re_pattern_buffer* __restrict  __preg  , char* __restrict __errbuf, unsigned long  int  __errbuf_size  );
 void regfree(struct re_pattern_buffer*  __preg  );
 int flock(int __fd, int __operation);
@@ -2271,8 +2271,8 @@ int shm_open(const char* __name, int __oflag, unsigned int  __mode  );
 int shm_unlink(const char* __name);
 long  int  process_madvise(int __pid_fd, const struct iovec*  __iov  , unsigned long  int  __count  , int __advice, unsigned int __flags);
 int process_mrelease(int pidfd, unsigned int flags);
-int prlimit(int  __pid  , enum __rlimit_resource __resource, const struct rlimit*  __new_limit  , struct rlimit*  __old_limit  );
-int prlimit64(int  __pid  , enum __rlimit_resource __resource, const struct rlimit64*  __new_limit  , struct rlimit64*  __old_limit  );
+int prlimit(int  __pid  , enum __rlimit_resource  __resource  , const struct rlimit*  __new_limit  , struct rlimit*  __old_limit  );
+int prlimit64(int  __pid  , enum __rlimit_resource  __resource  , const struct rlimit64*  __new_limit  , struct rlimit64*  __old_limit  );
 int getrlimit(enum __rlimit_resource  __resource  , struct rlimit*  __rlimits  );
 int getrlimit64(enum __rlimit_resource  __resource  , struct rlimit64*  __rlimits  );
 int setrlimit(enum __rlimit_resource  __resource  , const struct rlimit*  __rlimits  );
@@ -2339,7 +2339,7 @@ int raise(int __sig);
 void (*ssignal(int __sig, void (*__handler)(int)  ))(int) ;
 int gsignal(int __sig);
 void psignal(int __sig, const char* __s);
-void psiginfo(const struct anonymous_typeX43*  __pinfo  , const char* __s);
+void psiginfo(const struct anonymous_typeX44*  __pinfo  , const char* __s);
 int sigpause(int __sig) __asm__ ("__xpg_sigpause")
   __attribute__ ((__deprecated__));
 int sigblock(int __mask) __attribute__ ((__deprecated__));
@@ -2358,8 +2358,8 @@ int sigsuspend(const struct anonymous_typeX1*  __set  );
 int sigaction(int __sig, const struct sigaction* __restrict  __act  , struct sigaction* __restrict  __oact  );
 int sigpending(struct anonymous_typeX1*  __set  );
 int sigwait(const struct anonymous_typeX1* __restrict  __set  , int* __restrict __sig);
-int sigwaitinfo(const struct anonymous_typeX1* __restrict  __set  , struct anonymous_typeX43* __restrict  __info  );
-int sigtimedwait(const struct anonymous_typeX1* __restrict  __set  , struct anonymous_typeX43* __restrict  __info  , const struct timespec* __restrict  __timeout  );
+int sigwaitinfo(const struct anonymous_typeX1* __restrict  __set  , struct anonymous_typeX44* __restrict  __info  );
+int sigtimedwait(const struct anonymous_typeX1* __restrict  __set  , struct anonymous_typeX44* __restrict  __info  , const struct timespec* __restrict  __timeout  );
 int sigqueue(int  __pid  , int __sig, const union sigval  __val  );
 int sigreturn(struct sigcontext*  __scp  );
 int siginterrupt(int __sig, int __interrupt) __attribute__ ((__deprecated__));
@@ -2494,7 +2494,7 @@ void swab(const void* __restrict __from, void* __restrict __to, long  int  __n  
 int getentropy(void* __buffer, unsigned long  int  __length  );
 int close_range(unsigned int __fd, unsigned int __max_fd, int __flags);
 int  gettid();
-int sigaltstack(const struct anonymous_typeX76* __restrict  __ss  , struct anonymous_typeX76* __restrict  __oss  );
+int sigaltstack(const struct anonymous_typeX77* __restrict  __ss  , struct anonymous_typeX77* __restrict  __oss  );
 int sigstack(struct sigstack*  __ss  , struct sigstack*  __oss  ) __attribute__ ((__deprecated__));
 int sighold(int __sig) __attribute__ ((__deprecated__));
 int sigrelse(int __sig) __attribute__ ((__deprecated__));
@@ -2508,7 +2508,7 @@ int __libc_current_sigrtmax();
 int tgkill(int  __tgid  , int  __tid  , int __signal);
 int  wait(int* __stat_loc);
 int  waitpid(int  __pid  , int* __stat_loc, int __options);
-int waitid(enum anonymous_typeY77  __idtype  , unsigned int  __id  , struct anonymous_typeX43*  __infop  , int __options);
+int waitid(enum anonymous_typeY79  __idtype  , unsigned int  __id  , struct anonymous_typeX44*  __infop  , int __options);
 int  wait3(int* __stat_loc, int __options, struct rusage*  __usage  );
 int  wait4(int  __pid  , int* __stat_loc, int __options, struct rusage*  __usage  );
 unsigned int  cfgetospeed(const struct termios*  __termios_p  );
@@ -2534,32 +2534,39 @@ int test_headers_posix();
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
 {
+    # 38 "/usr/include/bits/byteswap.h"
         return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
 }
 static inline unsigned int  __bswap_32(unsigned int  __bsx  )
 {
+    # 51 "/usr/include/bits/byteswap.h"
         return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
 }
 static inline unsigned long  int  __bswap_64(unsigned long  int  __bsx  )
 {
+    # 64 "/usr/include/bits/byteswap.h"
         return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
 }
 static inline unsigned short int  __uint16_identity(unsigned short int  __x  )
 {
+    # 35 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 static inline unsigned int  __uint32_identity(unsigned int  __x  )
 {
+    # 41 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
+    # 47 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 
 // body function
 int test_headers_posix()
 {
+    # 30 "headers_posix.nc"
         return 0;
 }
 

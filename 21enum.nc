@@ -210,6 +210,10 @@ class sEnumNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
+        if(info.no_output_come_code) {
+            return true;
+        }
+
         string type_name = self.mTypeName;
         list<tuple3<string, sNode*%, string>*%>*% elements = self.mElements;
         string attribute = self.mAttribute;
@@ -223,6 +227,7 @@ class sEnumNode extends sNodeBase
         }
         
         buffer*% buf = new buffer();
+        buffer*% signature_buf = new buffer();
         
         if(type_name === "") {
             if(self.mTypeElements) {
@@ -248,6 +253,10 @@ class sEnumNode extends sNodeBase
         else {
             buf.append_format("enum %s %s { ", attribute, type_name);
         }
+
+        if(self.mTypeElements) {
+            signature_buf.append_format(":%s;", make_type_name_string(self.mTypeElements));
+        }
         
         int i = 0;
         int n = 0;
@@ -272,6 +281,8 @@ class sEnumNode extends sNodeBase
                 else {
                     c_value = xsprintf("(%d)", n);
                 }
+
+                signature_buf.append_format("%s=%s;", name, c_value);
                 
                 add_variable_to_global_table_with_int_value(name, new sType(s"int"), c_value, info);
             }
@@ -283,6 +294,8 @@ class sEnumNode extends sNodeBase
                 CVALUE*% right_value = get_value_from_stack(-1, info);
                 
                 string c_value = xsprintf("(%s)", right_value.c_value);
+
+                signature_buf.append_format("%s=%s;", name, c_value);
                 
                 add_variable_to_global_table_with_int_value(name, new sType(s"int"), c_value, info);
                 
@@ -302,6 +315,19 @@ class sEnumNode extends sNodeBase
             n++;
         }
         buf.append_format("};\n");
+
+        if(type_name.index("anonymous_typeY", -1) == 0) {
+            string signature = signature_buf.to_string();
+            string signature_key = xsprintf("__anon_enum_sig__%s", signature);
+            string canonical_name = info.reflection_vars.at(signature_key, null);
+
+            if(canonical_name != null && canonical_name !== type_name) {
+                info.types.insert(string(type_name), new sType(canonical_name));
+                return true;
+            }
+
+            info.reflection_vars.insert(signature_key, string(type_name));
+        }
         
         if(info.struct_definition[string(type_name)] == null || type_name === "") {
             if(type_name === "") {
@@ -613,7 +639,9 @@ sNode*% parse_enum(string type_name, string attribute, sInfo* info)
     }
     if(type_name !== "") {
         info.classes.insert(string(type_name), new sClass(name:string(type_name), enum_:true));
-        info.types.insert(string(type_name), new sType(type_name));
+        if(type_name.index("anonymous_typeY", -1) != 0) {
+            info.types.insert(string(type_name), new sType(type_name));
+        }
     }
     
     return new sEnumNode(type_name, elements, type_elements, attribute, info) implements sNode;
