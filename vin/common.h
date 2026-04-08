@@ -63,6 +63,7 @@ struct ViWin
     bool autoInput;
     int digitInput;
     int autoInputIndex;
+    int autoInputRepeat;
     bool pressedDot;
 
     map<int, list<list<int>*%>*%>*% macro;

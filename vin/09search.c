@@ -1361,6 +1361,7 @@ struct ViWin
     _Bool autoInput;
     int digitInput;
     int autoInputIndex;
+    int autoInputRepeat;
     _Bool pressedDot;
     struct map$2int$list$1list$1int$$ph$ph* macro;
     int recordingMacroKey;

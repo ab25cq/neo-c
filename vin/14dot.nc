@@ -14,6 +14,11 @@ static void handle_repeat_interrupt(int signum)
     gInterruptRepetitionRequested = 1;
 }
 
+static bool is_repeat_interrupt_key(int key)
+{
+    return key == 3 || key == 27;
+}
+
 static int peek_repeat_interrupt_key(WINDOW* win)
 {
     int nread = 0;
@@ -44,6 +49,7 @@ ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi
     result.autoInput = false;
     result.digitInput = 0;
     result.autoInputIndex = 0;
+    result.autoInputRepeat = 0;
     
     result.macro = new map<int, list<list<int>*%>*%>.initialize();
     result.recordingMacroKey = -1;
@@ -131,7 +137,7 @@ int ViWin*::getKey(ViWin* self, bool head) version 14
 
         int real_key = peek_repeat_interrupt_key(self.win);
 
-        if(real_key == 3) {
+        if(is_repeat_interrupt_key(real_key)) {
             self.runningMacro = null;
             self.runningMacroIndex1 = 0;
             self.runningMacroIndex2 = 0;
@@ -177,37 +183,47 @@ int ViWin*::getKey(ViWin* self, bool head) version 14
             gInterruptRepetitionRequested = 0;
             self.autoInput = false;
             self.autoInputIndex = 0;
+            self.autoInputRepeat = 0;
             self.pressedDot = false;
 
             return 3;
         }
 
-        int real_key = peek_repeat_interrupt_key(self.win);
+        while(true) {
+            int real_key = peek_repeat_interrupt_key(self.win);
 
-        if(real_key == 3) {
-            self.autoInput = false;
-            self.autoInputIndex = 0;
-            self.pressedDot = false;
+            if(is_repeat_interrupt_key(real_key)) {
+                self.autoInput = false;
+                self.autoInputIndex = 0;
+                self.autoInputRepeat = 0;
+                self.pressedDot = false;
 
-            if(self.inputedKeys.length() < SAVE_INPUT_KEY_MAX) {
-                self.inputedKeys.push_back(real_key);
+                if(self.inputedKeys.length() < SAVE_INPUT_KEY_MAX) {
+                    self.inputedKeys.push_back(real_key);
+                }
+
+                return real_key;
+            }
+            else if(real_key != ERR) {
+                ungetch(real_key);
             }
 
-            return real_key;
-        }
-        else if(real_key != ERR) {
-            ungetch(real_key);
-        }
+            if(self.autoInputIndex < self.savedInputedKeys.length()) {
+                int key = self.savedInputedKeys.item(self.autoInputIndex, -1);
+                self.autoInputIndex++;
 
-        if(self.autoInputIndex < self.savedInputedKeys.length()) {
-            int key = self.savedInputedKeys.item(self.autoInputIndex, -1);
-            self.autoInputIndex++;
+                return key;
+            }
 
-            return key;
-        }
-        else {
+            if(self.autoInputRepeat > 0) {
+                self.autoInputRepeat--;
+                self.autoInputIndex = 0;
+                continue;
+            }
+
             if(self.pressedDot) {
                 self.autoInputIndex = 0;
+                self.autoInputRepeat = 0;
                 self.autoInput = false;
                 self.pressedDot = false;
 
@@ -218,16 +234,16 @@ int ViWin*::getKey(ViWin* self, bool head) version 14
                 }
                 return key;
             }
-            else {
-                self.savedInputedKeys.reset();
-                self.autoInput = false;
-                self.autoInputIndex = 0;
-                self.pressedDot = false;
 
-                int key = wgetch(self.win);
-                self.inputedKeys.push_back(key);
-                return key;
-            }
+            self.savedInputedKeys.reset();
+            self.autoInput = false;
+            self.autoInputIndex = 0;
+            self.autoInputRepeat = 0;
+            self.pressedDot = false;
+
+            int key = wgetch(self.win);
+            self.inputedKeys.push_back(key);
+            return key;
         }
     }
     else {
@@ -293,16 +309,12 @@ void ViWin*::saveInputedKey(ViWin* self) version 14
         if(self.digitInput > 0) {
             self.autoInput = true;
             self.autoInputIndex = 0;
-            self.savedInputedKeys = new list<int>.initialize();
-            for(int i=0; i<self.digitInput; i++) {
-                foreach(it, self.inputedKeys) {
-                    self.savedInputedKeys.push_back(it);
-                }
-                
-            }
+            self.autoInputRepeat = self.digitInput;
+            self.savedInputedKeys = clone self.inputedKeys;
             self.digitInput = 0;
         }
         else {
+            self.autoInputRepeat = 0;
             self.savedInputedKeys = clone self.inputedKeys;
         }
     }
