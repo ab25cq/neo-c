@@ -477,6 +477,7 @@ void Vi*::repositionWindows(Vi* self) version 6
     int it2 = 0;
     foreach(it, self.wins) {
         it.height = height;
+        it.width = maxx - 1;
         it.y = height * it2;
 
         delwin(it.win);

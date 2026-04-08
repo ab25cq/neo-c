@@ -1518,6 +1518,7 @@ extern int optind;
 extern int opterr;
 extern int optopt;
 extern int gBinaryMode;
+extern int gSigwinch;
 // source head
 
 // header function
@@ -6055,28 +6056,30 @@ void Vi_repositionWindows_v6(struct Vi*  self  )
     height=maxy/list$1ViWin$ph_length(self->wins);
     # 477 "06file.nc"
     it2=0;
-    # 492 "06file.nc"
+    # 493 "06file.nc"
     for(_o2_saved_6=(struct list$1ViWin$ph*)come_increment_ref_count(self->wins, "06file.nc", 478, 214),it=list$1ViWin$ph_begin(_o2_saved_6)    ;!list$1ViWin$ph_end(_o2_saved_6);it=list$1ViWin$ph_next(_o2_saved_6)){
         # 479 "06file.nc"
         it->height=height;
         # 480 "06file.nc"
+        it->width=maxx-1;
+        # 481 "06file.nc"
         it->y=height*it2;
-        # 482 "06file.nc"
-        delwin(it->win);
         # 483 "06file.nc"
-        win=newwin(it->height,it->width,it->y,it->x);
+        delwin(it->win);
         # 484 "06file.nc"
-        keypad(win,(_Bool)1);
+        win=newwin(it->height,it->width,it->y,it->x);
         # 485 "06file.nc"
+        keypad(win,(_Bool)1);
+        # 486 "06file.nc"
         it->win=win;
-        # 487 "06file.nc"
-        ViWin_centeringCursor(it);
         # 488 "06file.nc"
+        ViWin_centeringCursor(it);
+        # 489 "06file.nc"
         it->cursorX=0;
-        # 490 "06file.nc"
+        # 491 "06file.nc"
         it2++;
     }
-    come_call_finalizer(list$1ViWin$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06file.nc}", 494, 215);
+    come_call_finalizer(list$1ViWin$ph$p_finalize, _o2_saved_6, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06file.nc}", 495, 215);
     neo_current_frame = fr.prev;
 }
 
@@ -6091,39 +6094,39 @@ void Vi_saveLastOpenFile(struct Vi*  self  , char* file_name)
     memset(&home, 0, sizeof(home));
     memset(&file_name2, 0, sizeof(file_name2));
     memset(&f, 0, sizeof(f));
-    # 496 "06file.nc"
+    # 497 "06file.nc"
     home=getenv("HOME");
-    # 502 "06file.nc"
+    # 503 "06file.nc"
     if(home==((void*)0)) {
-        # 499 "06file.nc"
+        # 500 "06file.nc"
                 neo_current_frame = fr.prev;
         return;
     }
-    # 502 "06file.nc"
-    file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin",home), "06file.nc", 502, 216);
-    # 504 "06file.nc"
+    # 503 "06file.nc"
+    file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin",home), "06file.nc", 503, 216);
+    # 505 "06file.nc"
     __right_value0 = (void*)0;
     system(((char* )(__right_value0=xsprintf("mkdir -p '%s'",file_name2))));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 504, 217));
-    # 506 "06file.nc"
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 505, 217));
+    # 507 "06file.nc"
     __right_value0 = (void*)0;
     __dec_obj15=file_name2,
-    file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin/last_open_file",home,file_name), "06file.nc", 506, 219);
-    __dec_obj15 = come_decrement_ref_count(__dec_obj15, (void*)0, (void*)0, 0,0, (void*)0, "06file.nc", 506, 218);
-    # 508 "06file.nc"
+    file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin/last_open_file",home,file_name), "06file.nc", 507, 219);
+    __dec_obj15 = come_decrement_ref_count(__dec_obj15, (void*)0, (void*)0, 0,0, (void*)0, "06file.nc", 507, 218);
+    # 509 "06file.nc"
     f=fopen(file_name2,"w");
-    # 514 "06file.nc"
+    # 515 "06file.nc"
     if(f==((void*)0)) {
-        # 511 "06file.nc"
-                (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 511, 220));
+        # 512 "06file.nc"
+                (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 512, 220));
         neo_current_frame = fr.prev;
         return;
     }
-    # 514 "06file.nc"
+    # 515 "06file.nc"
     fprintf(f,"%s\n",file_name);
-    # 516 "06file.nc"
+    # 517 "06file.nc"
     fclose(f);
-    (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 519, 221));
+    (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 520, 221));
     neo_current_frame = fr.prev;
 }
 
@@ -6138,56 +6141,56 @@ char*  Vi_readLastOpenFile(struct Vi*  self  )
     memset(&home, 0, sizeof(home));
     memset(&file_name2, 0, sizeof(file_name2));
     memset(&f, 0, sizeof(f));
-    # 521 "06file.nc"
+    # 522 "06file.nc"
     home=getenv("HOME");
-    # 527 "06file.nc"
+    # 528 "06file.nc"
     if(home==((void*)0)) {
-        # 524 "06file.nc"
-                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "06file.nc", 524, 222);
+        # 525 "06file.nc"
+                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "06file.nc", 525, 222);
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06file.nc", 524, 223));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06file.nc", 525, 223));
         return __result_obj__0;
     }
-    # 527 "06file.nc"
-    file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin/last_open_file",home), "06file.nc", 527, 224);
-    # 529 "06file.nc"
+    # 528 "06file.nc"
+    file_name2=(char* )come_increment_ref_count(xsprintf("%s/.vin/last_open_file",home), "06file.nc", 528, 224);
+    # 530 "06file.nc"
     f=fopen(file_name2,"r");
-    # 535 "06file.nc"
+    # 536 "06file.nc"
     if(f==((void*)0)) {
-        # 532 "06file.nc"
-                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "06file.nc", 532, 225);
-        (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 532, 226));
+        # 533 "06file.nc"
+                __result_obj__0 = (char* )come_increment_ref_count(((void*)0), "06file.nc", 533, 225);
+        (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 533, 226));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06file.nc", 532, 227));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06file.nc", 533, 227));
         return __result_obj__0;
     }
-    # 535 "06file.nc"
+    # 536 "06file.nc"
     char file_name[8192];
     memset(&file_name, 0, sizeof(file_name));
-    # 543 "06file.nc"
+    # 544 "06file.nc"
     if(fgets(file_name,8192,f)==((void*)0)) {
-        # 538 "06file.nc"
+        # 539 "06file.nc"
         fclose(f);
-        # 540 "06file.nc"
+        # 541 "06file.nc"
                 __right_value0 = (void*)0;
-        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","06file.nc",540))), "06file.nc", 540, 228);
-        (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 540, 229));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 540, 230));
+        __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string("","06file.nc",541))), "06file.nc", 541, 228);
+        (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 541, 229));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 541, 230));
         neo_current_frame = fr.prev;
-        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06file.nc", 540, 231));
+        (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06file.nc", 541, 231));
         return __result_obj__0;
     }
-    # 543 "06file.nc"
+    # 544 "06file.nc"
     file_name[strlen(file_name)-1]=0;
-    # 545 "06file.nc"
+    # 546 "06file.nc"
     fclose(f);
-    # 547 "06file.nc"
+    # 548 "06file.nc"
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(file_name,"06file.nc",547))), "06file.nc", 547, 232);
-    (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 547, 233));
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 547, 234));
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(file_name,"06file.nc",548))), "06file.nc", 548, 232);
+    (file_name2 = come_decrement_ref_count(file_name2, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 548, 233));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06file.nc", 548, 234));
     neo_current_frame = fr.prev;
-    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06file.nc", 547, 235));
+    (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "06file.nc", 548, 235));
     return __result_obj__0;
 }
 
@@ -6205,48 +6208,48 @@ void Vi_openFile_v6(struct Vi*  self  , char*  file_name  , int line_num, _Bool 
     memset(&maxx, 0, sizeof(maxx));
     memset(&maxy, 0, sizeof(maxy));
     memset(&win, 0, sizeof(win));
-    # 578 "06file.nc"
+    # 579 "06file.nc"
     if(file_name) {
-        # 577 "06file.nc"
+        # 578 "06file.nc"
         if(access(file_name,4)==0) {
-            # 554 "06file.nc"
-            active_pos=list$1ViWin$ph_find(self->wins,self->activeWin,-1,(_Bool)0);
             # 555 "06file.nc"
+            active_pos=list$1ViWin$ph_find(self->wins,self->activeWin,-1,(_Bool)0);
+            # 556 "06file.nc"
             list$1ViWin$ph_delete(self->wins,active_pos,active_pos+1);
-            # 557 "06file.nc"
-            maxx=xgetmaxx();
             # 558 "06file.nc"
+            maxx=xgetmaxx();
+            # 559 "06file.nc"
             maxy=xgetmaxy();
-            # 560 "06file.nc"
-            win=(struct ViWin* )come_increment_ref_count(ViWin_initialize_v18((struct ViWin* )come_increment_ref_count((struct ViWin *)come_calloc(1, sizeof(struct ViWin )*(1), "06file.nc", 560, 236, "struct ViWin* "), "06file.nc", 560, 237),0,0,maxx-1,maxy,self), "06file.nc", 560, 238);
-            # 562 "06file.nc"
-            list$1ViWin$ph_push_back(self->wins,(struct ViWin* )come_increment_ref_count(win, "06file.nc", 562, 239));
+            # 561 "06file.nc"
+            win=(struct ViWin* )come_increment_ref_count(ViWin_initialize_v18((struct ViWin* )come_increment_ref_count((struct ViWin *)come_calloc(1, sizeof(struct ViWin )*(1), "06file.nc", 561, 236, "struct ViWin* "), "06file.nc", 561, 237),0,0,maxx-1,maxy,self), "06file.nc", 561, 238);
             # 563 "06file.nc"
+            list$1ViWin$ph_push_back(self->wins,(struct ViWin* )come_increment_ref_count(win, "06file.nc", 563, 239));
+            # 564 "06file.nc"
             __right_value0 = (void*)0;
             self->activeWin=((struct ViWin* )(__right_value0=list$1ViWin$ph_operator_load_element(self->wins,-1)));
-            # 565 "06file.nc"
-            ViWin_openFile_v6(self->activeWin,(char* )come_increment_ref_count(file_name, "06file.nc", 565, 240),line_num,binary_mode);
             # 566 "06file.nc"
+            ViWin_openFile_v6(self->activeWin,(char* )come_increment_ref_count(file_name, "06file.nc", 566, 240),line_num,binary_mode);
+            # 567 "06file.nc"
             Vi_saveLastOpenFile(self,file_name);
-            # 568 "06file.nc"
+            # 569 "06file.nc"
             Vi_repositionWindows_v6(self);
-            come_call_finalizer(ViWin_finalize, win, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06file.nc}", 577, 241);
+            come_call_finalizer(ViWin_finalize, win, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06file.nc}", 578, 241);
         }
         else {
-            # 571 "06file.nc"
+            # 572 "06file.nc"
             __right_value0 = (void*)0;
             __dec_obj16=self->activeWin->fileName,
-            self->activeWin->fileName=(char* )come_increment_ref_count(__builtin_string(file_name,"06file.nc",571), "06file.nc", 571, 243);
-            __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0, "06file.nc", 571, 242);
-            # 573 "06file.nc"
-            self->activeWin->cursorY=0;
+            self->activeWin->fileName=(char* )come_increment_ref_count(__builtin_string(file_name,"06file.nc",572), "06file.nc", 572, 243);
+            __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0, "06file.nc", 572, 242);
             # 574 "06file.nc"
-            self->activeWin->cursorX=0;
+            self->activeWin->cursorY=0;
             # 575 "06file.nc"
+            self->activeWin->cursorX=0;
+            # 576 "06file.nc"
             self->activeWin->scroll=0;
         }
     }
-    (file_name = come_decrement_ref_count(file_name, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 579, 244));
+    (file_name = come_decrement_ref_count(file_name, (void*)0, (void*)0, 0, 0, (void*)0, "06file.nc", 580, 244));
     neo_current_frame = fr.prev;
 }
 

@@ -1,5 +1,6 @@
 #include <neo-c.h>
 #include "common.h"
+#include <signal.h>
 
 int xgetmaxx()
 {
@@ -44,6 +45,12 @@ int xgetmaxy()
 }
 
 int gBinaryMode = 0;
+int gSigwinch = 0;
+
+void sigwinch_handler(int sig)
+{
+    gSigwinch = 1;
+}
 
 int main(int argc, char** argv)
 {
@@ -86,7 +93,9 @@ int main(int argc, char** argv)
     }
     
     gBinaryMode = binary_mode;
-    
+
+    signal(SIGWINCH, sigwinch_handler);
+
     auto vi = new Vi.initialize();
     
     if(num_file_names > 0) {

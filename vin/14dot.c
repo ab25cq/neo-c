@@ -2234,6 +2234,7 @@ extern int optind;
 extern int opterr;
 extern int optopt;
 extern int gBinaryMode;
+extern int gSigwinch;
 static volatile int  gInterruptRepetitionRequested  =0;
 // source head
 

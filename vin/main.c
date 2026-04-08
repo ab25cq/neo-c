@@ -408,6 +408,32 @@ typedef struct anonymous_typeX21 MEVENT;
 
 typedef unsigned int  socklen_t  ;
 
+typedef int  sig_atomic_t  ;
+
+typedef union sigval  __sigval_t  ;
+
+typedef struct anonymous_typeX22 siginfo_t;
+
+typedef union sigval  sigval_t  ;
+
+typedef struct sigevent  sigevent_t  ;
+
+typedef void (*__sighandler_t)(int);
+
+typedef void (*sighandler_t)(int)  ;
+
+typedef void (*sig_t)(int)  ;
+
+typedef struct anonymous_typeX55 stack_t;
+
+typedef long long int greg_t;
+
+typedef struct _libc_fpstate*  fpregset_t  ;
+
+typedef struct anonymous_typeX56 mcontext_t;
+
+typedef struct ucontext_t  ucontext_t  ;
+
 /// previous struct definition ///
 struct _IO_FILE;
 
@@ -1481,6 +1507,688 @@ enum  eRepeatForwardNextCharacter { kRFNCNone
 ,kRFNC2 
 };
 
+union sigval
+{
+int sival_int;
+void* sival_ptr;
+};
+
+struct anonymous_typeX24
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+};
+
+struct anonymous_typeX25
+{
+    int si_tid;
+    int si_overrun;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX26
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX27
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    int si_status;
+    long  int  si_utime  ;
+    long  int  si_stime  ;
+};
+
+struct anonymous_typeX30
+{
+    void* _lower;
+    void* _upper;
+};
+
+union anonymous_typeZ29
+{
+    struct {
+        void* _lower;
+        void* _upper;
+    } _addr_bnd;
+unsigned int  _pkey  ;
+};
+
+struct anonymous_typeX32
+{
+    void* _lower;
+    void* _upper;
+};
+
+union anonymous_typeZ31
+{
+    struct {
+        void* _lower;
+        void* _upper;
+    } _addr_bnd;
+unsigned int  _pkey  ;
+};
+
+struct anonymous_typeX28
+{
+    void* si_addr;
+    short int si_addr_lsb;
+    union {
+        struct {
+            void* _lower;
+            void* _upper;
+        } _addr_bnd;
+        unsigned int  _pkey  ;
+    } _bounds;
+};
+
+struct anonymous_typeX33
+{
+    long  int si_band;
+    int si_fd;
+};
+
+struct anonymous_typeX34
+{
+    void* _call_addr;
+    int _syscall;
+    unsigned int _arch;
+};
+
+union anonymous_typeZ23
+{
+int _pad[((128/sizeof(int))-4)];
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+    } _kill;
+    struct {
+        int si_tid;
+        int si_overrun;
+        union sigval  si_sigval  ;
+    } _timer;
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        union sigval  si_sigval  ;
+    } _rt;
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        int si_status;
+        long  int  si_utime  ;
+        long  int  si_stime  ;
+    } _sigchld;
+    struct {
+        void* si_addr;
+        short int si_addr_lsb;
+        union {
+            struct {
+                void* _lower;
+                void* _upper;
+            } _addr_bnd;
+            unsigned int  _pkey  ;
+        } _bounds;
+    } _sigfault;
+    struct {
+        long  int si_band;
+        int si_fd;
+    } _sigpoll;
+    struct {
+        void* _call_addr;
+        int _syscall;
+        unsigned int _arch;
+    } _sigsys;
+};
+
+struct anonymous_typeX36
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+};
+
+struct anonymous_typeX37
+{
+    int si_tid;
+    int si_overrun;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX38
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    union sigval  si_sigval  ;
+};
+
+struct anonymous_typeX39
+{
+    int  si_pid  ;
+    unsigned int  si_uid  ;
+    int si_status;
+    long  int  si_utime  ;
+    long  int  si_stime  ;
+};
+
+struct anonymous_typeX42
+{
+    void* _lower;
+    void* _upper;
+};
+
+union anonymous_typeZ41
+{
+    struct {
+        void* _lower;
+        void* _upper;
+    } _addr_bnd;
+unsigned int  _pkey  ;
+};
+
+struct anonymous_typeX44
+{
+    void* _lower;
+    void* _upper;
+};
+
+union anonymous_typeZ43
+{
+    struct {
+        void* _lower;
+        void* _upper;
+    } _addr_bnd;
+unsigned int  _pkey  ;
+};
+
+struct anonymous_typeX40
+{
+    void* si_addr;
+    short int si_addr_lsb;
+    union {
+        struct {
+            void* _lower;
+            void* _upper;
+        } _addr_bnd;
+        unsigned int  _pkey  ;
+    } _bounds;
+};
+
+struct anonymous_typeX45
+{
+    long  int si_band;
+    int si_fd;
+};
+
+struct anonymous_typeX46
+{
+    void* _call_addr;
+    int _syscall;
+    unsigned int _arch;
+};
+
+union anonymous_typeZ35
+{
+int _pad[((128/sizeof(int))-4)];
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+    } _kill;
+    struct {
+        int si_tid;
+        int si_overrun;
+        union sigval  si_sigval  ;
+    } _timer;
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        union sigval  si_sigval  ;
+    } _rt;
+    struct {
+        int  si_pid  ;
+        unsigned int  si_uid  ;
+        int si_status;
+        long  int  si_utime  ;
+        long  int  si_stime  ;
+    } _sigchld;
+    struct {
+        void* si_addr;
+        short int si_addr_lsb;
+        union {
+            struct {
+                void* _lower;
+                void* _upper;
+            } _addr_bnd;
+            unsigned int  _pkey  ;
+        } _bounds;
+    } _sigfault;
+    struct {
+        long  int si_band;
+        int si_fd;
+    } _sigpoll;
+    struct {
+        void* _call_addr;
+        int _syscall;
+        unsigned int _arch;
+    } _sigsys;
+};
+
+struct anonymous_typeX22
+{
+    int si_signo;
+    int si_errno;
+    int si_code;
+    int __pad0;
+    union {
+        int _pad[((128/sizeof(int))-4)];
+        struct {
+            int  si_pid  ;
+            unsigned int  si_uid  ;
+        } _kill;
+        struct {
+            int si_tid;
+            int si_overrun;
+            union sigval  si_sigval  ;
+        } _timer;
+        struct {
+            int  si_pid  ;
+            unsigned int  si_uid  ;
+            union sigval  si_sigval  ;
+        } _rt;
+        struct {
+            int  si_pid  ;
+            unsigned int  si_uid  ;
+            int si_status;
+            long  int  si_utime  ;
+            long  int  si_stime  ;
+        } _sigchld;
+        struct {
+            void* si_addr;
+            short int si_addr_lsb;
+            union {
+                struct {
+                    void* _lower;
+                    void* _upper;
+                } _addr_bnd;
+                unsigned int  _pkey  ;
+            } _bounds;
+        } _sigfault;
+        struct {
+            long  int si_band;
+            int si_fd;
+        } _sigpoll;
+        struct {
+            void* _call_addr;
+            int _syscall;
+            unsigned int _arch;
+        } _sigsys;
+    } _sifields;
+};
+
+enum { SI_ASYNCNL=(-60),
+SI_DETHREAD=(-7),
+SI_TKILL 
+,SI_SIGIO 
+,SI_ASYNCIO 
+,SI_MESGQ 
+,SI_TIMER 
+,SI_QUEUE 
+,SI_USER 
+,SI_KERNEL=(0x80)
+};
+
+enum { ILL_ILLOPC=(1),
+ILL_ILLOPN 
+,ILL_ILLADR 
+,ILL_ILLTRP 
+,ILL_PRVOPC 
+,ILL_PRVREG 
+,ILL_COPROC 
+,ILL_BADSTK 
+,ILL_BADIADDR 
+};
+
+enum { FPE_INTDIV=(1),
+FPE_INTOVF 
+,FPE_FLTDIV 
+,FPE_FLTOVF 
+,FPE_FLTUND 
+,FPE_FLTRES 
+,FPE_FLTINV 
+,FPE_FLTSUB 
+,FPE_FLTUNK=(14),
+FPE_CONDTRAP 
+};
+
+enum { SEGV_MAPERR=(1),
+SEGV_ACCERR 
+,SEGV_BNDERR 
+,SEGV_PKUERR 
+,SEGV_ACCADI 
+,SEGV_ADIDERR 
+,SEGV_ADIPERR 
+,SEGV_MTEAERR 
+,SEGV_MTESERR 
+,SEGV_CPERR 
+};
+
+enum { BUS_ADRALN=(1),
+BUS_ADRERR 
+,BUS_OBJERR 
+,BUS_MCEERR_AR 
+,BUS_MCEERR_AO 
+};
+
+enum { TRAP_BRKPT=(1),
+TRAP_TRACE 
+,TRAP_BRANCH 
+,TRAP_HWBKPT 
+,TRAP_UNK 
+};
+
+enum { CLD_EXITED=(1),
+CLD_KILLED 
+,CLD_DUMPED 
+,CLD_TRAPPED 
+,CLD_STOPPED 
+,CLD_CONTINUED 
+};
+
+enum { POLL_IN=(1),
+POLL_OUT 
+,POLL_MSG 
+,POLL_ERR 
+,POLL_PRI 
+,POLL_HUP 
+};
+
+struct anonymous_typeX48
+{
+    void (*_function)(union sigval );
+    union pthread_attr_t*  _attribute  ;
+};
+
+union anonymous_typeZ47
+{
+int _pad[((64/sizeof(int))-4)];
+int  _tid  ;
+    struct {
+        void (*_function)(union sigval );
+        union pthread_attr_t*  _attribute  ;
+    } _sigev_thread;
+};
+
+struct anonymous_typeX50
+{
+    void (*_function)(union sigval );
+    union pthread_attr_t*  _attribute  ;
+};
+
+union anonymous_typeZ49
+{
+int _pad[((64/sizeof(int))-4)];
+int  _tid  ;
+    struct {
+        void (*_function)(union sigval );
+        union pthread_attr_t*  _attribute  ;
+    } _sigev_thread;
+};
+
+struct sigevent
+{
+    union sigval  sigev_value  ;
+    int sigev_signo;
+    int sigev_notify;
+    union {
+        int _pad[((64/sizeof(int))-4)];
+        int  _tid  ;
+        struct {
+            void (*_function)(union sigval );
+            union pthread_attr_t*  _attribute  ;
+        } _sigev_thread;
+    } _sigev_un;
+};
+
+enum { SIGEV_SIGNAL=(0),
+SIGEV_NONE 
+,SIGEV_THREAD 
+,SIGEV_THREAD_ID=(4)
+};
+
+union anonymous_typeZ51
+{
+void (*sa_handler)(int)  ;
+void (*sa_sigaction)(int,struct anonymous_typeX22* ,void*);
+};
+
+union anonymous_typeZ52
+{
+void (*sa_handler)(int)  ;
+void (*sa_sigaction)(int,struct anonymous_typeX22* ,void*);
+};
+
+struct sigaction
+{
+    union {
+        void (*sa_handler)(int)  ;
+        void (*sa_sigaction)(int,struct anonymous_typeX22* ,void*);
+    } __sigaction_handler;
+    struct {
+        unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
+    } sa_mask;
+    int sa_flags;
+    void (*sa_restorer)();
+};
+
+struct _fpx_sw_bytes
+{
+    unsigned int  magic1  ;
+    unsigned int  extended_size  ;
+    unsigned long  int  xstate_bv  ;
+    unsigned int  xstate_size  ;
+    unsigned int  __glibc_reserved1[7]  ;
+};
+
+struct _fpreg
+{
+    unsigned short int significand[4];
+    unsigned short int exponent;
+};
+
+struct _fpxreg
+{
+    unsigned short int significand[4];
+    unsigned short int exponent;
+    unsigned short int __glibc_reserved1[3];
+};
+
+struct _xmmreg
+{
+    unsigned int  element[4]  ;
+};
+
+struct _fpstate
+{
+    unsigned short int  cwd  ;
+    unsigned short int  swd  ;
+    unsigned short int  ftw  ;
+    unsigned short int  fop  ;
+    unsigned long  int  rip  ;
+    unsigned long  int  rdp  ;
+    unsigned int  mxcsr  ;
+    unsigned int  mxcr_mask  ;
+    struct _fpxreg  _st[8]  ;
+    struct _xmmreg  _xmm[16]  ;
+    unsigned int  __glibc_reserved1[24]  ;
+};
+
+union anonymous_typeZ53
+{
+struct _fpstate*  fpstate  ;
+unsigned long  int  __fpstate_word  ;
+};
+
+union anonymous_typeZ54
+{
+struct _fpstate*  fpstate  ;
+unsigned long  int  __fpstate_word  ;
+};
+
+struct sigcontext
+{
+    unsigned long  int  r8  ;
+    unsigned long  int  r9  ;
+    unsigned long  int  r10  ;
+    unsigned long  int  r11  ;
+    unsigned long  int  r12  ;
+    unsigned long  int  r13  ;
+    unsigned long  int  r14  ;
+    unsigned long  int  r15  ;
+    unsigned long  int  rdi  ;
+    unsigned long  int  rsi  ;
+    unsigned long  int  rbp  ;
+    unsigned long  int  rbx  ;
+    unsigned long  int  rdx  ;
+    unsigned long  int  rax  ;
+    unsigned long  int  rcx  ;
+    unsigned long  int  rsp  ;
+    unsigned long  int  rip  ;
+    unsigned long  int  eflags  ;
+    unsigned short int cs;
+    unsigned short int gs;
+    unsigned short int fs;
+    unsigned short int __pad0;
+    unsigned long  int  err  ;
+    unsigned long  int  trapno  ;
+    unsigned long  int  oldmask  ;
+    unsigned long  int  cr2  ;
+    union {
+        struct _fpstate*  fpstate  ;
+        unsigned long  int  __fpstate_word  ;
+    };
+    unsigned long  int  __reserved1[8]  ;
+};
+
+struct _xsave_hdr
+{
+    unsigned long  int  xstate_bv  ;
+    unsigned long  int  __glibc_reserved1[2]  ;
+    unsigned long  int  __glibc_reserved2[5]  ;
+};
+
+struct _ymmh_state
+{
+    unsigned int  ymmh_space[64]  ;
+};
+
+struct _xstate
+{
+    struct _fpstate  fpstate  ;
+    struct _xsave_hdr  xstate_hdr  ;
+    struct _ymmh_state  ymmh  ;
+};
+
+struct anonymous_typeX55
+{
+    void* ss_sp;
+    int ss_flags;
+    unsigned long  int  ss_size  ;
+};
+
+typedef long long int  gregset_t[23]  ;
+
+enum { REG_R8=(0),
+REG_R9 
+,REG_R10 
+,REG_R11 
+,REG_R12 
+,REG_R13 
+,REG_R14 
+,REG_R15 
+,REG_RDI 
+,REG_RSI 
+,REG_RBP 
+,REG_RBX 
+,REG_RDX 
+,REG_RAX 
+,REG_RCX 
+,REG_RSP 
+,REG_RIP 
+,REG_EFL 
+,REG_CSGSFS 
+,REG_ERR 
+,REG_TRAPNO 
+,REG_OLDMASK 
+,REG_CR2 
+};
+
+struct _libc_fpxreg
+{
+    unsigned short int significand[4];
+    unsigned short int exponent;
+    unsigned short int __glibc_reserved1[3];
+};
+
+struct _libc_xmmreg
+{
+    unsigned int  element[4]  ;
+};
+
+struct _libc_fpstate
+{
+    unsigned short int  cwd  ;
+    unsigned short int  swd  ;
+    unsigned short int  ftw  ;
+    unsigned short int  fop  ;
+    unsigned long  int  rip  ;
+    unsigned long  int  rdp  ;
+    unsigned int  mxcsr  ;
+    unsigned int  mxcr_mask  ;
+    struct _libc_fpxreg  _st[8]  ;
+    struct _libc_xmmreg  _xmm[16]  ;
+    unsigned int  __glibc_reserved1[24]  ;
+};
+
+struct anonymous_typeX56
+{
+    long long int  gregs[23]  ;
+    struct _libc_fpstate*  fpregs  ;
+    unsigned long  long __reserved1[8];
+};
+
+struct ucontext_t
+{
+    unsigned long  int uc_flags;
+    struct ucontext_t*  uc_link  ;
+    struct {
+        void* ss_sp;
+        int ss_flags;
+        unsigned long  int  ss_size  ;
+    } uc_stack;
+    struct {
+        long long int  gregs[23]  ;
+        struct _libc_fpstate*  fpregs  ;
+        unsigned long  long __reserved1[8];
+    } uc_mcontext;
+    struct {
+        unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
+    } uc_sigmask;
+    struct _libc_fpstate  __fpregs_mem  ;
+    unsigned long long int __ssp[4];
+};
+
+enum { SS_ONSTACK=(1),
+SS_DISABLE 
+};
+
+struct sigstack
+{
+    void* ss_sp;
+    int ss_onstack;
+};
+
 /// variable definition ///
 extern struct _IO_FILE*  stdin  ;
 extern struct _IO_FILE*  stdout  ;
@@ -1518,6 +2226,7 @@ extern int optind;
 extern int opterr;
 extern int optopt;
 int gBinaryMode=0;
+int gSigwinch=0;
 // source head
 
 // header function
@@ -3033,8 +3742,54 @@ void Vi_enterBinaryMode(struct Vi*  self  );
 void ViWin_input_v21(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v21(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_binaryModeView(struct ViWin*  self  , struct Vi*  nvi  );
+void (*__sysv_signal(int __sig, void (*__handler)(int)  ))(int) ;
+void (*sysv_signal(int __sig, void (*__handler)(int)  ))(int) ;
+void (*signal(int __sig, void (*__handler)(int)  ))(int) ;
+int kill(int  __pid  , int __sig);
+int killpg(int  __pgrp  , int __sig);
+int raise(int __sig);
+void (*ssignal(int __sig, void (*__handler)(int)  ))(int) ;
+int gsignal(int __sig);
+void psignal(int __sig, const char* __s);
+void psiginfo(const struct anonymous_typeX22*  __pinfo  , const char* __s);
+int sigpause(int __sig) __asm__ ("__xpg_sigpause")
+  __attribute__ ((__deprecated__));
+int sigblock(int __mask) __attribute__ ((__deprecated__));
+int sigsetmask(int __mask) __attribute__ ((__deprecated__));
+int siggetmask() __attribute__ ((__deprecated__));
+int sigemptyset(struct anonymous_typeX7*  __set  );
+int sigfillset(struct anonymous_typeX7*  __set  );
+int sigaddset(struct anonymous_typeX7*  __set  , int __signo);
+int sigdelset(struct anonymous_typeX7*  __set  , int __signo);
+int sigismember(const struct anonymous_typeX7*  __set  , int __signo);
+int sigisemptyset(const struct anonymous_typeX7*  __set  );
+int sigandset(struct anonymous_typeX7*  __set  , const struct anonymous_typeX7*  __left  , const struct anonymous_typeX7*  __right  );
+int sigorset(struct anonymous_typeX7*  __set  , const struct anonymous_typeX7*  __left  , const struct anonymous_typeX7*  __right  );
+int sigprocmask(int __how, const struct anonymous_typeX7* __restrict  __set  , struct anonymous_typeX7* __restrict  __oset  );
+int sigsuspend(const struct anonymous_typeX7*  __set  );
+int sigaction(int __sig, const struct sigaction* __restrict  __act  , struct sigaction* __restrict  __oact  );
+int sigpending(struct anonymous_typeX7*  __set  );
+int sigwait(const struct anonymous_typeX7* __restrict  __set  , int* __restrict __sig);
+int sigwaitinfo(const struct anonymous_typeX7* __restrict  __set  , struct anonymous_typeX22* __restrict  __info  );
+int sigtimedwait(const struct anonymous_typeX7* __restrict  __set  , struct anonymous_typeX22* __restrict  __info  , const struct timespec* __restrict  __timeout  );
+int sigqueue(int  __pid  , int __sig, const union sigval  __val  );
+int sigreturn(struct sigcontext*  __scp  );
+int siginterrupt(int __sig, int __interrupt) __attribute__ ((__deprecated__));
+int sigaltstack(const struct anonymous_typeX55* __restrict  __ss  , struct anonymous_typeX55* __restrict  __oss  );
+int sigstack(struct sigstack*  __ss  , struct sigstack*  __oss  ) __attribute__ ((__deprecated__));
+int sighold(int __sig) __attribute__ ((__deprecated__));
+int sigrelse(int __sig) __attribute__ ((__deprecated__));
+int sigignore(int __sig) __attribute__ ((__deprecated__));
+void (*sigset(int __sig, void (*__disp)(int)  ))(int)  __attribute__ ((__deprecated__)) ;
+int pthread_sigmask(int __how, const struct anonymous_typeX7* __restrict  __newmask  , struct anonymous_typeX7* __restrict  __oldmask  );
+int pthread_kill(unsigned long  int  __threadid  , int __signo);
+int pthread_sigqueue(unsigned long  int  __threadid  , int __signo, const union sigval  __value  );
+int __libc_current_sigrtmin();
+int __libc_current_sigrtmax();
+int tgkill(int  __tgid  , int  __tid  , int __signal);
 int xgetmaxx();
 int xgetmaxy();
+void sigwinch_handler(int sig);
 int main(int argc, char** argv);
 static void Vi_finalize(struct Vi*  self  );
 static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self);
@@ -3318,7 +4073,7 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 int xgetmaxx()
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xgetmaxx"; neo_current_frame = &fr;
-    # 14 "main.nc"
+    # 15 "main.nc"
         neo_current_frame = fr.prev;
     return getmaxx(stdscr);
     neo_current_frame = fr.prev;
@@ -3327,9 +4082,17 @@ int xgetmaxx()
 int xgetmaxy()
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "xgetmaxy"; neo_current_frame = &fr;
-    # 35 "main.nc"
+    # 36 "main.nc"
         neo_current_frame = fr.prev;
     return getmaxy(stdscr);
+    neo_current_frame = fr.prev;
+}
+
+void sigwinch_handler(int sig)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "sigwinch_handler"; neo_current_frame = &fr;
+    # 52 "main.nc"
+    gSigwinch=1;
     neo_current_frame = fr.prev;
 }
 
@@ -3353,87 +4116,89 @@ int main(int argc, char** argv)
     memset(&p, 0, sizeof(p));
     memset(&vi, 0, sizeof(vi));
     memset(&result, 0, sizeof(result));
-    # 50 "main.nc"
+    # 57 "main.nc"
     line_num=-1;
-    # 51 "main.nc"
+    # 58 "main.nc"
     char* file_names[128];
     memset(&file_names, 0, sizeof(file_names));
-    # 52 "main.nc"
+    # 59 "main.nc"
     num_file_names=0;
-    # 54 "main.nc"
+    # 61 "main.nc"
     binary_mode=(_Bool)0;
-    # 88 "main.nc"
+    # 95 "main.nc"
     for(i=1    ;i<argc;i++){
-        # 86 "main.nc"
+        # 93 "main.nc"
         if(argv[i][0]==43) {
-            # 57 "main.nc"
-            p=argv[i];
-            # 58 "main.nc"
-            p++;
-            # 59 "main.nc"
-            line_num=0;
             # 64 "main.nc"
+            p=argv[i];
+            # 65 "main.nc"
+            p++;
+            # 66 "main.nc"
+            line_num=0;
+            # 71 "main.nc"
             while(xisdigit(*p)) {
-                # 61 "main.nc"
+                # 68 "main.nc"
                 line_num=line_num*10+*p-48;
-                # 62 "main.nc"
+                # 69 "main.nc"
                 p++;
             }
-            # 64 "main.nc"
+            # 71 "main.nc"
             line_num--;
-            # 69 "main.nc"
+            # 76 "main.nc"
             if(line_num<0) {
-                # 67 "main.nc"
+                # 74 "main.nc"
                 line_num=0;
             }
         }
         else if(charp_operator_equals(argv[i],"-b")) {
-            # 71 "main.nc"
+            # 78 "main.nc"
             binary_mode=(_Bool)1;
         }
         else if(strcmp(argv[i],"-v")==0||strcmp(argv[i],"-V")==0||strcmp(argv[i],"--version")==0) {
-            # 74 "main.nc"
+            # 81 "main.nc"
             puts("vin version 1.0.4");
-            # 75 "main.nc"
+            # 82 "main.nc"
             exit(0);
         }
         else {
-            # 78 "main.nc"
-            file_names[num_file_names]=argv[i];
-            # 79 "main.nc"
-            num_file_names++;
             # 85 "main.nc"
+            file_names[num_file_names]=argv[i];
+            # 86 "main.nc"
+            num_file_names++;
+            # 92 "main.nc"
             if(num_file_names>=128) {
-                # 82 "main.nc"
+                # 89 "main.nc"
                 printf("overflow file names\n");
-                # 83 "main.nc"
+                # 90 "main.nc"
                 exit(2);
             }
         }
     }
-    # 88 "main.nc"
+    # 95 "main.nc"
     gBinaryMode=binary_mode;
-    # 90 "main.nc"
-    vi=(struct Vi* )come_increment_ref_count(Vi_initialize_v21((struct Vi* )come_increment_ref_count((struct Vi *)come_calloc(1, sizeof(struct Vi )*(1), "main.nc", 90, 1, "struct Vi* "), "main.nc", 90, 2)), "main.nc", 90, 3);
+    # 97 "main.nc"
+    signal(28,sigwinch_handler);
     # 99 "main.nc"
+    vi=(struct Vi* )come_increment_ref_count(Vi_initialize_v21((struct Vi* )come_increment_ref_count((struct Vi *)come_calloc(1, sizeof(struct Vi )*(1), "main.nc", 99, 1, "struct Vi* "), "main.nc", 99, 2)), "main.nc", 99, 3);
+    # 108 "main.nc"
     if(num_file_names>0) {
-        # 93 "main.nc"
+        # 102 "main.nc"
         __right_value0 = (void*)0;
-        Vi_openFile_v6(vi,(char* )come_increment_ref_count(__builtin_string(file_names[0],"main.nc",93), "main.nc", 93, 4),line_num,binary_mode);
+        Vi_openFile_v6(vi,(char* )come_increment_ref_count(__builtin_string(file_names[0],"main.nc",102), "main.nc", 102, 4),line_num,binary_mode);
     }
     else {
-        # 96 "main.nc"
+        # 105 "main.nc"
         Vi_openFile_v6(vi,((void*)0),-1,binary_mode);
     }
-    # 99 "main.nc"
+    # 108 "main.nc"
     result=Vi_main_loop_v19(vi);
-    # 101 "main.nc"
+    # 110 "main.nc"
     Vi_saveSearchString(vi,"searchString.vin");
-    # 103 "main.nc"
+    # 112 "main.nc"
     endwin();
-    # 104 "main.nc"
+    # 113 "main.nc"
         __result_obj__0 = result;
-    come_call_finalizer(Vi_finalize, vi, (void*)0, (void*)0, 0, 0, 0, (void*)0, "main.nc}", 104, 58);
+    come_call_finalizer(Vi_finalize, vi, (void*)0, (void*)0, 0, 0, 0, (void*)0, "main.nc}", 113, 58);
     neo_current_frame = fr.prev;
     come_memleak_checker();
     return __result_obj__0;

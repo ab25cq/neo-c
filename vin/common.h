@@ -144,6 +144,7 @@ struct Vi
 };
 
 extern int gBinaryMode;
+extern int gSigwinch;
 
 
 ViWin*% ViWin*::initialize(ViWin*% self, int y, int x, int width, int height, Vi* vi) version 1;

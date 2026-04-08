@@ -1,4 +1,5 @@
 #include "common.h"
+#include <sys/ioctl.h>
 #include <limits.h>
 
 void ViWin*::rewriteModeView(ViWin* self, Vi* nvi)
@@ -194,9 +195,32 @@ Vi*% Vi*::initialize(Vi*% self) version 19
     return result;
 }
 
+static void update_terminal_size_on_sigwinch()
+{
+    struct winsize ws;
+
+    if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0
+        && ws.ws_row > 0
+        && ws.ws_col > 0)
+    {
+        resizeterm(ws.ws_row, ws.ws_col);
+    }
+}
+
 int Vi*::main_loop(Vi* self) version 19
 {
     while(!self.appEnd) {
+        if(gSigwinch) {
+            gSigwinch = 0;
+            update_terminal_size_on_sigwinch();
+            endwin();
+            refresh();
+            self.repositionWindows();
+            foreach(it, self.wins) {
+                it.modifyOverCursorYValue();
+            }
+        }
+
         self.view();
 
         if(self.mode != kInsertMode)
@@ -206,6 +230,6 @@ int Vi*::main_loop(Vi* self) version 19
 
         self.activeWin.input(self);
     }
-    
+
     return 0;
 }

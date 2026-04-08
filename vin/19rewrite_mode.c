@@ -1481,6 +1481,14 @@ enum  eRepeatForwardNextCharacter { kRFNCNone
 ,kRFNC2 
 };
 
+struct winsize
+{
+    unsigned short int ws_row;
+    unsigned short int ws_col;
+    unsigned short int ws_xpixel;
+    unsigned short int ws_ypixel;
+};
+
 /// variable definition ///
 extern struct _IO_FILE*  stdin  ;
 extern struct _IO_FILE*  stdout  ;
@@ -1518,6 +1526,7 @@ extern int optind;
 extern int opterr;
 extern int optopt;
 extern int gBinaryMode;
+extern int gSigwinch;
 // source head
 
 // header function
@@ -3209,6 +3218,7 @@ void ViWin_binaryModeView(struct ViWin*  self  , struct Vi*  nvi  );
 int xgetmaxx();
 int xgetmaxy();
 int main(int argc, char** argv);
+int ioctl(int __fd, unsigned long  int __request, ...);
 void ViWin_rewriteModeView(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_view_v19(struct ViWin*  self  , struct Vi*  nvi  );
 void ViWin_insertText2(struct ViWin*  self  , int*  text  );
@@ -3249,7 +3259,12 @@ static void map$2int$list$1int$ph$ph$p_finalize(struct map$2int$list$1int$ph$ph*
 static void map$2int$int$$p_finalize(struct map$2int$int$* self);
 static void list$1char$ph$p_finalize(struct list$1char$ph* self);
 static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self);
+static void update_terminal_size_on_sigwinch();
+static void winsize_finalize(struct winsize*  self  );
 int Vi_main_loop_v19(struct Vi*  self  );
+static struct ViWin*  list$1ViWin$ph_begin(struct list$1ViWin$ph* self);
+static _Bool list$1ViWin$ph_end(struct list$1ViWin$ph* self);
+static struct ViWin*  list$1ViWin$ph_next(struct list$1ViWin$ph* self);
 // uniq global variable
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
@@ -3287,13 +3302,13 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 void ViWin_rewriteModeView(struct ViWin*  self  , struct Vi*  nvi  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_rewriteModeView"; neo_current_frame = &fr;
-    # 6 "19rewrite_mode.nc"
+    # 7 "19rewrite_mode.nc"
     ViWin_textsView(self,nvi);
-    # 8 "19rewrite_mode.nc"
-    wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     # 9 "19rewrite_mode.nc"
-    mvwprintw(self->win,self->height-1,0,"REWITEMODE MODE x %d y %d scroll %d",self->cursorX,self->scroll+self->cursorY,self->scroll);
+    wattr_on(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     # 10 "19rewrite_mode.nc"
+    mvwprintw(self->win,self->height-1,0,"REWITEMODE MODE x %d y %d scroll %d",self->cursorX,self->scroll+self->cursorY,self->scroll);
+    # 11 "19rewrite_mode.nc"
     wattr_off(self->win,(unsigned int )(((unsigned int )((1U))<<((10)+8))),((void*)0));
     neo_current_frame = fr.prev;
 }
@@ -3301,13 +3316,13 @@ void ViWin_rewriteModeView(struct ViWin*  self  , struct Vi*  nvi  )
 void ViWin_view_v19(struct ViWin*  self  , struct Vi*  nvi  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_view_v19"; neo_current_frame = &fr;
-    # 21 "19rewrite_mode.nc"
+    # 22 "19rewrite_mode.nc"
     if(nvi->mode==(7)&&ViWin_equals(self,nvi->activeWin)) {
-        # 16 "19rewrite_mode.nc"
+        # 17 "19rewrite_mode.nc"
         ViWin_rewriteModeView(self,nvi);
     }
     else {
-        # 19 "19rewrite_mode.nc"
+        # 20 "19rewrite_mode.nc"
         ViWin_view_v18(self,nvi);
     }
     neo_current_frame = fr.prev;
@@ -3324,38 +3339,38 @@ void ViWin_insertText2(struct ViWin*  self  , int*  text  )
     int*  new_line  ;
     memset(&old_line, 0, sizeof(old_line));
     memset(&new_line, 0, sizeof(new_line));
-    # 42 "19rewrite_mode.nc"
+    # 43 "19rewrite_mode.nc"
     if(list$1int$ph_length(self->texts)==0) {
-        # 26 "19rewrite_mode.nc"
-        list$1int$ph_push_back(self->texts,(int* )come_increment_ref_count((int* )come_memdup(text, "19rewrite_mode.nc", 26, 15, "int* "), "19rewrite_mode.nc", 26, 16));
         # 27 "19rewrite_mode.nc"
-        list$1int$_push_back(self->texts_length,wcslen(text));
+        list$1int$ph_push_back(self->texts,(int* )come_increment_ref_count((int* )come_memdup(text, "19rewrite_mode.nc", 27, 15, "int* "), "19rewrite_mode.nc", 27, 16));
         # 28 "19rewrite_mode.nc"
+        list$1int$_push_back(self->texts_length,wcslen(text));
+        # 29 "19rewrite_mode.nc"
         self->cursorX+=wstring_length(text);
     }
     else {
-        # 31 "19rewrite_mode.nc"
+        # 32 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
-        old_line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","19rewrite_mode.nc",31)))), "19rewrite_mode.nc", 31, 29);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 31, 30));
-        # 36 "19rewrite_mode.nc"
+        old_line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","19rewrite_mode.nc",32)))), "19rewrite_mode.nc", 32, 29);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 32, 30));
+        # 37 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(old_line,0,self->cursorX))),text,((int* )(__right_value1=wstring_substring(old_line,self->cursorX+wstring_length(text),-1))))))), "19rewrite_mode.nc", 36, 31);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 35, 32));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 36, 33));
-        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 36, 34));
-        # 38 "19rewrite_mode.nc"
-        __right_value0 = (void*)0;
-        list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(new_line, "19rewrite_mode.nc", 38, 43, "int* "), "19rewrite_mode.nc", 38, 44));
+        new_line=(int* )come_increment_ref_count(string_to_wstring(((char* )(__right_value2=xsprintf("%ls%ls%ls",((int* )(__right_value0=wstring_substring(old_line,0,self->cursorX))),text,((int* )(__right_value1=wstring_substring(old_line,self->cursorX+wstring_length(text),-1))))))), "19rewrite_mode.nc", 37, 31);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 36, 32));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 37, 33));
+        (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 37, 34));
         # 39 "19rewrite_mode.nc"
-        list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line));
+        __right_value0 = (void*)0;
+        list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(new_line, "19rewrite_mode.nc", 39, 43, "int* "), "19rewrite_mode.nc", 39, 44));
         # 40 "19rewrite_mode.nc"
+        list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(new_line));
+        # 41 "19rewrite_mode.nc"
         self->cursorX+=wstring_length(text);
-        (old_line = come_decrement_ref_count(old_line, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 42, 45));
-        (new_line = come_decrement_ref_count(new_line, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 42, 46));
+        (old_line = come_decrement_ref_count(old_line, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 43, 45));
+        (new_line = come_decrement_ref_count(new_line, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 43, 46));
     }
-    (text = come_decrement_ref_count(text, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 44, 47));
+    (text = come_decrement_ref_count(text, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 45, 47));
     neo_current_frame = fr.prev;
 }
 
@@ -3755,203 +3770,203 @@ void ViWin_inputRewritetMode(struct ViWin*  self  , struct Vi*  nvi  )
     memset(&line, 0, sizeof(line));
     memset(&line_6, 0, sizeof(line_6));
     memset(&key2, 0, sizeof(key2));
-    # 46 "19rewrite_mode.nc"
+    # 47 "19rewrite_mode.nc"
     key=ViWin_getKey_v14(self,(_Bool)0);
-    # 157 "19rewrite_mode.nc"
+    # 158 "19rewrite_mode.nc"
     if(key==3||key==27) {
-        # 49 "19rewrite_mode.nc"
+        # 50 "19rewrite_mode.nc"
         Vi_exitFromInsertMode_v3(nvi);
     }
     else if(key==4) {
-        # 52 "19rewrite_mode.nc"
+        # 53 "19rewrite_mode.nc"
         ViWin_backIndent(self);
     }
     else if(key==10) {
-        # 55 "19rewrite_mode.nc"
+        # 56 "19rewrite_mode.nc"
         ViWin_enterNewLine(self);
     }
     else if(key==8||key==127||key==0407) {
-        # 58 "19rewrite_mode.nc"
+        # 59 "19rewrite_mode.nc"
         ViWin_backSpace(self);
     }
     else if(key==9) {
-        # 61 "19rewrite_mode.nc"
-        str=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)))),0,self->cursorX), "19rewrite_mode.nc", 61, 48);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 61, 49));
-        # 71 "19rewrite_mode.nc"
+        # 62 "19rewrite_mode.nc"
+        str=(int* )come_increment_ref_count(wstring_substring(((int* )(__right_value0=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((void*)0)))),0,self->cursorX), "19rewrite_mode.nc", 62, 48);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 62, 49));
+        # 72 "19rewrite_mode.nc"
         Value="^$|^[ ]+$";
         if(Value) {
-            # 70 "19rewrite_mode.nc"
+            # 71 "19rewrite_mode.nc"
             if(__right_value0 = (void*)0,
-({(_conditional_value_X0=(string_match(((char* )(__right_value0=wstring_to_string(str))),Value,(_Bool)0)));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 64, 50));
+({(_conditional_value_X0=(string_match(((char* )(__right_value0=wstring_to_string(str))),Value,(_Bool)0)));            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 65, 50));
 _conditional_value_X0;})) {
-                # 65 "19rewrite_mode.nc"
+                # 66 "19rewrite_mode.nc"
                 __right_value0 = (void*)0;
-                ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring("    ","19rewrite_mode.nc",65), "19rewrite_mode.nc", 65, 51));
+                ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring("    ","19rewrite_mode.nc",66), "19rewrite_mode.nc", 66, 51));
             }
             else {
-                # 68 "19rewrite_mode.nc"
+                # 69 "19rewrite_mode.nc"
                 ViWin_completion_v13(self,nvi);
             }
         }
-        (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 157, 52));
+        (str = come_decrement_ref_count(str, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 158, 52));
     }
     else if(key>127) {
-        # 73 "19rewrite_mode.nc"
+        # 74 "19rewrite_mode.nc"
         size=((key&0x80)>>7)+((key&0x40)>>6)+((key&0x20)>>5)+((key&0x10)>>4);
-        # 75 "19rewrite_mode.nc"
+        # 76 "19rewrite_mode.nc"
         char keys[16];
         memset(&keys, 0, sizeof(keys));
-        # 77 "19rewrite_mode.nc"
+        # 78 "19rewrite_mode.nc"
         keys[0]=key;
-        # 79 "19rewrite_mode.nc"
-        # 84 "19rewrite_mode.nc"
+        # 80 "19rewrite_mode.nc"
+        # 85 "19rewrite_mode.nc"
         for(i=1        ;i<size;i++){
-            # 82 "19rewrite_mode.nc"
+            # 83 "19rewrite_mode.nc"
             keys[i]=ViWin_getKey_v14(self,(_Bool)0);
         }
-        # 84 "19rewrite_mode.nc"
+        # 85 "19rewrite_mode.nc"
         keys[i]=0;
-        # 86 "19rewrite_mode.nc"
+        # 87 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(keys,"19rewrite_mode.nc",86), "19rewrite_mode.nc", 86, 53));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(keys,"19rewrite_mode.nc",87), "19rewrite_mode.nc", 87, 53));
     }
     else if(key==40) {
-        # 89 "19rewrite_mode.nc"
-        ViWin_blinkBraceFoward(self,40,41,nvi);
         # 90 "19rewrite_mode.nc"
+        ViWin_blinkBraceFoward(self,40,41,nvi);
+        # 91 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",90), "19rewrite_mode.nc", 90, 54));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 90, 55));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",91), "19rewrite_mode.nc", 91, 54));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 91, 55));
     }
     else if(key==123) {
-        # 93 "19rewrite_mode.nc"
-        ViWin_blinkBraceFoward(self,123,125,nvi);
         # 94 "19rewrite_mode.nc"
+        ViWin_blinkBraceFoward(self,123,125,nvi);
+        # 95 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",94), "19rewrite_mode.nc", 94, 56));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 94, 57));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",95), "19rewrite_mode.nc", 95, 56));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 95, 57));
     }
     else if(key==91) {
-        # 97 "19rewrite_mode.nc"
-        ViWin_blinkBraceFoward(self,60,62,nvi);
         # 98 "19rewrite_mode.nc"
+        ViWin_blinkBraceFoward(self,60,62,nvi);
+        # 99 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",98), "19rewrite_mode.nc", 98, 58));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 98, 59));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",99), "19rewrite_mode.nc", 99, 58));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 99, 59));
     }
     else if(key==41) {
-        # 101 "19rewrite_mode.nc"
-        ViWin_blinkBraceEnd(self,40,41,nvi);
         # 102 "19rewrite_mode.nc"
+        ViWin_blinkBraceEnd(self,40,41,nvi);
+        # 103 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",102), "19rewrite_mode.nc", 102, 60));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 102, 61));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",103), "19rewrite_mode.nc", 103, 60));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 103, 61));
     }
     else if(key==125) {
-        # 105 "19rewrite_mode.nc"
-        ViWin_blinkBraceEnd(self,123,125,nvi);
         # 106 "19rewrite_mode.nc"
+        ViWin_blinkBraceEnd(self,123,125,nvi);
+        # 107 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",106), "19rewrite_mode.nc", 106, 62));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 106, 63));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",107), "19rewrite_mode.nc", 107, 62));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 107, 63));
     }
     else if(key==93) {
-        # 109 "19rewrite_mode.nc"
-        ViWin_blinkBraceEnd(self,91,93,nvi);
         # 110 "19rewrite_mode.nc"
+        ViWin_blinkBraceEnd(self,91,93,nvi);
+        # 111 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",110), "19rewrite_mode.nc", 110, 64));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 110, 65));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",111), "19rewrite_mode.nc", 111, 64));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 111, 65));
     }
     else if(key==62) {
-        # 113 "19rewrite_mode.nc"
-        ViWin_blinkBraceEnd(self,60,62,nvi);
         # 114 "19rewrite_mode.nc"
+        ViWin_blinkBraceEnd(self,60,62,nvi);
+        # 115 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",114), "19rewrite_mode.nc", 114, 66));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 114, 67));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",115), "19rewrite_mode.nc", 115, 66));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 115, 67));
     }
     else if(key==87-65+1) {
-        # 117 "19rewrite_mode.nc"
-        cursor_x=self->cursorX;
         # 118 "19rewrite_mode.nc"
+        cursor_x=self->cursorX;
+        # 119 "19rewrite_mode.nc"
         cursor_y=self->cursorY;
-        # 120 "19rewrite_mode.nc"
+        # 121 "19rewrite_mode.nc"
         ViWin_backwardWord_v4(self);
-        # 143 "19rewrite_mode.nc"
+        # 144 "19rewrite_mode.nc"
         if(cursor_y==self->cursorY) {
-            # 123 "19rewrite_mode.nc"
-            __right_value0 = (void*)0;
-            __right_value1 = (void*)0;
-            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","19rewrite_mode.nc",123)))), "19rewrite_mode.nc", 123, 68);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 123, 69));
             # 124 "19rewrite_mode.nc"
             __right_value0 = (void*)0;
-            ((int* )(__right_value0=wstring_delete(line,self->cursorX,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 124, 70));
-            # 126 "19rewrite_mode.nc"
+            __right_value1 = (void*)0;
+            line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","19rewrite_mode.nc",124)))), "19rewrite_mode.nc", 124, 68);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 124, 69));
+            # 125 "19rewrite_mode.nc"
             __right_value0 = (void*)0;
-            list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line, "19rewrite_mode.nc", 126, 71, "int* "), "19rewrite_mode.nc", 126, 72));
+            ((int* )(__right_value0=wstring_delete(line,self->cursorX,cursor_x+1)));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 125, 70));
             # 127 "19rewrite_mode.nc"
-            list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line));
+            __right_value0 = (void*)0;
+            list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line, "19rewrite_mode.nc", 127, 71, "int* "), "19rewrite_mode.nc", 127, 72));
             # 128 "19rewrite_mode.nc"
-            ViWin_modifyOverCursorXValue(self);
+            list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line));
             # 129 "19rewrite_mode.nc"
+            ViWin_modifyOverCursorXValue(self);
+            # 130 "19rewrite_mode.nc"
             self->cursorX++;
-            (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 143, 73));
+            (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 144, 73));
         }
         else {
-            # 132 "19rewrite_mode.nc"
-            self->cursorY=cursor_y;
             # 133 "19rewrite_mode.nc"
+            self->cursorY=cursor_y;
+            # 134 "19rewrite_mode.nc"
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            line_6=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","19rewrite_mode.nc",133)))), "19rewrite_mode.nc", 133, 74);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 133, 75));
-            # 135 "19rewrite_mode.nc"
+            line_6=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","19rewrite_mode.nc",134)))), "19rewrite_mode.nc", 134, 74);
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 134, 75));
+            # 136 "19rewrite_mode.nc"
             __right_value0 = (void*)0;
             ((int* )(__right_value0=wstring_delete(line_6,0,cursor_x+1)));
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 135, 76));
-            # 137 "19rewrite_mode.nc"
-            __right_value0 = (void*)0;
-            list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line_6, "19rewrite_mode.nc", 137, 77, "int* "), "19rewrite_mode.nc", 137, 78));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 136, 76));
             # 138 "19rewrite_mode.nc"
+            __right_value0 = (void*)0;
+            list$1int$ph_replace(self->texts,self->scroll+self->cursorY,(int* )come_increment_ref_count((int* )come_memdup(line_6, "19rewrite_mode.nc", 138, 77, "int* "), "19rewrite_mode.nc", 138, 78));
+            # 139 "19rewrite_mode.nc"
             list$1int$_replace(self->texts_length,self->scroll+self->cursorY,wcslen(line_6));
-            # 140 "19rewrite_mode.nc"
-            self->cursorX=0;
             # 141 "19rewrite_mode.nc"
+            self->cursorX=0;
+            # 142 "19rewrite_mode.nc"
             self->cursorY=cursor_y;
-            (line_6 = come_decrement_ref_count(line_6, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 143, 79));
+            (line_6 = come_decrement_ref_count(line_6, (void*)0, (void*)0, 0, 0, (void*)0, "19rewrite_mode.nc", 144, 79));
         }
     }
     else if(key==86-65+1) {
-        # 145 "19rewrite_mode.nc"
+        # 146 "19rewrite_mode.nc"
         key2=ViWin_getKey_v14(self,(_Bool)0);
-        # 147 "19rewrite_mode.nc"
+        # 148 "19rewrite_mode.nc"
         char str_7[2];
         memset(&str_7, 0, sizeof(str_7));
-        # 149 "19rewrite_mode.nc"
-        str_7[0]=key2;
         # 150 "19rewrite_mode.nc"
+        str_7[0]=key2;
+        # 151 "19rewrite_mode.nc"
         str_7[1]=0;
-        # 152 "19rewrite_mode.nc"
+        # 153 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(str_7,"19rewrite_mode.nc",152), "19rewrite_mode.nc", 152, 80));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(str_7,"19rewrite_mode.nc",153), "19rewrite_mode.nc", 153, 80));
     }
     else {
-        # 155 "19rewrite_mode.nc"
+        # 156 "19rewrite_mode.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",155), "19rewrite_mode.nc", 155, 81));
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 155, 82));
+        ViWin_insertText2(self,(int* )come_increment_ref_count(__builtin_wstring(((char* )(__right_value0=xsprintf("%c",key))),"19rewrite_mode.nc",156), "19rewrite_mode.nc", 156, 81));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "19rewrite_mode.nc", 156, 82));
     }
     neo_current_frame = fr.prev;
 }
@@ -3959,13 +3974,13 @@ _conditional_value_X0;})) {
 void ViWin_input_v19(struct ViWin*  self  , struct Vi*  nvi  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_input_v19"; neo_current_frame = &fr;
-    # 167 "19rewrite_mode.nc"
+    # 168 "19rewrite_mode.nc"
     if(nvi->mode==(7)) {
-        # 162 "19rewrite_mode.nc"
+        # 163 "19rewrite_mode.nc"
         ViWin_inputRewritetMode(self,nvi);
     }
     else {
-        # 165 "19rewrite_mode.nc"
+        # 166 "19rewrite_mode.nc"
         ViWin_input_v18(self,nvi);
     }
     neo_current_frame = fr.prev;
@@ -3974,11 +3989,11 @@ void ViWin_input_v19(struct ViWin*  self  , struct Vi*  nvi  )
 void Vi_enterRewriteMode(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_enterRewriteMode"; neo_current_frame = &fr;
-    # 171 "19rewrite_mode.nc"
-    self->mode=(7);
     # 172 "19rewrite_mode.nc"
-    ViWin_writedFlagOn_v6(self->activeWin);
+    self->mode=(7);
     # 173 "19rewrite_mode.nc"
+    ViWin_writedFlagOn_v6(self->activeWin);
+    # 174 "19rewrite_mode.nc"
     ViWin_modifyOverCursorXValue(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -3986,9 +4001,9 @@ void Vi_enterRewriteMode(struct Vi*  self  )
 void Vi_exitFromRewiteMode(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_exitFromRewiteMode"; neo_current_frame = &fr;
-    # 178 "19rewrite_mode.nc"
-    self->mode=(0);
     # 179 "19rewrite_mode.nc"
+    self->mode=(0);
+    # 180 "19rewrite_mode.nc"
     ViWin_saveInputedKey_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -3996,9 +4011,9 @@ void Vi_exitFromRewiteMode(struct Vi*  self  )
 static void lambda1(struct Vi*  self  , int key)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
-    # 190 "19rewrite_mode.nc"
-    ViWin_pushUndo_v5(self->activeWin);
     # 191 "19rewrite_mode.nc"
+    ViWin_pushUndo_v5(self->activeWin);
+    # 192 "19rewrite_mode.nc"
     Vi_enterRewriteMode(self);
     neo_current_frame = fr.prev;
 }
@@ -4010,18 +4025,18 @@ struct Vi*  Vi_initialize_v19(struct Vi*  self  )
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
     memset(&result, 0, sizeof(result));
-    # 184 "19rewrite_mode.nc"
-    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v18((struct Vi* )come_increment_ref_count(self, "19rewrite_mode.nc", 184, 83)), "19rewrite_mode.nc", 184, 84);
-    # 186 "19rewrite_mode.nc"
+    # 185 "19rewrite_mode.nc"
+    result=(struct Vi* )come_increment_ref_count(Vi_initialize_v18((struct Vi* )come_increment_ref_count(self, "19rewrite_mode.nc", 185, 83)), "19rewrite_mode.nc", 185, 84);
+    # 187 "19rewrite_mode.nc"
     result->mode=(0);
-    # 192 "19rewrite_mode.nc"
+    # 193 "19rewrite_mode.nc"
     list$1lambda$_replace(result->events,82,lambda1);
-    # 194 "19rewrite_mode.nc"
-        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "19rewrite_mode.nc", 194, 91);
-    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "19rewrite_mode.nc}", 194, 145);
-    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "19rewrite_mode.nc}", 194, 146);
+    # 195 "19rewrite_mode.nc"
+        __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "19rewrite_mode.nc", 195, 91);
+    come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "19rewrite_mode.nc}", 195, 145);
+    come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "19rewrite_mode.nc}", 195, 146);
     neo_current_frame = fr.prev;
-    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "19rewrite_mode.nc}", 194, 147);
+    come_call_finalizer(Vi_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "19rewrite_mode.nc}", 195, 147);
     return __result_obj__0;
 }
 
@@ -4780,24 +4795,148 @@ static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
             neo_current_frame = fr.prev;
 }
 
+static void update_terminal_size_on_sigwinch()
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "update_terminal_size_on_sigwinch"; neo_current_frame = &fr;
+    struct winsize  ws  ;
+    memset(&ws, 0, sizeof(ws));
+    # 200 "19rewrite_mode.nc"
+    # 208 "19rewrite_mode.nc"
+    if(ioctl(1,0x5413,&ws)==0&&ws.ws_row>0&&ws.ws_col>0) {
+        # 206 "19rewrite_mode.nc"
+        resizeterm(ws.ws_row,ws.ws_col);
+    }
+    come_call_finalizer(winsize_finalize, (&ws), (void*)0, (void*)0, 1, 0, 0, (void*)0, "19rewrite_mode.nc}", 210, 148);
+    neo_current_frame = fr.prev;
+}
+
+static void winsize_finalize(struct winsize*  self  )
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "winsize_finalize"; neo_current_frame = &fr;
+    # 1 "winsize_finalize"
+        neo_current_frame = fr.prev;
+}
+
 int Vi_main_loop_v19(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_main_loop_v19"; neo_current_frame = &fr;
-    # 210 "19rewrite_mode.nc"
+    struct list$1ViWin$ph* _o2_saved_1;
+    struct ViWin*  it  ;
+    memset(&_o2_saved_1, 0, sizeof(_o2_saved_1));
+    memset(&it, 0, sizeof(it));
+    # 234 "19rewrite_mode.nc"
     while(!self->appEnd) {
-        # 200 "19rewrite_mode.nc"
+        # 224 "19rewrite_mode.nc"
+        if(gSigwinch) {
+            # 214 "19rewrite_mode.nc"
+            gSigwinch=0;
+            # 215 "19rewrite_mode.nc"
+            update_terminal_size_on_sigwinch();
+            # 216 "19rewrite_mode.nc"
+            endwin();
+            # 217 "19rewrite_mode.nc"
+            wrefresh(stdscr);
+            # 218 "19rewrite_mode.nc"
+            Vi_repositionWindows_v6(self);
+            # 222 "19rewrite_mode.nc"
+            for(_o2_saved_1=(struct list$1ViWin$ph*)come_increment_ref_count(self->wins, "19rewrite_mode.nc", 219, 149),it=list$1ViWin$ph_begin(_o2_saved_1)            ;!list$1ViWin$ph_end(_o2_saved_1);it=list$1ViWin$ph_next(_o2_saved_1)){
+                # 220 "19rewrite_mode.nc"
+                ViWin_modifyOverCursorYValue(it);
+            }
+            come_call_finalizer(list$1ViWin$ph$p_finalize, _o2_saved_1, (void*)0, (void*)0, 0, 0, 0, (void*)0, "19rewrite_mode.nc}", 224, 150);
+        }
+        # 224 "19rewrite_mode.nc"
         Vi_view(self);
-        # 207 "19rewrite_mode.nc"
+        # 231 "19rewrite_mode.nc"
         if(self->mode!=(1)) {
-            # 204 "19rewrite_mode.nc"
+            # 228 "19rewrite_mode.nc"
             ViWin_clearInputedKey_v14(self->activeWin);
         }
-        # 207 "19rewrite_mode.nc"
+        # 231 "19rewrite_mode.nc"
         ViWin_input_v21(self->activeWin,self);
     }
-    # 210 "19rewrite_mode.nc"
+    # 234 "19rewrite_mode.nc"
         neo_current_frame = fr.prev;
     return 0;
     neo_current_frame = fr.prev;
+}
+
+static struct ViWin*  list$1ViWin$ph_begin(struct list$1ViWin$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1ViWin$ph_begin"; neo_current_frame = &fr;
+    struct ViWin*  result  ;
+    struct ViWin*  __result_obj__0  ;
+    struct ViWin*  result_15  ;
+    # 1682 "/usr/local/include/neo-c.h"
+    # 1689 "/usr/local/include/neo-c.h"
+    if(self==((void*)0)) {
+        # 1685 "/usr/local/include/neo-c.h"
+        # 1686 "/usr/local/include/neo-c.h"
+        memset(&result,0,sizeof(struct ViWin* ));
+        # 1687 "/usr/local/include/neo-c.h"
+                __result_obj__0 = result;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
+    }
+    # 1689 "/usr/local/include/neo-c.h"
+    self->it=self->head;
+    # 1695 "/usr/local/include/neo-c.h"
+    if(self->it) {
+        # 1692 "/usr/local/include/neo-c.h"
+                __result_obj__0 = self->it->item;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
+    }
+    # 1695 "/usr/local/include/neo-c.h"
+    # 1696 "/usr/local/include/neo-c.h"
+    memset(&result_15,0,sizeof(struct ViWin* ));
+    # 1697 "/usr/local/include/neo-c.h"
+        __result_obj__0 = result_15;
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
+
+static _Bool list$1ViWin$ph_end(struct list$1ViWin$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1ViWin$ph_end"; neo_current_frame = &fr;
+    # 1721 "/usr/local/include/neo-c.h"
+        neo_current_frame = fr.prev;
+    return self==((void*)0)||self->it==((void*)0);
+                neo_current_frame = fr.prev;
+}
+
+static struct ViWin*  list$1ViWin$ph_next(struct list$1ViWin$ph* self)
+{
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1ViWin$ph_next"; neo_current_frame = &fr;
+    struct ViWin*  result  ;
+    struct ViWin*  __result_obj__0  ;
+    struct ViWin*  result_16  ;
+    # 1701 "/usr/local/include/neo-c.h"
+    # 1709 "/usr/local/include/neo-c.h"
+    if(self==((void*)0)||self->it==((void*)0)) {
+        # 1704 "/usr/local/include/neo-c.h"
+        # 1705 "/usr/local/include/neo-c.h"
+        memset(&result,0,sizeof(struct ViWin* ));
+        # 1706 "/usr/local/include/neo-c.h"
+                __result_obj__0 = result;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
+    }
+    # 1709 "/usr/local/include/neo-c.h"
+    self->it=self->it->next;
+    # 1715 "/usr/local/include/neo-c.h"
+    if(self->it) {
+        # 1712 "/usr/local/include/neo-c.h"
+                __result_obj__0 = self->it->item;
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
+    }
+    # 1715 "/usr/local/include/neo-c.h"
+    # 1716 "/usr/local/include/neo-c.h"
+    memset(&result_16,0,sizeof(struct ViWin* ));
+    # 1717 "/usr/local/include/neo-c.h"
+        __result_obj__0 = result_16;
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
 }
 
