@@ -16,45 +16,52 @@ void ViWin*::verticalVisualModeView(ViWin* self, Vi* nvi)
 
     werase(self.win);
 
-    int it2 = 0;
-    foreach(it, self.texts.sublist(self.scroll, self.scroll+maxy-1))
-    {
-        auto line = it.substring(0, maxx-1);
+    int screen_row = 0;
 
-        if((it2 >= (self.visualModeVerticalHeadY-self.scroll) 
-            && it2 <= self.cursorY)
-            || (it2 <= 
-                (self.visualModeVerticalHeadY-self.scroll) 
-            && it2 >= self.cursorY)) 
-        {
-            auto line1 = it.substring(0
-                        , self.visualModeVerticalHeadX);
-            mvwprintw(self.win, it2, 0, "%ls", line1);
-            
-            wattron(self.win, A_REVERSE);
-            auto line2 = it.substring(
-                    self.visualModeVerticalHeadX
-                    , self.visualModeVerticalHeadX
-                      + self.visualModeVerticalLen);
-            mvwprintw(self.win, it2
-                            , self.visualModeVerticalHeadX
-                            , "%ls", line2);
-            wattroff(self.win, A_REVERSE);
-            
-            auto line3 = it.substring(
-                    self.visualModeVerticalHeadX
-                        +self.visualModeVerticalLen
-                    , -1);
-            mvwprintw(self.win, it2
-                    , self.visualModeVerticalHeadX
-                        + self.visualModeVerticalLen
-                    , "%ls", line3);
-        }
-        else {
-            mvwprintw(self.win, it2, 0, "%s", line.to_string());
+    for(int i = self.scroll; i < self.texts.length() && screen_row < maxy - 1; i++) {
+        int it2 = i - self.scroll;
+        auto it = self.texts.item(i, null);
+        if(it == null) break;
+        auto printable_line = it.printable();
+        int line_width = wcswidth(printable_line, printable_line.length());
+        if(line_width < 0) { line_width = 0; }
+
+        bool in_selection = (it2 >= (self.visualModeVerticalHeadY - self.scroll)
+                             && it2 <= self.cursorY)
+                         || (it2 <= (self.visualModeVerticalHeadY - self.scroll)
+                             && it2 >= self.cursorY);
+
+        int x = 0;
+        int cur_col = 0;
+        int cur_row = screen_row;
+        int char_col = 0;
+        while(x < printable_line.length() && cur_row < maxy - 1) {
+            wstring c = printable_line.substring(x, x+1);
+            int cw = wcswidth(c, c.length());
+            if(cw < 1) { cw = 1; }
+            if(cur_col + cw > maxx - 1) {
+                cur_row++;
+                cur_col = 0;
+                if(cur_row >= maxy - 1) break;
+            }
+            if(in_selection
+               && char_col >= self.visualModeVerticalHeadX
+               && char_col < self.visualModeVerticalHeadX + self.visualModeVerticalLen)
+            {
+                wattron(self.win, A_REVERSE);
+                mvwprintw(self.win, cur_row, cur_col, "%ls", c);
+                wattroff(self.win, A_REVERSE);
+            }
+            else {
+                mvwprintw(self.win, cur_row, cur_col, "%ls", c);
+            }
+            cur_col += cw;
+            char_col++;
+            x++;
         }
 
-        it2++;
+        int rows_used = (line_width > 0) ? ((line_width + maxx - 2) / (maxx - 1)) : 1;
+        screen_row += rows_used;
     }
 
     wattron(self.win, A_REVERSE);

@@ -16,128 +16,94 @@ void ViWin*::textsView(ViWin* self, Vi* nvi)
     int maxx = getmaxx(self.win);
 
     if(self.texts.length() > 0) {
-        auto cursor_line = self.texts.item(self.scroll + self.cursorY, null).printable();
-            
-        int cursor_height = (wcswidth(cursor_line, cursor_line.length()) / (maxx-1));
+        int screen_row = 0;
 
-        int it2 = 0;
-        foreach(it, self.texts.sublist(self.scroll, self.scroll+maxy-1))
-        {
+        for(int i = self.scroll; i < self.texts.length() && screen_row < maxy - 1; i++) {
+            int it2 = i - self.scroll;
+            auto it = self.texts.item(i, null);
+            if(it == null) break;
             auto printable_line = it.printable();
+            int line_width = wcswidth(printable_line, printable_line.length());
+            if(line_width < 0) { line_width = 0; }
 
-            if(it2 > self.cursorY 
-                && it2 <= self.cursorY + cursor_height)
-            {
-            }
-            else if(self.cursorY == it2 && nvi.activeWin.equals(self)) 
+            if(self.cursorY == it2 && nvi.activeWin.equals(self))
             {
                 if(printable_line.length() == 0) {
                     wattron(self.win, A_REVERSE);
-                    mvwprintw(self.win, it2, 0, "$");
+                    mvwprintw(self.win, screen_row, 0, "$");
                     wattroff(self.win, A_REVERSE);
+                    screen_row++;
                 }
-                else if(wcswidth(printable_line, wcslen(printable_line)) > maxx-2)
-                {
+                else {
                     int x = 0;
-                    int cursor_y = it2;
-                    int cursor_x = 0;
-                    int terminal_width = 0;
-                    while(x < it.length()) {
+                    int cur_y = screen_row;
+                    int cur_x = 0;
+                    int col_width = 0;
+                    while(x < it.length() && cur_y < maxy - 1) {
                         auto c = it.substring(x, x+1).printable();
+                        int cw = wcswidth(c, c.length());
+                        if(cw < 1) { cw = 1; }
 
+                        if(col_width + cw > maxx - 1) {
+                            cur_x = 0;
+                            col_width = 0;
+                            cur_y++;
+                            if(cur_y >= maxy - 1) break;
+                        }
+
+                        wmove(self.win, cur_y, cur_x);
                         if(x == self.cursorX) {
-                            wmove(self.win, cursor_y, cursor_x);
                             wattron(self.win, A_REVERSE);
                             wprintw(self.win, "%ls", c);
                             wattroff(self.win, A_REVERSE);
                         }
                         else {
-                            wmove(self.win, cursor_y, cursor_x);
                             wprintw(self.win, "%ls", c);
                         }
-
+                        cur_x += cw;
+                        col_width += cw;
                         x++;
-                        cursor_x += wcswidth(c, c.length());
-                        terminal_width += wcswidth(c, c.length());
-                        
-                        if(terminal_width >= maxx-2) {
-                            cursor_x = 0;
-                            terminal_width = 0;
-                            cursor_y++;
-                            wprintw(self.win, "~");
-                        }
                     }
-                    if(self.cursorX == it.length()) {
+                    if(self.cursorX == it.length() && cur_y < maxy - 1) {
+                        wmove(self.win, cur_y, cur_x);
                         wattron(self.win, A_REVERSE);
                         wprintw(self.win, "$");
                         wattroff(self.win, A_REVERSE);
                     }
-                    else {
-                        //wprintw(self.win, "$");
-                    }
-                }
-                else {
-                    int cursor_x = self.cursorX;
-                    int x = 0;
-                    wstring head_string = it.substring(0, cursor_x);
-                    wstring printable_head_string = head_string.printable();
-
-                    mvwprintw(self.win, it2, 0, "%ls", printable_head_string);
-
-                    x += wcswidth(printable_head_string, printable_head_string.length());
-
-                    wstring cursor_string = it.substring(cursor_x, cursor_x+1);
-                    wstring printable_cursor_string = cursor_string.printable();
-
-                    if(printable_cursor_string[0] == '\0') {
-                        wattron(self.win, A_REVERSE);
-                        mvwprintw(self.win, it2, x, " ", printable_cursor_string);
-                        wattroff(self.win, A_REVERSE);
-                    }
-                    else {
-                        wattron(self.win, A_REVERSE);
-                        mvwprintw(self.win, it2, x, "%ls", printable_cursor_string);
-                        wattroff(self.win, A_REVERSE);
-                    }
-
-                    x += wcswidth(printable_cursor_string, printable_cursor_string.length());
-
-                    wstring tail_string = it.substring(cursor_x+1, -1);
-                    wstring printable_tail_string = tail_string.printable();
-
-                    mvwprintw(self.win, it2, x, "%ls", printable_tail_string);
-                    
-                    if(self.cursorX == it.length()) {
-                        wattron(self.win, A_REVERSE);
-                        wprintw(self.win, "$");
-                        wattroff(self.win, A_REVERSE);
-                    }
-                    else {
-                        //wprintw(self.win, "$");
-                    }
+                    int rows_used = (line_width > 0) ? ((line_width + maxx - 2) / (maxx - 1)) : 1;
+                    screen_row += rows_used;
                 }
             }
             else {
-                if(wcswidth(printable_line, wcslen(printable_line)) > maxx-2)
-                {
-                    int x = 0;
-                    int visible_x = 0;
-                    while(visible_x < maxx-2 && x < printable_line.length()) {
-                        wstring c = printable_line.substring(x, x+1);
-                        mvwprintw(self.win, it2, visible_x, "%ls", c);
-                        
-                        visible_x += wcswidth(c, wcslen(c));
-                        x++;
-                    }
-                    wprintw(self.win, "~");
+                if(line_width == 0) {
+                    screen_row++;
+                }
+                else if(line_width <= maxx - 1) {
+                    mvwprintw(self.win, screen_row, 0, "%ls", printable_line);
+                    screen_row++;
                 }
                 else {
-                    mvwprintw(self.win, it2, 0, "%ls", printable_line);
-                    //mvwprintw(self.win, it2, 0, "%ls$", printable_line);
+                    int x = 0;
+                    int cur_col = 0;
+                    int cur_row = screen_row;
+                    while(x < printable_line.length() && cur_row < maxy - 1) {
+                        wstring c = printable_line.substring(x, x+1);
+                        int cw = wcswidth(c, c.length());
+                        if(cw < 1) { cw = 1; }
+                        if(cur_col + cw > maxx - 1) {
+                            cur_row++;
+                            cur_col = 0;
+                            if(cur_row >= maxy - 1) break;
+                        }
+                        mvwprintw(self.win, cur_row, cur_col, "%ls", c);
+                        cur_col += cw;
+                        x++;
+                    }
+                    int rows_used = (line_width + maxx - 2) / (maxx - 1);
+                    if(rows_used < 1) { rows_used = 1; }
+                    screen_row += rows_used;
                 }
             }
-
-            it2++;
         }
     }
 }
@@ -203,21 +169,48 @@ void ViWin*::modifyOverCursorYValue(ViWin* self)
     }
     else {
         int maxy = getmaxy(self.win);
+        int maxx = getmaxx(self.win);
 
-        if(self.cursorY >= maxy-2)
-        {
-            self.scroll += self.cursorY - (maxy-2);
+        // Absolute line index the cursor points to
+        int abs_line = self.scroll + self.cursorY;
+        if(abs_line >= self.texts.length()) {
+            abs_line = self.texts.length() - 1;
+        }
 
-            if(self.scroll >= self.texts.length()-1) {
-                self.scroll = self.texts.length()-1;
+        // Ensure scroll <= abs_line
+        if(self.scroll > abs_line) {
+            self.scroll = abs_line;
+        }
+
+        // Calculate total screen rows from scroll to abs_line (inclusive)
+        int screen_rows = 0;
+        for(int i = self.scroll; i <= abs_line; i++) {
+            auto line = self.texts.item(i, null);
+            int lw = 0;
+            if(line != null) {
+                auto pl = line.printable();
+                lw = wcswidth(pl, pl.length());
+                if(lw < 0) { lw = 0; }
             }
-
-            self.cursorY = maxy-2;
+            int rows = (lw > 0) ? ((lw + maxx - 2) / (maxx - 1)) : 1;
+            screen_rows += rows;
         }
 
-        if(self.cursorY + self.scroll >= self.texts.length()-1) {
-            self.cursorY = self.texts.length()-self.scroll-1;
+        // Advance scroll until cursor fits on screen
+        while(screen_rows > maxy - 1 && self.scroll < abs_line) {
+            auto first_line = self.texts.item(self.scroll, null);
+            int first_lw = 0;
+            if(first_line != null) {
+                auto pl = first_line.printable();
+                first_lw = wcswidth(pl, pl.length());
+                if(first_lw < 0) { first_lw = 0; }
+            }
+            int first_rows = (first_lw > 0) ? ((first_lw + maxx - 2) / (maxx - 1)) : 1;
+            screen_rows -= first_rows;
+            self.scroll++;
         }
+
+        self.cursorY = abs_line - self.scroll;
     }
 }
 

@@ -18,169 +18,78 @@ void ViWin*::horizonVisualModeView(ViWin* self, Vi* nvi)
 
     werase(self.win);
 
-    if(self.visualModeHorizonHeadScroll
-        +self.visualModeHorizonHeadY 
-        <= self.scroll+self.cursorY)
-    {
-        int it2 = 0;
-        foreach(it, self.texts.sublist(self.scroll, self.scroll+maxy-1))
-        {
-            auto line = it.substring(0, maxx-1);
-    
-            int y = it2 + self.scroll;
-            
-            if(y == self.visualModeHorizonHeadY
-                        + self.visualModeHorizonHeadScroll)  
-            {
-                if(y == self.scroll + self.cursorY)
-                {
-                    if(self.cursorX < self.visualModeHorizonHeadX)
-                    {
-                        auto x = 0;
-                        
-                        auto line1 = line.substring(0, self.cursorX);
-                        mvwprintw(self.win, it2, x, "%ls", line1);
-                        
-                        x += line1.length();
-                        
-                        auto line2 = line.substring(self.cursorX
-                                , self.visualModeHorizonHeadX+1);
-                        wattron(self.win, A_REVERSE);
-                        mvwprintw(self.win, it2, x, "%ls", line2);
-                        wattroff(self.win, A_REVERSE);
-                        
-                        x += line2.length();
-                        
-                        auto line3 = line.substring(
-                                self.visualModeHorizonHeadX+1, -1);
-                        mvwprintw(self.win, it2, x, "%ls", line3);
-                    }
-                    else {
-                        auto x = 0;
-                        
-                        auto line1 = line.substring(0
-                                , self.visualModeHorizonHeadX);
-                        mvwprintw(self.win, it2, x, "%ls", line1);
-                        
-                        x += line1.length();
-                        
-                        auto line2 = line.substring(
-                                self.visualModeHorizonHeadX
-                                , self.cursorX+1);
-                        wattron(self.win, A_REVERSE);
-                        mvwprintw(self.win, it2, x, "%ls", line2);
-                        wattroff(self.win, A_REVERSE);
-                        
-                        x += line2.length();
-                        
-                        auto line3 = line.substring(
-                                    self.cursorX+1, -1);
-                        mvwprintw(self.win, it2, x, "%ls", line3);
-                    }
+    int head_abs = self.visualModeHorizonHeadScroll + self.visualModeHorizonHeadY;
+    int tail_abs = self.scroll + self.cursorY;
+    bool forward = (head_abs <= tail_abs);
+
+    int screen_row = 0;
+
+    for(int i = self.scroll; i < self.texts.length() && screen_row < maxy - 1; i++) {
+        auto it = self.texts.item(i, null);
+        if(it == null) break;
+        auto printable_line = it.printable();
+        int line_width = wcswidth(printable_line, printable_line.length());
+        if(line_width < 0) { line_width = 0; }
+
+        int x = 0;
+        int cur_col = 0;
+        int cur_row = screen_row;
+        int char_col = 0;
+        while(x < printable_line.length() && cur_row < maxy - 1) {
+            wstring c = printable_line.substring(x, x+1);
+            int cw = wcswidth(c, c.length());
+            if(cw < 1) { cw = 1; }
+            if(cur_col + cw > maxx - 1) {
+                cur_row++;
+                cur_col = 0;
+                if(cur_row >= maxy - 1) break;
+            }
+
+            bool highlighted = false;
+            if(forward) {
+                if(i == head_abs && i == tail_abs) {
+                    int lo = self.visualModeHorizonHeadX;
+                    int hi = self.cursorX;
+                    if(lo > hi) { int tmp = lo; lo = hi; hi = tmp; }
+                    highlighted = (char_col >= lo && char_col <= hi);
                 }
-                else {
-                    auto x = 0;
-                    
-                    auto line1 = line.substring(0
-                            , self.visualModeHorizonHeadX);
-                    mvwprintw(self.win, it2, x, "%ls", line1);
-                    
-                    x += line1.length();
-                    
-                    auto line2 = line.substring(
-                            self.visualModeHorizonHeadX
-                            , -1);
-                    wattron(self.win, A_REVERSE);
-                    mvwprintw(self.win, it2, x, "%ls", line2);
-                    wattroff(self.win, A_REVERSE);
+                else if(i == head_abs) {
+                    highlighted = (char_col >= self.visualModeHorizonHeadX);
+                }
+                else if(i == tail_abs) {
+                    highlighted = (char_col <= self.cursorX);
+                }
+                else if(i > head_abs && i < tail_abs) {
+                    highlighted = true;
                 }
             }
-            else if(y == (self.cursorY + self.scroll))
-            {
-                auto x = 0;
-                
-                auto line1 = line.substring(0, self.cursorX+1);
-                wattron(self.win, A_REVERSE);
-                mvwprintw(self.win, it2, x, "%ls", line1);
-                wattroff(self.win, A_REVERSE);
-                
-                x += line1.length();
-                
-                auto line2 = line.substring(self.cursorX+1
-                        , -1);
-                mvwprintw(self.win, it2, x, "%ls", line2);
+            else {
+                if(i == head_abs) {
+                    highlighted = (char_col <= self.visualModeHorizonHeadX);
+                }
+                else if(i == tail_abs) {
+                    highlighted = (char_col > self.cursorX);
+                }
+                else if(i < head_abs && i > tail_abs) {
+                    highlighted = true;
+                }
             }
-            else if(y > (self.visualModeHorizonHeadScroll 
-                            +self.visualModeHorizonHeadY)
-                    && y < self.scroll+self.cursorY) 
-            {
+
+            if(highlighted) {
                 wattron(self.win, A_REVERSE);
-                mvwprintw(self.win, it2, 0, "%s", line.to_string());
+                mvwprintw(self.win, cur_row, cur_col, "%ls", c);
                 wattroff(self.win, A_REVERSE);
             }
             else {
-                mvwprintw(self.win, it2, 0, "%s", line.to_string());
+                mvwprintw(self.win, cur_row, cur_col, "%ls", c);
             }
-
-            it2++;
+            cur_col += cw;
+            char_col++;
+            x++;
         }
-    }
-    else {
-        int it2 = 0;
-        foreach(it, self.texts.sublist(self.scroll, self.scroll+maxy-1))
-        {
-            auto line = it.substring(0, maxx-1);
-    
-            int y = it2 + self.scroll;
-            
-            if(y == self.visualModeHorizonHeadY
-                        + self.visualModeHorizonHeadScroll)  
-            {
-                auto x = 0;
-                
-                auto line1 = line.substring(0
-                        , self.visualModeHorizonHeadX+1);
-                wattron(self.win, A_REVERSE);
-                mvwprintw(self.win, it2, x, "%ls", line1);
-                wattroff(self.win, A_REVERSE); 
-                
-                x += line1.length();
-                
-                auto line2 = line.substring(
-                        self.visualModeHorizonHeadX+1
-                        , -1);
-                mvwprintw(self.win, it2, x, "%ls", line2);
-            }
-            else if(y == (self.cursorY + self.scroll))
-            {
-                auto x = 0;
-                
-                auto line1 = line.substring(0, self.cursorX+1);
-                mvwprintw(self.win, it2, x, "%ls", line1);
-                
-                x += line1.length();
-                
-                auto line2 = line.substring(self.cursorX+1
-                        , -1);
 
-                wattron(self.win, A_REVERSE);
-                mvwprintw(self.win, it2, x, "%ls", line2);
-                wattroff(self.win, A_REVERSE);
-            }
-            else if(y < (self.visualModeHorizonHeadScroll 
-                            +self.visualModeHorizonHeadY)
-                    && y > self.scroll+self.cursorY) 
-            {
-                wattron(self.win, A_REVERSE);
-                mvwprintw(self.win, it2, 0, "%s", line.to_string());
-                wattroff(self.win, A_REVERSE);
-            }
-            else {
-                mvwprintw(self.win, it2, 0, "%s", line.to_string());
-            }
-
-            it2++;
-        }
+        int rows_used = (line_width > 0) ? ((line_width + maxx - 2) / (maxx - 1)) : 1;
+        screen_row += rows_used;
     }
 
     wattron(self.win, A_REVERSE);
