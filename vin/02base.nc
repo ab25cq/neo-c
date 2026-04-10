@@ -329,6 +329,9 @@ void ViWin*::halfScrollUp(ViWin* self)
 
     self.modifyUnderCursorYValue();
     self.modifyOverCursorXValue();
+
+    // Avoid curses line-scroll optimizations leaving artifacts on wrapped lines.
+    clearok(self.win, true);
 }
 
 void ViWin*::halfScrollDown(ViWin* self) 
@@ -339,6 +342,9 @@ void ViWin*::halfScrollDown(ViWin* self)
 
     self.modifyOverCursorYValue();
     self.modifyOverCursorXValue();
+
+    // Avoid curses line-scroll optimizations leaving artifacts on wrapped lines.
+    clearok(self.win, true);
 }
 
 void ViWin*::centeringCursor(ViWin* self) 
