@@ -1,5 +1,50 @@
 #include "common.h"
 
+static sType*% expand_typedef_for_compare(sType* type, sInfo* info)
+{
+    sType*% result = normalize_loadvar_type_for_compare(type, info);
+    
+    if(result == null) {
+        return null;
+    }
+    
+    return expand_typedef_for_assign(result, info);
+}
+
+static int pointer_level_for_compare(sType* type)
+{
+    if(type == null) {
+        return 0;
+    }
+    
+    return type->mPointerNum
+        + (type->mPointerNum == 0 ? type->mArrayPointerNum : 0)
+        + (type->mArrayPointerType ? 1 : 0);
+}
+
+static bool compare_field_by_pointer(sType* original_field_type, sType* field_type)
+{
+    if(field_type == null) {
+        return false;
+    }
+    
+    int pointer_level = pointer_level_for_compare(field_type);
+    
+    if(field_type->mFunctionPointerNum > 0) {
+        return true;
+    }
+    
+    if(pointer_level > 1) {
+        return true;
+    }
+    
+    if(original_field_type && original_field_type->mTypedefOriginalType && pointer_level > 0) {
+        return true;
+    }
+    
+    return false;
+}
+
 sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     MSaveState;
@@ -231,9 +276,18 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
     
     type = borrow type2;
     
-    sClass* klass = type->mClass;
+    sType*% compare_type = expand_typedef_for_compare(type, info);
+    sClass* klass = compare_type->mClass;
+    int pointer_num = pointer_level_for_compare(type);
+    int compare_pointer_num = pointer_level_for_compare(compare_type);
+    int max_pointer_num = pointer_num > compare_pointer_num ? pointer_num : compare_pointer_num;
+    int function_pointer_num = type->mFunctionPointerNum > compare_type->mFunctionPointerNum ? type->mFunctionPointerNum : compare_type->mFunctionPointerNum;
+    bool pointer_like = max_pointer_num > 0 || function_pointer_num > 0;
+    bool deep_compare_fields = !klass->mNumber
+        && function_pointer_num == 0
+        && max_pointer_num <= 1;
     
-    if(type->mPointerNum > 0 && !klass->mNumber) {
+    if(pointer_like || !klass->mNumber) {
         var source = new buffer();
         
         source.append_char('{');
@@ -244,13 +298,34 @@ sFun*,string create_equals_automatically(sType* type, const char* fun_name, sInf
             snprintf(source2, 1024, "return left.%s.equals(right.%s);\n", name, name);
             source.append_str(source2);
         }
+        else if(pointer_like && !deep_compare_fields) {
+            source.append_str("return left == right;\n");
+        }
         else {
-            klass = borrow info.classes[klass->mName];
-            foreach(it, klass->mFields) {
+            klass = borrow info.classes.at(klass->mName, null);
+            if(klass == null || klass->mFields == null || klass->mFields.length() == 0) {
+                if(pointer_like) {
+                    source.append_str("return left == right;\n");
+                }
+                else {
+                    source.append_str("return true;\n");
+                }
+            }
+            else foreach(it, klass->mFields) {
                 var name, field_type = it;
+                sType*% field_type2 = expand_typedef_for_compare(field_type, info);
+                bool field_pointer_like = pointer_level_for_compare(field_type2) > 0 || field_type2->mFunctionPointerNum > 0;
                 
                 char source2[1024];
-                snprintf(source2, 1024, "if(!left.%s.equals(right.%s)) { return false; }\n", name, name, name);
+                if(field_type2->mArrayNum.length() > 0) {
+                    snprintf(source2, 1024, "if(memcmp(left.%s, right.%s, sizeof(left.%s)) != 0) { return false; }\n", name, name, name);
+                }
+                else if(compare_field_by_pointer(field_type, field_type2)) {
+                    snprintf(source2, 1024, "if(left.%s != right.%s) { return false; }\n", name, name, name);
+                }
+                else {
+                    snprintf(source2, 1024, "if(!left.%s.equals(right.%s)) { return false; }\n", name, name, name);
+                }
                 
                 source.append_str(source2);
             }
@@ -345,9 +420,18 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
     
     type = borrow type2;
     
-    sClass* klass = type->mClass;
+    sType*% compare_type = expand_typedef_for_compare(type, info);
+    sClass* klass = compare_type->mClass;
+    int pointer_num = pointer_level_for_compare(type);
+    int compare_pointer_num = pointer_level_for_compare(compare_type);
+    int max_pointer_num = pointer_num > compare_pointer_num ? pointer_num : compare_pointer_num;
+    int function_pointer_num = type->mFunctionPointerNum > compare_type->mFunctionPointerNum ? type->mFunctionPointerNum : compare_type->mFunctionPointerNum;
+    bool pointer_like = max_pointer_num > 0 || function_pointer_num > 0;
+    bool deep_compare_fields = !klass->mNumber
+        && function_pointer_num == 0
+        && max_pointer_num <= 1;
     
-    if(type->mPointerNum > 0 && !klass->mNumber) {
+    if(pointer_like || !klass->mNumber) {
         var source = new buffer();
         
         source.append_char('{');
@@ -358,36 +442,38 @@ sFun*,string create_operator_not_equals_automatically(sType* type, const char* f
             snprintf(source2, 1024, "return left.%s !== right.%s;\n", name, name);
             source.append_str(source2);
         }
+        else if(pointer_like && !deep_compare_fields) {
+            source.append_str("return left != right;\n");
+        }
         else {
-            char source2[1024];
-            snprintf(source2, 1024, "return !(");
-            
-            source.append_str(source2);
-            
-            snprintf(source2, 1024, "( ");
-            source.append_str(source2);
-            
-            int i = 0;
-            klass = borrow info.classes[klass->mName];
-            foreach(it, klass->mFields) {
-                var name, field_type = it;
-                
-                char source2[1024];
-                snprintf(source2, 1024, "(left.%s === right.%s)", name, name, name);
-                source.append_str(source2);
-                
-                if(i == klass->mFields.length()-1) {
-                    char source2[1024];
-                    snprintf(source2, 1024, "));");
-                    source.append_str(source2);
+            klass = borrow info.classes.at(klass->mName, null);
+            if(klass == null || klass->mFields == null || klass->mFields.length() == 0) {
+                if(pointer_like) {
+                    source.append_str("return left != right;\n");
                 }
                 else {
+                    source.append_str("return false;\n");
+                }
+            }
+            else {
+                foreach(it, klass->mFields) {
+                    var name, field_type = it;
+                    sType*% field_type2 = expand_typedef_for_compare(field_type, info);
+                    bool field_pointer_like = pointer_level_for_compare(field_type2) > 0 || field_type2->mFunctionPointerNum > 0;
+                    
                     char source2[1024];
-                    snprintf(source2, 1024, " && ");
+                    if(field_type2->mArrayNum.length() > 0) {
+                        snprintf(source2, 1024, "if(memcmp(left.%s, right.%s, sizeof(left.%s)) != 0) { return true; }\n", name, name, name);
+                    }
+                    else if(compare_field_by_pointer(field_type, field_type2)) {
+                        snprintf(source2, 1024, "if(left.%s != right.%s) { return true; }\n", name, name, name);
+                    }
+                    else {
+                        snprintf(source2, 1024, "if(left.%s !== right.%s) { return true; }\n", name, name, name);
+                    }
                     source.append_str(source2);
                 }
-                
-                i++;
+                source.append_str("return false;\n");
             }
         }
         
@@ -479,9 +565,18 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
     
     type = borrow type2;
     
-    sClass* klass = type->mClass;
+    sType*% compare_type = expand_typedef_for_compare(type, info);
+    sClass* klass = compare_type->mClass;
+    int pointer_num = pointer_level_for_compare(type);
+    int compare_pointer_num = pointer_level_for_compare(compare_type);
+    int max_pointer_num = pointer_num > compare_pointer_num ? pointer_num : compare_pointer_num;
+    int function_pointer_num = type->mFunctionPointerNum > compare_type->mFunctionPointerNum ? type->mFunctionPointerNum : compare_type->mFunctionPointerNum;
+    bool pointer_like = max_pointer_num > 0 || function_pointer_num > 0;
+    bool deep_compare_fields = !klass->mNumber
+        && function_pointer_num == 0
+        && max_pointer_num <= 1;
     
-    if(type->mPointerNum > 0 && !klass->mNumber) {
+    if(pointer_like || !klass->mNumber) {
         var source = new buffer();
         
         source.append_char('{');
@@ -492,33 +587,38 @@ sFun*,string create_not_equals_automatically(sType* type, const char* fun_name, 
             snprintf(source2, 1024, "return !left.%s.equals(right.%s);\n", name, name);
             source.append_str(source2);
         }
+        else if(pointer_like && !deep_compare_fields) {
+            source.append_str("return left != right;\n");
+        }
         else {
-            char source2[1024];
-            snprintf(source2, 1024, "return !(");
-            
-            source.append_str(source2);
-            
-            int i = 0;
-            klass = borrow info.classes[klass->mName];
-            foreach(it, klass->mFields) {
-                var name, field_type = it;
-                
-                char source2[1024];
-                snprintf(source2, 1024, "left.%s.equals(right.%s)", name, name);
-                source.append_str(source2);
-                
-                if(i == klass->mFields.length()-1) {
-                    char source2[1024];
-                    snprintf(source2, 1024, ");");
-                    source.append_str(source2);
+            klass = borrow info.classes.at(klass->mName, null);
+            if(klass == null || klass->mFields == null || klass->mFields.length() == 0) {
+                if(pointer_like) {
+                    source.append_str("return left != right;\n");
                 }
                 else {
+                    source.append_str("return false;\n");
+                }
+            }
+            else {
+                foreach(it, klass->mFields) {
+                    var name, field_type = it;
+                    sType*% field_type2 = expand_typedef_for_compare(field_type, info);
+                    bool field_pointer_like = pointer_level_for_compare(field_type2) > 0 || field_type2->mFunctionPointerNum > 0;
+                    
                     char source2[1024];
-                    snprintf(source2, 1024, " && ");
+                    if(field_type2->mArrayNum.length() > 0) {
+                        snprintf(source2, 1024, "if(memcmp(left.%s, right.%s, sizeof(left.%s)) != 0) { return true; }\n", name, name, name);
+                    }
+                    else if(compare_field_by_pointer(field_type, field_type2)) {
+                        snprintf(source2, 1024, "if(left.%s != right.%s) { return true; }\n", name, name, name);
+                    }
+                    else {
+                        snprintf(source2, 1024, "if(!left.%s.equals(right.%s)) { return true; }\n", name, name, name);
+                    }
                     source.append_str(source2);
                 }
-                
-                i++;
+                source.append_str("return false;\n");
             }
         }
         
@@ -610,9 +710,18 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
     
     type = borrow type2;
     
-    sClass* klass = type->mClass;
+    sType*% compare_type = expand_typedef_for_compare(type, info);
+    sClass* klass = compare_type->mClass;
+    int pointer_num = pointer_level_for_compare(type);
+    int compare_pointer_num = pointer_level_for_compare(compare_type);
+    int max_pointer_num = pointer_num > compare_pointer_num ? pointer_num : compare_pointer_num;
+    int function_pointer_num = type->mFunctionPointerNum > compare_type->mFunctionPointerNum ? type->mFunctionPointerNum : compare_type->mFunctionPointerNum;
+    bool pointer_like = max_pointer_num > 0 || function_pointer_num > 0;
+    bool deep_compare_fields = !klass->mNumber
+        && function_pointer_num == 0
+        && max_pointer_num <= 1;
     
-    if(type->mPointerNum > 0 && !klass->mNumber) {
+    if(pointer_like || !klass->mNumber) {
         var source = new buffer();
         
         source.append_char('{');
@@ -623,17 +732,38 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
             snprintf(source2, 1024, "return left.%s === right.%s;\n", name, name);
             source.append_str(source2);
         }
+        else if(pointer_like && !deep_compare_fields) {
+            source.append_str("return left == right;\n");
+        }
         else {
-            char source2[1024];
-            
-            klass = borrow info.classes[klass->mName];
-            foreach(it, klass->mFields) {
-                var name, field_type = it;
-                
-                char source2[1024];
-                snprintf(source2, 1024, "if(left.%s !== right.%s) { return false; }\n", name, name, name);
-                
-                source.append_str(source2);
+            klass = borrow info.classes.at(klass->mName, null);
+            if(klass == null || klass->mFields == null || klass->mFields.length() == 0) {
+                if(pointer_like) {
+                    source.append_str("return left == right;\n");
+                }
+                else {
+                    source.append_str("return true;\n");
+                }
+            }
+            else {
+                foreach(it, klass->mFields) {
+                    var name, field_type = it;
+                    sType*% field_type2 = expand_typedef_for_compare(field_type, info);
+                    bool field_pointer_like = pointer_level_for_compare(field_type2) > 0 || field_type2->mFunctionPointerNum > 0;
+                    
+                    char source2[1024];
+                    if(field_type2->mArrayNum.length() > 0) {
+                        snprintf(source2, 1024, "if(memcmp(left.%s, right.%s, sizeof(left.%s)) != 0) { return false; }\n", name, name, name);
+                    }
+                    else if(compare_field_by_pointer(field_type, field_type2)) {
+                        snprintf(source2, 1024, "if(left.%s != right.%s) { return false; }\n", name, name, name);
+                    }
+                    else {
+                        snprintf(source2, 1024, "if(left.%s !== right.%s) { return false; }\n", name, name, name);
+                    }
+                    
+                    source.append_str(source2);
+                }
             }
         }
         
@@ -713,4 +843,3 @@ sFun*,string create_operator_equals_automatically(sType* type, const char* fun_n
     
     return t(equaler, real_fun_name);
 }
-

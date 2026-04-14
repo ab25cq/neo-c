@@ -38,6 +38,7 @@ struct sBlock;
 
 char* parsecmp_tail(const char* p2, sInfo* info=info);
 char* parsecmp_forward(const char* p2, sInfo* info=info);
+void add_parse_variable_to_table(char* name, sInfo* info=info);
 
 interface sNode 
 {
@@ -1258,6 +1259,8 @@ sBlock*% parse_come_block(sInfo* info=info);
 sNode*% create_new_object(sType* type, sInfo* info=info);
 sNode*% create_null_checker(sNode*% node, sInfo* info=info);
 sNode*% create_heap_checker(sNode*% node, sInfo* info=info);
+sType*% normalize_loadvar_type_for_compare(sType* type, sInfo* info=info);
+sType*% expand_typedef_for_assign(sType*% type, sInfo* info=info);
 
 uniq class sNullChecker extends sNodeBase
 {

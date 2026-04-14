@@ -56,6 +56,10 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
 {
     var result = new sBlock();
     
+    sVarTable* old_table = info->lv_table;
+    sVarTable*% parse_table = new sVarTable(false@global, old_table);
+    info->lv_table = borrow parse_table;
+    
     int sline_top = info.sline_top;
     info.sline_top = info.sline;
     
@@ -273,6 +277,7 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
     }
     
     info->block_level = block_level;
+    info->lv_table = old_table;
     
     return result;
 }

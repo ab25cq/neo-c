@@ -205,7 +205,15 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         sNode*% right_value3 = create_method_call("next", create_load_var(o2_name), params3, null@method_block, -1@method_block_sline, null@method_generics_types, info);
         sNode*% expression_node3 = store_var(it_name@name, null@multiple_assign, null@multiple_declare, null@type, false@alloc, right_value3, info);
         
+        sVar*% old_it_var = clone info.lv_table.mVars.at(string(it_name), null);
+        add_parse_variable_to_table(it_name, info);
         sBlock*% block = parse_block();
+        if(old_it_var) {
+            info.lv_table.mVars.insert(string(it_name), old_it_var);
+        }
+        else {
+            info.lv_table.mVars.remove(string(it_name));
+        }
         
         if(!block.mOmitSemicolon) {
             existance_result_value = false;

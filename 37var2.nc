@@ -891,15 +891,13 @@ void add_variable_to_table(char* name, sType* type, sInfo* info, bool function_p
         }
     }
     
+    if(info.classes.at(string(name), null) != null || info.generics_classes.at(string(name), null) != null) {
+        same_name = true;
+    }
     
     
-    if(function_param) {
-        self->mCValueName = string(name);
-    }
-    else if(type->mRegister) {
-        self->mCValueName = string(name);
-    }
-    else if(!same_name) {
+    
+    if(!same_name) {
         self->mCValueName = string(name);
     }
     else {
@@ -963,6 +961,28 @@ void add_variable_to_global_table_with_int_value(char* name, sType* type, char* 
     info.gv_table.mVars.insert(string(name), self);
 }
 
+void add_parse_variable_to_table(char* name, sInfo* info)
+{
+    if(info->lv_table == null) {
+        return;
+    }
+    
+    sVar*% self = new sVar;
+    
+    self->mName = string(name);
+    self->mType = new sType(s"void");
+    self->mType->mPointerNum = 1;
+    
+    self->mGlobal = false;
+    self->mCValueName = string(name);
+    self->mAllocaValue = false;
+    self->mNoFree = true;
+    self->mFunName = info->come_fun ? clone info->come_fun->mName : string("");
+    self.no_output_come_code = true;
+    
+    info.lv_table.mVars.insert(string(name), self);
+}
+
 static void add_defining_class_field_if_missing(string name, sType* type, sInfo* info)
 {
     if(info->defining_class == null) {
@@ -985,10 +1005,13 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     int sline_real = info.sline_real;
     info.sline_real = head_sline;
     bool is_type_name_flag = is_type_name(buf);
+    bool has_local_variable = get_variable_from_table(info.lv_table, buf) != null;
+    bool has_global_variable = get_variable_from_table(info.gv_table, buf) != null;
+    bool has_variable = has_local_variable || has_global_variable;
     
     /// backtrace ///
     bool multiple_declare = false;
-    if(is_type_name_flag && !info.in_offsetof)
+    if(is_type_name_flag && !has_variable && !info.in_offsetof)
     {
         bool no_output_come_code = info.no_output_come_code;
         info.no_output_come_code = true;
@@ -1041,7 +1064,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
     }
     
     bool attr_define = false;
-    if(is_type_name_flag && info->defining_class && !info.in_offsetof) {
+    if(is_type_name_flag && !has_variable && info->defining_class && !info.in_offsetof) {
         char* p = info.p;
         int sline = info.sline;
         bool no_output_come_code = info.no_output_come_code;
@@ -1073,6 +1096,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         skip_spaces_and_lf();
         
         list<string>*% multiple_assign = null;
+        add_parse_variable_to_table(buf2, info);
         
         if(*info.p == ',' ) {
             multiple_assign = new list<string>();
@@ -1084,6 +1108,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 
                 var buf3 = parse_word();
                 skip_spaces_and_lf();
+                add_parse_variable_to_table(buf3, info);
                 
                 multiple_assign.push_back(clone buf3);
             }
@@ -1134,6 +1159,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         
         skip_spaces_and_lf();
         var type2,var_name = parse_variable_name_on_multiple_declare(base_type, true@first, info);
+        add_parse_variable_to_table(var_name, info);
         skip_spaces_and_lf();
         
         if(*info.p == '=' && *(info->p+1) != '=') {
@@ -1170,6 +1196,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
             skip_spaces_and_lf();
             
             var type2, var_name = parse_variable_name_on_multiple_declare(base_type, false@first, info);
+            add_parse_variable_to_table(var_name, info);
             
             if(*info.p == '=' && *(info->p+1) != '=')  {
                 info->p++;
@@ -1264,7 +1291,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.sline_real = sline_real;
         return node;
     }
-    else if(!is_type_name_flag || info.funcs[string(buf)]) {
+    else if(has_variable || !is_type_name_flag || info.funcs[string(buf)]) {
         sNode*% node = new sLoadNode(string(buf)@name, info) implements sNode;
     
         node = post_position_operator(node, info);
@@ -1299,7 +1326,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
         info.p = head;
         info.sline = head_sline;
         
-        if(is_type_name_flag) {
+        if(is_type_name_flag && !has_variable) {
             skip_spaces_and_lf();
             var type, name, err = parse_type(parse_variable_name:true);
             skip_spaces_and_lf();
@@ -1308,6 +1335,7 @@ sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 
                 printf("%s %d: parse_type failed\n", info->sname, info->sline);
                 exit(2);
             }
+            add_parse_variable_to_table(name, info);
             skip_spaces_and_lf();
             
             if(*info.p == '=' && *(info->p+1) != '=' && *(info->p+1) != '>' && info->no_assign) {
