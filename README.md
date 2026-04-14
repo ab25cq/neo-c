@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.1.9
+version 1.0.2.0
 
 ``` C
 #include <neo-c.h>
@@ -139,6 +139,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.2.0 normalize effective pointer depth in auto-generated equals/clone/finalize, fixing multi-level pointer and typedef alias cases used by remove().
 1.0.1.9 document `??` propagation for `Result<T>` / `RESULT(T)`.
 1.0.1.8 fix anonymous enum regressions around payload enum parsing and self-hosted comelang compilation.
 1.0.1.7 add Rust-like payload enum syntax with generated variant constructors and predicate/getter methods.

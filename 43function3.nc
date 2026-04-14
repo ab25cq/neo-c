@@ -1,5 +1,27 @@
 #include "common.h"
 
+static sType*% normalize_type_for_auto_clone(sType* type, sInfo* info)
+{
+    sType*% result = normalize_loadvar_type_for_compare(type, info);
+    
+    if(result == null) {
+        return null;
+    }
+    
+    return expand_typedef_for_assign(result, info);
+}
+
+static int pointer_level_for_auto_clone(sType* type)
+{
+    if(type == null) {
+        return 0;
+    }
+    
+    return type->mPointerNum
+        + (type->mPointerNum == 0 ? type->mArrayPointerNum : 0)
+        + (type->mArrayPointerType ? 1 : 0);
+}
+
 sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInfo* info)
 {
     if(type->mClass->mName === "void") {
@@ -18,7 +40,13 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
     
 //    type->mHeap = true;
     
-    sClass* klass = type->mClass;
+    sType*% normalized_type = normalize_type_for_auto_clone(type, info);
+    sType* clone_type = borrow type;
+    if(normalized_type) {
+        clone_type = borrow normalized_type;
+    }
+    sClass* klass = clone_type->mClass;
+    int pointer_level = pointer_level_for_auto_clone(clone_type);
     
     string fun_name2;
     
@@ -71,84 +99,101 @@ sFun*,string create_cloner_automatically(sType* type, const char* fun_name, sInf
         real_fun_name = fun_name2;
     }
     
-    if(cloner == null && !type->mClass->mNumber && type->mPointerNum > 0)
+    if(cloner == null && !klass->mNumber && pointer_level > 0)
     {
         var source = new buffer();
-        
-        sType*% type2 = clone type;
-        type2->mPointerNum = 0;
-        
         source.append_str("{\n");
-        source.append_str("\nusing unsafe;\n");
-        source.append_str("if(self == (void*)0) { return (void*)0; }\n");
-        source.append_format("var result = new %s;\n", make_type_name_string(type2));
-        
-        if(klass->mProtocol) {
-            const char* name = "_protocol_obj";
-            char source2[1024];
-            snprintf(source2, 1024, "if(self != ((void*)0) && self->clone != ((void*)0)) { result._protocol_obj = self->clone(); }\n");
-            
-            source.append_str(source2);
-            
-            klass = borrow info.classes[klass->mName];
-            foreach(it, klass->mFields) {
-                var name, field_type = it;
-                
-                if(name === "_protocol_obj") {
-                }
-                else if(field_type->mArrayNum.length() > 0) {
-                    char source2[1024];
-                    snprintf(source2, 1024, "if(self != ((void*)0)) { memcpy(result.%s, self.%s, sizeof(result.%s)); }\n", name, name, name);
-                    
-                    source.append_str(source2);
-                }
-                else {
-                    char source2[1024];
-                    snprintf(source2, 1024, "if(self != ((void*)0)) { result.%s = self.%s; }\n", name, name);
-                    
-                    source.append_str(source2);
-                }
-            }
+
+        if(pointer_level > 1 || clone_type->mFunctionPointerNum > 0) {
+            source.append_str("if(self == (void*)0) { return (void*)0; }\n");
+            source.append_str("return dummy_heap self;");
         }
         else {
-            klass = borrow info.classes[klass->mName];
-            foreach(it, klass->mFields) {
-                var name, field_type = it;
+            sType*% target_type = clone clone_type;
+            target_type->mPointerNum = 0;
+            target_type->mArrayPointerNum = 0;
+            target_type->mArrayPointerType = false;
+            target_type->mFunctionPointerNum = 0;
+            
+            source.append_str("\nusing unsafe;\n");
+            source.append_str("if(self == (void*)0) { return (void*)0; }\n");
+            source.append_format("var result = new %s;\n", make_type_name_string(target_type));
+            
+            if(klass->mProtocol) {
+                const char* name = "_protocol_obj";
+                char source2[1024];
+                snprintf(source2, 1024, "if(self != ((void*)0) && self->clone != ((void*)0)) { result._protocol_obj = self->clone(); }\n");
                 
-                if(field_type->mHeap) {
-                    char source2[1024];
-                    snprintf(source2, 1024, "if(self != ((void*)0) && self.%s != ((void*)0)) { result.%s = clone self.%s; }\n", name, name, name);
+                source.append_str(source2);
+                
+                klass = borrow info.classes[klass->mName];
+                foreach(it, klass->mFields) {
+                    var name, field_type = it;
+                    sType*% field_type2 = normalize_type_for_auto_clone(field_type, info);
+                    if(field_type2 == null) {
+                        field_type2 = clone field_type;
+                    }
                     
-                    source.append_str(source2);
-                }
-                else if(field_type->mArrayNum.length() > 0) {
-                    char source2[1024];
-                    snprintf(source2, 1024, "if(self != ((void*)0)) { memcpy(result.%s, self.%s, sizeof(result.%s)); }\n", name, name, name);
-                    
-                    source.append_str(source2);
-                }
-                else {
-                    char source2[1024];
-                    snprintf(source2, 1024, "if(self != ((void*)0)) { result.%s = self.%s; }\n", name, name);
-                    
-                    source.append_str(source2);
+                    if(name === "_protocol_obj") {
+                    }
+                    else if(field_type2->mArrayNum.length() > 0) {
+                        char source2[1024];
+                        snprintf(source2, 1024, "if(self != ((void*)0)) { memcpy(result.%s, self.%s, sizeof(result.%s)); }\n", name, name, name);
+                        
+                        source.append_str(source2);
+                    }
+                    else {
+                        char source2[1024];
+                        snprintf(source2, 1024, "if(self != ((void*)0)) { result.%s = self.%s; }\n", name, name);
+                        
+                        source.append_str(source2);
+                    }
                 }
             }
-        }
-        
-        string user_real_fun_name = create_method_name(type, false@no_pointer_name, "user_clone", info);
-        sFun* user_cloner = borrow info->funcs[user_real_fun_name];
-        
-/*
-        if(user_cloner) {
-            char source2[1024];
-            snprintf(source2, 1024, "if(self != ((void*)0)) { %s(result, self); }\n", user_real_fun_name);
+            else {
+                klass = borrow info.classes[klass->mName];
+                foreach(it, klass->mFields) {
+                    var name, field_type = it;
+                    sType*% field_type2 = normalize_type_for_auto_clone(field_type, info);
+                    if(field_type2 == null) {
+                        field_type2 = clone field_type;
+                    }
+                    
+                    if(field_type2->mHeap) {
+                        char source2[1024];
+                        snprintf(source2, 1024, "if(self != ((void*)0) && self.%s != ((void*)0)) { result.%s = clone self.%s; }\n", name, name, name);
+                        
+                        source.append_str(source2);
+                    }
+                    else if(field_type2->mArrayNum.length() > 0) {
+                        char source2[1024];
+                        snprintf(source2, 1024, "if(self != ((void*)0)) { memcpy(result.%s, self.%s, sizeof(result.%s)); }\n", name, name, name);
+                        
+                        source.append_str(source2);
+                    }
+                    else {
+                        char source2[1024];
+                        snprintf(source2, 1024, "if(self != ((void*)0)) { result.%s = self.%s; }\n", name, name);
+                        
+                        source.append_str(source2);
+                    }
+                }
+            }
             
-            source.append_str(source2);
-        }
+            string user_real_fun_name = create_method_name(type, false@no_pointer_name, "user_clone", info);
+            sFun* user_cloner = borrow info->funcs[user_real_fun_name];
+            
+/*
+            if(user_cloner) {
+                char source2[1024];
+                snprintf(source2, 1024, "if(self != ((void*)0)) { %s(result, self); }\n", user_real_fun_name);
+                
+                source.append_str(source2);
+            }
 */
-        
-        source.append_format("return result;");
+            
+            source.append_format("return result;");
+        }
         source.append_char('}');
         
         char* p = info.p;
@@ -661,4 +706,3 @@ sFun*,string create_compare_automatically(sType* type, const char* fun_name, sIn
     
     return t(get_hash_key_fun, real_fun_name);
 }
-

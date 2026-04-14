@@ -117,9 +117,15 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
         
         type_ = type2;
         
-        sClass* klass = type_->mClass;
+        sType*% normalized_type = expand_typedef_for_compare(type_, info);
+        sType* lifecycle_type = borrow type_;
+        if(normalized_type) {
+            lifecycle_type = borrow normalized_type;
+        }
+        sClass* klass = lifecycle_type->mClass;
+        int pointer_level = pointer_level_for_compare(lifecycle_type);
         
-        if(type_->mPointerNum > 0 && klass->mStruct || type_->mAllocaValue) {
+        if((pointer_level == 1 && klass->mStruct) || type_->mAllocaValue) {
             var source = new buffer();
             
             source.append_char('{');
@@ -138,6 +144,10 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
             klass = borrow info.classes[klass->mName];
             foreach(it, klass->mFields) {
                 var name, field_type = it;
+                sType*% field_type2 = expand_typedef_for_compare(field_type, info);
+                if(field_type2 == null) {
+                    field_type2 = clone field_type;
+                }
 
                 bool weak_field = field_type->mWeak;
                 field_type->mNoSolvedGenericsType.if {
@@ -165,13 +175,13 @@ sFun*,string create_finalizer_automatically(sType* type, const char* fun_name, s
                     warning_msg(info, "Cyclic ownership detected involving %s. Don't use heap to break cycle, but sometimes it works. If you need no check this to use _weak attribute to the fields.", field_type->mClass->mName);
                 }
                 
-                if(field_type->mHeap) {
+                if(field_type2->mHeap) {
                     char source2[1024];
                     snprintf(source2, 1024, "if(self != ((void*)0) && self.%s != ((void*)0)) { delete borrow self.%s; }\n", name, name, name,name);
                     
                     source.append_str(source2);
                 }
-                else if(field_type->mChannel) {
+                else if(field_type2->mChannel) {
                     char source2[1024];
                     snprintf(source2, 1024, "if(self != ((void*)0) && self.%s[0] != ((void*)0) && come_get_ref_count(self) == 0) { close(self.%s[0]); }", name, name);
                     source.append_str(source2);
