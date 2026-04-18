@@ -8987,38 +8987,38 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     int i_47;
     memset(&i, 0, sizeof(i));
     memset(&i_47, 0, sizeof(i_47));
-    # 3389 "/usr/local/include/neo-c.h"
-    # 3398 "/usr/local/include/neo-c.h"
+    # 3399 "/usr/local/include/neo-c.h"
+    # 3408 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3397 "/usr/local/include/neo-c.h"
+        # 3407 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3396 "/usr/local/include/neo-c.h"
+            # 3406 "/usr/local/include/neo-c.h"
             if(1) {
-                # 3394 "/usr/local/include/neo-c.h"
+                # 3404 "/usr/local/include/neo-c.h"
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 2, 527);
             }
         }
     }
-    # 3398 "/usr/local/include/neo-c.h"
+    # 3408 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3407 "/usr/local/include/neo-c.h"
+    # 3417 "/usr/local/include/neo-c.h"
     for(i_47=0    ;i_47<self->size;i_47++){
-        # 3406 "/usr/local/include/neo-c.h"
+        # 3416 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_47]) {
-            # 3405 "/usr/local/include/neo-c.h"
+            # 3415 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3403 "/usr/local/include/neo-c.h"
+                # 3413 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3407 "/usr/local/include/neo-c.h"
+    # 3417 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3409 "/usr/local/include/neo-c.h"
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3409, 528);
-    # 3411 "/usr/local/include/neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3411, 529));
-    # 3412 "/usr/local/include/neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3412, 530));
+    # 3419 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3419, 528);
+    # 3421 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3421, 529));
+    # 3422 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3422, 530));
             neo_current_frame = fr.prev;
 }
 
@@ -9068,38 +9068,38 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     int i_48;
     memset(&i, 0, sizeof(i));
     memset(&i_48, 0, sizeof(i_48));
-    # 3389 "/usr/local/include/neo-c.h"
-    # 3398 "/usr/local/include/neo-c.h"
+    # 3399 "/usr/local/include/neo-c.h"
+    # 3408 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3397 "/usr/local/include/neo-c.h"
+        # 3407 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3396 "/usr/local/include/neo-c.h"
+            # 3406 "/usr/local/include/neo-c.h"
             if(1) {
-                # 3394 "/usr/local/include/neo-c.h"
-                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3394, 534);
+                # 3404 "/usr/local/include/neo-c.h"
+                come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3404, 534);
             }
         }
     }
-    # 3398 "/usr/local/include/neo-c.h"
+    # 3408 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3407 "/usr/local/include/neo-c.h"
+    # 3417 "/usr/local/include/neo-c.h"
     for(i_48=0    ;i_48<self->size;i_48++){
-        # 3406 "/usr/local/include/neo-c.h"
+        # 3416 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_48]) {
-            # 3405 "/usr/local/include/neo-c.h"
+            # 3415 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3403 "/usr/local/include/neo-c.h"
+                # 3413 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3407 "/usr/local/include/neo-c.h"
+    # 3417 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3409 "/usr/local/include/neo-c.h"
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3409, 535);
-    # 3411 "/usr/local/include/neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3411, 536));
-    # 3412 "/usr/local/include/neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3412, 537));
+    # 3419 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3419, 535);
+    # 3421 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3421, 536));
+    # 3422 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3422, 537));
             neo_current_frame = fr.prev;
 }
 
@@ -9144,38 +9144,38 @@ static void map$2int$list$1int$ph$ph$p_finalize(struct map$2int$list$1int$ph$ph*
     int i_49;
     memset(&i, 0, sizeof(i));
     memset(&i_49, 0, sizeof(i_49));
-    # 3389 "/usr/local/include/neo-c.h"
-    # 3398 "/usr/local/include/neo-c.h"
+    # 3399 "/usr/local/include/neo-c.h"
+    # 3408 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3397 "/usr/local/include/neo-c.h"
+        # 3407 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3396 "/usr/local/include/neo-c.h"
+            # 3406 "/usr/local/include/neo-c.h"
             if(1) {
-                # 3394 "/usr/local/include/neo-c.h"
-                come_call_finalizer(list$1int$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3394, 548);
+                # 3404 "/usr/local/include/neo-c.h"
+                come_call_finalizer(list$1int$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3404, 548);
             }
         }
     }
-    # 3398 "/usr/local/include/neo-c.h"
+    # 3408 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3407 "/usr/local/include/neo-c.h"
+    # 3417 "/usr/local/include/neo-c.h"
     for(i_49=0    ;i_49<self->size;i_49++){
-        # 3406 "/usr/local/include/neo-c.h"
+        # 3416 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_49]) {
-            # 3405 "/usr/local/include/neo-c.h"
+            # 3415 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3403 "/usr/local/include/neo-c.h"
+                # 3413 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3407 "/usr/local/include/neo-c.h"
+    # 3417 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3409 "/usr/local/include/neo-c.h"
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3409, 549);
-    # 3411 "/usr/local/include/neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3411, 550));
-    # 3412 "/usr/local/include/neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3412, 551));
+    # 3419 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3419, 549);
+    # 3421 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3421, 550));
+    # 3422 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3422, 551));
             neo_current_frame = fr.prev;
 }
 
@@ -9186,37 +9186,37 @@ static void map$2int$int$$p_finalize(struct map$2int$int$* self)
     int i_50;
     memset(&i, 0, sizeof(i));
     memset(&i_50, 0, sizeof(i_50));
-    # 3389 "/usr/local/include/neo-c.h"
-    # 3398 "/usr/local/include/neo-c.h"
+    # 3399 "/usr/local/include/neo-c.h"
+    # 3408 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3397 "/usr/local/include/neo-c.h"
+        # 3407 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3396 "/usr/local/include/neo-c.h"
+            # 3406 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3394 "/usr/local/include/neo-c.h"
+                # 3404 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3398 "/usr/local/include/neo-c.h"
+    # 3408 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3407 "/usr/local/include/neo-c.h"
+    # 3417 "/usr/local/include/neo-c.h"
     for(i_50=0    ;i_50<self->size;i_50++){
-        # 3406 "/usr/local/include/neo-c.h"
+        # 3416 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_50]) {
-            # 3405 "/usr/local/include/neo-c.h"
+            # 3415 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3403 "/usr/local/include/neo-c.h"
+                # 3413 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3407 "/usr/local/include/neo-c.h"
+    # 3417 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3409 "/usr/local/include/neo-c.h"
-    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3409, 553);
-    # 3411 "/usr/local/include/neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3411, 554));
-    # 3412 "/usr/local/include/neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3412, 555));
+    # 3419 "/usr/local/include/neo-c.h"
+    come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3419, 553);
+    # 3421 "/usr/local/include/neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3421, 554));
+    # 3422 "/usr/local/include/neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3422, 555));
             neo_current_frame = fr.prev;
 }
 
