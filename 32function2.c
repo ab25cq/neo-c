@@ -5150,67 +5150,67 @@ static struct sFun*  map$2char$phsFun$ph$p_operator_load_element(struct map$2cha
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 4047 "./neo-c.h"
-    # 4049 "./neo-c.h"
-    # 4050 "./neo-c.h"
+    # 4057 "./neo-c.h"
+    # 4059 "./neo-c.h"
+    # 4060 "./neo-c.h"
     memset(&default_value,0,sizeof(struct sFun* ));
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     if(self==((void*)0)) {
-        # 4053 "./neo-c.h"
-                __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4053, 231);
-        come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 258);
+        # 4063 "./neo-c.h"
+                __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4063, 231);
+        come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 258);
         neo_current_frame = fr.prev;
-        come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 259);
+        come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 259);
         return __result_obj__0;
     }
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 4057 "./neo-c.h"
+    # 4067 "./neo-c.h"
     hash=key_hash%self->size;
-    # 4058 "./neo-c.h"
+    # 4068 "./neo-c.h"
     it=hash;
-    # 4080 "./neo-c.h"
+    # 4090 "./neo-c.h"
     while((_Bool)1) {
-        # 4078 "./neo-c.h"
+        # 4088 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 4068 "./neo-c.h"
+            # 4078 "./neo-c.h"
             if(self->hashes[it]==key_hash&&string_equals(self->keys[it],key)) {
-                # 4065 "./neo-c.h"
-                                __result_obj__0 = (struct sFun* )come_increment_ref_count(self->items[it], "./neo-c.h", 4065, 260);
-                come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4065, 261);
+                # 4075 "./neo-c.h"
+                                __result_obj__0 = (struct sFun* )come_increment_ref_count(self->items[it], "./neo-c.h", 4075, 260);
+                come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4075, 261);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4065, 262);
+                come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4075, 262);
                 return __result_obj__0;
             }
-            # 4071 "./neo-c.h"
+            # 4081 "./neo-c.h"
             if(++it>=self->size) {
-                # 4069 "./neo-c.h"
+                # 4079 "./neo-c.h"
                 it=0;
             }
-            # 4074 "./neo-c.h"
+            # 4084 "./neo-c.h"
             if(it==hash) {
-                # 4072 "./neo-c.h"
-                                __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4072, 263);
-                come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 264);
+                # 4082 "./neo-c.h"
+                                __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4082, 263);
+                come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 264);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 265);
+                come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 265);
                 return __result_obj__0;
             }
         }
         else {
-            # 4076 "./neo-c.h"
-                        __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4076, 266);
-            come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 267);
+            # 4086 "./neo-c.h"
+                        __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4086, 266);
+            come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 267);
             neo_current_frame = fr.prev;
-            come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 268);
+            come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 268);
             return __result_obj__0;
         }
     }
-    # 4080 "./neo-c.h"
-        __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4080, 269);
-    come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 270);
+    # 4090 "./neo-c.h"
+        __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4090, 269);
+    come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 270);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 271);
+    come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 271);
     return __result_obj__0;
 }
 
@@ -5405,67 +5405,67 @@ static struct sFun*  map$2char$phsFun$ph_operator_load_element(struct map$2char$
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 4047 "./neo-c.h"
-    # 4049 "./neo-c.h"
-    # 4050 "./neo-c.h"
+    # 4057 "./neo-c.h"
+    # 4059 "./neo-c.h"
+    # 4060 "./neo-c.h"
     memset(&default_value,0,sizeof(struct sFun* ));
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     if(self==((void*)0)) {
-        # 4053 "./neo-c.h"
-                __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4053, 272);
-        come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 273);
+        # 4063 "./neo-c.h"
+                __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4063, 272);
+        come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 273);
         neo_current_frame = fr.prev;
-        come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 274);
+        come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 274);
         return __result_obj__0;
     }
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 4057 "./neo-c.h"
+    # 4067 "./neo-c.h"
     hash=key_hash%self->size;
-    # 4058 "./neo-c.h"
+    # 4068 "./neo-c.h"
     it=hash;
-    # 4080 "./neo-c.h"
+    # 4090 "./neo-c.h"
     while((_Bool)1) {
-        # 4078 "./neo-c.h"
+        # 4088 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 4068 "./neo-c.h"
+            # 4078 "./neo-c.h"
             if(self->hashes[it]==key_hash&&string_equals(self->keys[it],key)) {
-                # 4065 "./neo-c.h"
-                                __result_obj__0 = (struct sFun* )come_increment_ref_count(self->items[it], "./neo-c.h", 4065, 275);
-                come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4065, 276);
+                # 4075 "./neo-c.h"
+                                __result_obj__0 = (struct sFun* )come_increment_ref_count(self->items[it], "./neo-c.h", 4075, 275);
+                come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4075, 276);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4065, 277);
+                come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4075, 277);
                 return __result_obj__0;
             }
-            # 4071 "./neo-c.h"
+            # 4081 "./neo-c.h"
             if(++it>=self->size) {
-                # 4069 "./neo-c.h"
+                # 4079 "./neo-c.h"
                 it=0;
             }
-            # 4074 "./neo-c.h"
+            # 4084 "./neo-c.h"
             if(it==hash) {
-                # 4072 "./neo-c.h"
-                                __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4072, 278);
-                come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 279);
+                # 4082 "./neo-c.h"
+                                __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4082, 278);
+                come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 279);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 280);
+                come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 280);
                 return __result_obj__0;
             }
         }
         else {
-            # 4076 "./neo-c.h"
-                        __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4076, 281);
-            come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 282);
+            # 4086 "./neo-c.h"
+                        __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4086, 281);
+            come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 282);
             neo_current_frame = fr.prev;
-            come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 283);
+            come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 283);
             return __result_obj__0;
         }
     }
-    # 4080 "./neo-c.h"
-        __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4080, 284);
-    come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 285);
+    # 4090 "./neo-c.h"
+        __result_obj__0 = (struct sFun* )come_increment_ref_count(default_value, "./neo-c.h", 4090, 284);
+    come_call_finalizer(sFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 285);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 286);
+    come_call_finalizer(sFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 286);
     return __result_obj__0;
 }
 
@@ -5480,67 +5480,67 @@ static struct sGenericsFun*  map$2char$phsGenericsFun$ph$p_operator_load_element
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 4047 "./neo-c.h"
-    # 4049 "./neo-c.h"
-    # 4050 "./neo-c.h"
+    # 4057 "./neo-c.h"
+    # 4059 "./neo-c.h"
+    # 4060 "./neo-c.h"
     memset(&default_value,0,sizeof(struct sGenericsFun* ));
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     if(self==((void*)0)) {
-        # 4053 "./neo-c.h"
-                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4053, 289);
-        come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 300);
+        # 4063 "./neo-c.h"
+                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4063, 289);
+        come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 300);
         neo_current_frame = fr.prev;
-        come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 301);
+        come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 301);
         return __result_obj__0;
     }
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 4057 "./neo-c.h"
+    # 4067 "./neo-c.h"
     hash=key_hash%self->size;
-    # 4058 "./neo-c.h"
+    # 4068 "./neo-c.h"
     it=hash;
-    # 4080 "./neo-c.h"
+    # 4090 "./neo-c.h"
     while((_Bool)1) {
-        # 4078 "./neo-c.h"
+        # 4088 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 4068 "./neo-c.h"
+            # 4078 "./neo-c.h"
             if(self->hashes[it]==key_hash&&string_equals(self->keys[it],key)) {
-                # 4065 "./neo-c.h"
-                                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(self->items[it], "./neo-c.h", 4065, 302);
-                come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4065, 303);
+                # 4075 "./neo-c.h"
+                                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(self->items[it], "./neo-c.h", 4075, 302);
+                come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4075, 303);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4065, 304);
+                come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4075, 304);
                 return __result_obj__0;
             }
-            # 4071 "./neo-c.h"
+            # 4081 "./neo-c.h"
             if(++it>=self->size) {
-                # 4069 "./neo-c.h"
+                # 4079 "./neo-c.h"
                 it=0;
             }
-            # 4074 "./neo-c.h"
+            # 4084 "./neo-c.h"
             if(it==hash) {
-                # 4072 "./neo-c.h"
-                                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4072, 305);
-                come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 306);
+                # 4082 "./neo-c.h"
+                                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4082, 305);
+                come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 306);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 307);
+                come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 307);
                 return __result_obj__0;
             }
         }
         else {
-            # 4076 "./neo-c.h"
-                        __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4076, 308);
-            come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 309);
+            # 4086 "./neo-c.h"
+                        __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4086, 308);
+            come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 309);
             neo_current_frame = fr.prev;
-            come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 310);
+            come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 310);
             return __result_obj__0;
         }
     }
-    # 4080 "./neo-c.h"
-        __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4080, 311);
-    come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 312);
+    # 4090 "./neo-c.h"
+        __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4090, 311);
+    come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 312);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 313);
+    come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 313);
     return __result_obj__0;
 }
 
@@ -5612,67 +5612,67 @@ static struct sGenericsFun*  map$2char$phsGenericsFun$ph_operator_load_element(s
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 4047 "./neo-c.h"
-    # 4049 "./neo-c.h"
-    # 4050 "./neo-c.h"
+    # 4057 "./neo-c.h"
+    # 4059 "./neo-c.h"
+    # 4060 "./neo-c.h"
     memset(&default_value,0,sizeof(struct sGenericsFun* ));
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     if(self==((void*)0)) {
-        # 4053 "./neo-c.h"
-                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4053, 314);
-        come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 315);
+        # 4063 "./neo-c.h"
+                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4063, 314);
+        come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 315);
         neo_current_frame = fr.prev;
-        come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 316);
+        come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 316);
         return __result_obj__0;
     }
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 4057 "./neo-c.h"
+    # 4067 "./neo-c.h"
     hash=key_hash%self->size;
-    # 4058 "./neo-c.h"
+    # 4068 "./neo-c.h"
     it=hash;
-    # 4080 "./neo-c.h"
+    # 4090 "./neo-c.h"
     while((_Bool)1) {
-        # 4078 "./neo-c.h"
+        # 4088 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 4068 "./neo-c.h"
+            # 4078 "./neo-c.h"
             if(self->hashes[it]==key_hash&&string_equals(self->keys[it],key)) {
-                # 4065 "./neo-c.h"
-                                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(self->items[it], "./neo-c.h", 4065, 317);
-                come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4065, 318);
+                # 4075 "./neo-c.h"
+                                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(self->items[it], "./neo-c.h", 4075, 317);
+                come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4075, 318);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4065, 319);
+                come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4075, 319);
                 return __result_obj__0;
             }
-            # 4071 "./neo-c.h"
+            # 4081 "./neo-c.h"
             if(++it>=self->size) {
-                # 4069 "./neo-c.h"
+                # 4079 "./neo-c.h"
                 it=0;
             }
-            # 4074 "./neo-c.h"
+            # 4084 "./neo-c.h"
             if(it==hash) {
-                # 4072 "./neo-c.h"
-                                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4072, 320);
-                come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 321);
+                # 4082 "./neo-c.h"
+                                __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4082, 320);
+                come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 321);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 322);
+                come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 322);
                 return __result_obj__0;
             }
         }
         else {
-            # 4076 "./neo-c.h"
-                        __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4076, 323);
-            come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 324);
+            # 4086 "./neo-c.h"
+                        __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4086, 323);
+            come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 324);
             neo_current_frame = fr.prev;
-            come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 325);
+            come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 325);
             return __result_obj__0;
         }
     }
-    # 4080 "./neo-c.h"
-        __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4080, 326);
-    come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 327);
+    # 4090 "./neo-c.h"
+        __result_obj__0 = (struct sGenericsFun* )come_increment_ref_count(default_value, "./neo-c.h", 4090, 326);
+    come_call_finalizer(sGenericsFun_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 327);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 328);
+    come_call_finalizer(sGenericsFun_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 328);
     return __result_obj__0;
 }
 
@@ -5699,67 +5699,67 @@ static struct sClass*  map$2char$phsClass$ph$p_operator_load_element(struct map$
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 4047 "./neo-c.h"
-    # 4049 "./neo-c.h"
-    # 4050 "./neo-c.h"
+    # 4057 "./neo-c.h"
+    # 4059 "./neo-c.h"
+    # 4060 "./neo-c.h"
     memset(&default_value,0,sizeof(struct sClass* ));
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     if(self==((void*)0)) {
-        # 4053 "./neo-c.h"
-                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4053, 357);
-        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 366);
+        # 4063 "./neo-c.h"
+                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4063, 357);
+        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 366);
         neo_current_frame = fr.prev;
-        come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 367);
+        come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 367);
         return __result_obj__0;
     }
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 4057 "./neo-c.h"
+    # 4067 "./neo-c.h"
     hash=key_hash%self->size;
-    # 4058 "./neo-c.h"
+    # 4068 "./neo-c.h"
     it=hash;
-    # 4080 "./neo-c.h"
+    # 4090 "./neo-c.h"
     while((_Bool)1) {
-        # 4078 "./neo-c.h"
+        # 4088 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 4068 "./neo-c.h"
+            # 4078 "./neo-c.h"
             if(self->hashes[it]==key_hash&&string_equals(self->keys[it],key)) {
-                # 4065 "./neo-c.h"
-                                __result_obj__0 = (struct sClass* )come_increment_ref_count(self->items[it], "./neo-c.h", 4065, 368);
-                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4065, 369);
+                # 4075 "./neo-c.h"
+                                __result_obj__0 = (struct sClass* )come_increment_ref_count(self->items[it], "./neo-c.h", 4075, 368);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4075, 369);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4065, 370);
+                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4075, 370);
                 return __result_obj__0;
             }
-            # 4071 "./neo-c.h"
+            # 4081 "./neo-c.h"
             if(++it>=self->size) {
-                # 4069 "./neo-c.h"
+                # 4079 "./neo-c.h"
                 it=0;
             }
-            # 4074 "./neo-c.h"
+            # 4084 "./neo-c.h"
             if(it==hash) {
-                # 4072 "./neo-c.h"
-                                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4072, 371);
-                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 372);
+                # 4082 "./neo-c.h"
+                                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4082, 371);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 372);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 373);
+                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 373);
                 return __result_obj__0;
             }
         }
         else {
-            # 4076 "./neo-c.h"
-                        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4076, 374);
-            come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 375);
+            # 4086 "./neo-c.h"
+                        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4086, 374);
+            come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 375);
             neo_current_frame = fr.prev;
-            come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 376);
+            come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 376);
             return __result_obj__0;
         }
     }
-    # 4080 "./neo-c.h"
-        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4080, 377);
-    come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 378);
+    # 4090 "./neo-c.h"
+        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4090, 377);
+    come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 378);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 379);
+    come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 379);
     return __result_obj__0;
 }
 
@@ -5857,67 +5857,67 @@ static struct sClass*  map$2char$phsClass$ph_operator_load_element(struct map$2c
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 4047 "./neo-c.h"
-    # 4049 "./neo-c.h"
-    # 4050 "./neo-c.h"
+    # 4057 "./neo-c.h"
+    # 4059 "./neo-c.h"
+    # 4060 "./neo-c.h"
     memset(&default_value,0,sizeof(struct sClass* ));
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     if(self==((void*)0)) {
-        # 4053 "./neo-c.h"
-                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4053, 380);
-        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 381);
+        # 4063 "./neo-c.h"
+                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4063, 380);
+        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 381);
         neo_current_frame = fr.prev;
-        come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4053, 382);
+        come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4063, 382);
         return __result_obj__0;
     }
-    # 4056 "./neo-c.h"
+    # 4066 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 4057 "./neo-c.h"
+    # 4067 "./neo-c.h"
     hash=key_hash%self->size;
-    # 4058 "./neo-c.h"
+    # 4068 "./neo-c.h"
     it=hash;
-    # 4080 "./neo-c.h"
+    # 4090 "./neo-c.h"
     while((_Bool)1) {
-        # 4078 "./neo-c.h"
+        # 4088 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 4068 "./neo-c.h"
+            # 4078 "./neo-c.h"
             if(self->hashes[it]==key_hash&&string_equals(self->keys[it],key)) {
-                # 4065 "./neo-c.h"
-                                __result_obj__0 = (struct sClass* )come_increment_ref_count(self->items[it], "./neo-c.h", 4065, 383);
-                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4065, 384);
+                # 4075 "./neo-c.h"
+                                __result_obj__0 = (struct sClass* )come_increment_ref_count(self->items[it], "./neo-c.h", 4075, 383);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4075, 384);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4065, 385);
+                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4075, 385);
                 return __result_obj__0;
             }
-            # 4071 "./neo-c.h"
+            # 4081 "./neo-c.h"
             if(++it>=self->size) {
-                # 4069 "./neo-c.h"
+                # 4079 "./neo-c.h"
                 it=0;
             }
-            # 4074 "./neo-c.h"
+            # 4084 "./neo-c.h"
             if(it==hash) {
-                # 4072 "./neo-c.h"
-                                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4072, 386);
-                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 387);
+                # 4082 "./neo-c.h"
+                                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4082, 386);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 387);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4072, 388);
+                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4082, 388);
                 return __result_obj__0;
             }
         }
         else {
-            # 4076 "./neo-c.h"
-                        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4076, 389);
-            come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 390);
+            # 4086 "./neo-c.h"
+                        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4086, 389);
+            come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 390);
             neo_current_frame = fr.prev;
-            come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4076, 391);
+            come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4086, 391);
             return __result_obj__0;
         }
     }
-    # 4080 "./neo-c.h"
-        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4080, 392);
-    come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 393);
+    # 4090 "./neo-c.h"
+        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 4090, 392);
+    come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 393);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4080, 394);
+    come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4090, 394);
     return __result_obj__0;
 }
 
@@ -6284,121 +6284,121 @@ static struct map$2char$phsFun$ph* map$2char$phsFun$ph_insert(struct map$2char$p
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 3889 "./neo-c.h"
-    # 3895 "./neo-c.h"
+    # 3899 "./neo-c.h"
+    # 3905 "./neo-c.h"
     if(self==((void*)0)) {
-        # 3892 "./neo-c.h"
+        # 3902 "./neo-c.h"
                 __result_obj__0 = self;
-        (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3892, 489));
-        come_call_finalizer(sFun_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3892, 490);
+        (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3902, 489));
+        come_call_finalizer(sFun_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3902, 490);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 3898 "./neo-c.h"
+    # 3908 "./neo-c.h"
     if(self->len*10>=self->size) {
-        # 3896 "./neo-c.h"
+        # 3906 "./neo-c.h"
         map$2char$phsFun$ph_rehash(self);
     }
-    # 3898 "./neo-c.h"
+    # 3908 "./neo-c.h"
     add_to_key_list=(_Bool)0;
-    # 3899 "./neo-c.h"
+    # 3909 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 3900 "./neo-c.h"
+    # 3910 "./neo-c.h"
     hash=key_hash%self->size;
-    # 3901 "./neo-c.h"
+    # 3911 "./neo-c.h"
     it=hash;
-    # 3961 "./neo-c.h"
+    # 3971 "./neo-c.h"
     while((_Bool)1) {
-        # 3959 "./neo-c.h"
+        # 3969 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 3929 "./neo-c.h"
+            # 3939 "./neo-c.h"
             if(self->hashes[it]==key_hash&&((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key))) {
-                # 3909 "./neo-c.h"
+                # 3919 "./neo-c.h"
                 map$2char$phsFun$ph_remove_ordered_entry(self,self->keys[it],by_pointer);
-                # 3917 "./neo-c.h"
+                # 3927 "./neo-c.h"
                 if(1) {
-                    # 3911 "./neo-c.h"
-                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3911, 505));
-                    # 3912 "./neo-c.h"
-                    self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 3912, 506);
+                    # 3921 "./neo-c.h"
+                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3921, 505));
+                    # 3922 "./neo-c.h"
+                    self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 3922, 506);
                 }
                 else {
-                    # 3915 "./neo-c.h"
+                    # 3925 "./neo-c.h"
                     self->keys[it]=key;
                 }
-                # 3924 "./neo-c.h"
+                # 3934 "./neo-c.h"
                 if(1) {
-                    # 3918 "./neo-c.h"
-                    come_call_finalizer(sFun_finalize, self->items[it], (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3918, 507);
-                    # 3919 "./neo-c.h"
-                    self->items[it]=(struct sFun* )come_increment_ref_count(item, "./neo-c.h", 3919, 508);
+                    # 3928 "./neo-c.h"
+                    come_call_finalizer(sFun_finalize, self->items[it], (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3928, 507);
+                    # 3929 "./neo-c.h"
+                    self->items[it]=(struct sFun* )come_increment_ref_count(item, "./neo-c.h", 3929, 508);
                 }
                 else {
-                    # 3922 "./neo-c.h"
+                    # 3932 "./neo-c.h"
                     self->items[it]=item;
                 }
-                # 3924 "./neo-c.h"
+                # 3934 "./neo-c.h"
                 self->hashes[it]=key_hash;
-                # 3925 "./neo-c.h"
+                # 3935 "./neo-c.h"
                 add_to_key_list=(_Bool)1;
-                # 3926 "./neo-c.h"
+                # 3936 "./neo-c.h"
                 break;
             }
-            # 3932 "./neo-c.h"
+            # 3942 "./neo-c.h"
             if(++it>=self->size) {
-                # 3930 "./neo-c.h"
+                # 3940 "./neo-c.h"
                 it=0;
             }
-            # 3937 "./neo-c.h"
+            # 3947 "./neo-c.h"
             if(it==hash) {
-                # 3933 "./neo-c.h"
+                # 3943 "./neo-c.h"
                 printf("unexpected error in map.insert\n");
-                # 3934 "./neo-c.h"
+                # 3944 "./neo-c.h"
                 stackframe2(self);
-                # 3935 "./neo-c.h"
+                # 3945 "./neo-c.h"
                 exit(2);
             }
         }
         else {
-            # 3939 "./neo-c.h"
+            # 3949 "./neo-c.h"
             self->item_existance[it]=(_Bool)1;
-            # 3940 "./neo-c.h"
+            # 3950 "./neo-c.h"
             self->hashes[it]=key_hash;
-            # 3947 "./neo-c.h"
+            # 3957 "./neo-c.h"
             if(1) {
-                # 3942 "./neo-c.h"
-                self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 3942, 509);
+                # 3952 "./neo-c.h"
+                self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 3952, 509);
             }
             else {
-                # 3945 "./neo-c.h"
+                # 3955 "./neo-c.h"
                 self->keys[it]=key;
             }
-            # 3954 "./neo-c.h"
+            # 3964 "./neo-c.h"
             if(1) {
-                # 3948 "./neo-c.h"
-                self->items[it]=(struct sFun* )come_increment_ref_count(item, "./neo-c.h", 3948, 510);
+                # 3958 "./neo-c.h"
+                self->items[it]=(struct sFun* )come_increment_ref_count(item, "./neo-c.h", 3958, 510);
             }
             else {
-                # 3951 "./neo-c.h"
+                # 3961 "./neo-c.h"
                 self->items[it]=item;
             }
-            # 3954 "./neo-c.h"
+            # 3964 "./neo-c.h"
             self->len++;
-            # 3955 "./neo-c.h"
+            # 3965 "./neo-c.h"
             add_to_key_list=(_Bool)1;
-            # 3957 "./neo-c.h"
+            # 3967 "./neo-c.h"
             break;
         }
     }
-    # 3965 "./neo-c.h"
+    # 3975 "./neo-c.h"
     if(add_to_key_list) {
-        # 3962 "./neo-c.h"
-        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key, "./neo-c.h", 3962, 511));
+        # 3972 "./neo-c.h"
+        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key, "./neo-c.h", 3972, 511));
     }
-    # 3965 "./neo-c.h"
+    # 3975 "./neo-c.h"
         __result_obj__0 = self;
-    (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3965, 512));
-    come_call_finalizer(sFun_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3965, 513);
+    (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3975, 512));
+    come_call_finalizer(sFun_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3975, 513);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -6431,98 +6431,98 @@ static void map$2char$phsFun$ph_rehash(struct map$2char$phsFun$ph* self)
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&n, 0, sizeof(n));
-    # 3806 "./neo-c.h"
-    # 3808 "./neo-c.h"
+    # 3816 "./neo-c.h"
+    # 3818 "./neo-c.h"
     old_size=self->size;
-    # 3809 "./neo-c.h"
-    size=self->size*10;
-    # 3810 "./neo-c.h"
-    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), "./neo-c.h", 3810, 491, "char** "))), "./neo-c.h", 3810, 492);
-    # 3811 "./neo-c.h"
-    __right_value0 = (void*)0;
-    items=(struct sFun** )come_increment_ref_count(((struct sFun** )(__right_value0=(struct sFun* *)come_calloc(1, sizeof(struct sFun* )*(1*(size)), "./neo-c.h", 3811, 493, "struct sFun** "))), "./neo-c.h", 3811, 494);
-    # 3812 "./neo-c.h"
-    __right_value0 = (void*)0;
-    hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(size)), "./neo-c.h", 3812, 495, "unsigned int*"))), "./neo-c.h", 3812, 496);
-    # 3813 "./neo-c.h"
-    __right_value0 = (void*)0;
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "./neo-c.h", 3813, 497, "_Bool*"))), "./neo-c.h", 3813, 498);
     # 3819 "./neo-c.h"
+    size=self->size*10;
+    # 3820 "./neo-c.h"
+    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), "./neo-c.h", 3820, 491, "char** "))), "./neo-c.h", 3820, 492);
+    # 3821 "./neo-c.h"
+    __right_value0 = (void*)0;
+    items=(struct sFun** )come_increment_ref_count(((struct sFun** )(__right_value0=(struct sFun* *)come_calloc(1, sizeof(struct sFun* )*(1*(size)), "./neo-c.h", 3821, 493, "struct sFun** "))), "./neo-c.h", 3821, 494);
+    # 3822 "./neo-c.h"
+    __right_value0 = (void*)0;
+    hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(size)), "./neo-c.h", 3822, 495, "unsigned int*"))), "./neo-c.h", 3822, 496);
+    # 3823 "./neo-c.h"
+    __right_value0 = (void*)0;
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "./neo-c.h", 3823, 497, "_Bool*"))), "./neo-c.h", 3823, 498);
+    # 3829 "./neo-c.h"
     for(i=0    ;i<size;i++){
-        # 3815 "./neo-c.h"
+        # 3825 "./neo-c.h"
         hashes[i]=0;
-        # 3816 "./neo-c.h"
+        # 3826 "./neo-c.h"
         item_existance[i]=(_Bool)0;
     }
-    # 3819 "./neo-c.h"
+    # 3829 "./neo-c.h"
     len=0;
-    # 3854 "./neo-c.h"
+    # 3864 "./neo-c.h"
     for(i_19=0    ;i_19<old_size;i_19++){
-        # 3826 "./neo-c.h"
+        # 3836 "./neo-c.h"
         if(!self->item_existance[i_19]) {
-            # 3823 "./neo-c.h"
+            # 3833 "./neo-c.h"
             continue;
         }
-        # 3826 "./neo-c.h"
+        # 3836 "./neo-c.h"
         key_hash=self->hashes[i_19];
-        # 3827 "./neo-c.h"
+        # 3837 "./neo-c.h"
         hash=key_hash%size;
-        # 3828 "./neo-c.h"
+        # 3838 "./neo-c.h"
         n=hash;
-        # 3852 "./neo-c.h"
+        # 3862 "./neo-c.h"
         while((_Bool)1) {
-            # 3851 "./neo-c.h"
+            # 3861 "./neo-c.h"
             if(item_existance[n]) {
-                # 3836 "./neo-c.h"
+                # 3846 "./neo-c.h"
                 if(++n>=size) {
-                    # 3834 "./neo-c.h"
+                    # 3844 "./neo-c.h"
                     n=0;
                 }
-                # 3841 "./neo-c.h"
+                # 3851 "./neo-c.h"
                 if(n==hash) {
-                    # 3837 "./neo-c.h"
+                    # 3847 "./neo-c.h"
                     printf("unexpected error in map.rehash(1)\n");
-                    # 3838 "./neo-c.h"
+                    # 3848 "./neo-c.h"
                     stackframe2(self);
-                    # 3839 "./neo-c.h"
+                    # 3849 "./neo-c.h"
                     exit(2);
                 }
             }
             else {
-                # 3843 "./neo-c.h"
+                # 3853 "./neo-c.h"
                 item_existance[n]=(_Bool)1;
-                # 3844 "./neo-c.h"
+                # 3854 "./neo-c.h"
                 hashes[n]=key_hash;
-                # 3845 "./neo-c.h"
+                # 3855 "./neo-c.h"
                 keys[n]=self->keys[i_19];
-                # 3846 "./neo-c.h"
+                # 3856 "./neo-c.h"
                 items[n]=self->items[i_19];
-                # 3848 "./neo-c.h"
+                # 3858 "./neo-c.h"
                 len++;
-                # 3849 "./neo-c.h"
+                # 3859 "./neo-c.h"
                 break;
             }
         }
     }
-    # 3854 "./neo-c.h"
-    come_free((char*)self->items);
-    # 3855 "./neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3855, 499));
-    # 3856 "./neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3856, 500));
-    # 3857 "./neo-c.h"
-    come_free((char*)self->keys);
-    # 3859 "./neo-c.h"
-    self->keys=keys;
-    # 3860 "./neo-c.h"
-    self->items=items;
-    # 3861 "./neo-c.h"
-    self->hashes=hashes;
-    # 3862 "./neo-c.h"
-    self->item_existance=item_existance;
     # 3864 "./neo-c.h"
-    self->size=size;
+    come_free((char*)self->items);
     # 3865 "./neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3865, 499));
+    # 3866 "./neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3866, 500));
+    # 3867 "./neo-c.h"
+    come_free((char*)self->keys);
+    # 3869 "./neo-c.h"
+    self->keys=keys;
+    # 3870 "./neo-c.h"
+    self->items=items;
+    # 3871 "./neo-c.h"
+    self->hashes=hashes;
+    # 3872 "./neo-c.h"
+    self->item_existance=item_existance;
+    # 3874 "./neo-c.h"
+    self->size=size;
+    # 3875 "./neo-c.h"
     self->len=len;
             neo_current_frame = fr.prev;
 }
@@ -6532,11 +6532,11 @@ static void map$2char$phsFun$ph_remove_ordered_entry(struct map$2char$phsFun$ph*
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsFun$ph_remove_ordered_entry"; neo_current_frame = &fr;
     int pos;
     memset(&pos, 0, sizeof(pos));
-    # 3434 "./neo-c.h"
+    # 3444 "./neo-c.h"
     pos=map$2char$phsFun$ph_key_position(self,key,by_pointer);
-    # 3438 "./neo-c.h"
+    # 3448 "./neo-c.h"
     if(pos>=0) {
-        # 3436 "./neo-c.h"
+        # 3446 "./neo-c.h"
         list$1char$ph_delete(self->key_list,pos,pos+1);
     }
                     neo_current_frame = fr.prev;
@@ -6549,30 +6549,30 @@ static int map$2char$phsFun$ph_key_position(struct map$2char$phsFun$ph* self, ch
     struct list_item$1char$ph* it;
     memset(&pos, 0, sizeof(pos));
     memset(&it, 0, sizeof(it));
-    # 3420 "./neo-c.h"
+    # 3430 "./neo-c.h"
     if(self==((void*)0)) {
-        # 3417 "./neo-c.h"
+        # 3427 "./neo-c.h"
                 neo_current_frame = fr.prev;
         return -1;
     }
-    # 3420 "./neo-c.h"
-    pos=0;
-    # 3421 "./neo-c.h"
-    it=self->key_list->head;
     # 3430 "./neo-c.h"
+    pos=0;
+    # 3431 "./neo-c.h"
+    it=self->key_list->head;
+    # 3440 "./neo-c.h"
     while(it!=((void*)0)) {
-        # 3426 "./neo-c.h"
+        # 3436 "./neo-c.h"
         if((!by_pointer&&string_equals(it->item,key))||(by_pointer&&it->item==key)) {
-            # 3424 "./neo-c.h"
+            # 3434 "./neo-c.h"
                         neo_current_frame = fr.prev;
             return pos;
         }
-        # 3426 "./neo-c.h"
+        # 3436 "./neo-c.h"
         it=it->next;
-        # 3427 "./neo-c.h"
+        # 3437 "./neo-c.h"
         pos++;
     }
-    # 3430 "./neo-c.h"
+    # 3440 "./neo-c.h"
         neo_current_frame = fr.prev;
     return -1;
         neo_current_frame = fr.prev;
@@ -7498,62 +7498,62 @@ static struct map$2char$phsVar$ph* map$2char$phsVar$ph$p_clone(struct map$2char$
     memset(&result, 0, sizeof(result));
     memset(&it, 0, sizeof(it));
     memset(&it2, 0, sizeof(it2));
-    # 3441 "./neo-c.h"
-    # 3447 "./neo-c.h"
+    # 3451 "./neo-c.h"
+    # 3457 "./neo-c.h"
     if(self==((void*)0)) {
-        # 3444 "./neo-c.h"
-                __result_obj__0 = (struct map$2char$phsVar$ph*)come_increment_ref_count(((void*)0), "./neo-c.h", 3444, 603);
+        # 3454 "./neo-c.h"
+                __result_obj__0 = (struct map$2char$phsVar$ph*)come_increment_ref_count(((void*)0), "./neo-c.h", 3454, 603);
         neo_current_frame = fr.prev;
         come_call_finalizer(map$2char$phsVar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 8, 609);
         return __result_obj__0;
     }
-    # 3447 "./neo-c.h"
-    result=(struct map$2char$phsVar$ph*)come_increment_ref_count(map$2char$phsVar$ph_initialize((struct map$2char$phsVar$ph*)come_increment_ref_count((struct map$2char$phsVar$ph*)come_calloc(1, sizeof(struct map$2char$phsVar$ph)*(1), "./neo-c.h", 3447, 610, "struct map$2char$phsVar$ph*"), "./neo-c.h", 3447, 626)), "./neo-c.h", 3447, 627);
-    # 3449 "./neo-c.h"
+    # 3457 "./neo-c.h"
+    result=(struct map$2char$phsVar$ph*)come_increment_ref_count(map$2char$phsVar$ph_initialize((struct map$2char$phsVar$ph*)come_increment_ref_count((struct map$2char$phsVar$ph*)come_calloc(1, sizeof(struct map$2char$phsVar$ph)*(1), "./neo-c.h", 3457, 610, "struct map$2char$phsVar$ph*"), "./neo-c.h", 3457, 626)), "./neo-c.h", 3457, 627);
+    # 3459 "./neo-c.h"
     __right_value0 = (void*)0;
     __right_value1 = (void*)0;
     __dec_obj72=result->key_list,
-    result->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 3449, 628, "struct list$1char$ph*"), "./neo-c.h", 3449, 629)), "./neo-c.h", 3449, 631);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj72,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 3449, 630);
-    # 3471 "./neo-c.h"
+    result->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 3459, 628, "struct list$1char$ph*"), "./neo-c.h", 3459, 629)), "./neo-c.h", 3459, 631);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj72,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 3459, 630);
+    # 3481 "./neo-c.h"
     for(it=map$2char$phsVar$ph_begin(self)    ;!map$2char$phsVar$ph_end(self);it=map$2char$phsVar$ph_next(self)){
-        # 3452 "./neo-c.h"
-        # 3453 "./neo-c.h"
+        # 3462 "./neo-c.h"
+        # 3463 "./neo-c.h"
         memset(&default_value,0,sizeof(struct sVar* ));
-        # 3455 "./neo-c.h"
+        # 3465 "./neo-c.h"
         __right_value0 = (void*)0;
-        it2=(struct sVar* )come_increment_ref_count(map$2char$phsVar$ph_at(self,it,(struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3455, 647),(_Bool)1), "./neo-c.h", 3455, 648);
-        # 3469 "./neo-c.h"
+        it2=(struct sVar* )come_increment_ref_count(map$2char$phsVar$ph_at(self,it,(struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3465, 647),(_Bool)1), "./neo-c.h", 3465, 648);
+        # 3479 "./neo-c.h"
         if(1&&1) {
-            # 3458 "./neo-c.h"
+            # 3468 "./neo-c.h"
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            map$2char$phsVar$ph_put(result,(char* )come_increment_ref_count((char* )come_memdup(it, "./neo-c.h", 3458, 670, "char* "), "./neo-c.h", 3458, 671),(struct sVar* )come_increment_ref_count(sVar_clone(it2), "./neo-c.h", 3458, 672),(_Bool)0);
+            map$2char$phsVar$ph_put(result,(char* )come_increment_ref_count((char* )come_memdup(it, "./neo-c.h", 3468, 670, "char* "), "./neo-c.h", 3468, 671),(struct sVar* )come_increment_ref_count(sVar_clone(it2), "./neo-c.h", 3468, 672),(_Bool)0);
         }
         else if(1) {
-            # 3461 "./neo-c.h"
+            # 3471 "./neo-c.h"
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
-            map$2char$phsVar$ph_put(result,(char* )come_increment_ref_count((char* )come_memdup(it, "./neo-c.h", 3461, 673, "char* "), "./neo-c.h", 3461, 674),(struct sVar* )come_increment_ref_count(sVar_clone(it2), "./neo-c.h", 3461, 675),(_Bool)0);
+            map$2char$phsVar$ph_put(result,(char* )come_increment_ref_count((char* )come_memdup(it, "./neo-c.h", 3471, 673, "char* "), "./neo-c.h", 3471, 674),(struct sVar* )come_increment_ref_count(sVar_clone(it2), "./neo-c.h", 3471, 675),(_Bool)0);
         }
         else if(1) {
-            # 3464 "./neo-c.h"
+            # 3474 "./neo-c.h"
             __right_value0 = (void*)0;
-            map$2char$phsVar$ph_put(result,(char* )come_increment_ref_count(it, "./neo-c.h", 3464, 676),(struct sVar* )come_increment_ref_count(sVar_clone(it2), "./neo-c.h", 3464, 677),(_Bool)0);
+            map$2char$phsVar$ph_put(result,(char* )come_increment_ref_count(it, "./neo-c.h", 3474, 676),(struct sVar* )come_increment_ref_count(sVar_clone(it2), "./neo-c.h", 3474, 677),(_Bool)0);
         }
         else {
-            # 3467 "./neo-c.h"
+            # 3477 "./neo-c.h"
             __right_value0 = (void*)0;
-            map$2char$phsVar$ph_put(result,(char* )come_increment_ref_count(it, "./neo-c.h", 3467, 678),(struct sVar* )come_increment_ref_count(sVar_clone(it2), "./neo-c.h", 3467, 679),(_Bool)0);
+            map$2char$phsVar$ph_put(result,(char* )come_increment_ref_count(it, "./neo-c.h", 3477, 678),(struct sVar* )come_increment_ref_count(sVar_clone(it2), "./neo-c.h", 3477, 679),(_Bool)0);
         }
-        come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3471, 680);
-        come_call_finalizer(sVar_finalize, it2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3471, 681);
+        come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3481, 680);
+        come_call_finalizer(sVar_finalize, it2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3481, 681);
     }
-    # 3471 "./neo-c.h"
-        __result_obj__0 = (struct map$2char$phsVar$ph*)come_increment_ref_count(result, "./neo-c.h", 3471, 682);
-    come_call_finalizer(map$2char$phsVar$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3471, 683);
+    # 3481 "./neo-c.h"
+        __result_obj__0 = (struct map$2char$phsVar$ph*)come_increment_ref_count(result, "./neo-c.h", 3481, 682);
+    come_call_finalizer(map$2char$phsVar$ph$p_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3481, 683);
     neo_current_frame = fr.prev;
-    come_call_finalizer(map$2char$phsVar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3471, 684);
+    come_call_finalizer(map$2char$phsVar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3481, 684);
     return __result_obj__0;
 }
 
@@ -7564,39 +7564,39 @@ static void map$2char$phsVar$ph$p_finalize(struct map$2char$phsVar$ph* self)
     int i_28;
     memset(&i, 0, sizeof(i));
     memset(&i_28, 0, sizeof(i_28));
-    # 3389 "./neo-c.h"
-    # 3398 "./neo-c.h"
+    # 3399 "./neo-c.h"
+    # 3408 "./neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3397 "./neo-c.h"
+        # 3407 "./neo-c.h"
         if(self->item_existance[i]) {
-            # 3396 "./neo-c.h"
+            # 3406 "./neo-c.h"
             if(1) {
-                # 3394 "./neo-c.h"
-                come_call_finalizer(sVar_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3394, 604);
+                # 3404 "./neo-c.h"
+                come_call_finalizer(sVar_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3404, 604);
             }
         }
     }
-    # 3398 "./neo-c.h"
+    # 3408 "./neo-c.h"
     come_free((char*)self->items);
-    # 3407 "./neo-c.h"
+    # 3417 "./neo-c.h"
     for(i_28=0    ;i_28<self->size;i_28++){
-        # 3406 "./neo-c.h"
+        # 3416 "./neo-c.h"
         if(self->item_existance[i_28]) {
-            # 3405 "./neo-c.h"
+            # 3415 "./neo-c.h"
             if(1) {
-                # 3403 "./neo-c.h"
-                (self->keys[i_28] = come_decrement_ref_count(self->keys[i_28], (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3403, 605));
+                # 3413 "./neo-c.h"
+                (self->keys[i_28] = come_decrement_ref_count(self->keys[i_28], (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3413, 605));
             }
         }
     }
-    # 3407 "./neo-c.h"
+    # 3417 "./neo-c.h"
     come_free((char*)self->keys);
-    # 3409 "./neo-c.h"
-    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3409, 606);
-    # 3411 "./neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3411, 607));
-    # 3412 "./neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3412, 608));
+    # 3419 "./neo-c.h"
+    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3419, 606);
+    # 3421 "./neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3421, 607));
+    # 3422 "./neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3422, 608));
             neo_current_frame = fr.prev;
 }
 
@@ -7609,41 +7609,41 @@ static struct map$2char$phsVar$ph* map$2char$phsVar$ph_initialize(struct map$2ch
     struct list$1char$ph* __dec_obj71;
     struct map$2char$phsVar$ph* __result_obj__0;
     memset(&i, 0, sizeof(i));
-    # 3338 "./neo-c.h"
-    # 3340 "./neo-c.h"
-    self->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), "./neo-c.h", 3340, 611, "char** "))), "./neo-c.h", 3340, 612);
-    # 3341 "./neo-c.h"
-    __right_value0 = (void*)0;
-    self->items=(struct sVar** )come_increment_ref_count(((struct sVar** )(__right_value0=(struct sVar* *)come_calloc(1, sizeof(struct sVar* )*(1*(128)), "./neo-c.h", 3341, 613, "struct sVar** "))), "./neo-c.h", 3341, 614);
-    # 3342 "./neo-c.h"
-    __right_value0 = (void*)0;
-    self->hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(128)), "./neo-c.h", 3342, 615, "unsigned int*"))), "./neo-c.h", 3342, 616);
-    # 3343 "./neo-c.h"
-    __right_value0 = (void*)0;
-    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "./neo-c.h", 3343, 617, "_Bool*"))), "./neo-c.h", 3343, 618);
+    # 3348 "./neo-c.h"
+    # 3350 "./neo-c.h"
+    self->keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(128)), "./neo-c.h", 3350, 611, "char** "))), "./neo-c.h", 3350, 612);
     # 3351 "./neo-c.h"
+    __right_value0 = (void*)0;
+    self->items=(struct sVar** )come_increment_ref_count(((struct sVar** )(__right_value0=(struct sVar* *)come_calloc(1, sizeof(struct sVar* )*(1*(128)), "./neo-c.h", 3351, 613, "struct sVar** "))), "./neo-c.h", 3351, 614);
+    # 3352 "./neo-c.h"
+    __right_value0 = (void*)0;
+    self->hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(128)), "./neo-c.h", 3352, 615, "unsigned int*"))), "./neo-c.h", 3352, 616);
+    # 3353 "./neo-c.h"
+    __right_value0 = (void*)0;
+    self->item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(128)), "./neo-c.h", 3353, 617, "_Bool*"))), "./neo-c.h", 3353, 618);
+    # 3361 "./neo-c.h"
     for(i=0    ;i<128;i++){
-        # 3347 "./neo-c.h"
+        # 3357 "./neo-c.h"
         self->hashes[i]=0;
-        # 3348 "./neo-c.h"
+        # 3358 "./neo-c.h"
         self->item_existance[i]=(_Bool)0;
     }
-    # 3351 "./neo-c.h"
+    # 3361 "./neo-c.h"
     self->size=128;
-    # 3352 "./neo-c.h"
+    # 3362 "./neo-c.h"
     self->len=0;
-    # 3354 "./neo-c.h"
+    # 3364 "./neo-c.h"
     __right_value0 = (void*)0;
     __dec_obj71=self->key_list,
-    self->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 3354, 619, "struct list$1char$ph*"), "./neo-c.h", 3354, 620)), "./neo-c.h", 3354, 622);
-    come_call_finalizer(list$1char$ph_finalize, __dec_obj71,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 3354, 621);
-    # 3356 "./neo-c.h"
+    self->key_list=(struct list$1char$ph*)come_increment_ref_count(list$1char$ph_initialize((struct list$1char$ph*)come_increment_ref_count((struct list$1char$ph*)come_calloc(1, sizeof(struct list$1char$ph)*(1), "./neo-c.h", 3364, 619, "struct list$1char$ph*"), "./neo-c.h", 3364, 620)), "./neo-c.h", 3364, 622);
+    come_call_finalizer(list$1char$ph_finalize, __dec_obj71,(void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h", 3364, 621);
+    # 3366 "./neo-c.h"
     self->it=0;
-    # 3358 "./neo-c.h"
-        __result_obj__0 = (struct map$2char$phsVar$ph*)come_increment_ref_count(self, "./neo-c.h", 3358, 623);
-    come_call_finalizer(map$2char$phsVar$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3358, 624);
+    # 3368 "./neo-c.h"
+        __result_obj__0 = (struct map$2char$phsVar$ph*)come_increment_ref_count(self, "./neo-c.h", 3368, 623);
+    come_call_finalizer(map$2char$phsVar$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3368, 624);
     neo_current_frame = fr.prev;
-    come_call_finalizer(map$2char$phsVar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3358, 625);
+    come_call_finalizer(map$2char$phsVar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3368, 625);
     return __result_obj__0;
 }
 
@@ -7653,30 +7653,30 @@ static char*  map$2char$phsVar$ph_begin(struct map$2char$phsVar$ph* self)
     char*  result  ;
     char*  __result_obj__0  ;
     char*  result_29  ;
-    # 3764 "./neo-c.h"
-    # 3771 "./neo-c.h"
+    # 3774 "./neo-c.h"
+    # 3781 "./neo-c.h"
     if(self==((void*)0)) {
-        # 3767 "./neo-c.h"
-        # 3768 "./neo-c.h"
+        # 3777 "./neo-c.h"
+        # 3778 "./neo-c.h"
         memset(&result,0,sizeof(char* ));
-        # 3769 "./neo-c.h"
+        # 3779 "./neo-c.h"
                 __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 3771 "./neo-c.h"
+    # 3781 "./neo-c.h"
     self->key_list->it=self->key_list->head;
-    # 3777 "./neo-c.h"
+    # 3787 "./neo-c.h"
     if(self->key_list->it) {
-        # 3774 "./neo-c.h"
+        # 3784 "./neo-c.h"
                 __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 3777 "./neo-c.h"
-    # 3778 "./neo-c.h"
+    # 3787 "./neo-c.h"
+    # 3788 "./neo-c.h"
     memset(&result_29,0,sizeof(char* ));
-    # 3779 "./neo-c.h"
+    # 3789 "./neo-c.h"
         __result_obj__0 = result_29;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -7685,7 +7685,7 @@ static char*  map$2char$phsVar$ph_begin(struct map$2char$phsVar$ph* self)
 static _Bool map$2char$phsVar$ph_end(struct map$2char$phsVar$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsVar$ph_end"; neo_current_frame = &fr;
-    # 3802 "./neo-c.h"
+    # 3812 "./neo-c.h"
         neo_current_frame = fr.prev;
     return self==((void*)0)||self->key_list==((void*)0)||self->key_list->it==((void*)0);
         neo_current_frame = fr.prev;
@@ -7697,30 +7697,30 @@ static char*  map$2char$phsVar$ph_next(struct map$2char$phsVar$ph* self)
     char*  result  ;
     char*  __result_obj__0  ;
     char*  result_30  ;
-    # 3783 "./neo-c.h"
-    # 3790 "./neo-c.h"
+    # 3793 "./neo-c.h"
+    # 3800 "./neo-c.h"
     if(self==((void*)0)||self->key_list->it==((void*)0)) {
-        # 3786 "./neo-c.h"
-        # 3787 "./neo-c.h"
+        # 3796 "./neo-c.h"
+        # 3797 "./neo-c.h"
         memset(&result,0,sizeof(char* ));
-        # 3788 "./neo-c.h"
+        # 3798 "./neo-c.h"
                 __result_obj__0 = result;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 3790 "./neo-c.h"
+    # 3800 "./neo-c.h"
     self->key_list->it=self->key_list->it->next;
-    # 3796 "./neo-c.h"
+    # 3806 "./neo-c.h"
     if(self->key_list->it) {
-        # 3793 "./neo-c.h"
+        # 3803 "./neo-c.h"
                 __result_obj__0 = self->key_list->it->item;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 3796 "./neo-c.h"
-    # 3797 "./neo-c.h"
+    # 3806 "./neo-c.h"
+    # 3807 "./neo-c.h"
     memset(&result_30,0,sizeof(char* ));
-    # 3798 "./neo-c.h"
+    # 3808 "./neo-c.h"
         __result_obj__0 = result_30;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -7736,64 +7736,64 @@ static struct sVar*  map$2char$phsVar$ph_at(struct map$2char$phsVar$ph* self, ch
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 3509 "./neo-c.h"
-    # 3515 "./neo-c.h"
+    # 3519 "./neo-c.h"
+    # 3525 "./neo-c.h"
     if(self==((void*)0)) {
-        # 3512 "./neo-c.h"
-                __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3512, 632);
-        come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3512, 633);
+        # 3522 "./neo-c.h"
+                __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3522, 632);
+        come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3522, 633);
         neo_current_frame = fr.prev;
-        come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3512, 634);
+        come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3522, 634);
         return __result_obj__0;
     }
-    # 3515 "./neo-c.h"
+    # 3525 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 3516 "./neo-c.h"
+    # 3526 "./neo-c.h"
     hash=key_hash%self->size;
-    # 3517 "./neo-c.h"
+    # 3527 "./neo-c.h"
     it=hash;
-    # 3540 "./neo-c.h"
+    # 3550 "./neo-c.h"
     while((_Bool)1) {
-        # 3538 "./neo-c.h"
+        # 3548 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 3528 "./neo-c.h"
+            # 3538 "./neo-c.h"
             if(self->hashes[it]==key_hash&&((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key))) {
-                # 3525 "./neo-c.h"
-                                __result_obj__0 = (struct sVar* )come_increment_ref_count(self->items[it], "./neo-c.h", 3525, 635);
-                come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3525, 636);
+                # 3535 "./neo-c.h"
+                                __result_obj__0 = (struct sVar* )come_increment_ref_count(self->items[it], "./neo-c.h", 3535, 635);
+                come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3535, 636);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3525, 637);
+                come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3535, 637);
                 return __result_obj__0;
             }
-            # 3531 "./neo-c.h"
+            # 3541 "./neo-c.h"
             if(++it>=self->size) {
-                # 3529 "./neo-c.h"
+                # 3539 "./neo-c.h"
                 it=0;
             }
-            # 3534 "./neo-c.h"
+            # 3544 "./neo-c.h"
             if(it==hash) {
-                # 3532 "./neo-c.h"
-                                __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3532, 638);
-                come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3532, 639);
+                # 3542 "./neo-c.h"
+                                __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3542, 638);
+                come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3542, 639);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3532, 640);
+                come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3542, 640);
                 return __result_obj__0;
             }
         }
         else {
-            # 3536 "./neo-c.h"
-                        __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3536, 641);
-            come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3536, 642);
+            # 3546 "./neo-c.h"
+                        __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3546, 641);
+            come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3546, 642);
             neo_current_frame = fr.prev;
-            come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3536, 643);
+            come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3546, 643);
             return __result_obj__0;
         }
     }
-    # 3540 "./neo-c.h"
-        __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3540, 644);
-    come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3540, 645);
+    # 3550 "./neo-c.h"
+        __result_obj__0 = (struct sVar* )come_increment_ref_count(default_value, "./neo-c.h", 3550, 644);
+    come_call_finalizer(sVar_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3550, 645);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3540, 646);
+    come_call_finalizer(sVar_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3550, 646);
     return __result_obj__0;
 }
 
@@ -7809,121 +7809,121 @@ static struct map$2char$phsVar$ph* map$2char$phsVar$ph_put(struct map$2char$phsV
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 3968 "./neo-c.h"
-    # 3974 "./neo-c.h"
+    # 3978 "./neo-c.h"
+    # 3984 "./neo-c.h"
     if(self==((void*)0)) {
-        # 3971 "./neo-c.h"
+        # 3981 "./neo-c.h"
                 __result_obj__0 = self;
-        (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3971, 649));
-        come_call_finalizer(sVar_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3971, 650);
+        (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3981, 649));
+        come_call_finalizer(sVar_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3981, 650);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 3977 "./neo-c.h"
+    # 3987 "./neo-c.h"
     if(self->len*2>=self->size) {
-        # 3975 "./neo-c.h"
+        # 3985 "./neo-c.h"
         map$2char$phsVar$ph_rehash(self);
     }
-    # 3977 "./neo-c.h"
+    # 3987 "./neo-c.h"
     add_to_key_list=(_Bool)0;
-    # 3978 "./neo-c.h"
+    # 3988 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 3979 "./neo-c.h"
+    # 3989 "./neo-c.h"
     hash=key_hash%self->size;
-    # 3980 "./neo-c.h"
+    # 3990 "./neo-c.h"
     it=hash;
-    # 4040 "./neo-c.h"
+    # 4050 "./neo-c.h"
     while((_Bool)1) {
-        # 4038 "./neo-c.h"
+        # 4048 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 4008 "./neo-c.h"
+            # 4018 "./neo-c.h"
             if(self->hashes[it]==key_hash&&((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key))) {
-                # 3988 "./neo-c.h"
+                # 3998 "./neo-c.h"
                 map$2char$phsVar$ph_remove_ordered_entry(self,self->keys[it],by_pointer);
-                # 3996 "./neo-c.h"
+                # 4006 "./neo-c.h"
                 if(1) {
-                    # 3990 "./neo-c.h"
-                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3990, 661));
-                    # 3991 "./neo-c.h"
-                    self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 3991, 662);
+                    # 4000 "./neo-c.h"
+                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 4000, 661));
+                    # 4001 "./neo-c.h"
+                    self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 4001, 662);
                 }
                 else {
-                    # 3994 "./neo-c.h"
+                    # 4004 "./neo-c.h"
                     self->keys[it]=key;
                 }
-                # 4003 "./neo-c.h"
+                # 4013 "./neo-c.h"
                 if(1) {
-                    # 3997 "./neo-c.h"
-                    come_call_finalizer(sVar_finalize, self->items[it], (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3997, 663);
-                    # 3998 "./neo-c.h"
-                    self->items[it]=(struct sVar* )come_increment_ref_count(item, "./neo-c.h", 3998, 664);
+                    # 4007 "./neo-c.h"
+                    come_call_finalizer(sVar_finalize, self->items[it], (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4007, 663);
+                    # 4008 "./neo-c.h"
+                    self->items[it]=(struct sVar* )come_increment_ref_count(item, "./neo-c.h", 4008, 664);
                 }
                 else {
-                    # 4001 "./neo-c.h"
+                    # 4011 "./neo-c.h"
                     self->items[it]=item;
                 }
-                # 4003 "./neo-c.h"
+                # 4013 "./neo-c.h"
                 self->hashes[it]=key_hash;
-                # 4004 "./neo-c.h"
+                # 4014 "./neo-c.h"
                 add_to_key_list=(_Bool)1;
-                # 4005 "./neo-c.h"
+                # 4015 "./neo-c.h"
                 break;
             }
-            # 4011 "./neo-c.h"
+            # 4021 "./neo-c.h"
             if(++it>=self->size) {
-                # 4009 "./neo-c.h"
+                # 4019 "./neo-c.h"
                 it=0;
             }
-            # 4016 "./neo-c.h"
+            # 4026 "./neo-c.h"
             if(it==hash) {
-                # 4012 "./neo-c.h"
+                # 4022 "./neo-c.h"
                 printf("unexpected error in map.insert\n");
-                # 4013 "./neo-c.h"
+                # 4023 "./neo-c.h"
                 stackframe2(self);
-                # 4014 "./neo-c.h"
+                # 4024 "./neo-c.h"
                 exit(2);
             }
         }
         else {
-            # 4018 "./neo-c.h"
+            # 4028 "./neo-c.h"
             self->item_existance[it]=(_Bool)1;
-            # 4019 "./neo-c.h"
+            # 4029 "./neo-c.h"
             self->hashes[it]=key_hash;
-            # 4026 "./neo-c.h"
+            # 4036 "./neo-c.h"
             if(1) {
-                # 4021 "./neo-c.h"
-                self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 4021, 665);
+                # 4031 "./neo-c.h"
+                self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 4031, 665);
             }
             else {
-                # 4024 "./neo-c.h"
+                # 4034 "./neo-c.h"
                 self->keys[it]=key;
             }
-            # 4033 "./neo-c.h"
+            # 4043 "./neo-c.h"
             if(1) {
-                # 4027 "./neo-c.h"
-                self->items[it]=(struct sVar* )come_increment_ref_count(item, "./neo-c.h", 4027, 666);
+                # 4037 "./neo-c.h"
+                self->items[it]=(struct sVar* )come_increment_ref_count(item, "./neo-c.h", 4037, 666);
             }
             else {
-                # 4030 "./neo-c.h"
+                # 4040 "./neo-c.h"
                 self->items[it]=item;
             }
-            # 4033 "./neo-c.h"
+            # 4043 "./neo-c.h"
             self->len++;
-            # 4034 "./neo-c.h"
+            # 4044 "./neo-c.h"
             add_to_key_list=(_Bool)1;
-            # 4036 "./neo-c.h"
+            # 4046 "./neo-c.h"
             break;
         }
     }
-    # 4044 "./neo-c.h"
+    # 4054 "./neo-c.h"
     if(add_to_key_list) {
-        # 4041 "./neo-c.h"
-        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key, "./neo-c.h", 4041, 667));
+        # 4051 "./neo-c.h"
+        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key, "./neo-c.h", 4051, 667));
     }
-    # 4044 "./neo-c.h"
+    # 4054 "./neo-c.h"
         __result_obj__0 = self;
-    (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 4044, 668));
-    come_call_finalizer(sVar_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4044, 669);
+    (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 4054, 668));
+    come_call_finalizer(sVar_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 4054, 669);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -7956,98 +7956,98 @@ static void map$2char$phsVar$ph_rehash(struct map$2char$phsVar$ph* self)
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&n, 0, sizeof(n));
-    # 3806 "./neo-c.h"
-    # 3808 "./neo-c.h"
+    # 3816 "./neo-c.h"
+    # 3818 "./neo-c.h"
     old_size=self->size;
-    # 3809 "./neo-c.h"
-    size=self->size*10;
-    # 3810 "./neo-c.h"
-    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), "./neo-c.h", 3810, 651, "char** "))), "./neo-c.h", 3810, 652);
-    # 3811 "./neo-c.h"
-    __right_value0 = (void*)0;
-    items=(struct sVar** )come_increment_ref_count(((struct sVar** )(__right_value0=(struct sVar* *)come_calloc(1, sizeof(struct sVar* )*(1*(size)), "./neo-c.h", 3811, 653, "struct sVar** "))), "./neo-c.h", 3811, 654);
-    # 3812 "./neo-c.h"
-    __right_value0 = (void*)0;
-    hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(size)), "./neo-c.h", 3812, 655, "unsigned int*"))), "./neo-c.h", 3812, 656);
-    # 3813 "./neo-c.h"
-    __right_value0 = (void*)0;
-    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "./neo-c.h", 3813, 657, "_Bool*"))), "./neo-c.h", 3813, 658);
     # 3819 "./neo-c.h"
+    size=self->size*10;
+    # 3820 "./neo-c.h"
+    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), "./neo-c.h", 3820, 651, "char** "))), "./neo-c.h", 3820, 652);
+    # 3821 "./neo-c.h"
+    __right_value0 = (void*)0;
+    items=(struct sVar** )come_increment_ref_count(((struct sVar** )(__right_value0=(struct sVar* *)come_calloc(1, sizeof(struct sVar* )*(1*(size)), "./neo-c.h", 3821, 653, "struct sVar** "))), "./neo-c.h", 3821, 654);
+    # 3822 "./neo-c.h"
+    __right_value0 = (void*)0;
+    hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(size)), "./neo-c.h", 3822, 655, "unsigned int*"))), "./neo-c.h", 3822, 656);
+    # 3823 "./neo-c.h"
+    __right_value0 = (void*)0;
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "./neo-c.h", 3823, 657, "_Bool*"))), "./neo-c.h", 3823, 658);
+    # 3829 "./neo-c.h"
     for(i=0    ;i<size;i++){
-        # 3815 "./neo-c.h"
+        # 3825 "./neo-c.h"
         hashes[i]=0;
-        # 3816 "./neo-c.h"
+        # 3826 "./neo-c.h"
         item_existance[i]=(_Bool)0;
     }
-    # 3819 "./neo-c.h"
+    # 3829 "./neo-c.h"
     len=0;
-    # 3854 "./neo-c.h"
+    # 3864 "./neo-c.h"
     for(i_31=0    ;i_31<old_size;i_31++){
-        # 3826 "./neo-c.h"
+        # 3836 "./neo-c.h"
         if(!self->item_existance[i_31]) {
-            # 3823 "./neo-c.h"
+            # 3833 "./neo-c.h"
             continue;
         }
-        # 3826 "./neo-c.h"
+        # 3836 "./neo-c.h"
         key_hash=self->hashes[i_31];
-        # 3827 "./neo-c.h"
+        # 3837 "./neo-c.h"
         hash=key_hash%size;
-        # 3828 "./neo-c.h"
+        # 3838 "./neo-c.h"
         n=hash;
-        # 3852 "./neo-c.h"
+        # 3862 "./neo-c.h"
         while((_Bool)1) {
-            # 3851 "./neo-c.h"
+            # 3861 "./neo-c.h"
             if(item_existance[n]) {
-                # 3836 "./neo-c.h"
+                # 3846 "./neo-c.h"
                 if(++n>=size) {
-                    # 3834 "./neo-c.h"
+                    # 3844 "./neo-c.h"
                     n=0;
                 }
-                # 3841 "./neo-c.h"
+                # 3851 "./neo-c.h"
                 if(n==hash) {
-                    # 3837 "./neo-c.h"
+                    # 3847 "./neo-c.h"
                     printf("unexpected error in map.rehash(1)\n");
-                    # 3838 "./neo-c.h"
+                    # 3848 "./neo-c.h"
                     stackframe2(self);
-                    # 3839 "./neo-c.h"
+                    # 3849 "./neo-c.h"
                     exit(2);
                 }
             }
             else {
-                # 3843 "./neo-c.h"
+                # 3853 "./neo-c.h"
                 item_existance[n]=(_Bool)1;
-                # 3844 "./neo-c.h"
+                # 3854 "./neo-c.h"
                 hashes[n]=key_hash;
-                # 3845 "./neo-c.h"
+                # 3855 "./neo-c.h"
                 keys[n]=self->keys[i_31];
-                # 3846 "./neo-c.h"
+                # 3856 "./neo-c.h"
                 items[n]=self->items[i_31];
-                # 3848 "./neo-c.h"
+                # 3858 "./neo-c.h"
                 len++;
-                # 3849 "./neo-c.h"
+                # 3859 "./neo-c.h"
                 break;
             }
         }
     }
-    # 3854 "./neo-c.h"
-    come_free((char*)self->items);
-    # 3855 "./neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3855, 659));
-    # 3856 "./neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3856, 660));
-    # 3857 "./neo-c.h"
-    come_free((char*)self->keys);
-    # 3859 "./neo-c.h"
-    self->keys=keys;
-    # 3860 "./neo-c.h"
-    self->items=items;
-    # 3861 "./neo-c.h"
-    self->hashes=hashes;
-    # 3862 "./neo-c.h"
-    self->item_existance=item_existance;
     # 3864 "./neo-c.h"
-    self->size=size;
+    come_free((char*)self->items);
     # 3865 "./neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3865, 659));
+    # 3866 "./neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3866, 660));
+    # 3867 "./neo-c.h"
+    come_free((char*)self->keys);
+    # 3869 "./neo-c.h"
+    self->keys=keys;
+    # 3870 "./neo-c.h"
+    self->items=items;
+    # 3871 "./neo-c.h"
+    self->hashes=hashes;
+    # 3872 "./neo-c.h"
+    self->item_existance=item_existance;
+    # 3874 "./neo-c.h"
+    self->size=size;
+    # 3875 "./neo-c.h"
     self->len=len;
             neo_current_frame = fr.prev;
 }
@@ -8057,11 +8057,11 @@ static void map$2char$phsVar$ph_remove_ordered_entry(struct map$2char$phsVar$ph*
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phsVar$ph_remove_ordered_entry"; neo_current_frame = &fr;
     int pos;
     memset(&pos, 0, sizeof(pos));
-    # 3434 "./neo-c.h"
+    # 3444 "./neo-c.h"
     pos=map$2char$phsVar$ph_key_position(self,key,by_pointer);
-    # 3438 "./neo-c.h"
+    # 3448 "./neo-c.h"
     if(pos>=0) {
-        # 3436 "./neo-c.h"
+        # 3446 "./neo-c.h"
         list$1char$ph_delete(self->key_list,pos,pos+1);
     }
                     neo_current_frame = fr.prev;
@@ -8074,30 +8074,30 @@ static int map$2char$phsVar$ph_key_position(struct map$2char$phsVar$ph* self, ch
     struct list_item$1char$ph* it;
     memset(&pos, 0, sizeof(pos));
     memset(&it, 0, sizeof(it));
-    # 3420 "./neo-c.h"
+    # 3430 "./neo-c.h"
     if(self==((void*)0)) {
-        # 3417 "./neo-c.h"
+        # 3427 "./neo-c.h"
                 neo_current_frame = fr.prev;
         return -1;
     }
-    # 3420 "./neo-c.h"
-    pos=0;
-    # 3421 "./neo-c.h"
-    it=self->key_list->head;
     # 3430 "./neo-c.h"
+    pos=0;
+    # 3431 "./neo-c.h"
+    it=self->key_list->head;
+    # 3440 "./neo-c.h"
     while(it!=((void*)0)) {
-        # 3426 "./neo-c.h"
+        # 3436 "./neo-c.h"
         if((!by_pointer&&string_equals(it->item,key))||(by_pointer&&it->item==key)) {
-            # 3424 "./neo-c.h"
+            # 3434 "./neo-c.h"
                         neo_current_frame = fr.prev;
             return pos;
         }
-        # 3426 "./neo-c.h"
+        # 3436 "./neo-c.h"
         it=it->next;
-        # 3427 "./neo-c.h"
+        # 3437 "./neo-c.h"
         pos++;
     }
-    # 3430 "./neo-c.h"
+    # 3440 "./neo-c.h"
         neo_current_frame = fr.prev;
     return -1;
         neo_current_frame = fr.prev;
@@ -8110,39 +8110,39 @@ static void map$2char$phsVar$ph_finalize(struct map$2char$phsVar$ph* self)
     int i_32;
     memset(&i, 0, sizeof(i));
     memset(&i_32, 0, sizeof(i_32));
-    # 3389 "./neo-c.h"
-    # 3398 "./neo-c.h"
+    # 3399 "./neo-c.h"
+    # 3408 "./neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3397 "./neo-c.h"
+        # 3407 "./neo-c.h"
         if(self->item_existance[i]) {
-            # 3396 "./neo-c.h"
+            # 3406 "./neo-c.h"
             if(1) {
-                # 3394 "./neo-c.h"
-                come_call_finalizer(sVar_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3394, 685);
+                # 3404 "./neo-c.h"
+                come_call_finalizer(sVar_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3404, 685);
             }
         }
     }
-    # 3398 "./neo-c.h"
+    # 3408 "./neo-c.h"
     come_free((char*)self->items);
-    # 3407 "./neo-c.h"
+    # 3417 "./neo-c.h"
     for(i_32=0    ;i_32<self->size;i_32++){
-        # 3406 "./neo-c.h"
+        # 3416 "./neo-c.h"
         if(self->item_existance[i_32]) {
-            # 3405 "./neo-c.h"
+            # 3415 "./neo-c.h"
             if(1) {
-                # 3403 "./neo-c.h"
-                (self->keys[i_32] = come_decrement_ref_count(self->keys[i_32], (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3403, 686));
+                # 3413 "./neo-c.h"
+                (self->keys[i_32] = come_decrement_ref_count(self->keys[i_32], (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3413, 686));
             }
         }
     }
-    # 3407 "./neo-c.h"
+    # 3417 "./neo-c.h"
     come_free((char*)self->keys);
-    # 3409 "./neo-c.h"
-    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3409, 687);
-    # 3411 "./neo-c.h"
-    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3411, 688));
-    # 3412 "./neo-c.h"
-    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3412, 689));
+    # 3419 "./neo-c.h"
+    come_call_finalizer(list$1char$ph$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3419, 687);
+    # 3421 "./neo-c.h"
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3421, 688));
+    # 3422 "./neo-c.h"
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3422, 689));
             neo_current_frame = fr.prev;
 }
 
@@ -8293,18 +8293,18 @@ static struct tuple2$2sFun$pchar$ph* tuple2$2sFun$pchar$ph_initialize(struct tup
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple2$2sFun$pchar$ph_initialize"; neo_current_frame = &fr;
     char*  __dec_obj97  ;
     struct tuple2$2sFun$pchar$ph* __result_obj__0;
-    # 4455 "./neo-c.h"
+    # 4465 "./neo-c.h"
     self->v1=v1;
-    # 4456 "./neo-c.h"
+    # 4466 "./neo-c.h"
     __dec_obj97=self->v2,
-    self->v2=(char* )come_increment_ref_count(v2, "./neo-c.h", 4456, 789);
-    __dec_obj97 = come_decrement_ref_count(__dec_obj97, (void*)0, (void*)0, 0,0, (void*)0, "./neo-c.h", 4456, 788);
-    # 4458 "./neo-c.h"
-        __result_obj__0 = (struct tuple2$2sFun$pchar$ph*)come_increment_ref_count(self, "./neo-c.h", 4458, 790);
-    come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4458, 792);
-    (v2 = come_decrement_ref_count(v2, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 4458, 793));
+    self->v2=(char* )come_increment_ref_count(v2, "./neo-c.h", 4466, 789);
+    __dec_obj97 = come_decrement_ref_count(__dec_obj97, (void*)0, (void*)0, 0,0, (void*)0, "./neo-c.h", 4466, 788);
+    # 4468 "./neo-c.h"
+        __result_obj__0 = (struct tuple2$2sFun$pchar$ph*)come_increment_ref_count(self, "./neo-c.h", 4468, 790);
+    come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4468, 792);
+    (v2 = come_decrement_ref_count(v2, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 4468, 793));
     neo_current_frame = fr.prev;
-    come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4458, 794);
+    come_call_finalizer(tuple2$2sFun$pchar$ph$p_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 4468, 794);
     return __result_obj__0;
 }
 
@@ -8895,64 +8895,64 @@ static struct sClass*  map$2char$phsClass$ph_at(struct map$2char$phsClass$ph* se
     memset(&key_hash, 0, sizeof(key_hash));
     memset(&hash, 0, sizeof(hash));
     memset(&it, 0, sizeof(it));
-    # 3509 "./neo-c.h"
-    # 3515 "./neo-c.h"
+    # 3519 "./neo-c.h"
+    # 3525 "./neo-c.h"
     if(self==((void*)0)) {
-        # 3512 "./neo-c.h"
-                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 3512, 831);
-        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3512, 832);
+        # 3522 "./neo-c.h"
+                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 3522, 831);
+        come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3522, 832);
         neo_current_frame = fr.prev;
-        come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3512, 833);
+        come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3522, 833);
         return __result_obj__0;
     }
-    # 3515 "./neo-c.h"
+    # 3525 "./neo-c.h"
     key_hash=string_get_hash_key(((char* )key));
-    # 3516 "./neo-c.h"
+    # 3526 "./neo-c.h"
     hash=key_hash%self->size;
-    # 3517 "./neo-c.h"
+    # 3527 "./neo-c.h"
     it=hash;
-    # 3540 "./neo-c.h"
+    # 3550 "./neo-c.h"
     while((_Bool)1) {
-        # 3538 "./neo-c.h"
+        # 3548 "./neo-c.h"
         if(self->item_existance[it]) {
-            # 3528 "./neo-c.h"
+            # 3538 "./neo-c.h"
             if(self->hashes[it]==key_hash&&((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key))) {
-                # 3525 "./neo-c.h"
-                                __result_obj__0 = (struct sClass* )come_increment_ref_count(self->items[it], "./neo-c.h", 3525, 834);
-                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3525, 835);
+                # 3535 "./neo-c.h"
+                                __result_obj__0 = (struct sClass* )come_increment_ref_count(self->items[it], "./neo-c.h", 3535, 834);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3535, 835);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3525, 836);
+                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3535, 836);
                 return __result_obj__0;
             }
-            # 3531 "./neo-c.h"
+            # 3541 "./neo-c.h"
             if(++it>=self->size) {
-                # 3529 "./neo-c.h"
+                # 3539 "./neo-c.h"
                 it=0;
             }
-            # 3534 "./neo-c.h"
+            # 3544 "./neo-c.h"
             if(it==hash) {
-                # 3532 "./neo-c.h"
-                                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 3532, 837);
-                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3532, 838);
+                # 3542 "./neo-c.h"
+                                __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 3542, 837);
+                come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3542, 838);
                 neo_current_frame = fr.prev;
-                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3532, 839);
+                come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3542, 839);
                 return __result_obj__0;
             }
         }
         else {
-            # 3536 "./neo-c.h"
-                        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 3536, 840);
-            come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3536, 841);
+            # 3546 "./neo-c.h"
+                        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 3546, 840);
+            come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3546, 841);
             neo_current_frame = fr.prev;
-            come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3536, 842);
+            come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3546, 842);
             return __result_obj__0;
         }
     }
-    # 3540 "./neo-c.h"
-        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 3540, 843);
-    come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3540, 844);
+    # 3550 "./neo-c.h"
+        __result_obj__0 = (struct sClass* )come_increment_ref_count(default_value, "./neo-c.h", 3550, 843);
+    come_call_finalizer(sClass_finalize, default_value, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3550, 844);
     neo_current_frame = fr.prev;
-    come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3540, 845);
+    come_call_finalizer(sClass_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "./neo-c.h}", 3550, 845);
     return __result_obj__0;
 }
 

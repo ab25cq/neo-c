@@ -2745,7 +2745,7 @@ impl vector<T>
         if(isheap(T)) {
             for(int i=0; i<self.len; i++) 
             {
-                result.items[i] = borrow clone self.items[i];
+                result.items[i] = gc_inc(clone self.items[i]);
             }
         }
         else {
@@ -2780,19 +2780,19 @@ impl vector<T>
         
         foreach(it, left) {
             if(isheap(T)) {
-                result.push_back(clone it);
+                result.add(clone it);
             }
             else {
-                result.push_back(dummy_heap it);
+                result.add(it);
             }
         }
         
         foreach(it, right) {
             if(isheap(T)) {
-                result.push_back(clone it);
+                result.add(clone it);
             }
             else {
-                result.push_back(dummy_heap it);
+                result.add(dummy_heap it);
             }
         }
         
@@ -2806,10 +2806,10 @@ impl vector<T>
         for(int i=0; i<n; i++) {
             foreach(it, left) {
                 if(isheap(T)) {
-                    result.push_back(clone it);
+                    result.add(clone it);
                 }
                 else {
-                    result.push_back(dummy_heap it);
+                    result.add(dummy_heap it);
                 }
             }
         }
@@ -2845,13 +2845,18 @@ impl vector<T>
             come_free((char*)items);
         }
 
-        self.items[self.len] = dummy_heap item;
+        if(isheap(T)) {
+            self.items[self.len] = gc_inc(item);
+        }
+        else {
+            self.items[self.len] = item;
+        }
         self.len++;
         
         return self;
     }
 
-    T item(vector<T>* self, int index, T default_value) 
+    T^ item(vector<T>* self, int index, T^ default_value) 
     {
         using unsafe;
         
@@ -2900,7 +2905,12 @@ impl vector<T>
                 delete borrow self.items[index];
             }
 
-            self.items[index] = value;
+            if(isheap(T)) {
+                self.items[index] = gc_inc(value);
+            }
+            else {
+                self.items[index] = value;
+            }
         }
     }
     
@@ -2969,7 +2979,7 @@ impl vector<T>
         
         return default_value;
     }
-    T find_value(vector<T>* self, T default_value, void* parent, bool (*block)(void*, T))
+    T^ find_value(vector<T>* self, T^ default_value, void* parent, bool (*block)(void*, T))
     {
         using unsafe;
         if(self == null) {
@@ -2978,13 +2988,13 @@ impl vector<T>
         
         for(int i=0; i<self.len; i++) {
             if(block(parent, self.items[i])) {
-                return dummy_heap self.items[i];
+                return self.items[i];
             }
         }
         
         return default_value;
     }
-    T nth(vector<T>* self, int index, T default_value)
+    T^ nth(vector<T>* self, int index, T^ default_value)
     {
         using unsafe;
         if(self == null) {
@@ -2999,9 +3009,9 @@ impl vector<T>
             return default_value;
         }
         
-        return dummy_heap self.items[index];
+        return self.items[index];
     }
-    T last(vector<T>* self, T default_value)
+    T^ last(vector<T>* self, T^ default_value)
     {
         return self.nth(-1, default_value);
     }
@@ -3038,7 +3048,7 @@ impl vector<T>
         
         return result;
     }
-    T min(vector<T>* self, T default_value)
+    T^ min(vector<T>* self, T^ default_value)
     {
         using unsafe;
         if(self == null || self.len == 0) {
@@ -3048,13 +3058,13 @@ impl vector<T>
         T result = default_value;
         for(int i=0; i<self.len; i++) {
             if(i == 0 || self.items[i].compare(result) < 0) {
-                result = dummy_heap self.items[i];
+                result = self.items[i];
             }
         }
         
-        return dummy_heap result;
+        return result;
     }
-    T max(vector<T>* self, T default_value)
+    T^ max(vector<T>* self, T^ default_value)
     {
         using unsafe;
         if(self == null || self.len == 0) {
@@ -3064,11 +3074,11 @@ impl vector<T>
         T result = default_value;
         for(int i=0; i<self.len; i++) {
             if(i == 0 || self.items[i].compare(result) > 0) {
-                result = dummy_heap self.items[i];
+                result = self.items[i];
             }
         }
         
-        return dummy_heap result;
+        return result;
     }
 
     int length(vector<T>* self)
@@ -3140,7 +3150,7 @@ impl vector<T>
         return self;
     }
     
-    T operator_load_element(vector<T>* self, int position) {
+    T^ operator_load_element(vector<T>* self, int position) {
         using unsafe;
         
         T^/ default_value;
@@ -3180,7 +3190,7 @@ impl vector<T>
                 result.add(clone self.items[i]);
             }
             else {
-                result.add(dummy_heap self.items[i]);
+                result.add(self.items[i]);
             }
         }
 
