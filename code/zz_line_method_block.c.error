@@ -1,0 +1,22 @@
+zz_line_method_block.c:1673:1: error: use of undeclared identifier 'missing_method_block_value'
+ 1673 | missing_method_block_value;
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~
+zz_line_method_block.c:1672:533: warning: expression result unused [-Wunused-value]
+ 1672 |     ({_li_4=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "zz_line_method_block.nc", 7, 18, "struct list$1int$*"), "zz_line_method_block.nc", 7, 19)), "zz_line_method_block.nc", 7, 20); i_5=0; _skip_while_done_6=(_Bool)0; for(({(_conditional_value_X0=(_o2_saved_2=(struct list$1int$*)come_increment_ref_count(_iter_obj_saved_1, "zz_line_method_block.nc", 10, 21),it_7=list$1int$_begin(_o2_saved_2)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$_end(_o2_saved_2)));_conditional_value_X1;});({(_conditional_value_X2=(it_7=list$1int$_next(_o2_saved_2)));_conditional_value_X2;})){
+      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^~~~~~~~~~~~~~~~~~~~~
+zz_line_method_block.c:1672:702: warning: expression result unused [-Wunused-value]
+ 1672 |     ({_li_4=(struct list$1int$*)come_increment_ref_count(list$1int$_initialize((struct list$1int$*)come_increment_ref_count((struct list$1int$*)come_calloc(1, sizeof(struct list$1int$)*(1), "zz_line_method_block.nc", 7, 18, "struct list$1int$*"), "zz_line_method_block.nc", 7, 19)), "zz_line_method_block.nc", 7, 20); i_5=0; _skip_while_done_6=(_Bool)0; for(({(_conditional_value_X0=(_o2_saved_2=(struct list$1int$*)come_increment_ref_count(_iter_obj_saved_1, "zz_line_method_block.nc", 10, 21),it_7=list$1int$_begin(_o2_saved_2)));_conditional_value_X0;});({(_conditional_value_X1=(!list$1int$_end(_o2_saved_2)));_conditional_value_X1;});({(_conditional_value_X2=(it_7=list$1int$_next(_o2_saved_2)));_conditional_value_X2;})){
+      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ^~~~~~~~~~~~~~~~~~~~~
+zz_line_method_block.c:1677:7: warning: expression result unused [-Wunused-value]
+ 1677 | ({}); _li_4; });
+      |       ^~~~~
+zz_line_method_block.c:4629:31: warning: cast to smaller integer type 'int' from 'void *' [-Wvoid-pointer-to-int-cast]
+ 4629 |     return (int_get_hash_key(((int)value)));
+      |                               ^~~~~~~~~~
+zz_line_method_block.c:5979:12: warning: comparison between pointer and integer ('int' and 'void *') [-Wpointer-integer-compare]
+ 5979 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+zz_line_method_block.c:5992:12: warning: comparison between pointer and integer ('long' and 'void *') [-Wpointer-integer-compare]
+ 5992 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+6 warnings and 1 error generated.

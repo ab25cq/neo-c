@@ -1,0 +1,16 @@
+zz_line_default_fun.c:1654:43: error: incompatible pointer to integer conversion passing 'char[4]' to parameter of type 'int' [-Wint-conversion]
+ 1654 |         __result_obj__0 = bad_default_fun("ABC");
+      |                                           ^~~~~
+zz_line_default_fun.c:1642:25: note: passing argument to parameter 'n' here
+ 1642 | int bad_default_fun(int n)
+      |                         ^
+zz_line_default_fun.c:4538:31: warning: cast to smaller integer type 'int' from 'void *' [-Wvoid-pointer-to-int-cast]
+ 4538 |     return (int_get_hash_key(((int)value)));
+      |                               ^~~~~~~~~~
+zz_line_default_fun.c:5888:12: warning: comparison between pointer and integer ('int' and 'void *') [-Wpointer-integer-compare]
+ 5888 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+zz_line_default_fun.c:5901:12: warning: comparison between pointer and integer ('long' and 'void *') [-Wpointer-integer-compare]
+ 5901 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+3 warnings and 1 error generated.

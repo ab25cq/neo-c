@@ -1,7 +1,0 @@
-make[1]: ディレクトリ '/home/ab25cq/neo-c' に入ります
-make[1]: 'ncc' は更新済みです.
-make[1]: ディレクトリ '/home/ab25cq/neo-c' から出ます
-c_test_compat124.c:21:6: warning: incompatible pointer types assigning to 'double *' from 'int *' [-Wincompatible-pointer-types]
-   21 |     q=p;
-      |      ^~
-1 warning generated.

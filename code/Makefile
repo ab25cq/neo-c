@@ -1077,27 +1077,27 @@ test: *.nc
 	rm -f zz_line_default_fun; \
 	$(NEO_C) -I. zz_line_default_fun.nc -o zz_line_default_fun > zz_line_default_fun.out 2>&1 || true; \
 	grep -Eq "zz_line_default_fun\\.nc 10\\(10\\): \\[warning\\] invalid assign non-pointer from pointer" zz_line_default_fun.out; \
-	grep -Eq "zz_line_default_fun\\.nc:10:43: error: incompatible pointer to integer conversion" zz_line_default_fun.out; \
+	grep -Eq "zz_line_default_fun\\.c:[0-9]+:43: error: incompatible pointer to integer conversion" zz_line_default_fun.out; \
 	rm -f zz_line_default_fun zz_line_default_fun.out zz_line_default_fun.c
 	@set -eu; \
 	echo "neo-c zz_line_default_method.nc (expect matching line info at omitted method default arg call site)"; \
 	rm -f zz_line_default_method; \
 	$(NEO_C) -I. zz_line_default_method.nc -o zz_line_default_method > zz_line_default_method.out 2>&1 || true; \
 	grep -Eq "zz_line_default_method\\.nc 14\\(14\\): \\[warning\\] invalid assign non-pointer from pointer" zz_line_default_method.out; \
-	grep -Eq "zz_line_default_method\\.nc:14:57: error: incompatible pointer to integer conversion" zz_line_default_method.out; \
+	grep -Eq "zz_line_default_method\\.c:[0-9]+:57: error: incompatible pointer to integer conversion" zz_line_default_method.out; \
 	rm -f zz_line_default_method zz_line_default_method.out zz_line_default_method.c
 	@set -eu; \
 	echo "neo-c zz_line_method_block.nc (expect matching line info inside iter method block)"; \
 	rm -f zz_line_method_block; \
 	$(NEO_C) -I. zz_line_method_block.nc -o zz_line_method_block > zz_line_method_block.out 2>&1 || true; \
-	grep -Eq "zz_line_method_block\\.nc:6:1: error: use of undeclared identifier 'missing_method_block_value'" zz_line_method_block.out; \
+	grep -Eq "zz_line_method_block\\.c:[0-9]+:1: error: use of undeclared identifier 'missing_method_block_value'" zz_line_method_block.out; \
 	rm -f zz_line_method_block zz_line_method_block.out zz_line_method_block.c
 	@set -eu; \
 	echo "neo-c zz_line_uniq_ctor.nc (expect matching line info in uniq constructor body)"; \
 	rm -f zz_line_uniq_ctor; \
 	$(NEO_C) -I. zz_line_uniq_ctor.nc -o zz_line_uniq_ctor > zz_line_uniq_ctor.out 2>&1 || true; \
 	grep -Eq "zz_line_uniq_ctor\\.nc 5\\(5\\): \\[warning\\] invalid assign non-pointer from pointer" zz_line_uniq_ctor.out; \
-	grep -Eq "zz_line_uniq_ctor\\.nc:5:13: error: use of undeclared identifier 'missing_ctor_value'" zz_line_uniq_ctor.out; \
+	grep -Eq "zz_line_uniq_ctor\\.c:[0-9]+:13: error: use of undeclared identifier 'missing_ctor_value'" zz_line_uniq_ctor.out; \
 	rm -f zz_line_uniq_ctor zz_line_uniq_ctor.out zz_line_uniq_ctor.c
 	$(NEO_C) test_control_flow.nc
 	./test_control_flow

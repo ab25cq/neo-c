@@ -4,14 +4,15 @@ struct proc_alias_target {
     char*% name;
 };
 
-template<T> T first_item(T a)
+template<T> T first_item(list<T>*% a)
 {
-    return a;
+    return a.item(0, null);
 }
 
 int main(int argc, char** argv) 
 {
-    char* a = first_item("AAA");
+    var li = ["AG", "BBB", "CCC"];
+    char* a = first_item(li);
     
     puts(a);
     

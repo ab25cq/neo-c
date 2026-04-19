@@ -7972,10 +7972,20 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
+                if(!is_generic_void_pointer_compatible(left_type2,right_type2,info)) {
+                    err_msg(info,"invalid pointer base type. %s",msg);
+                    show_type(left_type2,info);
+                    show_type(right_type2,info);
+                                        __result_obj__0 = (_Bool)0;
+                    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2421, 936);
+                    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2421, 937);
+                    neo_current_frame = fr.prev;
+                    return __result_obj__0;
+                }
             }
                         __result_obj__0 = (_Bool)1;
-            come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2426, 936);
-            come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2426, 937);
+            come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2424, 938);
+            come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2424, 939);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
@@ -7984,15 +7994,15 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             right_heap_pointer=right_type2->mHeap&&right_type2->mPointerNum==0&&right_type2->mArrayPointerNum==0&&!right_type2->mArrayPointerType&&list$1sNode$ph_length(right_type2->mArrayNum)==0;
             if(right_heap_pointer&&left_ptr_num_52==1&&is_same_base_type_ignoring_qualifier(left_type2,right_type2,info)) {
                                 __result_obj__0 = (_Bool)1;
-                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2441, 938);
-                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2441, 939);
+                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2439, 940);
+                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2439, 941);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
             if(is_integer_type(right_type2,info)&&is_null_pointer_constant(come_value,info)) {
                                 __result_obj__0 = (_Bool)1;
-                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2444, 940);
-                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2444, 941);
+                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2442, 942);
+                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2442, 943);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
@@ -8000,28 +8010,28 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             show_type(left_type2,info);
             show_type(right_type2,info);
                         __result_obj__0 = (_Bool)0;
-            come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2449, 942);
-            come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2449, 943);
+            come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2447, 944);
+            come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2447, 945);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
         else if(!left_ptr&&(right_ptr||right_array)) {
             __right_value0 = (void*)0;
-            return_type_check=string_index(((char* )(__right_value0=__builtin_string(msg,"06type.nc",2452))),"result type",-1)==0;
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06type.nc", 2452, 944));
+            return_type_check=string_index(((char* )(__right_value0=__builtin_string(msg,"06type.nc",2450))),"result type",-1)==0;
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "06type.nc", 2450, 946));
             typedef_array_decay_scalar=return_type_check&&left_type2->mPointerNum==0&&left_type2->mArrayPointerNum==0&&list$1sNode$ph_length(left_type2->mArrayNum)==0&&right_type2->mPointerNum==0&&right_type2->mArrayPointerNum>0&&list$1sNode$ph_length(right_type2->mArrayNum)==0&&!right_type2->mArrayPointerType&&right_type2->mOriginalTypeName!=((void*)0)&&string_operator_not_equals(right_type2->mOriginalTypeName,"")&&is_same_base_type_ignoring_qualifier(left_type2,right_type2,info);
             if(typedef_array_decay_scalar) {
                                 __result_obj__0 = (_Bool)1;
-                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2465, 945);
-                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2465, 946);
+                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2463, 947);
+                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2463, 948);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
             if(list$1sNode$ph_length(left_type2->mArrayNum)>0&&list$1sNode$ph_length(right_type2->mArrayNum)>0) {
                 if(is_same_base_type_ignoring_qualifier(left_type2,right_type2,info)) {
                                         __result_obj__0 = (_Bool)1;
-                    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2469, 947);
-                    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2469, 948);
+                    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2467, 949);
+                    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2467, 950);
                     neo_current_frame = fr.prev;
                     return __result_obj__0;
                 }
@@ -8030,16 +8040,16 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
             show_type(left_type2,info);
             show_type(right_type2,info);
                         __result_obj__0 = (_Bool)0;
-            come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2475, 949);
-            come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2475, 950);
+            come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2473, 951);
+            come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2473, 952);
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
     }
     if(is_arithmetic_type(left_type2,info)&&is_arithmetic_type(right_type2,info)) {
                 __result_obj__0 = (_Bool)1;
-        come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2501, 951);
-        come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2501, 952);
+        come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2499, 953);
+        come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2499, 954);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -8047,8 +8057,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
         if(left_type2->mClass->mStruct&&right_type2->mClass->mStruct) {
             if(is_parent_class_of(left_type2->mClass,right_type2->mClass,info)) {
                                 __result_obj__0 = (_Bool)1;
-                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2507, 953);
-                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2507, 954);
+                come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2505, 955);
+                come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2505, 956);
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
@@ -8056,8 +8066,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     }
     if(is_same_type_ignoring_qualifier(left_type2,right_type2,info)) {
                 __result_obj__0 = (_Bool)1;
-        come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2513, 955);
-        come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2513, 956);
+        come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2511, 957);
+        come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2511, 958);
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
@@ -8065,8 +8075,8 @@ _Bool check_assign_type_safe(const char* msg, struct sType*  left_type  , struct
     show_type(left_type2,info);
     show_type(right_type2,info);
         __result_obj__0 = (_Bool)0;
-    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2519, 957);
-    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2519, 958);
+    come_call_finalizer(sType_finalize, left_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2517, 959);
+    come_call_finalizer(sType_finalize, right_type2, (void*)0, (void*)0, 0, 0, 0, (void*)0, "06type.nc}", 2517, 960);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }

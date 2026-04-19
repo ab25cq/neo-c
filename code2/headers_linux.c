@@ -10692,201 +10692,162 @@ int test_headers_linux();
 // inline function
 static inline unsigned int  __arch_swab32(unsigned int  val  )
 {
-    # 10 "/usr/include/asm/swab.h"
      __asm  (
         "bswapl %0"
         :        "=r"
 (val)        :        "0"
 (val)    );
-    # 11 "/usr/include/asm/swab.h"
         return val;
 }
 static inline unsigned long  long  __arch_swab64(unsigned long  long  val  )
 {
-    # 31 "/usr/include/asm/swab.h"
      __asm  (
         "bswapq %0"
         :        "=r"
 (val)        :        "0"
 (val)    );
-    # 32 "/usr/include/asm/swab.h"
         return val;
 }
 static inline unsigned short int  __fswab16(unsigned short int  val  )
 {
-    # 35 "/usr/include/linux/swab.h"
         return ((unsigned short int )((((unsigned short int )(val)&(unsigned short int )0x00ffU)<<8)|(((unsigned short int )(val)&(unsigned short int )0xff00U)>>8)));
 }
 static inline unsigned int  __fswab32(unsigned int  val  )
 {
-    # 42 "/usr/include/linux/swab.h"
         return __arch_swab32(val);
 }
 static inline unsigned long  long  __fswab64(unsigned long  long  val  )
 {
-    # 51 "/usr/include/linux/swab.h"
         return __arch_swab64(val);
 }
 static inline unsigned int  __fswahw32(unsigned int  val  )
 {
-    # 66 "/usr/include/linux/swab.h"
         return ((unsigned int )((((unsigned int )(val)&(unsigned int )0x0000ffffUL)<<16)|(((unsigned int )(val)&(unsigned int )0xffff0000UL)>>16)));
 }
 static inline unsigned int  __fswahb32(unsigned int  val  )
 {
-    # 75 "/usr/include/linux/swab.h"
         return ((unsigned int )((((unsigned int )(val)&(unsigned int )0x00ff00ffUL)<<8)|(((unsigned int )(val)&(unsigned int )0xff00ff00UL)>>8)));
 }
 static inline unsigned long  int __swab(const unsigned long  int y)
 {
-    # 112 "/usr/include/linux/swab.h"
         return (unsigned long  long )(((__builtin_constant_p(y))?(((unsigned long  long )((((unsigned long  long )(y)&(unsigned long  long )0x00000000000000ffULL)<<56)|(((unsigned long  long )(y)&(unsigned long  long )0x000000000000ff00ULL)<<40)|(((unsigned long  long )(y)&(unsigned long  long )0x0000000000ff0000ULL)<<24)|(((unsigned long  long )(y)&(unsigned long  long )0x00000000ff000000ULL)<<8)|(((unsigned long  long )(y)&(unsigned long  long )0x000000ff00000000ULL)>>8)|(((unsigned long  long )(y)&(unsigned long  long )0x0000ff0000000000ULL)>>24)|(((unsigned long  long )(y)&(unsigned long  long )0x00ff000000000000ULL)>>40)|(((unsigned long  long )(y)&(unsigned long  long )0xff00000000000000ULL)>>56)))):(__fswab64(y))));
 }
 static inline unsigned short int  __swab16p(const unsigned short int*  p  )
 {
-    # 143 "/usr/include/linux/swab.h"
         return (unsigned short int )(((__builtin_constant_p(*p))?(((unsigned short int )((((unsigned short int )(*p)&(unsigned short int )0x00ffU)<<8)|(((unsigned short int )(*p)&(unsigned short int )0xff00U)>>8)))):(__fswab16(*p))));
 }
 static inline unsigned int  __swab32p(const unsigned int*  p  )
 {
-    # 156 "/usr/include/linux/swab.h"
         return (unsigned int )(((__builtin_constant_p(*p))?(((unsigned int )((((unsigned int )(*p)&(unsigned int )0x000000ffUL)<<24)|(((unsigned int )(*p)&(unsigned int )0x0000ff00UL)<<8)|(((unsigned int )(*p)&(unsigned int )0x00ff0000UL)>>8)|(((unsigned int )(*p)&(unsigned int )0xff000000UL)>>24)))):(__fswab32(*p))));
 }
 static inline unsigned long  long  __swab64p(const unsigned long  long*  p  )
 {
-    # 169 "/usr/include/linux/swab.h"
         return (unsigned long  long )(((__builtin_constant_p(*p))?(((unsigned long  long )((((unsigned long  long )(*p)&(unsigned long  long )0x00000000000000ffULL)<<56)|(((unsigned long  long )(*p)&(unsigned long  long )0x000000000000ff00ULL)<<40)|(((unsigned long  long )(*p)&(unsigned long  long )0x0000000000ff0000ULL)<<24)|(((unsigned long  long )(*p)&(unsigned long  long )0x00000000ff000000ULL)<<8)|(((unsigned long  long )(*p)&(unsigned long  long )0x000000ff00000000ULL)>>8)|(((unsigned long  long )(*p)&(unsigned long  long )0x0000ff0000000000ULL)>>24)|(((unsigned long  long )(*p)&(unsigned long  long )0x00ff000000000000ULL)>>40)|(((unsigned long  long )(*p)&(unsigned long  long )0xff00000000000000ULL)>>56)))):(__fswab64(*p))));
 }
 static inline unsigned int  __swahw32p(const unsigned int*  p  )
 {
-    # 184 "/usr/include/linux/swab.h"
         return (((__builtin_constant_p((unsigned int )(*p)))?(((unsigned int )((((unsigned int )(*p)&(unsigned int )0x0000ffffUL)<<16)|(((unsigned int )(*p)&(unsigned int )0xffff0000UL)>>16)))):(__fswahw32(*p))));
 }
 static inline unsigned int  __swahb32p(const unsigned int*  p  )
 {
-    # 199 "/usr/include/linux/swab.h"
         return (((__builtin_constant_p((unsigned int )(*p)))?(((unsigned int )((((unsigned int )(*p)&(unsigned int )0x00ff00ffUL)<<8)|(((unsigned int )(*p)&(unsigned int )0xff00ff00UL)>>8)))):(__fswahb32(*p))));
 }
 static inline void __swab16s(unsigned short int*  p  )
 {
-    # 212 "/usr/include/linux/swab.h"
     *p=__swab16p(p);
 }
 static inline void __swab32s(unsigned int*  p  )
 {
-    # 224 "/usr/include/linux/swab.h"
     *p=__swab32p(p);
 }
 static inline void __swab64s(unsigned long  long*  p  )
 {
-    # 237 "/usr/include/linux/swab.h"
     *p=__swab64p(p);
 }
 static inline void __swahw32s(unsigned int*  p  )
 {
-    # 252 "/usr/include/linux/swab.h"
     *p=__swahw32p(p);
 }
 static inline void __swahb32s(unsigned int*  p  )
 {
-    # 267 "/usr/include/linux/swab.h"
     *p=__swahb32p(p);
 }
 static inline unsigned long  long  __cpu_to_le64p(const unsigned long  long*  p  )
 {
-    # 47 "/usr/include/linux/byteorder/little_endian.h"
         return (unsigned long  long )*p;
 }
 static inline unsigned long  long  __le64_to_cpup(const unsigned long  long*  p  )
 {
-    # 51 "/usr/include/linux/byteorder/little_endian.h"
         return (unsigned long  long )*p;
 }
 static inline unsigned int  __cpu_to_le32p(const unsigned int*  p  )
 {
-    # 55 "/usr/include/linux/byteorder/little_endian.h"
         return (unsigned int )*p;
 }
 static inline unsigned int  __le32_to_cpup(const unsigned int*  p  )
 {
-    # 59 "/usr/include/linux/byteorder/little_endian.h"
         return (unsigned int )*p;
 }
 static inline unsigned short int  __cpu_to_le16p(const unsigned short int*  p  )
 {
-    # 63 "/usr/include/linux/byteorder/little_endian.h"
         return (unsigned short int )*p;
 }
 static inline unsigned short int  __le16_to_cpup(const unsigned short int*  p  )
 {
-    # 67 "/usr/include/linux/byteorder/little_endian.h"
         return (unsigned short int )*p;
 }
 static inline unsigned long  long  __cpu_to_be64p(const unsigned long  long*  p  )
 {
-    # 71 "/usr/include/linux/byteorder/little_endian.h"
         return (unsigned long  long )__swab64p(p);
 }
 static inline unsigned long  long  __be64_to_cpup(const unsigned long  long*  p  )
 {
-    # 75 "/usr/include/linux/byteorder/little_endian.h"
         return __swab64p((unsigned long  long* )p);
 }
 static inline unsigned int  __cpu_to_be32p(const unsigned int*  p  )
 {
-    # 79 "/usr/include/linux/byteorder/little_endian.h"
         return (unsigned int )__swab32p(p);
 }
 static inline unsigned int  __be32_to_cpup(const unsigned int*  p  )
 {
-    # 83 "/usr/include/linux/byteorder/little_endian.h"
         return __swab32p((unsigned int* )p);
 }
 static inline unsigned short int  __cpu_to_be16p(const unsigned short int*  p  )
 {
-    # 87 "/usr/include/linux/byteorder/little_endian.h"
         return (unsigned short int )__swab16p(p);
 }
 static inline unsigned short int  __be16_to_cpup(const unsigned short int*  p  )
 {
-    # 91 "/usr/include/linux/byteorder/little_endian.h"
         return __swab16p((unsigned short int* )p);
 }
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
 {
-    # 38 "/usr/include/bits/byteswap.h"
         return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
 }
 static inline unsigned int  __bswap_32(unsigned int  __bsx  )
 {
-    # 51 "/usr/include/bits/byteswap.h"
         return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
 }
 static inline unsigned long  int  __bswap_64(unsigned long  int  __bsx  )
 {
-    # 64 "/usr/include/bits/byteswap.h"
         return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
 }
 static inline unsigned short int  __uint16_identity(unsigned short int  __x  )
 {
-    # 35 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 static inline unsigned int  __uint32_identity(unsigned int  __x  )
 {
-    # 41 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
-    # 47 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 
 // body function
 int test_headers_linux()
 {
-    # 82 "headers_linux.nc"
         return 0;
 }
 

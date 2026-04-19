@@ -1,0 +1,13 @@
+zz_line_uniq_ctor.c:4548:31: warning: cast to smaller integer type 'int' from 'void *' [-Wvoid-pointer-to-int-cast]
+ 4548 |     return (int_get_hash_key(((int)value)));
+      |                               ^~~~~~~~~~
+zz_line_uniq_ctor.c:5898:12: warning: comparison between pointer and integer ('int' and 'void *') [-Wpointer-integer-compare]
+ 5898 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+zz_line_uniq_ctor.c:5911:12: warning: comparison between pointer and integer ('long' and 'void *') [-Wpointer-integer-compare]
+ 5911 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+zz_line_uniq_ctor.c:6231:13: error: use of undeclared identifier 'missing_ctor_value'
+ 6231 |     self->n=missing_ctor_value;
+      |             ^~~~~~~~~~~~~~~~~~
+3 warnings and 1 error generated.

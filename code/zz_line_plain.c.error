@@ -1,0 +1,13 @@
+zz_line_plain.c:1646:12: error: use of undeclared identifier 'missing_plain_value'
+ 1646 |     return missing_plain_value;
+      |            ^~~~~~~~~~~~~~~~~~~
+zz_line_plain.c:4538:31: warning: cast to smaller integer type 'int' from 'void *' [-Wvoid-pointer-to-int-cast]
+ 4538 |     return (int_get_hash_key(((int)value)));
+      |                               ^~~~~~~~~~
+zz_line_plain.c:5888:12: warning: comparison between pointer and integer ('int' and 'void *') [-Wpointer-integer-compare]
+ 5888 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+zz_line_plain.c:5901:12: warning: comparison between pointer and integer ('long' and 'void *') [-Wpointer-integer-compare]
+ 5901 |     if(self==((void*)0)) {
+      |        ~~~~^ ~~~~~~~~~~
+3 warnings and 1 error generated.

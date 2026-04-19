@@ -2414,14 +2414,12 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
                 if(is_span_wrapper_compatible(left_type2, right_type2)) {
                     return true;
                 }
-/*
                 if(!is_generic_void_pointer_compatible(left_type2, right_type2)) {
                     err_msg(info, "invalid pointer base type. %s", msg);
                     show_type(left_type2);
                     show_type(right_type2);
                     return false;
                 }
-*/
             }
             return true;
         }
