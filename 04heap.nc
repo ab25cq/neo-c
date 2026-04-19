@@ -279,7 +279,7 @@ sType*% solve_method_generics(sType* type, sInfo* info)
     sType*% result = clone type;
     
     sClass* klass = type->mClass;
-
+    
     if(klass->mMethodGenerics && info->method_generics_types && info->method_generics_types.length() > 0) {
         int generics_number = klass->mMethodGenericsNum;
 
@@ -377,6 +377,8 @@ sType*% solve_method_generics(sType* type, sInfo* info)
     if(type->mResultType) {
         result->mResultType = solve_method_generics(type->mResultType, info);
     }
+    
+    (void)output_generics_struct(result, null, info);
     
     return result;
 }

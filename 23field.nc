@@ -486,7 +486,7 @@ class sLoadFieldNode extends sNodeBase
                 come_value.c_value = xsprintf("%s->%s", left_value.c_value, name);
             }
             else {
-                come_value.c_value = xsprintf("%s.%s", left_value.c_value, name);
+                come_value.c_value = xsprintf("%s.%s /* gg */", left_value.c_value, name);
             }
             come_value.type = new sType(s"void");
             come_value.type.mPointerNum = 1;
@@ -511,7 +511,7 @@ class sLoadFieldNode extends sNodeBase
                 come_value.c_value = xsprintf("%s->%s", left_value.c_value, name);
             }
             else {
-                come_value.c_value = xsprintf("%s.%s", left_value.c_value, name);
+                come_value.c_value = xsprintf("%s.%s /* hhh */", left_value.c_value, name);
             }
             come_value.type = new sType(s"void");
             come_value.type.mPointerNum = 1;
@@ -531,7 +531,7 @@ class sLoadFieldNode extends sNodeBase
             come_value.c_value = xsprintf("%s->%s", left_value.c_value, name);
         }
         else {
-            come_value.c_value = xsprintf("%s.%s", left_value.c_value, name);
+            come_value.c_value = xsprintf("%s.%s /* uho */", left_value.c_value, name);
         }
         come_value.type = clone field_type;
         sType*% type_ = solve_generics(come_value.type, info->generics_type, info);

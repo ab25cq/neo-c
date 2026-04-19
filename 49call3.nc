@@ -165,13 +165,23 @@ class sFunCallNode extends sNodeBase
                     
                     if(generics_fun_method_block_result_type.mClass.mMethodGenerics) {
                         int method_generics_num = generics_fun_method_block_result_type.mClass.mMethodGenericsNum;
-                        method_generics_types[method_generics_num] = clone method_block_result_type;
+                        /*
+                        if(method_generics_types[method_generics_num] == null) 
+                        {
+                        */
+                            method_generics_types[method_generics_num] = clone method_block_result_type;
+                        //}
                     }
                     int n = 0;
                     foreach(it, generics_fun_method_block_lambda_type.mParamTypes) {
                         if(it.mClass.mMethodGenerics) {
                             int method_generics_num = it.mClass.mMethodGenericsNum;
-                            method_generics_types[method_generics_num] = clone method_block_lambda_type.mParamTypes[n];
+                            /*
+                            if(method_generics_types[method_generics_num] == null) 
+                            {
+                            */
+                                method_generics_types[method_generics_num] = clone method_block_lambda_type.mParamTypes[n];
+                            //}
                         }
                         n++;
                     }
@@ -199,18 +209,62 @@ class sFunCallNode extends sNodeBase
                 }
                 
                 if(generics_fun.mResultType.mClass.mMethodGenerics) {
+                    sType*% it = generics_fun.mResultType;
+                    
+/*
+                    for(int i=0; i<it->mGenericsTypes.length(); i++) {
+                        sType* it2 = it->mGenericsTypes[i];
+                        
+                        if(it2.mClass.mMethodGenerics) {
+                            int method_generics_num = it2.mClass.mMethodGenericsNum;
+                            if(info->function_result_type && i < info->function_result_type.mGenericsTypes.length()) {
+                                /*
+                                if(method_generics_types[method_generics_num] == null) 
+                                {
+                                */
+                                    method_generics_types[method_generics_num] = clone info->function_result_type.mGenericsTypes[i];
+                                //}
+                            }
+                        }
+                    }
+*/
                     int method_generics_num = generics_fun.mResultType.mClass.mMethodGenericsNum;
         
                     if(info->function_result_type) {
-                        method_generics_types[method_generics_num] = clone info->function_result_type;
+                        /*
+                        if(method_generics_types[method_generics_num] == null) 
+                        {
+                        */
+                            method_generics_types[method_generics_num] = clone info->function_result_type;
+                        //}
                     }
                 }
                 int n = 0;
+                sType*% generics_type = null;
                 foreach(it, generics_fun.mParamTypes) {
+                    for(int k=0; k<it->mGenericsTypes.length(); k++) {
+                        sType*% it2 = it->mGenericsTypes[k];
+                        
+                        if(it2.mClass.mMethodGenerics) {
+                            int method_generics_num = it2.mClass.mMethodGenericsNum;
+                            if(n < come_params.length()) {
+                                sType*% tmp = come_params[n].type.mNoSolvedGenericsType;
+                                
+                                if(k < tmp.mGenericsTypes.length()) {
+                                    if(method_generics_types[method_generics_num] && method_generics_types[method_generics_num].mClass.mMethodGenerics) {
+                                        method_generics_types[method_generics_num] = clone tmp.mGenericsTypes[k];
+//info->generics_type = clone come_params[n].type;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     if(it.mClass.mMethodGenerics) {
                         int method_generics_num = it.mClass.mMethodGenericsNum;
                         if(n < come_params.length()) {
-                            method_generics_types[method_generics_num] = clone come_params[n].type;
+                            if(method_generics_types[method_generics_num] && method_generics_types[method_generics_num].mClass.mMethodGenerics) {
+                                method_generics_types[method_generics_num] = clone come_params[n].type;
+                            }
                         }
                     }
                     n++;

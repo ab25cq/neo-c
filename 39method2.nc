@@ -45,7 +45,7 @@ string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%
     static int num_method_generics = 0;
     string fun_name3 = xsprintf("%s_method_generics%d", fun_name, num_method_generics++);
     
-    list<sType*%>*% method_generics_types_before = info.method_generics_types;
+    list<sType*%>*% method_generics_types_before = clone info.method_generics_types;
     info->method_generics_types= clone method_generics_types;
     
     sGenericsFun* generics_fun = borrow info.generics_funcs.at(fun_name, null);
@@ -57,7 +57,7 @@ string,sGenericsFun* make_method_generics_function(string fun_name, list<sType*%
         }
     }
     
-    info.method_generics_types = method_generics_types_before;
+    info.method_generics_types = clone method_generics_types_before;
     
     return t(clone fun_name3, generics_fun);
 }

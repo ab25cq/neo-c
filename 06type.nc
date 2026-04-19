@@ -1903,7 +1903,7 @@ bool is_generic_void_pointer_compatible(sType* left_type, sType* right_type, sIn
 
     bool left_void_generic = left_type_name.index("<void", -1) >= 0;
     bool right_void_generic = right_type_name.index("<void", -1) >= 0;
-
+    
     return left_void_generic || right_void_generic;
 }
 
@@ -2414,12 +2414,14 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
                 if(is_span_wrapper_compatible(left_type2, right_type2)) {
                     return true;
                 }
+/*
                 if(!is_generic_void_pointer_compatible(left_type2, right_type2)) {
                     err_msg(info, "invalid pointer base type. %s", msg);
                     show_type(left_type2);
                     show_type(right_type2);
                     return false;
                 }
+*/
             }
             return true;
         }

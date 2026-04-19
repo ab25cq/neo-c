@@ -3263,32 +3263,26 @@ static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self);
 // inline function
 static inline unsigned short int  __bswap_16(unsigned short int  __bsx  )
 {
-    # 38 "/usr/include/bits/byteswap.h"
         return ((unsigned short int )((((__bsx)>>8)&0xff)|(((__bsx)&0xff)<<8)));
 }
 static inline unsigned int  __bswap_32(unsigned int  __bsx  )
 {
-    # 51 "/usr/include/bits/byteswap.h"
         return ((((__bsx)&0xff000000u)>>24)|(((__bsx)&0x00ff0000u)>>8)|(((__bsx)&0x0000ff00u)<<8)|(((__bsx)&0x000000ffu)<<24));
 }
 static inline unsigned long  int  __bswap_64(unsigned long  int  __bsx  )
 {
-    # 64 "/usr/include/bits/byteswap.h"
         return ((((__bsx)&0xff00000000000000ull)>>56)|(((__bsx)&0x00ff000000000000ull)>>40)|(((__bsx)&0x0000ff0000000000ull)>>24)|(((__bsx)&0x000000ff00000000ull)>>8)|(((__bsx)&0x00000000ff000000ull)<<8)|(((__bsx)&0x0000000000ff0000ull)<<24)|(((__bsx)&0x000000000000ff00ull)<<40)|(((__bsx)&0x00000000000000ffull)<<56));
 }
 static inline unsigned short int  __uint16_identity(unsigned short int  __x  )
 {
-    # 35 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 static inline unsigned int  __uint32_identity(unsigned int  __x  )
 {
-    # 41 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 {
-    # 47 "/usr/include/bits/uintn-identity.h"
         return __x;
 }
 
@@ -3296,25 +3290,18 @@ static inline unsigned long  int  __uint64_identity(unsigned long  int  __x  )
 static int word_char_kind(int  c  , _Bool big_word)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "word_char_kind"; neo_current_frame = &fr;
-    # 9 "04word.nc"
     if(c==0||xiswblank(c)) {
-        # 6 "04word.nc"
                 neo_current_frame = fr.prev;
         return 0;
     }
-    # 13 "04word.nc"
     if(big_word) {
-        # 10 "04word.nc"
                 neo_current_frame = fr.prev;
         return 1;
     }
-    # 17 "04word.nc"
     if(xiswalnum(c)||c==95) {
-        # 14 "04word.nc"
                 neo_current_frame = fr.prev;
         return 1;
     }
-    # 17 "04word.nc"
         neo_current_frame = fr.prev;
     return 2;
     neo_current_frame = fr.prev;
@@ -3326,14 +3313,10 @@ static int find_word_start_on_line(int*  line  , int x, _Bool big_word)
     int kind;
     int __result_obj__0;
     memset(&kind, 0, sizeof(kind));
-    # 22 "04word.nc"
     kind=word_char_kind(line[x],big_word);
-    # 28 "04word.nc"
     while(x>0&&word_char_kind(line[x-1],big_word)==kind) {
-        # 25 "04word.nc"
         x--;
     }
-    # 28 "04word.nc"
         __result_obj__0 = x;
     (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 28, 1));
     neo_current_frame = fr.prev;
@@ -3346,14 +3329,10 @@ static int find_word_end_on_line(int*  line  , int x, _Bool big_word)
     int kind;
     int __result_obj__0;
     memset(&kind, 0, sizeof(kind));
-    # 33 "04word.nc"
     kind=word_char_kind(line[x],big_word);
-    # 39 "04word.nc"
     while(x+1<wstring_length(line)&&word_char_kind(line[x+1],big_word)==kind) {
-        # 36 "04word.nc"
         x++;
     }
-    # 39 "04word.nc"
         __result_obj__0 = x;
     (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 39, 2));
     neo_current_frame = fr.prev;
@@ -3373,67 +3352,45 @@ static _Bool move_next_word_start(struct ViWin*  self  , _Bool big_word)
     memset(&y, 0, sizeof(y));
     memset(&x, 0, sizeof(x));
     memset(&line, 0, sizeof(line));
-    # 44 "04word.nc"
     y=self->scroll+self->cursorY;
-    # 45 "04word.nc"
     x=self->cursorX;
-    # 51 "04word.nc"
     if(y>=list$1int$ph_length(self->texts)) {
-        # 48 "04word.nc"
                 neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    # 51 "04word.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","04word.nc",51)))), "04word.nc", 51, 9);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 51, 10));
-    # 56 "04word.nc"
     if(x<wstring_length(line)&&word_char_kind(line[x],big_word)!=0) {
-        # 53 "04word.nc"
         x=find_word_end_on_line((int* )come_increment_ref_count(line, "04word.nc", 53, 11),x,big_word)+1;
     }
-    # 79 "04word.nc"
     while((_Bool)1) {
-        # 57 "04word.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj1=line,
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","04word.nc",57)))), "04word.nc", 57, 13);
         __dec_obj1 = come_decrement_ref_count(__dec_obj1, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 57, 12);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 57, 14));
-        # 72 "04word.nc"
         while(x<wstring_length(line)) {
-            # 69 "04word.nc"
             if(word_char_kind(line[x],big_word)!=0) {
-                # 61 "04word.nc"
                 self->scroll=0;
-                # 62 "04word.nc"
                 self->cursorY=y;
-                # 63 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 64 "04word.nc"
                 self->cursorX=x;
-                # 65 "04word.nc"
                 ViWin_modifyOverCursorXValue(self);
-                # 66 "04word.nc"
                                 __result_obj__0 = (_Bool)1;
                 (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 66, 15));
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            # 69 "04word.nc"
             x++;
         }
-        # 76 "04word.nc"
         if(y+1>=list$1int$ph_length(self->texts)) {
-            # 73 "04word.nc"
                         __result_obj__0 = (_Bool)0;
             (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 73, 16));
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        # 76 "04word.nc"
         y++;
-        # 77 "04word.nc"
         x=0;
     }
     (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 81, 17));
@@ -3443,13 +3400,10 @@ static _Bool move_next_word_start(struct ViWin*  self  , _Bool big_word)
 static int list$1int$ph_length(struct list$1int$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list$1int$ph_length"; neo_current_frame = &fr;
-    # 1772 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1770 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return 0;
     }
-    # 1772 "/usr/local/include/neo-c.h"
         neo_current_frame = fr.prev;
     return self->len;
         neo_current_frame = fr.prev;
@@ -3463,39 +3417,27 @@ static int*  list$1int$ph_item(struct list$1int$ph* self, int position, int*  de
     int i;
     memset(&it, 0, sizeof(it));
     memset(&i, 0, sizeof(i));
-    # 1750 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1747 "/usr/local/include/neo-c.h"
                 __result_obj__0 = (int* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1747, 3);
         neo_current_frame = fr.prev;
         (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1747, 4));
         return __result_obj__0;
     }
-    # 1754 "/usr/local/include/neo-c.h"
     if(position<0) {
-        # 1751 "/usr/local/include/neo-c.h"
         position+=self->len;
     }
-    # 1754 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 1755 "/usr/local/include/neo-c.h"
     i=0;
-    # 1762 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 1760 "/usr/local/include/neo-c.h"
         if(position==i) {
-            # 1758 "/usr/local/include/neo-c.h"
                         __result_obj__0 = (int* )come_increment_ref_count(it->item, "/usr/local/include/neo-c.h", 1758, 5);
             neo_current_frame = fr.prev;
             (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1758, 6));
             return __result_obj__0;
         }
-        # 1760 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 1761 "/usr/local/include/neo-c.h"
         i++;
     }
-    # 1764 "/usr/local/include/neo-c.h"
         __result_obj__0 = (int* )come_increment_ref_count(default_value, "/usr/local/include/neo-c.h", 1764, 7);
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "/usr/local/include/neo-c.h", 1764, 8));
@@ -3516,47 +3458,30 @@ static _Bool move_next_word_end(struct ViWin*  self  , _Bool big_word)
     memset(&x, 0, sizeof(x));
     memset(&line, 0, sizeof(line));
     memset(&end, 0, sizeof(end));
-    # 83 "04word.nc"
     y=self->scroll+self->cursorY;
-    # 84 "04word.nc"
     x=self->cursorX;
-    # 107 "04word.nc"
     while(y<list$1int$ph_length(self->texts)) {
-        # 87 "04word.nc"
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","04word.nc",87)))), "04word.nc", 87, 18);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 87, 19));
-        # 103 "04word.nc"
         while(x<wstring_length(line)) {
-            # 100 "04word.nc"
             if(word_char_kind(line[x],big_word)!=0) {
-                # 91 "04word.nc"
                 end=find_word_end_on_line((int* )come_increment_ref_count(line, "04word.nc", 91, 20),x,big_word);
-                # 92 "04word.nc"
                 self->scroll=0;
-                # 93 "04word.nc"
                 self->cursorY=y;
-                # 94 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 95 "04word.nc"
                 self->cursorX=end;
-                # 96 "04word.nc"
                 ViWin_modifyOverCursorXValue(self);
-                # 97 "04word.nc"
                                 __result_obj__0 = (_Bool)1;
                 (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 97, 21));
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            # 100 "04word.nc"
             x++;
         }
-        # 103 "04word.nc"
         y++;
-        # 104 "04word.nc"
         x=0;
         (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 107, 22));
     }
-    # 107 "04word.nc"
         neo_current_frame = fr.prev;
     return (_Bool)0;
     neo_current_frame = fr.prev;
@@ -3580,103 +3505,68 @@ static _Bool move_prev_word_start(struct ViWin*  self  , _Bool big_word)
     memset(&line, 0, sizeof(line));
     memset(&head, 0, sizeof(head));
     memset(&head_0, 0, sizeof(head_0));
-    # 112 "04word.nc"
     y=self->scroll+self->cursorY;
-    # 113 "04word.nc"
     x=self->cursorX;
-    # 119 "04word.nc"
     if(y>=list$1int$ph_length(self->texts)) {
-        # 116 "04word.nc"
                 neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    # 119 "04word.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","04word.nc",119)))), "04word.nc", 119, 23);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 119, 24));
-    # 124 "04word.nc"
     if(wstring_length(line)>0&&x>=wstring_length(line)) {
-        # 121 "04word.nc"
         x=wstring_length(line)-1;
     }
-    # 142 "04word.nc"
     if(wstring_length(line)>0&&x>=0&&word_char_kind(line[x],big_word)!=0) {
-        # 125 "04word.nc"
         head=find_word_start_on_line((int* )come_increment_ref_count(line, "04word.nc", 125, 25),x,big_word);
-        # 136 "04word.nc"
         if(head<x) {
-            # 128 "04word.nc"
             self->scroll=0;
-            # 129 "04word.nc"
             self->cursorY=y;
-            # 130 "04word.nc"
             ViWin_modifyOverCursorYValue(self);
-            # 131 "04word.nc"
             self->cursorX=head;
-            # 132 "04word.nc"
             ViWin_modifyOverCursorXValue(self);
-            # 133 "04word.nc"
                         __result_obj__0 = (_Bool)1;
             (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 133, 26));
             neo_current_frame = fr.prev;
             return __result_obj__0;
         }
-        # 136 "04word.nc"
         x=head-1;
     }
     else {
-        # 139 "04word.nc"
         x--;
     }
-    # 166 "04word.nc"
     while(y>=0) {
-        # 143 "04word.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj2=line,
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","04word.nc",143)))), "04word.nc", 143, 28);
         __dec_obj2 = come_decrement_ref_count(__dec_obj2, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 143, 27);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 143, 29));
-        # 159 "04word.nc"
         while(x>=0) {
-            # 156 "04word.nc"
             if(word_char_kind(line[x],big_word)!=0) {
-                # 147 "04word.nc"
                 head_0=find_word_start_on_line((int* )come_increment_ref_count(line, "04word.nc", 147, 30),x,big_word);
-                # 148 "04word.nc"
                 self->scroll=0;
-                # 149 "04word.nc"
                 self->cursorY=y;
-                # 150 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 151 "04word.nc"
                 self->cursorX=head_0;
-                # 152 "04word.nc"
                 ViWin_modifyOverCursorXValue(self);
-                # 153 "04word.nc"
                                 __result_obj__0 = (_Bool)1;
                 (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 153, 31));
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            # 156 "04word.nc"
             x--;
         }
-        # 159 "04word.nc"
         y--;
-        # 164 "04word.nc"
         if(y>=0) {
-            # 161 "04word.nc"
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj3=line,
             line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","04word.nc",161)))), "04word.nc", 161, 33);
             __dec_obj3 = come_decrement_ref_count(__dec_obj3, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 161, 32);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 161, 34));
-            # 162 "04word.nc"
             x=wstring_length(line)-1;
         }
     }
-    # 166 "04word.nc"
         __result_obj__0 = (_Bool)0;
     (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 166, 35));
     neo_current_frame = fr.prev;
@@ -3699,83 +3589,56 @@ static _Bool move_prev_word_end(struct ViWin*  self  , _Bool big_word)
     memset(&x, 0, sizeof(x));
     memset(&line, 0, sizeof(line));
     memset(&tail, 0, sizeof(tail));
-    # 171 "04word.nc"
     y=self->scroll+self->cursorY;
-    # 172 "04word.nc"
     x=self->cursorX;
-    # 178 "04word.nc"
     if(y>=list$1int$ph_length(self->texts)) {
-        # 175 "04word.nc"
                 neo_current_frame = fr.prev;
         return (_Bool)0;
     }
-    # 178 "04word.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","04word.nc",178)))), "04word.nc", 178, 36);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 178, 37));
-    # 183 "04word.nc"
     if(wstring_length(line)>0&&x>=wstring_length(line)) {
-        # 180 "04word.nc"
         x=wstring_length(line)-1;
     }
-    # 190 "04word.nc"
     if(wstring_length(line)>0&&x>=0&&word_char_kind(line[x],big_word)!=0) {
-        # 184 "04word.nc"
         x=find_word_start_on_line((int* )come_increment_ref_count(line, "04word.nc", 184, 38),x,big_word)-1;
     }
     else {
-        # 187 "04word.nc"
         x--;
     }
-    # 214 "04word.nc"
     while(y>=0) {
-        # 191 "04word.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj4=line,
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","04word.nc",191)))), "04word.nc", 191, 40);
         __dec_obj4 = come_decrement_ref_count(__dec_obj4, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 191, 39);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 191, 41));
-        # 207 "04word.nc"
         while(x>=0) {
-            # 204 "04word.nc"
             if(word_char_kind(line[x],big_word)!=0) {
-                # 195 "04word.nc"
                 tail=find_word_end_on_line((int* )come_increment_ref_count(line, "04word.nc", 195, 42),x,big_word);
-                # 196 "04word.nc"
                 self->scroll=0;
-                # 197 "04word.nc"
                 self->cursorY=y;
-                # 198 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 199 "04word.nc"
                 self->cursorX=tail;
-                # 200 "04word.nc"
                 ViWin_modifyOverCursorXValue(self);
-                # 201 "04word.nc"
                                 __result_obj__0 = (_Bool)1;
                 (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 201, 43));
                 neo_current_frame = fr.prev;
                 return __result_obj__0;
             }
-            # 204 "04word.nc"
             x--;
         }
-        # 207 "04word.nc"
         y--;
-        # 212 "04word.nc"
         if(y>=0) {
-            # 209 "04word.nc"
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj5=line,
             line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,y,((int* )(__right_value0=__builtin_wstring("","04word.nc",209)))), "04word.nc", 209, 45);
             __dec_obj5 = come_decrement_ref_count(__dec_obj5, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 209, 44);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 209, 46));
-            # 210 "04word.nc"
             x=wstring_length(line)-1;
         }
     }
-    # 214 "04word.nc"
         __result_obj__0 = (_Bool)0;
     (line = come_decrement_ref_count(line, (void*)0, (void*)0, 0, 0, (void*)0, "04word.nc", 214, 47));
     neo_current_frame = fr.prev;
@@ -3805,41 +3668,27 @@ void ViWin_forwardWord(struct ViWin*  self  )
     int*  __dec_obj19  ;
     memset(&line, 0, sizeof(line));
     memset(&p, 0, sizeof(p));
-    # 219 "04word.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",219)))), "04word.nc", 219, 48);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 219, 49));
-    # 221 "04word.nc"
     p=line+self->cursorX;
-    # 234 "04word.nc"
     if(self->cursorX==wcslen(line)) {
-        # 225 "04word.nc"
         self->cursorY++;
-        # 227 "04word.nc"
         ViWin_modifyOverCursorYValue(self);
-        # 229 "04word.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj6=line,
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",229)))), "04word.nc", 229, 51);
         __dec_obj6 = come_decrement_ref_count(__dec_obj6, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 229, 50);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 229, 52));
-        # 231 "04word.nc"
         self->cursorX=0;
     }
-    # 385 "04word.nc"
     if(wcslen(line)==0) {
-        # 248 "04word.nc"
         while(wcslen(line)==0) {
-            # 236 "04word.nc"
             self->cursorY++;
-            # 238 "04word.nc"
             ViWin_modifyOverCursorYValue(self);
-            # 245 "04word.nc"
             if(self->scroll+self->cursorY>=list$1int$ph_length(self->texts)-1) {
-                # 242 "04word.nc"
                 break;
             }
-            # 245 "04word.nc"
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj7=line,
@@ -3847,276 +3696,184 @@ void ViWin_forwardWord(struct ViWin*  self  )
             __dec_obj7 = come_decrement_ref_count(__dec_obj7, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 245, 53);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 245, 55));
         }
-        # 248 "04word.nc"
         self->cursorX=0;
     }
     else if((*p>=97&&*p<=122)||(*p>=65&&*p<=90)||*p==95||(*p>=48&&*p<=57)) {
-        # 277 "04word.nc"
         while((*p>=97&&*p<=122)||(*p>=65&&*p<=90)||*p==95||(*p>=48&&*p<=57)) {
-            # 254 "04word.nc"
             p++;
-            # 255 "04word.nc"
             self->cursorX++;
-            # 276 "04word.nc"
             if(self->cursorX>=wstring_length(line)) {
-                # 259 "04word.nc"
                 self->cursorY++;
-                # 270 "04word.nc"
                 if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                    # 263 "04word.nc"
                     self->cursorY--;
-                    # 264 "04word.nc"
                     ViWin_modifyUnderCursorYValue(self);
-                    # 265 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj8=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",265)))), "04word.nc", 265, 57);
                     __dec_obj8 = come_decrement_ref_count(__dec_obj8, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 265, 56);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 265, 58));
-                    # 266 "04word.nc"
                     self->cursorX=wstring_length(line)-1;
-                    # 267 "04word.nc"
                     break;
                 }
-                # 270 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 272 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj9=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",272)))), "04word.nc", 272, 60);
                 __dec_obj9 = come_decrement_ref_count(__dec_obj9, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 272, 59);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 272, 61));
-                # 273 "04word.nc"
                 p=line;
-                # 274 "04word.nc"
                 self->cursorX=0;
             }
         }
     }
     else if((*p>=33&&*p<=47)||(*p>=58&&*p<=64)||(*p>=123&&*p<=126)||(*p>=91&&*p<=96)) {
-        # 305 "04word.nc"
         while((*p>=33&&*p<=47)||(*p>=58&&*p<=64)||(*p>=123&&*p<=126)||(*p>=91&&*p<=96)) {
-            # 282 "04word.nc"
             p++;
-            # 283 "04word.nc"
             self->cursorX++;
-            # 304 "04word.nc"
             if(self->cursorX>=wstring_length(line)) {
-                # 287 "04word.nc"
                 self->cursorY++;
-                # 298 "04word.nc"
                 if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                    # 291 "04word.nc"
                     self->cursorY--;
-                    # 292 "04word.nc"
                     ViWin_modifyUnderCursorYValue(self);
-                    # 293 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj10=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",293)))), "04word.nc", 293, 63);
                     __dec_obj10 = come_decrement_ref_count(__dec_obj10, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 293, 62);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 293, 64));
-                    # 294 "04word.nc"
                     self->cursorX=wstring_length(line)-1;
-                    # 295 "04word.nc"
                     break;
                 }
-                # 298 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 300 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj11=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",300)))), "04word.nc", 300, 66);
                 __dec_obj11 = come_decrement_ref_count(__dec_obj11, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 300, 65);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 300, 67));
-                # 301 "04word.nc"
                 p=line;
-                # 302 "04word.nc"
                 self->cursorX=0;
             }
         }
     }
     else if(xiswalpha(*p)) {
-        # 331 "04word.nc"
         while(xiswalpha(*p)) {
-            # 308 "04word.nc"
             p++;
-            # 309 "04word.nc"
             self->cursorX++;
-            # 330 "04word.nc"
             if(self->cursorX>=wstring_length(line)) {
-                # 313 "04word.nc"
                 self->cursorY++;
-                # 324 "04word.nc"
                 if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                    # 317 "04word.nc"
                     self->cursorY--;
-                    # 318 "04word.nc"
                     ViWin_modifyUnderCursorYValue(self);
-                    # 319 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj12=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",319)))), "04word.nc", 319, 69);
                     __dec_obj12 = come_decrement_ref_count(__dec_obj12, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 319, 68);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 319, 70));
-                    # 320 "04word.nc"
                     self->cursorX=wstring_length(line)-1;
-                    # 321 "04word.nc"
                     break;
                 }
-                # 324 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 326 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj13=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",326)))), "04word.nc", 326, 72);
                 __dec_obj13 = come_decrement_ref_count(__dec_obj13, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 326, 71);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 326, 73));
-                # 327 "04word.nc"
                 p=line;
-                # 328 "04word.nc"
                 self->cursorX=0;
             }
         }
     }
     else if(xiswblank(*p)) {
-        # 357 "04word.nc"
         while(xiswblank(*p)) {
-            # 334 "04word.nc"
             p++;
-            # 335 "04word.nc"
             self->cursorX++;
-            # 356 "04word.nc"
             if(self->cursorX>=wstring_length(line)) {
-                # 339 "04word.nc"
                 self->cursorY++;
-                # 350 "04word.nc"
                 if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                    # 343 "04word.nc"
                     self->cursorY--;
-                    # 344 "04word.nc"
                     ViWin_modifyUnderCursorYValue(self);
-                    # 345 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj14=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",345)))), "04word.nc", 345, 75);
                     __dec_obj14 = come_decrement_ref_count(__dec_obj14, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 345, 74);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 345, 76));
-                    # 346 "04word.nc"
                     self->cursorX=wstring_length(line)-1;
-                    # 347 "04word.nc"
                     break;
                 }
-                # 350 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 352 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj15=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",352)))), "04word.nc", 352, 78);
                 __dec_obj15 = come_decrement_ref_count(__dec_obj15, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 352, 77);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 352, 79));
-                # 353 "04word.nc"
                 p=line;
-                # 354 "04word.nc"
                 self->cursorX=0;
             }
         }
     }
     else if(xiswdigit(*p)) {
-        # 383 "04word.nc"
         while(xiswdigit(*p)) {
-            # 360 "04word.nc"
             p++;
-            # 361 "04word.nc"
             self->cursorX++;
-            # 382 "04word.nc"
             if(self->cursorX>=wstring_length(line)) {
-                # 365 "04word.nc"
                 self->cursorY++;
-                # 376 "04word.nc"
                 if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                    # 369 "04word.nc"
                     self->cursorY--;
-                    # 370 "04word.nc"
                     ViWin_modifyUnderCursorYValue(self);
-                    # 371 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj16=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",371)))), "04word.nc", 371, 81);
                     __dec_obj16 = come_decrement_ref_count(__dec_obj16, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 371, 80);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 371, 82));
-                    # 372 "04word.nc"
                     self->cursorX=wstring_length(line)-1;
-                    # 373 "04word.nc"
                     break;
                 }
-                # 376 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 378 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj17=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",378)))), "04word.nc", 378, 84);
                 __dec_obj17 = come_decrement_ref_count(__dec_obj17, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 378, 83);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 378, 85));
-                # 379 "04word.nc"
                 p=line;
-                # 380 "04word.nc"
                 self->cursorX=0;
             }
         }
     }
-    # 411 "04word.nc"
     if(xiswblank(*p)) {
-        # 410 "04word.nc"
         while(xiswblank(*p)) {
-            # 387 "04word.nc"
             p++;
-            # 388 "04word.nc"
             self->cursorX++;
-            # 409 "04word.nc"
             if(self->cursorX>=wstring_length(line)) {
-                # 392 "04word.nc"
                 self->cursorY++;
-                # 403 "04word.nc"
                 if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                    # 396 "04word.nc"
                     self->cursorY--;
-                    # 397 "04word.nc"
                     ViWin_modifyUnderCursorYValue(self);
-                    # 398 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj18=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",398)))), "04word.nc", 398, 87);
                     __dec_obj18 = come_decrement_ref_count(__dec_obj18, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 398, 86);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 398, 88));
-                    # 399 "04word.nc"
                     self->cursorX=wstring_length(line)-1;
-                    # 400 "04word.nc"
                     break;
                 }
-                # 403 "04word.nc"
                 ViWin_modifyOverCursorYValue(self);
-                # 405 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj19=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",405)))), "04word.nc", 405, 90);
                 __dec_obj19 = come_decrement_ref_count(__dec_obj19, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 405, 89);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 405, 91));
-                # 406 "04word.nc"
                 p=line;
-                # 407 "04word.nc"
                 self->cursorX=0;
             }
         }
@@ -4144,41 +3901,27 @@ void ViWin_forwardWord2(struct ViWin*  self  )
     int*  __dec_obj29  ;
     memset(&line, 0, sizeof(line));
     memset(&p, 0, sizeof(p));
-    # 415 "04word.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",415)))), "04word.nc", 415, 93);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 415, 94));
-    # 417 "04word.nc"
     p=line+self->cursorX;
-    # 430 "04word.nc"
     if(self->cursorX==wcslen(line)) {
-        # 421 "04word.nc"
         self->cursorY++;
-        # 423 "04word.nc"
         ViWin_modifyOverCursorYValue(self);
-        # 425 "04word.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __dec_obj20=line,
         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",425)))), "04word.nc", 425, 96);
         __dec_obj20 = come_decrement_ref_count(__dec_obj20, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 425, 95);
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 425, 97));
-        # 427 "04word.nc"
         self->cursorX=0;
     }
-    # 575 "04word.nc"
     if(wcslen(line)==0) {
-        # 444 "04word.nc"
         while(wcslen(line)==0) {
-            # 432 "04word.nc"
             self->cursorY++;
-            # 434 "04word.nc"
             ViWin_modifyOverCursorYValue(self);
-            # 441 "04word.nc"
             if(self->scroll+self->cursorY>=list$1int$ph_length(self->texts)-1) {
-                # 438 "04word.nc"
                 break;
             }
-            # 441 "04word.nc"
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj21=line,
@@ -4186,213 +3929,140 @@ void ViWin_forwardWord2(struct ViWin*  self  )
             __dec_obj21 = come_decrement_ref_count(__dec_obj21, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 441, 98);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 441, 100));
         }
-        # 444 "04word.nc"
         self->cursorX=0;
     }
     else {
-        # 447 "04word.nc"
         p++;
-        # 448 "04word.nc"
         self->cursorX++;
-        # 574 "04word.nc"
         if((*p>=97&&*p<=122)||(*p>=65&&*p<=90)||*p==95||(*p>=48&&*p<=57)) {
-            # 478 "04word.nc"
             while((*p>=97&&*p<=122)||(*p>=65&&*p<=90)||*p==95||(*p>=48&&*p<=57)) {
-                # 455 "04word.nc"
                 p++;
-                # 456 "04word.nc"
                 self->cursorX++;
-                # 477 "04word.nc"
                 if(self->cursorX>=wstring_length(line)) {
-                    # 460 "04word.nc"
                     self->cursorY++;
-                    # 471 "04word.nc"
                     if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                        # 464 "04word.nc"
                         self->cursorY--;
-                        # 465 "04word.nc"
                         ViWin_modifyUnderCursorYValue(self);
-                        # 466 "04word.nc"
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj22=line,
                         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",466)))), "04word.nc", 466, 102);
                         __dec_obj22 = come_decrement_ref_count(__dec_obj22, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 466, 101);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 466, 103));
-                        # 467 "04word.nc"
                         self->cursorX=wstring_length(line)-1;
-                        # 468 "04word.nc"
                         break;
                     }
-                    # 471 "04word.nc"
                     ViWin_modifyOverCursorYValue(self);
-                    # 473 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj23=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",473)))), "04word.nc", 473, 105);
                     __dec_obj23 = come_decrement_ref_count(__dec_obj23, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 473, 104);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 473, 106));
-                    # 474 "04word.nc"
                     p=line;
-                    # 475 "04word.nc"
                     self->cursorX=0;
                 }
             }
-            # 478 "04word.nc"
             self->cursorX--;
-            # 483 "04word.nc"
             if(self->cursorX<0) {
-                # 481 "04word.nc"
                 self->cursorX=0;
             }
         }
         else if((*p>=33&&*p<=47)||(*p>=58&&*p<=64)||(*p>=123&&*p<=126)||(*p>=91&&*p<=96)) {
-            # 511 "04word.nc"
             while((*p>=33&&*p<=47)||(*p>=58&&*p<=64)||(*p>=123&&*p<=126)||(*p>=91&&*p<=96)) {
-                # 488 "04word.nc"
                 p++;
-                # 489 "04word.nc"
                 self->cursorX++;
-                # 510 "04word.nc"
                 if(self->cursorX>=wstring_length(line)) {
-                    # 493 "04word.nc"
                     self->cursorY++;
-                    # 504 "04word.nc"
                     if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                        # 497 "04word.nc"
                         self->cursorY--;
-                        # 498 "04word.nc"
                         ViWin_modifyUnderCursorYValue(self);
-                        # 499 "04word.nc"
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj24=line,
                         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",499)))), "04word.nc", 499, 108);
                         __dec_obj24 = come_decrement_ref_count(__dec_obj24, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 499, 107);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 499, 109));
-                        # 500 "04word.nc"
                         self->cursorX=wstring_length(line)-1;
-                        # 501 "04word.nc"
                         break;
                     }
-                    # 504 "04word.nc"
                     ViWin_modifyOverCursorYValue(self);
-                    # 506 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj25=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",506)))), "04word.nc", 506, 111);
                     __dec_obj25 = come_decrement_ref_count(__dec_obj25, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 506, 110);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 506, 112));
-                    # 507 "04word.nc"
                     p=line;
-                    # 508 "04word.nc"
                     self->cursorX=0;
                 }
             }
-            # 511 "04word.nc"
             self->cursorX--;
-            # 516 "04word.nc"
             if(self->cursorX<0) {
-                # 514 "04word.nc"
                 self->cursorX=0;
             }
         }
         else if(xiswblank(*p)) {
-            # 542 "04word.nc"
             while(xiswblank(*p)) {
-                # 519 "04word.nc"
                 p++;
-                # 520 "04word.nc"
                 self->cursorX++;
-                # 541 "04word.nc"
                 if(self->cursorX>=wstring_length(line)) {
-                    # 524 "04word.nc"
                     self->cursorY++;
-                    # 535 "04word.nc"
                     if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                        # 528 "04word.nc"
                         self->cursorY--;
-                        # 529 "04word.nc"
                         ViWin_modifyUnderCursorYValue(self);
-                        # 530 "04word.nc"
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj26=line,
                         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",530)))), "04word.nc", 530, 114);
                         __dec_obj26 = come_decrement_ref_count(__dec_obj26, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 530, 113);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 530, 115));
-                        # 531 "04word.nc"
                         self->cursorX=wstring_length(line)-1;
-                        # 532 "04word.nc"
                         break;
                     }
-                    # 535 "04word.nc"
                     ViWin_modifyOverCursorYValue(self);
-                    # 537 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj27=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",537)))), "04word.nc", 537, 117);
                     __dec_obj27 = come_decrement_ref_count(__dec_obj27, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 537, 116);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 537, 118));
-                    # 538 "04word.nc"
                     p=line;
-                    # 539 "04word.nc"
                     self->cursorX=0;
                 }
             }
         }
         else if(xiswdigit(*p)) {
-            # 568 "04word.nc"
             while(xiswdigit(*p)) {
-                # 545 "04word.nc"
                 p++;
-                # 546 "04word.nc"
                 self->cursorX++;
-                # 567 "04word.nc"
                 if(self->cursorX>=wstring_length(line)) {
-                    # 550 "04word.nc"
                     self->cursorY++;
-                    # 561 "04word.nc"
                     if(self->scroll+self->cursorY>list$1int$ph_length(self->texts)-1) {
-                        # 554 "04word.nc"
                         self->cursorY--;
-                        # 555 "04word.nc"
                         ViWin_modifyUnderCursorYValue(self);
-                        # 556 "04word.nc"
                         __right_value0 = (void*)0;
                         __right_value1 = (void*)0;
                         __dec_obj28=line,
                         line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",556)))), "04word.nc", 556, 120);
                         __dec_obj28 = come_decrement_ref_count(__dec_obj28, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 556, 119);
                         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 556, 121));
-                        # 557 "04word.nc"
                         self->cursorX=wstring_length(line)-1;
-                        # 558 "04word.nc"
                         break;
                     }
-                    # 561 "04word.nc"
                     ViWin_modifyOverCursorYValue(self);
-                    # 563 "04word.nc"
                     __right_value0 = (void*)0;
                     __right_value1 = (void*)0;
                     __dec_obj29=line,
                     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",563)))), "04word.nc", 563, 123);
                     __dec_obj29 = come_decrement_ref_count(__dec_obj29, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 563, 122);
                     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 563, 124));
-                    # 564 "04word.nc"
                     p=line;
-                    # 565 "04word.nc"
                     self->cursorX=0;
                 }
             }
-            # 568 "04word.nc"
             self->cursorX--;
-            # 573 "04word.nc"
             if(self->cursorX<0) {
-                # 571 "04word.nc"
                 self->cursorX=0;
             }
         }
@@ -4404,7 +4074,6 @@ void ViWin_forwardWord2(struct ViWin*  self  )
 void ViWin_forwardBigWord(struct ViWin*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_forwardBigWord"; neo_current_frame = &fr;
-    # 579 "04word.nc"
     move_next_word_start(self,(_Bool)1);
     neo_current_frame = fr.prev;
 }
@@ -4412,7 +4081,6 @@ void ViWin_forwardBigWord(struct ViWin*  self  )
 void ViWin_forwardBigWord2(struct ViWin*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_forwardBigWord2"; neo_current_frame = &fr;
-    # 584 "04word.nc"
     move_next_word_end(self,(_Bool)1);
     neo_current_frame = fr.prev;
 }
@@ -4433,39 +4101,24 @@ void ViWin_backwardWord_v4(struct ViWin*  self  )
     memset(&line, 0, sizeof(line));
     memset(&p, 0, sizeof(p));
     memset(&insert_count, 0, sizeof(insert_count));
-    # 589 "04word.nc"
     line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",589)))), "04word.nc", 589, 126);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 589, 127));
-    # 591 "04word.nc"
     p=line+self->cursorX;
-    # 604 "04word.nc"
     if(self->cursorX==wcslen(line)) {
-        # 595 "04word.nc"
         self->cursorX--;
-        # 596 "04word.nc"
         p--;
-        # 602 "04word.nc"
         if(self->cursorX<0) {
-            # 599 "04word.nc"
             self->cursorX++;
-            # 600 "04word.nc"
             p++;
         }
     }
-    # 769 "04word.nc"
     if(wcslen(line)==0) {
-        # 618 "04word.nc"
         while(wcslen(line)==0) {
-            # 606 "04word.nc"
             self->cursorY--;
-            # 608 "04word.nc"
             ViWin_modifyUnderCursorYValue(self);
-            # 615 "04word.nc"
             if(self->scroll==0&&self->cursorY==0) {
-                # 612 "04word.nc"
                 break;
             }
-            # 615 "04word.nc"
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __dec_obj30=line,
@@ -4473,212 +4126,136 @@ void ViWin_backwardWord_v4(struct ViWin*  self  )
             __dec_obj30 = come_decrement_ref_count(__dec_obj30, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 615, 128);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 615, 130));
         }
-        # 618 "04word.nc"
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         self->cursorX=wcslen(((int* )(__right_value1=list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",618)))))))-1;
         (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 618, 131));
         (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 618, 132));
-        # 623 "04word.nc"
         if(self->cursorX<0) {
-            # 621 "04word.nc"
             self->cursorX=0;
         }
     }
     else if(xiswalnum(*p)||*p==95) {
-        # 625 "04word.nc"
         insert_count=0;
-        # 662 "04word.nc"
         while(xiswalnum(*p)||*p==95) {
-            # 627 "04word.nc"
             p--;
-            # 628 "04word.nc"
             self->cursorX--;
-            # 630 "04word.nc"
             insert_count++;
-            # 660 "04word.nc"
             if(self->cursorX<0) {
-                # 634 "04word.nc"
                 insert_count=0;
-                # 635 "04word.nc"
                 self->cursorX=0;
-                # 636 "04word.nc"
                 self->cursorY--;
-                # 638 "04word.nc"
                 ViWin_modifyUnderCursorYValue(self);
-                # 648 "04word.nc"
                 if(self->scroll+self->cursorY<=0) {
-                    # 642 "04word.nc"
                     self->cursorY=0;
-                    # 643 "04word.nc"
                     self->scroll=0;
-                    # 644 "04word.nc"
                     break;
                 }
-                # 648 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj31=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",648)))), "04word.nc", 648, 134);
                 __dec_obj31 = come_decrement_ref_count(__dec_obj31, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 648, 133);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 648, 135));
-                # 659 "04word.nc"
                 if(wcslen(line)==0) {
-                    # 652 "04word.nc"
                     p=line;
-                    # 653 "04word.nc"
                     self->cursorX=0;
                 }
                 else {
-                    # 656 "04word.nc"
                     self->cursorX=wcslen(line)-1;
-                    # 657 "04word.nc"
                     p=line+self->cursorX;
                 }
             }
         }
-        # 665 "04word.nc"
         if(insert_count>3) {
-            # 663 "04word.nc"
             self->cursorX++;
         }
     }
     else if((*p>=33&&*p<=47)||(*p>=58&&*p<=64)||(*p>=123&&*p<=126)||(*p>=91&&*p<=96)) {
-        # 700 "04word.nc"
         while((*p>=33&&*p<=47)||(*p>=58&&*p<=64)||(*p>=123&&*p<=126)||(*p>=91&&*p<=96)) {
-            # 670 "04word.nc"
             p--;
-            # 671 "04word.nc"
             self->cursorX--;
-            # 699 "04word.nc"
             if(self->cursorX<0) {
-                # 675 "04word.nc"
                 self->cursorX=0;
-                # 676 "04word.nc"
                 self->cursorY--;
-                # 678 "04word.nc"
                 ViWin_modifyUnderCursorYValue(self);
-                # 687 "04word.nc"
                 if(self->scroll+self->cursorY<=0) {
-                    # 682 "04word.nc"
                     self->cursorY=0;
-                    # 683 "04word.nc"
                     self->scroll=0;
-                    # 684 "04word.nc"
                     break;
                 }
-                # 687 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj32=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",687)))), "04word.nc", 687, 137);
                 __dec_obj32 = come_decrement_ref_count(__dec_obj32, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 687, 136);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 687, 138));
-                # 698 "04word.nc"
                 if(wcslen(line)==0) {
-                    # 691 "04word.nc"
                     p=line;
-                    # 692 "04word.nc"
                     self->cursorX=0;
                 }
                 else {
-                    # 695 "04word.nc"
                     self->cursorX=wcslen(line)-1;
-                    # 696 "04word.nc"
                     p=line+self->cursorX;
                 }
             }
         }
     }
     else if(xiswdigit(*p)) {
-        # 734 "04word.nc"
         while(xiswdigit(*p)) {
-            # 703 "04word.nc"
             p--;
-            # 704 "04word.nc"
             self->cursorX--;
-            # 733 "04word.nc"
             if(self->cursorX<0) {
-                # 708 "04word.nc"
                 self->cursorX=0;
-                # 709 "04word.nc"
                 self->cursorY--;
-                # 711 "04word.nc"
                 ViWin_modifyUnderCursorYValue(self);
-                # 721 "04word.nc"
                 if(self->scroll+self->cursorY<=0) {
-                    # 715 "04word.nc"
                     self->cursorY=0;
-                    # 716 "04word.nc"
                     self->scroll=0;
-                    # 717 "04word.nc"
                     break;
                 }
-                # 721 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj33=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",721)))), "04word.nc", 721, 140);
                 __dec_obj33 = come_decrement_ref_count(__dec_obj33, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 721, 139);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 721, 141));
-                # 732 "04word.nc"
                 if(wcslen(line)==0) {
-                    # 725 "04word.nc"
                     p=line;
-                    # 726 "04word.nc"
                     self->cursorX=0;
                 }
                 else {
-                    # 729 "04word.nc"
                     self->cursorX=wcslen(line)-1;
-                    # 730 "04word.nc"
                     p=line+self->cursorX;
                 }
             }
         }
     }
     else if(xiswblank(*p)) {
-        # 768 "04word.nc"
         while(xiswblank(*p)) {
-            # 737 "04word.nc"
             p--;
-            # 738 "04word.nc"
             self->cursorX--;
-            # 767 "04word.nc"
             if(self->cursorX<0) {
-                # 742 "04word.nc"
                 self->cursorX=0;
-                # 743 "04word.nc"
                 self->cursorY--;
-                # 745 "04word.nc"
                 ViWin_modifyUnderCursorYValue(self);
-                # 755 "04word.nc"
                 if(self->scroll+self->cursorY<=0) {
-                    # 749 "04word.nc"
                     self->cursorY=0;
-                    # 750 "04word.nc"
                     self->scroll=0;
-                    # 751 "04word.nc"
                     break;
                 }
-                # 755 "04word.nc"
                 __right_value0 = (void*)0;
                 __right_value1 = (void*)0;
                 __dec_obj34=line,
                 line=(int* )come_increment_ref_count(list$1int$ph_item(self->texts,self->scroll+self->cursorY,((int* )(__right_value0=__builtin_wstring("","04word.nc",755)))), "04word.nc", 755, 143);
                 __dec_obj34 = come_decrement_ref_count(__dec_obj34, (void*)0, (void*)0, 0,0, (void*)0, "04word.nc", 755, 142);
                 (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "04word.nc", 755, 144));
-                # 766 "04word.nc"
                 if(wcslen(line)==0) {
-                    # 759 "04word.nc"
                     p=line;
-                    # 760 "04word.nc"
                     self->cursorX=0;
                 }
                 else {
-                    # 763 "04word.nc"
                     self->cursorX=wcslen(line)-1;
-                    # 764 "04word.nc"
                     p=line+self->cursorX;
                 }
             }
@@ -4691,7 +4268,6 @@ void ViWin_backwardWord_v4(struct ViWin*  self  )
 void ViWin_backwardBigWord(struct ViWin*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_backwardBigWord"; neo_current_frame = &fr;
-    # 773 "04word.nc"
     move_prev_word_start(self,(_Bool)1);
     neo_current_frame = fr.prev;
 }
@@ -4699,7 +4275,6 @@ void ViWin_backwardBigWord(struct ViWin*  self  )
 void ViWin_backwardEndWord(struct ViWin*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_backwardEndWord"; neo_current_frame = &fr;
-    # 778 "04word.nc"
     move_prev_word_end(self,(_Bool)0);
     neo_current_frame = fr.prev;
 }
@@ -4709,21 +4284,15 @@ static void lambda1(struct Vi*  self  , int key)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda1"; neo_current_frame = &fr;
     int i;
     memset(&i, 0, sizeof(i));
-    # 798 "04word.nc"
     if(self->activeWin->digitInput>0) {
-        # 792 "04word.nc"
         for(i=0        ;i<self->activeWin->digitInput+1;i++){
-            # 789 "04word.nc"
             ViWin_forwardWord(self->activeWin);
         }
-        # 792 "04word.nc"
         self->activeWin->digitInput=0;
     }
     else {
-        # 795 "04word.nc"
         ViWin_forwardWord(self->activeWin);
     }
-    # 798 "04word.nc"
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -4733,21 +4302,15 @@ static void lambda2(struct Vi*  self  , int key)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda2"; neo_current_frame = &fr;
     int i;
     memset(&i, 0, sizeof(i));
-    # 813 "04word.nc"
     if(self->activeWin->digitInput>0) {
-        # 807 "04word.nc"
         for(i=0        ;i<self->activeWin->digitInput+1;i++){
-            # 804 "04word.nc"
             ViWin_forwardWord2(self->activeWin);
         }
-        # 807 "04word.nc"
         self->activeWin->digitInput=0;
     }
     else {
-        # 810 "04word.nc"
         ViWin_forwardWord2(self->activeWin);
     }
-    # 813 "04word.nc"
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -4757,21 +4320,15 @@ static void lambda3(struct Vi*  self  , int key)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda3"; neo_current_frame = &fr;
     int i;
     memset(&i, 0, sizeof(i));
-    # 828 "04word.nc"
     if(self->activeWin->digitInput>0) {
-        # 822 "04word.nc"
         for(i=0        ;i<self->activeWin->digitInput+1;i++){
-            # 819 "04word.nc"
             ViWin_backwardWord_v4(self->activeWin);
         }
-        # 822 "04word.nc"
         self->activeWin->digitInput=0;
     }
     else {
-        # 825 "04word.nc"
         ViWin_backwardWord_v4(self->activeWin);
     }
-    # 828 "04word.nc"
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -4781,21 +4338,15 @@ static void lambda4(struct Vi*  self  , int key)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda4"; neo_current_frame = &fr;
     int i;
     memset(&i, 0, sizeof(i));
-    # 842 "04word.nc"
     if(self->activeWin->digitInput>0) {
-        # 836 "04word.nc"
         for(i=0        ;i<self->activeWin->digitInput+1;i++){
-            # 834 "04word.nc"
             ViWin_forwardBigWord(self->activeWin);
         }
-        # 836 "04word.nc"
         self->activeWin->digitInput=0;
     }
     else {
-        # 839 "04word.nc"
         ViWin_forwardBigWord(self->activeWin);
     }
-    # 842 "04word.nc"
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -4805,21 +4356,15 @@ static void lambda5(struct Vi*  self  , int key)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda5"; neo_current_frame = &fr;
     int i;
     memset(&i, 0, sizeof(i));
-    # 856 "04word.nc"
     if(self->activeWin->digitInput>0) {
-        # 850 "04word.nc"
         for(i=0        ;i<self->activeWin->digitInput+1;i++){
-            # 848 "04word.nc"
             ViWin_forwardBigWord2(self->activeWin);
         }
-        # 850 "04word.nc"
         self->activeWin->digitInput=0;
     }
     else {
-        # 853 "04word.nc"
         ViWin_forwardBigWord2(self->activeWin);
     }
-    # 856 "04word.nc"
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -4829,21 +4374,15 @@ static void lambda6(struct Vi*  self  , int key)
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "lambda6"; neo_current_frame = &fr;
     int i;
     memset(&i, 0, sizeof(i));
-    # 870 "04word.nc"
     if(self->activeWin->digitInput>0) {
-        # 864 "04word.nc"
         for(i=0        ;i<self->activeWin->digitInput+1;i++){
-            # 862 "04word.nc"
             ViWin_backwardBigWord(self->activeWin);
         }
-        # 864 "04word.nc"
         self->activeWin->digitInput=0;
     }
     else {
-        # 867 "04word.nc"
         ViWin_backwardBigWord(self->activeWin);
     }
-    # 870 "04word.nc"
     ViWin_saveInputedKeyOnTheMovingCursor_v14(self->activeWin);
     neo_current_frame = fr.prev;
 }
@@ -4855,21 +4394,13 @@ struct Vi*  Vi_initialize_v4(struct Vi*  self  )
     struct Vi*  result  ;
     struct Vi*  __result_obj__0  ;
     memset(&result, 0, sizeof(result));
-    # 783 "04word.nc"
     result=(struct Vi* )come_increment_ref_count(Vi_initialize_v3((struct Vi* )come_increment_ref_count(self, "04word.nc", 783, 146)), "04word.nc", 783, 147);
-    # 799 "04word.nc"
     list$1lambda$_replace(result->events,119,lambda1);
-    # 814 "04word.nc"
     list$1lambda$_replace(result->events,101,lambda2);
-    # 829 "04word.nc"
     list$1lambda$_replace(result->events,98,lambda3);
-    # 843 "04word.nc"
     list$1lambda$_replace(result->events,87,lambda4);
-    # 857 "04word.nc"
     list$1lambda$_replace(result->events,69,lambda5);
-    # 871 "04word.nc"
     list$1lambda$_replace(result->events,66,lambda6);
-    # 873 "04word.nc"
         __result_obj__0 = (struct Vi* )come_increment_ref_count(result, "04word.nc", 873, 154);
     come_call_finalizer(Vi_finalize, self, (void*)0, (void*)0, 0, 0, 0, (void*)0, "04word.nc}", 873, 208);
     come_call_finalizer(Vi_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "04word.nc}", 873, 209);
@@ -4891,62 +4422,38 @@ static struct list$1lambda$* list$1lambda$_replace(struct list$1lambda$* self, i
     memset(&i, 0, sizeof(i));
     memset(&it, 0, sizeof(it));
     memset(&i_3, 0, sizeof(i_3));
-    # 2027 "/usr/local/include/neo-c.h"
-    # 2033 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 2030 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 2036 "/usr/local/include/neo-c.h"
     if(position<0) {
-        # 2034 "/usr/local/include/neo-c.h"
         position+=self->len;
     }
-    # 2040 "/usr/local/include/neo-c.h"
     if(position<0) {
-        # 2037 "/usr/local/include/neo-c.h"
         position=0;
     }
-    # 2051 "/usr/local/include/neo-c.h"
     if(self->len==0||position>=self->len) {
-        # 2041 "/usr/local/include/neo-c.h"
         len=self->len;
-        # 2047 "/usr/local/include/neo-c.h"
         for(i=0        ;i<position-len;i++){
-            # 2043 "/usr/local/include/neo-c.h"
-            # 2044 "/usr/local/include/neo-c.h"
             memset(&default_value,0,sizeof(void (*)(struct Vi* ,int)));
-            # 2045 "/usr/local/include/neo-c.h"
             list$1lambda$_push_back(self,default_value);
         }
-        # 2047 "/usr/local/include/neo-c.h"
         list$1lambda$_push_back(self,item);
-        # 2048 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 2051 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 2052 "/usr/local/include/neo-c.h"
     i_3=0;
-    # 2062 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 2058 "/usr/local/include/neo-c.h"
         if(position==i_3) {
-            # 2055 "/usr/local/include/neo-c.h"
             it->item=item;
-            # 2056 "/usr/local/include/neo-c.h"
             break;
         }
-        # 2058 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 2059 "/usr/local/include/neo-c.h"
         i_3++;
     }
-    # 2062 "/usr/local/include/neo-c.h"
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -4963,61 +4470,38 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
     memset(&litem, 0, sizeof(litem));
     memset(&litem_1, 0, sizeof(litem_1));
     memset(&litem_2, 0, sizeof(litem_2));
-    # 1618 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1615 "/usr/local/include/neo-c.h"
                 __result_obj__0 = self;
         neo_current_frame = fr.prev;
         return __result_obj__0;
     }
-    # 1649 "/usr/local/include/neo-c.h"
     if(self->len==0) {
-        # 1619 "/usr/local/include/neo-c.h"
         litem=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1619, 148, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1619, 149);
-        # 1621 "/usr/local/include/neo-c.h"
         litem->prev=((void*)0);
-        # 1622 "/usr/local/include/neo-c.h"
         litem->next=((void*)0);
-        # 1623 "/usr/local/include/neo-c.h"
         litem->item=item;
-        # 1625 "/usr/local/include/neo-c.h"
         self->tail=litem;
-        # 1626 "/usr/local/include/neo-c.h"
         self->head=litem;
     }
     else if(self->len==1) {
-        # 1629 "/usr/local/include/neo-c.h"
         __right_value0 = (void*)0;
         litem_1=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1629, 150, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1629, 151);
-        # 1631 "/usr/local/include/neo-c.h"
         litem_1->prev=self->head;
-        # 1632 "/usr/local/include/neo-c.h"
         litem_1->next=((void*)0);
-        # 1633 "/usr/local/include/neo-c.h"
         litem_1->item=item;
-        # 1635 "/usr/local/include/neo-c.h"
         self->tail=litem_1;
-        # 1636 "/usr/local/include/neo-c.h"
         self->head->next=litem_1;
     }
     else {
-        # 1639 "/usr/local/include/neo-c.h"
         __right_value0 = (void*)0;
         litem_2=(struct list_item$1lambda$*)come_increment_ref_count(((struct list_item$1lambda$*)(__right_value0=(struct list_item$1lambda$*)come_calloc(1, sizeof(struct list_item$1lambda$)*(1), "/usr/local/include/neo-c.h", 1639, 152, "struct list_item$1lambda$*"))), "/usr/local/include/neo-c.h", 1639, 153);
-        # 1641 "/usr/local/include/neo-c.h"
         litem_2->prev=self->tail;
-        # 1642 "/usr/local/include/neo-c.h"
         litem_2->next=((void*)0);
-        # 1643 "/usr/local/include/neo-c.h"
         litem_2->item=item;
-        # 1645 "/usr/local/include/neo-c.h"
         self->tail->next=litem_2;
-        # 1646 "/usr/local/include/neo-c.h"
         self->tail=litem_2;
     }
-    # 1649 "/usr/local/include/neo-c.h"
     self->len++;
-    # 1651 "/usr/local/include/neo-c.h"
         __result_obj__0 = self;
     neo_current_frame = fr.prev;
     return __result_obj__0;
@@ -5026,40 +4510,25 @@ static struct list$1lambda$* list$1lambda$_push_back(struct list$1lambda$* self,
 static void Vi_finalize(struct Vi*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "Vi_finalize"; neo_current_frame = &fr;
-    # 1 "Vi_finalize"
-    # 3 "Vi_finalize"
     if(self!=((void*)0)&&self->wins!=((void*)0)) {
-        # 2 "Vi_finalize"
         come_call_finalizer(list$1ViWin$ph$p_finalize, self->wins, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 8, 191);
     }
-    # 4 "Vi_finalize"
     if(self!=((void*)0)&&self->events!=((void*)0)) {
-        # 3 "Vi_finalize"
         come_call_finalizer(list$1lambda$$p_finalize, self->events, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 2, 193);
     }
-    # 5 "Vi_finalize"
     if(self!=((void*)0)&&self->yank!=((void*)0)) {
-        # 4 "Vi_finalize"
         come_call_finalizer(list$1int$ph$p_finalize, self->yank, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 4, 194);
     }
-    # 6 "Vi_finalize"
     if(self!=((void*)0)&&self->fileYank!=((void*)0)) {
-        # 5 "Vi_finalize"
         come_call_finalizer(list$1int$ph$p_finalize, self->fileYank, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 5, 195);
     }
-    # 7 "Vi_finalize"
     if(self!=((void*)0)&&self->registers!=((void*)0)) {
-        # 6 "Vi_finalize"
         come_call_finalizer(map$2int$list$1int$ph$ph$p_finalize, self->registers, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 0, 200);
     }
-    # 8 "Vi_finalize"
     if(self!=((void*)0)&&self->registerKinds!=((void*)0)) {
-        # 7 "Vi_finalize"
         come_call_finalizer(map$2int$int$$p_finalize, self->registerKinds, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 0, 204);
     }
-    # 9 "Vi_finalize"
     if(self!=((void*)0)&&self->commandHistory!=((void*)0)) {
-        # 8 "Vi_finalize"
         come_call_finalizer(list$1char$ph$p_finalize, self->commandHistory, (void*)0, (void*)0, 0, 0, 0, (void*)0, "Vi_finalize}", 0, 207);
     }
         neo_current_frame = fr.prev;
@@ -5072,21 +4541,14 @@ static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self)
     struct list_item$1ViWin$ph* prev_it;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
-    # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1500 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
-    # 1502 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 1508 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 1504 "/usr/local/include/neo-c.h"
         prev_it=it;
-        # 1505 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 1506 "/usr/local/include/neo-c.h"
         come_call_finalizer(list_item$1ViWin$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 190);
     }
             neo_current_frame = fr.prev;
@@ -5095,10 +4557,7 @@ static void list$1ViWin$ph$p_finalize(struct list$1ViWin$ph* self)
 static void list_item$1ViWin$ph$p_finalize(struct list_item$1ViWin$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1ViWin$ph$p_finalize"; neo_current_frame = &fr;
-    # 1 "list_item$1ViWin$ph$p_finalize"
-    # 3 "list_item$1ViWin$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
-        # 2 "list_item$1ViWin$ph$p_finalize"
         come_call_finalizer(ViWin_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "list_item$1ViWin$ph$p_finalize}", 2, 189);
     }
             neo_current_frame = fr.prev;
@@ -5107,90 +4566,55 @@ static void list_item$1ViWin$ph$p_finalize(struct list_item$1ViWin$ph* self)
 static void ViWin_finalize(struct ViWin*  self  )
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "ViWin_finalize"; neo_current_frame = &fr;
-    # 1 "ViWin_finalize"
-    # 3 "ViWin_finalize"
     if(self!=((void*)0)&&self->texts!=((void*)0)) {
-        # 2 "ViWin_finalize"
         come_call_finalizer(list$1int$ph$p_finalize, self->texts, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 18, 157);
     }
-    # 4 "ViWin_finalize"
     if(self!=((void*)0)&&self->texts_length!=((void*)0)) {
-        # 3 "ViWin_finalize"
         come_call_finalizer(list$1int$$p_finalize, self->texts_length, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 2, 159);
     }
-    # 5 "ViWin_finalize"
     if(self!=((void*)0)&&self->returnPoint!=((void*)0)) {
-        # 4 "ViWin_finalize"
         come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->returnPoint, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 4, 160);
     }
-    # 6 "ViWin_finalize"
     if(self!=((void*)0)&&self->returnPointStack!=((void*)0)) {
-        # 5 "ViWin_finalize"
         come_call_finalizer(list$1tuple3$3int$int$int$$ph$p_finalize, self->returnPointStack, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 0, 163);
     }
-    # 7 "ViWin_finalize"
     if(self!=((void*)0)&&self->undo!=((void*)0)) {
-        # 6 "ViWin_finalize"
         come_call_finalizer(list$1list$1int$ph$ph$p_finalize, self->undo, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 2, 166);
     }
-    # 8 "ViWin_finalize"
     if(self!=((void*)0)&&self->undoScroll!=((void*)0)) {
-        # 7 "ViWin_finalize"
         come_call_finalizer(list$1int$$p_finalize, self->undoScroll, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 7, 167);
     }
-    # 9 "ViWin_finalize"
     if(self!=((void*)0)&&self->undoCursorX!=((void*)0)) {
-        # 8 "ViWin_finalize"
         come_call_finalizer(list$1int$$p_finalize, self->undoCursorX, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 8, 168);
     }
-    # 10 "ViWin_finalize"
     if(self!=((void*)0)&&self->undoCursorY!=((void*)0)) {
-        # 9 "ViWin_finalize"
         come_call_finalizer(list$1int$$p_finalize, self->undoCursorY, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 9, 169);
     }
-    # 11 "ViWin_finalize"
     if(self!=((void*)0)&&self->fileName!=((void*)0)) {
-        # 10 "ViWin_finalize"
         (self->fileName = come_decrement_ref_count(self->fileName, (void*)0, (void*)0, 0, 0, (void*)0, "ViWin_finalize", 10, 170));
     }
-    # 12 "ViWin_finalize"
     if(self!=((void*)0)&&self->inputedKeys!=((void*)0)) {
-        # 11 "ViWin_finalize"
         come_call_finalizer(list$1int$$p_finalize, self->inputedKeys, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 11, 171);
     }
-    # 13 "ViWin_finalize"
     if(self!=((void*)0)&&self->savedInputedKeys!=((void*)0)) {
-        # 12 "ViWin_finalize"
         come_call_finalizer(list$1int$$p_finalize, self->savedInputedKeys, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 12, 172);
     }
-    # 14 "ViWin_finalize"
     if(self!=((void*)0)&&self->macro!=((void*)0)) {
-        # 13 "ViWin_finalize"
         come_call_finalizer(map$2int$list$1list$1int$$ph$ph$p_finalize, self->macro, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 2, 179);
     }
-    # 15 "ViWin_finalize"
     if(self!=((void*)0)&&self->recordingMacro!=((void*)0)) {
-        # 14 "ViWin_finalize"
         come_call_finalizer(list$1list$1int$$ph$p_finalize, self->recordingMacro, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 14, 180);
     }
-    # 16 "ViWin_finalize"
     if(self!=((void*)0)&&self->runningMacro!=((void*)0)) {
-        # 15 "ViWin_finalize"
         come_call_finalizer(list$1list$1int$$ph$p_finalize, self->runningMacro, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 15, 181);
     }
-    # 17 "ViWin_finalize"
     if(self!=((void*)0)&&self->mark!=((void*)0)) {
-        # 16 "ViWin_finalize"
         come_call_finalizer(map$2int$tuple3$3int$int$int$$ph$p_finalize, self->mark, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 2, 186);
     }
-    # 18 "ViWin_finalize"
     if(self!=((void*)0)&&self->completionCandidates!=((void*)0)) {
-        # 17 "ViWin_finalize"
         come_call_finalizer(list$1int$ph$p_finalize, self->completionCandidates, (void*)0, (void*)0, 0, 0, 0, (void*)0, "ViWin_finalize}", 17, 187);
     }
-    # 19 "ViWin_finalize"
     if(self!=((void*)0)&&self->completionPrefix!=((void*)0)) {
-        # 18 "ViWin_finalize"
         (self->completionPrefix = come_decrement_ref_count(self->completionPrefix, (void*)0, (void*)0, 0, 0, (void*)0, "ViWin_finalize", 18, 188));
     }
             neo_current_frame = fr.prev;
@@ -5203,21 +4627,14 @@ static void list$1int$ph$p_finalize(struct list$1int$ph* self)
     struct list_item$1int$ph* prev_it;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
-    # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1500 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
-    # 1502 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 1508 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 1504 "/usr/local/include/neo-c.h"
         prev_it=it;
-        # 1505 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 1506 "/usr/local/include/neo-c.h"
         come_call_finalizer(list_item$1int$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 156);
     }
             neo_current_frame = fr.prev;
@@ -5226,10 +4643,7 @@ static void list$1int$ph$p_finalize(struct list$1int$ph* self)
 static void list_item$1int$ph$p_finalize(struct list_item$1int$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1int$ph$p_finalize"; neo_current_frame = &fr;
-    # 1 "list_item$1int$ph$p_finalize"
-    # 3 "list_item$1int$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
-        # 2 "list_item$1int$ph$p_finalize"
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0, "list_item$1int$ph$p_finalize", 2, 155));
     }
             neo_current_frame = fr.prev;
@@ -5242,21 +4656,14 @@ static void list$1int$$p_finalize(struct list$1int$* self)
     struct list_item$1int$* prev_it;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
-    # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1500 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
-    # 1502 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 1508 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 1504 "/usr/local/include/neo-c.h"
         prev_it=it;
-        # 1505 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 1506 "/usr/local/include/neo-c.h"
         come_call_finalizer(list_item$1int$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 158);
     }
             neo_current_frame = fr.prev;
@@ -5265,14 +4672,12 @@ static void list$1int$$p_finalize(struct list$1int$* self)
 static void list_item$1int$$p_finalize(struct list_item$1int$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1int$$p_finalize"; neo_current_frame = &fr;
-    # 1 "list_item$1int$$p_finalize"
             neo_current_frame = fr.prev;
 }
 
 static void tuple3$3int$int$int$$p_finalize(struct tuple3$3int$int$int$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "tuple3$3int$int$int$$p_finalize"; neo_current_frame = &fr;
-    # 1 "tuple3$3int$int$int$$p_finalize"
             neo_current_frame = fr.prev;
 }
 
@@ -5283,21 +4688,14 @@ static void list$1tuple3$3int$int$int$$ph$p_finalize(struct list$1tuple3$3int$in
     struct list_item$1tuple3$3int$int$int$$ph* prev_it;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
-    # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1500 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
-    # 1502 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 1508 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 1504 "/usr/local/include/neo-c.h"
         prev_it=it;
-        # 1505 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 1506 "/usr/local/include/neo-c.h"
         come_call_finalizer(list_item$1tuple3$3int$int$int$$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 162);
     }
             neo_current_frame = fr.prev;
@@ -5306,10 +4704,7 @@ static void list$1tuple3$3int$int$int$$ph$p_finalize(struct list$1tuple3$3int$in
 static void list_item$1tuple3$3int$int$int$$ph$p_finalize(struct list_item$1tuple3$3int$int$int$$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1tuple3$3int$int$int$$ph$p_finalize"; neo_current_frame = &fr;
-    # 1 "list_item$1tuple3$3int$int$int$$ph$p_finalize"
-    # 3 "list_item$1tuple3$3int$int$int$$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
-        # 2 "list_item$1tuple3$3int$int$int$$ph$p_finalize"
         come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "list_item$1tuple3$3int$int$int$$ph$p_finalize}", 2, 161);
     }
             neo_current_frame = fr.prev;
@@ -5322,21 +4717,14 @@ static void list$1list$1int$ph$ph$p_finalize(struct list$1list$1int$ph$ph* self)
     struct list_item$1list$1int$ph$ph* prev_it;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
-    # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1500 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
-    # 1502 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 1508 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 1504 "/usr/local/include/neo-c.h"
         prev_it=it;
-        # 1505 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 1506 "/usr/local/include/neo-c.h"
         come_call_finalizer(list_item$1list$1int$ph$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 165);
     }
             neo_current_frame = fr.prev;
@@ -5345,10 +4733,7 @@ static void list$1list$1int$ph$ph$p_finalize(struct list$1list$1int$ph$ph* self)
 static void list_item$1list$1int$ph$ph$p_finalize(struct list_item$1list$1int$ph$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1list$1int$ph$ph$p_finalize"; neo_current_frame = &fr;
-    # 1 "list_item$1list$1int$ph$ph$p_finalize"
-    # 3 "list_item$1list$1int$ph$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
-        # 2 "list_item$1list$1int$ph$ph$p_finalize"
         come_call_finalizer(list$1int$ph$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "list_item$1list$1int$ph$ph$p_finalize}", 2, 164);
     }
             neo_current_frame = fr.prev;
@@ -5361,37 +4746,23 @@ static void map$2int$list$1list$1int$$ph$ph$p_finalize(struct map$2int$list$1lis
     int i_4;
     memset(&i, 0, sizeof(i));
     memset(&i_4, 0, sizeof(i_4));
-    # 3399 "/usr/local/include/neo-c.h"
-    # 3408 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3407 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3406 "/usr/local/include/neo-c.h"
             if(1) {
-                # 3404 "/usr/local/include/neo-c.h"
                 come_call_finalizer(list$1list$1int$$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 2, 175);
             }
         }
     }
-    # 3408 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3417 "/usr/local/include/neo-c.h"
     for(i_4=0    ;i_4<self->size;i_4++){
-        # 3416 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_4]) {
-            # 3415 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3413 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3417 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3419 "/usr/local/include/neo-c.h"
     come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3419, 176);
-    # 3421 "/usr/local/include/neo-c.h"
     (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3421, 177));
-    # 3422 "/usr/local/include/neo-c.h"
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3422, 178));
             neo_current_frame = fr.prev;
 }
@@ -5403,21 +4774,14 @@ static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self)
     struct list_item$1list$1int$$ph* prev_it;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
-    # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1500 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
-    # 1502 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 1508 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 1504 "/usr/local/include/neo-c.h"
         prev_it=it;
-        # 1505 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 1506 "/usr/local/include/neo-c.h"
         come_call_finalizer(list_item$1list$1int$$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 174);
     }
                     neo_current_frame = fr.prev;
@@ -5426,10 +4790,7 @@ static void list$1list$1int$$ph$p_finalize(struct list$1list$1int$$ph* self)
 static void list_item$1list$1int$$ph$p_finalize(struct list_item$1list$1int$$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1list$1int$$ph$p_finalize"; neo_current_frame = &fr;
-    # 1 "list_item$1list$1int$$ph$p_finalize"
-    # 3 "list_item$1list$1int$$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
-        # 2 "list_item$1list$1int$$ph$p_finalize"
         come_call_finalizer(list$1int$$p_finalize, self->item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "list_item$1list$1int$$ph$p_finalize}", 2, 173);
     }
             neo_current_frame = fr.prev;
@@ -5442,37 +4803,23 @@ static void map$2int$tuple3$3int$int$int$$ph$p_finalize(struct map$2int$tuple3$3
     int i_5;
     memset(&i, 0, sizeof(i));
     memset(&i_5, 0, sizeof(i_5));
-    # 3399 "/usr/local/include/neo-c.h"
-    # 3408 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3407 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3406 "/usr/local/include/neo-c.h"
             if(1) {
-                # 3404 "/usr/local/include/neo-c.h"
                 come_call_finalizer(tuple3$3int$int$int$$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3404, 182);
             }
         }
     }
-    # 3408 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3417 "/usr/local/include/neo-c.h"
     for(i_5=0    ;i_5<self->size;i_5++){
-        # 3416 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_5]) {
-            # 3415 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3413 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3417 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3419 "/usr/local/include/neo-c.h"
     come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3419, 183);
-    # 3421 "/usr/local/include/neo-c.h"
     (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3421, 184));
-    # 3422 "/usr/local/include/neo-c.h"
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3422, 185));
             neo_current_frame = fr.prev;
 }
@@ -5484,21 +4831,14 @@ static void list$1lambda$$p_finalize(struct list$1lambda$* self)
     struct list_item$1lambda$* prev_it;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
-    # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1500 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
-    # 1502 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 1508 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 1504 "/usr/local/include/neo-c.h"
         prev_it=it;
-        # 1505 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 1506 "/usr/local/include/neo-c.h"
         come_call_finalizer(list_item$1lambda$$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 192);
     }
             neo_current_frame = fr.prev;
@@ -5507,7 +4847,6 @@ static void list$1lambda$$p_finalize(struct list$1lambda$* self)
 static void list_item$1lambda$$p_finalize(struct list_item$1lambda$* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1lambda$$p_finalize"; neo_current_frame = &fr;
-    # 1 "list_item$1lambda$$p_finalize"
             neo_current_frame = fr.prev;
 }
 
@@ -5518,37 +4857,23 @@ static void map$2int$list$1int$ph$ph$p_finalize(struct map$2int$list$1int$ph$ph*
     int i_6;
     memset(&i, 0, sizeof(i));
     memset(&i_6, 0, sizeof(i_6));
-    # 3399 "/usr/local/include/neo-c.h"
-    # 3408 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3407 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3406 "/usr/local/include/neo-c.h"
             if(1) {
-                # 3404 "/usr/local/include/neo-c.h"
                 come_call_finalizer(list$1int$ph$p_finalize, self->items[i], (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3404, 196);
             }
         }
     }
-    # 3408 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3417 "/usr/local/include/neo-c.h"
     for(i_6=0    ;i_6<self->size;i_6++){
-        # 3416 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_6]) {
-            # 3415 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3413 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3417 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3419 "/usr/local/include/neo-c.h"
     come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3419, 197);
-    # 3421 "/usr/local/include/neo-c.h"
     (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3421, 198));
-    # 3422 "/usr/local/include/neo-c.h"
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3422, 199));
             neo_current_frame = fr.prev;
 }
@@ -5560,36 +4885,22 @@ static void map$2int$int$$p_finalize(struct map$2int$int$* self)
     int i_7;
     memset(&i, 0, sizeof(i));
     memset(&i_7, 0, sizeof(i_7));
-    # 3399 "/usr/local/include/neo-c.h"
-    # 3408 "/usr/local/include/neo-c.h"
     for(i=0    ;i<self->size;i++){
-        # 3407 "/usr/local/include/neo-c.h"
         if(self->item_existance[i]) {
-            # 3406 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3404 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3408 "/usr/local/include/neo-c.h"
     come_free((char*)self->items);
-    # 3417 "/usr/local/include/neo-c.h"
     for(i_7=0    ;i_7<self->size;i_7++){
-        # 3416 "/usr/local/include/neo-c.h"
         if(self->item_existance[i_7]) {
-            # 3415 "/usr/local/include/neo-c.h"
             if(0) {
-                # 3413 "/usr/local/include/neo-c.h"
             }
         }
     }
-    # 3417 "/usr/local/include/neo-c.h"
     come_free((char*)self->keys);
-    # 3419 "/usr/local/include/neo-c.h"
     come_call_finalizer(list$1int$$p_finalize, self->key_list, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 3419, 201);
-    # 3421 "/usr/local/include/neo-c.h"
     (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3421, 202));
-    # 3422 "/usr/local/include/neo-c.h"
     (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "/usr/local/include/neo-c.h", 3422, 203));
             neo_current_frame = fr.prev;
 }
@@ -5601,21 +4912,14 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
     struct list_item$1char$ph* prev_it;
     memset(&it, 0, sizeof(it));
     memset(&prev_it, 0, sizeof(prev_it));
-    # 1502 "/usr/local/include/neo-c.h"
     if(self==((void*)0)) {
-        # 1500 "/usr/local/include/neo-c.h"
                 neo_current_frame = fr.prev;
         return;
     }
-    # 1502 "/usr/local/include/neo-c.h"
     it=self->head;
-    # 1508 "/usr/local/include/neo-c.h"
     while(it!=((void*)0)) {
-        # 1504 "/usr/local/include/neo-c.h"
         prev_it=it;
-        # 1505 "/usr/local/include/neo-c.h"
         it=it->next;
-        # 1506 "/usr/local/include/neo-c.h"
         come_call_finalizer(list_item$1char$ph$p_finalize, prev_it, (void*)0, (void*)0, 0, 0, 0, (void*)0, "/usr/local/include/neo-c.h}", 1506, 206);
     }
             neo_current_frame = fr.prev;
@@ -5624,10 +4928,7 @@ static void list$1char$ph$p_finalize(struct list$1char$ph* self)
 static void list_item$1char$ph$p_finalize(struct list_item$1char$ph* self)
 {
     struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "list_item$1char$ph$p_finalize"; neo_current_frame = &fr;
-    # 1 "list_item$1char$ph$p_finalize"
-    # 3 "list_item$1char$ph$p_finalize"
     if(self!=((void*)0)&&self->item!=((void*)0)) {
-        # 2 "list_item$1char$ph$p_finalize"
         (self->item = come_decrement_ref_count(self->item, (void*)0, (void*)0, 0, 0, (void*)0, "list_item$1char$ph$p_finalize", 2, 205));
     }
             neo_current_frame = fr.prev;
