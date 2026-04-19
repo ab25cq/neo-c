@@ -165,23 +165,13 @@ class sFunCallNode extends sNodeBase
                     
                     if(generics_fun_method_block_result_type.mClass.mMethodGenerics) {
                         int method_generics_num = generics_fun_method_block_result_type.mClass.mMethodGenericsNum;
-                        /*
-                        if(method_generics_types[method_generics_num] == null) 
-                        {
-                        */
-                            method_generics_types[method_generics_num] = clone method_block_result_type;
-                        //}
+                        method_generics_types[method_generics_num] = clone method_block_result_type;
                     }
                     int n = 0;
                     foreach(it, generics_fun_method_block_lambda_type.mParamTypes) {
                         if(it.mClass.mMethodGenerics) {
                             int method_generics_num = it.mClass.mMethodGenericsNum;
-                            /*
-                            if(method_generics_types[method_generics_num] == null) 
-                            {
-                            */
-                                method_generics_types[method_generics_num] = clone method_block_lambda_type.mParamTypes[n];
-                            //}
+                            method_generics_types[method_generics_num] = clone method_block_lambda_type.mParamTypes[n];
                         }
                         n++;
                     }
@@ -218,12 +208,7 @@ class sFunCallNode extends sNodeBase
                         if(it2.mClass.mMethodGenerics) {
                             int method_generics_num = it2.mClass.mMethodGenericsNum;
                             if(info->function_result_type && i < info->function_result_type.mGenericsTypes.length()) {
-                                /*
-                                if(method_generics_types[method_generics_num] == null) 
-                                {
-                                */
-                                    method_generics_types[method_generics_num] = clone info->function_result_type.mGenericsTypes[i];
-                                //}
+                                method_generics_types[method_generics_num] = clone info->function_result_type.mGenericsTypes[i];
                             }
                         }
                     }
@@ -231,12 +216,7 @@ class sFunCallNode extends sNodeBase
                     int method_generics_num = generics_fun.mResultType.mClass.mMethodGenericsNum;
         
                     if(info->function_result_type) {
-                        /*
-                        if(method_generics_types[method_generics_num] == null) 
-                        {
-                        */
-                            method_generics_types[method_generics_num] = clone info->function_result_type;
-                        //}
+                        method_generics_types[method_generics_num] = clone info->function_result_type;
                     }
                 }
                 int n = 0;
@@ -251,9 +231,8 @@ class sFunCallNode extends sNodeBase
                                 sType*% tmp = come_params[n].type.mNoSolvedGenericsType;
                                 
                                 if(k < tmp.mGenericsTypes.length()) {
-                                    if(method_generics_types[method_generics_num] && method_generics_types[method_generics_num].mClass.mMethodGenerics) {
+                                    if(method_generics_types[method_generics_num] == null || method_generics_types[method_generics_num] && method_generics_types[method_generics_num].mClass.mMethodGenerics) {
                                         method_generics_types[method_generics_num] = clone tmp.mGenericsTypes[k];
-//info->generics_type = clone come_params[n].type;
                                     }
                                 }
                             }
@@ -262,7 +241,7 @@ class sFunCallNode extends sNodeBase
                     if(it.mClass.mMethodGenerics) {
                         int method_generics_num = it.mClass.mMethodGenericsNum;
                         if(n < come_params.length()) {
-                            if(method_generics_types[method_generics_num] && method_generics_types[method_generics_num].mClass.mMethodGenerics) {
+                            if(method_generics_types[method_generics_num] == null || method_generics_types[method_generics_num] && method_generics_types[method_generics_num].mClass.mMethodGenerics) {
                                 method_generics_types[method_generics_num] = clone come_params[n].type;
                             }
                         }

@@ -4,22 +4,6 @@ struct proc_alias_target {
     char*% name;
 };
 
-template<T> T first_item(list<T>*% a)
-{
-    return a.item(0, null);
-}
-
-int main(int argc, char** argv) 
-{
-    var li = ["AG", "BBB", "CCC"];
-    char* a = first_item(li);
-    
-    puts(a);
-    
-    return 0;
-}
-
-/*
 template<T> T first_item(list<T>* xs, T^ default_value)
 {
     return xs.nth(0, default_value);
@@ -37,4 +21,3 @@ int main()
 
     return q.name === "x";
 }
-*/
