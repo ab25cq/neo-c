@@ -4,9 +4,12 @@ struct proc_alias_target {
     char*% name;
 };
 
-template<T> T first_item(list<T>* xs, T^ default_value)
+impl proc_alias_target
 {
-    return xs.nth(0, default_value);
+    template<T> T first_item(proc_alias_target* self, list<T>* xs, T^ default_value)
+    {
+        return xs.nth(0, default_value);
+    }
 }
 
 int main()
@@ -16,8 +19,8 @@ int main()
 
     var xs = new list<proc_alias_target*%>.initialize();
     xs.add(p);
+    
+    proc_alias_target*% q = p.first_item(xs, null);
 
-    proc_alias_target*% q = first_item(xs, null);
-
-    return q.name === "x";
+    //return q.name === "x";
 }

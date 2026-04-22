@@ -300,7 +300,7 @@ sNode*% parse_function(sInfo* info)
         
         var fun = new sGenericsFun(info.impl_type, clone info.generics_type_names, clone info.method_generics_type_names, string(fun_name), result_type, param_types, param_names, param_default_parametors, var_args, block, info, string(generics_sname), generics_sline, const_fun:const_fun);
         
-        if(method_definition) {
+        if(method_definition || info.impl_type || info.class_type) {
             info.generics_funcs.insert(string(fun_name), fun);
         }
         else {

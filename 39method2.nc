@@ -643,10 +643,28 @@ class sMethodCallNode extends sNodeBase
                         }
                         int n = 0;
                         foreach(it, generics_fun.mParamTypes) {
+                            for(int k=0; k<it->mGenericsTypes.length(); k++) {
+                                sType*% it2 = it->mGenericsTypes[k];
+                                
+                                if(it2.mClass.mMethodGenerics) {
+                                    int method_generics_num = it2.mClass.mMethodGenericsNum;
+                                    if(n < come_params.length()) {
+                                        sType*% tmp = come_params[n].type.mNoSolvedGenericsType;
+                                        
+                                        if(k < tmp.mGenericsTypes.length()) {
+                                            if(info.method_generics_types[method_generics_num] == null || info.method_generics_types[method_generics_num] && info.method_generics_types[method_generics_num].mClass.mMethodGenerics) {
+                                                info.method_generics_types[method_generics_num] = clone tmp.mGenericsTypes[k];
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                             if(it.mClass.mMethodGenerics) {
                                 int method_generics_num = it.mClass.mMethodGenericsNum;
                                 if(n < come_params.length()) {
-                                    info.method_generics_types[method_generics_num] = clone come_params[n].type;
+                                    if(info.method_generics_types[method_generics_num] == null || info.method_generics_types[method_generics_num] && info.method_generics_types[method_generics_num].mClass.mMethodGenerics) {
+                                        info.method_generics_types[method_generics_num] = clone come_params[n].type;
+                                    }
                                 }
                             }
                             n++;
