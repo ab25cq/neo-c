@@ -1,6 +1,6 @@
 #include <neo-c.h>
 
-Result<int> get_int(bool ok)
+RESULT(int) get_int(bool ok)
 {
     if(ok) {
         return t(123, false);
@@ -9,7 +9,7 @@ Result<int> get_int(bool ok)
     return t(0, true);
 }
 
-Result<FILE*> xfopen2(const char* file_name, const char* mode)
+RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
     
@@ -20,7 +20,7 @@ Result<FILE*> xfopen2(const char* file_name, const char* mode)
     return t(f, false);
 }
 
-Result<string> make_string(bool ok)
+RESULT(string) make_string(bool ok)
 {
     if(ok) {
         return t(string("abc"), false);
@@ -29,13 +29,13 @@ Result<string> make_string(bool ok)
     return t((string)null, true);
 }
 
-Result<int> plus_one(bool ok)
+RESULT(int) plus_one(bool ok)
 {
     int n = get_int(ok)??;
     return t(n + 1, false);
 }
 
-Result<int> read_first_byte(const char* file_name)
+RESULT(int) read_first_byte(const char* file_name)
 {
     FILE* f = xfopen2(file_name, "r")??;
     int ch = fgetc(f);
@@ -49,7 +49,7 @@ Result<int> read_first_byte(const char* file_name)
     return t(ch, false);
 }
 
-Result<int> string_len_plus_one(bool ok)
+RESULT(int) string_len_plus_one(bool ok)
 {
     string s = make_string(ok)??;
     int len = strlen(s);

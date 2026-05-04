@@ -1,6 +1,6 @@
 #include <neo-c.h>
 
-Result<FILE*> xfopen2(const char* file_name, const char* mode)
+RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
     
@@ -11,7 +11,7 @@ Result<FILE*> xfopen2(const char* file_name, const char* mode)
     return t(f, false);
 }
 
-Result<int> read_first_byte(const char* file_name)
+RESULT(int) read_first_byte(const char* file_name)
 {
     FILE* f = xfopen2(file_name, "r")??;
     int ch = fgetc(f);

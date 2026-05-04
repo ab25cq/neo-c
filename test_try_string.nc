@@ -1,6 +1,6 @@
 #include <neo-c.h>
 
-Result<string> make_string(bool ok)
+RESULT(string) make_string(bool ok)
 {
     if(ok) {
         return t(string("abc"), false);
@@ -9,7 +9,7 @@ Result<string> make_string(bool ok)
     return t((string)null, true);
 }
 
-Result<int> string_len_plus_one(bool ok)
+RESULT(int) string_len_plus_one(bool ok)
 {
     string s = make_string(ok)??;
     int len = strlen(s);

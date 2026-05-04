@@ -4,12 +4,12 @@ struct proc_alias_target {
     char*% name;
 };
 
-Result<proc_alias_target*%> make_value(proc_alias_target*% x)
+RESULT(proc_alias_target*%) make_value(proc_alias_target*% x)
 {
     return t(x, false);
 }
 
-template<T> T unwrap_value(Result<T> r)
+template<T> T unwrap_value(RESULT(T) r)
 {
     return r.unwrap();
 }
@@ -21,5 +21,5 @@ int main()
 
     proc_alias_target*% q = unwrap_value(make_value(p));
 
-    return q.name === "x";
+    return q.name === "x" ? 0 : 1;
 }

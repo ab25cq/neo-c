@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.2.3
+version 1.0.2.4
 
 ``` C
 #include <neo-c.h>
@@ -139,6 +139,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.2.4 Removed Result template.
 1.0.2.3 template bug was fixed.
 1.0.2.2 template bug was fixed.
 1.0.2.1 vector bug was fixed.
@@ -4002,7 +4003,7 @@ xassert("payload", some.get_Some() == 123);
 `is_Variant()` は全variantに自動生成されます。
 `get_Variant()` はpayloadが1つのvariantに対して自動生成されます。
 
-# Result<T>
+# RESULT(T)
 
 ```
 #include <neo-c.h>
@@ -4030,15 +4031,7 @@ int main(int argc, char** argv)
 }
 ```
 
-tuple2<T,bool> can be used like Reult<T>
-
-Both `RESULT(T)` and `Result<T>` are available, and they mean the same thing.
-
-`RESULT(T)` と `Result<T>` は両方使えて、意味は同じです。
-
-`Result<T>` style helpers `is_ok()`, `is_err()`, `unwrap_or(default)`, `unwrap_or_default()`, and `expect(message)` are also available.
-
-`Result<T>` 風の補助メソッドとして `is_ok()`, `is_err()`, `unwrap_or(default)`, `unwrap_or_default()`, `expect(message)` も使えます。
+tuple2<T,bool> can be used like Reult(T)
 
 `result??` is also available for propagation. It unwraps the `Ok` value and returns an error result from the current function when `v2 == true`.
 It uses `??` instead of `?` to avoid ambiguity with the conditional operator.
@@ -4047,12 +4040,12 @@ It uses `??` instead of `?` to avoid ambiguity with the conditional operator.
 条件演算子との曖昧さを避けるため、`?` ではなく `??` にしています。
 
 `??` is a postfix operator.
-You can use it only inside a function that returns `Result<T>` or `RESULT(T)`.
+You can use it only inside a function that returns `RESULT(T)`.
 When the source result is success, `expr??` becomes the unwrapped value.
 When the source result is error, the current function returns an error result immediately.
 
 `??` は後置演算子です。
-`Result<T>` または `RESULT(T)` を返す関数の中で使えます。
+`RESULT(T)` を返す関数の中で使えます。
 成功時は `expr??` が中身の値になります。
 失敗時は現在の関数から直ちにエラー結果を返します。
 
@@ -4061,7 +4054,7 @@ Typical form:
 典型的な書き方:
 
 ```C
-Result<int> fun()
+RESULT(int) fun()
 {
     int value = may_fail()??;
     return t(value + 1, false);
@@ -4071,7 +4064,7 @@ Result<int> fun()
 ```C
 #include <neo-c.h>
 
-Result<FILE*> xfopen2(const char* file_name, const char* mode)
+RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
 
@@ -4082,7 +4075,7 @@ Result<FILE*> xfopen2(const char* file_name, const char* mode)
     return t(f, false);
 }
 
-Result<int> read_first_byte(const char* file_name)
+RESULT(int) read_first_byte(const char* file_name)
 {
     FILE* f = xfopen2(file_name, "r")??;
     int ch = fgetc(f);
@@ -4104,7 +4097,7 @@ You can also chain multiple `??` calls.
 ```C
 #include <neo-c.h>
 
-Result<FILE*> xfopen2(const char* file_name, const char* mode)
+RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
     
@@ -4115,7 +4108,7 @@ Result<FILE*> xfopen2(const char* file_name, const char* mode)
     return t(f, false);
 }
 
-Result<char*> read_line2(FILE* f)
+RESULT(char*) read_line2(FILE* f)
 {
     char* buf = calloc(1, 128);
     
@@ -4127,7 +4120,7 @@ Result<char*> read_line2(FILE* f)
     return t(buf, false);
 }
 
-Result<int> read_line_len(const char* file_name)
+RESULT(int) read_line_len(const char* file_name)
 {
     FILE* f = xfopen2(file_name, "r")??;
     char* line = read_line2(f)??;
@@ -4174,7 +4167,7 @@ int main(int argc, char** argv)
 ```
 #include <neo-c.h>
 
-Result<FILE*> xfopen2(const char* file_name, const char* mode)
+RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
     
