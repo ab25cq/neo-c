@@ -1365,7 +1365,7 @@ char* __xpg_basename(char* __path);
 static void match_context_finalize(struct anonymous_typeX25*  self  );
 int re_matchp_ex(struct re_program*  pattern  , const char* text, int* matchlength, struct re_capture*  captures  , int max_captures, _Bool ignore_case);
 int re_matchp(struct re_program*  pattern  , const char* text, int* matchlength, struct re_capture*  captures  , int max_captures);
-int re_match(const char* pattern, const char* text, int* matchlength);
+int neo_c_re_match(const char* pattern, const char* text, int* matchlength);
 static void regex_program_t_finalize(struct re_program*  self  );
 static void compiler_state_finalize(struct anonymous_typeX24*  self  );
 struct re_program*  re_compile(const char* pattern);
@@ -1602,9 +1602,9 @@ int re_matchp(struct re_program*  pattern  , const char* text, int* matchlength,
     neo_current_frame = fr.prev;
 }
 
-int re_match(const char* pattern, const char* text, int* matchlength)
+int neo_c_re_match(const char* pattern, const char* text, int* matchlength)
 {
-    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "re_match"; neo_current_frame = &fr;
+    struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = "neo_c_re_match"; neo_current_frame = &fr;
         neo_current_frame = fr.prev;
     return re_matchp(re_compile(pattern),text,matchlength,(struct re_capture* )0,0);
     neo_current_frame = fr.prev;

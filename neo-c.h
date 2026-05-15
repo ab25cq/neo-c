@@ -433,8 +433,6 @@ uniq size_t dynamic_sizeof(void* mem)
     return size;
 }
 
-uniq int gComeDebugLib = 0;
-
 uniq int gNumAlloc = 0;
 uniq int gNumFree = 0;
 

@@ -1405,7 +1405,7 @@ uniq int re_matchp(re_t pattern, const char* text, int* matchlength, re_capture*
   return re_matchp_ex(pattern, text, matchlength, captures, max_captures, false);
 }
 
-uniq int re_match(const char* pattern, const char* text, int* matchlength)
+uniq int neo_c_re_match(const char* pattern, const char* text, int* matchlength)
 {
   return re_matchp(re_compile(pattern), text, matchlength, (re_capture*)0, 0);
 }

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.2.4
+version 1.0.2.5
 
 ``` C
 #include <neo-c.h>
@@ -139,6 +139,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.2.5 optimize binary size
 1.0.2.4 Removed Result template.
 1.0.2.3 template bug was fixed.
 1.0.2.2 template bug was fixed.
