@@ -17,6 +17,7 @@ TEST_OK := \
 	span_memcmp \
 	span_ptr \
 	span_ptr_int \
+	readme_features \
 	test_result_ignore \
 	test_result_struct_try
 

@@ -7,6 +7,44 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 version 1.0.2.7
 
+## Small binaries
+
+neo-c generates compact C output and links with section GC/LTO-friendly defaults.
+Even this `a.nc` sample, which includes `neo-c.h`, string handling, object initializer, and generated `to_string`, produces only about a 22K executable.
+
+neo-cは小さいCコードを生成し、不要な関数をリンク時に落としやすいので実行ファイルが小さくなります。
+`neo-c.h`、文字列処理、オブジェクト初期化、生成された`to_string`まで使っているこの`a.nc`でも実行ファイルは約22Kです。
+
+```c
+#include <neo-c.h>
+
+struct sData
+{
+    int x;
+    int y;
+};
+
+int main(int argc, char** argv)
+{
+    puts(s"HELLO WORLD" + new sData { x:111, y:222 }.to_string());
+    return 0;
+}
+```
+
+A minimal Hello World using `neo-c.h` is about 13K, in the 12K-class range.
+
+`neo-c.h`をincludeした最小のHello Worldなら約13K、12K台クラスです。
+
+```c
+#include <neo-c.h>
+
+int main()
+{
+    puts("Hello World");
+    return 0;
+}
+```
+
 ``` C
 #include <neo-c.h>
 
