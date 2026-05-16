@@ -16,7 +16,9 @@ TEST_OK := \
 	span_add_sub \
 	span_memcmp \
 	span_ptr \
-	span_ptr_int
+	span_ptr_int \
+	test_result_ignore \
+	test_result_struct_try
 
 TEST_FAIL_NULL := \
 	ref_self_null \
