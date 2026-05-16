@@ -692,9 +692,9 @@ struct buffer
 
 struct neo_frame
 {
-    void* stacktop;
     struct neo_frame*  prev  ;
     char* fun_name;
+    unsigned long  int frame_id;
 };
 
 struct sMemHeader
@@ -1531,6 +1531,8 @@ extern char* program_invocation_name;
 extern char* program_invocation_short_name;
 extern struct neo_frame*  neo_current_frame  ;
 
+extern unsigned long  int neo_frame_id;
+
 extern struct sMemHeader*  gAllocMem  ;
 
 extern struct sMemHeader*  gFreeMem  ;
@@ -2020,6 +2022,7 @@ int*  fgetws_unlocked(int* __restrict  __ws  , int __n, struct _IO_FILE* __restr
 int fputws_unlocked(const int* __restrict  __ws  , struct _IO_FILE* __restrict  __stream  );
 unsigned long  int  wcsftime(int* __restrict  __s  , unsigned long  int  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  );
 unsigned long  int  wcsftime_l(int* __restrict  __s  , unsigned long  int  __maxsize  , const int* __restrict  __format  , const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
+_Bool neo_frame_is_alive(unsigned long  int frame_id);
 void stackframe();
 void stackframe2(void* mem);
 _Bool die(const char* msg, char* sname, int sline);

@@ -1224,14 +1224,14 @@ class sRefNode extends sNodeBase
         list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         sNode*% node2 = create_load_var("neo_current_frame");
-        sNode*% stacktop = load_field(node2, s"stacktop");
+        sNode*% frame_id = load_field(node2, s"frame_id");
         
         params.add(t((string)null, obj));
         params.add(t((string)null, node));
         params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
-        params.add(t((string)null, stacktop));
+        params.add(t((string)null, frame_id));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         
@@ -1324,14 +1324,14 @@ class sOptionalNode extends sNodeBase
         list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
         
         sNode*% node2 = create_load_var("neo_current_frame");
-        sNode*% stacktop = load_field(node2, s"stacktop");
+        sNode*% frame_id = load_field(node2, s"frame_id");
         
         params.add(t((string)null, obj));
         params.add(t((string)null, node));
         params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
-        params.add(t((string)null, stacktop));
+        params.add(t((string)null, frame_id));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         
@@ -1549,7 +1549,7 @@ class sSpanNode extends sNodeBase
         var head, len = get_head_and_len(node, come_value);
         
         sNode*% node2 = create_load_var("neo_current_frame");
-        sNode*% stacktop = load_field(node2, s"stacktop");
+        sNode*% frame_id = load_field(node2, s"frame_id");
         
         params.add(t((string)null, obj));
         params.add(t((string)null, head));
@@ -1557,7 +1557,7 @@ class sSpanNode extends sNodeBase
         params.add(t((string)null, local_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, heap_ ? create_true_object(info):create_false_object(info)));
         params.add(t((string)null, global_ ? create_true_object(info):create_false_object(info)));
-        params.add(t((string)null, stacktop));
+        params.add(t((string)null, frame_id));
         
         sNode*% method_node = create_method_call("initialize", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         

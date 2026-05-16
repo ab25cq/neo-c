@@ -163,13 +163,29 @@ uniq bool string::equals(char* self, const char* right);
 #define COME_STACKFRAME_SNAME_MAX 8
 
 struct neo_frame {
-    void* stacktop;
     neo_frame *prev;
     char* fun_name;
+    unsigned long frame_id;
 };
     
 using unsafe {
 uniq __thread neo_frame* neo_current_frame = (void*)0;
+uniq __thread unsigned long neo_frame_id = 0;
+}
+
+uniq _norecord bool neo_frame_is_alive(unsigned long frame_id)
+{
+    neo_frame* f = neo_current_frame;
+    
+    while(f) {
+        if(f->frame_id == frame_id) {
+            return true;
+        }
+        
+        f = f->prev;
+    }
+    
+    return false;
 }
 
 uniq void stackframe()
@@ -757,13 +773,13 @@ struct ref<T>
     bool heap;
     bool local;
     
-    void* stacktop;
+    unsigned long frame_id;
     void* heaptop;
 };
 
 impl ref<T>
 {
-    ref<T>*% initialize(ref<T>*% self, T^ p, bool global_, bool heap_, bool local_, void* stacktop) {
+    ref<T>*% initialize(ref<T>*% self, T^ p, bool global_, bool heap_, bool local_, unsigned long frame_id) {
         if(!ispointer(T) || p == null) {
             puts(s"ref is pointer and not null");
             stackframe2(self);
@@ -773,7 +789,7 @@ impl ref<T>
         self.global = global_;
         self.heap = heap_;
         self.local = local_;
-        self.stacktop = stacktop;
+        self.frame_id = frame_id;
         self.heaptop = p;
         return self;
     }
@@ -787,7 +803,7 @@ impl ref<T>
             exit(2);
         }
         if(self.local) {
-            if(self.stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self.frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -813,7 +829,7 @@ impl ref<T>
         }
         
         if(self.local) {
-            if(self.stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self.frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -840,7 +856,7 @@ impl ref<T>
         }
         
         if(self.local) {
-            if(self.stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self.frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -868,17 +884,17 @@ struct optional<T>
     bool heap;
     bool local;
     
-    void* stacktop;
+    unsigned long frame_id;
 };
 
 impl optional<T>
 {
-    optional<T>*% initialize(optional<T>*% self, T p, bool global_, bool heap_, bool local_, void* stacktop) {
+    optional<T>*% initialize(optional<T>*% self, T p, bool global_, bool heap_, bool local_, unsigned long frame_id) {
         self.p = p;
         self.global = global_;
         self.heap = heap_;
         self.local = local_;
-        self.stacktop = stacktop;
+        self.frame_id = frame_id;
         return self;
     }
     
@@ -891,7 +907,7 @@ impl optional<T>
             exit(2);
         }
         if(self.local) {
-            if(self.stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self.frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -922,7 +938,7 @@ impl optional<T>
         }
         
         if(self.local) {
-            if(self.stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self.frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -956,7 +972,7 @@ impl optional<T>
         }
         
         if(self.local) {
-            if(self.stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self.frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -999,12 +1015,12 @@ struct span<T> {
     bool local;
     bool heap;
     bool global;
-    void* stacktop;
+    unsigned long frame_id;
 };
 
 impl span<T>
 {
-    span<T>*% initialize(span<T>*% self, void* head, size_t len, bool local, bool heap, bool global, void* stacktop) {
+    span<T>*% initialize(span<T>*% self, void* head, size_t len, bool local, bool heap, bool global, unsigned long frame_id) {
         using unsafe; 
         
         if(!ispointer(T)) {
@@ -1019,7 +1035,7 @@ impl span<T>
         self.local = local;
         self.heap = heap;
         self.global = global;
-        self.stacktop = stacktop;
+        self.frame_id = frame_id;
         
         return self;
     }
@@ -1034,7 +1050,7 @@ impl span<T>
             exit(2);
         }
         if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self->frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -1159,7 +1175,7 @@ impl span<T>
         }
         
         if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self->frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -1206,7 +1222,7 @@ impl span<T>
         }
         
         if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self->frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -1249,7 +1265,7 @@ impl span<T>
         }
         
         if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self->frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -1313,7 +1329,7 @@ impl span<T>
         }
         
         if(self->local) {
-            if(self->stacktop < neo_current_frame.stacktop) {
+            if(!neo_frame_is_alive(self->frame_id)) {
                 puts("refferenced stack object is vanished");
                 stackframe2(self);
                 exit(127);
@@ -3291,7 +3307,7 @@ impl vector<T>
             local: false,
             heap: true,
             global: false,
-            stacktop: (void*)0
+            frame_id:0
         };
     }
 }

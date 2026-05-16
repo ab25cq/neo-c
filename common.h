@@ -1604,7 +1604,7 @@ uniq class sFunNode extends sNodeBase
         
         if(self.mFun.mBlock) {
             if(!gComeC && !info.come_fun.mResultType.mNorecord) {
-                add_come_code_at_function_head(info, s"struct neo_frame fr; fr.stacktop =&fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; neo_current_frame = &fr;\n"); 
+                add_come_code_at_function_head(info, s"struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = \"\{info.come_fun.mName}\"; fr.frame_id = ++neo_frame_id; neo_current_frame = &fr;\n"); 
             }
             
             int block_level = info->block_level;

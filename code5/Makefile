@@ -26,7 +26,7 @@ TEST_FAIL_REF_INIT := ref_null
 
 TEST_FAIL_VANISHED := \
 	ref_heap_vanished \
-#	ref_vanished \
+	ref_vanished \
 
 TEST_FAIL_SPAN_RANGE :=
 

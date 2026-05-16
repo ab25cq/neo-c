@@ -104,12 +104,13 @@ extern buffer* buffer*::append_char(buffer* self, char c);
 extern int buffer*::length(buffer* self) ;
 
 struct neo_frame {
-    void* stacktop;
     neo_frame *prev;
     char* fun_name;
+    unsigned long frame_id;
 };
     
 extern __thread neo_frame* neo_current_frame;
+extern __thread unsigned long neo_frame_id;
 
 extern bool come_is_alive(void* mem);
 extern void stackframe();
