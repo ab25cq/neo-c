@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.2.5
+version 1.0.2.7
 
 ``` C
 #include <neo-c.h>
@@ -139,6 +139,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.2.7 RESULT(T) catch ownership bug fixed. catch can ignore an error by assigning a default value to Value.v1.
 1.0.2.6 span,ref,optional to local variable bug fixed.
 1.0.2.5 optimize binary size
 1.0.2.4 Removed Result template.
@@ -4034,6 +4035,32 @@ int main(int argc, char** argv)
 ```
 
 tuple2<T,bool> can be used like Reult(T)
+
+`.catch { ... }` handles the error branch. If you want to ignore the error and continue, assign a default value to `Value.v1` inside the catch block.
+
+`.catch { ... }` はエラー側を処理します。エラーを無視して処理を続けたい場合は、catchブロック内で `Value.v1` にデフォルト値を代入します。
+
+```C
+#include <neo-c.h>
+
+RESULT(int) get_int(bool ok)
+{
+    if(ok) {
+        return SOME(10);
+    }
+
+    return NONE(0);
+}
+
+int ignore_error(bool ok)
+{
+    int n = get_int(ok).catch {
+        Value.v1 = 77;
+    };
+
+    return n + 1;
+}
+```
 
 `result??` is also available for propagation. It unwraps the `Ok` value and returns an error result from the current function when `v2 == true`.
 It uses `??` instead of `?` to avoid ambiguity with the conditional operator.

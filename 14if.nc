@@ -513,7 +513,10 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
         }
     }
     
-    return new sMatchNode(it_node, new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode, info) implements sNode;
+    sNode*% if_node = new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
+    sNode*% result = new sMatchNode(it_node, if_node, info) implements sNode;
+    
+    return result;
 }
 
 sNode*% parse_catch(sNode*% expression_node, sInfo* info)
@@ -539,10 +542,13 @@ sNode*% parse_catch(sNode*% expression_node, sInfo* info)
     int elif_num = 0;
     
     sBlock*% else_block = new sBlock();
-    else_block.mNodes.push_back(result_node);
+    else_block.mNodes.push_back(clone result_node);
     else_block.mOmitSemicolon = existance_result_value;
     
-    return new sMatchNode(it_node, new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode, info) implements sNode;
+    sNode*% if_node = new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
+    sNode*% result = new sMatchNode(it_node, if_node, info) implements sNode;
+    
+    return result;
 }
 
 sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)

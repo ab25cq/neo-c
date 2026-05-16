@@ -57,6 +57,10 @@ test: *.nc
 	./test_result_bang
 	$(NEO_C) test_result_try.nc
 	./test_result_try
+	$(NEO_C) test_result_ignore.nc
+	./test_result_ignore
+	$(NEO_C) test_result_struct_try.nc
+	./test_result_struct_try
 	$(NEO_C) test_payload_enum.nc
 	./test_payload_enum
 	$(NEO_C) comelang2.nc
