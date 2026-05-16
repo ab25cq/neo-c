@@ -139,6 +139,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.2.6 span,ref,optional to local variable bug fixed.
 1.0.2.5 optimize binary size
 1.0.2.4 Removed Result template.
 1.0.2.3 template bug was fixed.
