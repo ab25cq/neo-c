@@ -45,6 +45,8 @@ int main()
 }
 ```
 
+# SAMPLE
+
 ``` C
 #include <neo-c.h>
 
