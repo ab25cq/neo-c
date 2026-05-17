@@ -150,6 +150,15 @@ if [ -f "${cbase}.c" ]; then
   fi
 fi
 
+strip_output_executable()
+{
+  local output="$1"
+
+  if [ -n "$output" ] && [ -f "$output" ] && command -v strip >/dev/null 2>&1; then
+    strip "$output" 2>/dev/null || true
+  fi
+}
+
 if [ "$pico" = true ]
 then
     echo pico
@@ -161,7 +170,12 @@ then
 elif [ "$all_object_file" = true ]
 then
     $NCC_BIN /usr/local
-    $CC -ffunction-sections -fdata-sections -Wl,--gc-sections -flto=thin "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${obj_files[@]}" "${libs[@]}" "${default_neo_c_str_args[@]}"
+    if $CC -ffunction-sections -fdata-sections -Wl,--gc-sections -flto=thin "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${obj_files[@]}" "${libs[@]}" "${default_neo_c_str_args[@]}"
+    then
+        strip_output_executable "${target}"
+    else
+        exit 3
+    fi
     echo $CC -ffunction-sections -fdata-sections -Wl,--gc-sections -flto=thin "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${obj_files[@]}" "${libs[@]}" "${default_neo_c_str_args[@]}"
 elif test $transpile_ok = 0
 then
@@ -192,6 +206,7 @@ then
         echo $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -ffunction-sections -fdata-sections -Wl,--gc-sections -flto=thin -L/opt/homebrew/opt/ncurses/lib -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" "${neo_c_str_args[@]}"
         if $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -ffunction-sections -fdata-sections -Wl,--gc-sections -flto=thin -L/opt/homebrew/opt/ncurses/lib -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" "${neo_c_str_args[@]}" 2> "${base}.c.error"
         then
+            strip_output_executable "${target}"
             rm -f "${base}.c.error"
             if test $no_rm_pp = true
             then

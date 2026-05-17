@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.2.8
+version 1.0.2.9
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.2.9 neo-c driver strips linked output executables by default.
 1.0.2.8 document stripped small binary sizes for dynamic and static libc examples.
 1.0.2.7 RESULT(T) catch ownership bug fixed. catch can ignore an error by assigning a default value to Value.v1.
 1.0.2.6 span,ref,optional to local variable bug fixed.
