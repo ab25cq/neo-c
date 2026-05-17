@@ -5,15 +5,24 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.2.7
+version 1.0.2.8
 
 ## Small binaries
 
 neo-c generates compact C output and links with section GC/LTO-friendly defaults.
-Even this `a.nc` sample, which includes `neo-c.h`, string handling, object initializer, and generated `to_string`, produces only about a 22K executable.
+On Fedora x86_64, even this `a.nc` sample, which includes `neo-c.h`, string handling, object initializer, and generated `to_string`, produces about a 19K executable after `strip` when linked dynamically.
 
 neo-cは小さいCコードを生成し、不要な関数をリンク時に落としやすいので実行ファイルが小さくなります。
-`neo-c.h`、文字列処理、オブジェクト初期化、生成された`to_string`まで使っているこの`a.nc`でも実行ファイルは約22Kです。
+Fedora x86_64では、`neo-c.h`、文字列処理、オブジェクト初期化、生成された`to_string`まで使っているこの`a.nc`でも、動的リンクなら`strip`後の実行ファイルは約19Kです。
+
+These sizes are measured after `strip`.
+
+以下は`strip`後のサイズです。
+
+| source | libc link mode | stripped size |
+| --- | --- | ---: |
+| `a.nc` | dynamic libc | 19K |
+| `b.nc` | static libc | 711K |
 
 ```c
 #include <neo-c.h>
@@ -31,16 +40,16 @@ int main(int argc, char** argv)
 }
 ```
 
-A minimal Hello World using `neo-c.h` is about 13K, in the 12K-class range.
+`b.nc` is a static libc Hello World sample. It is much larger because libc is linked into the executable, but it is still a single standalone binary.
 
-`neo-c.h`をincludeした最小のHello Worldなら約13K、12K台クラスです。
+`b.nc`は静的リンクしたlibcのHello Worldサンプルです。libcを実行ファイルへ含めるので大きくなりますが、単体で動くバイナリになります。
 
 ```c
-#include <neo-c.h>
+#include <stdio.h>
 
-int main()
+int main(int argc, char** argv)
 {
-    puts("Hello World");
+    puts("HELLO WORLD");
     return 0;
 }
 ```
@@ -179,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.2.8 document stripped small binary sizes for dynamic and static libc examples.
 1.0.2.7 RESULT(T) catch ownership bug fixed. catch can ignore an error by assigning a default value to Value.v1.
 1.0.2.6 span,ref,optional to local variable bug fixed.
 1.0.2.5 optimize binary size
