@@ -294,8 +294,8 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 0.8.2.1 Refactoring
 0.8.2.0 remove GC heap area. This system use calloc and free only. So you can debug with valgrind.
 0.8.1.6 GC algorithm bug has been fixed. Some code can't be work maybe, but more properly heap algorith has come.
-0.8.1.5 Compiletime Reflection
-0.8.1.4 Compiletime Reflection
+0.8.1.5 Transpiletime Reflection
+0.8.1.4 Transpiletime Reflection
 0.8.1.3 More readable output c source. And encount a bug fixed.
 0.8.1.2 no type check field, variable, and function. More optimized the output C source
 0.8.1.1 clang like option implemented.
