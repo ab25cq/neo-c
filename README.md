@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.6
+version 1.0.3.7
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.7 Document the file API spec change: FILE*::read and FILE*::write are removed; use FILE*::fread and FILE*::fwrite instead.
 1.0.3.6 Document Result<T> as the standard result API and make the removal of RESULT(T), SOME, and NONE explicit.
 1.0.3.5 Result<T> is now the standard Some/None payload enum result type. The old tuple2-based RESULT(T), SOME, and NONE macros are removed.
 1.0.3.4 optional collection access now uses Result<T> instead of neo_option<T>.
