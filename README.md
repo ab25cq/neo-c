@@ -2189,6 +2189,16 @@ Open files explicitly with `xfopen(... )!`, then use `FILE*::fread` or `FILE*::f
 普通の文字列にファイルIOを生やすと意図しないバグを隠しやすいためです。
 `xfopen(... )!`で明示的にファイルを開き、`FILE*::fread`または`FILE*::fwrite(... )!`を使ってください。
 
+```
+var str = xfopen("01main.nc", "r")!.fread();
+```
+
+```
+xfopen("OUTPUT","w")!.fwrite("AAA\n")!.fclose()
+```
+
+エラー時はpanicします。
+
 # Default parameters, parameter labels
 
 ``` C
