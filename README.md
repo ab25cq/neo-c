@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.5
+version 1.0.3.6
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.6 Document Result<T> as the standard result API and make the removal of RESULT(T), SOME, and NONE explicit.
 1.0.3.5 Result<T> is now the standard Some/None payload enum result type. The old tuple2-based RESULT(T), SOME, and NONE macros are removed.
 1.0.3.4 optional collection access now uses Result<T> instead of neo_option<T>.
 1.0.3.3 list/vector/map [] can use .catch as optional access sugar: Some unwraps to the value, None runs the catch block and returns its result.
@@ -4203,6 +4204,18 @@ int main(int argc, char** argv)
 `Result<T>` is the standard result type. It is a payload enum with `Some(T)` and `None`.
 
 `Result<T>` が標準のresult型です。`Some(T)` と `None` を持つpayload enumです。
+
+The old tuple2-based `RESULT(T)`, `SOME(value)`, and `NONE(value)` macros are removed.
+Use `Result<T>*%`, `new Result<T>.Some(value)`, and `new Result<T>.None()` instead.
+
+古い tuple2 ベースの `RESULT(T)`, `SOME(value)`, `NONE(value)` マクロは廃止されました。
+代わりに `Result<T>*%`, `new Result<T>.Some(value)`, `new Result<T>.None()` を使います。
+
+| old | new |
+| --- | --- |
+| `RESULT(int)` | `Result<int>*%` |
+| `SOME(10)` | `new Result<int>.Some(10)` |
+| `NONE(0)` | `new Result<int>.None()` |
 
 `.catch { ... }` handles the `None` branch and returns the block result. If the value is `Some`, `.catch` unwraps and returns the payload without running the block.
 
