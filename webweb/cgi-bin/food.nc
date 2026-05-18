@@ -5,7 +5,7 @@
 
 int main(int argc, char** argv)
 {
-    string input = stdin.read().to_string();
+    string input = stdin.fread().to_string();
     
     char *cookie = getenv("HTTP_COOKIE");
     

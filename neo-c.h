@@ -6793,7 +6793,17 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
 /// base library(IO-FILE)
 //////////////////////////////
 #ifdef UNIX
-    uniq buffer*% FILE*::read(FILE* f)
+    uniq Result<FILE*>*% xfopen(const char* file_name, const char* mode)
+    {
+        FILE* f = fopen(file_name, mode);
+
+        if(f == NULL) {
+            return new Result<FILE*>.None();
+        }
+
+        return new Result<FILE*>.Some(f);
+    }
+    uniq buffer*% FILE*::fread(FILE* f)
     {
         if(f == null) {
             return b"";
@@ -6815,13 +6825,13 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
         return buf;
     }
     
-    uniq int FILE*::write(FILE* f, const char* str)
+    uniq Result<int>*% FILE*::fwrite(FILE* f, const char* str)
     {
         if(f == null || str == null) {
-            return -1;
+            return new Result<int>.None();
         }
         
-        return fwrite(str, strlen(str), 1, f);
+        return new Result<int>.Some(fwrite(str, strlen(str), 1, f));
     }
     
     uniq int FILE*::fclose(FILE* f) 
@@ -6839,10 +6849,10 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
         return result;
     }
     
-    uniq FILE* FILE*::fprintf(FILE* f, const char* msg, ...)
+    uniq Result<FILE*>*% FILE*::fprintf(FILE* f, const char* msg, ...)
     {
         if(f == null || msg == null) {
-            return f;
+            return new Result<FILE*>.None();
         }
         char msg2[1024*2*2*2];
     
@@ -6854,78 +6864,10 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
         int result = fprintf(f, "%s", msg2);
         
         if(result < 0) {
-            return f;
+            return new Result<FILE*>.None();
         }
         
-        return f;
-    }
-    
-    uniq int char*::write(const char* self, const char* file_name, bool append=false) 
-    {
-        if(self == null || file_name == null) {
-            return -1;
-        }
-        
-        FILE* f;
-        if(append) {
-           f = fopen(file_name, "a");
-        }
-        else {
-           f = fopen(file_name, "w");
-        }
-        
-        if(f == NULL) {
-            return -1;
-        }
-        
-        int result = fwrite(self, strlen(self), 1, f);
-        
-        if(result != 1) {
-            return result;
-        }
-        
-        int result2 = fclose(f)
-        
-        if(result2 < 0) {
-            return result2;
-        }
-        
-        return result;
-    }
-    
-    uniq buffer*% char*::read(const char* file_name) 
-    {
-        if(file_name == null) {
-            return b"";
-        }
-        
-        FILE* f = fopen(file_name, "r");
-        
-        if(f == NULL) {
-            return b"";
-        }
-        
-        buffer*% buf = new buffer.initialize();
-        
-        while(1) {
-            char buf2[BUFSIZ];
-            
-            int size = fread(buf2, 1, BUFSIZ, f);
-            
-            buf.append(buf2, size);
-    
-            if(size < BUFSIZ) {
-                break;
-            }
-        }
-        
-        int result2 = fclose(f)
-        
-        if(result2 < 0) {
-            return b"";
-        }
-        
-        return buf;
+        return new Result<FILE*>.Some(f);
     }
     
     uniq list<string>*% FILE*::readlines(FILE* f)

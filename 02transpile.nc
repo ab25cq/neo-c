@@ -266,13 +266,17 @@ static bool cpp(sInfo* info)
         info.source = source_data.to_buffer();
         
         if(gComeKeepPreprocessedFile) {
-            source_data.write(output_file_name);
+            FILE* keep_file = xfopen(output_file_name, "w")!;
+            keep_file.fwrite(source_data)!;
+            keep_file.fclose();
         }
         
         free(source_data);
     }
     else {
-        info.source = output_file_name.read();
+        FILE* source_file = xfopen(output_file_name, "r")!;
+        info.source = source_file.fread();
+        source_file.fclose();
         
         if(!gComeKeepPreprocessedFile) {
             remove(output_file_name);

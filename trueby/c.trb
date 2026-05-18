@@ -1,7 +1,0 @@
-class Data {
-    def initialize() {
-        @a := 123;
-    }
-}
-
-data := Data.new();

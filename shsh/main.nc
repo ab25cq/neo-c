@@ -1415,7 +1415,7 @@ int main(int argc, char** argv)
     FILE* f = fopen(getenv("HOME") + "/.shshrc", "r");
     
     if(f) {
-        string command_str = f.read().to_string();
+        string command_str = f.fread().to_string();
         
         var rcode, err = run(command_str);
         
@@ -1486,7 +1486,9 @@ int main(int argc, char** argv)
             write_history(history_file_name);
         }
         else {
-            command_str = string(file_name).read().to_string();
+            FILE* command_file = xfopen(file_name, "r")!;
+            command_str = command_file.fread().to_string();
+            command_file.fclose();
         }
         
         var rcode, err = run(command_str);
@@ -1499,4 +1501,3 @@ int main(int argc, char** argv)
     
     return 0;
 }
-

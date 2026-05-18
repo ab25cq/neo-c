@@ -1844,7 +1844,9 @@ int serve_static_file_http(int it, string file_path, string header)
         return range_status == 1 ? 206 : 200;
     }
 
-    string file_contents = file_path.read().to_string();
+    FILE* text_file = xfopen(file_path, "r")!;
+    string file_contents = text_file.fread().to_string();
+    text_file.fclose();
     string file_contents2 = parse_html(file_contents);
     send_text_response_http(it, "200 OK", get_content_type(file_path), borrow file_contents2, strlen(file_contents2), borrow metadata_headers);
     return 200;
@@ -1936,7 +1938,9 @@ int serve_static_file_https(SSL* it, string file_path, string header)
         return range_status == 1 ? 206 : 200;
     }
 
-    string file_contents = file_path.read().to_string();
+    FILE* text_file = xfopen(file_path, "r")!;
+    string file_contents = text_file.fread().to_string();
+    text_file.fclose();
     string file_contents2 = parse_html(file_contents);
     send_text_response_https(it, "200 OK", get_content_type(file_path), borrow file_contents2, strlen(file_contents2), borrow metadata_headers);
     return 200;

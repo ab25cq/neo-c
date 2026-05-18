@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-    string input = stdin.read().to_string();
+    string input = stdin.fread().to_string();
     
     puts("""
     <!DOCTYPE html>
@@ -20,4 +20,3 @@ int main(int argc, char** argv)
     
     return 0;
 }
-

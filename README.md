@@ -237,6 +237,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 0.9.1.8 heap checker. changing ref, span, opt. Maybe OK.
 0.9.1.7 changing ref, span, opt. Maybe OK.
 0.9.1.6 changing ref, span, opt. Maybe OK.
+0.9.1.6 char*/string file read/write helpers removed. Use xfopen(... )!, FILE*::fread, and FILE*::fwrite(... )! instead. trueby removed.
 0.9.1.5 changing ref, span, opt.
 0.9.1.4 My main server is in Mac.
 0.9.1.3 Mac nad linux portabilities in C source level.
@@ -259,7 +260,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 0.8.9.6 null checker returns.
 0.8.9.5 span, ref, optional coming.
 0.8.9.4 array and pointer bug fixed by codex. no warning occur in tests
-0.8.9.3 char*::read() method return buffer*% 
+0.8.9.3 char*::read() method returned buffer*% at the time. Removed in 0.9.1.6.
 0.8.9.2 optional and ref may be working. heap bug fixed.
 0.8.9.1 span and ref bug fixed.
 0.8.9.0 span implemeted at some content.
@@ -2107,28 +2108,38 @@ Returns the file name without the extension.
 拡張子をとったファイル名を返す。
 
 ```C
-int FILE*::write(FILE* f, char* str);
+Result<int>*% FILE*::fwrite(FILE* f, const char* str);
 ```
 
 ```
     FILE* f = fopen("AAA", "a");
     
-    f.write("ABC");
+    f.fwrite("ABC")!;
     
     f.fclose();
 ```
 
-I just made it object oriented.
+`FILE*::write` was renamed to `FILE*::fwrite` and now returns `Result<int>*%`.
+Use `!` when you want to panic on error.
 
-オブジェクト指向っぽくしただけ。
+`FILE*::write`は`FILE*::fwrite`に改名され、`Result<int>*%`を返すようになりました。
+エラー時にpanicさせたい場合は`!`を使います。
 
 ```C
-string FILE*::read(FILE* f);
+buffer*% FILE*::fread(FILE* f);
 ```
 
-similar
+```
+    FILE* f = fopen("AAA", "r");
 
-同様
+    string data = f.fread().to_string();
+
+    f.fclose();
+```
+
+`FILE*::read` was renamed to `FILE*::fread`.
+
+`FILE*::read`は`FILE*::fread`に改名されました。
 
 ```C
 int FILE*::fclose(FILE* f) ;
@@ -2139,28 +2150,30 @@ similar
 同様。
 
 ```C
-int* FILE*::fprintf(FILE* f, const char* msg, ...);
+Result<FILE*>*% FILE*::fprintf(FILE* f, const char* msg, ...);
 ```
 
 ```
     FILE* f = fopen("AAA", "a");
     
-    f.fprintf("%d\n", 1+1);
+    f.fprintf("%d\n", 1+1)!;
     
-    f.close();
+    f.fclose();
 ```
 
-similar
-同様
+similar. Use `!` when you want to panic on error.
+同様。エラー時にpanicさせたい場合は`!`を使います。
 
 ```C
 list<string>*% FILE*::readlines(FILE* f);
 ```
 
 ```
-    "AAA\nBBB\nCCC\n".write("FILE", append:true);
+    FILE* out = xfopen("FILE", "w")!;
+    out.fwrite("AAA\nBBB\nCCC\n")!;
+    out.fclose();
     
-    FILE* f = fopen("FILE", "r");
+    FILE* f = xfopen("FILE", "r")!;
     
     var li = f.readlines();
     
@@ -2169,27 +2182,12 @@ list<string>*% FILE*::readlines(FILE* f);
     li[2].puts(); // CCC
 ```
 
-```C
-int string::write(char* self, char* file_name, bool append=false);
-int char*::write(char* self, char* file_name, bool append=false) ;
+`char*::read`, `string::read`, `char*::write`, and `string::write` were removed because file IO on plain strings can hide unintended bugs.
+Open files explicitly with `xfopen(... )!`, then use `FILE*::fread` or `FILE*::fwrite(... )!`.
 
-string char*::read(char* file_name) ;
-string string::read(char* file_name) ;
-```
-
-```C
-    "ABC".write("FILE-NAME", append:true);
-    "ABC".write("FILE-NAME", append:true);
-    "ABC".write("FILE-NAME", append:true);
-    
-    "FILE-NAME".read().puts(); // ABC\nABC\nABC
-```
-
-If append:false, no appending will be done. append:false is the parameter label. Easy to view source files.
-It is also good to use true@append and annotations.
-
-append:falseだと追記なし。append:falseはパラメーターラベル。ソースファイルが見やすい。
-true@appendとアノテーションを使うのもいい。
+`char*::read`、`string::read`、`char*::write`、`string::write`は削除されました。
+普通の文字列にファイルIOを生やすと意図しないバグを隠しやすいためです。
+`xfopen(... )!`で明示的にファイルを開き、`FILE*::fread`または`FILE*::fwrite(... )!`を使ってください。
 
 # Default parameters, parameter labels
 

@@ -54,11 +54,6 @@ then
     (cd viw; make clean)
 fi
 
-if [ -e trueby/Makefile ]
-then
-    (cd trueby; make clean)
-fi
-
 if [ -e zed/Makefile ]
 then
     (cd zed; make clean)

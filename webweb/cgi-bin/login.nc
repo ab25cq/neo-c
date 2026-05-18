@@ -4,7 +4,7 @@
 
 int main(int argc, char** argv)
 {
-    string input = stdin.read().to_string();
+    string input = stdin.fread().to_string();
     
     var result = input.scan("username=(.+)&password=(.+)");
     
@@ -66,4 +66,3 @@ Content-Length: 0\r
     
     return 0;
 }
-
