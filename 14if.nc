@@ -530,62 +530,38 @@ sNode*% parse_catch(sNode*% expression_node, sInfo* info)
 {
     string sname = clone info->sname;
     int sline = info->sline;
-    
+
     bool existance_result_value = true;
-    
+
     sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
 
-    if(expression_node.kind() === "sLoadArrayNode") {
-        sNode*% node1 = create_load_var("Value");
+    sNode*% node1 = create_load_var("Value");
+    list<tuple2<string, sNode*%>*%>*% none_params = new list<tuple2<string, sNode*%>*%>();
+    none_params.add(t((string)null, clone node1));
+    sNode*% conditional_value = create_method_call("is_None", node1, none_params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
 
-        list<tuple2<string, sNode*%>*%>*% none_params = new list<tuple2<string, sNode*%>*%>();
-        none_params.add(t((string)null, clone node1));
-        sNode*% conditional_value = create_method_call("is_None", node1, none_params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
-
-        sBlock*% if_block = parse_block();
-        if(!if_block.mOmitSemicolon) {
-            err_msg(info, "collection optional catch requires a result value");
-            exit(2);
-        }
-
-        list<tuple2<string, sNode*%>*%>*% some_params = new list<tuple2<string, sNode*%>*%>();
-        some_params.add(t((string)null, create_load_var("Value")));
-        sNode*% result_node = create_method_call("get_Some", create_load_var("Value"), some_params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
-
-        list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
-        list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
-        int elif_num = 0;
-
-        sBlock*% else_block = new sBlock();
-        else_block.mNodes.push_back(result_node);
-        else_block.mOmitSemicolon = existance_result_value;
-
-        sNode*% if_node = new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
-        sNode*% result = new sMatchNode(it_node, if_node, info, true@optional_load) implements sNode;
-
-        return result;
+    sBlock*% if_block = parse_block();
+    if(!if_block.mOmitSemicolon) {
+        err_msg(info, "Result<T> catch requires a result value");
+        exit(2);
     }
 
-    sNode*% node1 = create_load_var("Value");
-    sNode*% conditional_value = load_field(node1, s"v2");
-    
-    sBlock*% if_block = parse_block();
-    
-    sNode*% result_node = load_field(node1, s"v1");
-    if_block.mNodes.push_back(result_node);
-    if_block.mOmitSemicolon = true;
-    
+    list<tuple2<string, sNode*%>*%>*% some_params = new list<tuple2<string, sNode*%>*%>();
+    some_params.add(t((string)null, create_load_var("Value")));
+    sNode*% result_node = create_method_call("get_Some", create_load_var("Value"), some_params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+
     list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
     list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
     int elif_num = 0;
-    
+
     sBlock*% else_block = new sBlock();
-    else_block.mNodes.push_back(clone result_node);
+    else_block.mNodes.push_back(result_node);
     else_block.mOmitSemicolon = existance_result_value;
-    
+
     sNode*% if_node = new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
-    sNode*% result = new sMatchNode(it_node, if_node, info) implements sNode;
-    
+    bool optional_load = expression_node.kind() === "sLoadArrayNode";
+    sNode*% result = new sMatchNode(it_node, if_node, info, optional_load) implements sNode;
+
     return result;
 }
 

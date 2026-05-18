@@ -1,60 +1,60 @@
 #include <neo-c.h>
 
-RESULT(int) get_int(bool ok)
+Result<int>*% get_int(bool ok)
 {
     if(ok) {
-        return t(123, false);
+        return new Result<int>.Some(123);
     }
-    
-    return t(0, true);
+
+    return new Result<int>.None();
 }
 
-RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
+Result<FILE*>*% xfopen2(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
-    
+
     if(f == NULL) {
-        return t(f, true);
+        return new Result<FILE*>.None();
     }
-    
-    return t(f, false);
+
+    return new Result<FILE*>.Some(f);
 }
 
-RESULT(string) make_string(bool ok)
+Result<string>*% make_string(bool ok)
 {
     if(ok) {
-        return t(string("abc"), false);
+        return new Result<string>.Some(string("abc"));
     }
-    
-    return t((string)null, true);
+
+    return new Result<string>.None();
 }
 
-RESULT(int) plus_one(bool ok)
+Result<int>*% plus_one(bool ok)
 {
     int n = get_int(ok)??;
-    return t(n + 1, false);
+    return new Result<int>.Some(n + 1);
 }
 
-RESULT(int) read_first_byte(const char* file_name)
+Result<int>*% read_first_byte(const char* file_name)
 {
     FILE* f = xfopen2(file_name, "r")??;
     int ch = fgetc(f);
-    
+
     f.fclose();
-    
+
     if(ch == EOF) {
-        return t(0, true);
+        return new Result<int>.None();
     }
-    
-    return t(ch, false);
+
+    return new Result<int>.Some(ch);
 }
 
-RESULT(int) string_len_plus_one(bool ok)
+Result<int>*% string_len_plus_one(bool ok)
 {
     string s = make_string(ok)??;
     int len = strlen(s);
-    
-    return t(len + 1, false);
+
+    return new Result<int>.Some(len + 1);
 }
 
 int main()

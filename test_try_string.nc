@@ -1,20 +1,20 @@
 #include <neo-c.h>
 
-RESULT(string) make_string(bool ok)
+Result<string>*% make_string(bool ok)
 {
     if(ok) {
-        return t(string("abc"), false);
+        return new Result<string>.Some(string("abc"));
     }
-    
-    return t((string)null, true);
+
+    return new Result<string>.None();
 }
 
-RESULT(int) string_len_plus_one(bool ok)
+Result<int>*% string_len_plus_one(bool ok)
 {
     string s = make_string(ok)??;
     int len = strlen(s);
-    
-    return t(len + 1, false);
+
+    return new Result<int>.Some(len + 1);
 }
 
 int main()

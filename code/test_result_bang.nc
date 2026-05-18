@@ -1,13 +1,13 @@
 #include <neo-c.h>
 
-RESULT(int) get_ok()
+Result<int>*% get_ok()
 {
-    return SOME(123);
+    return new Result<int>.Some(123);
 }
 
-RESULT(int) get_ok2()
+Result<int>*% get_ok2()
 {
-    return SOME(321);
+    return new Result<int>.Some(321);
 }
 
 int main(int argc, char** argv)

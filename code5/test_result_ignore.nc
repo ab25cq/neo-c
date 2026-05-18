@@ -1,20 +1,20 @@
 #include <neo-c.h>
 
-RESULT(int) get_int(bool ok)
+Result<int>*% get_int(bool ok)
 {
     if(ok) {
-        return SOME(10);
+        return new Result<int>.Some(10);
     }
-    
-    return NONE(0);
+
+    return new Result<int>.None();
 }
 
 int ignore_error(bool ok)
 {
     int n = get_int(ok).catch {
-        Value.v1 = 77;
+        77
     };
-    
+
     return n + 1;
 }
 

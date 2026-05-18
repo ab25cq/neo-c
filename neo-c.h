@@ -877,9 +877,52 @@ impl ref<T>
 //////////////////////////////
 // optional
 //////////////////////////////
-enum neo_option<T> {
+enum Result<T> {
     Some(T),
     None,
+};
+
+impl Result<T>
+{
+    bool is_ok(Result<T>* self)
+    {
+        return self != null && self.is_Some();
+    }
+    bool is_err(Result<T>* self)
+    {
+        return !self.is_ok();
+    }
+    T unwrap_or(Result<T>* self, T^ default_value) {
+        if(self.is_err()) {
+            return dummy_heap default_value;
+        }
+
+        return dummy_heap self.get_Some();
+    }
+    T unwrap_or_default(Result<T>* self) {
+        T default_value;
+        memset(&default_value, 0, sizeof(T));
+
+        return self.unwrap_or(default_value);
+    }
+    T expect(Result<T>* self, const char* message) {
+        if(self.is_err()) {
+            puts(message);
+            stackframe2(self);
+            exit(2);
+        }
+
+        return dummy_heap self.get_Some();
+    }
+    T unwrap(Result<T>* self) {
+        if(self.is_err()) {
+            puts("exception");
+            stackframe2(self);
+            exit(2);
+        }
+
+        return dummy_heap self.get_Some();
+    }
 };
 
 struct optional<T>
@@ -1001,14 +1044,6 @@ impl optional<T>
         *p = item;
     }
 }
-
-//////////////////////////////
-// result
-//////////////////////////////
-// RESULT(T) and Result<T> are both tuple2<T, bool>*%
-#define RESULT(T) tuple2<T, bool>*%
-#define SOME(o) t(o, false)
-#define NONE(o) t(o, true)
 
 //////////////////////////////
 // span
@@ -2195,11 +2230,11 @@ impl list <T>
         memset(&default_value, 0, sizeof(T));
         return default_value;
     }
-    neo_option<T>*% operator_load_element_optional(list<T>* self, int position) {
+    Result<T>*% operator_load_element_optional(list<T>* self, int position) {
         using unsafe;
 
         if(self == null) {
-            return new neo_option<T>.None();
+            return new Result<T>.None();
         }
 
         if(position < 0) {
@@ -2211,15 +2246,15 @@ impl list <T>
         while(it != null) {
             if(position == i) {
                 if(isheap(T)) {
-                    return new neo_option<T>.Some(gc_inc(it.item));
+                    return new Result<T>.Some(gc_inc(it.item));
                 }
-                return new neo_option<T>.Some(it.item);
+                return new Result<T>.Some(it.item);
             }
             it = it.next;
             i++;
         };
 
-        return new neo_option<T>.None();
+        return new Result<T>.None();
     }
     list<T>*% operator_load_range_element(list<T>* self, int begin, int tail) {
         list<T>*% result = new list<T>.initialize();
@@ -3203,11 +3238,11 @@ impl vector<T>
         
         return self.item(position, default_value);
     }
-    neo_option<T>*% operator_load_element_optional(vector<T>* self, int position) {
+    Result<T>*% operator_load_element_optional(vector<T>* self, int position) {
         using unsafe;
 
         if(self == null) {
-            return new neo_option<T>.None();
+            return new Result<T>.None();
         }
 
         if(position < 0) {
@@ -3216,12 +3251,12 @@ impl vector<T>
 
         if(position >= 0 && position < self.len) {
             if(isheap(T)) {
-                return new neo_option<T>.Some(gc_inc(self.items[position]));
+                return new Result<T>.Some(gc_inc(self.items[position]));
             }
-            return new neo_option<T>.Some(self.items[position]);
+            return new Result<T>.Some(self.items[position]);
         }
 
-        return new neo_option<T>.None();
+        return new Result<T>.None();
     }
     vector<T>*% operator_load_range_element(vector<T>* self, int begin, int tail) {
         vector<T>*% result = new vector<T>.initialize();
@@ -4154,11 +4189,11 @@ impl map <T, T2>
 
         return default_value;
     }
-    neo_option<T2>*% operator_load_element_optional(map<T, T2>* self, T^ key) {
+    Result<T2>*% operator_load_element_optional(map<T, T2>* self, T^ key) {
         using unsafe;
 
         if(self == null) {
-            return new neo_option<T2>.None();
+            return new Result<T2>.None();
         }
 
         unsigned int key_hash = ((T)key).get_hash_key();
@@ -4171,24 +4206,24 @@ impl map <T, T2>
                 if(self.hashes[it] == key_hash && self.keys\[it].equals(key))
                 {
                     if(isheap(T2)) {
-                        return new neo_option<T2>.Some(gc_inc(self.items\[it]));
+                        return new Result<T2>.Some(gc_inc(self.items\[it]));
                     }
-                    return new neo_option<T2>.Some(self.items\[it]);
+                    return new Result<T2>.Some(self.items\[it]);
                 }
 
                 if(++it >= self.size) {
                     it = 0;
                 }
                 if(it == hash) {
-                    return new neo_option<T2>.None();
+                    return new Result<T2>.None();
                 }
             }
             else {
-                return new neo_option<T2>.None();
+                return new Result<T2>.None();
             }
         }
 
-        return new neo_option<T2>.None();
+        return new Result<T2>.None();
     }
     
     void operator_store_element(map<T, T2>* self, T key, T2 item) {
@@ -4623,47 +4658,6 @@ impl tuple2 <T, T2>
     int count(tuple2<T, T2>* self)
     {
         return self.len();
-    }
-    bool is_ok(tuple2<T, T2>* self)
-    {
-        return self != null && self.v2 == false;
-    }
-    bool is_err(tuple2<T, T2>* self)
-    {
-        return !self.is_ok();
-    }
-    T unwrap_or(tuple2<T, T2>* self, T^ default_value) {
-        if(self.is_err()) {
-            return dummy_heap default_value;
-        }
-        
-        return dummy_heap self.v1;
-    }
-    T unwrap_or_default(tuple2<T, T2>* self) {
-        T default_value;
-        memset(&default_value, 0, sizeof(T));
-        
-        return self.unwrap_or(default_value);
-    }
-    T expect(tuple2<T, T2>* self, const char* message) {
-        if(self.is_err()) {
-            puts(message);
-            stackframe2(self);
-            exit(2);
-        }
-        
-        return dummy_heap self.v1;
-    }
-    
-    /// tuple2 is Result<T>
-    T unwrap(tuple2<T,T2>* self) {
-        if(self.is_err()) {
-            puts("exception");
-            stackframe2(self);
-            exit(2);
-        }
-        
-        return dummy_heap self.v1;
     }
 }
 

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.3
+version 1.0.3.5
 
 ## Small binaries
 
@@ -188,6 +188,8 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.5 Result<T> is now the standard Some/None payload enum result type. The old tuple2-based RESULT(T), SOME, and NONE macros are removed.
+1.0.3.4 optional collection access now uses Result<T> instead of neo_option<T>.
 1.0.3.3 list/vector/map [] can use .catch as optional access sugar: Some unwraps to the value, None runs the catch block and returns its result.
 1.0.3.2 list/vector/map [] can be matched as Some/None inside .case while normal [] access keeps the old zero-clear fallback.
 1.0.3.1 payload enum Result<T,E> works with ?? propagation. nested functions now report an error. STDC FENV_ACCESS pragma is preserved in generated C.
@@ -4081,10 +4083,10 @@ xassert("normal map fallback", ma[3] == 0);
 ```
 
 When the `[]` expression is used as the direct target of `.case`, neo-c uses an optional load instead.
-Found elements become `Some(value)`, and out-of-range indexes or missing keys become `None`.
+The value is `Result<T>`. Found elements become `Some(value)`, and out-of-range indexes or missing keys become `None`.
 
 `[]` 式を `.case` の直接の対象にした場合だけ、neo-cはoptional loadを使います。
-要素が見つかれば `Some(value)`、範囲外インデックスや存在しないキーなら `None` になります。
+値は `Result<T>` です。要素が見つかれば `Some(value)`、範囲外インデックスや存在しないキーなら `None` になります。
 
 ```C
 var li = [10,20,30];
@@ -4156,7 +4158,7 @@ xassert("none fallback", b == 123);
 
 - Applies to `list<T>`, `vector<T>`, and `map<K,V>`.
 - Normal `xs[index]` and `map[key]` access is unchanged and returns a zero-cleared value on failure.
-- Only a `[]` expression used directly as `.case` target returns `Some` or `None`.
+- Only a `[]` expression used directly as `.case` target returns `Result<T>` with `Some` or `None`.
 - A `[]` expression used directly as `.catch` target also uses optional load.
 - `.catch` requires the catch block to return a value.
 - `list` and `vector` keep negative index support in optional loads.
@@ -4164,26 +4166,26 @@ xassert("none fallback", b == 123);
 
 - 対象は `list<T>`, `vector<T>`, `map<K,V>` です。
 - 通常の `xs[index]` や `map[key]` は変更されず、失敗時は0クリア値を返します。
-- `.case` の直接の対象になった `[]` 式だけが `Some` / `None` を返します。
+- `.case` の直接の対象になった `[]` 式だけが `Some` / `None` を持つ `Result<T>` を返します。
 - `.catch` の直接の対象になった `[]` 式もoptional loadを使います。
 - `.catch` のブロックは値を返す必要があります。
 - optional loadでも `list` と `vector` の負インデックスは使えます。
 - heap payloadはpayload enumの所有権規則に従います。
 
-# RESULT(T)
+# Result<T>
 
 ```
 #include <neo-c.h>
 
-FILE*, bool xfopen(const char* file_name, const char* mode)
+Result<FILE*>*% xfopen(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
 
     if(f == NULL) {
-        return t(f, true);
+        return new Result<FILE*>.None();
     }
 
-    return t(f, false);
+    return new Result<FILE*>.Some(f);
 }
 
 int main(int argc, char** argv)
@@ -4198,47 +4200,49 @@ int main(int argc, char** argv)
 }
 ```
 
-tuple2<T,bool> can be used like Reult(T)
+`Result<T>` is the standard result type. It is a payload enum with `Some(T)` and `None`.
 
-`.catch { ... }` handles the error branch. If you want to ignore the error and continue, assign a default value to `Value.v1` inside the catch block.
+`Result<T>` が標準のresult型です。`Some(T)` と `None` を持つpayload enumです。
 
-`.catch { ... }` はエラー側を処理します。エラーを無視して処理を続けたい場合は、catchブロック内で `Value.v1` にデフォルト値を代入します。
+`.catch { ... }` handles the `None` branch and returns the block result. If the value is `Some`, `.catch` unwraps and returns the payload without running the block.
+
+`.catch { ... }` は `None` 側を処理し、ブロックの結果を返します。値が `Some` ならブロックを実行せずpayloadを取り出して返します。
 
 ```C
 #include <neo-c.h>
 
-RESULT(int) get_int(bool ok)
+Result<int>*% get_int(bool ok)
 {
     if(ok) {
-        return SOME(10);
+        return new Result<int>.Some(10);
     }
 
-    return NONE(0);
+    return new Result<int>.None();
 }
 
 int ignore_error(bool ok)
 {
     int n = get_int(ok).catch {
-        Value.v1 = 77;
+        77
     };
 
     return n + 1;
 }
 ```
 
-`result??` is also available for propagation. It unwraps the `Ok` value and returns an error result from the current function when `v2 == true`.
+`result??` is also available for propagation. It unwraps the `Some` value and returns `None` from the current function when the source is `None`.
 It uses `??` instead of `?` to avoid ambiguity with the conditional operator.
 
-`result??` による伝播も使えます。`v2 == true` なら現在の関数からエラー結果を返し、そうでなければ `Ok` 側の値を取り出します。
+`result??` による伝播も使えます。元の値が `None` なら現在の関数から `None` を返し、`Some` ならpayloadを取り出します。
 条件演算子との曖昧さを避けるため、`?` ではなく `??` にしています。
 
 `??` is a postfix operator.
-You can use it only inside a function that returns `RESULT(T)`.
+You can use it only inside a function that returns `Result<T>*%`.
 When the source result is success, `expr??` becomes the unwrapped value.
 When the source result is error, the current function returns an error result immediately.
 
 `??` は後置演算子です。
-`RESULT(T)` を返す関数の中で使えます。
+`Result<T>*%` を返す関数の中で使えます。
 成功時は `expr??` が中身の値になります。
 失敗時は現在の関数から直ちにエラー結果を返します。
 
@@ -4247,28 +4251,28 @@ Typical form:
 典型的な書き方:
 
 ```C
-RESULT(int) fun()
+Result<int>*% fun()
 {
     int value = may_fail()??;
-    return t(value + 1, false);
+    return new Result<int>.Some(value + 1);
 }
 ```
 
 ```C
 #include <neo-c.h>
 
-RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
+Result<FILE*>*% xfopen2(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
 
     if(f == NULL) {
-        return t(f, true);
+        return new Result<FILE*>.None();
     }
 
-    return t(f, false);
+    return new Result<FILE*>.Some(f);
 }
 
-RESULT(int) read_first_byte(const char* file_name)
+Result<int>*% read_first_byte(const char* file_name)
 {
     FILE* f = xfopen2(file_name, "r")??;
     int ch = fgetc(f);
@@ -4276,10 +4280,10 @@ RESULT(int) read_first_byte(const char* file_name)
     f.fclose();
     
     if(ch == EOF) {
-        return t(0, true);
+        return new Result<int>.None();
     }
     
-    return t(ch, false);
+    return new Result<int>.Some(ch);
 }
 ```
 
@@ -4290,30 +4294,30 @@ You can also chain multiple `??` calls.
 ```C
 #include <neo-c.h>
 
-RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
+Result<FILE*>*% xfopen2(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
     
     if(f == NULL) {
-        return t(NULL, true);
+        return new Result<FILE*>.None();
     }
     
-    return t(f, false);
+    return new Result<FILE*>.Some(f);
 }
 
-RESULT(char*) read_line2(FILE* f)
+Result<char*>*% read_line2(FILE* f)
 {
     char* buf = calloc(1, 128);
     
     if(fgets(buf, 128, f) == NULL) {
         free(buf);
-        return t(NULL, true);
+        return new Result<char*>.None();
     }
     
-    return t(buf, false);
+    return new Result<char*>.Some(buf);
 }
 
-RESULT(int) read_line_len(const char* file_name)
+Result<int>*% read_line_len(const char* file_name)
 {
     FILE* f = xfopen2(file_name, "r")??;
     char* line = read_line2(f)??;
@@ -4323,58 +4327,7 @@ RESULT(int) read_line_len(const char* file_name)
     free(line);
     fclose(f);
     
-    return t(len, false);
-}
-```
-
-You can write it either way.
-
-どちらの書き方でも使えます。
-
-```
-#include <neo-c.h>
-
-RESULT(FILE*) xfopen(const char* file_name, const char* mode)
-{
-    FILE* f = fopen(file_name, mode);
-    
-    if(f == NULL) {
-        return NONE(f);
-    }
-    
-    return SOME(f);
-}
-
-int main(int argc, char** argv)
-{
-    xfopen("01main.nc", mode:"r")!.fclose();
-    xfopen("1main.nc", mode:"r").catch {
-        puts("ERR");
-        return 1;
-    }.fclose();
-    
-    return 0;
-}
-```
-
-```
-#include <neo-c.h>
-
-RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
-{
-    FILE* f = fopen(file_name, mode);
-    
-    if(f == NULL) {
-        return NONE(f);
-    }
-    
-    return SOME(f);
-}
-
-int main(int argc, char** argv)
-{
-    xfopen2("01main.nc", mode:"r")!.fclose();
-    return 0;
+    return new Result<int>.Some(len);
 }
 ```
 

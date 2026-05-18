@@ -5,22 +5,21 @@ typedef struct Point {
     int y;
 } Point;
 
-RESULT(Point) make_point(bool ok)
+Result<Point>*% make_point(bool ok)
 {
     if(ok) {
         Point p = { .x = 10, .y = 32 };
-        return t(p, false);
+        return new Result<Point>.Some(p);
     }
-    
-    Point p = { .x = 0, .y = 0 };
-    return t(p, true);
+
+    return new Result<Point>.None();
 }
 
-RESULT(int) point_sum_plus_one(bool ok)
+Result<int>*% point_sum_plus_one(bool ok)
 {
     Point p = make_point(ok)??;
-    
-    return t(p.x + p.y + 1, false);
+
+    return new Result<int>.Some(p.x + p.y + 1);
 }
 
 int main()

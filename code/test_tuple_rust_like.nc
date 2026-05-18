@@ -28,9 +28,9 @@ void test_tuple_len_count()
 
 void test_result_methods()
 {
-    RESULT(int) ok = SOME(42);
-    RESULT(int) err = NONE(0);
-    
+    Result<int>*% ok = new Result<int>.Some(42);
+    Result<int>*% err = new Result<int>.None();
+
     xassert("result is_ok", ok.is_ok() == true && ok.is_err() == false);
     xassert("result is_err", err.is_ok() == false && err.is_err() == true);
     xassert("result unwrap_or ok", ok.unwrap_or(7) == 42);

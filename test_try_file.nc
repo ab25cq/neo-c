@@ -1,28 +1,28 @@
 #include <neo-c.h>
 
-RESULT(FILE*) xfopen2(const char* file_name, const char* mode)
+Result<FILE*>*% xfopen2(const char* file_name, const char* mode)
 {
     FILE* f = fopen(file_name, mode);
-    
+
     if(f == NULL) {
-        return t(f, true);
+        return new Result<FILE*>.None();
     }
-    
-    return t(f, false);
+
+    return new Result<FILE*>.Some(f);
 }
 
-RESULT(int) read_first_byte(const char* file_name)
+Result<int>*% read_first_byte(const char* file_name)
 {
     FILE* f = xfopen2(file_name, "r")??;
     int ch = fgetc(f);
-    
+
     f.fclose();
-    
+
     if(ch == EOF) {
-        return t(0, true);
+        return new Result<int>.None();
     }
-    
-    return t(ch, false);
+
+    return new Result<int>.Some(ch);
 }
 
 int main()
