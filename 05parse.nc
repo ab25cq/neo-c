@@ -805,6 +805,10 @@ void parse_sharp(sInfo* info=info) version 5
                 if(pragma_line.index("pack(", -1) != -1) {
                     apply_pack_pragma_state(pragma_line, info);
                 }
+                else if(pragma_line.index("STDC", -1) != -1 && pragma_line.index("FENV_ACCESS", -1) != -1) {
+                    static int preserved_pragma_id = 0;
+                    info.c_include_definition.insert(xsprintf("__pragma_stdc_fenv_access%d", ++preserved_pragma_id), pragma_line.to_buffer());
+                }
                 skip_spaces_and_lf2();
             }
             else if(parsecmp("line")) {

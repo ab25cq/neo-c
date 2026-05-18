@@ -13,7 +13,6 @@ Run an individual sample, e.g.:
 ```
 ./code/bin/attrs
 ./code/bin/statement_expr
-./code/bin/nested_functions
 ./code/bin/labels_as_values
 ./code/bin/vector_types
 ./code/bin/builtins

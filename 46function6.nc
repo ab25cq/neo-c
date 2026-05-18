@@ -20,33 +20,6 @@ class sSemicolonNode extends sNodeBase
     }
 };
 
-class sRawCodeNode extends sNodeBase
-{
-    new(string code, sInfo* info=info)
-    {
-        self.super();
-        string self.mCode = string(code);
-    }
-    
-    bool terminated()
-    {
-        return true;
-    }
-    
-    string kind()
-    {
-        return string("sRawCodeNode");
-    }
-    
-    bool compile(sInfo* info)
-    {
-        add_come_code(info, "%s\n", self.mCode);
-        
-        return true;
-    }
-};
-
-
 sNode*% create_fun_node(sFun*% fun, sInfo* info=info)
 {
     return new sFunNode(fun, info) implements sNode;
@@ -94,7 +67,6 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
             
             sNode*% node = null;
             if(in_function) {
-                sNode*% nested_fun = null;
                 char* head = info->p;
                 int head_sline = info->sline;
                 string head_sname = string(info->sname);
@@ -121,28 +93,19 @@ sBlock*% parse_block(sInfo* info=info, bool return_self_at_last=false, bool in_f
                             skip_spaces_and_lf();
                             
                             if(*info->p == '{') {
-                                string block = skip_block(info);
-                                char* tail = info->p;
-                                
-                                buffer*% buf = new buffer();
-                                buf.append(head, tail - head);
-                                
-                                nested_fun = new sRawCodeNode(buf.to_string(), info) implements sNode;
+                                info.no_output_come_code = no_output_come_code;
+                                err_msg(info, "nested functions are not supported");
+                                exit(2);
                             }
                         }
                         
                         info.no_output_come_code = no_output_come_code;
                     }
                 }
-                
-                if(nested_fun) {
-                    node = nested_fun;
-                }
-                else {
-                    info->p = head;
-                    info->sline = head_sline;
-                    info->sname = string(head_sname);
-                }
+
+                info->p = head;
+                info->sline = head_sline;
+                info->sname = string(head_sname);
             }
             
             if(node == null) {

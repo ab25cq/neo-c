@@ -657,6 +657,16 @@ static sType*% get_result_value_type(sType* type, sInfo* info=info)
         return null;
     }
     
+    if(type2->mClass->mName === "Result") {
+        if(type2->mGenericsTypes.length() != 2) {
+            return null;
+        }
+        
+        sType* first_type = borrow type2->mGenericsTypes[0];
+        
+        return clone first_type;
+    }
+    
     if(type2->mClass->mName !== "tuple2") {
         return null;
     }
@@ -681,6 +691,39 @@ static sType*% get_result_value_type(sType* type, sInfo* info=info)
     sType* first_type = borrow type2->mGenericsTypes[0];
     
     return clone first_type;
+}
+
+static sType*% get_result_error_type(sType* type, sInfo* info=info)
+{
+    if(type == null) {
+        return null;
+    }
+    
+    sType*% type2 = clone type;
+    if(type2->mNoSolvedGenericsType) {
+        type2 = clone type2->mNoSolvedGenericsType;
+    }
+    
+    if(type2->mClass == null || type2->mClass->mName == null) {
+        return null;
+    }
+    
+    if(type2->mClass->mName !== "Result") {
+        return null;
+    }
+    
+    if(type2->mGenericsTypes.length() != 2) {
+        return null;
+    }
+    
+    sType* second_type = borrow type2->mGenericsTypes[1];
+    
+    return clone second_type;
+}
+
+static bool is_payload_result_type(sType* type, sInfo* info=info)
+{
+    return get_result_error_type(type, info) != null;
 }
 
 static string create_zero_value_code(sType* type, sInfo* info=info)
@@ -795,6 +838,8 @@ class sTryOperatorNode extends sNodeBase
         }
         
         CVALUE*% node_value = get_value_from_stack(-1, info);
+        string pre_try_code = info.if_expression_buffer.to_string();
+        info.if_expression_buffer = new buffer();
         
         sType*% result_value_type = get_result_value_type(node_value.type, info);
         
@@ -831,26 +876,44 @@ class sTryOperatorNode extends sNodeBase
         add_come_code_at_function_head(info, "%s;\n", make_define_var(node_type, var_->mCValueName));
         
         bool no_output_come_code = info.no_output_come_code;
+        bool payload_result = is_payload_result_type(node_value.type, info);
+        bool function_payload_result = is_payload_result_type(function_result_type, info);
         
-        sNode*% error_node = load_field(create_load_var(var_name), s"v2");
-        info.no_output_come_code = true;
-        node_compile(error_node).elif {
-            info.no_output_come_code = no_output_come_code;
+        if(payload_result && !function_payload_result) {
+            err_msg(info, "?? requires Result<T,E> return type");
             info.if_expression_buffer = if_expression_buffer;
             return false;
         }
-        CVALUE*% error_value = get_value_from_stack(-1, info);
-        info.no_output_come_code = no_output_come_code;
-        
-        sNode*% success_node = load_field(create_load_var(var_name), s"v1");
-        info.no_output_come_code = true;
-        node_compile(success_node).elif {
-            info.no_output_come_code = no_output_come_code;
+        if(!payload_result && function_payload_result) {
+            err_msg(info, "?? cannot propagate RESULT(T) into Result<T,E>");
             info.if_expression_buffer = if_expression_buffer;
             return false;
         }
-        CVALUE*% success_value = get_value_from_stack(-1, info);
-        info.no_output_come_code = no_output_come_code;
+        
+        CVALUE*% error_value = null;
+        CVALUE*% success_value = null;
+        if(!payload_result) {
+            sNode*% error_node = load_field(create_load_var(var_name), s"v2");
+            sNode*% success_node = load_field(create_load_var(var_name), s"v1");
+            
+            info.no_output_come_code = true;
+            node_compile(error_node).elif {
+                info.no_output_come_code = no_output_come_code;
+                info.if_expression_buffer = if_expression_buffer;
+                return false;
+            }
+            error_value = get_value_from_stack(-1, info);
+            info.no_output_come_code = no_output_come_code;
+            
+            info.no_output_come_code = true;
+            node_compile(success_node).elif {
+                info.no_output_come_code = no_output_come_code;
+                info.if_expression_buffer = if_expression_buffer;
+                return false;
+            }
+            success_value = get_value_from_stack(-1, info);
+            info.no_output_come_code = no_output_come_code;
+        }
         
         string success_var_name = xsprintf("__try_result%d", n);
         sType*% success_type = clone result_value_type;
@@ -863,18 +926,59 @@ class sTryOperatorNode extends sNodeBase
         add_come_code_at_function_head(info, "%s;\n", make_define_var(success_type, success_var->mCValueName));
         add_come_code_at_function_head(info, "%s = %s;\n", success_var->mCValueName, create_zero_value_code(success_type, info));
         
+        sVar* error_var = null;
+        sType*% error_type = null;
+        string error_var_name = null;
+        if(payload_result) {
+            error_type = get_result_error_type(node_value.type, info);
+            error_type->mDefferRightValue = true;
+            error_var_name = xsprintf("__try_error%d", n);
+            
+            add_variable_to_table(error_var_name, clone error_type, info, false@function_param, false);
+            error_var = get_variable_from_table(info->lv_table, error_var_name);
+            
+            add_come_code_at_function_head(info, "%s;\n", make_define_var(error_type, error_var->mCValueName));
+            add_come_code_at_function_head(info, "%s = %s;\n", error_var->mCValueName, create_zero_value_code(error_type, info));
+        }
+        
         string result_var_name = string(var_->mCValueName);
-        string field_name = xsprintf("%s%sv1", result_var_name, node_type->mPointerNum > 0 ? "->" : ".");
+        char* member_op = node_type->mPointerNum > 0 ? "->" : ".";
+        string success_field_name = xsprintf("%s%s%s", result_var_name, member_op, payload_result ? "Ok_value" : "v1");
+        string error_field_name = payload_result ? xsprintf("%s%sErr_value", result_var_name, member_op) : null;
+        string error_condition_code = payload_result ? xsprintf("%s%stag == 2", result_var_name, member_op) : string(error_value.c_value);
+        string success_value_code = payload_result ? string(success_field_name) : string(success_value.c_value);
+        string error_payload_value_code = payload_result ? string(error_field_name) : null;
         
         add_come_code(info, "({");
+        add_come_code(info, "%s", pre_try_code);
         add_come_code(info, "%s=%s;\n", var_->mCValueName, node_value.c_value);
-        add_come_code(info, "if(%s) {\n", error_value.c_value);
+        add_come_code(info, "if(%s) {\n", error_condition_code);
         
-        list<tuple2<string, sNode*%>*%>*% tuple_elements = new list<tuple2<string, sNode*%>*%>();
-        tuple_elements.add(t((string)null, new sZeroValueNode(function_result_value_type, info) implements sNode));
-        tuple_elements.add(t((string)null, create_true_object(info)));
-        
-        sNode*% return_node = create_return_node(create_tuple_node(tuple_elements, info), info);
+        sNode*% return_node;
+        if(payload_result) {
+            add_come_code(info, "%s=%s;\n", error_var->mCValueName, error_payload_value_code);
+            add_come_code(info, "%s=%s;\n", error_field_name, create_zero_value_code(error_type, info));
+            add_come_code(info, "(%s = come_decrement_ref_count(%s, (void*)0, (void*)0, 0, 0, (void*)0, \"%s\", %d, %d));\n", result_var_name, result_var_name, info->sname, info->sline, ++info->id);
+            
+            sType*% result_object_type = clone function_result_type;
+            result_object_type->mPointerNum = 0;
+            result_object_type->mHeap = false;
+            result_object_type->mDefferRightValue = false;
+            
+            sNode*% obj = create_new_object(result_object_type);
+            list<tuple2<string, sNode*%>*%>*% params = new list<tuple2<string, sNode*%>*%>();
+            params.add(t((string)null, clone obj));
+            params.add(t((string)null, create_load_var(error_var_name)));
+            
+            return_node = create_return_node(create_method_call("Err", obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info), info);
+        }
+        else {
+            list<tuple2<string, sNode*%>*%>*% tuple_elements = new list<tuple2<string, sNode*%>*%>();
+            tuple_elements.add(t((string)null, new sZeroValueNode(function_result_value_type, info) implements sNode));
+            tuple_elements.add(t((string)null, create_true_object(info)));
+            
+            return_node = create_return_node(create_tuple_node(tuple_elements, info), info);
+        }
         
         bool last_statment_is_return = info.last_statment_is_return;
         bool inhibits_output_code = info.inhibits_output_code;
@@ -890,8 +994,8 @@ class sTryOperatorNode extends sNodeBase
         info.inhibits_output_code = inhibits_output_code;
         
         add_come_code(info, "}\n");
-        add_come_code(info, "%s=%s;\n", success_var->mCValueName, success_value.c_value);
-        add_come_code(info, "%s=%s;\n", field_name, create_zero_value_code(result_value_type, info));
+        add_come_code(info, "%s=%s;\n", success_var->mCValueName, success_value_code);
+        add_come_code(info, "%s=%s;\n", success_field_name, create_zero_value_code(result_value_type, info));
         add_come_code(info, "(%s = come_decrement_ref_count(%s, (void*)0, (void*)0, 0, 0, (void*)0, \"%s\", %d, %d));\n", result_var_name, result_var_name, info->sname, info->sline, ++info->id);
         var_->mCValueName = null;
         add_come_code(info, "%s;})", success_var->mCValueName);

@@ -2632,6 +2632,10 @@ static char*  list$1char$ph_item(struct list$1char$ph* self, int position, char*
 static struct list$1char$ph* list$1char$ph_delete(struct list$1char$ph* self, int head, int tail);
 static struct list$1char$ph* list$1char$ph_reset(struct list$1char$ph* self);
 void parse_sharp_v5(struct sInfo*  info  );
+static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2char$phbuffer$ph* self, char*  key  , struct buffer*  item  , _Bool by_pointer);
+static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self);
+static void map$2char$phbuffer$ph_remove_ordered_entry(struct map$2char$phbuffer$ph* self, char*  key  , _Bool by_pointer);
+static int map$2char$phbuffer$ph_key_position(struct map$2char$phbuffer$ph* self, char*  key  , _Bool by_pointer);
 void skip_paren(struct sInfo*  info  );
 // uniq global variable
 // inline function
@@ -4136,18 +4140,19 @@ void parse_sharp_v5(struct sInfo*  info  )
     void* __right_value0 = (void*)0;
     char* mem;
     char*  pragma_line  ;
+    void* __right_value1 = (void*)0;
     int line;
     char*  fname_str  ;
-    char* head_14;
-    int len_15;
-    char* mem_16;
+    char* head_15;
+    int len_16;
+    char* mem_17;
     char*  __dec_obj19  ;
     char*  __dec_obj20  ;
-    int line_17;
-    char*  fname_str_18  ;
-    char* head_19;
-    int len_20;
-    char* mem_21;
+    int line_18;
+    char*  fname_str_19  ;
+    char* head_20;
+    int len_21;
+    char* mem_22;
     char*  __dec_obj21  ;
     char*  __dec_obj22  ;
     memset(&head, 0, sizeof(head));
@@ -4156,14 +4161,14 @@ void parse_sharp_v5(struct sInfo*  info  )
     memset(&pragma_line, 0, sizeof(pragma_line));
     memset(&line, 0, sizeof(line));
     memset(&fname_str, 0, sizeof(fname_str));
-    memset(&head_14, 0, sizeof(head_14));
-    memset(&len_15, 0, sizeof(len_15));
-    memset(&mem_16, 0, sizeof(mem_16));
-    memset(&line_17, 0, sizeof(line_17));
-    memset(&fname_str_18, 0, sizeof(fname_str_18));
-    memset(&head_19, 0, sizeof(head_19));
-    memset(&len_20, 0, sizeof(len_20));
-    memset(&mem_21, 0, sizeof(mem_21));
+    memset(&head_15, 0, sizeof(head_15));
+    memset(&len_16, 0, sizeof(len_16));
+    memset(&mem_17, 0, sizeof(mem_17));
+    memset(&line_18, 0, sizeof(line_18));
+    memset(&fname_str_19, 0, sizeof(fname_str_19));
+    memset(&head_20, 0, sizeof(head_20));
+    memset(&len_21, 0, sizeof(len_21));
+    memset(&mem_22, 0, sizeof(mem_22));
     while(1) {
         if(*info->p==35) {
             info->p++;
@@ -4191,9 +4196,14 @@ void parse_sharp_v5(struct sInfo*  info  )
                 if(string_index(pragma_line,"pack(",-1)!=-1) {
                     apply_pack_pragma_state((char* )come_increment_ref_count(pragma_line, "05parse.nc", 806, 207),info);
                 }
+                else if(string_index(pragma_line,"STDC",-1)!=-1&&string_index(pragma_line,"FENV_ACCESS",-1)!=-1) {
+                    static int preserved_pragma_id=0;
+                    __right_value0 = (void*)0;
+                    map$2char$phbuffer$ph_insert(info->c_include_definition,(char* )come_increment_ref_count(xsprintf("__pragma_stdc_fenv_access%d",++preserved_pragma_id), "05parse.nc", 810, 229),(struct buffer* )come_increment_ref_count(charp_to_buffer(pragma_line), "05parse.nc", 810, 230),(_Bool)0);
+                }
                 skip_spaces_and_lf2(info);
-                (mem = come_decrement_ref_count(mem, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 944, 208));
-                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 944, 209));
+                (mem = come_decrement_ref_count(mem, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 948, 231));
+                (pragma_line = come_decrement_ref_count(pragma_line, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 948, 232));
             }
             else if(parsecmp("line",info)) {
                 info->p+=4;
@@ -4202,7 +4212,7 @@ void parse_sharp_v5(struct sInfo*  info  )
                 fname_str=((void*)0);
                 if(!(((unsigned char)(*info->p))>=48&&((unsigned char)(*info->p))<=57)) {
                     err_msg(info,"invalid #line directive");
-                                        (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 819, 210));
+                                        (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 823, 233));
                     neo_current_frame = fr.prev;
                     return;
                 }
@@ -4213,24 +4223,24 @@ void parse_sharp_v5(struct sInfo*  info  )
                 skip_spaces_and_tabs(info);
                 if(*info->p==34) {
                     info->p++;
-                    head_14=info->p;
+                    head_15=info->p;
                     while(*info->p&&*info->p!=34) {
                         info->p++;
                     }
                     if(*info->p==0) {
                         err_msg(info,"unterminated #line file name");
-                                                (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 837, 211));
+                                                (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 841, 234));
                         neo_current_frame = fr.prev;
                         return;
                     }
-                    len_15=info->p-head_14;
+                    len_16=info->p-head_15;
                     __right_value0 = (void*)0;
-                    mem_16=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_15+1)), "05parse.nc", 840, 212, "char*"), "05parse.nc", 840, 213);
-                    memcpy(mem_16,head_14,len_15);
-                    mem_16[len_15]=0;
+                    mem_17=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_16+1)), "05parse.nc", 844, 235, "char*"), "05parse.nc", 844, 236);
+                    memcpy(mem_17,head_15,len_16);
+                    mem_17[len_16]=0;
                     __dec_obj19=fname_str,
-                    fname_str=(char*)come_increment_ref_count(mem_16, "05parse.nc", 843, 215);
-                    __dec_obj19 = come_decrement_ref_count(__dec_obj19, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 843, 214);
+                    fname_str=(char*)come_increment_ref_count(mem_17, "05parse.nc", 847, 238);
+                    __dec_obj19 = come_decrement_ref_count(__dec_obj19, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 847, 237);
                     info->p++;
                     while(*info->p&&*info->p!=10) {
                         info->p++;
@@ -4239,7 +4249,7 @@ void parse_sharp_v5(struct sInfo*  info  )
                         info->p++;
                         info->sline_real++;
                     }
-                    (mem_16 = come_decrement_ref_count(mem_16, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 855, 216));
+                    (mem_17 = come_decrement_ref_count(mem_17, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 859, 239));
                 }
                 if(line>0) {
                     info->sline=line;
@@ -4251,40 +4261,40 @@ void parse_sharp_v5(struct sInfo*  info  )
                 }
                 if(fname_str&&string_length(fname_str)>0) {
                     __dec_obj20=info->sname,
-                    info->sname=(char* )come_increment_ref_count(fname_str, "05parse.nc", 865, 218);
-                    __dec_obj20 = come_decrement_ref_count(__dec_obj20, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 865, 217);
+                    info->sname=(char* )come_increment_ref_count(fname_str, "05parse.nc", 869, 241);
+                    __dec_obj20 = come_decrement_ref_count(__dec_obj20, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 869, 240);
                 }
                 skip_spaces_and_tabs(info);
-                (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 944, 219));
+                (fname_str = come_decrement_ref_count(fname_str, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 948, 242));
             }
             else if((((unsigned char)(*info->p))>=48&&((unsigned char)(*info->p))<=57)) {
-                line_17=0;
-                fname_str_18=((void*)0);
+                line_18=0;
+                fname_str_19=((void*)0);
                 while((((unsigned char)(*info->p))>=48&&((unsigned char)(*info->p))<=57)) {
-                    line_17=line_17*10+(*info->p-48);
+                    line_18=line_18*10+(*info->p-48);
                     info->p++;
                 }
                 skip_spaces_and_tabs(info);
                 if(*info->p==34) {
                     info->p++;
-                    head_19=info->p;
+                    head_20=info->p;
                     while(*info->p&&*info->p!=34) {
                         info->p++;
                     }
                     if(*info->p==0) {
                         err_msg(info,"unterminated #line file name");
-                                                (fname_str_18 = come_decrement_ref_count(fname_str_18, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 889, 220));
+                                                (fname_str_19 = come_decrement_ref_count(fname_str_19, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 893, 243));
                         neo_current_frame = fr.prev;
                         return;
                     }
-                    len_20=info->p-head_19;
+                    len_21=info->p-head_20;
                     __right_value0 = (void*)0;
-                    mem_21=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_20+1)), "05parse.nc", 892, 221, "char*"), "05parse.nc", 892, 222);
-                    memcpy(mem_21,head_19,len_20);
-                    mem_21[len_20]=0;
-                    __dec_obj21=fname_str_18,
-                    fname_str_18=(char*)come_increment_ref_count(mem_21, "05parse.nc", 895, 224);
-                    __dec_obj21 = come_decrement_ref_count(__dec_obj21, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 895, 223);
+                    mem_22=(char*)come_increment_ref_count((char*)come_calloc(1, sizeof(char)*(1*(len_21+1)), "05parse.nc", 896, 244, "char*"), "05parse.nc", 896, 245);
+                    memcpy(mem_22,head_20,len_21);
+                    mem_22[len_21]=0;
+                    __dec_obj21=fname_str_19,
+                    fname_str_19=(char*)come_increment_ref_count(mem_22, "05parse.nc", 899, 247);
+                    __dec_obj21 = come_decrement_ref_count(__dec_obj21, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 899, 246);
                     info->p++;
                     while(*info->p&&*info->p!=10) {
                         info->p++;
@@ -4293,17 +4303,17 @@ void parse_sharp_v5(struct sInfo*  info  )
                         info->p++;
                         info->sline_real++;
                     }
-                    (mem_21 = come_decrement_ref_count(mem_21, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 913, 225));
+                    (mem_22 = come_decrement_ref_count(mem_22, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 917, 248));
                 }
-                info->sline=line_17;
-                info->sline_real=line_17;
-                if(fname_str_18&&string_length(fname_str_18)>0) {
+                info->sline=line_18;
+                info->sline_real=line_18;
+                if(fname_str_19&&string_length(fname_str_19)>0) {
                     __dec_obj22=info->sname,
-                    info->sname=(char* )come_increment_ref_count(fname_str_18, "05parse.nc", 918, 227);
-                    __dec_obj22 = come_decrement_ref_count(__dec_obj22, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 918, 226);
+                    info->sname=(char* )come_increment_ref_count(fname_str_19, "05parse.nc", 922, 250);
+                    __dec_obj22 = come_decrement_ref_count(__dec_obj22, (void*)0, (void*)0, 0,0, (void*)0, "05parse.nc", 922, 249);
                 }
                 skip_spaces_and_tabs(info);
-                (fname_str_18 = come_decrement_ref_count(fname_str_18, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 944, 228));
+                (fname_str_19 = come_decrement_ref_count(fname_str_19, (void*)0, (void*)0, 0, 0, (void*)0, "05parse.nc", 948, 251));
             }
             else if(*info->p==34) {
                 info->p++;
@@ -4337,6 +4347,214 @@ void parse_sharp_v5(struct sInfo*  info  )
         }
     }
     neo_current_frame = fr.prev;
+}
+
+static struct map$2char$phbuffer$ph* map$2char$phbuffer$ph_insert(struct map$2char$phbuffer$ph* self, char*  key  , struct buffer*  item  , _Bool by_pointer)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phbuffer$ph_insert"; fr.frame_id = ++neo_frame_id; neo_current_frame = &fr;
+    struct map$2char$phbuffer$ph* __result_obj__0;
+    _Bool add_to_key_list;
+    unsigned int key_hash;
+    unsigned int hash;
+    unsigned int it;
+    memset(&add_to_key_list, 0, sizeof(add_to_key_list));
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&it, 0, sizeof(it));
+    if(self==((void*)0)) {
+                __result_obj__0 = self;
+        (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3916, 208));
+        come_call_finalizer(buffer_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3916, 209);
+        neo_current_frame = fr.prev;
+        return __result_obj__0;
+    }
+    if(self->len*10>=self->size) {
+        map$2char$phbuffer$ph_rehash(self);
+    }
+    add_to_key_list=(_Bool)0;
+    key_hash=string_get_hash_key(((char* )key));
+    hash=key_hash%self->size;
+    it=hash;
+    while((_Bool)1) {
+        if(self->item_existance[it]) {
+            if(self->hashes[it]==key_hash&&((!by_pointer&&string_equals(self->keys[it],key))||(by_pointer&&self->keys[it]==key))) {
+                map$2char$phbuffer$ph_remove_ordered_entry(self,self->keys[it],by_pointer);
+                if(1) {
+                    (self->keys[it] = come_decrement_ref_count(self->keys[it], (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3935, 220));
+                    self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 3936, 221);
+                }
+                else {
+                    self->keys[it]=key;
+                }
+                if(1) {
+                    come_call_finalizer(buffer_finalize, self->items[it], (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3942, 222);
+                    self->items[it]=(struct buffer* )come_increment_ref_count(item, "./neo-c.h", 3943, 223);
+                }
+                else {
+                    self->items[it]=item;
+                }
+                self->hashes[it]=key_hash;
+                add_to_key_list=(_Bool)1;
+                break;
+            }
+            if(++it>=self->size) {
+                it=0;
+            }
+            if(it==hash) {
+                printf("unexpected error in map.insert\n");
+                stackframe2(self);
+                exit(2);
+            }
+        }
+        else {
+            self->item_existance[it]=(_Bool)1;
+            self->hashes[it]=key_hash;
+            if(1) {
+                self->keys[it]=(char* )come_increment_ref_count(key, "./neo-c.h", 3966, 224);
+            }
+            else {
+                self->keys[it]=key;
+            }
+            if(1) {
+                self->items[it]=(struct buffer* )come_increment_ref_count(item, "./neo-c.h", 3972, 225);
+            }
+            else {
+                self->items[it]=item;
+            }
+            self->len++;
+            add_to_key_list=(_Bool)1;
+            break;
+        }
+    }
+    if(add_to_key_list) {
+        list$1char$ph_push_back(self->key_list,(char* )come_increment_ref_count(key, "./neo-c.h", 3986, 226));
+    }
+        __result_obj__0 = self;
+    (key = come_decrement_ref_count(key, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3989, 227));
+    come_call_finalizer(buffer_finalize, item, (void*)0, (void*)0, 0, 0, 0, (void*)0, "./neo-c.h}", 3989, 228);
+    neo_current_frame = fr.prev;
+    return __result_obj__0;
+}
+
+static void map$2char$phbuffer$ph_rehash(struct map$2char$phbuffer$ph* self)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phbuffer$ph_rehash"; fr.frame_id = ++neo_frame_id; neo_current_frame = &fr;
+    int old_size;
+    int size;
+    void* __right_value0 = (void*)0;
+    char**  keys  ;
+    struct buffer**  items  ;
+    unsigned int* hashes;
+    _Bool* item_existance;
+    int i;
+    int len;
+    int i_14;
+    unsigned int key_hash;
+    unsigned int hash;
+    int n;
+    memset(&old_size, 0, sizeof(old_size));
+    memset(&size, 0, sizeof(size));
+    memset(&keys, 0, sizeof(keys));
+    memset(&items, 0, sizeof(items));
+    memset(&hashes, 0, sizeof(hashes));
+    memset(&item_existance, 0, sizeof(item_existance));
+    memset(&i, 0, sizeof(i));
+    memset(&len, 0, sizeof(len));
+    memset(&i_14, 0, sizeof(i_14));
+    memset(&key_hash, 0, sizeof(key_hash));
+    memset(&hash, 0, sizeof(hash));
+    memset(&n, 0, sizeof(n));
+    old_size=self->size;
+    size=self->size*10;
+    keys=(char** )come_increment_ref_count(((char** )(__right_value0=(char* *)come_calloc(1, sizeof(char* )*(1*(size)), "./neo-c.h", 3834, 210, "char** "))), "./neo-c.h", 3834, 211);
+    __right_value0 = (void*)0;
+    items=(struct buffer** )come_increment_ref_count(((struct buffer** )(__right_value0=(struct buffer* *)come_calloc(1, sizeof(struct buffer* )*(1*(size)), "./neo-c.h", 3835, 212, "struct buffer** "))), "./neo-c.h", 3835, 213);
+    __right_value0 = (void*)0;
+    hashes=(unsigned int*)come_increment_ref_count(((unsigned int*)(__right_value0=(unsigned int*)come_calloc(1, sizeof(unsigned int)*(1*(size)), "./neo-c.h", 3836, 214, "unsigned int*"))), "./neo-c.h", 3836, 215);
+    __right_value0 = (void*)0;
+    item_existance=(_Bool*)come_increment_ref_count(((_Bool*)(__right_value0=(_Bool*)come_calloc(1, sizeof(_Bool)*(1*(size)), "./neo-c.h", 3837, 216, "_Bool*"))), "./neo-c.h", 3837, 217);
+    for(i=0    ;i<size;i++){
+        hashes[i]=0;
+        item_existance[i]=(_Bool)0;
+    }
+    len=0;
+    for(i_14=0    ;i_14<old_size;i_14++){
+        if(!self->item_existance[i_14]) {
+            continue;
+        }
+        key_hash=self->hashes[i_14];
+        hash=key_hash%size;
+        n=hash;
+        while((_Bool)1) {
+            if(item_existance[n]) {
+                if(++n>=size) {
+                    n=0;
+                }
+                if(n==hash) {
+                    printf("unexpected error in map.rehash(1)\n");
+                    stackframe2(self);
+                    exit(2);
+                }
+            }
+            else {
+                item_existance[n]=(_Bool)1;
+                hashes[n]=key_hash;
+                keys[n]=self->keys[i_14];
+                items[n]=self->items[i_14];
+                len++;
+                break;
+            }
+        }
+    }
+    come_free((char*)self->items);
+    (self->hashes = come_decrement_ref_count(self->hashes, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3879, 218));
+    (self->item_existance = come_decrement_ref_count(self->item_existance, (void*)0, (void*)0, 0, 0, (void*)0, "./neo-c.h", 3880, 219));
+    come_free((char*)self->keys);
+    self->keys=keys;
+    self->items=items;
+    self->hashes=hashes;
+    self->item_existance=item_existance;
+    self->size=size;
+    self->len=len;
+            neo_current_frame = fr.prev;
+}
+
+static void map$2char$phbuffer$ph_remove_ordered_entry(struct map$2char$phbuffer$ph* self, char*  key  , _Bool by_pointer)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phbuffer$ph_remove_ordered_entry"; fr.frame_id = ++neo_frame_id; neo_current_frame = &fr;
+    int pos;
+    memset(&pos, 0, sizeof(pos));
+    pos=map$2char$phbuffer$ph_key_position(self,key,by_pointer);
+    if(pos>=0) {
+        list$1char$ph_delete(self->key_list,pos,pos+1);
+    }
+                    neo_current_frame = fr.prev;
+}
+
+static int map$2char$phbuffer$ph_key_position(struct map$2char$phbuffer$ph* self, char*  key  , _Bool by_pointer)
+{
+    struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "map$2char$phbuffer$ph_key_position"; fr.frame_id = ++neo_frame_id; neo_current_frame = &fr;
+    int pos;
+    struct list_item$1char$ph* it;
+    memset(&pos, 0, sizeof(pos));
+    memset(&it, 0, sizeof(it));
+    if(self==((void*)0)) {
+                neo_current_frame = fr.prev;
+        return -1;
+    }
+    pos=0;
+    it=self->key_list->head;
+    while(it!=((void*)0)) {
+        if((!by_pointer&&string_equals(it->item,key))||(by_pointer&&it->item==key)) {
+                        neo_current_frame = fr.prev;
+            return pos;
+        }
+        it=it->next;
+        pos++;
+    }
+        neo_current_frame = fr.prev;
+    return -1;
+        neo_current_frame = fr.prev;
 }
 
 void skip_paren(struct sInfo*  info  )

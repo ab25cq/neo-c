@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.0
+version 1.0.3.1
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.1 payload enum Result<T,E> works with ?? propagation. nested functions now report an error. STDC FENV_ACCESS pragma is preserved in generated C.
 1.0.3.0 Makefile strips the built ncc binary by default.
 1.0.2.9 neo-c driver strips linked output executables by default.
 1.0.2.8 document stripped small binary sizes for dynamic and static libc examples.
