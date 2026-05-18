@@ -655,6 +655,7 @@ struct sInfo
     
     sType*% iter_type;
     int id;
+    bool in_case_optional_load;
 };
 
 uniq class sNodeBase

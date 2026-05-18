@@ -1206,10 +1206,17 @@ class sLoadArrayNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
+        bool optional_load = info.in_case_optional_load;
+        if(optional_load) {
+            info.in_case_optional_load = false;
+        }
         sNode*% left = create_heap_checker(self.mLeft);
         list<sNode*%>*% array_num_nodes = self.mArrayNum;
         
         node_compile(left).elif {
+            if(optional_load) {
+                info.in_case_optional_load = true;
+            }
             return false;
         }
         
@@ -1221,6 +1228,9 @@ class sLoadArrayNode extends sNodeBase
         
         foreach(it, array_num_nodes) {
             node_compile(it).elif {
+                if(optional_load) {
+                    info.in_case_optional_load = true;
+                }
                 return false;
             }
             
@@ -1231,7 +1241,7 @@ class sLoadArrayNode extends sNodeBase
         
         sType*% type = clone left_value.type;
         
-        const char* fun_name = "operator_load_element";
+        const char* fun_name = optional_load ? "operator_load_element_optional" : "operator_load_element";
         bool calling_fun;
         if(self.mQuote) {
             calling_fun = false;
@@ -1350,6 +1360,9 @@ class sLoadArrayNode extends sNodeBase
             info.stack.push_back(come_value);
             
             add_come_last_code(info, "%s", come_value.c_value);
+        }
+        if(optional_load) {
+            info.in_case_optional_load = true;
         }
     
         return true;

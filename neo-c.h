@@ -877,6 +877,11 @@ impl ref<T>
 //////////////////////////////
 // optional
 //////////////////////////////
+enum neo_option<T> {
+    Some(T),
+    None,
+};
+
 struct optional<T>
 {
     T p;   // owned
@@ -2190,6 +2195,32 @@ impl list <T>
         memset(&default_value, 0, sizeof(T));
         return default_value;
     }
+    neo_option<T>*% operator_load_element_optional(list<T>* self, int position) {
+        using unsafe;
+
+        if(self == null) {
+            return new neo_option<T>.None();
+        }
+
+        if(position < 0) {
+            position += self.len;
+        }
+
+        list_item<T>* it = self.head;
+        var i = 0;
+        while(it != null) {
+            if(position == i) {
+                if(isheap(T)) {
+                    return new neo_option<T>.Some(gc_inc(it.item));
+                }
+                return new neo_option<T>.Some(it.item);
+            }
+            it = it.next;
+            i++;
+        };
+
+        return new neo_option<T>.None();
+    }
     list<T>*% operator_load_range_element(list<T>* self, int begin, int tail) {
         list<T>*% result = new list<T>.initialize();
         
@@ -3172,6 +3203,26 @@ impl vector<T>
         
         return self.item(position, default_value);
     }
+    neo_option<T>*% operator_load_element_optional(vector<T>* self, int position) {
+        using unsafe;
+
+        if(self == null) {
+            return new neo_option<T>.None();
+        }
+
+        if(position < 0) {
+            position += self.len;
+        }
+
+        if(position >= 0 && position < self.len) {
+            if(isheap(T)) {
+                return new neo_option<T>.Some(gc_inc(self.items[position]));
+            }
+            return new neo_option<T>.Some(self.items[position]);
+        }
+
+        return new neo_option<T>.None();
+    }
     vector<T>*% operator_load_range_element(vector<T>* self, int begin, int tail) {
         vector<T>*% result = new vector<T>.initialize();
         
@@ -4102,6 +4153,42 @@ impl map <T, T2>
         }
 
         return default_value;
+    }
+    neo_option<T2>*% operator_load_element_optional(map<T, T2>* self, T^ key) {
+        using unsafe;
+
+        if(self == null) {
+            return new neo_option<T2>.None();
+        }
+
+        unsigned int key_hash = ((T)key).get_hash_key();
+        unsigned int hash = key_hash % self.size;
+        unsigned int it = hash;
+
+        while(true) {
+            if(self.item_existance[it])
+            {
+                if(self.hashes[it] == key_hash && self.keys\[it].equals(key))
+                {
+                    if(isheap(T2)) {
+                        return new neo_option<T2>.Some(gc_inc(self.items\[it]));
+                    }
+                    return new neo_option<T2>.Some(self.items\[it]);
+                }
+
+                if(++it >= self.size) {
+                    it = 0;
+                }
+                if(it == hash) {
+                    return new neo_option<T2>.None();
+                }
+            }
+            else {
+                return new neo_option<T2>.None();
+            }
+        }
+
+        return new neo_option<T2>.None();
     }
     
     void operator_store_element(map<T, T2>* self, T key, T2 item) {

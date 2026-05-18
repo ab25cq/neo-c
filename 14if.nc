@@ -144,12 +144,13 @@ class sIfNode extends sNodeBase
 
 class sMatchNode extends sNodeBase
 {
-    new(sNode*% it_node, sNode*% match_node, sInfo* info)
+    new(sNode*% it_node, sNode*% match_node, sInfo* info, bool optional_load=false)
     {
         self.super();
     
         sNode*% self.it_node = clone it_node;
         sNode*% self.match_node = clone match_node;
+        bool self.optional_load = optional_load;
     }
     
     bool terminated()
@@ -166,10 +167,15 @@ class sMatchNode extends sNodeBase
     {
         sNode*% it_node = self.it_node;
         sNode*% match_node = self.match_node;
+        bool optional_load = self.optional_load;
         
+        bool in_case_optional_load = info.in_case_optional_load;
+        info.in_case_optional_load = optional_load;
         node_compile(it_node, info).elif {
+            info.in_case_optional_load = in_case_optional_load;
             return false;
         }
+        info.in_case_optional_load = in_case_optional_load;
         
         CVALUE*% come_value = get_value_from_stack(-1, info);
         add_come_code(info, "%s;\n", come_value.c_value);
@@ -514,7 +520,8 @@ sNode*% parse_match(sNode*% expression_node, sInfo* info)
     }
     
     sNode*% if_node = new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
-    sNode*% result = new sMatchNode(it_node, if_node, info) implements sNode;
+    bool optional_load = expression_node.kind() === "sLoadArrayNode";
+    sNode*% result = new sMatchNode(it_node, if_node, info, optional_load) implements sNode;
     
     return result;
 }
