@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.2
+version 1.0.3.3
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.3 list/vector/map [] can use .catch as optional access sugar: Some unwraps to the value, None runs the catch block and returns its result.
 1.0.3.2 list/vector/map [] can be matched as Some/None inside .case while normal [] access keeps the old zero-clear fallback.
 1.0.3.1 payload enum Result<T,E> works with ?? propagation. nested functions now report an error. STDC FENV_ACCESS pragma is preserved in generated C.
 1.0.3.0 Makefile strips the built ncc binary by default.
@@ -4129,17 +4130,43 @@ ma[3].case {
 }
 ```
 
+`.catch { ... }` is available as sugar for the common fallback case.
+For `Some(value)`, `.catch` returns `value` and does not run the block.
+For `None`, `.catch` runs the block and returns the block result.
+
+`.catch { ... }` はよく使うfallback用の糖衣構文です。
+`Some(value)` ならブロックを実行せずに `value` を返します。
+`None` ならブロックを実行し、ブロックの戻り値を返します。
+
+```C
+var li = [10,20,30];
+
+int a = li[2].catch {
+    999
+};
+xassert("some unwrap", a == 30);
+
+int b = li[100].catch {
+    123
+};
+xassert("none fallback", b == 123);
+```
+
 ## Specification
 
 - Applies to `list<T>`, `vector<T>`, and `map<K,V>`.
 - Normal `xs[index]` and `map[key]` access is unchanged and returns a zero-cleared value on failure.
 - Only a `[]` expression used directly as `.case` target returns `Some` or `None`.
+- A `[]` expression used directly as `.catch` target also uses optional load.
+- `.catch` requires the catch block to return a value.
 - `list` and `vector` keep negative index support in optional loads.
 - Heap payloads follow payload enum ownership rules.
 
 - 対象は `list<T>`, `vector<T>`, `map<K,V>` です。
 - 通常の `xs[index]` や `map[key]` は変更されず、失敗時は0クリア値を返します。
 - `.case` の直接の対象になった `[]` 式だけが `Some` / `None` を返します。
+- `.catch` の直接の対象になった `[]` 式もoptional loadを使います。
+- `.catch` のブロックは値を返す必要があります。
 - optional loadでも `list` と `vector` の負インデックスは使えます。
 - heap payloadはpayload enumの所有権規則に従います。
 

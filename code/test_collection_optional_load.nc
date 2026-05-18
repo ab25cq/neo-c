@@ -28,7 +28,20 @@ int main(int argc, char** argv)
         }
     }
     xassert("list case none", list_none);
-    
+
+    bool list_catch_ran = false;
+    int list_catch_some = li[2].catch {
+        list_catch_ran = true;
+        999
+    };
+    xassert("list catch some unwraps", !list_catch_ran && list_catch_some == 30);
+
+    int list_catch_none = li[100].catch {
+        list_catch_ran = true;
+        123
+    };
+    xassert("list catch none returns block", list_catch_ran && list_catch_none == 123);
+
     var vec = [1,2,3].to_vector();
     xassert("vector normal out of range remains zero", vec[100] == 0);
     
@@ -55,7 +68,20 @@ int main(int argc, char** argv)
         }
     }
     xassert("vector case none", vector_none);
-    
+
+    bool vector_catch_ran = false;
+    int vector_catch_some = vec[-1].catch {
+        vector_catch_ran = true;
+        999
+    };
+    xassert("vector catch some unwraps", !vector_catch_ran && vector_catch_some == 3);
+
+    int vector_catch_none = vec[100].catch {
+        vector_catch_ran = true;
+        456
+    };
+    xassert("vector catch none returns block", vector_catch_ran && vector_catch_none == 456);
+
     var ma = [1:10, 2:20];
     xassert("map normal missing key remains zero", ma[3] == 0);
     
@@ -82,7 +108,20 @@ int main(int argc, char** argv)
         }
     }
     xassert("map case none", map_none);
-    
+
+    bool map_catch_ran = false;
+    int map_catch_some = ma[1].catch {
+        map_catch_ran = true;
+        999
+    };
+    xassert("map catch some unwraps", !map_catch_ran && map_catch_some == 10);
+
+    int map_catch_none = ma[3].catch {
+        map_catch_ran = true;
+        789
+    };
+    xassert("map catch none returns block", map_catch_ran && map_catch_none == 789);
+
     var words = [s"neo", s"c"];
     bool string_some = false;
     words[0].case {
