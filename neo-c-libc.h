@@ -1,5 +1,5 @@
-#ifdef NEO_C_LIBC_H
-#define NEO_C_LIB_H
+#ifndef NEO_C_LIBC_H
+#define NEO_C_LIBC_H
 
 #include <stdint.h>
 #include <stdarg.h>
@@ -51,39 +51,100 @@ uniq void __append_str(char **p, unsigned long *rem, const char *s) {
 
 uniq int errno;
 
+#if defined(__linux__) && defined(__x86_64__)
+c_include {
+static long __neo_linux_syscall1(long n, long a1)
+{
+    long ret;
+    __asm__ volatile(
+        "syscall"
+        : "=a"(ret)
+        : "a"(n), "D"(a1)
+        : "rcx", "r11", "memory"
+    );
+    return ret;
+}
+
+static long __neo_linux_syscall3(long n, long a1, long a2, long a3)
+{
+    long ret;
+    __asm__ volatile(
+        "syscall"
+        : "=a"(ret)
+        : "a"(n), "D"(a1), "S"(a2), "d"(a3)
+        : "rcx", "r11", "memory"
+    );
+    return ret;
+}
+
+void exit(int status)
+{
+    __neo_linux_syscall1(60, status);
+    for(;;) {
+    }
+}
+
+void putchar(char c)
+{
+    __neo_linux_syscall3(1, 1, (long)&c, 1);
+}
+
+unsigned long brk(unsigned long size)
+{
+    return (unsigned long)__neo_linux_syscall1(12, (long)size);
+}
+
+extern int main();
+
+__attribute__((noreturn)) void _start(void)
+{
+    unsigned long* sp;
+    __asm__ volatile("mov %%rsp, %0" : "=r"(sp));
+    int argc = (int)sp[0];
+    char** argv = (char**)&sp[1];
+    int status = main(argc, argv);
+    exit(status);
+}
+}
+
+extern size_t brk(size_t size);
+extern void exit(int status);
+extern void putchar(char c);
+#else
+extern size_t brk(size_t size);
+uniq void exit(int status)
+{
+    while(1);
+}
+extern void putchar(char c);
+#endif
+
 typedef struct mem_block {
     size_t size;
     struct mem_block *next;
 } mem_block_t;
 
 uniq mem_block_t *free_list = NULL;
-
-extern size_t brk(size_t size);
-uniq void exit(int status)
-{
-    while(1);
-}
+uniq uintptr_t __neo_sbrk_cur = 0;
+uniq int __neo_sbrk_inited = 0;
 
 // POSIX 風 sbrk: 成功で「旧プログラムブレーク」を返す。失敗で (void*)-1, errno=ENOMEM
 uniq void *sbrk(ptrdiff_t increment) {
-    static uintptr_t cur;      // 現在の program break（ユーザ空間の絶対アドレス）
-    static int inited = 0;
-
     // 初回：カーネルに問い合わせて現在の brk を知る
-    if (!inited) {
+    if (!__neo_sbrk_inited) {
         long now = brk(0);                // 実装が「クエリとしての brk(0)」でなくても、変更は起きない
         if (now < 0) { errno = 12; return (void*)-1; }  // ENOMEM
-        cur = (uintptr_t)now;
-        inited = 1;
+        __neo_sbrk_cur = (uintptr_t)now;
+        __neo_sbrk_inited = 1;
     }
 
     if (increment == 0) {
-        return (void*)cur;                // 現在の brk を返す
+        return (void*)__neo_sbrk_cur;     // 現在の brk を返す
     }
 
     // オーバーフロー保護
-    uintptr_t want = cur + (intptr_t)increment;
-    if ((increment > 0 && want < cur) || (increment < 0 && want > cur)) {
+    uintptr_t want = __neo_sbrk_cur + (intptr_t)increment;
+    if ((increment > 0 && want < __neo_sbrk_cur) || (increment < 0 && want > __neo_sbrk_cur)) {
         errno = 12;                       // ENOMEM
         return (void*)-1;
     }
@@ -102,8 +163,8 @@ uniq void *sbrk(ptrdiff_t increment) {
         return (void*)-1; 
     }
 
-    void *old = (void*)cur;   // 旧ブレーク（これを返すのが sbrk の契約）
-    cur = (uintptr_t)newer;
+    void *old = (void*)__neo_sbrk_cur;   // 旧ブレーク（これを返すのが sbrk の契約）
+    __neo_sbrk_cur = (uintptr_t)newer;
     return old;
 }
 
@@ -186,7 +247,7 @@ uniq void *realloc(void *ptr, size_t size) {
 }
 
 uniq char* strdup(const char* s) {
-    char* s2 = s;
+    const char* s2 = s;
     size_t len = strlen(s2) + 1;
     char* p = malloc(len);
     if (p)
@@ -232,7 +293,8 @@ uniq void* memset(void *dst, int c, unsigned int n) {
 }
 
 uniq int memcmp(const void *v1, const void *v2, unsigned int n) {
-    const unsigned char *s1, *s2;
+    const unsigned char *s1;
+    const unsigned char *s2;
 
     s1 = v1;
     s2 = v2;
@@ -526,26 +588,38 @@ uniq int argtable_entries(void **argtable, struct arg_end **end_out) {
 }
 
 uniq int arg_long_match(const char *options, const char *name) {
-    if (!options || !name) return 0;
+    if (!options || !name) {
+        return 0;
+    }
     size_t namelen = strlen(name);
     const char *p = options;
     while (*p) {
         const char *start = p;
-        while (*p && *p != ',' && *p != '|') p++;
+        while (*p && *p != ',' && *p != '|') {
+            p++;
+        }
         size_t len = (size_t)(p - start);
-        if (len == namelen && strncmp(start, name, namelen) == 0) return 1;
-        if (*p) p++;
+        if (len == namelen && strncmp(start, name, namelen) == 0) {
+            return 1;
+        }
+        if (*p) {
+            p++;
+        }
     }
     return 0;
 }
 
-uniq struct arg_hdr *arg_find_short(void **argtable, int entries, char opt) {
+uniq struct arg_hdr *arg_find_short(void **argtable, int entries, char short_opt) {
     for (int i = 0; i < entries; ++i) {
         struct arg_hdr *hdr = (struct arg_hdr *)argtable[i];
         if (!hdr || hdr->kind == ARG_KIND_END) continue;
         const char *s = hdr->shortopts;
         while (s && *s) {
-            if (*s++ == opt) return hdr;
+            char c = *s;
+            if (c == short_opt) {
+                return hdr;
+            }
+            s = s + 1;
         }
     }
     return NULL;
@@ -577,7 +651,9 @@ uniq struct arg_file *arg_find_positional(void **argtable, int entries) {
 
 uniq int arg_file_add(struct arg_file *file, const char *value,
                         struct arg_end *end, const char *errmsg) {
-    if (!file) return -1;
+    if (!file) {
+        return -1;
+    }
     size_t cap = arg_file_capacity(file);
     if ((size_t)file->count >= cap && cap > 0) {
         arg_add_error(end, errmsg, value, &file->hdr);
@@ -589,16 +665,22 @@ uniq int arg_file_add(struct arg_file *file, const char *value,
 }
 
 uniq int arg_parse(int argc, char **argv, void **argtable) {
-    if (!argtable) return 0;
+    if (!argtable) {
+        return 0;
+    }
 
     struct arg_end *end = NULL;
     int total = argtable_reset(argtable, &end);
-    if (!end) return 0;
+    if (!end) {
+        return 0;
+    }
 
     int entries = 0;
     while (entries < total && argtable[entries]) {
         struct arg_hdr *hdr = (struct arg_hdr *)argtable[entries];
-        if (hdr->kind == ARG_KIND_END) break;
+        if (hdr->kind == ARG_KIND_END) {
+            break;
+        }
         entries++;
     }
 
@@ -620,8 +702,12 @@ uniq int arg_parse(int argc, char **argv, void **argtable) {
                 char namebuf[64];
                 if (eq) {
                     size_t len = (size_t)(eq - name);
-                    if (len >= sizeof(namebuf)) len = sizeof(namebuf) - 1;
-                    for (size_t k = 0; k < len; ++k) namebuf[k] = name[k];
+                    if (len >= sizeof(namebuf)) {
+                        len = sizeof(namebuf) - 1;
+                    }
+                    for (size_t k = 0; k < len; ++k) {
+                        namebuf[k] = name[k];
+                    }
                     namebuf[len] = '\0';
                     name = namebuf;
                     val_ = eq + 1;
@@ -663,8 +749,9 @@ uniq int arg_parse(int argc, char **argv, void **argtable) {
 
             const char *p = arg + 1;
             while (*p) {
-                char opt = *p++;
-                struct arg_hdr *hdr = arg_find_short(argtable, entries, opt);
+                char short_opt = *p;
+                p = p + 1;
+                struct arg_hdr *hdr = arg_find_short(argtable, entries, short_opt);
                 if (!hdr) {
                     arg_add_error(end, "unknown option", arg, NULL);
                     continue;
@@ -879,12 +966,12 @@ uniq int isalnum(int c) {
     return (isalpha(c) || isdigit(c)) ? 1 : 0;
 }
 
-extern void putchar(char c);
-
-uniq void puts(const char *s) {
+uniq int puts(const char *s) {
     while (*s) {
         putchar(*s++);
     }
+    putchar('\n');
+    return 0;
 }
 
 uniq char* strcat(char* dest, const char* src) {
@@ -1004,7 +1091,7 @@ uniq int vasprintf(char** out, const char* fmt, va_list ap) {
 
     *p = '\0';
     *out = strdup(out2);
-    return p - out2;
+    return (int)(p - out2);
 }
 
 uniq int __utoa_ull(char* dst, unsigned long long v, int base, int lower){
@@ -1030,13 +1117,37 @@ uniq void __fmt_num(char **p, unsigned long *rem,
 
 // ========= 共通フォーマッタ =========
 typedef struct {
-  void (*putc_fn)(void* ctx, char c);
+  char* p;
+  unsigned long rem;
+} __buf_ctx_t;
+
+typedef struct {
+  char* p;
+} __str_ctx_t;
+
+typedef struct {
+  int mode;
   void* ctx;
   int count;
 } __fmt_out_t;
 
 uniq void __fmt_putc(__fmt_out_t* o, char c) {
-  o->putc_fn(o->ctx, c);
+  if(o->mode == 0) {
+    putchar(c);
+  }
+  else if(o->mode == 1) {
+    __buf_ctx_t* b = (__buf_ctx_t*)o->ctx;
+    if (b->rem > 1) {
+      *(b->p) = c;
+      b->p = b->p + 1;
+      b->rem--;
+    }
+  }
+  else {
+    __str_ctx_t* s = (__str_ctx_t*)o->ctx;
+    *(s->p) = c;
+    s->p = s->p + 1;
+  }
   o->count++;
 }
 
@@ -1154,38 +1265,35 @@ uniq void __vformat(__fmt_out_t* o, const char* fmt, va_list ap) {
 
 uniq int printf(const char* fmt, ...){
   va_list ap; va_start(ap, fmt);
-  __fmt_out_t out = { __file_putc, stdout, 0 };
+  __fmt_out_t out = { 0, NULL, 0 };
   __vformat(&out, fmt, ap);
   va_end(ap);
   return out.count;
 }
 
 // ========= バッファ系（snprintf, vsnprintf） =========
-typedef struct {
-  char* p; unsigned long rem;
-} __buf_ctx_t;
-
 uniq void __buf_putc(void* ctx, char ch){
   __buf_ctx_t* b = (__buf_ctx_t*)ctx;
-  if (b->rem > 1){ *(b->p)++ = ch; b->rem--; }
+  if (b->rem > 1){
+    *(b->p) = ch;
+    b->p = b->p + 1;
+    b->rem--;
+  }
 }
-
-typedef struct {
-  char* p;
-} __str_ctx_t;
 
 uniq void __str_putc(void* ctx, char ch){
   __str_ctx_t* s = (__str_ctx_t*)ctx;
-  *(s->p)++ = ch;
+  *(s->p) = ch;
+  s->p = s->p + 1;
 }
 
 uniq int vsnprintf(char* out, unsigned long out_size, const char* fmt, va_list ap){
-  if (!out || out_size==0) return 0;
+  if (!out || out_size==0) {
+    return 0;
+  }
   __buf_ctx_t b = { out, out_size };
-  __fmt_out_t o = { __buf_putc, &b, 0 };
-  va_list aq; va_copy(aq, ap);
-  __vformat(&o, fmt, aq);
-  va_end(aq);
+  __fmt_out_t o = { 1, &b, 0 };
+  __vformat(&o, fmt, ap);
   // NUL 終端
   if (b.rem > 0) *(b.p) = '\0';
   else out[out_size-1] = '\0';
@@ -1200,12 +1308,12 @@ uniq int snprintf(char* out, unsigned long out_size, const char* fmt, ...){
 }
 
 uniq int vsprintf(char* out, const char* fmt, va_list ap){
-  if (!out) return -1;
+  if (!out) {
+    return -1;
+  }
   __str_ctx_t s = { out };
-  __fmt_out_t o = { __str_putc, &s, 0 };
-  va_list aq; va_copy(aq, ap);
-  __vformat(&o, fmt, aq);
-  va_end(aq);
+  __fmt_out_t o = { 2, &s, 0 };
+  __vformat(&o, fmt, ap);
   *(s.p) = '\0';
   return o.count;
 }

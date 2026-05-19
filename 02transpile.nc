@@ -409,6 +409,9 @@ static void init_classes(sInfo* info)
         else if(argv[i] === "-portable-c") {
             gPortableC = true;
         }
+        else if(argv[i] === "-bare") {
+            gComeBareMetal = true;
+        }
         else if(argv[i] === "-lowmem") {
             gComeLowMemory = true;
         }

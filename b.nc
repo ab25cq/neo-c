@@ -1,8 +1,14 @@
-#include <stdio.h>
+#include <neo-c.h>
 
-int main(int argc, char** argv){
-    puts("HELLO WORLD");
-    
+struct sData
+{
+    int x;
+    int y;
+};
+
+int main(int argc, char** argv)
+{
+    puts(s"HELLO WORLD" + new sData { x:111, y:222 }.to_string());
     return 0;
 }
 
