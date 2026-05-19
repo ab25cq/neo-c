@@ -6,6 +6,19 @@
 #include <stddef.h>
 #include <stdbool.h>
 
+#ifndef BUFSIZ
+#define BUFSIZ 8192
+#endif
+
+#ifndef O_RDONLY
+#define O_RDONLY 0
+#define O_WRONLY 1
+#define O_RDWR 2
+#define O_CREAT 64
+#define O_TRUNC 512
+#define O_APPEND 1024
+#endif
+
 #undef va_start
 #define va_start(ap, last) __builtin_va_start(ap, last)
 
@@ -53,6 +66,8 @@ uniq int errno;
 
 #if defined(__linux__) && defined(__x86_64__)
 c_include {
+extern int errno;
+
 static long __neo_linux_syscall1(long n, long a1)
 {
     long ret;
@@ -77,7 +92,36 @@ static long __neo_linux_syscall3(long n, long a1, long a2, long a3)
     return ret;
 }
 
-void exit(int status)
+static long __neo_linux_errno_result(long ret)
+{
+    if(ret < 0 && ret >= -4095) {
+        errno = (int)-ret;
+        return -1;
+    }
+    return ret;
+}
+
+long read(int fd, void* buf, unsigned long count)
+{
+    return __neo_linux_errno_result(__neo_linux_syscall3(0, fd, (long)buf, (long)count));
+}
+
+long write(int fd, const void* buf, unsigned long count)
+{
+    return __neo_linux_errno_result(__neo_linux_syscall3(1, fd, (long)buf, (long)count));
+}
+
+int open(const char* path, int flags, int mode)
+{
+    return (int)__neo_linux_errno_result(__neo_linux_syscall3(2, (long)path, flags, mode));
+}
+
+int close(int fd)
+{
+    return (int)__neo_linux_errno_result(__neo_linux_syscall1(3, fd));
+}
+
+__attribute__((used)) void exit(int status)
 {
     __neo_linux_syscall1(60, status);
     for(;;) {
@@ -86,7 +130,7 @@ void exit(int status)
 
 void putchar(char c)
 {
-    __neo_linux_syscall3(1, 1, (long)&c, 1);
+    write(1, &c, 1);
 }
 
 unsigned long brk(unsigned long size)
@@ -94,20 +138,26 @@ unsigned long brk(unsigned long size)
     return (unsigned long)__neo_linux_syscall1(12, (long)size);
 }
 
-extern int main();
+extern int main(int argc, char** argv) __attribute__((used));
 
-__attribute__((noreturn)) void _start(void)
+__attribute__((used, naked, noreturn)) void _start(void)
 {
-    unsigned long* sp;
-    __asm__ volatile("mov %%rsp, %0" : "=r"(sp));
-    int argc = (int)sp[0];
-    char** argv = (char**)&sp[1];
-    int status = main(argc, argv);
-    exit(status);
+    __asm__ volatile(
+        "mov (%rsp), %rdi\n"
+        "lea 8(%rsp), %rsi\n"
+        "andq $-16, %rsp\n"
+        "call main\n"
+        "mov %eax, %edi\n"
+        "call exit\n"
+    );
 }
 }
 
 extern size_t brk(size_t size);
+extern long read(int fd, void* buf, size_t count);
+extern long write(int fd, const void* buf, size_t count);
+extern int open(const char* path, int flags, int mode);
+extern int close(int fd);
 extern void exit(int status);
 extern void putchar(char c);
 #else
@@ -117,6 +167,190 @@ uniq void exit(int status)
     while(1);
 }
 extern void putchar(char c);
+#endif
+
+#if defined(__linux__) && defined(__x86_64__)
+typedef struct __neo_FILE {
+    int fd;
+    int error;
+    int eof;
+    int owned;
+} FILE;
+
+uniq int __neo_fopen_flags(const char* mode)
+{
+    if(mode == NULL) {
+        return -1;
+    }
+    if(mode[0] == 'r') {
+        if(mode[1] == '+') {
+            return O_RDWR;
+        }
+        return O_RDONLY;
+    }
+    if(mode[0] == 'w') {
+        if(mode[1] == '+') {
+            return O_RDWR | O_CREAT | O_TRUNC;
+        }
+        return O_WRONLY | O_CREAT | O_TRUNC;
+    }
+    if(mode[0] == 'a') {
+        if(mode[1] == '+') {
+            return O_RDWR | O_CREAT | O_APPEND;
+        }
+        return O_WRONLY | O_CREAT | O_APPEND;
+    }
+    return -1;
+}
+
+uniq FILE* fopen(const char* path, const char* mode)
+{
+    int flags = __neo_fopen_flags(mode);
+    if(path == NULL || flags < 0) {
+        errno = 22;
+        return NULL;
+    }
+
+    int fd = open(path, flags, 0666);
+    if(fd < 0) {
+        return NULL;
+    }
+
+    FILE* f = (FILE*)malloc(sizeof(FILE));
+    if(f == NULL) {
+        close(fd);
+        errno = 12;
+        return NULL;
+    }
+
+    f->fd = fd;
+    f->error = 0;
+    f->eof = 0;
+    f->owned = 1;
+    return f;
+}
+
+uniq int fread(void* ptr, int size, int nmemb, FILE* f)
+{
+    if(ptr == NULL || f == NULL || size <= 0 || nmemb <= 0) {
+        return 0;
+    }
+
+    long bytes = read(f->fd, ptr, (size_t)(size * nmemb));
+    if(bytes < 0) {
+        f->error = 1;
+        return 0;
+    }
+    if(bytes == 0) {
+        f->eof = 1;
+    }
+
+    return (int)(bytes / size);
+}
+
+uniq int fwrite(const void* ptr, int size, int nmemb, FILE* f)
+{
+    if(ptr == NULL || f == NULL || size <= 0 || nmemb <= 0) {
+        return 0;
+    }
+
+    size_t total = (size_t)(size * nmemb);
+    size_t done = 0;
+    const char* p = (const char*)ptr;
+
+    while(done < total) {
+        long n = write(f->fd, p + done, total - done);
+        if(n <= 0) {
+            f->error = 1;
+            break;
+        }
+        done += (size_t)n;
+    }
+
+    return (int)(done / size);
+}
+
+uniq int fclose(FILE* f)
+{
+    if(f == NULL) {
+        errno = 22;
+        return -1;
+    }
+
+    int result = 0;
+    if(f->owned) {
+        result = close(f->fd);
+    }
+    free(f);
+    return result;
+}
+
+uniq int ferror(FILE* f)
+{
+    if(f == NULL) {
+        return 1;
+    }
+    return f->error;
+}
+
+uniq char* fgets(char* s, int size, FILE* f)
+{
+    if(s == NULL || size <= 0 || f == NULL) {
+        return NULL;
+    }
+
+    int i = 0;
+    while(i < size - 1) {
+        char c;
+        long n = read(f->fd, &c, 1);
+        if(n < 0) {
+            f->error = 1;
+            break;
+        }
+        if(n == 0) {
+            f->eof = 1;
+            break;
+        }
+        s[i] = c;
+        i++;
+        if(c == '\n') {
+            break;
+        }
+    }
+    s[i] = '\0';
+
+    if(i == 0) {
+        return NULL;
+    }
+    return s;
+}
+
+uniq int fprintf(FILE* f, const char* fmt, ...)
+{
+    if(f == NULL || fmt == NULL) {
+        errno = 22;
+        return -1;
+    }
+
+    char msg[4096];
+    va_list ap;
+    va_start(ap, fmt);
+    int n = vsnprintf(msg, sizeof(msg), fmt, ap);
+    va_end(ap);
+
+    if(n < 0) {
+        f->error = 1;
+        return -1;
+    }
+
+    int len = strlen(msg);
+    int written = fwrite(msg, 1, len, f);
+    if(written != len) {
+        f->error = 1;
+        return -1;
+    }
+    return written;
+}
 #endif
 
 typedef struct mem_block {

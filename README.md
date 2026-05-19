@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.13
+version 1.0.3.14
 
 ## Small binaries
 
@@ -223,6 +223,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.14 Linux x86_64 `-bare` implements read/write/open/close based file I/O without libc and fixes `_start` stack alignment so exception stackframes do not segfault.
 1.0.3.13 Linux x86_64 `-bare` can build libc-free standalone statically linked binaries; document 5K `a.nc` and 21K `b.nc` stripped sizes.
 1.0.3.12 Array bounds checks and runtime / and % by zero panics now print stackframe output before exiting.
 1.0.3.11 Fixed-size C array [] loads and [] assignments now check known bounds at runtime and panic with exit(2) on out-of-range indexes.

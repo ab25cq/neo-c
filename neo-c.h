@@ -23,6 +23,8 @@ typedef char*% string;
 
 #if defined(__MINUX__)
 #define UNIX 1
+#elif defined(__BAREMETAL__) && defined(__linux__) && defined(__x86_64__)
+#define UNIX 1
 #elif defined(__BAREMETAL__)
 #elif defined(__PICO__)
 #elif defined(__M5STACK__)
