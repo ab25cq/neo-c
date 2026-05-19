@@ -1017,6 +1017,165 @@ sNode*% load_field(sNode*% left, string name, sInfo* info=info)
     return new sLoadFieldNode(left2, name, info) implements sNode;
 }
 
+static bool is_simple_c_identifier(const char* name)
+{
+    if(name == null || name[0] == '\0') {
+        return false;
+    }
+    if(!(xisalpha(name[0]) || name[0] == '_')) {
+        return false;
+    }
+
+    for(int i=1; name[i]; i++) {
+        if(!(xisalnum(name[i]) || name[i] == '_')) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+static sType*% get_array_bounds_source_type(CVALUE* left_value, sType* type, sInfo* info)
+{
+    if(left_value && left_value->c_value) {
+        bool simple_name = is_simple_c_identifier(left_value->c_value);
+        sVar* var_ = null;
+        if(info->lv_table) {
+            var_ = get_variable_from_table(info->lv_table, left_value->c_value);
+        }
+        if(var_ == null && info->gv_table) {
+            var_ = get_variable_from_table(info->gv_table, left_value->c_value);
+        }
+        if(var_ && var_->mType->mArrayNum.length() > 0) {
+            sType*% var_type = clone var_->mType;
+            return var_type;
+        }
+        if(simple_name) {
+            return null;
+        }
+    }
+
+    sType*% result = clone type;
+
+    if(result->mOriginalLoadVarType) {
+        result = clone result->mOriginalLoadVarType;
+    }
+    if(result->mTypedefOriginalType && result->mTypedefOriginalType->mArrayNum.length() > 0
+        && result->mPointerNum == 0 && result->mArrayPointerNum == 0
+        && result->mTypedefOriginalType->mPointerNum == 0 && result->mTypedefOriginalType->mArrayPointerNum == 0)
+    {
+        result = clone result->mTypedefOriginalType;
+    }
+
+    return result;
+}
+
+static list<string>*% get_array_bounds_for_checked_access(CVALUE* left_value, sType* type, int num_indexes, sInfo* info)
+{
+    if(info.in_top_level || info.in_typedef || info.in_fun_param || info.in_typeof || info.in_offsetof) {
+        return null;
+    }
+
+    sType*% bounds_type = get_array_bounds_source_type(left_value, type, info);
+    if(bounds_type == null) {
+        return null;
+    }
+    if(bounds_type->mArrayStatic.length() > 0 && bounds_type->mArrayStatic[0]) {
+        return null;
+    }
+    int num_bounds = bounds_type->mArrayNum.length();
+    if(num_bounds == 0) {
+        return null;
+    }
+
+    int n = num_indexes < num_bounds ? num_indexes : num_bounds;
+    if(n <= 0) {
+        return null;
+    }
+
+    list<string>*% result = new list<string>();
+    for(int i=0; i<n; i++) {
+        sNode* node = borrow bounds_type->mArrayNum[i];
+        node_compile(node).elif {
+            return null;
+        }
+
+        CVALUE*% bound_value = get_value_from_stack(-1, info);
+        result.push_back(string(bound_value.c_value));
+    }
+
+    return result;
+}
+
+static string create_array_checked_access_code(const char* base_code, list<CVALUE*%>* array_num, list<string>* bounds, const char* right_value_code, bool store, sInfo* info)
+{
+    list<string>* effective_bounds = bounds;
+    if(effective_bounds && is_simple_c_identifier(base_code)) {
+        sVar* var_ = null;
+        if(info->lv_table) {
+            var_ = get_variable_from_table(info->lv_table, (char*)base_code);
+        }
+        if(var_ == null && info->gv_table) {
+            var_ = get_variable_from_table(info->gv_table, (char*)base_code);
+        }
+        if(var_ == null || var_->mType->mArrayNum.length() == 0
+            || var_->mType->mPointerNum > 0 || var_->mType->mArrayPointerNum > 0)
+        {
+            effective_bounds = null;
+        }
+    }
+
+    if(effective_bounds == null || effective_bounds.length() == 0) {
+        buffer*% plain = new buffer();
+        plain.append_str(base_code);
+        foreach(it, array_num) {
+            plain.append_format("[%s]", it.c_value);
+        }
+        if(store) {
+            return xsprintf("%s=%s", plain.to_string(), right_value_code);
+        }
+        return plain.to_string();
+    }
+
+    static int n = 0;
+    int id = ++n;
+    buffer*% buf = new buffer();
+
+    if(store) {
+        buf.append_str("({ ");
+    }
+    else {
+        buf.append_str("(*({ ");
+    }
+    for(int i=0; i<effective_bounds.length(); i++) {
+        char* bound = borrow effective_bounds[i];
+        buf.append_format("long long __neo_array_index%d_%d = (long long)(%s); ", id, i, array_num[i].c_value);
+        buf.append_format("if(__neo_array_index%d_%d < 0 || __neo_array_index%d_%d >= (long long)(%s)) { extern int puts(const char*); extern void exit(int); puts(\"array index out of bounds\"); exit(2); } ", id, i, id, i, bound);
+    }
+
+    if(!store) {
+        buf.append_str("&");
+    }
+    buf.append_str(base_code);
+    for(int i=0; i<array_num.length(); i++) {
+        if(i < effective_bounds.length()) {
+            buf.append_format("[__neo_array_index%d_%d]", id, i);
+        }
+        else {
+            buf.append_format("[%s]", array_num[i].c_value);
+        }
+    }
+
+    if(store) {
+        buf.append_format(" = %s; })", right_value_code);
+    }
+    else {
+        buf.append_str("; }))");
+    }
+
+    return buf.to_string();
+}
+
 class sStoreArrayNode extends sNodeBase
 {
     new(sNode* left, sNode*% right, list<sNode*%>*% array_num, bool quote, sInfo* info)
@@ -1036,15 +1195,18 @@ class sStoreArrayNode extends sNodeBase
     
     bool compile(sInfo* info)
     {
+        bool in_refference_context = info.in_refference;
         sNode*% left = create_heap_checker(self.mLeft);
         sNode*% right = self.mRight;
         list<sNode*%>*% array_num_nodes = self.mArrayNum;
         
         info.in_store_array = true;
         node_compile(left).elif {
+            info.in_refference = in_refference_context;
             return false;
         }
         info.in_store_array = false;
+        info.in_refference = in_refference_context;
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
         
@@ -1121,34 +1283,31 @@ class sStoreArrayNode extends sNodeBase
                 left_type->mOriginalLoadVarType = original_load_var_type;
             }
             
-            buffer*% buf = new buffer();
-            
-            buf.append_str(left_value.c_value);
-            
-            foreach(it, array_num) {
-                buf.append_format("[%s]", it.c_value);
+            list<string>* bounds = borrow get_array_bounds_for_checked_access(left_value, original_load_var_type, array_num.length(), info);
+            string left_value_code = create_array_checked_access_code(left_value.c_value, array_num, bounds, right_value.c_value, true@store, info);
+            if(bounds) {
+                delete bounds;
             }
-            
-            string left_value_code = buf.to_string();
+            string unchecked_left_value_code = create_array_checked_access_code(left_value.c_value, array_num, null@bounds, null@right_value_code, false@store, info);
             
             sType*% left_type2 = clone left_type;
             left_type2->mHeap = false;
             check_assign_type(s"array is assinged to(2)", left_type2, right_type, right_value);
             if(left_type->mHeap && right_type->mHeap && left_type->mArrayPointerNum > 0 && right_type->mPointerNum > 0) 
             {
-                decrement_ref_count_object(left_type,left_value_code, info);
+                decrement_ref_count_object(left_type,unchecked_left_value_code, info);
                 std_move(left_type, right_type, right_value);
-                come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
+                come_value.c_value = left_value_code;
             }
             else {
                 if(left_value.type->mPointerNum >= 1) {
-                    come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
+                    come_value.c_value = left_value_code;
                 }
                 else if(left_value.type->mPointerNum == 0) {
-                    come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
+                    come_value.c_value = left_value_code;
                 }
                 else {
-                    come_value.c_value = xsprintf("%s=%s", left_value_code, right_value.c_value);
+                    come_value.c_value = left_value_code;
 //                    err_msg(info, "Invalid left_type. The name is %s. The pointer num is %d.(2)", left_value_code, left_value.type->mPointerNum);
 //                    return true;
                 }
@@ -1191,6 +1350,7 @@ class sLoadArrayNode extends sNodeBase
     bool compile(sInfo* info)
     {
         bool optional_load = info.in_case_optional_load;
+        bool in_refference_context = info.in_refference;
         if(optional_load) {
             info.in_case_optional_load = false;
         }
@@ -1198,11 +1358,13 @@ class sLoadArrayNode extends sNodeBase
         list<sNode*%>*% array_num_nodes = self.mArrayNum;
         
         node_compile(left).elif {
+            info.in_refference = in_refference_context;
             if(optional_load) {
                 info.in_case_optional_load = true;
             }
             return false;
         }
+        info.in_refference = in_refference_context;
         
         CVALUE*% left_value = get_value_from_stack(-1, info);
         
@@ -1241,17 +1403,15 @@ class sLoadArrayNode extends sNodeBase
             }
             CVALUE*% come_value = new CVALUE();
             
-            buffer*% buf = new buffer();
-            
-            buf.append_str(left_value.c_value);
-            
-            foreach(it, array_num) {
-                buf.append_format("[%s]", it.c_value);
+            list<string>* bounds = borrow get_array_bounds_for_checked_access(left_value, left_type, array_num.length(), info);
+            string left_value_code = create_array_checked_access_code(left_value.c_value, array_num, bounds, null@right_value_code, false@store, info);
+            if(bounds) {
+                delete bounds;
             }
-            
-            string left_value_code = buf.to_string();
+            string unchecked_left_value_code = create_array_checked_access_code(left_value.c_value, array_num, null@bounds, null@right_value_code, false@store, info);
             
             come_value.c_value = xsprintf("%s", left_value_code);
+            come_value.c_value_without_null_checker = unchecked_left_value_code;
             
             sType*% result_type;
             

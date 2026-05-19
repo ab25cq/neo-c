@@ -329,7 +329,15 @@ class sSizeOfExpNode extends sNodeBase
         
         CVALUE*% come_value2 = new CVALUE();
         
-        come_value2.c_value = xsprintf("sizeof(%s)", come_value.c_value);
+        if(come_value.c_value_without_null_checker) {
+            come_value2.c_value = xsprintf("sizeof(%s)", come_value.c_value_without_null_checker);
+        }
+        else if(come_value.c_value_without_cast_object_value) {
+            come_value2.c_value = xsprintf("sizeof(%s)", come_value.c_value_without_cast_object_value);
+        }
+        else {
+            come_value2.c_value = xsprintf("sizeof(%s)", come_value.c_value);
+        }
         come_value2.type = new sType(s"long");
         come_value2.type->mUnsigned = true;
         come_value2.var = null;

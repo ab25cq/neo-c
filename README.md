@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.10
+version 1.0.3.11
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.11 Fixed-size C array [] loads and [] assignments now check known bounds at runtime and panic with exit(2) on out-of-range indexes.
 1.0.3.10 Runtime / and % now check the right operand every time and panic with exit(2) on division or modulo by zero.
 1.0.3.9 list/vector/map [] followed by ! now uses optional access and panics on out-of-range indexes or missing keys.
 1.0.3.8 FILE*::fread, FILE*::fclose, FILE*::readlines, socket_fd::write, and client_socket2 now return Result<T>. Updated bundled subprojects for the new Result-returning APIs.
@@ -4206,6 +4207,24 @@ li[4]!;     // panic
 - `.catch` のブロックは値を返す必要があります。
 - optional loadでも `list` と `vector` の負インデックスは使えます。
 - heap payloadはpayload enumの所有権規則に従います。
+
+# Fixed-size C Array Bounds Checks
+
+Known fixed-size C array access is checked at runtime for both `[]` loads and `[]` assignments.
+If the index is negative or greater than or equal to the declared bound, neo-c prints `array index out of bounds` and exits with status 2.
+Pointer indexing remains normal C-style indexing because the compiler does not know a reliable bound.
+
+固定長C配列のサイズが分かっている場合、`[]` での読み出しと `[]` への代入は実行時に境界チェックされます。
+インデックスが負、または宣言された上限以上の場合は `array index out of bounds` を出して exit(2) します。
+ポインタ経由の添字アクセスは信頼できる上限が分からないため、従来どおり通常のCの添字アクセスです。
+
+```C
+int xs[3] = { 10, 20, 30 };
+
+int a = xs[2];  // ok
+xs[1] = 25;     // ok
+xs[3] = 99;     // panic
+```
 
 # Result<T>
 
