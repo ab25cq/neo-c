@@ -352,6 +352,17 @@ class sMultNode extends sNodeBase
     }
 };
 
+static string create_zero_division_checked_binary_code(CVALUE* left_value, CVALUE* right_value, const char* op, const char* message, sInfo* info)
+{
+    if(info.in_top_level || info.in_typedef || info.in_fun_param || info.in_typeof || info.in_offsetof) {
+        return xsprintf("%s %s %s", left_value.c_value, op, right_value.c_value);
+    }
+
+    static int n = 0;
+    int id = ++n;
+    return xsprintf("({ __typeof__(%s) __neo_div_right%d = (%s); if(__neo_div_right%d == 0) { extern int puts(const char*); extern void exit(int); puts(\"%s\"); exit(2); } (%s) %s __neo_div_right%d; })", right_value.c_value, id, right_value.c_value, id, message, left_value.c_value, op, id);
+}
+
 class sDivNode extends sNodeBase
 {
     new(sNode*% left, sNode*% right, bool quote, sInfo* info)
@@ -401,7 +412,7 @@ class sDivNode extends sNodeBase
         if(!calling_fun) {
             CVALUE*% come_value = new CVALUE();
             
-            come_value.c_value = xsprintf("%s/%s", left_value.c_value, right_value.c_value);
+            come_value.c_value = create_zero_division_checked_binary_code(left_value, right_value, "/", "division by zero", info);
             come_value.type = clone left_value.type;
             come_value.type->mHeap = false;
             come_value.var = null;
@@ -464,7 +475,7 @@ class sModNode extends sNodeBase
         if(!calling_fun) {
             CVALUE*% come_value = new CVALUE();
             
-            come_value.c_value = xsprintf("%s%%%s", left_value.c_value, right_value.c_value);
+            come_value.c_value = create_zero_division_checked_binary_code(left_value, right_value, "%", "modulo by zero", info);
             come_value.type = clone left_value.type;
             come_value.type->mHeap = false;
             come_value.var = null;

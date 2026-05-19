@@ -52,8 +52,8 @@ int main(void) {
     REQUIRE(test_setjmp());
 
     // isnan/isinf/copysign
-    double nanv = NAN;
-    double infv = 1.0/0.0;
+    double nanv = __builtin_nan("");
+    double infv = INFINITY;
     REQUIRE(isnan(nanv));
     REQUIRE(isinf(infv));
     REQUIRE(signbit(copysign(1.0, -2.0)));

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.9
+version 1.0.3.10
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.10 Runtime / and % now check the right operand every time and panic with exit(2) on division or modulo by zero.
 1.0.3.9 list/vector/map [] followed by ! now uses optional access and panics on out-of-range indexes or missing keys.
 1.0.3.8 FILE*::fread, FILE*::fclose, FILE*::readlines, socket_fd::write, and client_socket2 now return Result<T>. Updated bundled subprojects for the new Result-returning APIs.
 1.0.3.7 Document the file API spec change: FILE*::read and FILE*::write are removed; use FILE*::fread and FILE*::fwrite instead.
@@ -2298,6 +2299,10 @@ bool string::operator_equals(char* left, char* right);
 | operator_or
 ~ operator_commplement
 ```
+
+Runtime `/` and `%` evaluate the right operand once, check it for zero, and panic with `exit(2)` before performing the operation when the divisor is zero.
+
+実行時の `/` と `%` は右辺を一度だけ評価し、0なら演算前にpanicして `exit(2)` で終了します。
 
 # mixin-layers system
 
