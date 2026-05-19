@@ -64,13 +64,15 @@ test: *.nc
 	./test_result_try
 	$(NEO_C) test_division_by_zero.nc
 	./test_division_by_zero
-	! ./test_division_by_zero div-zero
+	! ./test_division_by_zero div-zero > .test_out 2>&1
+	grep main .test_out
 	! ./test_division_by_zero mod-zero
 	! ./test_division_by_zero dynamic-div-zero
 	! ./test_division_by_zero dynamic-mod-zero
 	$(NEO_C) test_array_bounds.nc
 	./test_array_bounds
-	! ./test_array_bounds load
+	! ./test_array_bounds load > .test_out 2>&1
+	grep main .test_out
 	! ./test_array_bounds load-negative
 	! ./test_array_bounds store
 	! ./test_array_bounds store-negative

@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.11
+version 1.0.3.12
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.12 Array bounds checks and runtime / and % by zero panics now print stackframe output before exiting.
 1.0.3.11 Fixed-size C array [] loads and [] assignments now check known bounds at runtime and panic with exit(2) on out-of-range indexes.
 1.0.3.10 Runtime / and % now check the right operand every time and panic with exit(2) on division or modulo by zero.
 1.0.3.9 list/vector/map [] followed by ! now uses optional access and panics on out-of-range indexes or missing keys.

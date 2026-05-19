@@ -5238,7 +5238,7 @@ static char*  create_zero_division_checked_binary_code(struct CVALUE*  left_valu
     static int n=0;
     id=++n;
         __right_value0 = (void*)0;
-    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("({ __typeof__(%s) __neo_div_right%d = (%s); if(__neo_div_right%d == 0) { extern int puts(const char*); extern void exit(int); puts(\"%s\"); exit(2); } (%s) %s __neo_div_right%d; })",right_value->c_value,id,right_value->c_value,id,message,left_value->c_value,op,id))), "42op2.nc", 363, 489);
+    __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=xsprintf("({ __typeof__(%s) __neo_div_right%d = (%s); if(__neo_div_right%d == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts(\"%s\"); if(stackframe) stackframe(); else { puts(\"stackframe\"); puts(__func__); } exit(2); } (%s) %s __neo_div_right%d; })",right_value->c_value,id,right_value->c_value,id,message,left_value->c_value,op,id))), "42op2.nc", 363, 489);
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "42op2.nc", 363, 490));
     neo_current_frame = fr.prev;
     (__result_obj__0 = come_decrement_ref_count(__result_obj__0, (void*)0, (void*)0, 0, 1, (void*)0, "42op2.nc", 363, 491));

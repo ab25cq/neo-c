@@ -5282,7 +5282,7 @@ static struct sClass*  map$2char$phsClass$ph$p_operator_load_element(struct map$
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern int puts(const char*); extern void exit(int); puts("modulo by zero"); exit(2); } (key_hash) % __neo_div_right1; });
+    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern int puts(const char*); extern void stackframe(); extern void exit(int); puts("modulo by zero"); stackframe(); exit(2); } (key_hash) % __neo_div_right1; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -5357,7 +5357,7 @@ static struct sClass*  map$2char$phsClass$ph_operator_load_element(struct map$2c
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern int puts(const char*); extern void exit(int); puts("modulo by zero"); exit(2); } (key_hash) % __neo_div_right2; });
+    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern int puts(const char*); extern void stackframe(); extern void exit(int); puts("modulo by zero"); stackframe(); exit(2); } (key_hash) % __neo_div_right2; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -7662,7 +7662,7 @@ static char*  create_array_checked_access_code(const char* base_code, struct lis
         __right_value0 = (void*)0;
         buffer_append_format(buf,"long long __neo_array_index%d_%d = (long long)(%s); ",id,i,((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(array_num,i)))->c_value);
         come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "23field.nc}", 1172, 1323);
-        buffer_append_format(buf,"if(__neo_array_index%d_%d < 0 || __neo_array_index%d_%d >= (long long)(%s)) { extern int puts(const char*); extern void exit(int); puts(\"array index out of bounds\"); exit(2); } ",id,i,id,i,bound);
+        buffer_append_format(buf,"if(__neo_array_index%d_%d < 0 || __neo_array_index%d_%d >= (long long)(%s)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts(\"array index out of bounds\"); if(stackframe) stackframe(); else { puts(\"stackframe\"); puts(__func__); } exit(2); } ",id,i,id,i,bound);
     }
     if(!store) {
         buffer_append_str(buf,"&");

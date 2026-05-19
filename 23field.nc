@@ -1150,7 +1150,7 @@ static string create_array_checked_access_code(const char* base_code, list<CVALU
     for(int i=0; i<effective_bounds.length(); i++) {
         char* bound = borrow effective_bounds[i];
         buf.append_format("long long __neo_array_index%d_%d = (long long)(%s); ", id, i, array_num[i].c_value);
-        buf.append_format("if(__neo_array_index%d_%d < 0 || __neo_array_index%d_%d >= (long long)(%s)) { extern int puts(const char*); extern void exit(int); puts(\"array index out of bounds\"); exit(2); } ", id, i, id, i, bound);
+        buf.append_format("if(__neo_array_index%d_%d < 0 || __neo_array_index%d_%d >= (long long)(%s)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts(\"array index out of bounds\"); if(stackframe) stackframe(); else { puts(\"stackframe\"); puts(__func__); } exit(2); } ", id, i, id, i, bound);
     }
 
     if(!store) {
