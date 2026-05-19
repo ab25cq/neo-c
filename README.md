@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.8
+version 1.0.3.9
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.9 list/vector/map [] followed by ! now uses optional access and panics on out-of-range indexes or missing keys.
 1.0.3.8 FILE*::fread, FILE*::fclose, FILE*::readlines, socket_fd::write, and client_socket2 now return Result<T>. Updated bundled subprojects for the new Result-returning APIs.
 1.0.3.7 Document the file API spec change: FILE*::read and FILE*::write are removed; use FILE*::fread and FILE*::fwrite instead.
 1.0.3.6 Document Result<T> as the standard result API and make the removal of RESULT(T), SOME, and NONE explicit.
@@ -4166,12 +4167,28 @@ int b = li[100].catch {
 xassert("none fallback", b == 123);
 ```
 
+`[]!` is available when you want failure to panic instead of returning the zero-cleared fallback value.
+For `Some(value)`, it returns `value`. For `None`, it panics through `Result<T>.unwrap()`.
+
+`[]!` は失敗時に0クリア値ではなくpanicさせたい場合に使えます。
+`Some(value)` なら `value` を返し、`None` なら `Result<T>.unwrap()` でpanicします。
+
+```C
+var li = [1,2,3];
+
+int n = li[1]!;
+xassert("bang unwrap", n == 2);
+
+li[4]!;     // panic
+```
+
 ## Specification
 
 - Applies to `list<T>`, `vector<T>`, and `map<K,V>`.
 - Normal `xs[index]` and `map[key]` access is unchanged and returns a zero-cleared value on failure.
 - Only a `[]` expression used directly as `.case` target returns `Result<T>` with `Some` or `None`.
 - A `[]` expression used directly as `.catch` target also uses optional load.
+- A `[]` expression followed directly by `!` uses optional load and panics when the result is `None`.
 - `.catch` requires the catch block to return a value.
 - `list` and `vector` keep negative index support in optional loads.
 - Heap payloads follow payload enum ownership rules.
@@ -4180,6 +4197,7 @@ xassert("none fallback", b == 123);
 - 通常の `xs[index]` や `map[key]` は変更されず、失敗時は0クリア値を返します。
 - `.case` の直接の対象になった `[]` 式だけが `Some` / `None` を持つ `Result<T>` を返します。
 - `.catch` の直接の対象になった `[]` 式もoptional loadを使います。
+- `[]` 式の直後に `!` を付けた場合もoptional loadを使い、`None` ならpanicします。
 - `.catch` のブロックは値を返す必要があります。
 - optional loadでも `list` と `vector` の負インデックスは使えます。
 - heap payloadはpayload enumの所有権規則に従います。

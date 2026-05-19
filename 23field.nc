@@ -747,6 +747,10 @@ class sUnwrapNode extends sNodeBase
     bool compile(sInfo* info)
     {
         sNode*% node = self.node;
+        bool in_case_optional_load = info.in_case_optional_load;
+        if(node.kind() === "sLoadArrayNode") {
+            info.in_case_optional_load = true;
+        }
         
         sNode*% obj = node;
         list<tuple2<string, sNode*%>*%>*% params =  new list<tuple2<string, sNode*%>*%>();
@@ -758,8 +762,10 @@ class sUnwrapNode extends sNodeBase
         sNode*% node = create_method_call(fun_name, obj, params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
         
         node_compile(node ,info).elif {
+            info.in_case_optional_load = in_case_optional_load;
             return false;
         }
+        info.in_case_optional_load = in_case_optional_load;
     
         return true;
     }
