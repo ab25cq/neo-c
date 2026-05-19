@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.7
+version 1.0.3.8
 
 ## Small binaries
 
@@ -188,6 +188,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.8 FILE*::fread, FILE*::fclose, FILE*::readlines, socket_fd::write, and client_socket2 now return Result<T>. Updated bundled subprojects for the new Result-returning APIs.
 1.0.3.7 Document the file API spec change: FILE*::read and FILE*::write are removed; use FILE*::fread and FILE*::fwrite instead.
 1.0.3.6 Document Result<T> as the standard result API and make the removal of RESULT(T), SOME, and NONE explicit.
 1.0.3.5 Result<T> is now the standard Some/None payload enum result type. The old tuple2-based RESULT(T), SOME, and NONE macros are removed.
@@ -2117,7 +2118,7 @@ Result<int>*% FILE*::fwrite(FILE* f, const char* str);
     
     f.fwrite("ABC")!;
     
-    f.fclose();
+    f.fclose()!;
 ```
 
 `FILE*::write` was renamed to `FILE*::fwrite` and now returns `Result<int>*%`.
@@ -2127,28 +2128,29 @@ Use `!` when you want to panic on error.
 エラー時にpanicさせたい場合は`!`を使います。
 
 ```C
-buffer*% FILE*::fread(FILE* f);
+Result<buffer*%>*% FILE*::fread(FILE* f);
 ```
 
 ```
     FILE* f = fopen("AAA", "r");
 
-    string data = f.fread().to_string();
+    buffer*% buf = f.fread()!;
+    string data = buf.to_string();
 
-    f.fclose();
+    f.fclose()!;
 ```
 
-`FILE*::read` was renamed to `FILE*::fread`.
+`FILE*::read` was renamed to `FILE*::fread` and now returns `Result<buffer*%>*%`.
 
-`FILE*::read`は`FILE*::fread`に改名されました。
+`FILE*::read`は`FILE*::fread`に改名され、`Result<buffer*%>*%`を返すようになりました。
 
 ```C
-int FILE*::fclose(FILE* f) ;
+Result<int>*% FILE*::fclose(FILE* f);
 ```
 
-similar
+similar. Use `!` when you want to panic on close error.
 
-同様。
+同様。closeエラー時にpanicさせたい場合は`!`を使います。
 
 ```C
 Result<FILE*>*% FILE*::fprintf(FILE* f, const char* msg, ...);
@@ -2159,24 +2161,24 @@ Result<FILE*>*% FILE*::fprintf(FILE* f, const char* msg, ...);
     
     f.fprintf("%d\n", 1+1)!;
     
-    f.fclose();
+    f.fclose()!;
 ```
 
 similar. Use `!` when you want to panic on error.
 同様。エラー時にpanicさせたい場合は`!`を使います。
 
 ```C
-list<string>*% FILE*::readlines(FILE* f);
+Result<list<string>*%>*% FILE*::readlines(FILE* f);
 ```
 
 ```
     FILE* out = xfopen("FILE", "w")!;
     out.fwrite("AAA\nBBB\nCCC\n")!;
-    out.fclose();
+    out.fclose()!;
     
     FILE* f = xfopen("FILE", "r")!;
     
-    var li = f.readlines();
+    var li = f.readlines()!;
     
     li[0].puts(); // AAA
     li[1].puts(); // BBB
@@ -2191,11 +2193,11 @@ Open files explicitly with `xfopen(... )!`, then use `FILE*::fread` or `FILE*::f
 `xfopen(... )!`で明示的にファイルを開き、`FILE*::fread`または`FILE*::fwrite(... )!`を使ってください。
 
 ```
-var str = xfopen("01main.nc", "r")!.fread();
+buffer*% buf = xfopen("01main.nc", "r")!.fread()!;
 ```
 
 ```
-xfopen("OUTPUT","w")!.fwrite("AAA\n")!.fclose()
+xfopen("OUTPUT","w")!.fwrite("AAA\n")!.fclose()!
 ```
 
 エラー時はpanicします。
@@ -3231,7 +3233,7 @@ Available APIs
 ```C
 server_socket_iterator*% server_socket(int port=8080, int socket_family=AF_INET, int socket_type=SOCK_STREAM, int protocol=0, bool reuse=false);
 client_socket_iterator*% client_socket(int port=8080, char* address="127.0.0.1");
-string client_socket2(int port, const char* data, const char* address="127.0.0.1");
+Result<string>*% client_socket2(int port, const char* data, const char* address="127.0.0.1");
 httpd_socket_iterator*% httpd_socket(int port=8080, int socket_family=AF_INET, int socket_type=SOCK_STREAM, int protocol=0, bool reuse=false);
 httpsd_socket_iterator*% httpsd_socket(int port=443, bool reuse=false);
 ```
@@ -3270,10 +3272,10 @@ for(var it = server.begin(); !server.end(); it = server.next()) {
 `socket_fd`
 
 `socket_fd` is `typedef int socket_fd;`.
-`socket_fd::write(string)` is a shortcut of `write(fd, str, str.length())`.
+`socket_fd::write(string)` is a shortcut of `write(fd, str, str.length())` and returns `Result<int>*%`.
 
 `socket_fd`は`typedef int socket_fd;`です。
-`socket_fd::write(string)`は`write(fd, str, str.length())`の短縮です。
+`socket_fd::write(string)`は`write(fd, str, str.length())`の短縮で、`Result<int>*%`を返します。
 
 `server_socket()`
 
@@ -3309,7 +3311,7 @@ int main()
             break;
         }
         
-        it.write(xsprintf("echo: %s\n", buf));
+        it.write(xsprintf("echo: %s\n", buf))!;
     }
     
     return 0;
@@ -3334,7 +3336,7 @@ int main()
     var client = client_socket(port:3366);
 
     for(var it = client.begin(); !client.end(); it = client.next()) {
-        it.write(s"ping");
+        it.write(s"ping")!;
         
         char buf[1024] = { 0 };
         int size = read(it, buf, 1023);
@@ -3354,13 +3356,13 @@ int main()
 `client_socket2()`
 
 This is a simple helper.
-It connects, writes all `data`, reads one response, closes the socket, and returns the response string.
+It connects, writes all `data`, reads one response, closes the socket, and returns the response string as `Result<string>*%`.
 
 簡易ヘルパです。
-connectして、`data`を全部writeして、1回readして、socketを閉じて、その応答文字列を返します。
+connectして、`data`を全部writeして、1回readして、socketを閉じて、その応答文字列を`Result<string>*%`で返します。
 
 ```C
-string result = client_socket2(3366, "ping");
+string result = client_socket2(3366, "ping")!;
 puts(result);
 ```
 
@@ -3569,7 +3571,7 @@ int main(int argc, char** argv)
     
     puts(buf);
     
-    f.fclose();
+    f.fclose()!;
     
     return 0;
 }
@@ -4200,11 +4202,11 @@ Result<FILE*>*% xfopen(const char* file_name, const char* mode)
 
 int main(int argc, char** argv)
 {
-    xfopen("01main.nc", mode:"r").unwrap().fclose();
+    xfopen("01main.nc", mode:"r").unwrap().fclose()!;
     xfopen("1main.nc", mode:"r").catch {
         puts("ERR");
         return 1;
-    }.fclose();
+    }.fclose()!;
 
     return 0;
 }
@@ -4299,7 +4301,7 @@ Result<int>*% read_first_byte(const char* file_name)
     FILE* f = xfopen2(file_name, "r")??;
     int ch = fgetc(f);
     
-    f.fclose();
+    f.fclose()!;
     
     if(ch == EOF) {
         return new Result<int>.None();

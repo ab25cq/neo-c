@@ -1036,8 +1036,8 @@ bool output_source_file(sInfo* info)
 
     if(gPortableC) {
         FILE* portable_file = xfopen(output_file_name, "r")!;
-        buffer*% portable_source = portable_file.fread();
-        portable_file.fclose();
+        buffer*% portable_source = portable_file.fread()!;
+        portable_file.fclose()!;
         string normalized = normalize_portable_c_source(portable_source.to_string());
 
         FILE* f2 = fopen(output_file_name, "w");

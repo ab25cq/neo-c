@@ -6803,10 +6803,10 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
 
         return new Result<FILE*>.Some(f);
     }
-    uniq buffer*% FILE*::fread(FILE* f)
+    uniq Result<buffer*%>*% FILE*::fread(FILE* f)
     {
         if(f == null) {
-            return b"";
+            return new Result<buffer*%>.None();
         }
         buffer*% buf = new buffer.initialize();
         
@@ -6816,37 +6816,47 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
             int size = fread(buf2, 1, BUFSIZ, f);
             
             buf.append(buf2, size);
-    
+
             if(size < BUFSIZ) {
                 break;
             }
         }
-        
-        return buf;
+
+        if(ferror(f)) {
+            return new Result<buffer*%>.None();
+        }
+
+        return new Result<buffer*%>.Some(buf);
     }
-    
+
     uniq Result<int>*% FILE*::fwrite(FILE* f, const char* str)
     {
         if(f == null || str == null) {
             return new Result<int>.None();
         }
-        
-        return new Result<int>.Some(fwrite(str, strlen(str), 1, f));
+
+        int result = fwrite(str, 1, strlen(str), f);
+
+        if(result != strlen(str)) {
+            return new Result<int>.None();
+        }
+
+        return new Result<int>.Some(result);
     }
-    
-    uniq int FILE*::fclose(FILE* f) 
+
+    uniq Result<int>*% FILE*::fclose(FILE* f)
     {
         if(f == null) {
-            return -1;
+            return new Result<int>.None();
         }
         
         int result = fclose(f);
         
         if(result < 0) {
-            return result;
+            return new Result<int>.None();
         }
         
-        return result;
+        return new Result<int>.Some(result);
     }
     
     uniq Result<FILE*>*% FILE*::fprintf(FILE* f, const char* msg, ...)
@@ -6870,12 +6880,12 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
         return new Result<FILE*>.Some(f);
     }
     
-    uniq list<string>*% FILE*::readlines(FILE* f)
+    uniq Result<list<string>*%>*% FILE*::readlines(FILE* f)
     {
         list<string>*% result = new list<string>.initialize();
         
         if(f == null) {
-            return result;
+            return new Result<list<string>*%>.None();
         }
         
         while(1) {
@@ -6887,8 +6897,12 @@ uniq void int::times(int self, void* parent, void (*block)(void* parent, int it)
             
             result.push_back(string(buf));
         }
-        
-        return result;
+
+        if(ferror(f)) {
+            return new Result<list<string>*%>.None();
+        }
+
+        return new Result<list<string>*%>.Some(result);
     }
     
     uniq bool xiswalpha(wchar_t c)

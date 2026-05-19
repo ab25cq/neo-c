@@ -5,7 +5,8 @@
 
 int main(int argc, char** argv)
 {
-    string input = stdin.fread().to_string();
+    buffer*% input_buf = stdin.fread()!;
+    string input = input_buf.to_string();
     
     char *cookie = getenv("HTTP_COOKIE");
     
@@ -16,20 +17,20 @@ int main(int argc, char** argv)
     
     if(username[0] != '\0') {
         const char *query1 = "CREATE DATABASE testdb";
-        (void)client_socket2(port:3366, query1);
+        client_socket2(port:3366, query1)!;
         
         const char *query2 = "use testdb";
-        (void)client_socket2(port:3366, query2);
+        client_socket2(port:3366, query2)!;
         
         const char *query3 = "CREATE TABLE IF NOT EXISTS food ("
                              "id INT AUTO_INCREMENT PRIMARY KEY, "
                              "username VARCHAR(100) NOT NULL, "
                              "time VARCHAR(100) NOT NULL"
                              ")";
-        (void)client_socket2(port:3366, query3);
+        client_socket2(port:3366, query3)!;
         
         string query4 = s"SELECT MAX(time) FROM food WHERE username = '\{username}'";
-        string read_data = client_socket2(port:3366, query4);
+        string read_data = client_socket2(port:3366, query4)!;
         
         long time_ = 0L;
         (void)sscanf(read_data, "%ld", &time_);
@@ -39,7 +40,7 @@ int main(int argc, char** argv)
             string time2 = xsprintf("%ld", time_value);
             
             string query = s"INSERT INTO food(username, time) VALUES('\{username}', '\{time2}')";
-            (void)client_socket2(port:3366, query);
+            client_socket2(port:3366, query)!;
             puts("""
 <!DOCTYPE html>
 <html lang="ja">
@@ -74,7 +75,7 @@ int main(int argc, char** argv)
                 string time_str2 = xsprintf("%ld", time_value);
                 
                 string query = s"INSERT INTO food(username, time) VALUES('\{username}', '\{time_str2}')";
-                (void)client_socket2(port:3366, query);
+                client_socket2(port:3366, query)!;
                 puts("""
 <!DOCTYPE html>
 <html lang="ja">

@@ -2,7 +2,8 @@
 
 int main(int argc, char** argv)
 {
-    string input = stdin.fread().to_string();
+    buffer*% input_buf = stdin.fread()!;
+    string input = input_buf.to_string();
     
     puts("""
     <!DOCTYPE html>

@@ -268,15 +268,15 @@ static bool cpp(sInfo* info)
         if(gComeKeepPreprocessedFile) {
             FILE* keep_file = xfopen(output_file_name, "w")!;
             keep_file.fwrite(source_data)!;
-            keep_file.fclose();
+            keep_file.fclose()!;
         }
         
         free(source_data);
     }
     else {
         FILE* source_file = xfopen(output_file_name, "r")!;
-        info.source = source_file.fread();
-        source_file.fclose();
+        info.source = source_file.fread()!;
+        source_file.fclose()!;
         
         if(!gComeKeepPreprocessedFile) {
             remove(output_file_name);

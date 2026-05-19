@@ -40,7 +40,7 @@ Result<int>*% read_first_byte(const char* file_name)
     FILE* f = xfopen2(file_name, "r")??;
     int ch = fgetc(f);
 
-    f.fclose();
+    f.fclose()!;
 
     if(ch == EOF) {
         return new Result<int>.None();

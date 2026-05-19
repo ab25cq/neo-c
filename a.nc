@@ -2,8 +2,7 @@
 
 int main(int argc, char** argv)
 {
-    xfopen("xxx", mode:"w")!.fprintf("LLL\n")!.fclose();
+    xfopen("xxx", mode:"w")!.fprintf("LLL\n")!.fclose()!;
 
     return 0;
 }
-

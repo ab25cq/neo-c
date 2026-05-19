@@ -28,9 +28,19 @@ using neo-c-net;
 
 typedef int socket_fd;
 
-uniq int socket_fd::write(socket_fd self, string str)
+uniq Result<int>*% socket_fd::write(socket_fd self, string str)
 {
-    return write(self, str, str.length());
+    if(self < 0 || str == null) {
+        return new Result<int>.None();
+    }
+
+    int result = write(self, str, str.length());
+
+    if(result < 0 || result != str.length()) {
+        return new Result<int>.None();
+    }
+
+    return new Result<int>.Some(result);
 }
 
 class server_socket_iterator
@@ -219,13 +229,17 @@ class client_socket_iterator
     }
 }
 
-uniq string client_socket2(int port, const char* data, const char* address="127.0.0.1")
+uniq Result<string>*% client_socket2(int port, const char* data, const char* address="127.0.0.1")
 {
+    if(data == null || address == null) {
+        return new Result<string>.None();
+    }
+
     int sock = 0;
     struct sockaddr_in serv_addr;
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        die(s"Socket creation error");
+        return new Result<string>.None();
     }
 
     serv_addr.sin_family = AF_INET;
@@ -233,16 +247,17 @@ uniq string client_socket2(int port, const char* data, const char* address="127.
 
     if (inet_pton(AF_INET, address, &serv_addr.sin_addr) <= 0) {
         close(sock);
-        die(s"Invalid address/ Address not supported");
+        return new Result<string>.None();
     }
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         close(sock);
-        die(s"Connection Failed");
+        return new Result<string>.None();
     }
     
-    if(write(sock, data, strlen(data)) < 0) {
+    int write_result = write(sock, data, strlen(data));
+    if(write_result < 0 || write_result != strlen(data)) {
         close(sock);
-        die(s"Write Failed");
+        return new Result<string>.None();
     }
     
     buffer*% buf = new buffer();
@@ -253,14 +268,14 @@ uniq string client_socket2(int port, const char* data, const char* address="127.
     
     if(size < 0) {
         close(sock);
-        die(s"Read Failed");
+        return new Result<string>.None();
     }
     
     buf.append(buf2, size);
 
     close(sock);
     
-    return buf.to_string();
+    return new Result<string>.Some(buf.to_string());
 }
 
 void client_socket_iterator*::finalize(client_socket_iterator* self)

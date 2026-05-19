@@ -1570,8 +1570,8 @@ sNode*% top_level(char* buf, char* head, int head_sline, sInfo* info) version 91
         int sline = info.sline;
         
         FILE* ccpp_tmp = xfopen("__ccpp_tmp", "r")!;
-        info.source = ccpp_tmp.fread();
-        ccpp_tmp.fclose();
+        info.source = ccpp_tmp.fread()!;
+        ccpp_tmp.fclose()!;
         if(info.p == null) {
             info.p = borrow info.source.buf;
         }
