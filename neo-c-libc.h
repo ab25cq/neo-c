@@ -10,6 +10,27 @@
 #define BUFSIZ 8192
 #endif
 
+#ifndef EOF
+#define EOF (-1)
+#endif
+
+#ifndef EXIT_SUCCESS
+#define EXIT_SUCCESS 0
+#define EXIT_FAILURE 1
+#endif
+
+#ifndef LC_ALL
+#define LC_ALL 6
+#endif
+
+#ifndef NEO_VASPRINTF_STACK_SIZE
+#if defined(__x86_64__) || defined(__i386__)
+#define NEO_VASPRINTF_STACK_SIZE 262144
+#else
+#define NEO_VASPRINTF_STACK_SIZE 512
+#endif
+#endif
+
 #ifndef O_RDONLY
 #define O_RDONLY 0
 #define O_WRONLY 1
@@ -68,6 +89,8 @@ uniq int errno;
 c_include {
 extern int errno;
 
+#define __NEO_WEAK __attribute__((weak))
+
 static long __neo_linux_syscall1(long n, long a1)
 {
     long ret;
@@ -101,46 +124,152 @@ static long __neo_linux_errno_result(long ret)
     return ret;
 }
 
-long read(int fd, void* buf, unsigned long count)
+__NEO_WEAK int* __errno_location(void)
+{
+    return &errno;
+}
+
+__NEO_WEAK int bcmp(const void* s1, const void* s2, unsigned long n)
+{
+    const unsigned char* p1 = (const unsigned char*)s1;
+    const unsigned char* p2 = (const unsigned char*)s2;
+    unsigned long i;
+    for(i = 0; i < n; i++) {
+        if(p1[i] != p2[i]) {
+            return (int)p1[i] - (int)p2[i];
+        }
+    }
+    return 0;
+}
+
+__NEO_WEAK long read(int fd, void* buf, unsigned long count)
 {
     return __neo_linux_errno_result(__neo_linux_syscall3(0, fd, (long)buf, (long)count));
 }
 
-long write(int fd, const void* buf, unsigned long count)
+__NEO_WEAK long write(int fd, const void* buf, unsigned long count)
 {
     return __neo_linux_errno_result(__neo_linux_syscall3(1, fd, (long)buf, (long)count));
 }
 
-int open(const char* path, int flags, int mode)
+__NEO_WEAK int open(const char* path, int flags, int mode)
 {
     return (int)__neo_linux_errno_result(__neo_linux_syscall3(2, (long)path, flags, mode));
 }
 
-int close(int fd)
+__NEO_WEAK int close(int fd)
 {
     return (int)__neo_linux_errno_result(__neo_linux_syscall1(3, fd));
 }
 
-__attribute__((used)) void exit(int status)
+__NEO_WEAK int unlink(const char* path)
+{
+    return (int)__neo_linux_errno_result(__neo_linux_syscall1(87, (long)path));
+}
+
+__attribute__((used, weak)) void exit(int status)
 {
     __neo_linux_syscall1(60, status);
     for(;;) {
     }
 }
 
-void putchar(char c)
+__NEO_WEAK void putchar(char c)
 {
     write(1, &c, 1);
 }
 
-unsigned long brk(unsigned long size)
+__NEO_WEAK unsigned long brk(unsigned long size)
 {
     return (unsigned long)__neo_linux_syscall1(12, (long)size);
 }
 
+struct utsname {
+    char sysname[65];
+    char nodename[65];
+    char release[65];
+    char version[65];
+    char machine[65];
+    char domainname[65];
+};
+
+static void __neo_copy_cstr(char* dst, const char* src, unsigned long n)
+{
+    unsigned long i = 0;
+    if(n == 0) {
+        return;
+    }
+    while(i + 1 < n && src[i]) {
+        dst[i] = src[i];
+        i++;
+    }
+    dst[i] = 0;
+}
+
+__NEO_WEAK int uname(struct utsname* buf)
+{
+    if(!buf) {
+        errno = 22;
+        return -1;
+    }
+    __neo_copy_cstr(buf->sysname, "Linux", sizeof(buf->sysname));
+    __neo_copy_cstr(buf->nodename, "neo-c-bare", sizeof(buf->nodename));
+    __neo_copy_cstr(buf->release, "", sizeof(buf->release));
+    __neo_copy_cstr(buf->version, "", sizeof(buf->version));
+    __neo_copy_cstr(buf->machine, "x86_64", sizeof(buf->machine));
+    __neo_copy_cstr(buf->domainname, "", sizeof(buf->domainname));
+    return 0;
+}
+
+typedef long time_t;
+
+struct tm {
+    int tm_sec;
+    int tm_min;
+    int tm_hour;
+    int tm_mday;
+    int tm_mon;
+    int tm_year;
+    int tm_wday;
+    int tm_yday;
+    int tm_isdst;
+    long tm_gmtoff;
+    const char* tm_zone;
+};
+
+__NEO_WEAK time_t time(time_t* t)
+{
+    time_t result = (time_t)__neo_linux_syscall1(201, 0);
+    if(result < 0) {
+        result = 0;
+    }
+    if(t) {
+        *t = result;
+    }
+    return result;
+}
+
+__NEO_WEAK struct tm* localtime(const time_t* t)
+{
+    static struct tm tm_;
+    (void)t;
+    tm_.tm_sec = 0;
+    tm_.tm_min = 0;
+    tm_.tm_hour = 0;
+    tm_.tm_mday = 1;
+    tm_.tm_mon = 0;
+    tm_.tm_year = 70;
+    tm_.tm_wday = 4;
+    tm_.tm_yday = 0;
+    tm_.tm_isdst = 0;
+    tm_.tm_gmtoff = 0;
+    tm_.tm_zone = "UTC";
+    return &tm_;
+}
+
 extern int main(int argc, char** argv) __attribute__((used));
 
-__attribute__((used, naked, noreturn)) void _start(void)
+__attribute__((used, weak, naked, noreturn)) void _start(void)
 {
     __asm__ volatile(
         "mov (%rsp), %rdi\n"
@@ -158,6 +287,7 @@ extern long read(int fd, void* buf, size_t count);
 extern long write(int fd, const void* buf, size_t count);
 extern int open(const char* path, int flags, int mode);
 extern int close(int fd);
+extern int unlink(const char* path);
 extern void exit(int status);
 extern void putchar(char c);
 #else
@@ -175,7 +305,16 @@ typedef struct __neo_FILE {
     int error;
     int eof;
     int owned;
+    int has_ungot;
+    int ungot;
 } FILE;
+
+uniq FILE __neo_stdin_file = { 0, 0, 0, 0, 0, 0 };
+uniq FILE __neo_stdout_file = { 1, 0, 0, 0, 0, 0 };
+uniq FILE __neo_stderr_file = { 2, 0, 0, 0, 0, 0 };
+uniq FILE* stdin = &__neo_stdin_file;
+uniq FILE* stdout = &__neo_stdout_file;
+uniq FILE* stderr = &__neo_stderr_file;
 
 uniq int __neo_fopen_flags(const char* mode)
 {
@@ -227,6 +366,8 @@ uniq FILE* fopen(const char* path, const char* mode)
     f->error = 0;
     f->eof = 0;
     f->owned = 1;
+    f->has_ungot = 0;
+    f->ungot = 0;
     return f;
 }
 
@@ -268,6 +409,68 @@ uniq int fwrite(const void* ptr, int size, int nmemb, FILE* f)
     }
 
     return (int)(done / size);
+}
+
+uniq int fputc(int c, FILE* f)
+{
+    unsigned char ch = (unsigned char)c;
+    if(fwrite(&ch, 1, 1, f) != 1) {
+        return EOF;
+    }
+    return (int)ch;
+}
+
+uniq int fputs(const char* s, FILE* f)
+{
+    if(s == NULL || f == NULL) {
+        return EOF;
+    }
+    int len = strlen(s);
+    if(fwrite(s, 1, len, f) != len) {
+        return EOF;
+    }
+    return len;
+}
+
+uniq int fgetc(FILE* f)
+{
+    if(f == NULL) {
+        return EOF;
+    }
+    if(f->has_ungot) {
+        f->has_ungot = 0;
+        return f->ungot;
+    }
+    unsigned char ch;
+    long n = read(f->fd, &ch, 1);
+    if(n < 0) {
+        f->error = 1;
+        return EOF;
+    }
+    if(n == 0) {
+        f->eof = 1;
+        return EOF;
+    }
+    return (int)ch;
+}
+
+uniq int ungetc(int c, FILE* f)
+{
+    if(f == NULL || c == EOF || f->has_ungot) {
+        return EOF;
+    }
+    f->has_ungot = 1;
+    f->ungot = (unsigned char)c;
+    f->eof = 0;
+    return f->ungot;
+}
+
+uniq int fflush(FILE* f)
+{
+    if(f != NULL && f->error) {
+        return EOF;
+    }
+    return 0;
 }
 
 uniq int fclose(FILE* f)
@@ -350,6 +553,33 @@ uniq int fprintf(FILE* f, const char* fmt, ...)
         return -1;
     }
     return written;
+}
+
+uniq void perror(const char* s)
+{
+    if(s != NULL && s[0] != '\0') {
+        fputs(s, stderr);
+        fputs(": ", stderr);
+    }
+    fputs("error\n", stderr);
+}
+
+uniq int remove(const char* path)
+{
+    return unlink(path);
+}
+
+uniq char* getenv(const char* name)
+{
+    (void)name;
+    return NULL;
+}
+
+uniq char* setlocale(int category, const char* locale)
+{
+    (void)category;
+    (void)locale;
+    return "";
 }
 #endif
 
@@ -1263,7 +1493,7 @@ uniq char* itoa(char* buf, unsigned long val_, int base, int is_signed) {
     return buf;
 }
 uniq int vasprintf(char** out, const char* fmt, va_list ap) {
-    char out2[512];
+    char out2[NEO_VASPRINTF_STACK_SIZE];
     char* p = out2;
     const char* s;
     char buf[32];
@@ -1667,6 +1897,15 @@ uniq unsigned long strtoul(const char* nptr, char** endptr, int base) {
     unsigned long val_ = (unsigned long)parsed;
     if (neg) val_ = (unsigned long)(-(long)val_);
     return val_;
+}
+
+uniq unsigned long long strtoull(const char* nptr, char** endptr, int base) {
+    int neg = 0;
+    int any = 0;
+    unsigned long long parsed = __minux_parse_unsigned(nptr, endptr, base, &neg, &any);
+    if (!any) return 0;
+    if (neg) parsed = (unsigned long long)(-(long long)parsed);
+    return parsed;
 }
 
 uniq long strtol(const char* nptr, char** endptr, int base) {

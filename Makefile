@@ -34,6 +34,7 @@ MARCH_NATIVE?=1
 NOPLT?=1
 GC_SECTIONS?=1
 ALLOCATOR?=system
+BARE?=0
 PGO_TRAINING_DIRS?=. code code2 code4 mytest vin mf shsh zed webweb minux2 cinatora
 .PHONY: all self-host install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt pgo-cs-generate pgo-cs-collect pgo-cs-use
 ifeq ($(LOWMEM),1)
@@ -58,6 +59,12 @@ LIBS+=-ljemalloc
 endif
 ifeq ($(ALLOCATOR),mimalloc)
 LIBS+=-lmimalloc
+endif
+ifeq ($(BARE),1)
+NCC_FLAGS+=-bare
+CFLAGS+=-D__BAREMETAL__
+LDFLAGS+=-nostdlib -Wl,-e,_start -Wl,--allow-multiple-definition
+LIBS=
 endif
 ifeq ($(UNAME_S),Darwin)
 ifneq ($(NO_PORTABLE_C),1)

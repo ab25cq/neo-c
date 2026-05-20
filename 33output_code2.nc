@@ -939,35 +939,41 @@ bool output_source_file(sInfo* info)
     fprintf(f, "/// c_include definition ///\n");
     foreach(it, info.c_include_definition) {
         buffer* buf = borrow info.c_include_definition[string(it)];
-        fprintf(f, "%s\n", buf.to_string());
+        fputs(buf.to_string(), f);
+        fputc('\n', f);
     }
     
     fprintf(f, "/// typedef definition ///\n");
     foreach(it, info.typedef_definition) {
         buffer* buf = borrow info.typedef_definition[string(it)];
-        fprintf(f, "%s\n", buf.to_string());
+        fputs(buf.to_string(), f);
+        fputc('\n', f);
     }
     
     fprintf(f, "/// previous struct definition ///\n");
     foreach(it, info.previous_struct_definition) {
         buffer* buf = borrow info.previous_struct_definition[string(it)];
-        fprintf(f, "%s\n", buf.to_string());
+        fputs(buf.to_string(), f);
+        fputc('\n', f);
     }
     
     fprintf(f, "/// struct definition ///\n");
     foreach(it, info.struct_definition) {
         buffer* buf = borrow info.struct_definition[string(it)];
-        fprintf(f, "%s\n", buf.to_string());
+        fputs(buf.to_string(), f);
+        fputc('\n', f);
     }
     
     fprintf(f, "/// variable definition ///\n");
     foreach(it, info.var_definition) {
         buffer* buf = borrow info.var_definition[string(it)];
-        fprintf(f, "%s\n", buf.to_string());
+        fputs(buf.to_string(), f);
+        fputc('\n', f);
     }
     
     fprintf(f, "// source head\n");
-    fprintf(f, "%s\n", info.module.mSourceHead.to_string());
+    fputs(info.module.mSourceHead.to_string(), f);
+    fputc('\n', f);
     
     fprintf(f, "// header function\n");
     foreach(it, info.funcs) {

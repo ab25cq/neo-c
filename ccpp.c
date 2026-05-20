@@ -1,3 +1,107 @@
+#ifdef __BAREMETAL__
+typedef unsigned long size_t;
+typedef long time_t;
+typedef struct __neo_FILE FILE;
+extern int errno;
+extern FILE* stdin;
+extern FILE* stdout;
+extern FILE* stderr;
+struct utsname {
+    char sysname[65];
+    char nodename[65];
+    char release[65];
+    char version[65];
+    char machine[65];
+    char domainname[65];
+};
+struct tm {
+    int tm_sec;
+    int tm_min;
+    int tm_hour;
+    int tm_mday;
+    int tm_mon;
+    int tm_year;
+    int tm_wday;
+    int tm_yday;
+    int tm_isdst;
+    long tm_gmtoff;
+    const char* tm_zone;
+};
+#ifndef NULL
+#define NULL ((void*)0)
+#endif
+#ifndef EOF
+#define EOF (-1)
+#endif
+#ifndef INT_MAX
+#define INT_MAX 2147483647
+#endif
+#ifndef UINT_MAX
+#define UINT_MAX 4294967295U
+#endif
+#ifndef LONG_MAX
+#define LONG_MAX 9223372036854775807L
+#endif
+#ifndef ULONG_MAX
+#define ULONG_MAX 18446744073709551615UL
+#endif
+#ifndef LLONG_MAX
+#define LLONG_MAX 9223372036854775807LL
+#endif
+#ifndef SIZE_MAX
+#define SIZE_MAX ((size_t)-1)
+#endif
+#ifndef ERANGE
+#define ERANGE 34
+#endif
+#define true 1
+#define false 0
+typedef int bool;
+void exit(int status);
+void perror(const char* s);
+void* malloc(size_t size);
+void* calloc(size_t nmemb, size_t size);
+void* realloc(void* ptr, size_t size);
+void free(void* ptr);
+int strcmp(const char* s1, const char* s2);
+int strncmp(const char* s1, const char* s2, size_t n);
+char* strcpy(char* dst, const char* src);
+char* strncpy(char* dst, const char* src, size_t n);
+char* strcat(char* dst, const char* src);
+size_t strlen(const char* s);
+void* memcpy(void* dst, const void* src, size_t n);
+void* memmove(void* dst, const void* src, size_t n);
+void* memset(void* dst, int c, size_t n);
+int memcmp(const void* s1, const void* s2, size_t n);
+void* memchr(const void* s, int c, size_t n);
+char* strchr(const char* s, int c);
+char* strrchr(const char* s, int c);
+char* strstr(const char* haystack, const char* needle);
+long strtol(const char* nptr, char** endptr, int base);
+unsigned long strtoul(const char* nptr, char** endptr, int base);
+unsigned long long strtoull(const char* nptr, char** endptr, int base);
+int snprintf(char* out, size_t out_size, const char* fmt, ...);
+int fprintf(FILE* f, const char* fmt, ...);
+int fputs(const char* s, FILE* f);
+int fputc(int c, FILE* f);
+int fgetc(FILE* f);
+int ungetc(int c, FILE* f);
+int fclose(FILE* f);
+FILE* fopen(const char* path, const char* mode);
+char* fgets(char* s, int size, FILE* f);
+int fflush(FILE* f);
+char* getenv(const char* name);
+time_t time(time_t* t);
+struct tm* localtime(const time_t* t);
+int uname(struct utsname* buf);
+static int isspace(int c) { return c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == '\f'; }
+static int isalpha(int c) { return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'); }
+static int isdigit(int c) { return c >= '0' && c <= '9'; }
+static int isalnum(int c) { return isalpha(c) || isdigit(c); }
+static int isxdigit(int c) { return isdigit(c) || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'); }
+static int toupper(int c) { return (c >= 'a' && c <= 'z') ? c - ('a' - 'A') : c; }
+static int tolower(int c) { return (c >= 'A' && c <= 'Z') ? c + ('a' - 'A') : c; }
+#else
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
@@ -7,6 +111,7 @@
 #include <string.h>
 #include <sys/utsname.h>
 #include <time.h>
+#endif
 
 #define PP_RESCAN_MAX 1024
 

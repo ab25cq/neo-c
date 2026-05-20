@@ -202,7 +202,7 @@ static bool cpp(sInfo* info)
     size_t source_size = 0;
     bool use_memstream = false;
 
-#if defined(__linux__) || defined(__ANDROID__)
+#if (defined(__linux__) || defined(__ANDROID__)) && !defined(__BAREMETAL__)
     if(!gComeLowMemory) {
         out = open_memstream(&source_data, &source_size);
         use_memstream = out != null;
