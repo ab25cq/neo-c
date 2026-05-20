@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.14
+version 1.0.3.15
 
 ## Small binaries
 
@@ -147,6 +147,10 @@ int main(int argc,char** argv)
 
 neo-c outputs c source with standard C libraries only. So you can use this for micro computer or other system working c language.
 
+With `-bare`, neo-c can also build without the standard C library on supported bare targets. On Linux x86_64 this uses `neo-c-libc.h` syscall wrappers and links with `-nostdlib`, so the executable is standalone and does not depend on libc.
+
+`-bare`を使うと、対応しているbareターゲットでは標準Cライブラリなしでもビルドできます。Linux x86_64では`neo-c-libc.h`のsyscallラッパーを使い、`-nostdlib`でリンクするため、libcに依存しない単体実行ファイルになります。
+
 # インストール
 
 sh clean-self-host.sh will automatically install the necessary packages.
@@ -198,6 +202,30 @@ sh fast_build.sh -lowmem
 sh clean-self-host.sh -lowmem
 ```
 
+## libc-free self-host
+
+On Linux x86_64, you can self-host neo-c without the standard C library by passing `BARE=1` to make:
+
+```sh
+make BARE=1 self-host
+make BARE=1 ncc
+```
+
+`BARE=1` passes `-bare` to the self-host transpiler, defines `__BAREMETAL__`, avoids libc-only paths such as `open_memstream`, and links `ncc` with `-nostdlib -Wl,-e,_start`. The resulting `ncc` is a stripped, statically linked executable that uses `neo-c-libc.h` instead of libc.
+
+Linux x86_64では、以下のように標準Cライブラリを使わずにneo-cをセルフホストできます。
+
+```sh
+make BARE=1 self-host
+make BARE=1 ncc
+```
+
+`BARE=1`はセルフホスト時のトランスパイルに`-bare`を渡し、`__BAREMETAL__`を定義し、`open_memstream`のようなlibc専用の経路を避け、`ncc`を`-nostdlib -Wl,-e,_start`でリンクします。生成される`ncc`はstrip済みの静的リンク実行ファイルで、libcではなく`neo-c-libc.h`を使います。
+
+For `vasprintf`, x86 and x86_64 keep a larger temporary stack buffer for self-host code generation. Other architectures use a smaller buffer to reduce stack pressure on small bare-metal systems such as Pico.
+
+`vasprintf`は、x86/x86_64ではセルフホストのコード生成向けに大きめの一時スタックバッファを使います。それ以外のアーキテクチャでは、Picoのような小さいbare-metal環境でスタック消費を抑えるため小さいバッファを使います。
+
 To install a vi clone called vin, a string processing interpreter called zed, a console filer called mf, and an original shell called shsh, do the following:
 
 vinというviクローン、zedという文字列処理インタプリタ、mfというコンソールファイラ、shshというオリジナルのシェルをインストールするには以下のようにします。
@@ -223,6 +251,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.15 Document libc-free Linux x86_64 self-host builds with `make BARE=1 self-host` and `make BARE=1 ncc`; `vasprintf` now uses a large stack buffer only on x86/x86_64 and a small one elsewhere.
 1.0.3.14 Linux x86_64 `-bare` implements read/write/open/close based file I/O without libc and fixes `_start` stack alignment so exception stackframes do not segfault.
 1.0.3.13 Linux x86_64 `-bare` can build libc-free standalone statically linked binaries; document 5K `a.nc` and 21K `b.nc` stripped sizes.
 1.0.3.12 Array bounds checks and runtime / and % by zero panics now print stackframe output before exiting.
