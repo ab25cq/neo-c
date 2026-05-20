@@ -1,8 +1,8 @@
-#ifdef __BAREMETAL__
 typedef unsigned long size_t;
 typedef long time_t;
 typedef struct __neo_FILE FILE;
-extern int errno;
+extern int* __errno_location(void);
+#define errno (*__errno_location())
 extern FILE* stdin;
 extern FILE* stdout;
 extern FILE* stderr;
@@ -101,17 +101,6 @@ static int isalnum(int c) { return isalpha(c) || isdigit(c); }
 static int isxdigit(int c) { return isdigit(c) || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'); }
 static int toupper(int c) { return (c >= 'a' && c <= 'z') ? c - ('a' - 'A') : c; }
 static int tolower(int c) { return (c >= 'A' && c <= 'Z') ? c + ('a' - 'A') : c; }
-#else
-#include <ctype.h>
-#include <errno.h>
-#include <limits.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/utsname.h>
-#include <time.h>
-#endif
 
 #define PP_RESCAN_MAX 1024
 

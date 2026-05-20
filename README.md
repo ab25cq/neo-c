@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.15
+version 1.0.3.16
 
 ## Small binaries
 
@@ -211,7 +211,7 @@ make BARE=1 self-host
 make BARE=1 ncc
 ```
 
-`BARE=1` passes `-bare` to the self-host transpiler, defines `__BAREMETAL__`, avoids libc-only paths such as `open_memstream`, and links `ncc` with `-nostdlib -Wl,-e,_start`. The resulting `ncc` is a stripped, statically linked executable that uses `neo-c-libc.h` instead of libc.
+`BARE=1` passes `-bare` to the self-host transpiler, avoids libc-only paths such as `open_memstream`, and links `ncc` with `-nostdlib -Wl,-e,_start`. The `-bare` option writes `__BAREMETAL__` into generated C source by itself, so the Makefile does not need to add `-D__BAREMETAL__`. The resulting `ncc` is a stripped, statically linked executable that uses `neo-c-libc.h` instead of libc.
 
 Linux x86_64では、以下のように標準Cライブラリを使わずにneo-cをセルフホストできます。
 
@@ -220,7 +220,7 @@ make BARE=1 self-host
 make BARE=1 ncc
 ```
 
-`BARE=1`はセルフホスト時のトランスパイルに`-bare`を渡し、`__BAREMETAL__`を定義し、`open_memstream`のようなlibc専用の経路を避け、`ncc`を`-nostdlib -Wl,-e,_start`でリンクします。生成される`ncc`はstrip済みの静的リンク実行ファイルで、libcではなく`neo-c-libc.h`を使います。
+`BARE=1`はセルフホスト時のトランスパイルに`-bare`を渡し、`open_memstream`のようなlibc専用の経路を避け、`ncc`を`-nostdlib -Wl,-e,_start`でリンクします。`-bare`オプションだけで生成Cソースへ`__BAREMETAL__`を書き込むため、Makefile側で`-D__BAREMETAL__`を追加する必要はありません。生成される`ncc`はstrip済みの静的リンク実行ファイルで、libcではなく`neo-c-libc.h`を使います。
 
 For `vasprintf`, x86 and x86_64 keep a larger temporary stack buffer for self-host code generation. Other architectures use a smaller buffer to reduce stack pressure on small bare-metal systems such as Pico.
 
@@ -251,6 +251,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.16 `-bare` now writes `__BAREMETAL__` into generated C source by itself, so Makefile no longer adds `-D__BAREMETAL__`; ccpp no longer depends on standard C headers.
 1.0.3.15 Document libc-free Linux x86_64 self-host builds with `make BARE=1 self-host` and `make BARE=1 ncc`; `vasprintf` now uses a large stack buffer only on x86/x86_64 and a small one elsewhere.
 1.0.3.14 Linux x86_64 `-bare` implements read/write/open/close based file I/O without libc and fixes `_start` stack alignment so exception stackframes do not segfault.
 1.0.3.13 Linux x86_64 `-bare` can build libc-free standalone statically linked binaries; document 5K `a.nc` and 21K `b.nc` stripped sizes.

@@ -62,7 +62,6 @@ LIBS+=-lmimalloc
 endif
 ifeq ($(BARE),1)
 NCC_FLAGS+=-bare
-CFLAGS+=-D__BAREMETAL__
 LDFLAGS+=-nostdlib -Wl,-e,_start -Wl,--allow-multiple-definition
 LIBS=
 endif

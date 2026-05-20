@@ -937,6 +937,9 @@ bool output_source_file(sInfo* info)
     if(f == null) { die("fopen"); }
     
     fprintf(f, "/// c_include definition ///\n");
+    if(gComeBareMetal) {
+        fprintf(f, "#ifndef __BAREMETAL__\n#define __BAREMETAL__ 1\n#endif\n\n");
+    }
     foreach(it, info.c_include_definition) {
         buffer* buf = borrow info.c_include_definition[string(it)];
         fputs(buf.to_string(), f);
