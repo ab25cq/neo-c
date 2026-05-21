@@ -4164,7 +4164,7 @@ static struct sGenericsFun*  map$2char$phsGenericsFun$ph_at(struct map$2char$phs
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right1; });
+    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right1; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -4883,7 +4883,7 @@ static struct sClass*  map$2char$phsClass$ph$p_operator_load_element(struct map$
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right2; });
+    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right2; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -4999,7 +4999,7 @@ static struct sClass*  map$2char$phsClass$ph_operator_load_element(struct map$2c
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right3 = (self->size); if(__neo_div_right3 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right3; });
+    hash=({ __typeof__(self->size) __neo_div_right3 = (self->size); if(__neo_div_right3 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right3; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -5122,7 +5122,7 @@ static struct sFun*  map$2char$phsFun$ph_at(struct map$2char$phsFun$ph* self, ch
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right4 = (self->size); if(__neo_div_right4 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right4; });
+    hash=({ __typeof__(self->size) __neo_div_right4 = (self->size); if(__neo_div_right4 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right4; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -5295,7 +5295,7 @@ static struct map$2char$phsFun$ph* map$2char$phsFun$ph_remove(struct map$2char$p
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right5 = (self->size); if(__neo_div_right5 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right5; });
+    hash=({ __typeof__(self->size) __neo_div_right5 = (self->size); if(__neo_div_right5 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right5; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -5945,7 +5945,7 @@ static struct sFun*  map$2char$phsFun$ph$p_operator_load_element(struct map$2cha
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right6 = (self->size); if(__neo_div_right6 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right6; });
+    hash=({ __typeof__(self->size) __neo_div_right6 = (self->size); if(__neo_div_right6 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right6; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6002,7 +6002,7 @@ static struct sFun*  map$2char$phsFun$ph_operator_load_element(struct map$2char$
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right7 = (self->size); if(__neo_div_right7 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right7; });
+    hash=({ __typeof__(self->size) __neo_div_right7 = (self->size); if(__neo_div_right7 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right7; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6457,7 +6457,7 @@ struct sMethodCallNode* sMethodCallNode_initialize(struct sMethodCallNode* self,
     struct buffer*  __dec_obj79  ;
     struct list$1sType$ph* __dec_obj80;
     struct sMethodCallNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sMethodCallNode*)come_increment_ref_count(self, "39method2.nc", 462, 813),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "39method2.nc", 462, 813),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "39method2.nc}", 462, 815);
     __right_value0 = (void*)0;
     __dec_obj71=self->obj,
@@ -6853,9 +6853,9 @@ _Bool sMethodCallNode_compile(struct sMethodCallNode* self, struct sInfo*  info 
     memset(&_o2_saved_20, 0, sizeof(_o2_saved_20));
     memset(&it_122, 0, sizeof(it_122));
     memset(&come_value2_123, 0, sizeof(come_value2_123));
-    call_sname=(char* )come_increment_ref_count(sNodeBase_sname(self,info), "39method2.nc", 493, 881);
-    call_sline=sNodeBase_sline(self,info);
-    call_sline_real=sNodeBase_sline_real(self,info);
+    call_sname=(char* )come_increment_ref_count(sNodeBase_sname(((struct sNodeBase*)self),info), "39method2.nc", 493, 881);
+    call_sline=sNodeBase_sline(((struct sNodeBase*)self),info);
+    call_sline_real=sNodeBase_sline_real(((struct sNodeBase*)self),info);
     fun_name=(char* )come_increment_ref_count(self->fun_name, "39method2.nc", 497, 882);
     params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(self->params, "39method2.nc", 498, 883);
     __right_value0 = (void*)0;
@@ -8739,7 +8739,7 @@ struct sIterCallNode* sIterCallNode_initialize(struct sIterCallNode* self, const
     struct list$1tuple2$2char$phsNode$ph$ph* __dec_obj113;
     struct buffer*  __dec_obj114  ;
     struct sIterCallNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sIterCallNode*)come_increment_ref_count(self, "39method2.nc", 1131, 1499),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "39method2.nc", 1131, 1499),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "39method2.nc}", 1131, 1500);
     __right_value0 = (void*)0;
     __dec_obj110=self->obj,
@@ -9004,9 +9004,9 @@ _Bool sIterCallNode_compile(struct sIterCallNode* self, struct sInfo*  info  )
     memset(&squort_141, 0, sizeof(squort_141));
     memset(&dquort_142, 0, sizeof(dquort_142));
     memset(&method_block2_143, 0, sizeof(method_block2_143));
-    call_sname=(char* )come_increment_ref_count(sNodeBase_sname(self,info), "39method2.nc", 1164, 1525);
-    call_sline=sNodeBase_sline(self,info);
-    call_sline_real=sNodeBase_sline_real(self,info);
+    call_sname=(char* )come_increment_ref_count(sNodeBase_sname(((struct sNodeBase*)self),info), "39method2.nc", 1164, 1525);
+    call_sline=sNodeBase_sline(((struct sNodeBase*)self),info);
+    call_sline_real=sNodeBase_sline_real(((struct sNodeBase*)self),info);
     fun_name=(char* )come_increment_ref_count(self->fun_name, "39method2.nc", 1167, 1526);
     params=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(self->params, "39method2.nc", 1168, 1527);
     __right_value0 = (void*)0;

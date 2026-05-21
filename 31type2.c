@@ -6409,7 +6409,7 @@ static struct sType*  map$2char$phsType$ph$p_operator_load_element(struct map$2c
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right1; });
+    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right1; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6466,7 +6466,7 @@ static struct sType*  map$2char$phsType$ph_operator_load_element(struct map$2cha
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right2; });
+    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right2; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -7411,7 +7411,7 @@ static struct sClass*  map$2char$phsClass$ph$p_operator_load_element(struct map$
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right3 = (self->size); if(__neo_div_right3 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right3; });
+    hash=({ __typeof__(self->size) __neo_div_right3 = (self->size); if(__neo_div_right3 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right3; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -7527,7 +7527,7 @@ static struct sClass*  map$2char$phsClass$ph_operator_load_element(struct map$2c
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right4 = (self->size); if(__neo_div_right4 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right4; });
+    hash=({ __typeof__(self->size) __neo_div_right4 = (self->size); if(__neo_div_right4 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right4; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -7811,7 +7811,7 @@ static struct buffer*  map$2char$phbuffer$ph$p_operator_load_element(struct map$
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right5 = (self->size); if(__neo_div_right5 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right5; });
+    hash=({ __typeof__(self->size) __neo_div_right5 = (self->size); if(__neo_div_right5 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right5; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -7868,7 +7868,7 @@ static struct buffer*  map$2char$phbuffer$ph_operator_load_element(struct map$2c
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right6 = (self->size); if(__neo_div_right6 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right6; });
+    hash=({ __typeof__(self->size) __neo_div_right6 = (self->size); if(__neo_div_right6 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right6; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -7994,7 +7994,7 @@ static struct sClass*  map$2char$phsClass$ph_at(struct map$2char$phsClass$ph* se
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right7 = (self->size); if(__neo_div_right7 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right7; });
+    hash=({ __typeof__(self->size) __neo_div_right7 = (self->size); if(__neo_div_right7 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right7; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -8067,7 +8067,7 @@ static struct map$2char$phsClass$ph* map$2char$phsClass$ph_insert(struct map$2ch
     }
     add_to_key_list=(_Bool)0;
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right9 = (self->size); if(__neo_div_right9 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right9; });
+    hash=({ __typeof__(self->size) __neo_div_right9 = (self->size); if(__neo_div_right9 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right9; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -8177,7 +8177,7 @@ static void map$2char$phsClass$ph_rehash(struct map$2char$phsClass$ph* self)
             continue;
         }
         key_hash=self->hashes[i_85];
-        hash=({ __typeof__(size) __neo_div_right8 = (size); if(__neo_div_right8 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right8; });
+        hash=({ __typeof__(size) __neo_div_right8 = (size); if(__neo_div_right8 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right8; });
         n=hash;
         while((_Bool)1) {
             if(item_existance[n]) {

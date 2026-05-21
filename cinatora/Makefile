@@ -17,15 +17,15 @@ libdir=${exec_prefix}/lib
 #########################################
 CC=neo-c
 INSTALL=install
-CFLAGS= -common-header -O2 -str -net
-CFLAGS_DEBUG= -common-header -gdwarf-4 -cg -str -net
+CFLAGS= -I. -O2
+CFLAGS_DEBUG= -I. -gdwarf-4 -cg
 LIBS=-lpcre
 OS=linux
 DESTDIR=/usr/local/
-SRCS=$(wildcard *.c)
-SINGLE_SRCS=$(filter-out %.c.c, $(SRCS))
-OBJS=$(SINGLE_SRCS:.c=.o)
-DEBUG_OBJS=$(SINGLE_SRCS:.c=.debug.o)
+SRCS=$(wildcard *.nc)
+SINGLE_SRCS=$(filter-out %.c, $(SRCS))
+OBJS=$(SINGLE_SRCS:.nc=.o)
+DEBUG_OBJS=$(SINGLE_SRCS:.nc=.debug.o)
 TARGET=cinatora
 TARGET_DEBUG=cinatora-debug
 
@@ -40,10 +40,10 @@ $(TARGET): $(OBJS)
 $(TARGET_DEBUG): $(DEBUG_OBJS)
 	$(CC) $(CFLAGS_DEBUG) $^ -o $@
 
-%.o: %.c
+%.o: %.nc
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%.debug.o: %.c
+%.debug.o: %.nc
 	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
 
 #########################################
@@ -65,7 +65,7 @@ install:
 # clean
 #########################################
 clean:
-	rm -fR *.o *.c.i *.c.out *.c.c cinatora *.log *.out cinatora-debug
+	rm -fR *.o *.nc.i *.c.error *.c cinatora *.log *.out cinatora-debug
 
 #########################################
 # uninstall

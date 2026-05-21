@@ -2407,6 +2407,11 @@ bool check_assign_type_safe(const char* msg, sType* left_type, sType* right_type
                     show_type(right_type2);
                     return false;
                 }
+                if(come_value != null) {
+                    string type_name = make_type_name_string(left_type2, cast_type:true);
+                    come_value.c_value = xsprintf("((%s)%s)", type_name, come_value.c_value);
+                    come_value.type = clone left_type2;
+                }
                 return true;
             }
             

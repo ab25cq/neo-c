@@ -1,8 +1,8 @@
 #include <neo-c.h>
-#include <neo-c-net.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <signal.h>
+#include <locale.h>
 
 struct Cinatora
 {

@@ -354,7 +354,9 @@ class sMultNode extends sNodeBase
 
 static string create_zero_division_checked_binary_code(CVALUE* left_value, CVALUE* right_value, const char* op, const char* message, sInfo* info)
 {
-    if(info.in_top_level || info.in_typedef || info.in_fun_param || info.in_typeof || info.in_offsetof) {
+    if(info.in_top_level || info.in_typedef || info.in_fun_param || info.in_typeof || info.in_offsetof
+        || string(left_value.c_value).index("sizeof", -1) != -1
+        || string(right_value.c_value).index("sizeof", -1) != -1) {
         return xsprintf("%s %s %s", left_value.c_value, op, right_value.c_value);
     }
 

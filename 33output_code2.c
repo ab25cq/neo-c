@@ -2929,7 +2929,7 @@ static _Bool should_strip_portable_asm_alias(const char* source, int* consumed)
     char token[len+1];
     memset(&token, 0, sizeof(token));
     memcpy(token,source,len);
-    ({ long long __neo_array_index1_0 = (long long)(len); if(__neo_array_index1_0 < 0 || __neo_array_index1_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } token[__neo_array_index1_0] = 0; });
+    ({ long long __neo_array_index1_0 = (long long)(len); if(__neo_array_index1_0 < 0 || __neo_array_index1_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } token[__neo_array_index1_0] = 0; });
     has_darwin_suffix=string_index(((char* )(__right_value0=__builtin_string(token,"33output_code2.nc",80))),"$",-1)>=0;
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 80, 37));
     __right_value0 = (void*)0;
@@ -2994,16 +2994,16 @@ static char*  normalize_portable_c_source(char* source)
             char token[len+1];
             memset(&token, 0, sizeof(token));
             memcpy(token,head,len);
-            ({ long long __neo_array_index2_0 = (long long)(len); if(__neo_array_index2_0 < 0 || __neo_array_index2_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } token[__neo_array_index2_0] = 0; });
+            ({ long long __neo_array_index2_0 = (long long)(len); if(__neo_array_index2_0 < 0 || __neo_array_index2_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } token[__neo_array_index2_0] = 0; });
             out=token;
             __right_value0 = (void*)0;
             pos=string_index(((char* )(__right_value0=__builtin_string(token,"33output_code2.nc",122))),"$",-1);
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 122, 48));
-            if(pos>=0&&(*({ long long __neo_array_index3_0 = (long long)(0); if(__neo_array_index3_0 < 0 || __neo_array_index3_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index3_0]; }))==95&&(*({ long long __neo_array_index4_0 = (long long)(1); if(__neo_array_index4_0 < 0 || __neo_array_index4_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index4_0]; }))!=95&&(*({ long long __neo_array_index5_0 = (long long)(1); if(__neo_array_index5_0 < 0 || __neo_array_index5_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index5_0]; }))!=0&&(*({ long long __neo_array_index6_0 = (long long)(pos+1); if(__neo_array_index6_0 < 0 || __neo_array_index6_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index6_0]; }))>=65&&(*({ long long __neo_array_index7_0 = (long long)(pos+1); if(__neo_array_index7_0 < 0 || __neo_array_index7_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index7_0]; }))<=90) {
-                ({ long long __neo_array_index8_0 = (long long)(pos); if(__neo_array_index8_0 < 0 || __neo_array_index8_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } token[__neo_array_index8_0] = 0; });
+            if(pos>=0&&(*({ long long __neo_array_index3_0 = (long long)(0); if(__neo_array_index3_0 < 0 || __neo_array_index3_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index3_0]; }))==95&&(*({ long long __neo_array_index4_0 = (long long)(1); if(__neo_array_index4_0 < 0 || __neo_array_index4_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index4_0]; }))!=95&&(*({ long long __neo_array_index5_0 = (long long)(1); if(__neo_array_index5_0 < 0 || __neo_array_index5_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index5_0]; }))!=0&&(*({ long long __neo_array_index6_0 = (long long)(pos+1); if(__neo_array_index6_0 < 0 || __neo_array_index6_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index6_0]; }))>=65&&(*({ long long __neo_array_index7_0 = (long long)(pos+1); if(__neo_array_index7_0 < 0 || __neo_array_index7_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index7_0]; }))<=90) {
+                ({ long long __neo_array_index8_0 = (long long)(pos); if(__neo_array_index8_0 < 0 || __neo_array_index8_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } token[__neo_array_index8_0] = 0; });
                 out=token+1;
             }
-            else if((*({ long long __neo_array_index9_0 = (long long)(0); if(__neo_array_index9_0 < 0 || __neo_array_index9_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index9_0]; }))==95&&(*({ long long __neo_array_index10_0 = (long long)(1); if(__neo_array_index10_0 < 0 || __neo_array_index10_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index10_0]; }))!=95&&(*({ long long __neo_array_index11_0 = (long long)(1); if(__neo_array_index11_0 < 0 || __neo_array_index11_0 >= (long long)(len+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index11_0]; }))!=0&&is_portable_libc_symbol(token+1)) {
+            else if((*({ long long __neo_array_index9_0 = (long long)(0); if(__neo_array_index9_0 < 0 || __neo_array_index9_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index9_0]; }))==95&&(*({ long long __neo_array_index10_0 = (long long)(1); if(__neo_array_index10_0 < 0 || __neo_array_index10_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index10_0]; }))!=95&&(*({ long long __neo_array_index11_0 = (long long)(1); if(__neo_array_index11_0 < 0 || __neo_array_index11_0 >= (long long)(len+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } &token[__neo_array_index11_0]; }))!=0&&is_portable_libc_symbol(token+1)) {
                 out=token+1;
             }
             buffer_append_str(result,out);
@@ -5866,7 +5866,7 @@ static struct sFun*  map$2char$phsFun$ph$p_operator_load_element(struct map$2cha
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right1; });
+    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right1; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6042,7 +6042,7 @@ static struct sFun*  map$2char$phsFun$ph_operator_load_element(struct map$2char$
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right2; });
+    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right2; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6159,7 +6159,7 @@ static struct map$2char$phsFun$ph* map$2char$phsFun$ph_put(struct map$2char$phsF
     }
     add_to_key_list=(_Bool)0;
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right4 = (self->size); if(__neo_div_right4 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right4; });
+    hash=({ __typeof__(self->size) __neo_div_right4 = (self->size); if(__neo_div_right4 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right4; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6269,7 +6269,7 @@ static void map$2char$phsFun$ph_rehash(struct map$2char$phsFun$ph* self)
             continue;
         }
         key_hash=self->hashes[i_57];
-        hash=({ __typeof__(size) __neo_div_right3 = (size); if(__neo_div_right3 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right3; });
+        hash=({ __typeof__(size) __neo_div_right3 = (size); if(__neo_div_right3 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right3; });
         n=hash;
         while((_Bool)1) {
             if(item_existance[n]) {
@@ -6676,7 +6676,7 @@ static struct buffer*  map$2char$phbuffer$ph$p_operator_load_element(struct map$
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right5 = (self->size); if(__neo_div_right5 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right5; });
+    hash=({ __typeof__(self->size) __neo_div_right5 = (self->size); if(__neo_div_right5 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right5; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6733,7 +6733,7 @@ static struct buffer*  map$2char$phbuffer$ph_operator_load_element(struct map$2c
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right6 = (self->size); if(__neo_div_right6 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right6; });
+    hash=({ __typeof__(self->size) __neo_div_right6 = (self->size); if(__neo_div_right6 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right6; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6846,7 +6846,7 @@ static char*  map$2char$phchar$ph$p_operator_load_element(struct map$2char$phcha
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right7 = (self->size); if(__neo_div_right7 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right7; });
+    hash=({ __typeof__(self->size) __neo_div_right7 = (self->size); if(__neo_div_right7 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right7; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6903,7 +6903,7 @@ static char*  map$2char$phchar$ph_operator_load_element(struct map$2char$phchar$
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right8 = (self->size); if(__neo_div_right8 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right8; });
+    hash=({ __typeof__(self->size) __neo_div_right8 = (self->size); if(__neo_div_right8 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right8; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {

@@ -1,4 +1,7 @@
 
+#include "common.h"
+#include <neo-c-net.h>
+
 extern string Cinatora::main(Cinatora* self);
 extern string Cinatora::cgi_main(Cinatora* self);
 extern string Cinatora::post_main(Cinatora* self);
@@ -14,9 +17,10 @@ int main(int argc, char **argv)
     
     setlocale(LC_ALL, "");
     
-    while(true) {
+    var server = httpd_socket(port:8080, reuse:true);
+    
+    for(var it = server.begin(); !server.end(); it = server.next()) {
         Cinatora cinatora;
-        httpd_socket(port:8080, reuse:true).`iter().`for_each {
             /// get header and contents ///
             char data[1024*2*2*2] = {0};
             int size = read(it, data, 1024*2*2*2-1);
@@ -38,14 +42,14 @@ int main(int argc, char **argv)
             }
             
             var buf = new buffer();
-            buf.append(data, p - data);
+            buf.append(data, (size_t)(p - data));
             
             var header = buf.to_string();
 puts("header");
 puts(header);
             
             var buf2 = new buffer();
-            buf2.append(p + 4, p + 4 - data);
+            buf2.append(p + 4, (size_t)(data + size - (p + 4)));
             
             var contents = buf2.to_string();
 puts("contents");
@@ -53,7 +57,10 @@ puts(contents);
     
             if(header.match("^GET ") && header.match("Accept: text/html")) {
 puts("GET");
-                string path = header.scan("GET (.+) HTTP")[0]??;
+                string path = header.scan("GET (.+) HTTP")[0];
+                if(path == null) {
+                    continue;
+                }
                 
 puts(path);
                 char* p2 = strstr(path, "?");
@@ -80,12 +87,12 @@ puts(output);
                     setenv("REQUEST_METHOD", "GET", 1);
                     setenv("QUERY_STRING", query_string, 1);
                     
-                    string p = header.scan("Content-Length: ([0-9]+)")[0]??;
+                    string p = header.scan("Content-Length: ([0-9]+)")[0];
                     if(p) {
                         int content_length = atoi(p);
                         setenv("CONTENT_LENGTH", s"\{content_length}", 1);
                     }
-                    string p = header.scan("Cookie: (.+)")[0]??;
+                    string p = header.scan("Cookie: (.+)")[0];
                     if(p) {
                         setenv("HTTP_COOKIE", p, 1);
                     }
@@ -103,7 +110,10 @@ puts(output);
             /// image ///
             else if(header.match("^GET ") && header.match("Accept: image")) {
 puts("GET image");
-                char* str = header.scan("GET (.+) HTTP")[0]??;
+                string str = header.scan("GET (.+) HTTP")[0];
+                if(str == null) {
+                    continue;
+                }
                 
                 string file_path = str.substring(1,-1);  // remove /
                 
@@ -154,7 +164,7 @@ puts("POST");
                 string file_path = header.scan("POST (.+) ")[0];
                 setenv("REQUEST_METHOD", "POST", 1);
                 
-                string p = header.scan("Content-Length: ([0-9]+)")[0]??;
+                string p = header.scan("Content-Length: ([0-9]+)")[0];
                 if(p) {
                     int content_length = atoi(p);
                     setenv("CONTENT_LENGTH", s"\{content_length}", 1);
@@ -185,7 +195,6 @@ puts("POST");
                                         "<html><body><h1>404 Not Found</h1></body></html>";
                 write(it, not_found, strlen(not_found));
             }
-        };
     }
     
     return 0;

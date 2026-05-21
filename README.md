@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.17
+version 1.0.3.18
 
 ## Small binaries
 
@@ -255,6 +255,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.18 Generated C now emits explicit parent-class pointer casts for inherited method calls, fixing strict Clang/Arch self-host builds. Runtime / and % zero checks now leave sizeof-based declaration constants as valid C constant expressions. Revalidated clean self-host plus bundled subproject builds, including cinatora, webweb, vin, and minux9.
 1.0.3.17 ccpp now uses normal libc headers unless `BARE=1`; generated panic checks no longer redeclare `puts`, which improves freestanding targets such as minux9. Fedora/Debian/Ubuntu package setup now covers the RISC-V toolchain and QEMU used by minux9, and minux9 shell commands were verified under QEMU.
 1.0.3.16 `-bare` now writes `__BAREMETAL__` into generated C source by itself, so Makefile no longer adds `-D__BAREMETAL__`; ccpp no longer depends on standard C headers.
 1.0.3.15 Document libc-free Linux x86_64 self-host builds with `make BARE=1 self-host` and `make BARE=1 ncc`; `vasprintf` now uses a large stack buffer only on x86/x86_64 and a small one elsewhere.

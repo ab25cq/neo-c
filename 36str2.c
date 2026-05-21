@@ -2911,7 +2911,7 @@ struct sStrNode* sStrNode_initialize(struct sStrNode* self, char*  value  , int 
     void* __right_value0 = (void*)0;
     char*  __dec_obj1  ;
     struct sStrNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sStrNode*)come_increment_ref_count(self, "36str2.nc", 7, 1),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 7, 1),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 7, 3);
     __right_value0 = (void*)0;
     __dec_obj1=self->value,
@@ -3271,7 +3271,7 @@ struct sBufferNode* sBufferNode_initialize(struct sBufferNode* self, struct buff
     void* __right_value0 = (void*)0;
     struct buffer*  __dec_obj7  ;
     struct sBufferNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sBufferNode*)come_increment_ref_count(self, "36str2.nc", 40, 78),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 40, 78),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 40, 79);
     __dec_obj7=self->value,
     self->value=(struct buffer* )come_increment_ref_count(value, "36str2.nc", 42, 81);
@@ -3412,7 +3412,7 @@ static struct sFun*  map$2char$phsFun$ph$p_operator_load_element(struct map$2cha
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right1; });
+    hash=({ __typeof__(self->size) __neo_div_right1 = (self->size); if(__neo_div_right1 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right1; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -3588,7 +3588,7 @@ static struct sFun*  map$2char$phsFun$ph_operator_load_element(struct map$2char$
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right2; });
+    hash=({ __typeof__(self->size) __neo_div_right2 = (self->size); if(__neo_div_right2 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right2; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -4520,7 +4520,7 @@ struct sSStringNode* sSStringNode_initialize(struct sSStringNode* self, char*  v
     char*  __dec_obj44  ;
     struct list$1sNode$ph* __dec_obj45;
     struct sSStringNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sSStringNode*)come_increment_ref_count(self, "36str2.nc", 95, 358),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 95, 358),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 95, 359);
     __right_value0 = (void*)0;
     __dec_obj44=self->value,
@@ -4872,7 +4872,7 @@ struct sCharNode* sCharNode_initialize(struct sCharNode* self, int value, struct
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "sCharNode_initialize"; fr.frame_id = ++neo_frame_id; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct sCharNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sCharNode*)come_increment_ref_count(self, "36str2.nc", 159, 447),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 159, 447),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 159, 448);
     self->value=value;
         __result_obj__0 = (struct sCharNode*)come_increment_ref_count(self, "36str2.nc", 164, 449);
@@ -4938,7 +4938,7 @@ struct sWCharNode* sWCharNode_initialize(struct sWCharNode* self, int  value  , 
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "sWCharNode_initialize"; fr.frame_id = ++neo_frame_id; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct sWCharNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sWCharNode*)come_increment_ref_count(self, "36str2.nc", 189, 468),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 189, 468),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 189, 469);
     self->value=value;
     self->quote=quote;
@@ -5015,7 +5015,7 @@ struct sWStringNode* sWStringNode_initialize(struct sWStringNode* self, int*  va
     void* __right_value0 = (void*)0;
     int*  __dec_obj58  ;
     struct sWStringNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sWStringNode*)come_increment_ref_count(self, "36str2.nc", 225, 491),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 225, 491),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 225, 492);
     __dec_obj58=self->value,
     self->value=(int* )come_increment_ref_count(value, "36str2.nc", 227, 494);
@@ -5088,7 +5088,7 @@ struct sPrefixedCharNode* sPrefixedCharNode_initialize(struct sPrefixedCharNode*
     void* __right_value0 = (void*)0;
     char*  __dec_obj61  ;
     struct sPrefixedCharNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sPrefixedCharNode*)come_increment_ref_count(self, "36str2.nc", 255, 516),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 255, 516),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 255, 517);
     self->value=value;
     __right_value0 = (void*)0;
@@ -5164,7 +5164,7 @@ struct sPrefixedStringNode* sPrefixedStringNode_initialize(struct sPrefixedStrin
     char*  __dec_obj64  ;
     char*  __dec_obj65  ;
     struct sPrefixedStringNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sPrefixedStringNode*)come_increment_ref_count(self, "36str2.nc", 286, 541),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 286, 541),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 286, 542);
     __right_value0 = (void*)0;
     __dec_obj64=self->value,
@@ -5246,7 +5246,7 @@ struct sListNode* sListNode_initialize(struct sListNode* self, struct list$1sNod
     void* __right_value0 = (void*)0;
     struct list$1sNode$ph* __dec_obj68;
     struct sListNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sListNode*)come_increment_ref_count(self, "36str2.nc", 317, 570),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 317, 570),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 317, 571);
     __dec_obj68=self->list_elements,
     self->list_elements=(struct list$1sNode$ph*)come_increment_ref_count(list_elements, "36str2.nc", 319, 573);
@@ -5983,7 +5983,7 @@ static struct sFun*  map$2char$phsFun$ph_at(struct map$2char$phsFun$ph* self, ch
         return __result_obj__0;
     }
     key_hash=string_get_hash_key(((char* )key));
-    hash=({ __typeof__(self->size) __neo_div_right3 = (self->size); if(__neo_div_right3 == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right3; });
+    hash=({ __typeof__(self->size) __neo_div_right3 = (self->size); if(__neo_div_right3 == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("modulo by zero"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } (key_hash) % __neo_div_right3; });
     it=hash;
     while((_Bool)1) {
         if(self->item_existance[it]) {
@@ -6110,7 +6110,7 @@ struct sVectorNode* sVectorNode_initialize(struct sVectorNode* self, struct list
     void* __right_value0 = (void*)0;
     struct list$1sNode$ph* __dec_obj86;
     struct sVectorNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sVectorNode*)come_increment_ref_count(self, "36str2.nc", 522, 794),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 522, 794),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 522, 795);
     __dec_obj86=self->list_elements,
     self->list_elements=(struct list$1sNode$ph*)come_increment_ref_count(list_elements, "36str2.nc", 524, 797);
@@ -6513,7 +6513,7 @@ struct sTupleNode* sTupleNode_initialize(struct sTupleNode* self, struct list$1t
     void* __right_value0 = (void*)0;
     struct list$1tuple2$2char$phsNode$ph$ph* __dec_obj98;
     struct sTupleNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sTupleNode*)come_increment_ref_count(self, "36str2.nc", 727, 933),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 727, 933),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 727, 934);
     __dec_obj98=self->tuple_elements,
     self->tuple_elements=(struct list$1tuple2$2char$phsNode$ph$ph*)come_increment_ref_count(tuple_elements, "36str2.nc", 873, 937);
@@ -7098,7 +7098,7 @@ struct sMapNode* sMapNode_initialize(struct sMapNode* self, struct list$1sNode$p
     struct list$1sNode$ph* __dec_obj111;
     struct list$1sNode$ph* __dec_obj112;
     struct sMapNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sMapNode*)come_increment_ref_count(self, "36str2.nc", 889, 1097),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "36str2.nc", 889, 1097),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "36str2.nc}", 889, 1098);
     __dec_obj111=self->map_key_elements,
     self->map_key_elements=(struct list$1sNode$ph*)come_increment_ref_count(map_key_elements, "36str2.nc", 891, 1100);

@@ -2757,7 +2757,7 @@ struct sLambdaCall* sLambdaCall_initialize(struct sLambdaCall* self, struct sNod
     struct sNode* __dec_obj1;
     struct list$1tuple2$2char$phsNode$ph$ph* __dec_obj7;
     struct sLambdaCall* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sLambdaCall*)come_increment_ref_count(self, "35call2.nc", 11, 1),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "35call2.nc", 11, 1),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "35call2.nc}", 11, 3);
     __dec_obj1=self->node,
     self->node=(struct sNode*)come_increment_ref_count(node, "35call2.nc", 13, 5);
@@ -5135,7 +5135,7 @@ char*  create_non_method_name(struct sType*  obj_type  , _Bool no_pointer_name, 
     len=string_length(struct_name)+string_length(((char* )(__right_value0=buffer_to_string(buf))));
     (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "35call2.nc", 377, 498));
     memcpy(none_method_name,fun_name+len+1,charp_length(fun_name)-len-1);
-    ({ long long __neo_array_index1_0 = (long long)(charp_length(fun_name)-len-1); if(__neo_array_index1_0 < 0 || __neo_array_index1_0 >= (long long)(charp_length(fun_name)+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } none_method_name[__neo_array_index1_0] = 0; });
+    ({ long long __neo_array_index1_0 = (long long)(charp_length(fun_name)-len-1); if(__neo_array_index1_0 < 0 || __neo_array_index1_0 >= (long long)(charp_length(fun_name)+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } none_method_name[__neo_array_index1_0] = 0; });
         __right_value0 = (void*)0;
     __result_obj__0 = (char* )come_increment_ref_count(((char* )(__right_value0=__builtin_string(none_method_name,"35call2.nc",381))), "35call2.nc", 381, 499);
     (struct_name = come_decrement_ref_count(struct_name, (void*)0, (void*)0, 0, 0, (void*)0, "35call2.nc", 381, 500));

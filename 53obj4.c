@@ -3114,7 +3114,7 @@ struct sTrueNode* sTrueNode_initialize(struct sTrueNode* self, struct sInfo*  in
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "sTrueNode_initialize"; fr.frame_id = ++neo_frame_id; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct sTrueNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sTrueNode*)come_increment_ref_count(self, "53obj4.nc", 7, 1),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 7, 1),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 7, 3);
         __result_obj__0 = (struct sTrueNode*)come_increment_ref_count(self, "53obj4.nc", 10, 4);
     come_call_finalizer(sTrueNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "53obj4.nc}", 10, 6);
@@ -3523,7 +3523,7 @@ struct sFalseNode* sFalseNode_initialize(struct sFalseNode* self, struct sInfo* 
     struct neo_frame fr; fr.prev = neo_current_frame; fr.fun_name = "sFalseNode_initialize"; fr.frame_id = ++neo_frame_id; neo_current_frame = &fr;
     void* __right_value0 = (void*)0;
     struct sFalseNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sFalseNode*)come_increment_ref_count(self, "53obj4.nc", 40, 88),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 40, 88),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 40, 89);
         __result_obj__0 = (struct sFalseNode*)come_increment_ref_count(self, "53obj4.nc", 43, 90);
     come_call_finalizer(sFalseNode_finalize, self, (void*)0, (void*)0, 0, 0, 1, (void*)0, "53obj4.nc}", 43, 92);
@@ -3653,7 +3653,7 @@ struct sGeneric* sGeneric_initialize(struct sGeneric* self, struct sNode* exp, s
     struct list$1sNode$ph* __dec_obj12;
     struct sNode* __dec_obj13;
     struct sGeneric* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sGeneric*)come_increment_ref_count(self, "53obj4.nc", 73, 123),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 73, 123),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 73, 124);
     __dec_obj10=self->exp,
     self->exp=(struct sNode*)come_increment_ref_count(exp, "53obj4.nc", 75, 126);
@@ -4105,7 +4105,7 @@ struct sHeapSizeOfNode* sHeapSizeOfNode_initialize(struct sHeapSizeOfNode* self,
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj52  ;
     struct sHeapSizeOfNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sHeapSizeOfNode*)come_increment_ref_count(self, "53obj4.nc", 178, 243),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 178, 243),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 178, 244);
     __right_value0 = (void*)0;
     __dec_obj52=self->type,
@@ -5080,7 +5080,7 @@ struct sSizeOfNode* sSizeOfNode_initialize(struct sSizeOfNode* self, struct sTyp
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj55  ;
     struct sSizeOfNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sSizeOfNode*)come_increment_ref_count(self, "53obj4.nc", 230, 461),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 230, 461),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 230, 462);
     __right_value0 = (void*)0;
     __dec_obj55=self->type,
@@ -5174,7 +5174,7 @@ struct sOffsetOf* sOffsetOf_initialize(struct sOffsetOf* self, struct sType*  ty
     struct sType*  __dec_obj58  ;
     char*  __dec_obj59  ;
     struct sOffsetOf* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sOffsetOf*)come_increment_ref_count(self, "53obj4.nc", 268, 493),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 268, 493),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 268, 494);
     __right_value0 = (void*)0;
     __dec_obj58=self->type,
@@ -5279,7 +5279,7 @@ struct sSizeOfExpNode* sSizeOfExpNode_initialize(struct sSizeOfExpNode* self, st
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj62;
     struct sSizeOfExpNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sSizeOfExpNode*)come_increment_ref_count(self, "53obj4.nc", 308, 532),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 308, 532),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 308, 533);
     __right_value0 = (void*)0;
     __dec_obj62=self->exp,
@@ -5394,7 +5394,7 @@ struct sDynamicSizeOfExpNode* sDynamicSizeOfExpNode_initialize(struct sDynamicSi
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj67;
     struct sDynamicSizeOfExpNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sDynamicSizeOfExpNode*)come_increment_ref_count(self, "53obj4.nc", 357, 570),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 357, 570),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 357, 571);
     __right_value0 = (void*)0;
     __dec_obj67=self->exp,
@@ -5493,7 +5493,7 @@ struct sTypeOfNode* sTypeOfNode_initialize(struct sTypeOfNode* self, struct sTyp
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj70  ;
     struct sTypeOfNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sTypeOfNode*)come_increment_ref_count(self, "53obj4.nc", 398, 604),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 398, 604),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 398, 605);
     __right_value0 = (void*)0;
     __dec_obj70=self->type,
@@ -5585,7 +5585,7 @@ struct sTypeOfExpNode* sTypeOfExpNode_initialize(struct sTypeOfExpNode* self, st
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj73;
     struct sTypeOfExpNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sTypeOfExpNode*)come_increment_ref_count(self, "53obj4.nc", 435, 636),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 435, 636),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 435, 637);
     __right_value0 = (void*)0;
     __dec_obj73=self->exp,
@@ -5691,7 +5691,7 @@ struct sDynamicTypeOf* sDynamicTypeOf_initialize(struct sDynamicTypeOf* self, st
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj76;
     struct sDynamicTypeOf* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sDynamicTypeOf*)come_increment_ref_count(self, "53obj4.nc", 478, 670),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 478, 670),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 478, 671);
     __right_value0 = (void*)0;
     __dec_obj76=self->exp,
@@ -5809,7 +5809,7 @@ struct sAlignOfNode* sAlignOfNode_initialize(struct sAlignOfNode* self, struct s
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj81  ;
     struct sAlignOfNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sAlignOfNode*)come_increment_ref_count(self, "53obj4.nc", 531, 712),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 531, 712),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 531, 713);
     __right_value0 = (void*)0;
     __dec_obj81=self->type,
@@ -5907,7 +5907,7 @@ struct sAlignOfExpNode* sAlignOfExpNode_initialize(struct sAlignOfExpNode* self,
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj84;
     struct sAlignOfExpNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sAlignOfExpNode*)come_increment_ref_count(self, "53obj4.nc", 571, 747),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 571, 747),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 571, 748);
     __right_value0 = (void*)0;
     __dec_obj84=self->exp,
@@ -6000,7 +6000,7 @@ struct sAlignOfNode2* sAlignOfNode2_initialize(struct sAlignOfNode2* self, struc
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj87  ;
     struct sAlignOfNode2* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sAlignOfNode2*)come_increment_ref_count(self, "53obj4.nc", 610, 777),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 610, 777),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 610, 778);
     __right_value0 = (void*)0;
     __dec_obj87=self->type,
@@ -6093,7 +6093,7 @@ struct sAlignOfExpNode2* sAlignOfExpNode2_initialize(struct sAlignOfExpNode2* se
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj90;
     struct sAlignOfExpNode2* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sAlignOfExpNode2*)come_increment_ref_count(self, "53obj4.nc", 648, 809),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 648, 809),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 648, 810);
     __right_value0 = (void*)0;
     __dec_obj90=self->exp,
@@ -6186,7 +6186,7 @@ struct sAlignAsNode* sAlignAsNode_initialize(struct sAlignAsNode* self, struct s
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj93  ;
     struct sAlignAsNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sAlignAsNode*)come_increment_ref_count(self, "53obj4.nc", 687, 839),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 687, 839),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 687, 840);
     __right_value0 = (void*)0;
     __dec_obj93=self->type,
@@ -6279,7 +6279,7 @@ struct sAlignAsExpNode* sAlignAsExpNode_initialize(struct sAlignAsExpNode* self,
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj96;
     struct sAlignAsExpNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sAlignAsExpNode*)come_increment_ref_count(self, "53obj4.nc", 725, 871),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 725, 871),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 725, 872);
     __right_value0 = (void*)0;
     __dec_obj96=self->exp,
@@ -6372,7 +6372,7 @@ struct sDeleteNode* sDeleteNode_initialize(struct sDeleteNode* self, struct sNod
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj99;
     struct sDeleteNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sDeleteNode*)come_increment_ref_count(self, "53obj4.nc", 764, 901),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 764, 901),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 764, 902);
     __right_value0 = (void*)0;
     __dec_obj99=self->node,
@@ -6448,7 +6448,7 @@ struct sBorrowNode* sBorrowNode_initialize(struct sBorrowNode* self, struct sNod
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj100;
     struct sBorrowNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sBorrowNode*)come_increment_ref_count(self, "53obj4.nc", 796, 920),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 796, 920),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 796, 921);
     __right_value0 = (void*)0;
     __dec_obj100=self->node,
@@ -6537,7 +6537,7 @@ struct sCloneNode* sCloneNode_initialize(struct sCloneNode* self, struct sNode* 
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj102;
     struct sCloneNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sCloneNode*)come_increment_ref_count(self, "53obj4.nc", 834, 947),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 834, 947),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 834, 948);
     __right_value0 = (void*)0;
     __dec_obj102=self->node,
@@ -6662,7 +6662,7 @@ struct sDupeNode* sDupeNode_initialize(struct sDupeNode* self, struct sNode* nod
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj105;
     struct sDupeNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sDupeNode*)come_increment_ref_count(self, "53obj4.nc", 884, 985),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 884, 985),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 884, 986);
     __right_value0 = (void*)0;
     __dec_obj105=self->node,
@@ -6775,7 +6775,7 @@ struct sDummyHeapNode* sDummyHeapNode_initialize(struct sDummyHeapNode* self, st
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj108;
     struct sDummyHeapNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sDummyHeapNode*)come_increment_ref_count(self, "53obj4.nc", 934, 1021),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 934, 1021),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 934, 1022);
     __right_value0 = (void*)0;
     __dec_obj108=self->node,
@@ -6850,7 +6850,7 @@ struct sGCIncNode* sGCIncNode_initialize(struct sGCIncNode* self, struct sNode* 
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj109;
     struct sGCIncNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sGCIncNode*)come_increment_ref_count(self, "53obj4.nc", 968, 1040),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 968, 1040),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 968, 1041);
     __right_value0 = (void*)0;
     __dec_obj109=self->node,
@@ -6937,7 +6937,7 @@ struct sGCDecNode* sGCDecNode_initialize(struct sGCDecNode* self, struct sNode* 
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj111;
     struct sGCDecNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sGCDecNode*)come_increment_ref_count(self, "53obj4.nc", 1005, 1063),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 1005, 1063),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 1005, 1064);
     __right_value0 = (void*)0;
     __dec_obj111=self->node,
@@ -7016,7 +7016,7 @@ struct sIsHeap* sIsHeap_initialize(struct sIsHeap* self, struct sType*  type  , 
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj112  ;
     struct sIsHeap* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sIsHeap*)come_increment_ref_count(self, "53obj4.nc", 1041, 1084),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 1041, 1084),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 1041, 1085);
     __right_value0 = (void*)0;
     __dec_obj112=self->type,
@@ -7113,7 +7113,7 @@ struct sIsPointer* sIsPointer_initialize(struct sIsPointer* self, struct sType* 
     void* __right_value0 = (void*)0;
     struct sType*  __dec_obj117  ;
     struct sIsPointer* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sIsPointer*)come_increment_ref_count(self, "53obj4.nc", 1084, 1120),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 1084, 1120),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 1084, 1121);
     __right_value0 = (void*)0;
     __dec_obj117=self->type,
@@ -7210,7 +7210,7 @@ struct sGCDecNoFreeNode* sGCDecNoFreeNode_initialize(struct sGCDecNoFreeNode* se
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj122;
     struct sGCDecNoFreeNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sGCDecNoFreeNode*)come_increment_ref_count(self, "53obj4.nc", 1127, 1156),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 1127, 1156),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 1127, 1157);
     __right_value0 = (void*)0;
     __dec_obj122=self->node,
@@ -7289,7 +7289,7 @@ struct sRefNode* sRefNode_initialize(struct sRefNode* self, struct sNode* node, 
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj123;
     struct sRefNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sRefNode*)come_increment_ref_count(self, "53obj4.nc", 1166, 1177),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 1166, 1177),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 1166, 1178);
     __dec_obj123=self->node,
     self->node=(struct sNode*)come_increment_ref_count(node, "53obj4.nc", 1168, 1180);
@@ -7657,7 +7657,7 @@ struct sOptionalNode* sOptionalNode_initialize(struct sOptionalNode* self, struc
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj129;
     struct sOptionalNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sOptionalNode*)come_increment_ref_count(self, "53obj4.nc", 1258, 1322),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 1258, 1322),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 1258, 1323);
     __dec_obj129=self->node,
     self->node=(struct sNode*)come_increment_ref_count(node, "53obj4.nc", 1260, 1325);
@@ -8415,7 +8415,7 @@ struct sSpanNode* sSpanNode_initialize(struct sSpanNode* self, struct sNode* nod
     void* __right_value0 = (void*)0;
     struct sNode* __dec_obj158;
     struct sSpanNode* __result_obj__0;
-    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sSpanNode*)come_increment_ref_count(self, "53obj4.nc", 1484, 1612),info)));
+    ((struct sNodeBase*)(__right_value0=sNodeBase_initialize((struct sNodeBase*)come_increment_ref_count(((struct sNodeBase*)self), "53obj4.nc", 1484, 1612),info)));
     come_call_finalizer(sNodeBase_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "53obj4.nc}", 1484, 1613);
     __dec_obj158=self->node,
     self->node=(struct sNode*)come_increment_ref_count(node, "53obj4.nc", 1486, 1615);

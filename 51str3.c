@@ -3790,8 +3790,8 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                         while(*info->p>=48&&*info->p<=57||*info->p>=97&&*info->p<=102||*info->p>=65&&*info->p<=70) {
                             char buf2[2];
                             memset(&buf2, 0, sizeof(buf2));
-                            ({ long long __neo_array_index1_0 = (long long)(0); if(__neo_array_index1_0 < 0 || __neo_array_index1_0 >= (long long)(2)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } buf2[__neo_array_index1_0] = *info->p; });
-                            ({ long long __neo_array_index2_0 = (long long)(1); if(__neo_array_index2_0 < 0 || __neo_array_index2_0 >= (long long)(2)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } buf2[__neo_array_index2_0] = 0; });
+                            ({ long long __neo_array_index1_0 = (long long)(0); if(__neo_array_index1_0 < 0 || __neo_array_index1_0 >= (long long)(2)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } buf2[__neo_array_index1_0] = *info->p; });
+                            ({ long long __neo_array_index2_0 = (long long)(1); if(__neo_array_index2_0 < 0 || __neo_array_index2_0 >= (long long)(2)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } buf2[__neo_array_index2_0] = 0; });
                             info->p++;
                             strncat(buf_48,buf2,128);
                         }
@@ -4024,7 +4024,7 @@ struct sNode* expression_node_v96(struct sInfo*  info  )
                 }
                 else {
                     memcpy(str,info->p,size_64);
-                    ({ long long __neo_array_index3_0 = (long long)(size_64); if(__neo_array_index3_0 < 0 || __neo_array_index3_0 >= (long long)(16+1)) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } str[__neo_array_index3_0] = 0; });
+                    ({ long long __neo_array_index3_0 = (long long)(size_64); if(__neo_array_index3_0 < 0 || __neo_array_index3_0 >= (long long)(16+1)) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts("array index out of bounds"); if(stackframe) stackframe(); else { puts("stackframe"); puts(__func__); } exit(2); } str[__neo_array_index3_0] = 0; });
                     if(mbtowc(&c_58,str,size_64)<0) {
                         perror("mbtowc");
                         err_msg(info,"invalid utf-8 character. mbtowc");
