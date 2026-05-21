@@ -15,6 +15,7 @@ ifeq ($(CC_NAME),gcc)
 CFLAGS_COMPILER+=-fpermissive
 endif
 CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I. -I/usr/local/include $(CFLAGS_DEFAULT_OPT) $(CFLAGS_OPT) $(CFLAGS_COMPILER) -std=c11 # -g -Og
+CCPP_CFLAGS=
 LIBS= -lutil -ldl -lm -lrt
 UNAME_S=$(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
@@ -62,6 +63,7 @@ LIBS+=-lmimalloc
 endif
 ifeq ($(BARE),1)
 NCC_FLAGS+=-bare
+CCPP_CFLAGS+=-DCCPP_BARE
 LDFLAGS+=-nostdlib -Wl,-e,_start -Wl,--allow-multiple-definition
 LIBS=
 endif
@@ -417,7 +419,7 @@ neo-c-str.o: neo-c-str.c neo-c-str.h
 	$(CC) -o 53obj4.o -c 53obj4.c $(CFLAGS) 2>&1 | grep error || true
 
 ccpp.o: ccpp.c
-	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS)
+	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS) $(CCPP_CFLAGS)
 
 #########################################
 # install

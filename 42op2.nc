@@ -360,7 +360,7 @@ static string create_zero_division_checked_binary_code(CVALUE* left_value, CVALU
 
     static int n = 0;
     int id = ++n;
-    return xsprintf("({ __typeof__(%s) __neo_div_right%d = (%s); if(__neo_div_right%d == 0) { extern int puts(const char*); extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts(\"%s\"); if(stackframe) stackframe(); else { puts(\"stackframe\"); puts(__func__); } exit(2); } (%s) %s __neo_div_right%d; })", right_value.c_value, id, right_value.c_value, id, message, left_value.c_value, op, id);
+    return xsprintf("({ __typeof__(%s) __neo_div_right%d = (%s); if(__neo_div_right%d == 0) { extern void stackframe(void) __attribute__((weak)); extern void exit(int); puts(\"%s\"); if(stackframe) stackframe(); else { puts(\"stackframe\"); puts(__func__); } exit(2); } (%s) %s __neo_div_right%d; })", right_value.c_value, id, right_value.c_value, id, message, left_value.c_value, op, id);
 }
 
 class sDivNode extends sNodeBase

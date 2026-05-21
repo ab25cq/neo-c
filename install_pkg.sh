@@ -18,8 +18,10 @@ then
     sudo pacman -S make valgrind readline ncurses clang gcc which openssl llvm 
 elif command -v dnf > /dev/null
 then
-    sudo dnf install make valgrind readline-devel ncurses-devel clang gcc which openssl-devel llvm 
+    sudo dnf install make valgrind readline-devel ncurses-devel clang gcc which openssl-devel llvm \
+        gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu qemu-system-riscv vim-common
 elif command -v apt > /dev/null
 then
-    sudo apt install clang gcc libreadline-dev ncurses-dev make autoconf valgrind gdb lldb libssl-dev llvm-dev
+    sudo apt install clang gcc libreadline-dev ncurses-dev make autoconf valgrind gdb lldb libssl-dev llvm-dev \
+        gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu qemu-system-misc xxd
 fi
