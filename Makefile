@@ -2,10 +2,16 @@
 # environmnet variables
 #########################################
 DESTDIR=/usr/local
-DEFAULT_CFLAGS_OPT?=-Oz -ffunction-sections -fdata-sections -Wl,--gc-sections -flto=thin
-CFLAGS_DEFAULT_OPT=$(DEFAULT_CFLAGS_OPT)
-CFLAGS_OPT=-ffunction-sections -fdata-sections -Wl,--gc-sections -flto=thin
+UNAME_S=$(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+LINK_GC_SECTIONS=-Wl,-dead_strip
+else
+LINK_GC_SECTIONS=-Wl,--gc-sections
+endif
+DEFAULT_CFLAGS_OPT?=-Oz -ffunction-sections -fdata-sections $(LINK_GC_SECTIONS) -flto=thin
 CC=clang
+CFLAGS_DEFAULT_OPT=$(DEFAULT_CFLAGS_OPT)
+CFLAGS_OPT=-ffunction-sections -fdata-sections $(LINK_GC_SECTIONS) -flto=thin
 INSTALL=/usr/bin/install -c
 STRIP?=strip
 LLVM_PROFDATA=$(shell which llvm-profdata 2>/dev/null || echo /Library/Developer/CommandLineTools/usr/bin/llvm-profdata)
@@ -17,7 +23,6 @@ endif
 CFLAGS=-DPREFIX="\"${DESTDIR}/\"" -I. -I/usr/local/include $(CFLAGS_DEFAULT_OPT) $(CFLAGS_OPT) $(CFLAGS_COMPILER) -std=c11 # -g -Og
 CCPP_CFLAGS=
 LIBS= -lutil -ldl -lm -lrt
-UNAME_S=$(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 PGO_GENERATE_FLAG=-fprofile-instr-generate
 PGO_USE_FLAG=-fprofile-instr-use=
@@ -53,7 +58,7 @@ CFLAGS+=-fno-plt
 endif
 ifeq ($(GC_SECTIONS),1)
 CFLAGS+=-ffunction-sections -fdata-sections
-#LDFLAGS+=-Wl,--gc-sections
+#LDFLAGS+=$(LINK_GC_SECTIONS)
 endif
 ifeq ($(ALLOCATOR),jemalloc)
 LIBS+=-ljemalloc
@@ -253,11 +258,11 @@ neo-c-str.c: neo-c-str.nc
 # compile c source
 #########################################
 ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o neo-c-str.o
-	$(CC) -o ncc -Wl,--gc-sections 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o  $(CFLAGS) $(LDFLAGS)
+	$(CC) -o ncc $(LINK_GC_SECTIONS) 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o  $(CFLAGS) $(LDFLAGS)
 	@if command -v $(STRIP) >/dev/null 2>&1; then $(STRIP) ncc || true; fi
 
 neo-c-str.o: neo-c-str.c neo-c-str.h
-	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS) -fno-lto -Wl,--gc-sections 2>&1 | grep error || true
+	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS) -fno-lto $(LINK_GC_SECTIONS) 2>&1 | grep error || true
 
 01main.o: 01main.c
 	$(CC) -o 01main.o -c 01main.c $(CFLAGS) 2>&1 | grep error || true

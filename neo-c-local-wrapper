@@ -52,7 +52,7 @@ for arg in "$@"; do
         opts+=("-uniq")
         ;;
     -cpp)
-      CC=clang++
+       CC=clang++
       ;;
     -portable-c)
       ncc_opts+=("-portable-c")
