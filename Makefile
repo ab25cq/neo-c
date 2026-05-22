@@ -93,7 +93,7 @@ all: ncc
 #########################################
 # make c source
 #########################################
-SELF_HOST_C_SOURCES=01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31type2.c 32function2.c 33output_code2.c 34heap2.c 35call2.c 36str2.c 37var2.c 38struct2.c 39method2.c 40obj2.c 41module2.c 42op2.c 43function3.c 44function4.c 45function5.c 46function6.c 47function7.c 48function8.c 49call3.c 50call4.c 51str3.c 52obj3.c 53obj4.c neo-c-str.c
+SELF_HOST_C_SOURCES=01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31type2.c 32function2.c 33output_code2.c 34heap2.c 35call2.c 36str2.c 37var2.c 38struct2.c 39method2.c 40obj2.c 41module2.c 42op2.c 43function3.c 44function4.c 45function5.c 46function6.c 47function7.c 48function8.c 49call3.c 50call4.c 51str3.c 52obj3.c 53obj4.c ccpp.c neo-c-str.c
 
 
 self-host: $(SELF_HOST_C_SOURCES)
@@ -259,6 +259,9 @@ neo-c-str.c: neo-c-str.nc
 
 53obj4.c: 53obj4.nc
 	./ncc $(NCC_FLAGS) -c 53obj4.nc
+
+ccpp.c: ccpp.nc ccpp_body.h
+	./ncc $(filter-out -bare,$(NCC_FLAGS)) -c ccpp.nc
 
 
 #########################################
@@ -430,7 +433,7 @@ neo-c-str.o: neo-c-str.c neo-c-str.h
 53obj4.o: 53obj4.c
 	$(CC) -o 53obj4.o -c 53obj4.c $(CFLAGS) 2>&1 | grep error || true
 
-ccpp.o: ccpp.c
+ccpp.o: ccpp.c ccpp_body.h
 	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS) $(CCPP_CFLAGS)
 
 #########################################
