@@ -69,7 +69,14 @@ endif
 ifeq ($(BARE),1)
 NCC_FLAGS+=-bare
 CCPP_CFLAGS+=-DCCPP_BARE
-LDFLAGS+=-nostdlib -Wl,-e,_start -Wl,--allow-multiple-definition
+CFLAGS+=-fno-stack-protector
+ifeq ($(UNAME_S),Darwin)
+LDFLAGS+=-nostdlib -Wl,-e,_main
+LDFLAGS+=-lSystem
+else
+LDFLAGS+=-nostdlib -Wl,-e,_start
+LDFLAGS+=-Wl,--allow-multiple-definition
+endif
 LIBS=
 endif
 ifeq ($(UNAME_S),Darwin)

@@ -244,6 +244,9 @@ static bool cpp(sInfo* info)
     }
     else if(gComeBareMetal) {
         set_macro("__BAREMETAL__", "1");
+        if(is_mac) {
+            set_macro("__NEO_DARWIN_BARE__", "1");
+        }
     }
     else if(is_mac) {
         set_macro("__APPLE__", "1");

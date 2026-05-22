@@ -1,10 +1,40 @@
 #ifndef NEO_C_LIBC_H
 #define NEO_C_LIBC_H
 
+#if defined(__BAREMETAL__)
+typedef __builtin_va_list va_list;
+typedef unsigned long size_t;
+typedef long ptrdiff_t;
+typedef unsigned long uintptr_t;
+typedef long intptr_t;
+typedef char int8_t;
+typedef short int16_t;
+typedef int int32_t;
+typedef long long int64_t;
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned int uint32_t;
+typedef unsigned long long uint64_t;
+typedef int wchar_t;
+#ifndef bool
+typedef _Bool bool;
+#endif
+#ifndef true
+#define true 1
+#define false 0
+#endif
+#ifndef NULL
+#define NULL ((void*)0)
+#endif
+#define va_arg(ap, type) __builtin_va_arg(ap, type)
+#define va_end(ap) __builtin_va_end(ap)
+#define va_copy(dst, src) __builtin_va_copy(dst, src)
+#else
 #include <stdint.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdbool.h>
+#endif
 
 #ifndef BUFSIZ
 #define BUFSIZ 8192
@@ -24,7 +54,7 @@
 #endif
 
 #ifndef NEO_VASPRINTF_STACK_SIZE
-#if defined(__x86_64__) || defined(__i386__)
+#if defined(__APPLE__) || defined(__NEO_DARWIN_BARE__) || defined(__x86_64__) || defined(__i386__)
 #define NEO_VASPRINTF_STACK_SIZE 262144
 #else
 #define NEO_VASPRINTF_STACK_SIZE 512
@@ -35,9 +65,15 @@
 #define O_RDONLY 0
 #define O_WRONLY 1
 #define O_RDWR 2
+#if defined(__APPLE__) || defined(__NEO_DARWIN_BARE__)
+#define O_CREAT 512
+#define O_TRUNC 1024
+#define O_APPEND 8
+#else
 #define O_CREAT 64
 #define O_TRUNC 512
 #define O_APPEND 1024
+#endif
 #endif
 
 #undef va_start
@@ -290,6 +326,46 @@ extern int close(int fd);
 extern int unlink(const char* path);
 extern void exit(int status);
 extern void putchar(char c);
+#elif defined(__APPLE__) || defined(__NEO_DARWIN_BARE__)
+c_include {
+extern int errno;
+
+#define __NEO_WEAK __attribute__((weak))
+
+__NEO_WEAK int* __errno_location(void)
+{
+    return &errno;
+}
+
+static unsigned char __neo_darwin_heap[512 * 1024 * 1024];
+static unsigned long __neo_darwin_brk_offset;
+
+unsigned long brk(unsigned long addr)
+{
+    unsigned long base = (unsigned long)__neo_darwin_heap;
+    unsigned long limit = base + sizeof(__neo_darwin_heap);
+
+    if(addr == 0) {
+        return base + __neo_darwin_brk_offset;
+    }
+    if(addr < base || addr > limit) {
+        errno = 12;
+        return (unsigned long)-1;
+    }
+
+    __neo_darwin_brk_offset = addr - base;
+    return addr;
+}
+}
+
+extern size_t brk(size_t size);
+extern long read(int fd, void* buf, size_t count);
+extern long write(int fd, const void* buf, size_t count);
+extern int open(const char* path, int flags, ...);
+extern int close(int fd);
+extern int unlink(const char* path);
+extern void exit(int status);
+extern void putchar(char c);
 #else
 extern size_t brk(size_t size);
 uniq void exit(int status)
@@ -299,7 +375,7 @@ uniq void exit(int status)
 extern void putchar(char c);
 #endif
 
-#if defined(__linux__) && defined(__x86_64__)
+#if (defined(__linux__) && defined(__x86_64__)) || defined(__APPLE__) || defined(__NEO_DARWIN_BARE__)
 typedef struct __neo_FILE {
     int fd;
     int error;

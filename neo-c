@@ -123,10 +123,17 @@ if [ "$(uname -s 2>/dev/null)" = "Darwin" ] \
 fi
 
 bare_link_opts=()
+bare_cflags=()
 object_link_neo_c_str_args=("${default_neo_c_str_args[@]}")
 if [ "$bare" = true ]; then
   bare_link_opts+=("-nostdlib")
-  bare_link_opts+=("-Wl,-e,_start")
+  if [ "$(uname -s 2>/dev/null)" = "Darwin" ]; then
+    bare_link_opts+=("-Wl,-e,_main")
+    bare_link_opts+=("-lSystem")
+  else
+    bare_link_opts+=("-Wl,-e,_start")
+  fi
+  bare_cflags+=("-fno-stack-protector")
   object_link_neo_c_str_args=()
 fi
 
@@ -190,13 +197,13 @@ then
 elif [ "$all_object_file" = true ]
 then
     $NCC_BIN /usr/local
-    if $CC -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${bare_link_opts[@]}" "${obj_files[@]}" "${libs[@]}" "${object_link_neo_c_str_args[@]}"
+    if $CC -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS "${bare_cflags[@]}" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${bare_link_opts[@]}" "${obj_files[@]}" "${libs[@]}" "${object_link_neo_c_str_args[@]}"
     then
         strip_output_executable "${target}"
     else
         exit 3
     fi
-    echo $CC -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${bare_link_opts[@]}" "${obj_files[@]}" "${libs[@]}" "${object_link_neo_c_str_args[@]}"
+    echo $CC -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin "${opts[@]}" -o "${target}" "${files[@]}" $CFLAGS "${bare_cflags[@]}" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib "${bare_link_opts[@]}" "${obj_files[@]}" "${libs[@]}" "${object_link_neo_c_str_args[@]}"
 elif test $transpile_ok = 0
 then
     if test $compile_only = true
@@ -206,8 +213,8 @@ then
             target=${base}.o
         fi
 
-        echo $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin -o "${target}" "${cbase}.c" "${libs[@]}"
-        if $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin -o "${target}" "${cbase}.c" "${libs[@]}" 2> "${base}.c.error"
+        echo $CC $CFLAGS "${bare_cflags[@]}" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin -o "${target}" "${cbase}.c" "${libs[@]}"
+        if $CC $CFLAGS "${bare_cflags[@]}" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include -L/opt/homebrew/opt/ncurses/lib -c "${opts[@]}" -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin -o "${target}" "${cbase}.c" "${libs[@]}" 2> "${base}.c.error"
         then
             rm -f "${base}.c.error"
             if test $no_rm_pp = true
@@ -223,8 +230,8 @@ then
             target=${base}
         fi
 
-        echo $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin -L/opt/homebrew/opt/ncurses/lib "${bare_link_opts[@]}" -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" "${neo_c_str_args[@]}"
-        if $CC $CFLAGS -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin -L/opt/homebrew/opt/ncurses/lib "${bare_link_opts[@]}" -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" "${neo_c_str_args[@]}" 2> "${base}.c.error"
+        echo $CC $CFLAGS "${bare_cflags[@]}" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin -L/opt/homebrew/opt/ncurses/lib "${bare_link_opts[@]}" -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" "${neo_c_str_args[@]}"
+        if $CC $CFLAGS "${bare_cflags[@]}" -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/boehmgc/lib -L/opt/homebrew/opt/zstd/lib -I/opt/homebrew/opt/openssl/include "${opts[@]}" -ffunction-sections -fdata-sections "${link_gc_sections}" -flto=thin -L/opt/homebrew/opt/ncurses/lib "${bare_link_opts[@]}" -o "${target}" "${cbase}.c" "${obj_files[@]}" "${libs[@]}" "${neo_c_str_args[@]}" 2> "${base}.c.error"
         then
             strip_output_executable "${target}"
             rm -f "${base}.c.error"
