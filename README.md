@@ -186,10 +186,12 @@ sh fast_build.sh -lowmem
 ```
 
 If you pass `-lowmem`, the build scripts enable low-memory mode and disable parallel build.
+With `-lowmem`, neo-c can build even on systems with 512MB of memory.
 
 `clean-self-host.sh` と `self-host.sh` と `fast_build.sh` はデフォルトで並列ビルドします。
 
 `-lowmem` を付けると low-memory mode を有効にし、並列ビルドを無効にします。
+`-lowmem` を使うと、512MBのメモリを持つシステムでもneo-cをビルドできます。
 
 If generated C gets too large to compile on a low-memory system, use `-lowmem` when transpiling your `.nc` file. In this mode, neo-c stops auto-generating helper methods such as `equals`, `operator_equals`, `operator_not_equals`, `to_string`, `compare`, and `get_hash_key`, so you may need to define them explicitly.
 
