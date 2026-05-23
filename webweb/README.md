@@ -13,6 +13,9 @@ It is not just a toy HTTP sample. It behaves like a small general-purpose web se
 - supports single-range static responses with `Range: bytes=...`
 - compresses text responses with gzip when the client accepts it
 - switches document roots by `Host` header using `vhosts/<host>/`
+- lets the operator choose HTTP/HTTPS mode, listen port, and document root from the command line
+- can generate directory listings with `-autoindex` when no index file exists
+- rejects oversized request headers and URIs with explicit HTTP status codes
 - handles multiple clients in parallel with forked workers
 - supports both HTTP and HTTPS
 - includes a small database server example in `dbdb/`
@@ -27,6 +30,9 @@ It is not just a toy HTTP sample. It behaves like a small general-purpose web se
 - `Content-Length` と chunked のリクエストボディを扱えます
 - クライアントが受け付ければテキストレスポンスを gzip 圧縮します
 - `Host` ヘッダに応じて `vhosts/<host>/` に切り替えられます
+- コマンドラインで HTTP/HTTPS、listen port、document root を選べます
+- `-autoindex` 指定時は index が無いディレクトリの一覧を生成できます
+- 大きすぎるリクエストヘッダや URI は明示的な HTTP ステータスで拒否します
 - fork ベースで複数クライアントを並列処理します
 - HTTP と HTTPS の両方に対応しています
 - `dbdb/` に小さなDBサーバー例も入っています
@@ -50,11 +56,13 @@ It is not just a toy HTTP sample. It behaves like a small general-purpose web se
 - Single `Range: bytes=...` requests with `206` / `416`
 - Gzip compression for text responses
 - Host-based virtual document roots
+- Configurable listen port and document root
+- Optional directory listing with `-autoindex`
 - Fork-based parallel connection handling
 - Broader Content-Type switching by extension with octet-stream fallback
-- Request timeout and payload size checks
+- Request timeout, payload size, header size, and URI length checks
 - Path normalization and percent-decoding checks
-- Explicit 400/403/404/405/408/413/500 responses
+- Explicit 400/403/404/405/408/413/414/431/500/505 responses
 - HTTPS mode using OpenSSL
 - `dbdb` integration for sample application logic
 
@@ -131,6 +139,30 @@ or:
 
 In HTTP mode, `webweb` serves static files and CGI on port `8080`.
 
+You can choose another port and document root:
+
+```sh
+./webweb2 -http -port 18080 -root /path/to/site
+```
+
+`-root` also moves virtual hosts under that root, so `Host: example.test` is served from `/path/to/site/vhosts/example.test/`.
+
+別のポートや document root を使う場合は次のように指定できます。
+
+```sh
+./webweb2 -http -port 18080 -root /path/to/site
+```
+
+`-root` を指定すると、virtual host もその root 配下の `vhosts/<host>/` を見ます。
+
+Directory listing is disabled by default. If you want directories without `index.html` or `index.htm` to show a generated listing, add `-autoindex`:
+
+```sh
+./webweb2 -http -port 18080 -root /path/to/site -autoindex
+```
+
+ディレクトリ一覧はデフォルトでは無効です。`index.html` や `index.htm` が無いディレクトリを一覧表示したい場合だけ `-autoindex` を付けます。
+
 ### HTTPS mode
 
 Run the HTTPS server using `cert.pem` and `key.pem`:
@@ -142,6 +174,12 @@ Run the HTTPS server using `cert.pem` and `key.pem`:
 By default, HTTPS mode listens on port `443`.
 
 デフォルトではHTTPSモードで `443` 番ポートを使います。
+
+HTTPS mode accepts the same server options:
+
+```sh
+./webweb2 -https -port 8443 -root /path/to/site
+```
 
 If you want to regenerate the self-signed certificate:
 
@@ -169,6 +207,7 @@ curl -i -H 'Accept-Encoding: gzip' http://127.0.0.1:8080/
 curl -i -H 'Host: example.test' http://127.0.0.1:8080/
 curl -i -X POST -d 'x=1' http://127.0.0.1:8080/index.html
 curl --path-as-is -i http://127.0.0.1:8080/%2e%2e/README.md
+curl -i "http://127.0.0.1:8080/$(printf '%09000d' 1 | tr 0 a)"
 ```
 
 For HTTPS:

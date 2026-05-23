@@ -9,6 +9,7 @@
 #include <errno.h>
 #include <time.h>
 #include <zlib.h>
+#include <dirent.h>
 
 extern char** environ;
 
@@ -18,6 +19,15 @@ static bool gCloseConnection = false;
 static bool gAcceptGzip = false;
 static bool gHeadRequest = false;
 static bool gIsHttps = false;
+static int gHttpPort = 8080;
+static int gHttpsPort = 443;
+static const char* gDocumentRoot = ".";
+static const char* gServerName = "webweb/1.1";
+static bool gAutoIndex = false;
+
+const int MAX_REQUEST_BYTES = 1024 * 1024;
+const int MAX_HEADER_BYTES = 16 * 1024;
+const int MAX_URI_BYTES = 8 * 1024;
 
 string create_range_string(char* head, int len);
 
@@ -269,6 +279,11 @@ bool header_has_chunked_transfer_encoding(string header)
     return header_value_contains(header, "Transfer-Encoding", "chunked");
 }
 
+bool header_has_transfer_encoding(string header)
+{
+    return get_header_value(header, "Transfer-Encoding") != null;
+}
+
 bool header_has_connection_close(string header)
 {
     return header_value_contains(header, "Connection", "close");
@@ -315,11 +330,11 @@ string build_standard_headers(const char* extra_headers="")
 {
     string date_header = format_http_date(time(NULL));
     if(gKeepAlive && !gCloseConnection) {
-        return xsprintf("Date: %s\r\nServer: webweb/1.0\r\nKeep-Alive: %s\r\n%s",
-                        borrow date_header, keep_alive_header_value(), extra_headers);
+        return xsprintf("Date: %s\r\nServer: %s\r\nKeep-Alive: %s\r\n%s",
+                        borrow date_header, gServerName, keep_alive_header_value(), extra_headers);
     }
 
-    return xsprintf("Date: %s\r\nServer: webweb/1.0\r\n%s", borrow date_header, extra_headers);
+    return xsprintf("Date: %s\r\nServer: %s\r\n%s", borrow date_header, gServerName, extra_headers);
 }
 
 bool request_accepts_gzip(string header)
@@ -490,6 +505,8 @@ bool request_matches_not_modified(string header, long file_size, time_t modified
 string build_file_path(string document_root, string relative_path);
 string create_range_string(char* head, int len);
 string resolve_directory_index_path(string directory_path);
+string get_raw_path_from_request_target(string request_target);
+bool request_target_has_trailing_slash(string request_target);
 tuple2<string, string>*% split_cgi_path_info(string relative_path);
 
 tuple3<long, long, int>*% parse_range_request(string header, long file_size)
@@ -569,6 +586,7 @@ tuple3<long, long, int>*% parse_range_request(string header, long file_size)
 
 bool is_existing_directory(string path);
 bool is_readable_static_file(string file_path);
+string build_file_path(string document_root, string relative_path);
 
 bool is_existing_directory(string path)
 {
@@ -589,13 +607,14 @@ string resolve_document_root(string host_header)
     }
 
     if(host && host !== "") {
-        string vhost_root = xsprintf("vhosts/%s", host);
+        string vhost_relative = xsprintf("vhosts/%s", host);
+        string vhost_root = build_file_path(xsprintf("%s", gDocumentRoot), vhost_relative);
         if(is_existing_directory(vhost_root)) {
             return vhost_root;
         }
     }
 
-    return xsprintf(".");
+    return xsprintf("%s", gDocumentRoot);
 }
 
 string build_file_path(string document_root, string relative_path)
@@ -625,13 +644,139 @@ string resolve_directory_index_path(string directory_path)
     return null;
 }
 
+string html_escape(string value)
+{
+    var buf = new buffer();
+
+    char* p = borrow value;
+    while(*p) {
+        if(*p == '&') {
+            buf.append_str("&amp;");
+        }
+        else if(*p == '<') {
+            buf.append_str("&lt;");
+        }
+        else if(*p == '>') {
+            buf.append_str("&gt;");
+        }
+        else if(*p == '"') {
+            buf.append_str("&quot;");
+        }
+        else {
+            buf.append_char(*p);
+        }
+
+        p++;
+    }
+
+    return buf.to_string();
+}
+
+bool is_url_unreserved_char(char c)
+{
+    return isalnum((unsigned char)c) || c == '-' || c == '_' || c == '.' || c == '~';
+}
+
+string url_escape_path_segment(string value)
+{
+    var buf = new buffer();
+
+    char* p = borrow value;
+    while(*p) {
+        unsigned char c = *p;
+        if(is_url_unreserved_char(c)) {
+            buf.append_char(c);
+        }
+        else {
+            char escaped[4];
+            snprintf(escaped, sizeof(escaped), "%%%02X", c);
+            buf.append_str(escaped);
+        }
+
+        p++;
+    }
+
+    return buf.to_string();
+}
+
+string raw_directory_path_from_target(string request_target)
+{
+    string raw_path = get_raw_path_from_request_target(request_target);
+    if(raw_path == null || raw_path === "") {
+        return xsprintf("/");
+    }
+
+    if(request_target_has_trailing_slash(request_target)) {
+        return raw_path;
+    }
+
+    return xsprintf("%s/", borrow raw_path);
+}
+
+string build_autoindex_body(string directory_path, string request_target)
+{
+    DIR* dir = opendir(directory_path);
+    if(dir == NULL) {
+        return null;
+    }
+
+    string raw_path = raw_directory_path_from_target(request_target);
+    string escaped_path = html_escape(raw_path);
+
+    var body = new buffer();
+    body.append_str("<!DOCTYPE html>\n<html><head><meta charset=\"UTF-8\"><title>Index of ");
+    body.append_str(escaped_path);
+    body.append_str("</title></head><body><h1>Index of ");
+    body.append_str(escaped_path);
+    body.append_str("</h1><ul>\n");
+
+    if(raw_path !== "/") {
+        body.append_str("<li><a href=\"../\">../</a></li>\n");
+    }
+
+    while(true) {
+        struct dirent* entry = readdir(dir);
+        if(entry == NULL) {
+            break;
+        }
+
+        if(strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+            continue;
+        }
+
+        string entry_name = xsprintf("%s", entry->d_name);
+        string escaped_name = html_escape(entry_name);
+        string href_name = url_escape_path_segment(entry_name);
+        string full_path = build_file_path(directory_path, entry_name);
+        bool is_dir = is_existing_directory(full_path);
+
+        body.append_str("<li><a href=\"");
+        body.append_str(raw_path);
+        body.append_str(href_name);
+        if(is_dir) {
+            body.append_char('/');
+        }
+        body.append_str("\">");
+        body.append_str(escaped_name);
+        if(is_dir) {
+            body.append_char('/');
+        }
+        body.append_str("</a></li>\n");
+    }
+
+    closedir(dir);
+
+    body.append_str("</ul></body></html>\n");
+    return body.to_string();
+}
+
 tuple2<string, string>*% split_cgi_path_info(string relative_path)
 {
     char* head = borrow relative_path;
     char* cgi_pos = strstr(relative_path, ".cgi");
 
     if(cgi_pos == null) {
-        return null;
+        return t((string)null, (string)null);
     }
 
     char* tail = cgi_pos + 4;
@@ -640,7 +785,7 @@ tuple2<string, string>*% split_cgi_path_info(string relative_path)
     }
 
     if(*tail != '/') {
-        return null;
+        return t((string)null, (string)null);
     }
 
     string script_path = create_range_string(head, tail - head);
@@ -987,6 +1132,36 @@ void send_payload_too_large_https(SSL* it)
     send_html_response_https(it, "413 Payload Too Large", "<html><body><h1>413 Payload Too Large</h1></body></html>");
 }
 
+void send_uri_too_long_http(int it)
+{
+    send_html_response_http(it, "414 URI Too Long", "<html><body><h1>414 URI Too Long</h1></body></html>");
+}
+
+void send_uri_too_long_https(SSL* it)
+{
+    send_html_response_https(it, "414 URI Too Long", "<html><body><h1>414 URI Too Long</h1></body></html>");
+}
+
+void send_request_header_fields_too_large_http(int it)
+{
+    send_html_response_http(it, "431 Request Header Fields Too Large", "<html><body><h1>431 Request Header Fields Too Large</h1></body></html>");
+}
+
+void send_request_header_fields_too_large_https(SSL* it)
+{
+    send_html_response_https(it, "431 Request Header Fields Too Large", "<html><body><h1>431 Request Header Fields Too Large</h1></body></html>");
+}
+
+void send_http_version_not_supported_http(int it)
+{
+    send_html_response_http(it, "505 HTTP Version Not Supported", "<html><body><h1>505 HTTP Version Not Supported</h1></body></html>");
+}
+
+void send_http_version_not_supported_https(SSL* it)
+{
+    send_html_response_https(it, "505 HTTP Version Not Supported", "<html><body><h1>505 HTTP Version Not Supported</h1></body></html>");
+}
+
 const char* allow_header_all_methods()
 {
     return "Allow: GET, HEAD, POST, OPTIONS\r\n";
@@ -1072,6 +1247,30 @@ void send_internal_server_error_https(SSL* it)
     send_html_response_https(it, "500 Internal Server Error", "<html><body><h1>500 Internal Server Error</h1></body></html>");
 }
 
+int send_autoindex_http(int it, string directory_path, string request_target)
+{
+    string body = build_autoindex_body(directory_path, request_target);
+    if(body == null) {
+        send_forbidden_http(it);
+        return 403;
+    }
+
+    send_html_response_http(it, "200 OK", borrow body, "Cache-Control: no-store\r\n");
+    return 200;
+}
+
+int send_autoindex_https(SSL* it, string directory_path, string request_target)
+{
+    string body = build_autoindex_body(directory_path, request_target);
+    if(body == null) {
+        send_forbidden_https(it);
+        return 403;
+    }
+
+    send_html_response_https(it, "200 OK", borrow body, "Cache-Control: no-store\r\n");
+    return 200;
+}
+
 int get_content_length(string header)
 {
     string p = get_header_value(header, "Content-Length");
@@ -1087,7 +1286,51 @@ int get_content_length(string header)
 
 bool is_too_large_request(buffer* request_buffer)
 {
-    return request_buffer.length() > 1024 * 1024;
+    return request_buffer.length() > MAX_REQUEST_BYTES;
+}
+
+bool is_too_large_header(int header_size)
+{
+    return header_size > MAX_HEADER_BYTES;
+}
+
+bool is_too_long_uri(string request_target)
+{
+    return request_target != null && strlen(request_target) > MAX_URI_BYTES;
+}
+
+bool request_line_target_too_long(string header)
+{
+    if(header == null) {
+        return false;
+    }
+
+    char* line_head = borrow header;
+    char* line_end = strstr(line_head, "\r\n");
+    if(line_end == null) {
+        line_end = line_head + strlen(line_head);
+    }
+
+    char* method_end = line_head;
+    while(method_end < line_end && *method_end != ' ') {
+        method_end++;
+    }
+    if(method_end >= line_end) {
+        return false;
+    }
+
+    char* target_head = method_end + 1;
+    char* target_end = target_head;
+    while(target_end < line_end && *target_end != ' ') {
+        target_end++;
+    }
+
+    return target_end - target_head > MAX_URI_BYTES;
+}
+
+bool is_supported_http_version(string http_version)
+{
+    return http_version === "1.0" || http_version === "1.1";
 }
 
 bool is_request_timeout()
@@ -1370,6 +1613,9 @@ tuple3<string, string, int>*% read_http_request(int it, buffer* request_buffer)
 
         if(p != null) {
             int header_size = (int)(p - request);
+            if(is_too_large_header(header_size)) {
+                return t((string)null, (string)null, 5);
+            }
 
             string header = request.substring(0, header_size);
             int body_offset = header_size + 4;
@@ -1389,6 +1635,9 @@ tuple3<string, string, int>*% read_http_request(int it, buffer* request_buffer)
                     send_continue_http(it);
                     expect_continue_sent = true;
                 }
+            }
+            else if(header_has_transfer_encoding(header)) {
+                return t((string)null, (string)null, 1);
             }
             else {
                 int content_length = get_content_length(header);
@@ -1443,6 +1692,9 @@ tuple3<string, string, int>*% read_https_request(SSL* it, buffer* request_buffer
 
         if(p != null) {
             int header_size = (int)(p - request);
+            if(is_too_large_header(header_size)) {
+                return t((string)null, (string)null, 5);
+            }
 
             string header = request.substring(0, header_size);
             int body_offset = header_size + 4;
@@ -1462,6 +1714,9 @@ tuple3<string, string, int>*% read_https_request(SSL* it, buffer* request_buffer
                     send_continue_https(it);
                     expect_continue_sent = true;
                 }
+            }
+            else if(header_has_transfer_encoding(header)) {
+                return t((string)null, (string)null, 1);
             }
             else {
                 int content_length = get_content_length(header);
@@ -1735,8 +1990,8 @@ void configure_cgi_environment(char* method, string header, char* request_target
     setenv("SCRIPT_NAME", xsprintf("/%s", borrow script_relative_path), 1);
     setenv("SERVER_PROTOCOL", xsprintf("HTTP/%s", borrow http_version), 1);
     setenv("GATEWAY_INTERFACE", "CGI/1.1", 1);
-    setenv("SERVER_SOFTWARE", "webweb/1.0", 1);
-    setenv("SERVER_PORT", gIsHttps ? "443" : "8080", 1);
+    setenv("SERVER_SOFTWARE", gServerName, 1);
+    setenv("SERVER_PORT", xsprintf("%d", gIsHttps ? gHttpsPort : gHttpPort), 1);
     setenv("HTTPS", gIsHttps ? "on" : "off", 1);
 
     if(path_info != null && *path_info != '\0') {
@@ -2088,6 +2343,78 @@ void finalize_modules()
 {
 }
 
+void print_usage(const char* program_name)
+{
+    printf("usage: %s [-http|-https] [-port PORT] [-root DIR] [-autoindex]\n", program_name);
+    printf("  -http        listen with plain HTTP, default port 8080\n");
+    printf("  -https       listen with HTTPS, default port 443\n");
+    printf("  -port PORT   override the listen port for the selected mode\n");
+    printf("  -root DIR    serve files from DIR and vhosts from DIR/vhosts\n");
+    printf("  -autoindex   list directories that do not have index.html or index.htm\n");
+}
+
+bool parse_server_options(int argc, char** argv, bool* http)
+{
+    int configured_port = 0;
+    *http = false;
+
+    for(int i=1; i<argc; i++) {
+        if(argv[i] === "-http") {
+            *http = true;
+        }
+        else if(argv[i] === "-https") {
+            *http = false;
+        }
+        else if(argv[i] === "-port") {
+            if(i + 1 >= argc) {
+                fprintf(stderr, "-port requires a port number\n");
+                return false;
+            }
+
+            configured_port = atoi(argv[++i]);
+            if(configured_port <= 0 || configured_port > 65535) {
+                fprintf(stderr, "invalid port: %s\n", argv[i]);
+                return false;
+            }
+        }
+        else if(argv[i] === "-root") {
+            if(i + 1 >= argc) {
+                fprintf(stderr, "-root requires a directory\n");
+                return false;
+            }
+
+            gDocumentRoot = argv[++i];
+            if(!is_existing_directory(xsprintf("%s", gDocumentRoot))) {
+                fprintf(stderr, "document root is not a directory: %s\n", gDocumentRoot);
+                return false;
+            }
+        }
+        else if(argv[i] === "-autoindex") {
+            gAutoIndex = true;
+        }
+        else if(argv[i] === "-help" || argv[i] === "--help") {
+            print_usage(argv[0]);
+            exit(0);
+        }
+        else {
+            fprintf(stderr, "unknown option: %s\n", argv[i]);
+            print_usage(argv[0]);
+            return false;
+        }
+    }
+
+    if(configured_port > 0) {
+        if(*http) {
+            gHttpPort = configured_port;
+        }
+        else {
+            gHttpsPort = configured_port;
+        }
+    }
+
+    return true;
+}
+
 void process_http_client(int it)
 {
     var request_buffer = new buffer();
@@ -2122,9 +2449,21 @@ void process_http_client(int it)
             break;
         }
 
+        if(request_err == 5) {
+            send_request_header_fields_too_large_http(it);
+            log_access("HTTP", method, request_target, 431);
+            break;
+        }
+
         if(request_err != 0) {
             send_bad_request_http(it);
             log_access("HTTP", method, request_target, 400);
+            break;
+        }
+
+        if(request_line_target_too_long(header)) {
+            send_uri_too_long_http(it);
+            log_access("HTTP", method, request_target, 414);
             break;
         }
 
@@ -2137,6 +2476,19 @@ void process_http_client(int it)
 
         method = parsed_method;
         request_target = parsed_target;
+
+        if(!is_supported_http_version(http_version)) {
+            send_http_version_not_supported_http(it);
+            log_access("HTTP", method, request_target, 505);
+            break;
+        }
+
+        if(is_too_long_uri(parsed_target)) {
+            send_uri_too_long_http(it);
+            log_access("HTTP", method, request_target, 414);
+            break;
+        }
+
         gKeepAlive = request_should_keep_alive(http_version, header);
         gAcceptGzip = request_accepts_gzip(header);
         gHeadRequest = parsed_method === "HEAD";
@@ -2228,6 +2580,9 @@ void process_http_client(int it)
                                 }
                                 else if(index_path != null) {
                                     status_code = serve_static_file_http(it, index_path, header);
+                                }
+                                else if(gAutoIndex) {
+                                    status_code = send_autoindex_http(it, file_path, parsed_target);
                                 }
                                 else if(access(file_path, F_OK) == 0) {
                                     send_forbidden_http(it);
@@ -2323,9 +2678,21 @@ void process_https_client(SSL* it)
             break;
         }
 
+        if(request_err == 5) {
+            send_request_header_fields_too_large_https(it);
+            log_access("HTTPS", method, request_target, 431);
+            break;
+        }
+
         if(request_err != 0) {
             send_bad_request_https(it);
             log_access("HTTPS", method, request_target, 400);
+            break;
+        }
+
+        if(request_line_target_too_long(header)) {
+            send_uri_too_long_https(it);
+            log_access("HTTPS", method, request_target, 414);
             break;
         }
 
@@ -2338,6 +2705,19 @@ void process_https_client(SSL* it)
 
         method = parsed_method;
         request_target = parsed_target;
+
+        if(!is_supported_http_version(http_version)) {
+            send_http_version_not_supported_https(it);
+            log_access("HTTPS", method, request_target, 505);
+            break;
+        }
+
+        if(is_too_long_uri(parsed_target)) {
+            send_uri_too_long_https(it);
+            log_access("HTTPS", method, request_target, 414);
+            break;
+        }
+
         gKeepAlive = request_should_keep_alive(http_version, header);
         gAcceptGzip = request_accepts_gzip(header);
         gHeadRequest = parsed_method === "HEAD";
@@ -2430,6 +2810,9 @@ void process_https_client(SSL* it)
                                 else if(index_path != null) {
                                     status_code = serve_static_file_https(it, index_path, header);
                                 }
+                                else if(gAutoIndex) {
+                                    status_code = send_autoindex_https(it, file_path, parsed_target);
+                                }
                                 else if(access(file_path, F_OK) == 0) {
                                     send_forbidden_https(it);
                                     status_code = 403;
@@ -2497,10 +2880,9 @@ void process_https_client(SSL* it)
 int main(int argc, char **argv) 
 {
     bool http = false;
-    for(int i=1; i<argc; i++) {
-        if(argv[i] === "-http") {
-            http = true;
-        }
+
+    if(!parse_server_options(argc, argv, &http)) {
+        return 1;
     }
     
     setlocale(LC_ALL, "");
@@ -2511,7 +2893,7 @@ int main(int argc, char **argv)
     
     while(true) {
         if(http) {
-            var server = httpd_socket(port:8080, reuse:true);
+            var server = httpd_socket(port:gHttpPort, reuse:true);
             for(var it = server.begin(); !server.end(); it = server.next()) {
                 pid_t pid = fork();
                 if(pid == 0) {
@@ -2526,7 +2908,7 @@ int main(int argc, char **argv)
         else {
             signal(SIGINT, handle_sigint);
             
-            var server = httpsd_socket(reuse:true);
+            var server = httpsd_socket(port:gHttpsPort, reuse:true);
             for(var it = server.begin(); !server.end(); it = server.next()) {
                 gSSL = it;
                 pid_t pid = fork();
