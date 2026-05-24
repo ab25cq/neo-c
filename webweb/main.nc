@@ -10,8 +10,13 @@
 #include <time.h>
 #include <zlib.h>
 #include <dirent.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <fcntl.h>
 
 extern char** environ;
+extern ssize_t sendfile(int out_fd, int in_fd, off_t* offset, size_t count);
 
 static SSL* gSSL = NULL;
 static bool gKeepAlive = false;
@@ -24,10 +29,37 @@ static int gHttpsPort = 443;
 static const char* gDocumentRoot = ".";
 static const char* gServerName = "webweb/1.1";
 static bool gAutoIndex = false;
+static const char* gAccessLogPath = NULL;
+static const char* gErrorLogPath = NULL;
+static const char* gConfigPath = "webweb.conf";
+static const char* gActiveDocumentRoot = ".";
+static char gRemoteAddr[INET6_ADDRSTRLEN] = "-";
+static int gRemotePort = 0;
+static int gCgiTimeoutSeconds = 10;
+static int gCgiOutputLimit = 1024 * 1024;
+static const char* gStaticCacheControl = NULL;
+static long gResponseBodyBytes = 0;
+static const char* gCurrentHttpVersion = "-";
+static const char* gCurrentReferer = "-";
+static const char* gCurrentUserAgent = "-";
+static const char* gErrorPage400 = NULL;
+static const char* gErrorPage403 = NULL;
+static const char* gErrorPage404 = NULL;
+static const char* gErrorPage405 = NULL;
+static const char* gErrorPage408 = NULL;
+static const char* gErrorPage413 = NULL;
+static const char* gErrorPage414 = NULL;
+static const char* gErrorPage416 = NULL;
+static const char* gErrorPage431 = NULL;
+static const char* gErrorPage500 = NULL;
+static const char* gErrorPage502 = NULL;
+static const char* gErrorPage504 = NULL;
+static const char* gErrorPage505 = NULL;
 
 const int MAX_REQUEST_BYTES = 1024 * 1024;
 const int MAX_HEADER_BYTES = 16 * 1024;
 const int MAX_URI_BYTES = 8 * 1024;
+const int MAX_CGI_STDERR_LOG_BYTES = 64 * 1024;
 
 string create_range_string(char* head, int len);
 
@@ -61,39 +93,77 @@ bool is_text_like_content_type(const char* content_type)
 {
     return strncmp(content_type, "text/", 5) == 0
         || strcmp(content_type, "application/javascript; charset=UTF-8") == 0
+        || strcmp(content_type, "application/manifest+json; charset=UTF-8") == 0
         || strcmp(content_type, "application/json; charset=UTF-8") == 0
+        || strcmp(content_type, "application/ld+json; charset=UTF-8") == 0
         || strcmp(content_type, "application/xml; charset=UTF-8") == 0
+        || strcmp(content_type, "application/yaml; charset=UTF-8") == 0
+        || strcmp(content_type, "application/rss+xml; charset=UTF-8") == 0
+        || strcmp(content_type, "application/atom+xml; charset=UTF-8") == 0
         || strcmp(content_type, "image/svg+xml; charset=UTF-8") == 0;
 }
 
-tuple2<string, int>*% xpopen(char** argv, string input)
+bool append_capped_buffer(buffer* output, char* data, int size, int limit)
 {
-    var output = new buffer();
-    
-    int pipe_in[2], pipe_out[2];
-    pid_t pid;
-
-    if (pipe(pipe_in) == -1 || pipe(pipe_out) == -1) {
-        perror("pipe failed");
-        return t((string)null, 1);
+    if(limit <= 0 || output.length() + size <= limit) {
+        output.append(data, size);
+        return false;
     }
 
+    int remaining = limit - output.length();
+    if(remaining > 0) {
+        output.append(data, remaining);
+    }
+    output.append_str("\n[webweb: CGI stderr truncated]\n");
+    return true;
+}
+
+tuple3<string, string, int>*% xpopen(char** argv, string input)
+{
+    var output = new buffer();
+    var error_output = new buffer();
+    bool stderr_truncated = false;
+    
+    int pipe_in[2], pipe_out[2], pipe_err[2];
+    pid_t pid;
+
+    if (pipe(pipe_in) == -1 || pipe(pipe_out) == -1 || pipe(pipe_err) == -1) {
+        perror("pipe failed");
+        return t((string)null, (string)null, 1);
+    }
+
+    void (*old_sigchld)(int) = signal(SIGCHLD, SIG_DFL);
     pid = fork();
 
     if (pid == -1) {
         perror("fork failed");
-        return t((string)null, 1);
+        if(old_sigchld != SIG_ERR) {
+            signal(SIGCHLD, old_sigchld);
+        }
+        close(pipe_in[0]);
+        close(pipe_in[1]);
+        close(pipe_out[0]);
+        close(pipe_out[1]);
+        close(pipe_err[0]);
+        close(pipe_err[1]);
+        return t((string)null, (string)null, 1);
     }
 
     if (pid == 0) {
+        signal(SIGCHLD, SIG_DFL);
+        signal(SIGPIPE, SIG_DFL);
+
         close(pipe_in[1]);
         close(pipe_out[0]);
+        close(pipe_err[0]);
 
         dup2(pipe_in[0], STDIN_FILENO);
         dup2(pipe_out[1], STDOUT_FILENO);
+        dup2(pipe_err[1], STDERR_FILENO);
 
         close(pipe_in[0]);
         close(pipe_out[1]);
+        close(pipe_err[1]);
 
         execvp(argv[0], argv);
 
@@ -103,35 +173,191 @@ tuple2<string, int>*% xpopen(char** argv, string input)
     else {
         close(pipe_in[0]);
         close(pipe_out[1]);
+        close(pipe_err[1]);
 
-        write(pipe_in[1], input, strlen(input));
-        close(pipe_in[1]);
+        int in_flags = fcntl(pipe_in[1], F_GETFL, 0);
+        if(in_flags >= 0) {
+            fcntl(pipe_in[1], F_SETFL, in_flags | O_NONBLOCK);
+        }
 
-        while(1) {
-            char buf[BUFSIZ];
-            int size = read(pipe_out[0], buf, BUFSIZ);
-            if(size < 0) {
-                perror("read failed");
-                return t((string)null, 1);
+        int out_flags = fcntl(pipe_out[0], F_GETFL, 0);
+        if(out_flags >= 0) {
+            fcntl(pipe_out[0], F_SETFL, out_flags | O_NONBLOCK);
+        }
+
+        int err_flags = fcntl(pipe_err[0], F_GETFL, 0);
+        if(err_flags >= 0) {
+            fcntl(pipe_err[0], F_SETFL, err_flags | O_NONBLOCK);
+        }
+
+        char* input_data = borrow input;
+        int input_len = strlen(input);
+        int input_written = 0;
+        bool stdin_closed = false;
+        bool stdout_closed = false;
+        bool stderr_closed = false;
+        bool child_done = false;
+        int status = 0;
+        time_t started_at = time(NULL);
+
+        while(true) {
+            if(gCgiTimeoutSeconds > 0 && time(NULL) - started_at >= gCgiTimeoutSeconds) {
+                kill(pid, SIGKILL);
+                waitpid(pid, &status, 0);
+                if(!stdin_closed) {
+                    close(pipe_in[1]);
+                }
+                if(!stdout_closed) {
+                    close(pipe_out[0]);
+                }
+                if(!stderr_closed) {
+                    close(pipe_err[0]);
+                }
+                if(old_sigchld != SIG_ERR) {
+                    signal(SIGCHLD, old_sigchld);
+                }
+                return t(output.to_string(), error_output.to_string(), 2);
             }
-            
-            output.append(buf, size);
 
-            if(size < BUFSIZ) {
+            if(!stdin_closed) {
+                if(input_written >= input_len) {
+                    close(pipe_in[1]);
+                    stdin_closed = true;
+                }
+                else {
+                    int written = write(pipe_in[1], input_data + input_written, input_len - input_written);
+                    if(written > 0) {
+                        input_written += written;
+                    }
+                    else if(written < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
+                        close(pipe_in[1]);
+                        stdin_closed = true;
+                    }
+                }
+            }
+
+            char buf[BUFSIZ];
+            while(!stdout_closed) {
+                int size = read(pipe_out[0], buf, BUFSIZ);
+                if(size > 0) {
+                    output.append(buf, size);
+                    if(gCgiOutputLimit > 0 && output.length() > gCgiOutputLimit) {
+                        kill(pid, SIGKILL);
+                        waitpid(pid, &status, 0);
+                        if(!stdin_closed) {
+                            close(pipe_in[1]);
+                        }
+                        close(pipe_out[0]);
+                        if(!stderr_closed) {
+                            close(pipe_err[0]);
+                        }
+                        if(old_sigchld != SIG_ERR) {
+                            signal(SIGCHLD, old_sigchld);
+                        }
+                        return t(output.to_string(), error_output.to_string(), 3);
+                    }
+                }
+                else if(size == 0) {
+                    close(pipe_out[0]);
+                    stdout_closed = true;
+                }
+                else {
+                    if(errno == EAGAIN || errno == EWOULDBLOCK) {
+                        break;
+                    }
+
+                    perror("read failed");
+                    if(!stdin_closed) {
+                        close(pipe_in[1]);
+                    }
+                    close(pipe_out[0]);
+                    if(!stderr_closed) {
+                        close(pipe_err[0]);
+                    }
+                    if(old_sigchld != SIG_ERR) {
+                        signal(SIGCHLD, old_sigchld);
+                    }
+                    return t((string)null, error_output.to_string(), 1);
+                }
+            }
+
+            while(!stderr_closed) {
+                char errbuf[BUFSIZ];
+                int size = read(pipe_err[0], errbuf, BUFSIZ);
+                if(size > 0) {
+                    if(!stderr_truncated) {
+                        stderr_truncated = append_capped_buffer(error_output, errbuf, size, MAX_CGI_STDERR_LOG_BYTES);
+                    }
+                }
+                else if(size == 0) {
+                    close(pipe_err[0]);
+                    stderr_closed = true;
+                }
+                else {
+                    if(errno == EAGAIN || errno == EWOULDBLOCK) {
+                        break;
+                    }
+
+                    if(!stdin_closed) {
+                        close(pipe_in[1]);
+                    }
+                    if(!stdout_closed) {
+                        close(pipe_out[0]);
+                    }
+                    close(pipe_err[0]);
+                    if(old_sigchld != SIG_ERR) {
+                        signal(SIGCHLD, old_sigchld);
+                    }
+                    return t(output.to_string(), error_output.to_string(), 1);
+                }
+            }
+
+            if(!child_done) {
+                pid_t wait_result = waitpid(pid, &status, WNOHANG);
+                if(wait_result == pid) {
+                    child_done = true;
+                    if(!stdin_closed) {
+                        close(pipe_in[1]);
+                        stdin_closed = true;
+                    }
+                }
+                else if(wait_result < 0) {
+                    if(!stdin_closed) {
+                        close(pipe_in[1]);
+                    }
+                    if(!stdout_closed) {
+                        close(pipe_out[0]);
+                    }
+                    if(!stderr_closed) {
+                        close(pipe_err[0]);
+                    }
+                    if(old_sigchld != SIG_ERR) {
+                        signal(SIGCHLD, old_sigchld);
+                    }
+                    return t(output.to_string(), error_output.to_string(), 1);
+                }
+            }
+
+            if(child_done && stdout_closed && stderr_closed) {
                 break;
             }
-        }
-        close(pipe_out[0]);
 
-        int status = 0;
-        waitpid(pid, &status, 0);
+            usleep(10000);
+        }
 
         if(!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
-            return t(output.to_string(), 1);
+            if(old_sigchld != SIG_ERR) {
+                signal(SIGCHLD, old_sigchld);
+            }
+            return t(output.to_string(), error_output.to_string(), 1);
+        }
+
+        if(old_sigchld != SIG_ERR) {
+            signal(SIGCHLD, old_sigchld);
         }
     }
 
-    return t(output.to_string(), 0);
+    return t(output.to_string(), error_output.to_string(), 0);
 }
 
 string to_lower_string(string value)
@@ -508,6 +734,8 @@ string resolve_directory_index_path(string directory_path);
 string get_raw_path_from_request_target(string request_target);
 bool request_target_has_trailing_slash(string request_target);
 tuple2<string, string>*% split_cgi_path_info(string relative_path);
+const char* get_content_type(string file_path);
+bool is_readable_static_file(string file_path);
 
 tuple3<long, long, int>*% parse_range_request(string header, long file_size)
 {
@@ -587,6 +815,7 @@ tuple3<long, long, int>*% parse_range_request(string header, long file_size)
 bool is_existing_directory(string path);
 bool is_readable_static_file(string file_path);
 string build_file_path(string document_root, string relative_path);
+bool request_path_forbidden(string document_root, string file_path);
 
 bool is_existing_directory(string path)
 {
@@ -624,6 +853,45 @@ string build_file_path(string document_root, string relative_path)
     }
 
     return xsprintf("%s/%s", document_root, relative_path);
+}
+
+string canonical_existing_path(string path)
+{
+    char* real_path = realpath(path, NULL);
+    if(real_path == NULL) {
+        return null;
+    }
+
+    string result = xsprintf("%s", real_path);
+    free(real_path);
+
+    return result;
+}
+
+bool path_is_under_document_root(string document_root, string file_path)
+{
+    string real_root = canonical_existing_path(document_root);
+    string real_file = canonical_existing_path(file_path);
+
+    if(real_root == null || real_file == null) {
+        return false;
+    }
+
+    int root_len = strlen(real_root);
+    if(strcmp(real_root, real_file) == 0) {
+        return true;
+    }
+
+    return strncmp(real_file, real_root, root_len) == 0 && real_file[root_len] == '/';
+}
+
+bool request_path_forbidden(string document_root, string file_path)
+{
+    if(access(file_path, F_OK) != 0) {
+        return false;
+    }
+
+    return !path_is_under_document_root(document_root, file_path);
 }
 
 string resolve_directory_index_path(string directory_path)
@@ -887,6 +1155,11 @@ void write_https_data(SSL* it, const void* data, int size)
     SSL_write(it, data, size);
 }
 
+void set_response_body_bytes(long bytes)
+{
+    gResponseBodyBytes = bytes;
+}
+
 void send_continue_http(int it)
 {
     write_http_data(it, "HTTP/1.1 100 Continue\r\n\r\n", 25);
@@ -1015,6 +1288,7 @@ bool send_gzip_chunked_https(SSL* it, const char* body, int body_len)
 void send_text_response_http(int it, const char* status, const char* content_type, const char* body, int body_len, const char* extra_headers="")
 {
     string standard_headers = build_standard_headers(extra_headers);
+    set_response_body_bytes(gHeadRequest ? 0 : body_len);
 
     if(gAcceptGzip && can_gzip_content_type(content_type) && body_len > 0) {
         string header = xsprintf("HTTP/1.1 %s\r\nContent-Type: %s\r\nContent-Encoding: gzip\r\nTransfer-Encoding: chunked\r\nVary: Accept-Encoding\r\nConnection: %s\r\n%s\r\n",
@@ -1042,6 +1316,7 @@ void send_text_response_http(int it, const char* status, const char* content_typ
 void send_text_response_https(SSL* it, const char* status, const char* content_type, const char* body, int body_len, const char* extra_headers="")
 {
     string standard_headers = build_standard_headers(extra_headers);
+    set_response_body_bytes(gHeadRequest ? 0 : body_len);
 
     if(gAcceptGzip && can_gzip_content_type(content_type) && body_len > 0) {
         string header = xsprintf("HTTP/1.1 %s\r\nContent-Type: %s\r\nContent-Encoding: gzip\r\nTransfer-Encoding: chunked\r\nVary: Accept-Encoding\r\nConnection: %s\r\n%s\r\n",
@@ -1076,8 +1351,107 @@ void send_html_response_https(SSL* it, const char* status, const char* body, con
     send_text_response_https(it, status, "text/html; charset=UTF-8", body, strlen(body), extra_headers);
 }
 
+const char* get_configured_error_page(int status_code)
+{
+    switch(status_code) {
+        case 400: return gErrorPage400;
+        case 403: return gErrorPage403;
+        case 404: return gErrorPage404;
+        case 405: return gErrorPage405;
+        case 408: return gErrorPage408;
+        case 413: return gErrorPage413;
+        case 414: return gErrorPage414;
+        case 416: return gErrorPage416;
+        case 431: return gErrorPage431;
+        case 500: return gErrorPage500;
+        case 502: return gErrorPage502;
+        case 504: return gErrorPage504;
+        case 505: return gErrorPage505;
+    }
+
+    return NULL;
+}
+
+string resolve_error_page_path(int status_code)
+{
+    const char* configured_path = get_configured_error_page(status_code);
+    if(configured_path != NULL) {
+        string path = xsprintf("%s", configured_path);
+        if(path[0] == '/') {
+            if(is_readable_static_file(path)) {
+                return path;
+            }
+        }
+        else {
+            string relative_path = build_file_path(xsprintf("%s", gActiveDocumentRoot), path);
+            if(is_readable_static_file(relative_path)) {
+                return relative_path;
+            }
+        }
+    }
+
+    string automatic_path = build_file_path(xsprintf("%s", gActiveDocumentRoot), xsprintf("%d.html", status_code));
+    if(is_readable_static_file(automatic_path)) {
+        return automatic_path;
+    }
+
+    return null;
+}
+
+string read_whole_binary_file(string file_path)
+{
+    FILE* file = fopen(file_path, "rb");
+    if(file == NULL) {
+        return null;
+    }
+
+    var body = new buffer();
+    char buf[BUFSIZ];
+    while(true) {
+        size_t size = fread(buf, 1, sizeof(buf), file);
+        if(size > 0) {
+            body.append(buf, size);
+        }
+        if(size < sizeof(buf)) {
+            break;
+        }
+    }
+
+    fclose(file);
+    return body.to_string();
+}
+
+void send_error_response_http(int it, int status_code, const char* status, const char* fallback_body, const char* extra_headers="")
+{
+    string error_page = resolve_error_page_path(status_code);
+    if(error_page != null) {
+        string body = read_whole_binary_file(error_page);
+        if(body != null) {
+            send_text_response_http(it, status, get_content_type(error_page), borrow body, strlen(body), extra_headers);
+            return;
+        }
+    }
+
+    send_html_response_http(it, status, fallback_body, extra_headers);
+}
+
+void send_error_response_https(SSL* it, int status_code, const char* status, const char* fallback_body, const char* extra_headers="")
+{
+    string error_page = resolve_error_page_path(status_code);
+    if(error_page != null) {
+        string body = read_whole_binary_file(error_page);
+        if(body != null) {
+            send_text_response_https(it, status, get_content_type(error_page), borrow body, strlen(body), extra_headers);
+            return;
+        }
+    }
+
+    send_html_response_https(it, status, fallback_body, extra_headers);
+}
+
 void send_empty_response_http(int it, const char* status, const char* extra_headers="")
 {
+    set_response_body_bytes(0);
     string standard_headers = build_standard_headers(extra_headers);
     string response = xsprintf("HTTP/1.1 %s\r\nContent-Length: 0\r\nConnection: %s\r\n%s\r\n",
                                status, connection_header_value(), borrow standard_headers);
@@ -1086,6 +1460,7 @@ void send_empty_response_http(int it, const char* status, const char* extra_head
 
 void send_empty_response_https(SSL* it, const char* status, const char* extra_headers="")
 {
+    set_response_body_bytes(0);
     string standard_headers = build_standard_headers(extra_headers);
     string response = xsprintf("HTTP/1.1 %s\r\nContent-Length: 0\r\nConnection: %s\r\n%s\r\n",
                                status, connection_header_value(), borrow standard_headers);
@@ -1094,72 +1469,72 @@ void send_empty_response_https(SSL* it, const char* status, const char* extra_he
 
 void send_not_found_http(int it)
 {
-    send_html_response_http(it, "404 Not Found", "<html><body><h1>404 Not Found</h1></body></html>");
+    send_error_response_http(it, 404, "404 Not Found", "<html><body><h1>404 Not Found</h1></body></html>");
 }
 
 void send_not_found_https(SSL* it)
 {
-    send_html_response_https(it, "404 Not Found", "<html><body><h1>404 Not Found</h1></body></html>");
+    send_error_response_https(it, 404, "404 Not Found", "<html><body><h1>404 Not Found</h1></body></html>");
 }
 
 void send_bad_request_http(int it)
 {
-    send_html_response_http(it, "400 Bad Request", "<html><body><h1>400 Bad Request</h1></body></html>");
+    send_error_response_http(it, 400, "400 Bad Request", "<html><body><h1>400 Bad Request</h1></body></html>");
 }
 
 void send_bad_request_https(SSL* it)
 {
-    send_html_response_https(it, "400 Bad Request", "<html><body><h1>400 Bad Request</h1></body></html>");
+    send_error_response_https(it, 400, "400 Bad Request", "<html><body><h1>400 Bad Request</h1></body></html>");
 }
 
 void send_request_timeout_http(int it)
 {
-    send_html_response_http(it, "408 Request Timeout", "<html><body><h1>408 Request Timeout</h1></body></html>");
+    send_error_response_http(it, 408, "408 Request Timeout", "<html><body><h1>408 Request Timeout</h1></body></html>");
 }
 
 void send_request_timeout_https(SSL* it)
 {
-    send_html_response_https(it, "408 Request Timeout", "<html><body><h1>408 Request Timeout</h1></body></html>");
+    send_error_response_https(it, 408, "408 Request Timeout", "<html><body><h1>408 Request Timeout</h1></body></html>");
 }
 
 void send_payload_too_large_http(int it)
 {
-    send_html_response_http(it, "413 Payload Too Large", "<html><body><h1>413 Payload Too Large</h1></body></html>");
+    send_error_response_http(it, 413, "413 Payload Too Large", "<html><body><h1>413 Payload Too Large</h1></body></html>");
 }
 
 void send_payload_too_large_https(SSL* it)
 {
-    send_html_response_https(it, "413 Payload Too Large", "<html><body><h1>413 Payload Too Large</h1></body></html>");
+    send_error_response_https(it, 413, "413 Payload Too Large", "<html><body><h1>413 Payload Too Large</h1></body></html>");
 }
 
 void send_uri_too_long_http(int it)
 {
-    send_html_response_http(it, "414 URI Too Long", "<html><body><h1>414 URI Too Long</h1></body></html>");
+    send_error_response_http(it, 414, "414 URI Too Long", "<html><body><h1>414 URI Too Long</h1></body></html>");
 }
 
 void send_uri_too_long_https(SSL* it)
 {
-    send_html_response_https(it, "414 URI Too Long", "<html><body><h1>414 URI Too Long</h1></body></html>");
+    send_error_response_https(it, 414, "414 URI Too Long", "<html><body><h1>414 URI Too Long</h1></body></html>");
 }
 
 void send_request_header_fields_too_large_http(int it)
 {
-    send_html_response_http(it, "431 Request Header Fields Too Large", "<html><body><h1>431 Request Header Fields Too Large</h1></body></html>");
+    send_error_response_http(it, 431, "431 Request Header Fields Too Large", "<html><body><h1>431 Request Header Fields Too Large</h1></body></html>");
 }
 
 void send_request_header_fields_too_large_https(SSL* it)
 {
-    send_html_response_https(it, "431 Request Header Fields Too Large", "<html><body><h1>431 Request Header Fields Too Large</h1></body></html>");
+    send_error_response_https(it, 431, "431 Request Header Fields Too Large", "<html><body><h1>431 Request Header Fields Too Large</h1></body></html>");
 }
 
 void send_http_version_not_supported_http(int it)
 {
-    send_html_response_http(it, "505 HTTP Version Not Supported", "<html><body><h1>505 HTTP Version Not Supported</h1></body></html>");
+    send_error_response_http(it, 505, "505 HTTP Version Not Supported", "<html><body><h1>505 HTTP Version Not Supported</h1></body></html>");
 }
 
 void send_http_version_not_supported_https(SSL* it)
 {
-    send_html_response_https(it, "505 HTTP Version Not Supported", "<html><body><h1>505 HTTP Version Not Supported</h1></body></html>");
+    send_error_response_https(it, 505, "505 HTTP Version Not Supported", "<html><body><h1>505 HTTP Version Not Supported</h1></body></html>");
 }
 
 const char* allow_header_all_methods()
@@ -1179,16 +1554,16 @@ const char* allow_header_cgi_methods()
 
 void send_method_not_allowed_http_with_allow(int it, const char* allow_header)
 {
-    send_html_response_http(it, "405 Method Not Allowed",
-                            "<html><body><h1>405 Method Not Allowed</h1></body></html>",
-                            allow_header);
+    send_error_response_http(it, 405, "405 Method Not Allowed",
+                             "<html><body><h1>405 Method Not Allowed</h1></body></html>",
+                             allow_header);
 }
 
 void send_method_not_allowed_https_with_allow(SSL* it, const char* allow_header)
 {
-    send_html_response_https(it, "405 Method Not Allowed",
-                             "<html><body><h1>405 Method Not Allowed</h1></body></html>",
-                             allow_header);
+    send_error_response_https(it, 405, "405 Method Not Allowed",
+                              "<html><body><h1>405 Method Not Allowed</h1></body></html>",
+                              allow_header);
 }
 
 void send_method_not_allowed_http(int it)
@@ -1203,12 +1578,12 @@ void send_method_not_allowed_https(SSL* it)
 
 void send_forbidden_http(int it)
 {
-    send_html_response_http(it, "403 Forbidden", "<html><body><h1>403 Forbidden</h1></body></html>");
+    send_error_response_http(it, 403, "403 Forbidden", "<html><body><h1>403 Forbidden</h1></body></html>");
 }
 
 void send_forbidden_https(SSL* it)
 {
-    send_html_response_https(it, "403 Forbidden", "<html><body><h1>403 Forbidden</h1></body></html>");
+    send_error_response_https(it, 403, "403 Forbidden", "<html><body><h1>403 Forbidden</h1></body></html>");
 }
 
 void send_directory_redirect_http(int it, string location)
@@ -1239,12 +1614,32 @@ void send_options_response_https(SSL* it, const char* allow_header)
 
 void send_internal_server_error_http(int it)
 {
-    send_html_response_http(it, "500 Internal Server Error", "<html><body><h1>500 Internal Server Error</h1></body></html>");
+    send_error_response_http(it, 500, "500 Internal Server Error", "<html><body><h1>500 Internal Server Error</h1></body></html>");
 }
 
 void send_internal_server_error_https(SSL* it)
 {
-    send_html_response_https(it, "500 Internal Server Error", "<html><body><h1>500 Internal Server Error</h1></body></html>");
+    send_error_response_https(it, 500, "500 Internal Server Error", "<html><body><h1>500 Internal Server Error</h1></body></html>");
+}
+
+void send_bad_gateway_http(int it)
+{
+    send_error_response_http(it, 502, "502 Bad Gateway", "<html><body><h1>502 Bad Gateway</h1></body></html>");
+}
+
+void send_bad_gateway_https(SSL* it)
+{
+    send_error_response_https(it, 502, "502 Bad Gateway", "<html><body><h1>502 Bad Gateway</h1></body></html>");
+}
+
+void send_gateway_timeout_http(int it)
+{
+    send_error_response_http(it, 504, "504 Gateway Timeout", "<html><body><h1>504 Gateway Timeout</h1></body></html>");
+}
+
+void send_gateway_timeout_https(SSL* it)
+{
+    send_error_response_https(it, 504, "504 Gateway Timeout", "<html><body><h1>504 Gateway Timeout</h1></body></html>");
 }
 
 int send_autoindex_http(int it, string directory_path, string request_target)
@@ -1590,6 +1985,56 @@ bool is_readable_static_file(string file_path)
     return access(file_path, R_OK) == 0;
 }
 
+void set_remote_client_info(int fd)
+{
+    struct sockaddr_storage address;
+    socklen_t address_len = sizeof(address);
+
+    snprintf(gRemoteAddr, sizeof(gRemoteAddr), "-");
+    gRemotePort = 0;
+
+    if(getpeername(fd, (struct sockaddr*)&address, &address_len) != 0) {
+        return;
+    }
+
+    if(address.ss_family == AF_INET) {
+        struct sockaddr_in* addr4 = (struct sockaddr_in*)&address;
+        inet_ntop(AF_INET, &addr4->sin_addr, gRemoteAddr, sizeof(gRemoteAddr));
+        gRemotePort = ntohs(addr4->sin_port);
+    }
+    else if(address.ss_family == AF_INET6) {
+        struct sockaddr_in6* addr6 = (struct sockaddr_in6*)&address;
+        inet_ntop(AF_INET6, &addr6->sin6_addr, gRemoteAddr, sizeof(gRemoteAddr));
+        gRemotePort = ntohs(addr6->sin6_port);
+    }
+}
+
+string sanitize_log_value(string value)
+{
+    if(value == null || value === "") {
+        return xsprintf("-");
+    }
+
+    var buf = new buffer();
+    char* p = borrow value;
+    while(*p) {
+        unsigned char c = *p;
+        if(c == '"' || c == '\\') {
+            buf.append_char('\\');
+            buf.append_char(c);
+        }
+        else if(c < 32 || c == 127) {
+            buf.append_char(' ');
+        }
+        else {
+            buf.append_char(c);
+        }
+        p++;
+    }
+
+    return buf.to_string();
+}
+
 void log_access(const char* protocol, string method, string request_target, int status_code)
 {
     time_t now = time(NULL);
@@ -1597,10 +2042,76 @@ void log_access(const char* protocol, string method, string request_target, int 
     char time_buf[64];
 
     localtime_r(&now, &tm_);
+    strftime(time_buf, sizeof(time_buf), "%d/%b/%Y:%H:%M:%S %z", &tm_);
+
+    FILE* out = stdout;
+    if(gAccessLogPath != NULL) {
+        out = fopen(gAccessLogPath, "a");
+        if(out == NULL) {
+            out = stdout;
+        }
+    }
+
+    string request_line = xsprintf("%s %s HTTP/%s", borrow method, borrow request_target,
+                                   gCurrentHttpVersion != NULL ? gCurrentHttpVersion : "-");
+    string referer = sanitize_log_value(xsprintf("%s", gCurrentReferer != NULL ? gCurrentReferer : "-"));
+    string user_agent = sanitize_log_value(xsprintf("%s", gCurrentUserAgent != NULL ? gCurrentUserAgent : "-"));
+
+    fprintf(out, "%s - - [%s] \"%s\" %d %ld \"%s\" \"%s\"\n",
+            gRemoteAddr, time_buf, borrow request_line, status_code, gResponseBodyBytes,
+            borrow referer, borrow user_agent);
+    fflush(out);
+
+    if(out != stdout) {
+        fclose(out);
+    }
+}
+
+void log_error_message(const char* level, string message)
+{
+    time_t now = time(NULL);
+    struct tm tm_;
+    char time_buf[64];
+    localtime_r(&now, &tm_);
     strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", &tm_);
 
-    printf("[%s] %s %s %s -> %d\n", time_buf, protocol, method, request_target, status_code);
-    fflush(stdout);
+    FILE* out = stderr;
+    if(gErrorLogPath != NULL) {
+        out = fopen(gErrorLogPath, "a");
+        if(out == NULL) {
+            out = stderr;
+        }
+    }
+
+    fprintf(out, "[%s] %s %s\n", time_buf, level, borrow message);
+    fflush(out);
+
+    if(out != stderr) {
+        fclose(out);
+    }
+}
+
+void log_cgi_stderr(string script_path, string error_output)
+{
+    if(error_output == null || error_output === "") {
+        return;
+    }
+
+    string header = xsprintf("CGI stderr from %s:", borrow script_path);
+    log_error_message("error", header);
+
+    char* p = borrow error_output;
+    while(*p) {
+        char* line_end = strchr(p, '\n');
+        if(line_end == NULL) {
+            log_error_message("cgi", xsprintf("%s", p));
+            break;
+        }
+
+        string line = create_range_string(p, line_end - p);
+        log_error_message("cgi", line);
+        p = line_end + 1;
+    }
 }
 
 tuple3<string, string, int>*% read_http_request(int it, buffer* request_buffer)
@@ -1763,9 +2274,45 @@ tuple3<string, string, int>*% read_https_request(SSL* it, buffer* request_buffer
 
 const char* get_content_type(string file_path)
 {
-    string ext_name = xextname(file_path);
+    string ext_name = to_lower_string(xextname(file_path));
 
-    if(ext_name === "jpg" || ext_name === "jpeg") {
+    if(ext_name === "html" || ext_name === "htm") {
+        return "text/html; charset=UTF-8";
+    }
+    else if(ext_name === "css") {
+        return "text/css; charset=UTF-8";
+    }
+    else if(ext_name === "js" || ext_name === "mjs") {
+        return "application/javascript; charset=UTF-8";
+    }
+    else if(ext_name === "json" || ext_name === "map") {
+        return "application/json; charset=UTF-8";
+    }
+    else if(ext_name === "webmanifest") {
+        return "application/manifest+json; charset=UTF-8";
+    }
+    else if(ext_name === "xml") {
+        return "application/xml; charset=UTF-8";
+    }
+    else if(ext_name === "rss") {
+        return "application/rss+xml; charset=UTF-8";
+    }
+    else if(ext_name === "atom") {
+        return "application/atom+xml; charset=UTF-8";
+    }
+    else if(ext_name === "txt" || ext_name === "text" || ext_name === "log") {
+        return "text/plain; charset=UTF-8";
+    }
+    else if(ext_name === "csv") {
+        return "text/csv; charset=UTF-8";
+    }
+    else if(ext_name === "md" || ext_name === "markdown") {
+        return "text/markdown; charset=UTF-8";
+    }
+    else if(ext_name === "yaml" || ext_name === "yml") {
+        return "application/yaml; charset=UTF-8";
+    }
+    else if(ext_name === "jpg" || ext_name === "jpeg") {
         return "image/jpeg";
     }
     else if(ext_name === "png") {
@@ -1774,8 +2321,17 @@ const char* get_content_type(string file_path)
     else if(ext_name === "gif") {
         return "image/gif";
     }
+    else if(ext_name === "avif") {
+        return "image/avif";
+    }
     else if(ext_name === "webp") {
         return "image/webp";
+    }
+    else if(ext_name === "bmp") {
+        return "image/bmp";
+    }
+    else if(ext_name === "tif" || ext_name === "tiff") {
+        return "image/tiff";
     }
     else if(ext_name === "svg") {
         return "image/svg+xml; charset=UTF-8";
@@ -1783,29 +2339,47 @@ const char* get_content_type(string file_path)
     else if(ext_name === "ico") {
         return "image/x-icon";
     }
-    else if(ext_name === "css") {
-        return "text/css; charset=UTF-8";
-    }
-    else if(ext_name === "js") {
-        return "application/javascript; charset=UTF-8";
-    }
-    else if(ext_name === "json") {
-        return "application/json; charset=UTF-8";
-    }
-    else if(ext_name === "xml") {
-        return "application/xml; charset=UTF-8";
-    }
-    else if(ext_name === "txt") {
-        return "text/plain; charset=UTF-8";
-    }
     else if(ext_name === "pdf") {
         return "application/pdf";
     }
     else if(ext_name === "wasm") {
         return "application/wasm";
     }
+    else if(ext_name === "woff") {
+        return "font/woff";
+    }
+    else if(ext_name === "woff2") {
+        return "font/woff2";
+    }
+    else if(ext_name === "ttf") {
+        return "font/ttf";
+    }
+    else if(ext_name === "otf") {
+        return "font/otf";
+    }
+    else if(ext_name === "eot") {
+        return "application/vnd.ms-fontobject";
+    }
     else if(ext_name === "zip") {
         return "application/zip";
+    }
+    else if(ext_name === "gz") {
+        return "application/gzip";
+    }
+    else if(ext_name === "tar") {
+        return "application/x-tar";
+    }
+    else if(ext_name === "tgz") {
+        return "application/gzip";
+    }
+    else if(ext_name === "bz2") {
+        return "application/x-bzip2";
+    }
+    else if(ext_name === "br") {
+        return "application/x-brotli";
+    }
+    else if(ext_name === "7z") {
+        return "application/x-7z-compressed";
     }
     else if(ext_name === "mp4") {
         return "video/mp4";
@@ -1813,8 +2387,23 @@ const char* get_content_type(string file_path)
     else if(ext_name === "webm") {
         return "video/webm";
     }
-    else if(ext_name === "html" || ext_name === "htm") {
-        return "text/html; charset=UTF-8";
+    else if(ext_name === "ogv") {
+        return "video/ogg";
+    }
+    else if(ext_name === "mov") {
+        return "video/quicktime";
+    }
+    else if(ext_name === "mpeg" || ext_name === "mpg") {
+        return "video/mpeg";
+    }
+    else if(ext_name === "mp3") {
+        return "audio/mpeg";
+    }
+    else if(ext_name === "wav") {
+        return "audio/wav";
+    }
+    else if(ext_name === "ogg" || ext_name === "oga") {
+        return "audio/ogg";
     }
 
     return "application/octet-stream";
@@ -1823,6 +2412,46 @@ const char* get_content_type(string file_path)
 bool is_binary_file(string file_path)
 {
     return !is_text_like_content_type(get_content_type(file_path));
+}
+
+string build_static_metadata_headers(string file_path, long file_size, time_t modified_time)
+{
+    string etag = build_file_etag(file_size, modified_time);
+    string last_modified = format_http_date(modified_time);
+    var headers = new buffer();
+    headers.append_str(xsprintf("ETag: %s\r\nLast-Modified: %s\r\nAccept-Ranges: bytes\r\n",
+                                borrow etag, borrow last_modified));
+
+    if(gStaticCacheControl != NULL) {
+        headers.append_str(xsprintf("Cache-Control: %s\r\n", gStaticCacheControl));
+    }
+
+    return headers.to_string();
+}
+
+bool send_file_range_http(int it, int file_fd, long body_start, long content_length)
+{
+    off_t offset = body_start;
+    long remaining = content_length;
+
+    while(remaining > 0) {
+        ssize_t sent = sendfile(it, file_fd, &offset, remaining);
+        if(sent > 0) {
+            remaining -= sent;
+        }
+        else if(sent == 0) {
+            break;
+        }
+        else {
+            if(errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK) {
+                continue;
+            }
+
+            return false;
+        }
+    }
+
+    return remaining == 0;
 }
 
 bool cgi_output_is_raw_response(string output)
@@ -1872,6 +2501,16 @@ int extract_response_status_code(string output)
     }
 
     return 200;
+}
+
+long extract_response_body_size(string output)
+{
+    char* p = strstr(output, "\r\n\r\n");
+    if(p == null) {
+        return 0;
+    }
+
+    return strlen(p + 4);
 }
 
 string insert_response_headers(string output, const char* extra_headers)
@@ -1938,6 +2577,12 @@ void clear_cgi_environment()
     unsetenv("GATEWAY_INTERFACE");
     unsetenv("SERVER_SOFTWARE");
     unsetenv("SERVER_PORT");
+    unsetenv("SERVER_NAME");
+    unsetenv("DOCUMENT_ROOT");
+    unsetenv("SCRIPT_FILENAME");
+    unsetenv("REQUEST_SCHEME");
+    unsetenv("REMOTE_ADDR");
+    unsetenv("REMOTE_PORT");
     unsetenv("HTTPS");
 }
 
@@ -1980,9 +2625,17 @@ void apply_http_headers_to_cgi_environment(string header)
     }
 }
 
-void configure_cgi_environment(char* method, string header, char* request_target, char* script_relative_path, char* path_info, char* query_string, char* http_version)
+void configure_cgi_environment(char* method, string header, string request_target, string document_root, string script_path, string script_relative_path, string path_info, string query_string, string http_version)
 {
     clear_cgi_environment();
+
+    string real_document_root = canonical_existing_path(document_root);
+    string real_script_path = canonical_existing_path(script_path);
+    string host_header = get_host_header_value(header);
+    string server_name = normalize_host_name(host_header);
+    if(server_name == null) {
+        server_name = xsprintf("");
+    }
 
     setenv("REQUEST_METHOD", method, 1);
     setenv("QUERY_STRING", query_string, 1);
@@ -1992,6 +2645,12 @@ void configure_cgi_environment(char* method, string header, char* request_target
     setenv("GATEWAY_INTERFACE", "CGI/1.1", 1);
     setenv("SERVER_SOFTWARE", gServerName, 1);
     setenv("SERVER_PORT", xsprintf("%d", gIsHttps ? gHttpsPort : gHttpPort), 1);
+    setenv("SERVER_NAME", server_name, 1);
+    setenv("DOCUMENT_ROOT", real_document_root != null ? real_document_root : document_root, 1);
+    setenv("SCRIPT_FILENAME", real_script_path != null ? real_script_path : script_path, 1);
+    setenv("REQUEST_SCHEME", gIsHttps ? "https" : "http", 1);
+    setenv("REMOTE_ADDR", gRemoteAddr, 1);
+    setenv("REMOTE_PORT", xsprintf("%d", gRemotePort), 1);
     setenv("HTTPS", gIsHttps ? "on" : "off", 1);
 
     if(path_info != null && *path_info != '\0') {
@@ -2032,10 +2691,7 @@ int serve_static_file_http(int it, string file_path, string header)
         return 404;
     }
 
-    string etag = build_file_etag(stat_.st_size, stat_.st_mtime);
-    string last_modified = format_http_date(stat_.st_mtime);
-    string metadata_headers = xsprintf("ETag: %s\r\nLast-Modified: %s\r\nAccept-Ranges: bytes\r\n",
-                                       borrow etag, borrow last_modified);
+    string metadata_headers = build_static_metadata_headers(file_path, stat_.st_size, stat_.st_mtime);
 
     if(request_matches_not_modified(header, stat_.st_size, stat_.st_mtime)) {
         send_empty_response_http(it, "304 Not Modified", borrow metadata_headers);
@@ -2045,15 +2701,15 @@ int serve_static_file_http(int it, string file_path, string header)
     var range_start, range_end, range_status = parse_range_request(header, stat_.st_size);
     if(range_status == 2) {
         string range_headers = xsprintf("%sContent-Range: bytes */%ld\r\n", borrow metadata_headers, stat_.st_size);
-        send_html_response_http(it, "416 Range Not Satisfiable",
-                                "<html><body><h1>416 Range Not Satisfiable</h1></body></html>",
-                                borrow range_headers);
+        send_error_response_http(it, 416, "416 Range Not Satisfiable",
+                                 "<html><body><h1>416 Range Not Satisfiable</h1></body></html>",
+                                 borrow range_headers);
         return 416;
     }
 
     if(range_status == 1 || is_binary_file(file_path)) {
-        FILE *file = fopen(file_path, "rb");
-        if(file == NULL) {
+        int file_fd = open(file_path, O_RDONLY);
+        if(file_fd < 0) {
             send_not_found_http(it);
             return 404;
         }
@@ -2077,25 +2733,13 @@ int serve_static_file_http(int it, string file_path, string header)
                                           status, get_content_type(file_path), content_length, connection_header_value(),
                                           borrow standard_headers);
         write_http_data(it, response_header, strlen(response_header));
+        set_response_body_bytes(gHeadRequest ? 0 : content_length);
 
         if(!gHeadRequest) {
-            fseek(file, body_start, SEEK_SET);
-
-            long remaining = content_length;
-            char buf[1024];
-            while(remaining > 0) {
-                size_t chunk_size = remaining > (long)sizeof(buf) ? sizeof(buf) : remaining;
-                size_t bytes_read = fread(buf, 1, chunk_size, file);
-                if(bytes_read == 0) {
-                    break;
-                }
-
-                write_http_data(it, buf, bytes_read);
-                remaining -= bytes_read;
-            }
+            send_file_range_http(it, file_fd, body_start, content_length);
         }
 
-        fclose(file);
+        close(file_fd);
         return range_status == 1 ? 206 : 200;
     }
 
@@ -2127,10 +2771,7 @@ int serve_static_file_https(SSL* it, string file_path, string header)
         return 404;
     }
 
-    string etag = build_file_etag(stat_.st_size, stat_.st_mtime);
-    string last_modified = format_http_date(stat_.st_mtime);
-    string metadata_headers = xsprintf("ETag: %s\r\nLast-Modified: %s\r\nAccept-Ranges: bytes\r\n",
-                                       borrow etag, borrow last_modified);
+    string metadata_headers = build_static_metadata_headers(file_path, stat_.st_size, stat_.st_mtime);
 
     if(request_matches_not_modified(header, stat_.st_size, stat_.st_mtime)) {
         send_empty_response_https(it, "304 Not Modified", borrow metadata_headers);
@@ -2140,9 +2781,9 @@ int serve_static_file_https(SSL* it, string file_path, string header)
     var range_start, range_end, range_status = parse_range_request(header, stat_.st_size);
     if(range_status == 2) {
         string range_headers = xsprintf("%sContent-Range: bytes */%ld\r\n", borrow metadata_headers, stat_.st_size);
-        send_html_response_https(it, "416 Range Not Satisfiable",
-                                 "<html><body><h1>416 Range Not Satisfiable</h1></body></html>",
-                                 borrow range_headers);
+        send_error_response_https(it, 416, "416 Range Not Satisfiable",
+                                  "<html><body><h1>416 Range Not Satisfiable</h1></body></html>",
+                                  borrow range_headers);
         return 416;
     }
 
@@ -2172,6 +2813,7 @@ int serve_static_file_https(SSL* it, string file_path, string header)
                                           status, get_content_type(file_path), content_length, connection_header_value(),
                                           borrow standard_headers);
         write_https_data(it, response_header, strlen(response_header));
+        set_response_body_bytes(gHeadRequest ? 0 : content_length);
 
         if(!gHeadRequest) {
             fseek(file, body_start, SEEK_SET);
@@ -2203,14 +2845,23 @@ int serve_static_file_https(SSL* it, string file_path, string header)
     return 200;
 }
 
-int run_post_cgi(SSL* it, string file_path, string header, string contents, string request_target, string script_relative_path, string path_info, string http_version)
+int run_post_cgi(SSL* it, string file_path, string document_root, string header, string contents, string request_target, string script_relative_path, string path_info, string query_string, string http_version)
 {
-    configure_cgi_environment("POST", header, borrow request_target, borrow script_relative_path, borrow path_info, "", borrow http_version);
+    configure_cgi_environment("POST", header, request_target, document_root, file_path, script_relative_path, path_info, query_string, http_version);
     
     char* argv[] = { file_path, NULL };
     
-    var output,err = xpopen(argv, contents);
-    if(err != 0) {
+    var output,error_output,err = xpopen(argv, contents);
+    log_cgi_stderr(file_path, error_output);
+    if(err == 2) {
+        send_gateway_timeout_https(it);
+        return 504;
+    }
+    else if(err == 3) {
+        send_bad_gateway_https(it);
+        return 502;
+    }
+    else if(err != 0) {
         send_internal_server_error_https(it);
         return 500;
     }
@@ -2225,6 +2876,7 @@ int run_post_cgi(SSL* it, string file_path, string header, string contents, stri
         }
 
         response_output = add_connection_management_headers(response_output);
+        set_response_body_bytes(gHeadRequest ? 0 : extract_response_body_size(response_output));
         write_https_data(it, response_output, strlen(response_output));
         return extract_response_status_code(response_output);
     }
@@ -2236,14 +2888,23 @@ int run_post_cgi(SSL* it, string file_path, string header, string contents, stri
     }
 }
 
-int run_post_cgi_http(int it, string file_path, string header, string contents, string request_target, string script_relative_path, string path_info, string http_version)
+int run_post_cgi_http(int it, string file_path, string document_root, string header, string contents, string request_target, string script_relative_path, string path_info, string query_string, string http_version)
 {
-    configure_cgi_environment("POST", header, borrow request_target, borrow script_relative_path, borrow path_info, "", borrow http_version);
+    configure_cgi_environment("POST", header, request_target, document_root, file_path, script_relative_path, path_info, query_string, http_version);
     
     char* argv[] = { file_path, NULL };
     
-    var output,err = xpopen(argv, contents);
-    if(err != 0) {
+    var output,error_output,err = xpopen(argv, contents);
+    log_cgi_stderr(file_path, error_output);
+    if(err == 2) {
+        send_gateway_timeout_http(it);
+        return 504;
+    }
+    else if(err == 3) {
+        send_bad_gateway_http(it);
+        return 502;
+    }
+    else if(err != 0) {
         send_internal_server_error_http(it);
         return 500;
     }
@@ -2258,6 +2919,7 @@ int run_post_cgi_http(int it, string file_path, string header, string contents, 
         }
 
         response_output = add_connection_management_headers(response_output);
+        set_response_body_bytes(gHeadRequest ? 0 : extract_response_body_size(response_output));
         write_http_data(it, response_output, strlen(response_output));
         return extract_response_status_code(response_output);
     }
@@ -2269,14 +2931,23 @@ int run_post_cgi_http(int it, string file_path, string header, string contents, 
     }
 }
 
-int run_get_cgi(SSL* it, string cgi_path, string header, string contents, string query_string, string method, string request_target, string script_relative_path, string path_info, string http_version)
+int run_get_cgi(SSL* it, string cgi_path, string document_root, string header, string contents, string query_string, string method, string request_target, string script_relative_path, string path_info, string http_version)
 {
-    configure_cgi_environment(borrow method, header, borrow request_target, borrow script_relative_path, borrow path_info, borrow query_string, borrow http_version);
+    configure_cgi_environment(borrow method, header, request_target, document_root, cgi_path, script_relative_path, path_info, query_string, http_version);
     
     char* argv[] = { cgi_path, NULL };
-    var output,err = xpopen(argv, xsprintf(""));
+    var output,error_output,err = xpopen(argv, xsprintf(""));
+    log_cgi_stderr(cgi_path, error_output);
 
-    if(err != 0) {
+    if(err == 2) {
+        send_gateway_timeout_https(it);
+        return 504;
+    }
+    else if(err == 3) {
+        send_bad_gateway_https(it);
+        return 502;
+    }
+    else if(err != 0) {
         send_internal_server_error_https(it);
         return 500;
     }
@@ -2291,6 +2962,7 @@ int run_get_cgi(SSL* it, string cgi_path, string header, string contents, string
         }
 
         response_output = add_connection_management_headers(response_output);
+        set_response_body_bytes(gHeadRequest ? 0 : extract_response_body_size(response_output));
         write_https_data(it, response_output, strlen(response_output));
         return extract_response_status_code(response_output);
     }
@@ -2302,14 +2974,23 @@ int run_get_cgi(SSL* it, string cgi_path, string header, string contents, string
     }
 }
 
-int run_get_cgi_http(int it, string cgi_path, string header, string contents, string query_string, string method, string request_target, string script_relative_path, string path_info, string http_version)
+int run_get_cgi_http(int it, string cgi_path, string document_root, string header, string contents, string query_string, string method, string request_target, string script_relative_path, string path_info, string http_version)
 {
-    configure_cgi_environment(borrow method, header, borrow request_target, borrow script_relative_path, borrow path_info, borrow query_string, borrow http_version);
+    configure_cgi_environment(borrow method, header, request_target, document_root, cgi_path, script_relative_path, path_info, query_string, http_version);
     
     char* argv[] = { cgi_path, NULL };
-    var output,err = xpopen(argv, xsprintf(""));
+    var output,error_output,err = xpopen(argv, xsprintf(""));
+    log_cgi_stderr(cgi_path, error_output);
 
-    if(err != 0) {
+    if(err == 2) {
+        send_gateway_timeout_http(it);
+        return 504;
+    }
+    else if(err == 3) {
+        send_bad_gateway_http(it);
+        return 502;
+    }
+    else if(err != 0) {
         send_internal_server_error_http(it);
         return 500;
     }
@@ -2324,6 +3005,7 @@ int run_get_cgi_http(int it, string cgi_path, string header, string contents, st
         }
 
         response_output = add_connection_management_headers(response_output);
+        set_response_body_bytes(gHeadRequest ? 0 : extract_response_body_size(response_output));
         write_http_data(it, response_output, strlen(response_output));
         return extract_response_status_code(response_output);
     }
@@ -2343,20 +3025,365 @@ void finalize_modules()
 {
 }
 
+string trim_config_text(char* head)
+{
+    char* tail = head + strlen(head);
+
+    while(head < tail && isspace((unsigned char)*head)) {
+        head++;
+    }
+
+    while(tail > head && isspace((unsigned char)*(tail - 1))) {
+        tail--;
+    }
+
+    return create_range_string(head, tail - head);
+}
+
+bool config_value_is_true(string value)
+{
+    string lower_value = to_lower_string(value);
+    return lower_value === "1" || lower_value === "true" || lower_value === "yes" || lower_value === "on";
+}
+
+bool config_value_is_false(string value)
+{
+    string lower_value = to_lower_string(value);
+    return lower_value === "0" || lower_value === "false" || lower_value === "no" || lower_value === "off";
+}
+
+bool parse_config_bool(string value, bool* result)
+{
+    if(config_value_is_true(value)) {
+        *result = true;
+        return true;
+    }
+    if(config_value_is_false(value)) {
+        *result = false;
+        return true;
+    }
+
+    return false;
+}
+
+const char* duplicate_option_value(string value)
+{
+    char* duplicated = strdup(value);
+    if(duplicated == NULL) {
+        fprintf(stderr, "strdup failed\n");
+        exit(1);
+    }
+
+    return duplicated;
+}
+
+bool set_document_root_option(string value)
+{
+    if(!is_existing_directory(value)) {
+        fprintf(stderr, "document root is not a directory: %s\n", borrow value);
+        return false;
+    }
+
+    gDocumentRoot = duplicate_option_value(value);
+    return true;
+}
+
+bool set_port_option(string value, int* port)
+{
+    int parsed_port = parse_non_negative_number(value);
+    if(parsed_port <= 0 || parsed_port > 65535) {
+        fprintf(stderr, "invalid port: %s\n", borrow value);
+        return false;
+    }
+
+    *port = parsed_port;
+    return true;
+}
+
+bool set_non_negative_config_int(string value, int* target, const char* name)
+{
+    int parsed_value = parse_non_negative_number(value);
+    if(parsed_value < 0) {
+        fprintf(stderr, "invalid %s: %s\n", name, borrow value);
+        return false;
+    }
+
+    *target = parsed_value;
+    return true;
+}
+
+bool set_error_page_option(int status_code, string path)
+{
+    const char* duplicated_path = duplicate_option_value(path);
+
+    switch(status_code) {
+        case 400: gErrorPage400 = duplicated_path; return true;
+        case 403: gErrorPage403 = duplicated_path; return true;
+        case 404: gErrorPage404 = duplicated_path; return true;
+        case 405: gErrorPage405 = duplicated_path; return true;
+        case 408: gErrorPage408 = duplicated_path; return true;
+        case 413: gErrorPage413 = duplicated_path; return true;
+        case 414: gErrorPage414 = duplicated_path; return true;
+        case 416: gErrorPage416 = duplicated_path; return true;
+        case 431: gErrorPage431 = duplicated_path; return true;
+        case 500: gErrorPage500 = duplicated_path; return true;
+        case 502: gErrorPage502 = duplicated_path; return true;
+        case 504: gErrorPage504 = duplicated_path; return true;
+        case 505: gErrorPage505 = duplicated_path; return true;
+    }
+
+    fprintf(stderr, "unsupported error page status: %d\n", status_code);
+    return false;
+}
+
+bool set_error_page_from_value(string value, const char* source_path, int line_number)
+{
+    char* p = borrow value;
+    while(*p && isspace((unsigned char)*p)) {
+        p++;
+    }
+
+    char* code_head = p;
+    while(*p && !isspace((unsigned char)*p)) {
+        p++;
+    }
+
+    string code_text = create_range_string(code_head, p - code_head);
+    int status_code = parse_non_negative_number(code_text);
+    if(status_code < 0) {
+        fprintf(stderr, "%s:%d: error_page requires a numeric status code\n", source_path, line_number);
+        return false;
+    }
+
+    while(*p && isspace((unsigned char)*p)) {
+        p++;
+    }
+
+    string path = trim_config_text(p);
+    if(path == null || path === "") {
+        fprintf(stderr, "%s:%d: error_page requires a path\n", source_path, line_number);
+        return false;
+    }
+
+    return set_error_page_option(status_code, path);
+}
+
+bool set_error_page_from_key_suffix(string lower_key, string value, const char* source_path, int line_number)
+{
+    char* p = borrow lower_key;
+    char* suffix = strstr(p, "error_page_");
+    if(suffix == NULL) {
+        suffix = strstr(p, "error-page-");
+    }
+    if(suffix == NULL) {
+        return false;
+    }
+
+    suffix += 11;
+    int status_code = parse_non_negative_number(xsprintf("%s", suffix));
+    if(status_code < 0) {
+        fprintf(stderr, "%s:%d: invalid error page status in %s\n", source_path, line_number, borrow lower_key);
+        return false;
+    }
+
+    return set_error_page_option(status_code, value);
+}
+
+bool apply_config_directive(string key, string value, bool* http, const char* source_path, int line_number)
+{
+    string lower_key = to_lower_string(key);
+
+    if(value == null || value === "") {
+        fprintf(stderr, "%s:%d: missing value for %s\n", source_path, line_number, borrow key);
+        return false;
+    }
+
+    if(lower_key === "mode") {
+        string lower_value = to_lower_string(value);
+        if(lower_value === "http") {
+            *http = true;
+            return true;
+        }
+        if(lower_value === "https") {
+            *http = false;
+            return true;
+        }
+
+        fprintf(stderr, "%s:%d: mode must be http or https\n", source_path, line_number);
+        return false;
+    }
+    else if(lower_key === "port") {
+        return set_port_option(value, *http ? &gHttpPort : &gHttpsPort);
+    }
+    else if(lower_key === "http_port" || lower_key === "http-port") {
+        return set_port_option(value, &gHttpPort);
+    }
+    else if(lower_key === "https_port" || lower_key === "https-port") {
+        return set_port_option(value, &gHttpsPort);
+    }
+    else if(lower_key === "root" || lower_key === "document_root" || lower_key === "document-root") {
+        return set_document_root_option(value);
+    }
+    else if(lower_key === "autoindex" || lower_key === "auto_index" || lower_key === "auto-index") {
+        bool enabled = false;
+        if(!parse_config_bool(value, &enabled)) {
+            fprintf(stderr, "%s:%d: autoindex must be on/off, true/false, yes/no, or 1/0\n", source_path, line_number);
+            return false;
+        }
+        gAutoIndex = enabled;
+        return true;
+    }
+    else if(lower_key === "access_log" || lower_key === "access-log") {
+        string lower_value = to_lower_string(value);
+        if(lower_value === "-" || lower_value === "stdout") {
+            gAccessLogPath = NULL;
+        }
+        else {
+            gAccessLogPath = duplicate_option_value(value);
+        }
+        return true;
+    }
+    else if(lower_key === "error_log" || lower_key === "error-log") {
+        string lower_value = to_lower_string(value);
+        if(lower_value === "-" || lower_value === "stderr") {
+            gErrorLogPath = NULL;
+        }
+        else {
+            gErrorLogPath = duplicate_option_value(value);
+        }
+        return true;
+    }
+    else if(lower_key === "cgi_timeout" || lower_key === "cgi-timeout") {
+        return set_non_negative_config_int(value, &gCgiTimeoutSeconds, "cgi_timeout");
+    }
+    else if(lower_key === "cgi_output_limit" || lower_key === "cgi-output-limit") {
+        return set_non_negative_config_int(value, &gCgiOutputLimit, "cgi_output_limit");
+    }
+    else if(lower_key === "cache_control" || lower_key === "cache-control") {
+        string lower_value = to_lower_string(value);
+        if(lower_value === "-" || lower_value === "off") {
+            gStaticCacheControl = NULL;
+        }
+        else {
+            gStaticCacheControl = duplicate_option_value(value);
+        }
+        return true;
+    }
+    else if(lower_key === "error_page" || lower_key === "error-page") {
+        return set_error_page_from_value(value, source_path, line_number);
+    }
+    else if(lower_key.match("^error[_-]page[_-][0-9]+$")) {
+        return set_error_page_from_key_suffix(lower_key, value, source_path, line_number);
+    }
+
+    fprintf(stderr, "%s:%d: unknown directive: %s\n", source_path, line_number, borrow key);
+    return false;
+}
+
+tuple2<string, string>*% parse_config_line(char* line)
+{
+    char* comment = strchr(line, '#');
+    if(comment != NULL) {
+        *comment = '\0';
+    }
+
+    char* p = line;
+    while(*p && isspace((unsigned char)*p)) {
+        p++;
+    }
+
+    if(*p == '\0') {
+        return t((string)null, (string)null);
+    }
+
+    char* key_head = p;
+    while(*p && !isspace((unsigned char)*p) && *p != '=') {
+        p++;
+    }
+
+    string key = create_range_string(key_head, p - key_head);
+
+    while(*p && isspace((unsigned char)*p)) {
+        p++;
+    }
+    if(*p == '=') {
+        p++;
+    }
+
+    string value = trim_config_text(p);
+    return t(key, value);
+}
+
+bool load_server_config(const char* path, bool required, bool* http)
+{
+    FILE* file = fopen(path, "r");
+    if(file == NULL) {
+        if(required) {
+            perror(path);
+            return false;
+        }
+        return true;
+    }
+
+    char line[4096];
+    int line_number = 0;
+    while(fgets(line, sizeof(line), file) != NULL) {
+        line_number++;
+
+        var key, value = parse_config_line(line);
+        if(key == null) {
+            continue;
+        }
+
+        if(!apply_config_directive(key, value, http, path, line_number)) {
+            fclose(file);
+            return false;
+        }
+    }
+
+    fclose(file);
+    return true;
+}
+
+const char* find_config_path_from_argv(int argc, char** argv, bool* explicit_config)
+{
+    *explicit_config = false;
+
+    for(int i=1; i<argc; i++) {
+        if(argv[i] === "-config") {
+            if(i + 1 >= argc) {
+                fprintf(stderr, "-config requires a file path\n");
+                return NULL;
+            }
+
+            *explicit_config = true;
+            return argv[i + 1];
+        }
+    }
+
+    return gConfigPath;
+}
+
 void print_usage(const char* program_name)
 {
-    printf("usage: %s [-http|-https] [-port PORT] [-root DIR] [-autoindex]\n", program_name);
+    printf("usage: %s [-config FILE] [-http|-https] [-port PORT] [-root DIR] [-autoindex] [-access-log FILE] [-error-log FILE] [-error-page CODE FILE] [-cache-control VALUE] [-cgi-timeout SEC] [-cgi-output-limit BYTES]\n", program_name);
+    printf("  -config FILE load server options from FILE, default webweb.conf if present\n");
     printf("  -http        listen with plain HTTP, default port 8080\n");
     printf("  -https       listen with HTTPS, default port 443\n");
     printf("  -port PORT   override the listen port for the selected mode\n");
     printf("  -root DIR    serve files from DIR and vhosts from DIR/vhosts\n");
     printf("  -autoindex   list directories that do not have index.html or index.htm\n");
+    printf("  -access-log FILE   append access logs to FILE instead of stdout\n");
+    printf("  -error-log FILE    append server and CGI stderr logs to FILE instead of stderr\n");
+    printf("  -error-page CODE FILE   use FILE as the response body for CODE\n");
+    printf("  -cache-control VALUE    add Cache-Control to static file responses, off disables\n");
+    printf("  -cgi-timeout SEC   kill CGI after SEC seconds, 0 disables timeout\n");
+    printf("  -cgi-output-limit BYTES   kill CGI after stdout exceeds BYTES, 0 disables limit\n");
 }
 
 bool parse_server_options(int argc, char** argv, bool* http)
 {
     int configured_port = 0;
-    *http = false;
 
     for(int i=1; i<argc; i++) {
         if(argv[i] === "-http") {
@@ -2364,6 +3391,14 @@ bool parse_server_options(int argc, char** argv, bool* http)
         }
         else if(argv[i] === "-https") {
             *http = false;
+        }
+        else if(argv[i] === "-config") {
+            if(i + 1 >= argc) {
+                fprintf(stderr, "-config requires a file path\n");
+                return false;
+            }
+
+            i++;
         }
         else if(argv[i] === "-port") {
             if(i + 1 >= argc) {
@@ -2383,14 +3418,84 @@ bool parse_server_options(int argc, char** argv, bool* http)
                 return false;
             }
 
-            gDocumentRoot = argv[++i];
-            if(!is_existing_directory(xsprintf("%s", gDocumentRoot))) {
-                fprintf(stderr, "document root is not a directory: %s\n", gDocumentRoot);
+            if(!set_document_root_option(xsprintf("%s", argv[++i]))) {
                 return false;
             }
         }
         else if(argv[i] === "-autoindex") {
             gAutoIndex = true;
+        }
+        else if(argv[i] === "-access-log") {
+            if(i + 1 >= argc) {
+                fprintf(stderr, "-access-log requires a file path\n");
+                return false;
+            }
+
+            gAccessLogPath = duplicate_option_value(xsprintf("%s", argv[++i]));
+        }
+        else if(argv[i] === "-error-log") {
+            if(i + 1 >= argc) {
+                fprintf(stderr, "-error-log requires a file path\n");
+                return false;
+            }
+
+            string path = xsprintf("%s", argv[++i]);
+            if(path === "-" || path === "stderr") {
+                gErrorLogPath = NULL;
+            }
+            else {
+                gErrorLogPath = duplicate_option_value(path);
+            }
+        }
+        else if(argv[i] === "-error-page") {
+            if(i + 2 >= argc) {
+                fprintf(stderr, "-error-page requires a status code and file path\n");
+                return false;
+            }
+
+            int status_code = parse_non_negative_number(xsprintf("%s", argv[++i]));
+            if(status_code < 0) {
+                fprintf(stderr, "invalid error page status: %s\n", argv[i]);
+                return false;
+            }
+
+            if(!set_error_page_option(status_code, xsprintf("%s", argv[++i]))) {
+                return false;
+            }
+        }
+        else if(argv[i] === "-cache-control") {
+            if(i + 1 >= argc) {
+                fprintf(stderr, "-cache-control requires a header value\n");
+                return false;
+            }
+
+            string value = xsprintf("%s", argv[++i]);
+            if(value === "-" || value === "off") {
+                gStaticCacheControl = NULL;
+            }
+            else {
+                gStaticCacheControl = duplicate_option_value(value);
+            }
+        }
+        else if(argv[i] === "-cgi-timeout") {
+            if(i + 1 >= argc) {
+                fprintf(stderr, "-cgi-timeout requires seconds\n");
+                return false;
+            }
+
+            if(!set_non_negative_config_int(xsprintf("%s", argv[++i]), &gCgiTimeoutSeconds, "cgi-timeout")) {
+                return false;
+            }
+        }
+        else if(argv[i] === "-cgi-output-limit") {
+            if(i + 1 >= argc) {
+                fprintf(stderr, "-cgi-output-limit requires bytes\n");
+                return false;
+            }
+
+            if(!set_non_negative_config_int(xsprintf("%s", argv[++i]), &gCgiOutputLimit, "cgi-output-limit")) {
+                return false;
+            }
         }
         else if(argv[i] === "-help" || argv[i] === "--help") {
             print_usage(argv[0]);
@@ -2419,6 +3524,7 @@ void process_http_client(int it)
 {
     var request_buffer = new buffer();
     gIsHttps = false;
+    set_remote_client_info(it);
 
     while(true) {
         set_client_timeout(it);
@@ -2430,6 +3536,10 @@ void process_http_client(int it)
         string method = xsprintf("-");
         string request_target = xsprintf("-");
         int status_code = 0;
+        gResponseBodyBytes = 0;
+        gCurrentHttpVersion = "-";
+        gCurrentReferer = "-";
+        gCurrentUserAgent = "-";
 
         var header, contents, request_err = read_http_request(it, request_buffer);
 
@@ -2476,6 +3586,11 @@ void process_http_client(int it)
 
         method = parsed_method;
         request_target = parsed_target;
+        gCurrentHttpVersion = duplicate_option_value(http_version);
+        string referer_header = get_header_value(header, "Referer");
+        string user_agent_header = get_header_value(header, "User-Agent");
+        gCurrentReferer = referer_header != null ? duplicate_option_value(referer_header) : "-";
+        gCurrentUserAgent = user_agent_header != null ? duplicate_option_value(user_agent_header) : "-";
 
         if(!is_supported_http_version(http_version)) {
             send_http_version_not_supported_http(it);
@@ -2500,6 +3615,9 @@ void process_http_client(int it)
         else {
             string host_header = get_host_header_value(header);
             string document_root = resolve_document_root(host_header);
+            if(document_root != null) {
+                gActiveDocumentRoot = duplicate_option_value(document_root);
+            }
 
             if(http_version === "1.1" && host_header == null) {
                 send_bad_request_http(it);
@@ -2527,7 +3645,11 @@ void process_http_client(int it)
                     string file_path = build_file_path(document_root, resolved_relative_path);
                     string ext_name = xextname(file_path);
 
-                    if(parsed_method === "OPTIONS") {
+                    if(request_path_forbidden(document_root, file_path)) {
+                        send_forbidden_http(it);
+                        status_code = 403;
+                    }
+                    else if(parsed_method === "OPTIONS") {
                         if(cgi_request) {
                             if(is_executable_cgi(file_path)) {
                                 send_options_response_http(it, allow_header_cgi_methods());
@@ -2558,7 +3680,7 @@ void process_http_client(int it)
                     else if(parsed_method === "GET" || parsed_method === "HEAD") {
                         if(cgi_request) {
                             if(is_executable_cgi(file_path)) {
-                                status_code = run_get_cgi_http(it, file_path, header, contents, query_string, parsed_method, parsed_target, cgi_relative_path, path_info, http_version);
+                                status_code = run_get_cgi_http(it, file_path, document_root, header, contents, query_string, parsed_method, parsed_target, cgi_relative_path, path_info, http_version);
                             }
                             else if(access(file_path, F_OK) == 0) {
                                 send_forbidden_http(it);
@@ -2618,7 +3740,7 @@ void process_http_client(int it)
                             }
                         }
                         else if(is_executable_cgi(file_path)) {
-                            status_code = run_post_cgi_http(it, file_path, header, contents, parsed_target, cgi_relative_path, path_info, http_version);
+                            status_code = run_post_cgi_http(it, file_path, document_root, header, contents, parsed_target, cgi_relative_path, path_info, query_string, http_version);
                         }
                         else if(access(file_path, F_OK) == 0) {
                             send_forbidden_http(it);
@@ -2648,6 +3770,7 @@ void process_https_client(SSL* it)
 {
     var request_buffer = new buffer();
     gIsHttps = true;
+    set_remote_client_info(SSL_get_fd(it));
 
     while(true) {
         set_client_timeout(SSL_get_fd(it));
@@ -2659,6 +3782,10 @@ void process_https_client(SSL* it)
         string method = xsprintf("-");
         string request_target = xsprintf("-");
         int status_code = 0;
+        gResponseBodyBytes = 0;
+        gCurrentHttpVersion = "-";
+        gCurrentReferer = "-";
+        gCurrentUserAgent = "-";
 
         var header, contents, request_err = read_https_request(it, request_buffer);
 
@@ -2705,6 +3832,11 @@ void process_https_client(SSL* it)
 
         method = parsed_method;
         request_target = parsed_target;
+        gCurrentHttpVersion = duplicate_option_value(http_version);
+        string referer_header = get_header_value(header, "Referer");
+        string user_agent_header = get_header_value(header, "User-Agent");
+        gCurrentReferer = referer_header != null ? duplicate_option_value(referer_header) : "-";
+        gCurrentUserAgent = user_agent_header != null ? duplicate_option_value(user_agent_header) : "-";
 
         if(!is_supported_http_version(http_version)) {
             send_http_version_not_supported_https(it);
@@ -2729,6 +3861,9 @@ void process_https_client(SSL* it)
         else {
             string host_header = get_host_header_value(header);
             string document_root = resolve_document_root(host_header);
+            if(document_root != null) {
+                gActiveDocumentRoot = duplicate_option_value(document_root);
+            }
 
             if(http_version === "1.1" && host_header == null) {
                 status_code = 400;
@@ -2756,7 +3891,11 @@ void process_https_client(SSL* it)
                     string file_path = build_file_path(document_root, resolved_relative_path);
                     string ext_name = xextname(file_path);
 
-                    if(parsed_method === "OPTIONS") {
+                    if(request_path_forbidden(document_root, file_path)) {
+                        send_forbidden_https(it);
+                        status_code = 403;
+                    }
+                    else if(parsed_method === "OPTIONS") {
                         if(cgi_request) {
                             if(is_executable_cgi(file_path)) {
                                 send_options_response_https(it, allow_header_cgi_methods());
@@ -2787,7 +3926,7 @@ void process_https_client(SSL* it)
                     else if(parsed_method === "GET" || parsed_method === "HEAD") {
                         if(cgi_request) {
                             if(is_executable_cgi(file_path)) {
-                                status_code = run_get_cgi(it, file_path, header, contents, query_string, parsed_method, parsed_target, cgi_relative_path, path_info, http_version);
+                                status_code = run_get_cgi(it, file_path, document_root, header, contents, query_string, parsed_method, parsed_target, cgi_relative_path, path_info, http_version);
                             }
                             else if(access(file_path, F_OK) == 0) {
                                 send_forbidden_https(it);
@@ -2847,7 +3986,7 @@ void process_https_client(SSL* it)
                             }
                         }
                         else if(is_executable_cgi(file_path)) {
-                            status_code = run_post_cgi(it, file_path, header, contents, parsed_target, cgi_relative_path, path_info, http_version);
+                            status_code = run_post_cgi(it, file_path, document_root, header, contents, parsed_target, cgi_relative_path, path_info, query_string, http_version);
                         }
                         else if(access(file_path, F_OK) == 0) {
                             send_forbidden_https(it);
@@ -2880,6 +4019,16 @@ void process_https_client(SSL* it)
 int main(int argc, char **argv) 
 {
     bool http = false;
+    bool explicit_config = false;
+    const char* config_path = find_config_path_from_argv(argc, argv, &explicit_config);
+
+    if(config_path == NULL) {
+        return 1;
+    }
+
+    if(!load_server_config(config_path, explicit_config, &http)) {
+        return 1;
+    }
 
     if(!parse_server_options(argc, argv, &http)) {
         return 1;
@@ -2890,6 +4039,7 @@ int main(int argc, char **argv)
     initialize_modules();
 
     signal(SIGCHLD, SIG_IGN);
+    signal(SIGPIPE, SIG_IGN);
     
     while(true) {
         if(http) {
