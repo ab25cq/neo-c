@@ -41,6 +41,7 @@ NOPLT?=1
 GC_SECTIONS?=1
 ALLOCATOR?=system
 BARE?=0
+NCC_EXTRA_DEPS=neo-c-str.o
 PGO_TRAINING_DIRS?=. code code2 code4 mytest vin mf shsh zed webweb minux2 cinatora
 .PHONY: all self-host install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt pgo-cs-generate pgo-cs-collect pgo-cs-use
 ifeq ($(LOWMEM),1)
@@ -70,6 +71,7 @@ ifeq ($(BARE),1)
 NCC_FLAGS+=-bare
 CCPP_CFLAGS+=-DCCPP_BARE
 CFLAGS+=-fno-stack-protector
+NCC_EXTRA_DEPS=
 ifeq ($(UNAME_S),Darwin)
 LDFLAGS+=-nostdlib -Wl,-e,_main
 LDFLAGS+=-lSystem
@@ -267,7 +269,7 @@ ccpp.c: ccpp.nc ccpp_body.h
 #########################################
 # compile c source
 #########################################
-ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o neo-c-str.o
+ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o $(NCC_EXTRA_DEPS)
 	$(CC) -o ncc $(LINK_GC_SECTIONS) 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o  $(CFLAGS) $(LDFLAGS)
 	@if command -v $(STRIP) >/dev/null 2>&1; then $(STRIP) ncc || true; fi
 

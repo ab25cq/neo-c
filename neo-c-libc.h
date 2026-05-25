@@ -337,13 +337,17 @@ __NEO_WEAK int* __errno_location(void)
     return &errno;
 }
 
-static unsigned char __neo_darwin_heap[512 * 1024 * 1024];
+#ifndef NEO_DARWIN_BARE_HEAP_SIZE
+#define NEO_DARWIN_BARE_HEAP_SIZE (1024UL * 1024UL * 1024UL)
+#endif
+
+static unsigned char __neo_darwin_heap[NEO_DARWIN_BARE_HEAP_SIZE];
 static unsigned long __neo_darwin_brk_offset;
 
 unsigned long brk(unsigned long addr)
 {
     unsigned long base = (unsigned long)__neo_darwin_heap;
-    unsigned long limit = base + sizeof(__neo_darwin_heap);
+    unsigned long limit = base + NEO_DARWIN_BARE_HEAP_SIZE;
 
     if(addr == 0) {
         return base + __neo_darwin_brk_offset;

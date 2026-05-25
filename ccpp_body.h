@@ -5194,6 +5194,9 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                 if (!injected_libc_typedefs) {
                     const char *inj_types = getenv("CCPP_INJECT_LIBC_TYPEDEFS");
                     bool do_inject_types = (inj_types && strcmp(inj_types, "0") != 0);
+#ifdef CCPP_BARE
+                    do_inject_types = (!inj_types || strcmp(inj_types, "0") != 0);
+#endif
                     if (do_inject_types) {
                         sb_puts(&outln,
                                 "\n/* ccpp: libc typedefs */\n"
@@ -5213,6 +5216,17 @@ static void preprocess(FILE *in, FILE *out, const PPOpts *opts, const char *curd
                                 "typedef unsigned int __uint32_t;\n"
                                 "typedef signed long long int __int64_t;\n"
                                 "typedef unsigned long long int __uint64_t;\n"
+                                "typedef int __darwin_natural_t;\n"
+                                "typedef __builtin_va_list __darwin_va_list;\n"
+                                "typedef unsigned long __darwin_size_t;\n"
+                                "typedef long __darwin_ssize_t;\n"
+                                "typedef long __darwin_intptr_t;\n"
+                                "typedef int __darwin_ct_rune_t;\n"
+                                "typedef int __darwin_rune_t;\n"
+                                "typedef int __darwin_wchar_t;\n"
+                                "typedef int __darwin_mbstate_t;\n"
+                                "typedef long __darwin_clock_t;\n"
+                                "typedef int __darwin_wint_t;\n"
                                 "typedef long long int __quad_t;\n"
                                 "typedef unsigned long long int __u_quad_t;\n"
                                 "typedef unsigned long int __ino_t;\n"
@@ -5579,6 +5593,33 @@ void preprocess_file_neo_c(const char *path, FILE *out)
     FILE* in = fopen(path, "r");
     if (!in) die("fopen");
     curdir = dirname_dup(path);
+#ifdef CCPP_BARE
+    fputs("/* ccpp: bare libc typedefs */\n"
+          "typedef float _Float32;\n"
+          "typedef double _Float64;\n"
+          "typedef double _Float32x;\n"
+          "typedef long double _Float64x;\n"
+          "typedef signed char __int8_t;\n"
+          "typedef unsigned char __uint8_t;\n"
+          "typedef signed short int __int16_t;\n"
+          "typedef unsigned short int __uint16_t;\n"
+          "typedef signed int __int32_t;\n"
+          "typedef unsigned int __uint32_t;\n"
+          "typedef signed long long int __int64_t;\n"
+          "typedef unsigned long long int __uint64_t;\n"
+          "typedef int __darwin_natural_t;\n"
+          "typedef __builtin_va_list __darwin_va_list;\n"
+          "typedef unsigned long __darwin_size_t;\n"
+          "typedef long __darwin_ssize_t;\n"
+          "typedef long __darwin_intptr_t;\n"
+          "typedef int __darwin_ct_rune_t;\n"
+          "typedef int __darwin_rune_t;\n"
+          "typedef int __darwin_wchar_t;\n"
+          "typedef int __darwin_mbstate_t;\n"
+          "typedef long __darwin_clock_t;\n"
+          "typedef int __darwin_wint_t;\n",
+          out);
+#endif
     preprocess_file(path, in, curdir, &opts_global, out, &tbl_global);
 }
 

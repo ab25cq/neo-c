@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.20
+version 1.0.3.21
 
 ## Small binaries
 
@@ -257,6 +257,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.21 Rechecked bare builds on darwin.
 1.0.3.20 Regenerated the checked-in self-host C sources in normal libc mode so regular Fedora/Linux self-host builds no longer link duplicate bare-runtime symbols such as `brk` and `__atexit_funcs`.
 1.0.3.19 Darwin bare builds now use `-Wl,-dead_strip`, disable stack protectors, link through libSystem with `_main`, and avoid leaking Darwin SDK typedefs into generated bare C. macOS bare self-host builds with `make BARE=1 self-host` and `make BARE=1 ncc` now pass, and `neo-c -bare a.nc` links and runs on Darwin.
 1.0.3.18 Generated C now emits explicit parent-class pointer casts for inherited method calls, fixing strict Clang/Arch self-host builds. Runtime / and % zero checks now leave sizeof-based declaration constants as valid C constant expressions. Revalidated clean self-host plus bundled subproject builds, including cinatora, webweb, vin, and minux9.
