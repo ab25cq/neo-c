@@ -257,6 +257,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.22 Fixed Linux x86_64 bare self-host file creation by using Linux `O_CREAT`/`O_TRUNC`/`O_APPEND` values in `neo-c-libc.h`; bare `ncc` can now generate preprocessor output files such as `a.nc.i` during libc-free builds.
 1.0.3.21 Rechecked bare builds on darwin.
 1.0.3.20 Regenerated the checked-in self-host C sources in normal libc mode so regular Fedora/Linux self-host builds no longer link duplicate bare-runtime symbols such as `brk` and `__atexit_funcs`.
 1.0.3.19 Darwin bare builds now use `-Wl,-dead_strip`, disable stack protectors, link through libSystem with `_main`, and avoid leaking Darwin SDK typedefs into generated bare C. macOS bare self-host builds with `make BARE=1 self-host` and `make BARE=1 ncc` now pass, and `neo-c -bare a.nc` links and runs on Darwin.

@@ -65,7 +65,15 @@ typedef _Bool bool;
 #define O_RDONLY 0
 #define O_WRONLY 1
 #define O_RDWR 2
-#if defined(__APPLE__) || defined(__NEO_DARWIN_BARE__)
+#if defined(__linux__) || defined(__ANDROID__)
+#define O_CREAT 64
+#define O_TRUNC 512
+#define O_APPEND 1024
+#elif defined(__APPLE__)
+#define O_CREAT 512
+#define O_TRUNC 1024
+#define O_APPEND 8
+#elif defined(__NEO_DARWIN_BARE__)
 #define O_CREAT 512
 #define O_TRUNC 1024
 #define O_APPEND 8
