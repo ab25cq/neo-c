@@ -52,6 +52,24 @@ run_sudo_make() {
     fi
 }
 
+bare_generated_self_host_sources() {
+    test -f 01main.c && grep '^#define __BAREMETAL__ 1$' 01main.c >/dev/null 2>&1
+}
+
+prepare_normal_self_host_sources() {
+    if bare_generated_self_host_sources
+    then
+        echo "Regenerating normal libc self-host sources from bare-generated C sources"
+        run_make clean || exit 1
+        run_make BARE=1 ncc || exit 1
+        touch *.nc
+        run_make self-host || exit 1
+        run_make clean || exit 1
+    fi
+}
+
+prepare_normal_self_host_sources
+
 touch *.c
 
 if uname -a | grep Android

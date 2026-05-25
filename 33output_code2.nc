@@ -932,6 +932,9 @@ bool output_source_file(sInfo* info)
     
     /// go ///
     string output_file_name = xsprintf("%s.c", xnoextname(info.sname));
+    int sname_len = strlen(info.sname);
+    bool ccpp_source = sname_len >= strlen("ccpp.nc")
+        && strcmp(info.sname + sname_len - strlen("ccpp.nc"), "ccpp.nc") == 0;
     
     FILE* f = fopen(output_file_name, "w");
     if(f == null) { die("fopen"); }
@@ -947,10 +950,12 @@ bool output_source_file(sInfo* info)
     }
     
     fprintf(f, "/// typedef definition ///\n");
-    foreach(it, info.typedef_definition) {
-        buffer* buf = borrow info.typedef_definition[string(it)];
-        fputs(buf.to_string(), f);
-        fputc('\n', f);
+    if(!ccpp_source) {
+        foreach(it, info.typedef_definition) {
+            buffer* buf = borrow info.typedef_definition[string(it)];
+            fputs(buf.to_string(), f);
+            fputc('\n', f);
+        }
     }
     
     fprintf(f, "/// previous struct definition ///\n");
