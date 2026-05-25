@@ -460,7 +460,7 @@ install:
 # clean
 #########################################
 clean:
-	rm -f neo-c-str.o
+	rm -f neo-c-str.o self-host
 	rm -fR ncc *.log *.o *.i *.out a a.c b b.c c c.c *.valgrind aa aaa a.out *.error *.profraw *.fdata ncc.inst ncc.fdata
 	rm -fR mf/mf.dSYM
 	rm -fR shsh/shsh.dSYM

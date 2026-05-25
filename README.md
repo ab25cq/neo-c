@@ -217,6 +217,13 @@ make BARE=1 self-host
 make BARE=1 ncc
 ```
 
+You can also run the packaged script after a normal clean self-host build:
+
+```sh
+sh clean-self-host.sh
+sh bare-self-host.sh
+```
+
 `BARE=1` passes `-bare` to the self-host transpiler, avoids libc-only paths such as `open_memstream`, and links `ncc` with `-nostdlib -Wl,-e,_start`. The `-bare` option writes `__BAREMETAL__` into generated C source by itself, so the Makefile does not need to add `-D__BAREMETAL__`. The resulting `ncc` is a stripped, statically linked executable that uses `neo-c-libc.h` instead of libc.
 
 Linux x86_64では、以下のように標準Cライブラリを使わずにneo-cをセルフホストできます。
@@ -224,6 +231,13 @@ Linux x86_64では、以下のように標準Cライブラリを使わずにneo-
 ```sh
 make BARE=1 self-host
 make BARE=1 ncc
+```
+
+通常のクリーンセルフホスト後に、同梱スクリプトでも実行できます。
+
+```sh
+sh clean-self-host.sh
+sh bare-self-host.sh
 ```
 
 `BARE=1`はセルフホスト時のトランスパイルに`-bare`を渡し、`open_memstream`のようなlibc専用の経路を避け、`ncc`を`-nostdlib -Wl,-e,_start`でリンクします。`-bare`オプションだけで生成Cソースへ`__BAREMETAL__`を書き込むため、Makefile側で`-D__BAREMETAL__`を追加する必要はありません。生成される`ncc`はstrip済みの静的リンク実行ファイルで、libcではなく`neo-c-libc.h`を使います。
@@ -257,6 +271,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.24 Added `bare-self-host.sh`, documented the `clean-self-host.sh` to `bare-self-host.sh` workflow, and kept the checked-in self-host C sources in normal libc-generated form. `make clean` also removes the old generated `self-host` file.
 1.0.3.23 `fast_build.sh` now detects self-host C sources generated with `-bare`, rebuilds a temporary bare `ncc`, regenerates normal libc self-host sources, and then continues the normal install build; `ccpp.c` generation no longer emits duplicate typedefs because `ccpp_body.h` owns its libc/bare declarations.
 1.0.3.22 Fixed Linux x86_64 bare self-host file creation by using Linux `O_CREAT`/`O_TRUNC`/`O_APPEND` values in `neo-c-libc.h`; bare `ncc` can now generate preprocessor output files such as `a.nc.i` during libc-free builds.
 1.0.3.21 Rechecked bare builds on darwin.

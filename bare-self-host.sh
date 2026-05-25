@@ -37,18 +37,18 @@ MAKE_JOBS=$(detect_make_jobs)
 run_make() {
     if test "$lowmem" = 1
     then
-        LOWMEM=1 make "$@"
+        LOWMEM=1 make BARE=1 "$@"
     else
-        make -j"$MAKE_JOBS" "$@"
+        make -j"$MAKE_JOBS" BARE=1 "$@"
     fi
 }
 
 run_sudo_make() {
     if test "$lowmem" = 1
     then
-        sudo env LOWMEM=1 make "$@"
+        sudo env LOWMEM=1 make BARE=1 "$@"
     else
-        sudo make -j"$MAKE_JOBS" "$@"
+        sudo make -j"$MAKE_JOBS" BARE=1 "$@"
     fi
 }
 
