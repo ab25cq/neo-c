@@ -12,6 +12,11 @@ then
     make clean
 fi
 
+if [ -e minux9/Makefile ]
+then
+    (cd minux9; make clean)
+fi
+
 if [ -e vin/Makefile ]
 then
     (cd vin; make clean)
