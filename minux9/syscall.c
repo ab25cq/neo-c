@@ -3,6 +3,49 @@
 char uart_getc();
 size_t uart_readline(char *buf, size_t maxlen);
 size_t uart_readn(char *buf, size_t len) ;
+void timer_handler();
+
+#define UART0 0x10000000UL
+#define UART_RBR 0
+#define UART_LSR 5
+#define UART_LSR_RX_READY 0x01
+
+static unsigned long host_console_flags()
+{
+    unsigned long flags = 0;
+
+    asm volatile("csrr %0, 0x51" : "=r"(flags));
+
+    return flags;
+}
+
+static int uart_rx_ready()
+{
+    return (*(volatile uint8_t*)(UART0 + UART_LSR) & UART_LSR_RX_READY) != 0;
+}
+
+static char uart_read_byte()
+{
+    return *(volatile uint8_t*)(UART0 + UART_RBR);
+}
+
+static size_t uart_read_host(char *buf, size_t len)
+{
+    size_t i = 0;
+
+    while(!uart_rx_ready()) {
+        if(host_console_flags() & 2UL) {
+            return 0;
+        }
+        timer_handler();
+    }
+
+    while(i < len && uart_rx_ready()) {
+        buf[i++] = uart_read_byte();
+    }
+
+    return i;
+}
 
 static int proc_is_descendant_of_pid(struct proc* target_proc, int root_pid)
 {
@@ -129,6 +172,35 @@ static int has_descendant_of_pid(int root_pid)
     }
 
     return 0;
+}
+
+static int has_live_proc()
+{
+    int limit = gNumProc;
+
+    if(limit > PROC_MAX) {
+        limit = PROC_MAX;
+    }
+
+    for(int pid = 0; pid < limit; pid++) {
+        struct proc* proc = proc_slot_get(pid);
+
+        if(proc != NULL && !proc->zombie) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+static void minux_poweroff(uintptr_t status)
+{
+    volatile uint64_t* poweroff = (volatile uint64_t*)0x00100000UL;
+
+    *poweroff = (uint64_t)status;
+
+    while(1) {
+    }
 }
 
 int Sys_write() {
@@ -279,6 +351,10 @@ int Sys_exit()
     p->zombie = 1;
     
     remove_kernel_state(gActiveProc);
+
+    if(!has_live_proc()) {
+        minux_poweroff(arg0);
+    }
     
     yield();
     
@@ -422,8 +498,11 @@ int Sys_isatty()
 {
     struct context_t* tf = (struct context_t*)TRAPFRAME;
     int fd = (int)tf->a0;
+    unsigned long host_noninteractive = 0;
+    asm volatile("csrr %0, 0x51" : "=r"(host_noninteractive));
     if (fd < 0 || fd >= MAX_OPEN_FILES) return 0;
     if (is_pipe(fd)) return 0;
+    if (fd == 0 && (host_noninteractive & 1UL)) return 0;
     if (is_stdin(fd) || is_stdout(fd) || is_tty(fd)) return 1;
     // treat stderr as tty as well
     struct file** ft = get_current_file_table();
@@ -1320,15 +1399,17 @@ int Sys_read()
     char kernel_buf[4096];
     int ret;
     
-    if(n > 4096) {
-        panic("read: size is overflow");
+    if(n > sizeof(kernel_buf)) {
+        n = sizeof(kernel_buf);
     }
 
-    if(is_stdin(fd)) {
-        ret = uart_readn(kernel_buf, n);
-    }
-    else if(is_tty(fd)) {
-        ret = uart_readn(kernel_buf, n);
+    if(is_stdin(fd) || is_tty(fd)) {
+        if(host_console_flags() & 1UL) {
+            ret = uart_read_host(kernel_buf, n);
+        }
+        else {
+            ret = uart_readn(kernel_buf, n);
+        }
     }
     else if(is_pipe(fd)) {
         ret = piperead(fd, kernel_buf, n);

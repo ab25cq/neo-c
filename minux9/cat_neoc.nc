@@ -54,7 +54,11 @@ int main(int argc, char** argv)
     }
     else {
         for(int i=file_start_index; i<argc; i++) {
-            int fd = minux_open(argv[i], O_RDONLY, 0);
+            int fd = 0;
+
+            if(!minux_streq(argv[i], "-")) {
+                fd = minux_open(argv[i], O_RDONLY, 0);
+            }
 
             if(fd < 0) {
                 printf("cat: cannot open %s\n", argv[i]);

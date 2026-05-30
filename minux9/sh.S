@@ -5,7 +5,7 @@
 	.attribute stack_align, 16
 	.text
 .Ltext0:
-	.file 0 "/home/ab25cq/minux9" "sh.c"
+	.file 0 "/home/ab25cq/neo-c/minux9" "sh.c"
 	.align	1
 	.type	s_strchr, @function
 s_strchr:
@@ -2855,7 +2855,7 @@ main:
 	.byte	0
 	.uleb128 0x10
 	.4byte	.LASF25
-	.2byte	0x355
+	.2byte	0x356
 	.4byte	0x160
 	.uleb128 0x6
 	.4byte	0x160
@@ -2864,7 +2864,7 @@ main:
 	.byte	0x8
 	.uleb128 0xd
 	.4byte	.LASF20
-	.2byte	0x34a
+	.2byte	0x34b
 	.byte	0x7
 	.4byte	0x96
 	.4byte	0x182
@@ -2877,7 +2877,7 @@ main:
 	.byte	0
 	.uleb128 0xd
 	.4byte	.LASF21
-	.2byte	0x366
+	.2byte	0x367
 	.byte	0x7
 	.4byte	0x96
 	.4byte	0x198
@@ -2886,7 +2886,7 @@ main:
 	.byte	0
 	.uleb128 0xd
 	.4byte	.LASF22
-	.2byte	0x33b
+	.2byte	0x33c
 	.byte	0x7
 	.4byte	0x96
 	.4byte	0x1b8
@@ -2909,7 +2909,7 @@ main:
 	.byte	0
 	.uleb128 0xd
 	.4byte	.LASF24
-	.2byte	0x351
+	.2byte	0x352
 	.byte	0x5
 	.4byte	0x41
 	.4byte	0x1ea
@@ -2927,14 +2927,14 @@ main:
 	.byte	0
 	.uleb128 0x10
 	.4byte	.LASF27
-	.2byte	0x33c
+	.2byte	0x33d
 	.4byte	0x20c
 	.uleb128 0x6
 	.4byte	0xa7
 	.byte	0
 	.uleb128 0xd
 	.4byte	.LASF28
-	.2byte	0x34d
+	.2byte	0x34e
 	.byte	0x7
 	.4byte	0x160
 	.4byte	0x22c
@@ -2950,7 +2950,7 @@ main:
 	.uleb128 0x1f
 	.uleb128 0xd
 	.4byte	.LASF29
-	.2byte	0x349
+	.2byte	0x34a
 	.byte	0x5
 	.4byte	0x41
 	.4byte	0x248
@@ -5168,8 +5168,8 @@ main:
 	.string	"strncat"
 .LASF19:
 	.string	"redirect_append"
-.LASF52:
-	.string	"envbuf"
+.LASF15:
+	.string	"g_script_fd"
 .LASF25:
 	.string	"free"
 .LASF9:
@@ -5200,6 +5200,8 @@ main:
 	.string	"command"
 .LASF8:
 	.string	"long unsigned int"
+.LASF52:
+	.string	"envbuf"
 .LASF45:
 	.string	"waits"
 .LASF32:
@@ -5224,8 +5226,9 @@ main:
 	.string	"num_commands"
 .LASF10:
 	.string	"long double"
-.LASF15:
-	.string	"g_script_fd"
+.LASF71:
+	.ascii	"GNU C23 15.2.1 20250808 (Red Hat Cross 15.2.1-1)"
+	.string	" -mno-small-data-limit=0 -mcmodel=medany -mcmodel=medany -mno-small-data-limit=0 -mabi=lp64d -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdc_zicsr_zifencei_zmmul_zaamo_zalrsc_zca_zcd -g -O0 -ffreestanding -fno-stack-protector -fno-builtin -fno-pie"
 .LASF50:
 	.string	"pipes"
 .LASF65:
@@ -5260,9 +5263,6 @@ main:
 	.string	"isdir"
 .LASF11:
 	.string	"char"
-.LASF71:
-	.ascii	"GNU C23 15.2.1 20250808"
-	.string	" (Red Hat Cross 15.2.1-1) -mcmodel=medany -mcmodel=medany -mno-small-data-limit=0 -mabi=lp64 -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdc_zicsr_zifencei_zmmul_zaamo_zalrsc_zca_zcd -g -O0 -ffreestanding -fno-stack-protector -fno-builtin -fno-pie"
 .LASF36:
 	.string	"cmdline"
 .LASF37:
@@ -5291,6 +5291,6 @@ main:
 .LASF0:
 	.string	"sh.c"
 .LASF1:
-	.string	"/home/ab25cq/minux9"
+	.string	"/home/ab25cq/neo-c/minux9"
 	.ident	"GCC: (GNU) 15.2.1 20250808 (Red Hat Cross 15.2.1-1)"
 	.section	.note.GNU-stack,"",@progbits

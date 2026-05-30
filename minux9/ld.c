@@ -54,7 +54,7 @@
 #define ELF64_ST_INFO(bind, type) (((bind) << 4) + ((type) & 0xf))
 #endif
 
-#define DEBUG_LINKER 1
+#define DEBUG_LINKER 0
 
 #define SYMBOL_FLAG_GOT_TP 0x1
 #define SYMBOL_FLAG_GOT     0x2
@@ -1582,7 +1582,7 @@ uint64_t getEntryAddr(Context* ctx)
 
     for (const char** cand = entry_candidates; *cand != NULL; ++cand) {
         Symbol* sym = GetSymbolByName(ctx, *cand);
-        DBG("sym %s is %p %x\n", *cand, sym, sym->value);
+        DBG("sym %s is %p\n", *cand, (void*)sym);
         if (sym == NULL) {
             DBG("getEntryAddr: candidate %s not found or unsuitable\n", *cand);
             continue;
@@ -1958,7 +1958,7 @@ void InitializeSections(ObjectFile* o,Context* ctx)
             case SHT_NULL:
                 break;
             case SHT_SYMTAB_SHNDX:
-                printf("SHT_SYMTAB_SHNDX\n");
+                DBG("SHT_SYMTAB_SHNDX\n");
                 FillUpSymtabShndxSec(o,shdr);
                 break;
             default:
@@ -2013,7 +2013,7 @@ void InitializeSymbols(Context *ctx,ObjectFile* o)
     o->inputFile->Symbols = (Symbol*) malloc(sizeof (Symbol)*o->inputFile->ElfSymNum);
     DBG("InitializeSymbols: allocated Symbols=%p\n", (void*)o->inputFile->Symbols);
     o->inputFile->Symbols[0].file = o;
-puts("1\n");
+    DBG("InitializeSymbols: init symbol array\n");
     for(int i=1; i< o->inputFile->ElfSymNum;i++){
         Symbol *tmp = NewSymbol("");
         if (tmp == NULL) {
@@ -2022,7 +2022,7 @@ puts("1\n");
         o->inputFile->Symbols[i]= *tmp;
         free(tmp);
     }
-puts("2\n");
+    DBG("InitializeSymbols: init local symbols\n");
     o->inputFile->LocalSymbols = (Symbol **)calloc(o->inputFile->ElfSymNum, sizeof(Symbol *));
     if (o->inputFile->LocalSymbols == NULL) {
         fatal("InitializeSymbols: calloc LocalSymbols failed");
@@ -2032,13 +2032,12 @@ puts("2\n");
         Symbol *sym = &o->inputFile->Symbols[i];
         
         sym->name  = ElfGetName(o->inputFile->SymbolStrtab,esym->Name);
-puts(sym->name);
-puts("\n");
+        DBG("local/global map sym=%s\n", sym->name);
         
         sym->file = o;
         sym->value = esym->Val;
         sym->symIdx = i;
-printf("esym shndx %d\n", esym->Shndx);
+        DBG("esym shndx %d\n", esym->Shndx);
         
         if (!HashMapPut(ctx->SymbolMap,sym->name, sym)) {
             fatal("XXX: HashMapPut failed for %s", sym->name ? sym->name : "<null>");
@@ -2051,15 +2050,14 @@ printf("esym shndx %d\n", esym->Shndx);
         }
     }
 
-puts("3\n");
+    DBG("InitializeSymbols: fill local symbols\n");
     for(int i=0; i<o->inputFile->FirstGlobal; i++) {
         ElfSym* esym = &o->inputFile->ElfSyms[i];
         char* name = ElfGetName(o->inputFile->SymbolStrtab,esym->Name);
-puts(name);
-puts("\n");
+        DBG("local sym=%s\n", name);
         o->inputFile->LocalSymbols[i] = &o->inputFile->Symbols[i];
     }
-puts("4\n");
+    DBG("InitializeSymbols: fill global symbols\n");
 /*
     for(int i=o->inputFile->FirstGlobal; i<o->inputFile->ElfSymNum; i++) {
         ElfSym* esym = &o->inputFile->ElfSyms[i];
@@ -2081,9 +2079,18 @@ puts("4\n");
         Symbol *sym = &o->inputFile->Symbols[i];
         
         char* name = ElfGetName(o->inputFile->SymbolStrtab,esym->Name);
+        if (IsUndef(esym)) {
+            sym->name = name;
+            sym->file = NULL;
+            sym->value = esym->Val;
+            sym->symIdx = i;
+            o->inputFile->LocalSymbols[i] = GetSymbolByName(ctx, name);
+            continue;
+        }
+
         sym->name = name;
         sym->file = o; 
-printf("name %p file %p\n", name, sym->file);
+        DBG("global sym name=%p file=%p\n", name, sym->file);
         sym->symIdx = i; 
         sym->inputSection = o->Sections[GetShndx(o,esym,i)];
         HashMapRemove(ctx->SymbolMap, name);
@@ -2918,7 +2925,6 @@ void BuildOutputSymtab(Context* ctx)
     tab->localCount = 1;
 
     // Collect local symbols from each object file
-puts("local symbols\n");
     for (int i = 0; i < ctx->ObjsCount; i++) {
         ObjectFile *obj = ctx->Objs[i];
         InputFile *in = obj->inputFile;
@@ -2935,8 +2941,6 @@ puts("local symbols\n");
             if (bind != STB_LOCAL)
                 continue;
             Symbol *sym = &in->Symbols[idx];
-puts(sym->name);
-puts("\n");
             if (sym == NULL || sym->file != obj)
                 continue;
 
@@ -2964,29 +2968,20 @@ puts("\n");
 
   // Collect global/weak symbols from symbol map
   HashMapFirst(ctx->SymbolMap);
-puts("global/weak symbols\n");
   for (Pair* p = HashMapNext(ctx->SymbolMap); p != NULL; p = HashMapNext(ctx->SymbolMap)) {
     Symbol* sym = (Symbol*)p->value;
-puts(sym->name);
-puts("\n");
     if (sym == NULL || sym->file == NULL || sym->symIdx < 0) {
-puts("CONTINUE1\n");
-printf("sym %p, sym->file %p, sym->SymIdx %d\n", sym, sym->file, sym->symIdx);
         continue;
     }
     ElfSym* esym = &sym->file->inputFile->ElfSyms[sym->symIdx];
     if (IsUndef(esym) || IsCommon(esym)) {
-puts("CONTINUE2\n");
-printf("IsUndef %d IsCommon %d\n", IsUndef(esym), IsCommon(esym));
         continue;
     }
     uint8_t bind = ELF64_ST_BIND(esym->Info);
     if (bind == STB_LOCAL) {
-puts("CONTINUE3\n");
         continue;
     }
     if (sym->flags & SYMBOL_FLAG_SYMTAB) {
-puts("CONTINUE4\n");
         continue;
     }
 
@@ -3009,7 +3004,6 @@ puts("CONTINUE4\n");
 
   // Fallback: walk all objects to ensure every defined global/weak symbol is emitted,
   // even if the symbol map missed it for some reason.
-puts("Fallback\n");
   for (int i = 0; i < ctx->ObjsCount; i++) {
     ObjectFile *obj = ctx->Objs[i];
     InputFile *in = obj->inputFile;
@@ -3507,7 +3501,142 @@ void WriteTo(InputSection *i,char* buf,Context* ctx)
 
 //static void writeLo12(void* loc, uint32_t diff);
 
-int gLO;
+static bool SymbolIsUndefined(Symbol *sym)
+{
+    if (sym == NULL || sym->file == NULL || sym->symIdx < 0)
+        return true;
+    if (sym->symIdx >= sym->file->inputFile->ElfSymNum)
+        return true;
+    return IsUndef(&sym->file->inputFile->ElfSyms[sym->symIdx]);
+}
+
+static Symbol *FindDefinedSymbolByName(Context *ctx, const char *name)
+{
+    if (ctx == NULL || name == NULL || name[0] == '\0')
+        return NULL;
+
+    if (HashMapContain(ctx->SymbolMap, (void *)name)) {
+        Symbol *sym = HashMapGet(ctx->SymbolMap, (void *)name);
+        if (sym != NULL && !SymbolIsUndefined(sym))
+            return sym;
+    }
+
+    for (int i = 0; i < ctx->ObjsCount; i++) {
+        ObjectFile *obj = ctx->Objs[i];
+        if (obj == NULL || obj->inputFile == NULL || obj->inputFile->ElfSyms == NULL)
+            continue;
+
+        for (int j = obj->inputFile->FirstGlobal; j < obj->inputFile->ElfSymNum; j++) {
+            ElfSym *esym = &obj->inputFile->ElfSyms[j];
+            if (IsUndef(esym) || IsCommon(esym))
+                continue;
+
+            char *symName = ElfGetName(obj->inputFile->SymbolStrtab, esym->Name);
+            if (strcmp(symName, name) != 0)
+                continue;
+
+            Symbol *sym = obj->inputFile->LocalSymbols[j];
+            if (sym == NULL)
+                sym = &obj->inputFile->Symbols[j];
+            if (sym != NULL && !SymbolIsUndefined(sym))
+                return sym;
+        }
+    }
+
+    return NULL;
+}
+
+static Symbol *ResolveRelocSymbol(Context *ctx, InputSection *isec, uint32_t symIdx)
+{
+    if (isec == NULL || isec->objectFile == NULL || isec->objectFile->inputFile == NULL)
+        return NULL;
+    if (symIdx >= isec->objectFile->inputFile->ElfSymNum)
+        return NULL;
+
+    Symbol *sym = isec->objectFile->inputFile->LocalSymbols[symIdx];
+    if (sym == NULL)
+        return NULL;
+
+    if (ctx != NULL && sym->name != NULL && sym->name[0] != '\0') {
+        Symbol *defined = FindDefinedSymbolByName(ctx, sym->name);
+        if (defined != NULL) {
+            isec->objectFile->inputFile->LocalSymbols[symIdx] = defined;
+            return defined;
+        }
+    }
+
+    return sym;
+}
+
+static bool CalcPcrelLo12(Context *ctx, InputSection *isec, Rela loRel, int64_t *loOut)
+{
+    Symbol *hiSite = ResolveRelocSymbol(ctx, isec, loRel.Sym);
+
+    if (hiSite != NULL && hiSite->inputSection == isec) {
+        uint64_t hiOffset = hiSite->value;
+        for (int i = 0; i < isec->relNum; i++) {
+            Rela hiRel = isec->rels[i];
+            if (hiRel.Offset != hiOffset)
+                continue;
+            if (hiRel.Type != 20/*R_RISCV_GOT_HI20*/ &&
+                hiRel.Type != 21/*R_RISCV_TLS_GOT_HI20*/ &&
+                hiRel.Type != 23/*R_RISCV_PCREL_HI20*/)
+                continue;
+
+            Symbol *targetSym = ResolveRelocSymbol(ctx, isec, hiRel.Sym);
+            if (targetSym == NULL || SymbolIsUndefined(targetSym))
+                return false;
+
+            uint64_t target;
+            if (hiRel.Type == 20/*R_RISCV_GOT_HI20*/) {
+                target = GetGotAddr(ctx, targetSym);
+            } else if (hiRel.Type == 21/*R_RISCV_TLS_GOT_HI20*/) {
+                target = GetGotTpAddr(ctx, targetSym);
+            } else {
+                target = Symbol_GetAddr(targetSym);
+            }
+
+            int64_t diff = (int64_t)(target + hiRel.Addend) -
+                           (int64_t)(InputSec_GetAddr(isec) + hiRel.Offset);
+            int64_t hi = (diff + 0x800) >> 12;
+            *loOut = diff - (hi << 12);
+            return true;
+        }
+    }
+
+    Symbol *targetSym = ResolveRelocSymbol(ctx, isec, loRel.Sym);
+    if (targetSym == NULL || SymbolIsUndefined(targetSym))
+        return false;
+
+    for (int i = isec->relNum - 1; i >= 0; i--) {
+        Rela hiRel = isec->rels[i];
+        if (hiRel.Offset >= loRel.Offset)
+            continue;
+        if (hiRel.Sym != loRel.Sym)
+            continue;
+        if (hiRel.Type != 20/*R_RISCV_GOT_HI20*/ &&
+            hiRel.Type != 21/*R_RISCV_TLS_GOT_HI20*/ &&
+            hiRel.Type != 23/*R_RISCV_PCREL_HI20*/)
+            continue;
+
+        uint64_t target;
+        if (hiRel.Type == 20/*R_RISCV_GOT_HI20*/) {
+            target = GetGotAddr(ctx, targetSym);
+        } else if (hiRel.Type == 21/*R_RISCV_TLS_GOT_HI20*/) {
+            target = GetGotTpAddr(ctx, targetSym);
+        } else {
+            target = Symbol_GetAddr(targetSym);
+        }
+
+        int64_t diff = (int64_t)(target + hiRel.Addend) -
+                       (int64_t)(InputSec_GetAddr(isec) + hiRel.Offset);
+        int64_t hi = (diff + 0x800) >> 12;
+        *loOut = diff - (hi << 12);
+        return true;
+    }
+
+    return false;
+}
 
 void ApplyRelocAlloc(InputSection* isec,Context* ctx,char* base)
 {
@@ -3523,21 +3652,12 @@ void ApplyRelocAlloc(InputSection* isec,Context* ctx,char* base)
             continue;
         }
 
-        Symbol *sym = isec->objectFile->inputFile->LocalSymbols[rel.Sym];
+        Symbol *sym = ResolveRelocSymbol(ctx, isec, rel.Sym);
         if (sym == NULL)
-            continue;
-        if (ctx && sym->name && sym->name[0] != '\0') {
-            Symbol *canon = GetSymbolByName(ctx, sym->name);
-            if (canon) {
-                isec->objectFile->inputFile->LocalSymbols[rel.Sym] = canon;
-                sym = canon;
-            }
-        }
-        if(sym->file == NULL)
             continue;
         char* loc = base + rel.Offset;
 
-        if(sym->file == NULL)
+        if(SymbolIsUndefined(sym))
             continue;
 
         uint64_t S = Symbol_GetAddr(sym);
@@ -3567,10 +3687,13 @@ void ApplyRelocAlloc(InputSection* isec,Context* ctx,char* base)
                 writeJtype(loc,tmp);
                 break;
             case 18/*R_RISCV_CALL*/:
-            case 19/*R_RISCV_CALL_PLT*/:
-                tmp = S+A-P;
-                writeUtype(loc,tmp);
-                writeItype((loc + 4),tmp);
+            case 19/*R_RISCV_CALL_PLT*/: {
+                int64_t diff = (int64_t)(S + A) - (int64_t)P;
+                int64_t hi = (diff + 0x800) >> 12;
+                int64_t lo = diff - (hi << 12);
+                writeUtype(loc, (uint32_t)(hi << 12));
+                writeItype((loc + 4), (uint32_t)lo);
+                }
                 break;
             case 20/*R_RISCV_GOT_HI20*/: {
                 if (sym->gotIdx < 0) {
@@ -3581,8 +3704,6 @@ void ApplyRelocAlloc(InputSection* isec,Context* ctx,char* base)
                 tmp = GetGotAddr(ctx,sym) + A - P;
                 uint32_t hi = (uint32_t)(((tmp + 0x800) >> 12) & 0xfffff);
                 hi = hi << 12;
-                int64_t lo = tmp - (hi << 12);
-                gLO = lo;
                 writeUtype(loc,(uint32_t)hi);
                 }
                 break;
@@ -3595,8 +3716,6 @@ void ApplyRelocAlloc(InputSection* isec,Context* ctx,char* base)
                 tmp = GetGotAddr(ctx,sym) + A - P;
                 uint32_t hi = (uint32_t)(((tmp + 0x800) >> 12) & 0xfffff);
                 hi = hi << 12;
-                int64_t lo = tmp - (hi << 12);
-                gLO = lo;
                 writeUtype(loc,(uint32_t)hi);
 /*
                 tmp = GetGotTpAddr(ctx,sym) + A -P;
@@ -3609,7 +3728,6 @@ void ApplyRelocAlloc(InputSection* isec,Context* ctx,char* base)
                 int64_t tmp = (int64_t)S + A - P;
                 uint32_t hi = (uint32_t)(((tmp + 0x800) >> 12) & 0xfffff);
                 writeUtype(loc, hi << 12);
-                gLO = tmp - ((int64_t)hi << 12);   // 後続の PCREL_LO12_* 用
                 }
                 break;
                 
@@ -3661,39 +3779,20 @@ DBG("30");
 
     for(int a = 0; a < isec->relNum;a++) {
         Rela rel = rels[a];
-        Symbol *sym = isec->objectFile->inputFile->LocalSymbols[rel.Sym];
+        Symbol *sym = ResolveRelocSymbol(ctx, isec, rel.Sym);
         if (sym == NULL)
             continue;
-        if (ctx && sym->name && sym->name[0] != '\0') {
-            Symbol *canon = GetSymbolByName(ctx, sym->name);
-            if (canon) {
-                isec->objectFile->inputFile->LocalSymbols[rel.Sym] = canon;
-                sym = canon;
-            }
-        }
-        if(sym->file == NULL)
-            continue;
         char* loc = base + rel.Offset;
-        uint64_t target;
-        if (sym->gotIdx >= 0)
-            target = GetGotAddr(ctx, sym);
-        else if (sym->gotTpIdx >= 0)
-            target = GetGotTpAddr(ctx, sym);
-        else
-            target = Symbol_GetAddr(sym);
-        target += rel.Addend;
-        uint64_t P = InputSec_GetAddr(isec) + rel.Offset;
-        int64_t diff = (int64_t)(target - P);
-        uint32_t hi = (uint32_t)(((diff + 0x800) >> 12) & 0xfffff);
+        int64_t lo = 0;
         
         switch (rel.Type) {
             case 24/*R_RISCV_PCREL_LO12_I*/:
-                writeItype(loc,(uint32_t)gLO);
-                //writeItype(loc,(uint32_t)diff);
+                if (CalcPcrelLo12(ctx, isec, rel, &lo))
+                    writeItype(loc,(uint32_t)lo);
                 break;
             case 25/*R_RISCV_PCREL_LO12_S*/:
-                writeItype(loc,(uint32_t)gLO);
-                //writeStype(loc,(uint32_t)diff);
+                if (CalcPcrelLo12(ctx, isec, rel, &lo))
+                    writeStype(loc,(uint32_t)lo);
                 break;
         default:
         }
@@ -4818,13 +4917,24 @@ char** parseArgs(int argc, char* argv[],Context* ctx)
 
 int main(int argc, char* argv[]) 
 {
+    if(argc == 2 && (strcmp(argv[1], "-v") == 0 || strcmp(argv[1], "--version") == 0)) {
+        printf("ld2\n");
+        return 0;
+    }
     DBG("main: argc=%d\n", argc);
-    if(argc < 2) fatal("less args\n");
+    if(argc < 2) {
+        printf("usage: ld [-m elf64lriscv] [-o output] file...\n");
+        return 1;
+    }
 
     Context *ctx = NewContext();
     DBG("main: context initialized\n");
     char **remaining = parseArgs(argc,argv,ctx);
     DBG("main: parseArgs done, remaining=%d\n", DebugCountArgs(remaining));
+    if (remaining == NULL) {
+        printf("ld: no input files\n");
+        return 1;
+    }
 
     if (ctx->Args.Emulation == MachineTypeNone) {
         for (int i = 0; remaining[i]!=NULL; i++) {

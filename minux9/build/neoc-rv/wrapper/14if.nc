@@ -1,0 +1,833 @@
+#include "common.h"
+
+class sIfNode extends sNodeBase
+{
+    new(sNode*% expression_node, sBlock* if_block, list<sNode*%>* elif_expression_nodes, list<sBlock*%>* elif_blocks, int elif_num, sBlock* else_block, bool guard_, bool existance_result_value, sInfo* info)
+    {
+        self.super();
+    
+        sNode*% self.mExpressionNode = clone expression_node;
+        sBlock*% self.mIfBlock = clone if_block;
+        list<sNode*%>*% self.mElifExpressionNodes = clone elif_expression_nodes;
+        list<sBlock*%>*% self.mElifBlocks = clone elif_blocks;
+        int self.mElifNum = elif_num;
+        bool self.mGuard = guard_;
+        bool self.existance_result_value = existance_result_value;
+        
+        sBlock*% self.mElseBlock;
+        if(else_block) {
+            self.mElseBlock = clone else_block;
+        }
+        else {
+            self.mElseBlock = null;
+        }
+    }
+    
+    bool terminated()
+    {
+        return true;
+    }
+    
+    string kind()
+    {
+        return string("sIfNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sBlock* else_block = borrow self.mElseBlock;
+        int elif_num = self.mElifNum;
+        bool guard_ = self.mGuard;
+        bool existance_result_value = self.existance_result_value;
+        
+        buffer*% if_expression_buffer = clone info.if_expression_buffer;
+        string if_result_value_name = clone info.if_result_value_name;
+        bool if_result_value_name_defined = info.if_result_value_name_defined;
+        sType*% if_result_type = clone info.if_result_type;
+        
+        if(existance_result_value) {
+            info.if_expression_buffer = new buffer();
+            
+            static int n = 0;
+            n++;
+            info.if_result_value_name = s"_if_result_value\{n}";
+            
+            info.if_result_value_name_defined = false;
+            
+            info.if_result_type = null;
+        }
+        
+        if(existance_result_value) {
+            add_come_code(info, "({");
+        }
+        
+        /// compile expression ///
+        sNode* expression_node = borrow self.mExpressionNode;
+        
+        int sline = info.sline;
+        char* sname = borrow info.sname;
+        
+        add_come_code(info, "if(");
+        
+        transpile_conditional_with_free_right_object_value(expression_node).elif {
+            return false;
+        }
+        
+        bool in_conditional = info->in_conditional;
+        info->in_conditional = true;
+        add_come_code(info, ") {\n");
+        info->in_conditional = in_conditional;
+    
+        sBlock* if_block = borrow self.mIfBlock;
+    
+        transpile_block(if_block, null, null, info, if_result_value:existance_result_value);
+        
+        add_come_code(info, "}\n");
+    
+        //// elif ///
+        if(elif_num > 0) {
+            for(int i=0; i<elif_num; i++) {
+                sNode* expression_node2 = borrow self.mElifExpressionNodes[i];
+    
+                add_come_code(info, "else if(");
+                
+                transpile_conditional_with_free_right_object_value(expression_node2).elif {
+                    return false;
+                }
+                
+                bool in_conditional = info->in_conditional;
+                info->in_conditional = true;
+                add_come_code(info, ") {\n");
+                info->in_conditional = in_conditional;
+                
+                sBlock* elif_node_block = borrow self.mElifBlocks[i];
+                
+                transpile_block(elif_node_block, null, null, info, if_result_value:existance_result_value);
+    
+                add_come_code(info, "}\n");
+            }
+        }
+    
+        if(else_block) {
+            add_come_code(info, "else {\n");
+    
+            transpile_block(else_block, null, null, info, if_result_value:existance_result_value);
+            
+            add_come_code(info, "}\n");
+        }
+        
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
+        
+        if(existance_result_value) {
+            add_come_code(info, s"\{info.if_result_value_name};})");
+            
+            CVALUE*% come_value = new CVALUE();
+            
+            come_value.c_value = info.if_expression_buffer.to_string();
+            come_value.type = clone info.if_result_type;
+            come_value.var = null;
+            
+            add_come_last_code(info, "%s", come_value.c_value);
+            
+            info.stack.push_back(come_value);
+            
+            info.if_expression_buffer = if_expression_buffer;
+            info.if_result_value_name = if_result_value_name;
+            info.if_result_value_name_defined = if_result_value_name_defined;
+            info.if_result_type = if_result_type;
+        }
+        
+        return true;
+    }
+};
+
+class sMatchNode extends sNodeBase
+{
+    new(sNode*% it_node, sNode*% match_node, sInfo* info, bool optional_load=false)
+    {
+        self.super();
+    
+        sNode*% self.it_node = clone it_node;
+        sNode*% self.match_node = clone match_node;
+        bool self.optional_load = optional_load;
+    }
+    
+    bool terminated()
+    {
+        return true;
+    }
+    
+    string kind()
+    {
+        return string("sMatch");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% it_node = self.it_node;
+        sNode*% match_node = self.match_node;
+        bool optional_load = self.optional_load;
+        
+        bool in_case_optional_load = info.in_case_optional_load;
+        info.in_case_optional_load = optional_load;
+        node_compile(it_node, info).elif {
+            info.in_case_optional_load = in_case_optional_load;
+            return false;
+        }
+        info.in_case_optional_load = in_case_optional_load;
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        add_come_code(info, "%s;\n", come_value.c_value);
+        
+        node_compile(match_node, info).elif {
+            return false;
+        }
+        
+        return true;
+    }
+};
+
+class sIfMethodNode extends sNodeBase
+{
+    new(sNode*% it_node, sNode*% match_node, sInfo* info)
+    {
+        self.super();
+    
+        sNode*% self.it_node = clone it_node;
+        sNode*% self.match_node = clone match_node;
+    }
+    
+    bool terminated()
+    {
+        return true;
+    }
+    
+    string kind()
+    {
+        return string("sIfMethodNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        sNode*% it_node = self.it_node;
+        sNode*% match_node = self.match_node;
+        
+        node_compile(it_node, info).elif {
+            return false;
+        }
+        
+        CVALUE*% come_value = get_value_from_stack(-1, info);
+        add_come_code(info, "%s;\n", come_value.c_value);
+        
+        node_compile(match_node, info).elif {
+            return false;
+        }
+        
+        return true;
+    }
+};
+
+class sOrStatmentNode extends sNodeBase
+{
+    new(sNode*% expression_node, sBlock* if_block, sInfo* info)
+    {
+        self.super();
+    
+        sNode*% self.mExpressionNode = clone expression_node;
+        sBlock*% self.mIfBlock = clone if_block;
+    }
+    
+    bool terminated()
+    {
+        return true;
+    }
+    
+    string kind()
+    {
+        return string("sOrStatmentNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        /// compile expression ///
+        sNode* expression_node = borrow self.mExpressionNode;
+        
+        add_come_code(info, "if(!(");
+    
+        transpile_conditional_with_free_right_object_value(expression_node).elif {
+            return false;
+        }
+        
+        bool in_conditional = info->in_conditional;
+        info->in_conditional = true;
+        add_come_code(info, ")) {\n");
+        info->in_conditional = in_conditional;
+        
+        sBlock* if_block = borrow self.mIfBlock;
+        transpile_block(if_block, null, null, info);
+        add_come_code(info, "}\n");
+        
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
+        
+        return true;
+    }
+};
+
+class sAndStatmentNode extends sNodeBase
+{
+    new(sNode*% expression_node, sBlock* if_block, sInfo* info)
+    {
+        self.super();
+    
+        sNode*% self.mExpressionNode = clone expression_node;
+        sBlock*% self.mIfBlock = clone if_block;
+    }
+    
+    bool terminated()
+    {
+        return true;
+    }
+    
+    string kind()
+    {
+        return string("sAndStatmentNode");
+    }
+    
+    bool compile(sInfo* info)
+    {
+        /// compile expression ///
+        sNode* expression_node = borrow self.mExpressionNode;
+        
+        add_come_code(info, "if(");
+    
+        transpile_conditional_with_free_right_object_value(expression_node).elif {
+            return false;
+        }
+        
+        bool in_conditional = info->in_conditional;
+        info->in_conditional = true;
+        add_come_code(info, ") {\n");
+        info->in_conditional = in_conditional;
+    
+        sBlock* if_block = borrow self.mIfBlock;
+        transpile_block(if_block, null, null, info);
+        add_come_code(info, "}\n");
+        
+        info.module.mLastCode = null;
+        info.module.mLastCode2 = null;
+        
+        return true;
+    }
+};
+
+sNode*% string_node(char* buf, char* head, int head_sline, sInfo* info) version 8
+{
+    if(buf === "if") {
+        string sname = clone info->sname;
+        int sline = info->sline;
+        int sline_real = info.sline_real;
+        info.sline_real = info.sline;
+        bool existance_result_value = true;
+    
+        expected_next_character('(');
+    
+        /// expression ///
+        sNode*% expression_node = expression();
+        
+        expected_next_character(')');
+        skip_spaces_and_lf();
+    
+        sBlock*% if_block = parse_block();
+        
+        if(!if_block.mOmitSemicolon) {
+            existance_result_value = false;
+        }
+        
+        list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
+    
+        list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
+    
+        int elif_num = 0;
+    
+        sBlock*% else_block = null;
+    
+        while(1) {
+            char* saved_p = info->p;
+            int saved_sline = info->sline;
+            skip_spaces_and_lf();
+            
+            if(*info.p == ';') {
+                info->p++;
+                skip_spaces_and_lf();
+            }
+    
+            /// else ///
+            if(!(xisalpha(*info.p) || *info.p == '_')) {
+                break;
+            }
+            skip_spaces_and_lf();
+            string buf = parse_word();
+            skip_spaces_and_lf();
+    
+            if(buf === "else") {
+                int sline_real = info.sline_real;
+                info.sline_real = info.sline;
+                if(parsecmp_forward("if", info)) {
+                    skip_spaces_and_lf();
+
+                    expected_next_character('(');
+    
+                    /// expression ///
+                    sNode*% expression_node = expression();
+                    
+                    elif_expression_nodes.push_back(expression_node);
+    
+                    expected_next_character(')');
+                    skip_spaces_and_lf();
+    
+                    
+                    sBlock*% elif_block = parse_block();
+                    if(!elif_block.mOmitSemicolon) {
+                        existance_result_value = false;
+                    }
+                    
+                    elif_blocks.push_back(elif_block);
+    
+                    elif_num++;
+                }
+                else {
+                    else_block = parse_block();
+                    
+                    if(!else_block.mOmitSemicolon) {
+                        existance_result_value = false;
+                    }
+                    
+                    break;
+                }
+                info.sline_real = sline_real;
+            }
+            else {
+                info->p = saved_p;
+                info->sline = saved_sline;
+                break;
+            }
+        };
+    
+        sNode*% result = new sIfNode(expression_node, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
+        info.sline_real = sline_real;
+        
+        return result;
+    }
+    
+    return inherit(buf, head,head_sline, info);
+}
+
+
+sNode*% parse_or_statment(sNode*% expression_node, sInfo* info)
+{
+    string sname = clone info->sname;
+    int sline = info->sline;
+    
+    skip_spaces_and_lf();
+
+    sBlock*% if_block = parse_block();
+    
+    return new sOrStatmentNode(expression_node, if_block, info) implements sNode;
+}
+
+sNode*% parse_and_statment(sNode*% expression_node, sInfo* info)
+{
+    string sname = clone info->sname;
+    int sline = info->sline;
+    
+    skip_spaces_and_lf();
+
+    sBlock*% if_block = parse_block();
+    
+    return new sAndStatmentNode(expression_node, if_block, info) implements sNode;
+}
+
+sNode*% parse_match(sNode*% expression_node, sInfo* info)
+{
+    string sname = clone info->sname;
+    int sline = info->sline;
+    
+    expected_next_character('{');
+    bool existance_result_value = true;
+    
+    sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
+    
+    expected_next_character('(');
+    
+    sNode*% conditional_value = expression();
+    
+    expected_next_character(')');
+    
+    skip_spaces_and_lf();
+    
+    sBlock*% if_block = parse_block();
+    if(!if_block.mOmitSemicolon) {
+        existance_result_value = false;
+    }
+    list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
+    list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
+    int elif_num = 0;
+    sBlock*% else_block = null;
+    
+    while(true) {
+        skip_spaces_and_lf();
+        if(parsecmp_forward("else")) {
+            skip_spaces_and_lf();
+            
+            else_block = parse_block();
+            if(!else_block.mOmitSemicolon) {
+                existance_result_value = false;
+            }
+        }
+        else {
+            if(*info.p == '}') {
+                info->p++;
+                skip_spaces_and_lf();
+                break;
+            }
+            expected_next_character('(');
+            
+            sNode*% conditional_value = expression();
+            
+            elif_expression_nodes.add(conditional_value);
+            
+            expected_next_character(')');
+            
+            skip_spaces_and_lf();
+            
+            sBlock*% elif_block = parse_block();
+            if(!elif_block.mOmitSemicolon) {
+                existance_result_value = false;
+            }
+            
+            elif_blocks.add(elif_block);
+            
+            elif_num++;
+        }
+        
+        if(*info.p == '}') {
+            info->p++;
+            skip_spaces_and_lf();
+            break;
+        }
+    }
+    
+    sNode*% if_node = new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
+    bool optional_load = expression_node.kind() === "sLoadArrayNode";
+    sNode*% result = new sMatchNode(it_node, if_node, info, optional_load) implements sNode;
+    
+    return result;
+}
+
+sNode*% parse_catch(sNode*% expression_node, sInfo* info)
+{
+    string sname = clone info->sname;
+    int sline = info->sline;
+
+    bool existance_result_value = true;
+
+    sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
+
+    sNode*% node1 = create_load_var("Value");
+    list<tuple2<string, sNode*%>*%>*% none_params = new list<tuple2<string, sNode*%>*%>();
+    none_params.add(t((string)null, clone node1));
+    sNode*% conditional_value = create_method_call("is_None", node1, none_params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+
+    sBlock*% if_block = parse_block();
+    if(!if_block.mOmitSemicolon) {
+        err_msg(info, "Result<T> catch requires a result value");
+        exit(2);
+    }
+
+    list<tuple2<string, sNode*%>*%>*% some_params = new list<tuple2<string, sNode*%>*%>();
+    some_params.add(t((string)null, create_load_var("Value")));
+    sNode*% result_node = create_method_call("get_Some", create_load_var("Value"), some_params, null@method_block, 0@method_block_sline, null@method_generics_types, info);
+
+    list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
+    list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
+    int elif_num = 0;
+
+    sBlock*% else_block = new sBlock();
+    else_block.mNodes.push_back(result_node);
+    else_block.mOmitSemicolon = existance_result_value;
+
+    sNode*% if_node = new sIfNode(conditional_value, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
+    bool optional_load = expression_node.kind() === "sLoadArrayNode";
+    sNode*% result = new sMatchNode(it_node, if_node, info, optional_load) implements sNode;
+
+    return result;
+}
+
+sNode*% parse_if_method_call(sNode*% expression_node, sInfo* info)
+{
+    string sname = clone info->sname;
+    int sline = info->sline;
+    
+    sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
+    
+    sNode*% conditional_node = create_load_var("Value");
+    bool existance_result_value = true;
+    
+    skip_spaces_and_lf();
+
+    sBlock*% if_block = parse_block();
+    
+    if(!if_block.mOmitSemicolon) {
+        existance_result_value = false;
+    }
+    
+    list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
+
+    list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
+
+    int elif_num = 0;
+
+    sBlock*% else_block = null;
+
+    while(1) {
+        char* saved_p = info->p;
+        int saved_sline = info->sline;
+        skip_spaces_and_lf();
+        
+        if(*info.p == ';') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+
+        /// else ///
+        if(!(xisalpha(*info.p) || *info.p == '_')) {
+            break;
+        }
+        skip_spaces_and_lf();
+        string buf = parse_word();
+        skip_spaces_and_lf();
+
+        if(buf === "else") {
+            if(parsecmp_forward("if", info)) {
+                skip_spaces_and_lf();
+
+                expected_next_character('(');
+
+                /// expression ///
+                sNode*% expression_node = expression();
+                
+                elif_expression_nodes.push_back(expression_node);
+
+                expected_next_character(')');
+                skip_spaces_and_lf();
+
+                
+                sBlock*% elif_block = parse_block();
+                if(!elif_block.mOmitSemicolon) {
+                    existance_result_value = false;
+                }
+                
+                elif_blocks.push_back(elif_block);
+
+                elif_num++;
+            }
+            else {
+                else_block = parse_block();
+                if(!else_block.mOmitSemicolon) {
+                    existance_result_value = false;
+                }
+                break;
+            }
+        }
+        else {
+            info->p = saved_p;
+            info->sline = saved_sline;
+            break;
+        }
+    };
+
+    sNode*% if_node = new sIfNode(conditional_node, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
+    sNode*% result = new sIfMethodNode(it_node, if_node, info) implements sNode;
+    
+    return result;
+}
+
+sNode*% parse_elif_method_call(sNode*% expression_node, sInfo* info)
+{
+    string sname = clone info->sname;
+    int sline = info->sline;
+    
+    sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
+    bool existance_result_value = true;
+    
+    sNode*% conditional_node = create_load_var("Value");
+    sNode*% conditional_node2 = craete_logical_denial(conditional_node, info);
+    
+    skip_spaces_and_lf();
+
+    sBlock*% if_block = parse_block();
+    if(!if_block.mOmitSemicolon) {
+        existance_result_value = false;
+    }
+    
+    list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
+
+    list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
+
+    int elif_num = 0;
+
+    sBlock*% else_block = null;
+
+    while(1) {
+        char* saved_p = info->p;
+        int saved_sline = info->sline;
+        skip_spaces_and_lf();
+        
+        if(*info.p == ';') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+
+        /// else ///
+        if(!(xisalpha(*info.p) || *info.p == '_')) {
+            break;
+        }
+        skip_spaces_and_lf();
+        string buf = parse_word();
+        skip_spaces_and_lf();
+
+        if(buf === "else") {
+            if(parsecmp_forward("if", info)) {
+                skip_spaces_and_lf();
+
+                expected_next_character('(');
+
+                /// expression ///
+                sNode*% expression_node = expression();
+                
+                elif_expression_nodes.push_back(expression_node);
+
+                expected_next_character(')');
+                skip_spaces_and_lf();
+
+                
+                sBlock*% elif_block = parse_block();
+                if(!elif_block.mOmitSemicolon) {
+                    existance_result_value = false;
+                }
+                
+                elif_blocks.push_back(elif_block);
+
+                elif_num++;
+            }
+            else {
+                else_block = parse_block();
+                if(!else_block.mOmitSemicolon) {
+                    existance_result_value = false;
+                }
+                break;
+            }
+        }
+        else {
+            info->p = saved_p;
+            info->sline = saved_sline;
+            break;
+        }
+    };
+
+    sNode*% if_node = new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
+    sNode*% result = new sIfMethodNode(it_node, if_node, info) implements sNode;
+    
+    return result;
+}
+
+sNode*% parse_less_method_call(sNode*% expression_node, sInfo* info)
+{
+    string sname = clone info->sname;
+    int sline = info->sline;
+    
+    sNode*% it_node = store_var(s"Value", null@multiple_assign, null@multiple_declare, null@type, true@alloc, expression_node@right_value, info);
+    
+    sNode*% conditional_node = create_load_var("Value");
+    sNode*% conditional_node2 = create_less(conditional_node, create_int_node(0.to_string(), info), info);
+    bool existance_result_value = true;
+    
+    skip_spaces_and_lf();
+
+    sBlock*% if_block = parse_block();
+    if(!if_block.mOmitSemicolon) {
+        existance_result_value = false;
+    }
+    
+    list<sNode*%>*% elif_expression_nodes = new list<sNode*%>();
+
+    list<sBlock*%>*% elif_blocks = new list<sBlock*%>();
+
+    int elif_num = 0;
+
+    sBlock*% else_block = null;
+
+    while(1) {
+        char* saved_p = info->p;
+        int saved_sline = info->sline;
+        skip_spaces_and_lf();
+        
+        if(*info.p == ';') {
+            info->p++;
+            skip_spaces_and_lf();
+        }
+
+        /// else ///
+        if(!(xisalpha(*info.p) || *info.p == '_')) {
+            break;
+        }
+        skip_spaces_and_lf();
+        string buf = parse_word();
+        skip_spaces_and_lf();
+
+        if(buf === "else") {
+            if(parsecmp_forward("if", info)) {
+                skip_spaces_and_lf();
+
+                expected_next_character('(');
+
+                /// expression ///
+                sNode*% expression_node = expression();
+                
+                elif_expression_nodes.push_back(expression_node);
+
+                expected_next_character(')');
+                skip_spaces_and_lf();
+
+                
+                sBlock*% elif_block = parse_block();
+                if(!elif_block.mOmitSemicolon) {
+                    existance_result_value = false;
+                }
+                
+                elif_blocks.push_back(elif_block);
+
+                elif_num++;
+            }
+            else {
+                else_block = parse_block();
+                if(!else_block.mOmitSemicolon) {
+                    existance_result_value = false;
+                }
+                break;
+            }
+        }
+        else {
+            info->p = saved_p;
+            info->sline = saved_sline;
+            break;
+        }
+    };
+
+    sNode*% if_node = new sIfNode(conditional_node2, if_block, elif_expression_nodes, elif_blocks, elif_num, else_block, false@guard, existance_result_value, info) implements sNode;
+    sNode*% result = new sIfMethodNode(it_node, if_node, info) implements sNode;
+    
+    return result;
+}

@@ -2566,10 +2566,17 @@ static void assignLVarOffsets(Obj *Prog) {
 }
 
 static void emitData(Obj *Prog) {
+  bool EmittedDataSection = false;
+
   for (Obj *Var = Prog; Var; Var = Var->Next) {
     // 跳过是函数或者无定义的变量
     if (Var->IsFunction || !Var->IsDefinition)
       continue;
+
+    if (!EmittedDataSection) {
+      printLn("  .section .data");
+      EmittedDataSection = true;
+    }
       
     static int n = 1;
     ++n;
@@ -4790,6 +4797,15 @@ static Type *declspec(Token **Rest, Token *Tok, VarAttr *Attr) {
       continue;
     }
 
+    if (equal(Tok, "__builtin_va_list")) {
+      if (Counter)
+        break;
+      Ty = pointerTo(TyChar);
+      Tok = Tok->Next;
+      Counter += OTHER;
+      continue;
+    }
+
     // 处理用户定义的类型
     Type *Ty2 = findTypedef(Tok);
     if (equal(Tok, "struct") || equal(Tok, "union") || equal(Tok, "enum") ||
@@ -6023,6 +6039,7 @@ static bool isTypename(Token *Tok) {
         "const",      "volatile",     "auto",          "register", "restrict",
         "__restrict", "__restrict__", "_Noreturn",     "float",    "double",
         "typeof",     "inline",       "_Thread_local", "__thread", "_Atomic",
+        "__builtin_va_list",
     };
 
     // 遍历类型名列表插入哈希表
@@ -6272,7 +6289,7 @@ static Node *stmt(Token **Rest, Token *Tok) {
   }
 
   // asmStmt
-  if (equal(Tok, "asm"))
+  if (equal(Tok, "asm") || equal(Tok, "__asm"))
     return asmStmt(Rest, Tok);
 
   // "goto" ident ";"
@@ -9949,7 +9966,8 @@ static bool isKeyword(Token *Tok) {
         "volatile",  "auto",       "register",
         "restrict",  "__restrict", "__restrict__",
         "_Noreturn", "float",      "double",
-        "typeof",    "asm",        "_Thread_local",
+        "typeof",    "asm",        "__asm",
+        "_Thread_local",
         "__thread",  "_Atomic",    "__attribute__",
     };
 

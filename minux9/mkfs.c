@@ -599,22 +599,23 @@ main(int argc, char *argv[])
     write_file_to_file_system("objdump", 22);
     write_file_to_file_system("sleep", 23);
     write_file_to_file_system("uname", 24);
-    write_file_to_file_system("cpp", 25);
-    write_file_to_file_system("ld", 26);
-    write_file_to_file_system("b.c", 27);
-    write_file_to_file_system("c.c", 28);
-    write_file_to_file_system("cpp", 29);
-    write_file_to_file_system("minux9.o", 30);
-    write_file_to_file_system("minux9.h", 31);
-    write_file_to_file_system("a.c", 32);
-    write_file_to_file_system("crt0.o", 33);
-    write_file_to_file_system("stdarg.h", 34);
-    write_file_to_file_system("user-minux9.ld", 35);
-    write_file_to_file_system("pipeline", 36);
+    write_file_to_file_system("hostname", 25);
+    write_file_to_file_system("cpp", 26);
+    write_file_to_file_system("ld", 27);
+    write_file_to_file_system("b.c", 28);
+    write_file_to_file_system("c.c", 29);
+    write_file_to_file_system("cpp", 30);
+    write_file_to_file_system("minux9.o", 31);
+    write_file_to_file_system("minux9.h", 32);
+    write_file_to_file_system("a.c", 33);
+    write_file_to_file_system("crt0.o", 34);
+    write_file_to_file_system("stdarg.h", 35);
+    write_file_to_file_system("user-minux9.ld", 36);
+    write_file_to_file_system("pipeline", 37);
 //    write_file_to_file_system("neo-c.h", 34);
 //    write_file_to_file_system("neo-c", 35);
 
-    uint32_t next_inum = 37;
+    uint32_t next_inum = 38;
     for (int i = 2; i < argc; i++) {
         write_file_to_file_system(argv[i], next_inum++);
     }

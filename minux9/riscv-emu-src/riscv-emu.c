@@ -95,6 +95,7 @@ typedef struct {
 #define VIRTIO_MAX_SLOTS   8
 #define VIRTIO_SECTOR_SIZE 512
 #define VIRTIO_QNUM_MAX    128
+#define MINUX_POWEROFF_MMIO 0x00100000ULL
 
 #define VIRTIO_R_MAGIC            0x000
 #define VIRTIO_R_VERSION          0x004
@@ -131,6 +132,7 @@ typedef struct {
 
 #define UART_PLIC_IRQ 10
 #define CLINT_MTIME_FREQ 10000000ULL
+#define UART_RX_QUEUE_SIZE 4096
 
 // Device I/O structure
 typedef struct {
@@ -141,6 +143,12 @@ typedef struct {
     uint8_t uart_ier;    // Interrupt enable register
     bool uart_thr_empty; // THR empty flag
     bool uart_rx_ready;  // RX data ready flag
+    uint8_t uart_rx_queue[UART_RX_QUEUE_SIZE];
+    size_t uart_rx_head;
+    size_t uart_rx_tail;
+    size_t uart_rx_count;
+    uint64_t uart_rx_push_count;
+    uint64_t uart_rx_pop_count;
     uint64_t uart_write_count; // Count of UART writes
     // CLINT (Core-Local Interrupt Controller)
     uint64_t clint_base;
@@ -160,6 +168,7 @@ typedef struct {
     // Interrupt statistics
     uint64_t timer_interrupt_count;
     uint64_t external_interrupt_count;
+    uint64_t last_timer_interrupt_step;
 
     // Virtio block device (legacy MMIO) backed by a host file
     virtio_blk_t vblk;
@@ -199,11 +208,32 @@ static inline uint64_t satp_ppn(uint64_t satp)  { return satp & ((1ULL<<44)-1); 
 typedef struct {
     bool trace;
     uint64_t max_steps; // 0 = unlimited
+    uint64_t timer_div; // retired instructions per emulated time tick
 } run_opts_t;
 
 // Global pointer to current CPU for debug output
 static cpu_t *g_debug_cpu = NULL;
 static uint64_t g_step_counter = 0;
+static uint64_t g_fast_retired_bonus = 0;
+static uint64_t g_fast_freerange_pages = 0;
+static uint64_t g_fast_memset_bytes = 0;
+static uint64_t g_fast_memmove_bytes = 0;
+static uint64_t g_fast_mmu_mapped_pages = 0;
+static uint64_t g_mtime_instrs_per_tick = 50;
+static uint64_t g_timer_min_step_gap = 200000;
+static bool g_clean_console = false;
+static bool g_log_page_faults = false;
+
+typedef enum {
+    CONSOLE_NORMAL,
+    CONSOLE_AFTER_CR,
+    CONSOLE_PROMPT,
+    CONSOLE_ESC,
+    CONSOLE_ESC_BRACKET,
+} console_filter_state_t;
+
+static console_filter_state_t g_console_state = CONSOLE_NORMAL;
+static bool g_console_line_start = true;
 
 // PC history for debugging
 #define PC_HISTORY_SIZE 50
@@ -278,6 +308,11 @@ static void devices_init(devices_t *dev, const char *disk_path) {
     dev->uart_lsr = 0x60;  // THR empty and transmitter empty
     dev->uart_thr_empty = true;
     dev->uart_rx_ready = false;
+    dev->uart_rx_head = 0;
+    dev->uart_rx_tail = 0;
+    dev->uart_rx_count = 0;
+    dev->uart_rx_push_count = 0;
+    dev->uart_rx_pop_count = 0;
     dev->uart_write_count = 0;
 
     // CLINT (Core-Local Interrupt Controller) - MINUX9 addresses
@@ -300,6 +335,7 @@ static void devices_init(devices_t *dev, const char *disk_path) {
     // Interrupt statistics
     dev->timer_interrupt_count = 0;
     dev->external_interrupt_count = 0;
+    dev->last_timer_interrupt_step = 0;
 
     clock_gettime(CLOCK_MONOTONIC, &dev->mtime_start);
     dev->mtime_offset = 0;
@@ -311,16 +347,9 @@ static void devices_init(devices_t *dev, const char *disk_path) {
 }
 
 static uint64_t clint_elapsed_ticks(const devices_t *dev) {
-    struct timespec now;
-    clock_gettime(CLOCK_MONOTONIC, &now);
-    time_t sec = now.tv_sec - dev->mtime_start.tv_sec;
-    long nsec = now.tv_nsec - dev->mtime_start.tv_nsec;
-    if (nsec < 0) {
-        sec -= 1;
-        nsec += 1000000000L;
-    }
-    uint64_t ns = (uint64_t)sec * 1000000000ULL + (uint64_t)nsec;
-    return ns / (1000000000ULL / CLINT_MTIME_FREQ);
+    (void)dev;
+    uint64_t div = g_mtime_instrs_per_tick ? g_mtime_instrs_per_tick : 1;
+    return g_step_counter / div;
 }
 
 static void clint_update_mtime(devices_t *dev) {
@@ -379,6 +408,112 @@ static uint32_t plic_claim(devices_t *dev) {
     return best_irq;
 }
 
+static bool uart_rx_push(devices_t *dev, uint8_t ch) {
+    if (dev->uart_rx_count == UART_RX_QUEUE_SIZE) {
+        return false;
+    }
+    dev->uart_rx_queue[dev->uart_rx_tail] = ch;
+    dev->uart_rx_tail = (dev->uart_rx_tail + 1) % UART_RX_QUEUE_SIZE;
+    dev->uart_rx_count++;
+    dev->uart_rx_push_count++;
+    dev->uart_rx_ready = true;
+    dev->uart_lsr |= 0x01;
+    return true;
+}
+
+static bool uart_rx_pop(devices_t *dev, uint8_t *ch) {
+    if (dev->uart_rx_count == 0) {
+        dev->uart_rx_ready = false;
+        dev->uart_lsr &= ~0x01;
+        return false;
+    }
+    *ch = dev->uart_rx_queue[dev->uart_rx_head];
+    dev->uart_rx_head = (dev->uart_rx_head + 1) % UART_RX_QUEUE_SIZE;
+    dev->uart_rx_count--;
+    dev->uart_rx_pop_count++;
+    dev->uart_rx_ready = dev->uart_rx_count != 0;
+    if (dev->uart_rx_ready) {
+        dev->uart_lsr |= 0x01;
+    } else {
+        dev->uart_lsr &= ~0x01;
+    }
+    return true;
+}
+
+static void console_putc(uint8_t val) {
+    if (!g_clean_console) {
+        fputc(val, stdout);
+        fflush(stdout);
+        return;
+    }
+
+    switch (g_console_state) {
+        case CONSOLE_ESC:
+            g_console_state = (val == '[') ? CONSOLE_ESC_BRACKET : CONSOLE_NORMAL;
+            return;
+        case CONSOLE_ESC_BRACKET:
+            if (val >= '@' && val <= '~') {
+                g_console_state = CONSOLE_PROMPT;
+            }
+            return;
+        case CONSOLE_AFTER_CR:
+            if (val == '\n') {
+                fputc('\n', stdout);
+                fflush(stdout);
+                g_console_line_start = true;
+                g_console_state = CONSOLE_NORMAL;
+                return;
+            }
+            if (val == '$') {
+                g_console_state = CONSOLE_PROMPT;
+                return;
+            }
+            fputc('\r', stdout);
+            g_console_line_start = false;
+            g_console_state = CONSOLE_NORMAL;
+            break;
+        case CONSOLE_PROMPT:
+            if (val == '\033') {
+                g_console_state = CONSOLE_ESC;
+                return;
+            }
+            if (val == ' ') {
+                g_console_state = CONSOLE_NORMAL;
+                return;
+            }
+            if (val == '\n') {
+                g_console_line_start = true;
+                g_console_state = CONSOLE_NORMAL;
+                return;
+            }
+            if (val == '\r') {
+                g_console_state = CONSOLE_NORMAL;
+                return;
+            }
+            g_console_state = CONSOLE_NORMAL;
+            break;
+        case CONSOLE_NORMAL:
+            break;
+    }
+
+    if (val == '\033') {
+        g_console_state = CONSOLE_ESC;
+        return;
+    }
+    if (val == '\r') {
+        g_console_state = CONSOLE_AFTER_CR;
+        return;
+    }
+    if (g_console_line_start && val == '$') {
+        g_console_state = CONSOLE_PROMPT;
+        return;
+    }
+
+    fputc(val, stdout);
+    fflush(stdout);
+    g_console_line_start = (val == '\n');
+}
+
 
 // Device I/O handlers
 static bool is_device_addr(const devices_t *dev, uint64_t addr) {
@@ -396,16 +531,17 @@ static uint8_t device_read8(devices_t *dev, uint64_t addr) {
         uint64_t offset = addr - dev->uart_base;
         switch (offset) {
             case 0x00: // RBR - Receiver Buffer Register
-                if (dev->uart_rx_ready) {
-                    uint8_t ch = dev->uart_rbr;
-                    dev->uart_rx_ready = false;
-                    dev->uart_lsr &= ~0x01; // Clear RX_READY bit
+                {
+                    uint8_t ch = 0;
+                    if (uart_rx_pop(dev, &ch)) {
+                        dev->uart_rbr = ch;
+                        return ch;
+                    }
                     return ch;
                 }
-                return 0;
             case 0x05: // LSR - Line Status Register
                 // Update LSR based on RX ready state
-                if (dev->uart_rx_ready) {
+                if (dev->uart_rx_count != 0) {
                     dev->uart_lsr |= 0x01; // Set RX_READY bit
                 } else {
                     dev->uart_lsr &= ~0x01; // Clear RX_READY bit
@@ -479,8 +615,7 @@ static void device_write8(mem_t *mem, devices_t *dev, uint64_t addr, uint8_t val
             case 0x00: // THR - Transmit Holding Register
                 dev->uart_thr = val;
                 dev->uart_write_count++;
-                fputc(val, stdout);  // Output to stdout for normal operation
-                fflush(stdout);
+                console_putc(val);  // Output to stdout for normal operation
                 dev->uart_lsr |= 0x20;  // Set THR empty bit
                 break;
             case 0x01: // IER - Interrupt Enable Register
@@ -497,15 +632,11 @@ static void device_write8(mem_t *mem, devices_t *dev, uint64_t addr, uint8_t val
             uint8_t byte_offset = offset - 0x4000;
             uint64_t mask = ~(0xFFULL << (byte_offset * 8));
             dev->mtimecmp = (dev->mtimecmp & mask) | ((uint64_t)val << (byte_offset * 8));
-            fprintf(stderr, "CLINT: mtimecmp write at offset 0x%lx, byte_offset=%d, val=0x%02x, new mtimecmp=0x%016" PRIx64 "\n",
-                    (unsigned long)offset, byte_offset, val, dev->mtimecmp);
         } else if (offset >= 0xbff8 && offset < 0xc000) {
             // mtime register (64-bit) - usually read-only, but allow writes for debugging
             uint8_t byte_offset = offset - 0xbff8;
             uint64_t mask = ~(0xFFULL << (byte_offset * 8));
             dev->mtime = (dev->mtime & mask) | ((uint64_t)val << (byte_offset * 8));
-            fprintf(stderr, "CLINT: mtime write at offset 0x%lx, byte_offset=%d, val=0x%02x, new mtime=0x%016" PRIx64 "\n",
-                    (unsigned long)offset, byte_offset, val, dev->mtime);
             clint_sync_offset(dev);
         } else {
             // Silently ignore other CLINT writes
@@ -983,7 +1114,7 @@ static bool sv39_walk(const cpu_t *cpu, const mem_t *mem, uint64_t va, access_t 
     // VA must be sign-extended from bit 38
     uint64_t sign_mask = ~((1ULL<<39)-1);
     if (((va & sign_mask) != 0) && ((va & sign_mask) != sign_mask)) {
-        fprintf(stderr, "SV39: VA sign-extension invalid: 0x%016" PRIx64 "\n", va);
+        if (g_log_page_faults) fprintf(stderr, "SV39: VA sign-extension invalid: 0x%016" PRIx64 "\n", va);
         return false;
     }
 
@@ -1209,12 +1340,7 @@ static void csr_write(cpu_t *cpu, uint32_t csr_addr, uint64_t val) {
         case CSR_MIDELEG:  cpu->csr_mideleg = val; break;
         case CSR_MEDELEG:  cpu->csr_medeleg = val; break;
         case CSR_MENVCFG: {
-            static int menvcfg_log_count = 0;
             cpu->csr_menvcfg = val;
-            if (menvcfg_log_count++ < 3) {
-                fprintf(stderr, "[emu] menvcfg write @step=%" PRIu64 " val=0x%016" PRIx64 "\n",
-                        g_step_counter, val);
-            }
             break;
         }
         case CSR_MCOUNTEREN: cpu->csr_mcounteren = val; break;
@@ -1235,32 +1361,17 @@ static void csr_write(cpu_t *cpu, uint32_t csr_addr, uint64_t val) {
         case CSR_SCAUSE:   cpu->csr_scause = val; break;
         case CSR_STVAL:    cpu->csr_stval = val; break;
         case CSR_SIE: {
-            static int sie_log_count = 0;
             cpu->csr_sie = val;
-            if (sie_log_count++ < 3) {
-                fprintf(stderr, "[emu] sie write @step=%" PRIu64 " val=0x%016" PRIx64 "\n",
-                        g_step_counter, val);
-            }
             break;
         }
         case CSR_SIP:      cpu->csr_sip = val; break;
         case CSR_SATP: {
-            static int satp_log_count = 0;
             cpu->csr_satp = val;
             tlb_flush_all(cpu);
-            if (satp_log_count++ < 5) {
-                fprintf(stderr, "[emu] satp write @step=%" PRIu64 " val=0x%016" PRIx64 " pc=0x%016" PRIx64 " priv=%d\n",
-                        g_step_counter, val, cpu->pc, cpu->priv);
-            }
             break;
         }
         case CSR_STIMECMP: {
-            static int stcmp_log_count = 0;
             cpu->csr_stimecmp = val;
-            if (stcmp_log_count++ < 3) {
-                fprintf(stderr, "[emu] stimecmp write @step=%" PRIu64 " val=0x%016" PRIx64 "\n",
-                        g_step_counter, val);
-            }
             break;
         }
         case CSR_TIME:
@@ -1349,6 +1460,10 @@ static bool check_pending_interrupts(cpu_t *cpu, devices_t *dev) {
                 return true;
             }
             if (m_interrupts & MIP_MTIP) {
+                if (g_step_counter - dev->last_timer_interrupt_step < g_timer_min_step_gap) {
+                    return false;
+                }
+                dev->last_timer_interrupt_step = g_step_counter;
                 dev->timer_interrupt_count++;
                 take_trap(cpu, INTERRUPT_M_TIMER, 0);
                 return true;
@@ -1383,6 +1498,10 @@ static bool check_pending_interrupts(cpu_t *cpu, devices_t *dev) {
             return true;
         }
         if (s_pending & MIP_STIP) {
+            if (g_step_counter - dev->last_timer_interrupt_step < g_timer_min_step_gap) {
+                return false;
+            }
+            dev->last_timer_interrupt_step = g_step_counter;
             dev->timer_interrupt_count++;
             take_trap(cpu, INTERRUPT_S_TIMER, 0);
             return true;
@@ -1432,22 +1551,10 @@ static void take_trap(cpu_t *cpu, uint64_t cause, uint64_t tval) {
         uint64_t mtvec_offset = ((cause >> 63) && mtvec_mode == 1) ? 4 * (cause & 0xfffULL) : 0;
         cpu->pc = mtvec_base + mtvec_offset;
     } else { // S-mode trap (delegate to supervisor)
-        static int first_trap_debug = 0;
         uint64_t stvec_base = cpu->csr_stvec & ~3ULL;
         uint64_t stvec_mode = cpu->csr_stvec & 3ULL;
         uint64_t stvec_offset = ((cause >> 63) && stvec_mode == 1) ? 4 * (cause & 0xfffULL) : 0;
         uint64_t stvec_target = stvec_base + stvec_offset;
-        if (first_trap_debug++ < 5) {
-            fprintf(stderr, "S-mode trap @step=%" PRIu64 ": cause=0x%016" PRIx64 " pc=0x%016" PRIx64 " stvec=0x%016" PRIx64 "\n",
-                    g_step_counter, cause, cpu->pc, cpu->csr_stvec);
-            fprintf(stderr, "  sp(x2)=0x%016" PRIx64 " ra(x1)=0x%016" PRIx64 " gp(x3)=0x%016" PRIx64 "\n",
-                    cpu->x[2], cpu->x[1], cpu->x[3]);
-            fprintf(stderr, "  Setting PC to stvec_target=0x%016" PRIx64 " (base=0x%016" PRIx64 " mode=%" PRIu64 " offset=0x%" PRIx64 ")\n",
-                    stvec_target, stvec_base, stvec_mode, stvec_offset);
-            // Reset debug counters to capture MMU translations after trap
-            g_vtp_debug_count = 0;
-            g_sv39_debug_count = 0;
-        }
         cpu->csr_sepc = cpu->pc;
         cpu->csr_scause = cause;
         cpu->csr_stval = tval;
@@ -1470,7 +1577,7 @@ uint8_t vmem_read8(cpu_t *cpu, const mem_t *mem, devices_t *dev, uint64_t vaddr,
 
     uint64_t pa;
     if (!virt_to_phys(cpu, mem, vaddr, acc, &pa)) {
-        fprintf(stderr, "MMU: page fault on read8 @0x%016" PRIx64 "\n", vaddr);
+        if (g_log_page_faults) fprintf(stderr, "MMU: page fault on read8 @0x%016" PRIx64 "\n", vaddr);
         take_trap(cpu, CAUSE_LOAD_PAGE_FAULT, vaddr);
         return 0;
     }
@@ -1480,7 +1587,7 @@ uint16_t vmem_read16(cpu_t *cpu, const mem_t *mem, devices_t *dev, uint64_t vadd
     if (!is_device_addr(dev, vaddr) && !vaddr_crosses_page(vaddr, 2)) {
         uint64_t pa;
         if (!virt_to_phys(cpu, mem, vaddr, acc, &pa)) {
-            fprintf(stderr, "MMU: page fault on read16 @0x%016" PRIx64 "\n", vaddr);
+            if (g_log_page_faults) fprintf(stderr, "MMU: page fault on read16 @0x%016" PRIx64 "\n", vaddr);
             take_trap(cpu, CAUSE_LOAD_PAGE_FAULT, vaddr);
             return 0;
         }
@@ -1500,7 +1607,7 @@ uint32_t vmem_read32(cpu_t *cpu, const mem_t *mem, devices_t *dev, uint64_t vadd
     if (!vaddr_crosses_page(vaddr, 4)) {
         uint64_t pa;
         if (!virt_to_phys(cpu, mem, vaddr, acc, &pa)) {
-            fprintf(stderr, "MMU: page fault on read32 @0x%016" PRIx64 "\n", vaddr);
+            if (g_log_page_faults) fprintf(stderr, "MMU: page fault on read32 @0x%016" PRIx64 "\n", vaddr);
             take_trap(cpu, CAUSE_LOAD_PAGE_FAULT, vaddr);
             return 0;
         }
@@ -1524,7 +1631,7 @@ uint64_t vmem_read64(cpu_t *cpu, const mem_t *mem, devices_t *dev, uint64_t vadd
     if (!vaddr_crosses_page(vaddr, 8)) {
         uint64_t pa;
         if (!virt_to_phys(cpu, mem, vaddr, acc, &pa)) {
-            fprintf(stderr, "MMU: page fault on read64 @0x%016" PRIx64 "\n", vaddr);
+            if (g_log_page_faults) fprintf(stderr, "MMU: page fault on read64 @0x%016" PRIx64 "\n", vaddr);
             take_trap(cpu, CAUSE_LOAD_PAGE_FAULT, vaddr);
             return 0;
         }
@@ -1536,6 +1643,12 @@ uint64_t vmem_read64(cpu_t *cpu, const mem_t *mem, devices_t *dev, uint64_t vadd
     return v;
 }
 void vmem_write8(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint8_t val, access_t acc) {
+    if (vaddr == MINUX_POWEROFF_MMIO) {
+        cpu->exit_code = val;
+        cpu->halt = true;
+        return;
+    }
+
     // Check if this is a device address first - device I/O bypasses MMU
     if (is_device_addr(dev, vaddr)) {
         mem_write8_dev(mem, dev, vaddr, val);
@@ -1544,17 +1657,23 @@ void vmem_write8(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint8_t
 
     uint64_t pa;
     if (!virt_to_phys(cpu, mem, vaddr, acc, &pa)) {
-        fprintf(stderr, "MMU: page fault on write8 @0x%016" PRIx64 "\n", vaddr);
+        if (g_log_page_faults) fprintf(stderr, "MMU: page fault on write8 @0x%016" PRIx64 "\n", vaddr);
         take_trap(cpu, CAUSE_STORE_AMO_PAGE_FAULT, vaddr);
         return;
     }
     mem_write8_dev(mem, dev, pa, val);
 }
 void vmem_write16(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint16_t val, access_t acc) {
+    if (vaddr == MINUX_POWEROFF_MMIO) {
+        cpu->exit_code = val;
+        cpu->halt = true;
+        return;
+    }
+
     if (!is_device_addr(dev, vaddr) && !vaddr_crosses_page(vaddr, 2)) {
         uint64_t pa;
         if (!virt_to_phys(cpu, mem, vaddr, acc, &pa)) {
-            fprintf(stderr, "MMU: page fault on write16 @0x%016" PRIx64 "\n", vaddr);
+            if (g_log_page_faults) fprintf(stderr, "MMU: page fault on write16 @0x%016" PRIx64 "\n", vaddr);
             take_trap(cpu, CAUSE_STORE_AMO_PAGE_FAULT, vaddr);
             return;
         }
@@ -1566,6 +1685,12 @@ void vmem_write16(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint16
     vmem_write8(cpu, mem, dev, vaddr+1, (uint8_t)((val >> 8) & 0xff), acc);
 }
 void vmem_write32(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint32_t val, access_t acc) {
+    if (vaddr == MINUX_POWEROFF_MMIO) {
+        cpu->exit_code = val;
+        cpu->halt = true;
+        return;
+    }
+
     // Check if this is a device address first - device I/O bypasses MMU
     if (is_device_addr(dev, vaddr)) {
         device_write32_dev(mem, dev, vaddr, val);
@@ -1575,7 +1700,7 @@ void vmem_write32(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint32
     if (!vaddr_crosses_page(vaddr, 4)) {
         uint64_t pa;
         if (!virt_to_phys(cpu, mem, vaddr, acc, &pa)) {
-            fprintf(stderr, "MMU: page fault on write32 @0x%016" PRIx64 "\n", vaddr);
+            if (g_log_page_faults) fprintf(stderr, "MMU: page fault on write32 @0x%016" PRIx64 "\n", vaddr);
             take_trap(cpu, CAUSE_STORE_AMO_PAGE_FAULT, vaddr);
             return;
         }
@@ -1588,6 +1713,12 @@ void vmem_write32(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint32
     }
 }
 void vmem_write64(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint64_t val, access_t acc) {
+    if (vaddr == MINUX_POWEROFF_MMIO) {
+        cpu->exit_code = val;
+        cpu->halt = true;
+        return;
+    }
+
     // Check if this is a device address first - device I/O bypasses MMU
     if (is_device_addr(dev, vaddr)) {
         for (int i = 0; i < 8; i++) mem_write8_dev(mem, dev, vaddr+i, (uint8_t)((val >> (8*i)) & 0xff));
@@ -1597,7 +1728,7 @@ void vmem_write64(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint64
     if (!vaddr_crosses_page(vaddr, 8)) {
         uint64_t pa;
         if (!virt_to_phys(cpu, mem, vaddr, acc, &pa)) {
-            fprintf(stderr, "MMU: page fault on write64 @0x%016" PRIx64 "\n", vaddr);
+            if (g_log_page_faults) fprintf(stderr, "MMU: page fault on write64 @0x%016" PRIx64 "\n", vaddr);
             take_trap(cpu, CAUSE_STORE_AMO_PAGE_FAULT, vaddr);
             return;
         }
@@ -1608,6 +1739,441 @@ void vmem_write64(cpu_t *cpu, mem_t *mem, devices_t *dev, uint64_t vaddr, uint64
     for (int i = 0; i < 8; i++) {
         vmem_write8(cpu, mem, dev, vaddr + i, (uint8_t)((val >> (8*i)) & 0xff), acc);
     }
+}
+
+static bool repeated_byte_u64(uint64_t v, uint8_t *byte_out) {
+    uint8_t b = (uint8_t)v;
+    if (v != 0x0101010101010101ULL * (uint64_t)b) {
+        return false;
+    }
+    *byte_out = b;
+    return true;
+}
+
+static bool vmem_fill_u64(cpu_t *cpu, mem_t *mem, devices_t *dev,
+                          uint64_t vaddr, uint64_t count, uint64_t pattern) {
+    uint64_t len = count * 8;
+    uint8_t repeated = 0;
+    bool can_memset = repeated_byte_u64(pattern, &repeated);
+
+    while (len != 0) {
+        if (is_device_addr(dev, vaddr)) {
+            return false;
+        }
+
+        uint64_t page_left = 0x1000 - (vaddr & 0xfffULL);
+        uint64_t chunk = len < page_left ? len : page_left;
+        uint64_t pa = 0;
+        if (!virt_to_phys(cpu, mem, vaddr, ACCESS_STORE, &pa)) {
+            take_trap(cpu, CAUSE_STORE_AMO_PAGE_FAULT, vaddr);
+            return true;
+        }
+        if (pa < 0x1000) {
+            vaddr += chunk;
+            len -= chunk;
+            continue;
+        }
+        if (!mem_in_range(mem, pa, chunk)) {
+            mem_oob(mem, pa, chunk, "fast memset");
+        }
+
+        uint8_t *dst = mem->data + (pa - mem->base);
+        if (can_memset) {
+            memset(dst, repeated, (size_t)chunk);
+        } else {
+            uint64_t done = 0;
+            while (done + 8 <= chunk) {
+                put64le(dst + done, pattern);
+                done += 8;
+            }
+            while (done < chunk) {
+                dst[done] = (uint8_t)(pattern >> ((done & 7) * 8));
+                done++;
+            }
+        }
+
+        vaddr += chunk;
+        len -= chunk;
+    }
+    return true;
+}
+
+static bool vmem_copy_bytes_forward(cpu_t *cpu, mem_t *mem, devices_t *dev,
+                                    uint64_t dst, uint64_t src, uint64_t len) {
+    while (len != 0) {
+        if (is_device_addr(dev, dst) || is_device_addr(dev, src)) {
+            return false;
+        }
+
+        uint64_t dst_page_left = 0x1000 - (dst & 0xfffULL);
+        uint64_t src_page_left = 0x1000 - (src & 0xfffULL);
+        uint64_t chunk = len;
+        if (chunk > dst_page_left) chunk = dst_page_left;
+        if (chunk > src_page_left) chunk = src_page_left;
+
+        uint64_t dst_pa = 0;
+        uint64_t src_pa = 0;
+        if (!virt_to_phys(cpu, mem, src, ACCESS_LOAD, &src_pa)) {
+            take_trap(cpu, CAUSE_LOAD_PAGE_FAULT, src);
+            return true;
+        }
+        if (!virt_to_phys(cpu, mem, dst, ACCESS_STORE, &dst_pa)) {
+            take_trap(cpu, CAUSE_STORE_AMO_PAGE_FAULT, dst);
+            return true;
+        }
+        if (src_pa < 0x1000 || dst_pa < 0x1000) {
+            for (uint64_t i = 0; i < chunk; i++) {
+                uint8_t ch = vmem_read8(cpu, mem, dev, src + i, ACCESS_LOAD);
+                vmem_write8(cpu, mem, dev, dst + i, ch, ACCESS_STORE);
+            }
+        } else {
+            if (!mem_in_range(mem, src_pa, chunk) || !mem_in_range(mem, dst_pa, chunk)) {
+                return false;
+            }
+            memmove(mem->data + (dst_pa - mem->base), mem->data + (src_pa - mem->base), (size_t)chunk);
+        }
+
+        dst += chunk;
+        src += chunk;
+        len -= chunk;
+    }
+    return true;
+}
+
+static bool vmem_copy_bytes_backward(cpu_t *cpu, mem_t *mem, devices_t *dev,
+                                     uint64_t dst, uint64_t src, uint64_t len) {
+    while (len != 0) {
+        uint64_t dst_end = dst + len;
+        uint64_t src_end = src + len;
+        uint64_t dst_back = dst_end & 0xfffULL;
+        uint64_t src_back = src_end & 0xfffULL;
+        uint64_t dst_chunk = dst_back ? dst_back : 0x1000;
+        uint64_t src_chunk = src_back ? src_back : 0x1000;
+        uint64_t chunk = len;
+        if (chunk > dst_chunk) chunk = dst_chunk;
+        if (chunk > src_chunk) chunk = src_chunk;
+
+        uint64_t dst_start = dst_end - chunk;
+        uint64_t src_start = src_end - chunk;
+        if (is_device_addr(dev, dst_start) || is_device_addr(dev, src_start)) {
+            return false;
+        }
+
+        uint64_t dst_pa = 0;
+        uint64_t src_pa = 0;
+        if (!virt_to_phys(cpu, mem, src_start, ACCESS_LOAD, &src_pa)) {
+            take_trap(cpu, CAUSE_LOAD_PAGE_FAULT, src_start);
+            return true;
+        }
+        if (!virt_to_phys(cpu, mem, dst_start, ACCESS_STORE, &dst_pa)) {
+            take_trap(cpu, CAUSE_STORE_AMO_PAGE_FAULT, dst_start);
+            return true;
+        }
+        if (src_pa < 0x1000 || dst_pa < 0x1000) {
+            for (uint64_t i = chunk; i > 0; i--) {
+                uint8_t ch = vmem_read8(cpu, mem, dev, src_start + i - 1, ACCESS_LOAD);
+                vmem_write8(cpu, mem, dev, dst_start + i - 1, ch, ACCESS_STORE);
+            }
+        } else {
+            if (!mem_in_range(mem, src_pa, chunk) || !mem_in_range(mem, dst_pa, chunk)) {
+                return false;
+            }
+            memmove(mem->data + (dst_pa - mem->base), mem->data + (src_pa - mem->base), (size_t)chunk);
+        }
+
+        len -= chunk;
+    }
+    return true;
+}
+
+static bool try_fast_kernel_asm_memmove(cpu_t *cpu, mem_t *mem, devices_t *dev) {
+    const uint64_t forward_loop = 0x8008d3f4ULL;
+    const uint64_t backward_loop = 0x8008d3e2ULL;
+    uint64_t len = cpu->x[12];
+
+    if (cpu->priv != 1 || len < 32) {
+        return false;
+    }
+
+    if (cpu->pc == forward_loop) {
+        if (!vmem_copy_bytes_forward(cpu, mem, dev, cpu->x[10], cpu->x[11], len)) {
+            return false;
+        }
+    } else if (cpu->pc == backward_loop) {
+        if (!vmem_copy_bytes_backward(cpu, mem, dev, cpu->x[10] - len, cpu->x[11] - len, len)) {
+            return false;
+        }
+    } else {
+        return false;
+    }
+
+    cpu->x[10] = cpu->x[5];
+    cpu->x[12] = 0;
+    cpu->pc = cpu->x[1];
+    cpu->x[0] = 0;
+    g_fast_memmove_bytes += len;
+    g_fast_retired_bonus += len * 6;
+    return true;
+}
+
+static bool try_fast_kernel_c_memmove_loop(cpu_t *cpu, mem_t *mem, devices_t *dev) {
+    const uint64_t backward_cond = 0x8000f82eULL;
+    const uint64_t forward_cond = 0x8000f85eULL;
+
+    if (cpu->priv != 1 || (cpu->pc != backward_cond && cpu->pc != forward_cond)) {
+        return false;
+    }
+
+    uint64_t fp = cpu->x[8];
+    uint32_t stored_count = vmem_read32(cpu, mem, dev, fp - 52, ACCESS_LOAD);
+    uint64_t len = (uint64_t)(stored_count + 1U);
+    if (cpu->pc != backward_cond && cpu->pc != forward_cond) {
+        return true;
+    }
+    if (len < 32 || len > (1ULL << 20)) {
+        return false;
+    }
+
+    uint64_t src_cur = vmem_read64(cpu, mem, dev, fp - 24, ACCESS_LOAD);
+    uint64_t dst_cur = vmem_read64(cpu, mem, dev, fp - 32, ACCESS_LOAD);
+    if (cpu->pc != backward_cond && cpu->pc != forward_cond) {
+        return true;
+    }
+
+    if (cpu->pc == forward_cond) {
+        if (!vmem_copy_bytes_forward(cpu, mem, dev, dst_cur, src_cur, len)) {
+            return false;
+        }
+    } else {
+        if (!vmem_copy_bytes_backward(cpu, mem, dev, dst_cur - len, src_cur - len, len)) {
+            return false;
+        }
+    }
+
+    cpu->pc = 0x8000f860ULL;
+    cpu->x[0] = 0;
+    g_fast_memmove_bytes += len;
+    g_fast_retired_bonus += len * 9;
+    return true;
+}
+
+static bool try_fast_kernel_memset_loop(cpu_t *cpu, mem_t *mem, devices_t *dev) {
+    /*
+     * Current MINUX9 kernel memset has a counted 64-bit store loop:
+     *   8000f6b4: lw    a5,-44(s0)
+     *   8000f6b8: addiw a4,a5,-1
+     *   8000f6bc: sw    a4,-44(s0)
+     *   8000f6c0: bnez  a5,8000f6a2
+     *
+     * At this point -40(s0) is the current destination pointer, -44(s0)
+     * is the number of 8-byte stores left, and -56(s0) is the repeated
+     * 64-bit pattern. Collapsing this loop removes millions of interpreter
+     * dispatches during kinit's page clearing.
+     */
+    if (cpu->pc != 0x8000f6b4ULL || cpu->priv != 1) {
+        return false;
+    }
+
+    uint64_t fp = cpu->x[8];
+    uint32_t count = vmem_read32(cpu, mem, dev, fp - 44, ACCESS_LOAD);
+    if (cpu->pc != 0x8000f6b4ULL || count < 16) {
+        return false;
+    }
+
+    uint64_t dst = vmem_read64(cpu, mem, dev, fp - 40, ACCESS_LOAD);
+    uint64_t pattern = vmem_read64(cpu, mem, dev, fp - 56, ACCESS_LOAD);
+    if (cpu->pc != 0x8000f6b4ULL) {
+        return true;
+    }
+
+    if (!vmem_fill_u64(cpu, mem, dev, dst, count, pattern)) {
+        return false;
+    }
+
+    uint64_t new_dst = dst + (uint64_t)count * 8;
+    vmem_write64(cpu, mem, dev, fp - 40, new_dst, ACCESS_STORE);
+    vmem_write32(cpu, mem, dev, fp - 44, UINT32_MAX, ACCESS_STORE);
+    cpu->pc = 0x8000f6c2ULL;
+    g_fast_retired_bonus += (uint64_t)count * 7;
+    g_fast_memset_bytes += (uint64_t)count * 8;
+    cpu->x[0] = 0;
+    return true;
+}
+
+static bool try_fast_kernel_freerange(cpu_t *cpu, mem_t *mem) {
+    /*
+     * Current MINUX9 freerange() iterates over every 4KiB page and calls
+     * kfree(), which only links the page into kmem.freelist. Build the same
+     * singly-linked list directly.
+     */
+    if (cpu->pc != 0x8000b37eULL || cpu->priv != 1) {
+        return false;
+    }
+
+    const uint64_t pgsize = 4096;
+    const uint64_t kmem_freelist = 0x8004b968ULL + 24;
+    uint64_t start = (cpu->x[10] + pgsize - 1) & ~(pgsize - 1);
+    uint64_t end = cpu->x[11];
+    if (start >= end || !mem_in_range(mem, kmem_freelist, 8)) {
+        return false;
+    }
+
+    uint64_t head = mem_read64(mem, kmem_freelist);
+    uint64_t pages = 0;
+    for (uint64_t pa = start; pa + pgsize <= end; pa += pgsize) {
+        if (!mem_in_range(mem, pa, 8)) {
+            mem_oob(mem, pa, 8, "fast freerange");
+        }
+        put64le(mem->data + (pa - mem->base), head);
+        head = pa;
+        pages++;
+    }
+
+    mem_write64(mem, kmem_freelist, head);
+    cpu->pc = cpu->x[1];
+    cpu->x[0] = 0;
+    g_fast_retired_bonus += pages * 48;
+    g_fast_freerange_pages += pages;
+    return true;
+}
+
+static bool fast_kalloc_page(mem_t *mem, uint64_t *pa_out) {
+    const uint64_t kmem_freelist = 0x8004b968ULL + 24;
+    if (!mem_in_range(mem, kmem_freelist, 8)) {
+        return false;
+    }
+
+    uint64_t pa = mem_read64(mem, kmem_freelist);
+    if (pa == 0 || !mem_in_range(mem, pa, 4096)) {
+        return false;
+    }
+
+    uint64_t next = mem_read64(mem, pa);
+    mem_write64(mem, kmem_freelist, next);
+    memset(mem->data + (pa - mem->base), 0, 4096);
+    *pa_out = pa;
+    return true;
+}
+
+static bool fast_map_page(mem_t *mem, uint64_t root, uint64_t va, uint64_t pa, uint64_t perm) {
+    uint64_t table = root;
+    uint64_t vpn[3] = {
+        (va >> 12) & 0x1ffULL,
+        (va >> 21) & 0x1ffULL,
+        (va >> 30) & 0x1ffULL,
+    };
+
+    for (int level = 2; level > 0; level--) {
+        uint64_t pte_addr = table + vpn[level] * 8;
+        if (!mem_in_range(mem, pte_addr, 8)) {
+            return false;
+        }
+
+        uint64_t pte = mem_read64(mem, pte_addr);
+        if (!(pte & 1ULL)) {
+            uint64_t child;
+            if (!fast_kalloc_page(mem, &child)) {
+                return false;
+            }
+            pte = ((child >> 12) << 10) | 1ULL;
+            mem_write64(mem, pte_addr, pte);
+        } else if (pte & ((1ULL << 1) | (1ULL << 3))) {
+            return false;
+        }
+
+        table = ((pte >> 10) & ((1ULL << 44) - 1)) << 12;
+    }
+
+    uint64_t leaf_addr = table + vpn[0] * 8;
+    if (!mem_in_range(mem, leaf_addr, 8)) {
+        return false;
+    }
+    mem_write64(mem, leaf_addr, ((pa >> 12) << 10) | perm | 1ULL);
+    return true;
+}
+
+static bool fast_map_range(mem_t *mem, uint64_t root, uint64_t va, uint64_t size,
+                           uint64_t pa, uint64_t perm, uint64_t *mapped_pages) {
+    if (size == 0) {
+        return true;
+    }
+
+    uint64_t a = va;
+    uint64_t p = pa;
+    uint64_t last = va + size - 4096;
+    for (;;) {
+        if (!fast_map_page(mem, root, a, p, perm)) {
+            return false;
+        }
+        if (mapped_pages) {
+            (*mapped_pages)++;
+        }
+        if (a == last) {
+            break;
+        }
+        a += 4096;
+        p += 4096;
+    }
+    return true;
+}
+
+static bool try_fast_kernel_mmu_init(cpu_t *cpu, mem_t *mem) {
+    /*
+     * MINUX9 mmu_init() maps all 512MiB of kernel RAM one 4KiB page at a time.
+     * Construct the same Sv39 page tables directly instead of interpreting
+     * 100k+ calls through walk(), kalloc(), memset(), and mappages().
+     */
+    if (cpu->pc != 0x8000bba8ULL || cpu->priv != 1 || cpu->csr_satp != 0) {
+        return false;
+    }
+
+    const uint64_t kernel_pagetable_addr = 0x8004b840ULL;
+    const uint64_t kernel_satp_addr = 0x80090010ULL;
+    const uint64_t kernbase = 0x80000000ULL;
+    const uint64_t phystop = 0xa0000000ULL;
+    const uint64_t pte_rwx = (1ULL << 1) | (1ULL << 2) | (1ULL << 3) | 1ULL;
+    const uint64_t pte_rw = (1ULL << 1) | (1ULL << 2) | 1ULL;
+    uint64_t root;
+    uint64_t mapped = 0;
+
+    if (!mem_in_range(mem, kernel_pagetable_addr, 8) ||
+        !mem_in_range(mem, kernel_satp_addr, 8) ||
+        !fast_kalloc_page(mem, &root)) {
+        return false;
+    }
+
+    mem_write64(mem, kernel_pagetable_addr, root);
+
+    if (!fast_map_range(mem, root, kernbase, phystop - kernbase, kernbase, pte_rwx, &mapped) ||
+        !fast_map_range(mem, root, 0x10000000ULL, 4096, 0x10000000ULL, pte_rw, &mapped) ||
+        !fast_map_range(mem, root, 0x10001000ULL, 4096, 0x10001000ULL, pte_rw, &mapped) ||
+        !fast_map_range(mem, root, 0x02000000ULL, 0x00020000ULL, 0x02000000ULL, pte_rw, &mapped) ||
+        !fast_map_range(mem, root, 0x0c000000ULL, 0x00400000ULL, 0x0c000000ULL, pte_rw, &mapped)) {
+        return false;
+    }
+
+    for (int i = 0; i < VIRTIO_MAX_SLOTS; i++) {
+        uint64_t addr = VIRTIO_MMIO_BASE0 + (uint64_t)i * VIRTIO_MMIO_STRIDE;
+        if (!fast_map_range(mem, root, addr, VIRTIO_MMIO_STRIDE, addr, pte_rw, &mapped)) {
+            return false;
+        }
+    }
+
+    if (!fast_map_range(mem, root, 0x0200bff8ULL, 4096, 0x0200bff8ULL, pte_rw, &mapped) ||
+        !fast_map_range(mem, root, 0x02004000ULL, 4096, 0x02004000ULL, pte_rw, &mapped)) {
+        return false;
+    }
+
+    uint64_t satp = (8ULL << 60) | ((root >> 12) & ((1ULL << 44) - 1));
+    mem_write64(mem, kernel_satp_addr, satp);
+    cpu->csr_satp = satp;
+    tlb_flush_all(cpu);
+    cpu->pc = cpu->x[1];
+    cpu->x[0] = 0;
+
+    g_fast_mmu_mapped_pages += mapped;
+    g_fast_retired_bonus += mapped * 64;
+    return true;
 }
 
 static inline void set_x(cpu_t *cpu, int rd, uint64_t val) {
@@ -2006,6 +2572,26 @@ static void step(cpu_t *cpu, mem_t *mem, devices_t *dev, const run_opts_t *opt) 
     g_pc_history[g_pc_history_idx] = pc;
     g_pc_history_idx = (g_pc_history_idx + 1) % PC_HISTORY_SIZE;
 
+    if ((!opt || !opt->trace) && try_fast_kernel_mmu_init(cpu, mem)) {
+        return;
+    }
+
+    if ((!opt || !opt->trace) && try_fast_kernel_freerange(cpu, mem)) {
+        return;
+    }
+
+    if ((!opt || !opt->trace) && try_fast_kernel_memset_loop(cpu, mem, dev)) {
+        return;
+    }
+
+    if ((!opt || !opt->trace) && try_fast_kernel_asm_memmove(cpu, mem, dev)) {
+        return;
+    }
+
+    if ((!opt || !opt->trace) && try_fast_kernel_c_memmove_loop(cpu, mem, dev)) {
+        return;
+    }
+
     // Warn if in user mode with MMU disabled
     static bool warned_user_mode_no_mmu = false;
     if (cpu->priv == 0 && cpu->csr_satp == 0 && !warned_user_mode_no_mmu) {
@@ -2079,14 +2665,6 @@ static void step(cpu_t *cpu, mem_t *mem, devices_t *dev, const run_opts_t *opt) 
             fprintf(stderr, "This indicates a jump to uninitialized/invalid memory.\n");
             cpu->halt = true;
             return;
-        }
-        // Warn if PC is in unexpected range
-        bool in_trampoline = (pc >= 0x80088000 && pc < 0x80089000);
-        if (!in_trampoline && ((pc > 0x80032ba0 && pc < 0x8098b000) || pc > 0x81200000)) {
-            static int warn_count = 0;
-            if (warn_count++ < 10) {
-                fprintf(stderr, "WARNING: PC 0x%016" PRIx64 " in unexpected memory range\n", pc);
-            }
         }
     }
 
@@ -2529,11 +3107,6 @@ static void step(cpu_t *cpu, mem_t *mem, devices_t *dev, const run_opts_t *opt) 
                     cpu->csr_sstatus &= ~(1ULL << 8);
                     return;
                 } else if (sys_imm12 == 0x302) { // MRET
-                    static int mret_debug_count = 0;
-                    if (mret_debug_count++ < 5) {
-                        fprintf(stderr, "MRET: mepc=0x%016" PRIx64 ", priv %d -> %d, mstatus=0x%016" PRIx64 "\n",
-                                cpu->csr_mepc, cpu->priv, (int)((cpu->csr_mstatus >> 11) & 3), cpu->csr_mstatus);
-                    }
                     if (cpu->csr_mepc == 0) {
                         fprintf(stderr, "MRET with mepc=0, halting\n");
                         cpu->halt = true;
@@ -2631,6 +3204,15 @@ static void step(cpu_t *cpu, mem_t *mem, devices_t *dev, const run_opts_t *opt) 
         }
         default:
             fprintf(stderr, "Unknown opcode 0x%02x at PC=0x%016" PRIx64 " inst=0x%08x\n", d.opcode, pc, d.raw);
+            fprintf(stderr, "priv=%d satp=0x%016" PRIx64 " sp=0x%016" PRIx64 " ra=0x%016" PRIx64 "\n",
+                    cpu->priv, cpu->csr_satp, cpu->x[2], cpu->x[1]);
+            fprintf(stderr, "a0=0x%016" PRIx64 " a1=0x%016" PRIx64 " a2=0x%016" PRIx64 " a7=0x%016" PRIx64 "\n",
+                    cpu->x[10], cpu->x[11], cpu->x[12], cpu->x[17]);
+            fprintf(stderr, "Recent PC history:\n");
+            for (int i = 0; i < PC_HISTORY_SIZE; i++) {
+                int idx = (g_pc_history_idx - 1 - i + PC_HISTORY_SIZE) % PC_HISTORY_SIZE;
+                fprintf(stderr, "  [-%d] PC=0x%016" PRIx64 "\n", i, g_pc_history[idx]);
+            }
             exit(1);
     }
 
@@ -2682,6 +3264,7 @@ static void usage(const char *prog) {
         "  --rootpt <hex>    Set SV39 root page table physical address (implies sv39)\n"
         "  --trace           Enable instruction + regs trace\n"
         "  --steps <N>       Max steps before stop (0=inf)\n"
+        "  --timer-div <N>   Retired instructions per time tick (default 50)\n"
         "  --smoke           Run built-in smoke (no file needed)\n",
         prog);
 }
@@ -2710,6 +3293,7 @@ static void cli_defaults(cli_t *c) {
     c->disk_path = "../fs.img";
     c->run.trace = false;
     c->run.max_steps = 0;
+    c->run.timer_div = 50;
     c->raw = false;
     c->raw_addr = 0;
     c->entry_set = false;
@@ -2769,6 +3353,12 @@ static bool cli_parse(cli_t *c, int argc, char **argv) {
         } else if (strcmp(a, "--steps") == 0) {
             if (++i >= argc) { fprintf(stderr, "--steps requires N\n"); return false; }
             if (!parse_u64(argv[i], &c->run.max_steps)) { fprintf(stderr, "invalid --steps\n"); return false; }
+        } else if (strcmp(a, "--timer-div") == 0) {
+            if (++i >= argc) { fprintf(stderr, "--timer-div requires N\n"); return false; }
+            if (!parse_u64(argv[i], &c->run.timer_div) || c->run.timer_div == 0) {
+                fprintf(stderr, "invalid --timer-div\n");
+                return false;
+            }
         } else if (strcmp(a, "--smoke") == 0) {
             c->smoke = true;
         } else {
@@ -2803,34 +3393,45 @@ static void restore_stdin(void) {
 }
 
 // Check stdin for UART RX data
-static void check_uart_rx(devices_t *dev) {
-    if (!dev->uart_rx_ready) {
-        char c;
+static void check_uart_rx(cpu_t *cpu, devices_t *dev) {
+    char c;
+    while (dev->uart_rx_count < UART_RX_QUEUE_SIZE) {
         ssize_t n = read(STDIN_FILENO, &c, 1);
-        if (n == 1) {
-            dev->uart_rbr = (uint8_t)c;
-            dev->uart_rx_ready = true;
-            dev->uart_lsr |= 0x01; // Set RX_READY bit
-            if (dev->uart_ier & 0x01) {
-                plic_raise_irq(dev, UART_PLIC_IRQ);
-            }
+        if (n == 0) {
+            cpu->csr_custom51 |= 2ULL;
+            break;
         }
+        if (n != 1) {
+            if (errno != EAGAIN && errno != EWOULDBLOCK) {
+                cpu->csr_custom51 |= 2ULL;
+            }
+            break;
+        }
+        (void)uart_rx_push(dev, (uint8_t)c);
     }
+    /*
+     * MINUX9 reads console input by polling UART_LSR/RBR from Sys_read().
+     * Its UART interrupt handler also reads RBR but only stores the byte in
+     * last_key, so raising an RX interrupt here can consume shell input before
+     * read() sees it.
+     */
 }
 
 static void run(cpu_t *cpu, mem_t *mem, devices_t *dev, const run_opts_t *opt) {
     g_debug_cpu = cpu; // Set global debug pointer
     uint64_t steps = 0;
     bool user_mode_announced = false;
+    g_mtime_instrs_per_tick = opt->timer_div ? opt->timer_div : 50;
+    g_clean_console = !isatty(STDIN_FILENO);
+    g_log_page_faults = opt && opt->trace;
+    g_console_state = CONSOLE_NORMAL;
+    g_console_line_start = true;
+    cpu->csr_custom51 = g_clean_console ? 1 : 0;
     // Setup non-blocking stdin for UART input
     setup_stdin();
 
     while (!cpu->halt) {
         g_step_counter = steps;
-        if (steps && (steps % 1000000ULL) == 0) {
-            fprintf(stderr, "[emu] step=%" PRIu64 " pc=0x%016" PRIx64 " priv=%d satp=0x%016" PRIx64 " stimecmp=0x%016" PRIx64 " sip=0x%016" PRIx64 " sie=0x%016" PRIx64 "\n",
-                    steps, cpu->pc, cpu->priv, cpu->csr_satp, cpu->csr_stimecmp, cpu->csr_sip, cpu->csr_sie);
-        }
         // Debug: Print PC periodically to detect infinite loops (disabled for performance)
         /*
         static uint64_t last_pc_log = 0;
@@ -2851,24 +3452,43 @@ static void run(cpu_t *cpu, mem_t *mem, devices_t *dev, const run_opts_t *opt) {
         */
         
 
-        // Check for UART RX input every step for immediate responsiveness
-        check_uart_rx(dev);
+        // Polling host input and timer state every interpreted instruction is
+        // expensive; batching keeps interactive latency low while avoiding a
+        // syscall and CLINT update on every dispatch.
+        if ((steps & 0x3fULL) == 0) {
+            check_uart_rx(cpu, dev);
+        }
 
-        // Keep CLINT time in sync with host time
-        clint_update_mtime(dev);
+        // Keep CLINT time in sync with emulated instruction time.
+        if ((steps & 0x0fULL) == 0) {
+            clint_update_mtime(dev);
+        }
 
         // Check for pending interrupts before executing instruction
         check_pending_interrupts(cpu, dev);
 
         step(cpu, mem, dev, opt);
-        if (!user_mode_announced && cpu->priv == 0) {
+        if (!user_mode_announced && cpu->priv == 0 && !g_clean_console) {
             fprintf(stderr, "\nMINUX9 user mode entered. Shell has no prompt; type commands and press Enter.\n");
+            user_mode_announced = true;
+        }
+        if (!user_mode_announced && cpu->priv == 0) {
             user_mode_announced = true;
         }
         steps++;
         if (opt->max_steps && steps >= opt->max_steps) {
             fprintf(stderr, "Hit max steps (%" PRIu64 "), stopping.\n", opt->max_steps);
+            fprintf(stderr, "PC: 0x%016" PRIx64 " priv=%d satp=0x%016" PRIx64 "\n",
+                    cpu->pc, cpu->priv, cpu->csr_satp);
+            fprintf(stderr, "RA: 0x%016" PRIx64 " SP: 0x%016" PRIx64 " A0: 0x%016" PRIx64 " A1: 0x%016" PRIx64 " A2: 0x%016" PRIx64 "\n",
+                    cpu->x[1], cpu->x[2], cpu->x[10], cpu->x[11], cpu->x[12]);
+            fprintf(stderr, "Fast freerange pages: %" PRIu64 "\n", g_fast_freerange_pages);
+            fprintf(stderr, "Fast memset bytes: %" PRIu64 "\n", g_fast_memset_bytes);
+            fprintf(stderr, "Fast memmove bytes: %" PRIu64 "\n", g_fast_memmove_bytes);
+            fprintf(stderr, "Fast MMU mapped pages: %" PRIu64 "\n", g_fast_mmu_mapped_pages);
             fprintf(stderr, "UART writes: %" PRIu64 "\n", dev->uart_write_count);
+            fprintf(stderr, "UART RX pushed/popped/queued: %" PRIu64 "/%" PRIu64 "/%zu\n",
+                    dev->uart_rx_push_count, dev->uart_rx_pop_count, dev->uart_rx_count);
             fprintf(stderr, "Timer interrupts: %" PRIu64 "\n", dev->timer_interrupt_count);
             fprintf(stderr, "External interrupts: %" PRIu64 "\n", dev->external_interrupt_count);
             break;

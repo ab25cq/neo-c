@@ -1,0 +1,6 @@
+=> 0
+neoc_hello.c: Success
+=> 1
+Error: wrasm: 0x6/ errorUnable to open input file
+=> 1
+Unknown opcode 0x7f at PC=0x0000000002004000 inst=0xffffffff

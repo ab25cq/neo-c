@@ -18,10 +18,35 @@ CFLAGS_AS=-march=$(RISCV_ARCH) -mabi=$(RISCV_ABI)
 CFLAGS=-march=$(RISCV_ARCH) -mabi=$(RISCV_ABI) -msmall-data-limit=0 -fno-pic -fno-pie -Wl,-no-pie
 CFLAGS2=-march=$(RISCV_ARCH2) -mabi=$(RISCV_ABI) -msmall-data-limit=0 -fno-pic -fno-pie -Wl,-no-pie
 CHILD_CFLAGS=-ffreestanding -fno-stack-protector -fno-builtin -fno-pic -fno-pie -nostdlib -mcmodel=medany -static -nostartfiles  -Wl,-e,_start -Wl,-no-pie -msmall-data-limit=0 -march=$(RISCV_ARCH) -mabi=$(RISCV_ABI) -Tuser.ld -Wno-incompatible-pointer-types minux.o
+HOST_CC ?= cc
+HOST_CFLAGS ?= -std=c11 -O3
+RISCV_EMU ?= ./riscv-emu
+RISCV_EMU_TARGET ?= riscv-emu
+RISCV_EMU_OPTION ?= -i kernel.elf --mem 512 --mmu sv39 --disk fs.img
+EMU_TEST_TIMEOUT ?= 12
+EMU_TEST_EOF_OUT ?= .emu-test-eof.out
+EMU_TEST_BASIC_OUT ?= .emu-test-basic.out
+EMU_TEST_TEXT_OUT ?= .emu-test-text.out
+EMU_TEST_PIPES_OUT ?= .emu-test-pipes.out
+EMU_TEST_NEOC_RV_OUT ?= .emu-test-neoc-rv.out
+EMU_TEST_NEOC_HELLO_OUT ?= .emu-test-neoc-hello.out
+NEOC_NCC ?= $(if $(wildcard ../ncc),$(abspath ../ncc),ncc)
+NEOC_RV_BUILD_DIR ?= build/neoc-rv/minux-bare
+NEOC_RV_BIN ?= $(NEOC_RV_BUILD_DIR)/neo-c-rv
+NEOC_RV_FS_BIN ?= neo-c
+NEOC_RV_FS_HEADERS ?= neo-c.h neo-c-libc.h
+NEOC_HELLO_SRC ?= neoc_hello.nc
+NEOC_HELLO_SCRIPT ?= neoc_hello.sh
+NEOC_PARENT_NC := $(sort $(wildcard ../[0-9][0-9]*.nc))
+NEOC_RV_C := $(patsubst ../%.nc,$(NEOC_RV_BUILD_DIR)/%.c,$(NEOC_PARENT_NC))
+NEOC_RV_O := $(patsubst %.c,%.o,$(NEOC_RV_C))
+NEOC_RV_CFLAGS := -std=gnu11 -D__MINUX__ -D__BAREMETAL__ $(CFLAGS) -ffreestanding -fno-stack-protector -fno-builtin -nostdlib -mcmodel=medany -static -nostartfiles -I. -I..
+QEMU ?= qemu-system-riscv64
+QEMU_OPTION ?= -machine virt -bios none -nographic -m 1024M -kernel kernel.elf -drive file=fs.img,if=none,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 -nic none
 
-.PHONY: all clean run log debug debug-mac
+.PHONY: all clean run log debug debug-mac test test-eof test-basic test-text test-pipes test-neoc-rv test-neoc-hello fs-neoc-rv fs-neoc-hello
 
-all: kernel.elf 
+all: kernel.elf $(RISCV_EMU_TARGET)
 
 crt0.o: crt0.S
 	# build minimal userland crt0 that calls exit(main())
@@ -33,7 +58,7 @@ minux.o: minux.c
 minux9.o: minux9.c
 	$(CCPREFIX)gcc $(CFLAGS2) -nostdlib -c -g -ffreestanding -mcmodel=medany -o minux9.o minux9.c
 
-kernel.elf: minux.o minux9.o crt0.o cc minux_neoc_sys.o echo_neoc.c pwd_neoc.c uname_neoc.c sleep_neoc.c cat_neoc.c mkdir_neoc.c rmdir_neoc.c touch_neoc.c ls_neoc.c pipeline_neoc.c kernel_proc_list_neoc.c main_neoc.c fs_neoc.c sh
+kernel.elf: minux.o minux9.o crt0.o cc minux_neoc_sys.o echo_neoc.c pwd_neoc.c uname_neoc.c sleep_neoc.c cat_neoc.c mkdir_neoc.c rmdir_neoc.c touch_neoc.c ls_neoc.c pipeline_neoc.c kernel_proc_list_neoc.c main_neoc.c fs_neoc.c syscall.c sh hostname.c as.c ld.c
 	$(CCPREFIX)as -g $(CFLAGS_AS) -o entry.o entry.S
 	$(CCPREFIX)as -g $(CFLAGS_AS) -o trap.o trap.S
 	$(CCPREFIX)as -g $(CFLAGS_AS) -o userret.o userret.S
@@ -53,6 +78,7 @@ kernel.elf: minux.o minux9.o crt0.o cc minux_neoc_sys.o echo_neoc.c pwd_neoc.c u
 	$(CCPREFIX)gcc $(CFLAGS) -ffreestanding -fno-stack-protector -fno-builtin -nostdlib -mcmodel=medany -static -nostartfiles -Wl,-e,_start -o cpp  crt0.o cpp.c $(CHILD_CFLAGS) -lgcc -fno-omit-frame-pointer 
 	$(CCPREFIX)gcc $(CFLAGS) -O0 -nostdlib -static -o uname -g uname_neoc.c minux_neoc_sys.o -mcmodel=medany $(CHILD_CFLAGS)
 	$(CCPREFIX)gcc $(CFLAGS) -nostdlib -mcmodel=medany -static -nostartfiles -Wl,-e,_start -o uname crt0.o uname_neoc.c minux_neoc_sys.o $(CHILD_CFLAGS)
+	$(CCPREFIX)gcc $(CFLAGS) -nostdlib -mcmodel=medany -static -nostartfiles -Wl,-e,_start -o hostname crt0.o hostname.c $(CHILD_CFLAGS)
 	$(CCPREFIX)gcc $(CFLAGS) -nostdlib -mcmodel=medany -static -nostartfiles -Wl,-e,_start -o cat crt0.o cat_neoc.c minux_neoc_sys.o $(CHILD_CFLAGS)
 #	$(CCPREFIX)gcc -S $(CFLAGS) -nostdlib -mcmodel=medany -static -nostartfiles -Wl,-e,_start -o b.s b.c
 
@@ -139,15 +165,178 @@ kernel.elf: minux.o minux9.o crt0.o cc minux_neoc_sys.o echo_neoc.c pwd_neoc.c u
 
 	$(CCPREFIX)objcopy -O binary kernel.elf kernel.bin
 
-#QEMU_OPTION=-machine virt -bios none -nographic -m 512M -kernel kernel.elf -nic none
-QEMU?=qemu-system-riscv64
-QEMU_OPTION=-machine virt -bios none -nographic -m 1024M -kernel kernel.elf -drive file=fs.img,if=none,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 -nic none
+$(RISCV_EMU_TARGET): riscv-emu-src/riscv-emu.c
+	$(HOST_CC) $(HOST_CFLAGS) $< -o $@
 
-run: kernel.elf 
-	$(QEMU) $(QEMU_OPTION)
+$(NEOC_RV_BUILD_DIR):
+	mkdir -p $@
 
-log: kernel.elf
-	$(QEMU) $(QEMU_OPTION) -d in_asm,exec,cpu,int -D qemu.log
+$(NEOC_RV_BUILD_DIR)/%.c: ../%.nc ../neo-c.h ../neo-c-libc.h ../common.h | $(NEOC_RV_BUILD_DIR)
+	cd $(NEOC_RV_BUILD_DIR) && $(NEOC_NCC) -I../../../.. -bare -c ../../../../$*.nc
+
+$(NEOC_RV_BUILD_DIR)/%.o: $(NEOC_RV_BUILD_DIR)/%.c
+	$(CCPREFIX)gcc $(NEOC_RV_CFLAGS) -c -o $@ $<
+
+$(NEOC_RV_BUILD_DIR)/ccpp.c: ../ccpp.nc ../ccpp_body.h | $(NEOC_RV_BUILD_DIR)
+	cd $(NEOC_RV_BUILD_DIR) && $(NEOC_NCC) -I../../../.. -c ../../../../ccpp.nc
+
+$(NEOC_RV_BUILD_DIR)/ccpp.o: $(NEOC_RV_BUILD_DIR)/ccpp.c ../ccpp_body.h
+	$(CCPREFIX)gcc $(NEOC_RV_CFLAGS) -DCCPP_BARE -I.. -c -o $@ $<
+
+$(NEOC_RV_BIN): crt0.o $(NEOC_RV_O) $(NEOC_RV_BUILD_DIR)/ccpp.o user-minux9.ld
+	$(CCPREFIX)gcc $(NEOC_RV_CFLAGS) -Wl,-e,_start -Wl,--allow-multiple-definition -Tuser-minux9.ld -o $@ crt0.o $(NEOC_RV_O) $(NEOC_RV_BUILD_DIR)/ccpp.o -lgcc
+
+$(NEOC_RV_FS_BIN): $(NEOC_RV_BIN)
+	cp $< $@
+
+neo-c.h: ../neo-c.h
+	cp $< $@
+
+neo-c-libc.h: ../neo-c-libc.h
+	cp $< $@
+
+fs-neoc-rv: kernel.elf $(NEOC_RV_FS_BIN) $(NEOC_RV_FS_HEADERS)
+	gcc -o mkfs mkfs.c
+	./mkfs fs.img $(NEOC_RV_FS_BIN) $(NEOC_RV_FS_HEADERS)
+
+fs-neoc-hello: kernel.elf $(NEOC_RV_FS_BIN) $(NEOC_RV_FS_HEADERS) $(NEOC_HELLO_SRC) $(NEOC_HELLO_SCRIPT)
+	gcc -o mkfs mkfs.c
+	./mkfs fs.img $(NEOC_RV_FS_BIN) $(NEOC_RV_FS_HEADERS) $(NEOC_HELLO_SRC) $(NEOC_HELLO_SCRIPT)
+
+run: kernel.elf $(RISCV_EMU_TARGET)
+	$(RISCV_EMU) $(RISCV_EMU_OPTION)
+
+log: kernel.elf $(RISCV_EMU_TARGET)
+	$(RISCV_EMU) $(RISCV_EMU_OPTION) --trace
+
+test: test-eof test-basic test-text test-pipes
+
+# Regression test procedure:
+#   make test
+#   make test-eof
+#   make test-basic
+#   make test-text
+#   make test-pipes
+#   make test-neoc-rv
+#   make test-neoc-hello
+#
+# Each target boots MINUX9 on the local emulator, feeds commands to the
+# guest shell, and checks the captured console output.
+# EOF on stdin must make the shell exit and the emulator stop with status 0.
+# timeout is only a guard for hangs.
+# test-neoc-rv is heavier: it transpiles parent ../[0-9][0-9]*.nc with
+# neo-c -bare, builds a RISC-V /neo-c binary, places it in fs.img, and
+# checks that it starts and exits on MINUX9.
+# test-neoc-hello uses /neo-c inside MINUX9 to transpile neoc_hello.nc,
+# then builds it with guest cc/as/ld and runs the resulting RISC-V binary.
+test-eof: kernel.elf $(RISCV_EMU_TARGET)
+	@out="$(EMU_TEST_EOF_OUT)"; \
+	rm -f "$$out"; \
+	printf '' | timeout $(EMU_TEST_TIMEOUT)s $(RISCV_EMU) $(RISCV_EMU_OPTION) > "$$out" 2>&1; \
+	status=$$?; \
+	if [ "$$status" -ne 0 ]; then \
+		cat "$$out"; \
+		echo 'EOF did not stop shell/emulator cleanly'; \
+		exit "$$status"; \
+	fi; \
+	echo "PASS test-eof ($$out)"
+
+test-basic: kernel.elf $(RISCV_EMU_TARGET)
+	@out="$(EMU_TEST_BASIC_OUT)"; \
+	rm -f "$$out"; \
+	{ \
+		printf '%s\n' 'echo aaa'; \
+		printf '%s\n' 'pwd'; \
+		printf '%s\n' 'hostname'; \
+		printf '%s\n' 'uname'; \
+		printf '%s\n' 'ls'; \
+	} | timeout $(EMU_TEST_TIMEOUT)s $(RISCV_EMU) $(RISCV_EMU_OPTION) > "$$out" 2>&1; \
+	status=$$?; \
+	if [ "$$status" -ne 0 ]; then \
+		cat "$$out"; \
+		exit "$$status"; \
+	fi; \
+	grep -Fx 'aaa' "$$out" >/dev/null || { cat "$$out"; echo 'missing: echo output'; exit 1; }; \
+	grep -Fx '/' "$$out" >/dev/null || { cat "$$out"; echo 'missing: pwd output'; exit 1; }; \
+	grep -Fx 'minux9' "$$out" >/dev/null || { cat "$$out"; echo 'missing: hostname output'; exit 1; }; \
+	grep -Fx 'Minux' "$$out" >/dev/null || { cat "$$out"; echo 'missing: uname output'; exit 1; }; \
+	grep -Fx 'passwd' "$$out" >/dev/null || { cat "$$out"; echo 'missing: ls passwd'; exit 1; }; \
+	grep -Fx 'hostname' "$$out" >/dev/null || { cat "$$out"; echo 'missing: ls hostname'; exit 1; }; \
+	echo "PASS test-basic ($$out)"
+
+test-text: kernel.elf $(RISCV_EMU_TARGET)
+	@out="$(EMU_TEST_TEXT_OUT)"; \
+	rm -f "$$out"; \
+	{ \
+		printf '%s\n' 'grep -n root passwd'; \
+		printf '%s\n' 'grep -vn root passwd'; \
+		printf '%s\n' 'grep -v root passwd'; \
+		printf '%s\n' 'cat -n passwd'; \
+		printf '%s\n' 'echo aaa | cat -n'; \
+	} | timeout $(EMU_TEST_TIMEOUT)s $(RISCV_EMU) $(RISCV_EMU_OPTION) > "$$out" 2>&1; \
+	status=$$?; \
+	if [ "$$status" -ne 0 ]; then \
+		cat "$$out"; \
+		exit "$$status"; \
+	fi; \
+	grep -F '1:root:root:0:0:' "$$out" >/dev/null || { cat "$$out"; echo 'missing: grep -n root'; exit 1; }; \
+	grep -F '2:user:user:1000:100:100,200' "$$out" >/dev/null || { cat "$$out"; echo 'missing: grep -vn root'; exit 1; }; \
+	grep -Fx 'user:user:1000:100:100,200' "$$out" >/dev/null || { cat "$$out"; echo 'missing: grep -v root'; exit 1; }; \
+	grep -F '     1  root:root:0:0:' "$$out" >/dev/null || { cat "$$out"; echo 'missing: cat -n passwd root'; exit 1; }; \
+	grep -F '     2  user:user:1000:100:100,200' "$$out" >/dev/null || { cat "$$out"; echo 'missing: cat -n passwd user'; exit 1; }; \
+	grep -F '     1  aaa' "$$out" >/dev/null || { cat "$$out"; echo 'missing: echo | cat -n'; exit 1; }; \
+	echo "PASS test-text ($$out)"
+
+test-pipes: kernel.elf $(RISCV_EMU_TARGET)
+	@out="$(EMU_TEST_PIPES_OUT)"; \
+	rm -f "$$out"; \
+	for cmd in \
+		'echo aaa | cat -n | grep -n aaa' \
+		'cat passwd | grep root | grep -n root' \
+		'cat passwd | grep user | cat -n' \
+		'cat passwd | grep -v root | grep -n user' \
+	; do \
+		printf '%s\n' "$$cmd" | timeout $(EMU_TEST_TIMEOUT)s $(RISCV_EMU) $(RISCV_EMU_OPTION) >> "$$out" 2>&1; \
+		status=$$?; \
+		if [ "$$status" -ne 0 ]; then \
+			cat "$$out"; \
+			exit "$$status"; \
+		fi; \
+	done; \
+	grep -F '1:     1  aaa' "$$out" >/dev/null || { cat "$$out"; echo 'missing: echo | cat -n | grep -n'; exit 1; }; \
+	grep -F '1:root:root:0:0:' "$$out" >/dev/null || { cat "$$out"; echo 'missing: cat | grep root | grep -n'; exit 1; }; \
+	grep -F '     1  user:user:1000:100:100,200' "$$out" >/dev/null || { cat "$$out"; echo 'missing: cat | grep | cat -n'; exit 1; }; \
+	grep -F '1:user:user:1000:100:100,200' "$$out" >/dev/null || { cat "$$out"; echo 'missing: cat | grep -v | grep -n'; exit 1; }; \
+	echo "PASS test-pipes ($$out)"
+
+test-neoc-rv: fs-neoc-rv $(RISCV_EMU_TARGET)
+	@out="$(EMU_TEST_NEOC_RV_OUT)"; \
+	rm -f "$$out"; \
+	{ \
+		printf '%s\n' 'neo-c'; \
+		printf '%s\n' 'echo done'; \
+	} | timeout 90s $(RISCV_EMU) $(RISCV_EMU_OPTION) > "$$out" 2>&1; \
+	status=$$?; \
+	if [ "$$status" -ne 0 ]; then \
+		cat "$$out"; \
+		exit "$$status"; \
+	fi; \
+	grep -Fx 'done' "$$out" >/dev/null || { cat "$$out"; echo 'missing: neo-c returned to shell'; exit 1; }; \
+	echo "PASS test-neoc-rv ($$out)"
+
+test-neoc-hello: fs-neoc-hello $(RISCV_EMU_TARGET)
+	@out="$(EMU_TEST_NEOC_HELLO_OUT)"; \
+	rm -f "$$out"; \
+	{ \
+		printf '%s\n' 'sh neoc_hello.sh'; \
+	} | timeout 180s $(RISCV_EMU) $(RISCV_EMU_OPTION) > "$$out" 2>&1; \
+	status=$$?; \
+	if [ "$$status" -ne 0 ]; then \
+		cat "$$out"; \
+		exit "$$status"; \
+	fi; \
+	grep -Fx 'hello world' "$$out" >/dev/null || { cat "$$out"; echo 'missing: neoc_hello output'; exit 1; }; \
+	echo "PASS test-neoc-hello ($$out)"
 
 debug: kernel.elf
 	$(QEMU) $(QEMU_OPTION) -S -gdb tcp::3777 &
@@ -160,8 +349,9 @@ debug-mac: kernel.elf
 	pkill -f qemu
 
 clean:
-	$(MAKE) -C riscv64emu clean
-	rm -rf kernel.bin kernel.elf core riscv-gnu-toolchain main.o start.o timervec.o trampoline.o trampolin2.s aaa aa aaaa xpack-riscv-none-elf-gcc-13.2.0-1 *.o qemu.log *.elf mkfs mkfs riscv-isa-sim/ riscv-pk fs.img fs_long.img fs_super.img *.bin cat grep echo login pwd ls mkdir rmdir sleep touch more vi toycc toyvm cc hello as ld qemu-run.log map.txt minux.o minux2.o readelf objdump hexdump nm neo-c cpp sh xsh test uname ld2 pipeline fd_blast mem_blast echo_neoc.c pwd_neoc.c uname_neoc.c sleep_neoc.c cat_neoc.c mkdir_neoc.c rmdir_neoc.c touch_neoc.c ls_neoc.c pipeline_neoc.c kernel_proc_list_neoc.c main_neoc.c fs_neoc.c sh_neoc.c *.nc.i *.c.error
+	if [ -d riscv64emu ]; then $(MAKE) -C riscv64emu clean; fi
+	if [ -d riscv-emu-src ]; then $(MAKE) -C riscv-emu-src clean; fi
+	rm -rf $(RISCV_EMU_TARGET) $(EMU_TEST_EOF_OUT) $(EMU_TEST_BASIC_OUT) $(EMU_TEST_TEXT_OUT) $(EMU_TEST_PIPES_OUT) $(EMU_TEST_NEOC_RV_OUT) $(EMU_TEST_NEOC_HELLO_OUT) $(NEOC_RV_BUILD_DIR) $(NEOC_RV_FS_HEADERS) kernel.bin kernel.elf core riscv-gnu-toolchain main.o start.o timervec.o trampoline.o trampolin2.s aaa aa aaaa xpack-riscv-none-elf-gcc-13.2.0-1 *.o qemu.log *.elf mkfs mkfs riscv-isa-sim/ riscv-pk fs.img fs_long.img fs_super.img *.bin cat grep echo login pwd ls mkdir rmdir sleep touch more vi toycc toyvm cc hello as ld qemu-run.log map.txt minux.o minux2.o readelf objdump hexdump nm neo-c cpp sh xsh test uname hostname ld2 pipeline fd_blast mem_blast echo_neoc.c pwd_neoc.c uname_neoc.c sleep_neoc.c cat_neoc.c mkdir_neoc.c rmdir_neoc.c touch_neoc.c ls_neoc.c pipeline_neoc.c kernel_proc_list_neoc.c main_neoc.c fs_neoc.c sh_neoc.c *.nc.i *.c.error
 
 # Always (re)build the filesystem image so updated userland like pwd is included
 

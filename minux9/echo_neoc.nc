@@ -2,12 +2,13 @@
 
 int main(int argc, char** argv)
 {
-    if(argc == 2) {
-        var arg = argv[1];
-
-        minux_print(arg);
-        minux_print("\r\n");
+    for(int i=1; i<argc; i++) {
+        if(i > 1) {
+            minux_print(" ");
+        }
+        minux_print(argv[i]);
     }
+    minux_print("\n");
 
     minux_exit(0);
 }

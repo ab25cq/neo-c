@@ -56,20 +56,20 @@ int main(int argc, char** argv) {
   unsigned long long opt_len = (unsigned long long)-1; /* until EOF */
   int width = 16;
 
-  /* parse args */
-  int i = 1;
-  while (i < argc && argv[i][0]=='-') {
+  /* parse args; accept options before or after FILE */
+  for (int i = 1; i < argc; i++) {
     const char* a = argv[i];
-    if (a[1]=='o' && a[2]==0 && i+1 < argc) { out_path = argv[i+1]; i += 2; }
-    else if (a[1]=='s' && a[2]==0 && i+1 < argc) { opt_off = parse_ull(argv[i+1]); i += 2; }
-    else if (a[1]=='G' && a[2]==0) { opt_off = 0x1000ull; i += 1; }
-    else if (a[1]=='n' && a[2]==0 && i+1 < argc) { opt_len = parse_ull(argv[i+1]); i += 2; }
-    else if (a[1]=='w' && a[2]==0 && i+1 < argc) {
-      width = (int)parse_ull(argv[i+1]); if (width < 8) width=8; if (width > 32) width=32; i += 2;
-    } else { usage(); return 1; }
+    if (a[0]=='-' && a[1]=='o' && a[2]==0 && i+1 < argc) { out_path = argv[++i]; }
+    else if (a[0]=='-' && a[1]=='s' && a[2]==0 && i+1 < argc) { opt_off = parse_ull(argv[++i]); }
+    else if (a[0]=='-' && a[1]=='G' && a[2]==0) { opt_off = 0x1000ull; }
+    else if (a[0]=='-' && a[1]=='n' && a[2]==0 && i+1 < argc) { opt_len = parse_ull(argv[++i]); }
+    else if (a[0]=='-' && a[1]=='w' && a[2]==0 && i+1 < argc) {
+      width = (int)parse_ull(argv[++i]); if (width < 8) width=8; if (width > 32) width=32;
+    }
+    else if (a[0]=='-') { usage(); return 1; }
+    else { in_path = a; }
   }
-  if (i >= argc) { usage(); return 1; }
-  in_path = argv[i];
+  if (!in_path) { usage(); return 1; }
 
   /* open input and stat */
   struct stat st;
@@ -109,11 +109,15 @@ int main(int argc, char** argv) {
     if ((unsigned long long)chunk > remain) chunk = (int)remain;
     int n = read(fd_in, rbuf, chunk);
     if (n <= 0) break;
+    if (n > chunk) n = chunk;
 
     int pos = 0;
     while (pos < n) {
       int line_bytes = width;
       if (pos + line_bytes > n) line_bytes = n - pos;
+      unsigned long long line_remain = remain - (abs_off - opt_off);
+      if ((unsigned long long)line_bytes > line_remain) line_bytes = (int)line_remain;
+      if (line_bytes <= 0) { remain = 0; break; }
 
       /* build one line: "AAAAAAAA  " + hex + " |ascii|" + "\n" */
       int p = 0;
@@ -142,6 +146,7 @@ int main(int argc, char** argv) {
       pos += line_bytes;
       if (abs_off - opt_off >= remain) { remain = 0; break; }
     }
+    if (remain == 0) break;
     if ((unsigned) n < (unsigned)chunk) break;
     remain -= (unsigned long long)n;
   }

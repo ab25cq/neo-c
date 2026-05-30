@@ -10,8 +10,6 @@ then
     $SUDO apt-get update
     $SUDO apt-get install -y gcc-riscv64-linux-gnu \
                  binutils-riscv64-linux-gnu \
-                 qemu-system \
-                 qemu-system-misc \
                  make \
                  git \
                  gcc \
@@ -27,7 +25,6 @@ then
     then
         $SUDO dnf install \
             gcc-riscv64-linux-gnu.x86_64 \
-            qemu-system-riscv.x86_64 \
             binutils-riscv64-linux-gnu.x86_64 \
                     make \
                         git \
@@ -38,7 +35,6 @@ then
     else
         $SUDO dnf install \
             gcc-riscv64-linux-gnu.aarch64 \
-            qemu-system-riscv.aarch64 \
             binutils-riscv64-linux-gnu.aarch64 \
                     make \
                         git \
@@ -60,34 +56,36 @@ $SUDO pacman -Syu \
             gawk \
             gcc \
             clang \
-                make vim qemu-system-riscv
+                make vim 
                 
 fi
 
 if which apk
 then
-    $SUDO apk add binutils-riscv-none-elf binutils-riscv64 gcc-riscv-none-elf newlib-riscv-none-elf qemu-riscv64 make git gawk gdb-multiarch qemu-riscv64 qemu-riscv64 qemu-riscv64 qemu-riscv64 qemu-riscv64 qemu-riscv64 qemu-system-riscv64 gcc clang
+    $SUDO apk add binutils-riscv-none-elf binutils-riscv64 gcc-riscv-none-elf newlib-riscv-none-elf make git gawk gdb-multiarch gcc clang
     $SUDO apk add spike
 fi
 
 rm -rf ~/.config/gdb
 mkdir -p ~/.config/gdb
 echo "add-auto-load-safe-path $(pwd)/.gdbinit" >> ~/.config/gdb/gdbinit
+JOBS="$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 4)"
 
 make clean
+
 if uname -a | grep Darwin
 then
-    make run
+    make -j"$JOBS" run
 #   make debug-mac
 elif which riscv64-linux-gnu-gcc
 then
-    make run CCPREFIX=riscv64-linux-gnu- RISCV_ABI=lp64d
+    make -j"$JOBS" run CCPREFIX=riscv64-linux-gnu- RISCV_ABI=lp64d
 elif which riscv-none-elf-gcc
 then
-    make run CCPREFIX=riscv-none-elf-
+    make -j"$JOBS" run CCPREFIX=riscv-none-elf-
 elif which riscv64-elf-gcc
 then
-    make run CCPREFIX=riscv64-elf-
+    make -j"$JOBS" run CCPREFIX=riscv64-elf-
 else 
-    make run
+    make -j"$JOBS" run
 fi

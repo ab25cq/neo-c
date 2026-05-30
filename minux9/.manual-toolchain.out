@@ -1,0 +1,327 @@
+=> 0
+parse_global_g2UI
+_g2parse_quad.L..0UI
+.L..0parse_globalfunUI
+funparse_la.L..0UI
+.L.return.fungpsym name __global_pointer$ shndx 65521
+sym name fun shndx 2
+sym name _g2 shndx 2
+sym name .L.return.fun shndx 2
+sym name .L..0 shndx 2
+=> 0
+[ld2] main: argc=4
+[ld2] NewContext: start
+[ld2] NewContext: ctx=0x1f010 size=200
+[ld2] NewContext: initializing SymbolMap
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x1f0e8 size=96
+[ld2] HashMapInit: malloc data=0x1f158 size=72
+[ld2] HashMapInit: malloc arr_slot=0x1f1b0 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x1f1b0
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x1f0e8 data=0x1f158 slots=769
+[ld2] NewContext: SymbolMap=0x1f0e8
+[ld2] NewContext: done
+[ld2] main: context initialized
+[ld2] main: parseArgs done, remaining=1
+[ld2] main: probed c.o -> emulation=1
+[ld2] main: emulation resolved (1)
+[ld2] main: ReadInputFiles start
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x219a8 size=96
+[ld2] HashMapInit: malloc data=0x21a18 size=72
+[ld2] HashMapInit: malloc arr_slot=0x21a70 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x21a70
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x219a8 data=0x21a18 slots=769
+[ld2] ReadInputFiles: start (1 entries)
+[ld2] ReadInputFiles: arg[0]=c.o
+[ld2] ReadInputFiles: loading file 'c.o'
+[ld2] readFile: c.o type=object
+[ld2] file name o :c.o
+[ld2] CreateObjectFile: c.o inLib=0 alive=1
+[ld2] Parse: start c.o
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x24088 size=96
+[ld2] HashMapInit: malloc data=0x240f8 size=72
+[ld2] HashMapInit: malloc arr_slot=0x24150 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x24150
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x24088 data=0x240f8 slots=769
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x25b48 size=96
+[ld2] HashMapInit: malloc data=0x25bb8 size=72
+[ld2] HashMapInit: malloc arr_slot=0x25c10 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x25c10
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x25b48 data=0x25bb8 slots=769
+[ld2] Parse: sections initialized (8)
+[ld2] InitializeSymbols: start file=c.o FirstGlobal=5 ElfSymNum=6
+[ld2] InitializeSymbols: allocated Symbols=0x27448
+1
+[ld2] NewSymbol: name is 
+[ld2] NewSymbol: name is 
+[ld2] NewSymbol: name is 
+[ld2] NewSymbol: name is 
+[ld2] NewSymbol: name is 
+2
+__global_pointer$
+esym shndx 65521
+fun
+esym shndx 2
+_g2
+esym shndx 2
+.L.return.fun
+esym shndx 2
+3
+
+__global_pointer$
+fun
+_g2
+.L.return.fun
+4
+name 0x27808 file 0x23288
+[ld2] InitializeSymbols: sym done
+[ld2] InitializeSymbols: done
+[ld2] Parse: symbols initialized (ElfSymNum=6 firstGlobal=5)
+[ld2] InitializeMergeableSections: start isecNum=8
+[ld2] InitializeMergeableSections: sec[0] NULL
+[ld2] InitializeMergeableSections: progress idx=0/8
+[ld2] InitializeMergeableSections: sec[1] NULL
+[ld2] InitializeMergeableSections: sec[2] isAlive=1 flags=0x6 type=1 entsize=0 size=332
+[ld2] InitializeMergeableSections: sec[3] isAlive=1 flags=0x3 type=1 entsize=0 size=0
+[ld2] InitializeMergeableSections: sec[4] NULL
+[ld2] InitializeMergeableSections: sec[5] NULL
+[ld2] InitializeMergeableSections: sec[6] NULL
+[ld2] InitializeMergeableSections: sec[7] NULL
+[ld2] InitializeMergeableSections: done
+[ld2] Parse: mergeable sections initialized
+[ld2] Parse: completed c.o
+[ld2] CreateObjectFile: c.o parsed (isecNum=8)
+[ld2] readFile: added object c.o (total=1)
+[ld2] ReadInputFiles: done (objs=1)
+[ld2] main: ReadInputFiles done, objs=1
+[ld2] 1
+[ld2] symbols :5
+[ld2] main: ResolveSymbols_pass start
+[ld2] ResolveSymbols_pass: start (objs=1)
+[ld2] ResolveSymbols_pass: resolving c.o (alive=1)
+[ld2] ResolveSymbols: c.o start
+[ld2] ResolveSymbols: c.o done
+[ld2] ResolveSymbols_pass: MarkLiveObjects start
+[ld2] MarkLiveObjects: rootSize=1
+[ld2] MarkLiveObjects: visit root[0/1] c.o alive=1
+[ld2] markLiveObjs: scanning c.o
+[ld2] MarkLiveObjects: after mark, rootSize=1
+[ld2] ResolveSymbols_pass: MarkLiveObjects done
+[ld2] ResolveSymbols_pass: done (objs=1)
+[ld2] main: ResolveSymbols_pass done, objs=1
+[ld2] main: RegisterSectionPieces start
+[ld2] main: ComputeMergedSectionSizes start
+[ld2] main: CreateSyntheticSections start
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x279d0 size=96
+[ld2] HashMapInit: malloc data=0x27a40 size=72
+[ld2] HashMapInit: malloc arr_slot=0x27a98 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x27a98
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x279d0 data=0x27a40 slots=769
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x29398 size=96
+[ld2] HashMapInit: malloc data=0x29408 size=72
+[ld2] HashMapInit: malloc arr_slot=0x29460 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x29460
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x29398 data=0x29408 slots=769
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x2ad50 size=96
+[ld2] HashMapInit: malloc data=0x2adc0 size=72
+[ld2] HashMapInit: malloc arr_slot=0x2ae18 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x2ae18
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x2ad50 data=0x2adc0 slots=769
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x2c740 size=96
+[ld2] HashMapInit: malloc data=0x2c7b0 size=72
+[ld2] HashMapInit: malloc arr_slot=0x2c808 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x2c808
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x2c740 data=0x2c7b0 slots=769
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x2e188 size=96
+[ld2] HashMapInit: malloc data=0x2e1f8 size=72
+[ld2] HashMapInit: malloc arr_slot=0x2e250 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x2e250
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x2e188 data=0x2e1f8 slots=769
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x2fbe8 size=96
+[ld2] HashMapInit: malloc data=0x2fc58 size=72
+[ld2] HashMapInit: malloc arr_slot=0x2fcb0 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x2fcb0
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x2fbe8 data=0x2fc58 slots=769
+[ld2] HashMapInit: start
+[ld2] HashMapInit: malloc obj=0x315c0 size=96
+[ld2] HashMapInit: malloc data=0x31630 size=72
+[ld2] HashMapInit: malloc arr_slot=0x31688 count=769 elem=8
+[ld2] HashMapInit: cleared 769 slots
+[ld2] HashMapInit: data->size_=0
+[ld2] HashMapInit: data->idx_prime_=0
+[ld2] HashMapInit: data->num_slot_=769
+[ld2] HashMapInit: data->curr_limit_=576
+[ld2] HashMapInit: data->arr_slot_=0x31688
+[ld2] HashMapInit: func_hash set
+[ld2] HashMapInit: func_cmp set
+[ld2] HashMapInit: func_clean_key NULL
+[ld2] HashMapInit: func_clean_val NULL
+[ld2] HashMapInit: configured num_slot=769 curr_limit=576
+[ld2] HashMapInit: ready obj=0x315c0 data=0x31630 slots=769
+[ld2] main: BinSections start
+[ld2] main: CollectOutputSections start
+[ld2] main: ScanRelocations start
+[ld2] ScanRelocations: start objs=1
+[ld2] ScanRelocations: object[0]=c.o isecNum=8
+[ld2] ScanRelocations_: file=c.o
+[ld2] ScanRelocations_: section[0] NULL
+[ld2] ScanRelocations_: section[1] NULL
+[ld2] ScanRelocations_: section[2] name=.text flags=0x6
+[ld2] GetRels: section=.text relocs=1
+[ld2] GetRels: section=.text loaded=1/1
+[ld2] ScanRelocations__: section=.text relNum=1
+[ld2] ScanRelocations__: section=.text progress=0/1
+[ld2] ScanRelocations_: section[3] name=.data flags=0x3
+[ld2] GetRels: section=.data relocs=0
+[ld2] ScanRelocations__: section=.data relNum=0
+[ld2] ScanRelocations_: section[4] NULL
+[ld2] ScanRelocations_: section[5] NULL
+[ld2] ScanRelocations_: section[6] NULL
+[ld2] ScanRelocations_: section[7] NULL
+[ld2] ScanRelocations_: done c.o
+[ld2] ScanRelocations: finished section scan
+[ld2] ScanRelocations: flagged syms=0
+[ld2] ScanRelocations: done
+[ld2] main: ComputeSectionSizes start
+[ld2] main: SortOutputSections start
+[ld2] main: BuildOutputSymtab start
+local symbols
+.L.return.fun
+global/weak symbols
+.L..0
+CONTINUE3
+fun
+_g2
+.L.return.fun
+CONTINUE3
+__global_pointer$
+Fallback
+[ld2] main: Update chunk 0 (<anon> type=1)
+[ld2] main: Update chunk 1 (<anon> type=3)
+[ld2] main: Update chunk 2 (.text type=4)
+[ld2] main: Update chunk 3 (.got type=6)
+[ld2] main: Update chunk 4 (.data type=4)
+[ld2] main: Update chunk 5 (<anon> type=2)
+[ld2] main: Update chunk 6 (.shstrtab type=7)
+[ld2] main: Update chunk 7 (.strtab type=9)
+[ld2] main: Update chunk 8 (.symtab type=8)
+[ld2] main: SetOutputSectionOffsets start
+[ld2] SetOutputSectionOffsets: .got size=0 addr=0x11c8
+[ld2] main: SetOutputSectionOffsets done, fileoff=1112
+[ld2] main: opening output 'c'
+[ld2] main: CopyBuf chunk 0 (<anon> type=1)
+[ld2] NewSymbol: name is _start
+[ld2] GetSymbolByName: miss _start new=0x337f0
+[ld2] sym _start is 0x337f0 0
+[ld2] getEntryAddr: candidate _start addr=0x0
+[ld2] NewSymbol: name is __start
+[ld2] GetSymbolByName: miss __sta

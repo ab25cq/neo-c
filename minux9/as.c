@@ -420,7 +420,6 @@ void parse_file(FILE *ifp, FILE *ofp)
     linenumber = 0;
     
     struct symbol* gp = get_or_create_symbol("__global_pointer$", SYMBOL_LABEL);
-puts("gp");
     gp->binding  = (1u<<4) | 1u;                  // STB_GLOBAL | STT_OBJECT（NOTYPEでもよいがOBJECTが無難）
     gp->section = SHN_ABS;                       // ★絶対シンボル（ローダ側の加算不）
     gp->value = compute_gp_value_abs();        // ★完成した仮想アドレスを入れる
@@ -500,8 +499,6 @@ int parse_label(char *line, struct sectionpos position)
 
     *(end++) = '\0';
     char *name = trim_whitespace(line);
-puts("UI\n");
-puts(name);
     struct symbol *label = get_or_create_symbol(name, SYMBOL_LABEL);
     free(name);
 
@@ -563,8 +560,6 @@ static struct symbol *resolve_symbol_slice(const char *start, size_t len)
     memcpy(name, start, len);
     name[len] = '\0';
     struct symbol *sym = get_or_create_symbol(name, SYMBOL_LABEL);
-puts("resolve_symbol_slice");
-puts(name);
     free(name);
     return sym;
 }
@@ -1028,8 +1023,6 @@ struct args parse_btype(char *argstr)
         .rs2 = expect_reg(second),
         .sym = get_or_create_symbol(third, SYMBOL_LABEL),
     };
-puts("parse_btype");
-puts(third);
 
     free(first);
     free(second);
@@ -1056,8 +1049,6 @@ struct args parse_bztype(char *argstr)
         .rs1 = expect_reg(first),
         .sym = get_or_create_symbol(second, SYMBOL_LABEL),
     };
-puts("parse_bztype");
-puts(second);
 
     free(first);
     free(second);
@@ -1182,8 +1173,6 @@ struct args parse_jal(char *argstr)
     }
 
     args.sym = get_or_create_symbol(sym, SYMBOL_LABEL);
-puts("parse_jal");
-puts(sym);
     free(sym);
 
     logger(DEBUG, no_error, "Registers parsed, x%d, %s", args.rd,
@@ -1264,8 +1253,6 @@ struct args parse_la(char *argstr)
         .rd = expect_reg(first),
         .sym = get_or_create_symbol(second, SYMBOL_LABEL),
     };
-puts("parse_la");
-puts(second);
 
     free(first);
     free(second);
@@ -1313,8 +1300,6 @@ struct args parse_j(char *argstr)
     const struct args args = {
         .sym = get_or_create_symbol(first, SYMBOL_LABEL),
     };
-puts("parse_j");
-puts(first);
 
     logger(DEBUG, no_error, "Symbol parsed %s", args.sym->name);
 
@@ -2003,8 +1988,6 @@ int parse_quad(const char *arg) {
 
   // シンボル
   struct symbol *sym = get_or_create_symbol(tok, SYMBOL_LABEL);
-puts("parse_quad");
-puts(tok);
   char *zeros = xcalloc(1, 8);
   add_data((struct rawdata){ .data=zeros, .size=8, .position=pos, .line=linenumber,
                              .sym=sym, .is_abs64=1, .addend=0 });
@@ -2137,8 +2120,6 @@ int parse_section(const char *str)
 int parse_global(const char *str)
 {
     struct symbol *sym = get_or_create_symbol(str, SYMBOL_LABEL);
-puts("parse_global");
-puts(str);
     if (!sym) {
         logger(ERROR, error_internal, "Uknown symbol %s encountered",
                str);
@@ -3088,7 +3069,6 @@ int fill_symtab(void)
     for (size_t hash = 0; hash < SYMBOLMAP_ENTRIES; hash++) {
         for (size_t index = 0; index < symbols[hash].count; index++) {
             struct symbol *sym = &symbols[hash].data[index];
-printf("sym name %s shndx %d\n", sym->name, sym->section);
             struct elf64sym entry = (struct elf64sym){
                 .name = strtab_addr,
                 .info = sym->binding,

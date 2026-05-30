@@ -2,10 +2,11 @@ SHELL := /bin/bash
 
 # Host compiler for the emulator
 CC      ?= cc
-CFLAGS  ?= -std=c11 -O2
+CFLAGS  ?= -std=c11 -O3
 
-PARENT_FS = ../fs.img
-FS_IMG    = fs.img
+PARENT_KERNEL = ../kernel.elf
+PARENT_FS     = ../fs.img
+FS_IMG        = fs.img
 
 # RISC-V cross toolchain for building the sample ELF
 # Override as needed, e.g. `make RV_CC=clang run`
@@ -30,18 +31,21 @@ STEPS ?= 0
 
 .PHONY: all clean run run-smoke
 
-all: rv64emu 
+all: ../riscv-emu
 
 # Build the emulator (native)
-rv64emu: rv64emu.c
-	$(CC) $(CFLAGS) rv64emu.c -o $@
+../riscv-emu: riscv-emu.c
+	$(CC) $(CFLAGS) riscv-emu.c -o $@
 
 $(FS_IMG): $(PARENT_FS)
 	cp $(PARENT_FS) $(FS_IMG)
 
 # Run MINUX9 with MMU enabled
-run: all $(FS_IMG)
-	./rv64emu -i ../kernel.elf --mem 512 --mmu sv39 --disk $(FS_IMG)
+run: all $(PARENT_KERNEL) $(FS_IMG)
+	../riscv-emu -i $(PARENT_KERNEL) --mem 512 --mmu sv39 --disk $(FS_IMG)
+
+run-smoke: all
+	../riscv-emu --smoke --disk /dev/null
 
 clean:
-	rm -f rv64emu x1_set.elf $(FS_IMG)
+	rm -f ../riscv-emu riscv-emu x1_set.elf $(FS_IMG)

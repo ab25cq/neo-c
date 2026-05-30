@@ -54,7 +54,9 @@ typedef _Bool bool;
 #endif
 
 #ifndef NEO_VASPRINTF_STACK_SIZE
-#if defined(__APPLE__) || defined(__NEO_DARWIN_BARE__) || defined(__x86_64__) || defined(__i386__)
+#if defined(__BAREMETAL__) || defined(__MINUX__)
+#define NEO_VASPRINTF_STACK_SIZE 512
+#elif defined(__APPLE__) || defined(__NEO_DARWIN_BARE__) || defined(__x86_64__) || defined(__i386__)
 #define NEO_VASPRINTF_STACK_SIZE 262144
 #else
 #define NEO_VASPRINTF_STACK_SIZE 512
@@ -65,7 +67,11 @@ typedef _Bool bool;
 #define O_RDONLY 0
 #define O_WRONLY 1
 #define O_RDWR 2
-#if defined(__linux__) || defined(__ANDROID__)
+#if defined(__MINUX__)
+#define O_CREAT (1<<9)
+#define O_TRUNC (1<<10)
+#define O_APPEND (1<<11)
+#elif defined(__linux__) || defined(__ANDROID__)
 #define O_CREAT 64
 #define O_TRUNC 512
 #define O_APPEND 1024
@@ -129,11 +135,560 @@ uniq void __append_str(char **p, unsigned long *rem, const char *s) {
 
 uniq int errno;
 
-#if defined(__linux__) && defined(__x86_64__)
+#if defined(__MINUX__) && defined(__riscv)
 c_include {
 extern int errno;
 
 #define __NEO_WEAK __attribute__((weak))
+
+#define SYS_write 64
+#define SYS_read 65
+#define SYS_open 66
+#define SYS_close 67
+#define SYS_exit 70
+#define SYS_brk 74
+#define SYS_getcwd 79
+#define SYS_chdir 80
+#define SYS_mkdir 81
+#define SYS_rmdir 82
+#define SYS_unlink 83
+#define SYS_rename 84
+#define SYS_stat 87
+#define SYS_lstat 89
+#define SYS_lseek 192
+#define SYS_fstat 210
+
+#ifndef SEEK_SET
+#define SEEK_SET 0
+#endif
+#ifndef SEEK_CUR
+#define SEEK_CUR 1
+#endif
+#ifndef SEEK_END
+#define SEEK_END 2
+#endif
+
+static long __neo_minux_syscall1(long n, long a0)
+{
+    register long _a0 asm("a0") = a0;
+    register long _a7 asm("a7") = n;
+    asm volatile("ecall" : "+r"(_a0) : "r"(_a7) : "memory");
+    return _a0;
+}
+
+static long __neo_minux_syscall2(long n, long a0, long a1)
+{
+    register long _a0 asm("a0") = a0;
+    register long _a1 asm("a1") = a1;
+    register long _a7 asm("a7") = n;
+    asm volatile("ecall" : "+r"(_a0) : "r"(_a1), "r"(_a7) : "memory");
+    return _a0;
+}
+
+static long __neo_minux_syscall3(long n, long a0, long a1, long a2)
+{
+    register long _a0 asm("a0") = a0;
+    register long _a1 asm("a1") = a1;
+    register long _a2 asm("a2") = a2;
+    register long _a7 asm("a7") = n;
+    asm volatile("ecall" : "+r"(_a0) : "r"(_a1), "r"(_a2), "r"(_a7) : "memory");
+    return _a0;
+}
+
+__NEO_WEAK int* __errno_location(void)
+{
+    return &errno;
+}
+
+__NEO_WEAK int bcmp(const void* s1, const void* s2, unsigned long n)
+{
+    const unsigned char* p1 = (const unsigned char*)s1;
+    const unsigned char* p2 = (const unsigned char*)s2;
+    unsigned long i;
+    for(i = 0; i < n; i++) {
+        if(p1[i] != p2[i]) {
+            return (int)p1[i] - (int)p2[i];
+        }
+    }
+    return 0;
+}
+
+__NEO_WEAK long read(int fd, void* buf, unsigned long count)
+{
+    return __neo_minux_syscall3(SYS_read, fd, (long)buf, (long)count);
+}
+
+__NEO_WEAK long write(int fd, const void* buf, unsigned long count)
+{
+    return __neo_minux_syscall3(SYS_write, fd, (long)buf, (long)count);
+}
+
+__NEO_WEAK int open(const char* path, int flags, int mode)
+{
+    return (int)__neo_minux_syscall3(SYS_open, (long)path, flags, mode);
+}
+
+__NEO_WEAK int close(int fd)
+{
+    return (int)__neo_minux_syscall1(SYS_close, fd);
+}
+
+__NEO_WEAK int unlink(const char* path)
+{
+    return (int)__neo_minux_syscall1(SYS_unlink, (long)path);
+}
+
+__NEO_WEAK int rename(const char* oldpath, const char* newpath)
+{
+    return (int)__neo_minux_syscall2(SYS_rename, (long)oldpath, (long)newpath);
+}
+
+__NEO_WEAK long lseek(int fd, long offset, int whence)
+{
+    return __neo_minux_syscall3(SYS_lseek, fd, offset, whence);
+}
+
+struct stat {
+    unsigned short type;
+    unsigned short nlink;
+    unsigned int size;
+    unsigned int inum;
+    unsigned int mode;
+    unsigned short uid;
+    unsigned short gid;
+    unsigned int atime;
+    unsigned int mtime;
+    unsigned int ctime;
+};
+
+__NEO_WEAK int stat(const char* path, struct stat* st)
+{
+    return (int)__neo_minux_syscall2(SYS_stat, (long)path, (long)st);
+}
+
+__NEO_WEAK int lstat(const char* path, struct stat* st)
+{
+    return (int)__neo_minux_syscall2(SYS_lstat, (long)path, (long)st);
+}
+
+__NEO_WEAK int fstat(int fd, struct stat* st)
+{
+    return (int)__neo_minux_syscall2(SYS_fstat, fd, (long)st);
+}
+
+__NEO_WEAK char* getcwd(char* buf, unsigned long size)
+{
+    long n = __neo_minux_syscall2(SYS_getcwd, (long)buf, (long)size);
+    return n < 0 ? (char*)0 : buf;
+}
+
+__NEO_WEAK int chdir(const char* path)
+{
+    return (int)__neo_minux_syscall1(SYS_chdir, (long)path);
+}
+
+__NEO_WEAK int mkdir(const char* path, int mode)
+{
+    return (int)__neo_minux_syscall2(SYS_mkdir, (long)path, mode);
+}
+
+__NEO_WEAK int rmdir(const char* path)
+{
+    return (int)__neo_minux_syscall1(SYS_rmdir, (long)path);
+}
+
+__attribute__((used, weak)) void exit(int status)
+{
+    __neo_minux_syscall1(SYS_exit, status);
+    for(;;) {
+    }
+}
+
+__NEO_WEAK void putchar(char c)
+{
+    write(1, &c, 1);
+}
+
+__NEO_WEAK unsigned long brk(unsigned long size)
+{
+    return (unsigned long)__neo_minux_syscall1(SYS_brk, (long)size);
+}
+
+struct utsname {
+    char sysname[65];
+    char nodename[65];
+    char release[65];
+    char version[65];
+    char machine[65];
+    char domainname[65];
+};
+
+static void __neo_copy_cstr(char* dst, const char* src, unsigned long n)
+{
+    unsigned long i = 0;
+    if(n == 0) {
+        return;
+    }
+    while(i + 1 < n && src[i]) {
+        dst[i] = src[i];
+        i++;
+    }
+    dst[i] = 0;
+}
+
+__NEO_WEAK int uname(struct utsname* buf)
+{
+    if(!buf) {
+        errno = 22;
+        return -1;
+    }
+    __neo_copy_cstr(buf->sysname, "Minux", sizeof(buf->sysname));
+    __neo_copy_cstr(buf->nodename, "minux9", sizeof(buf->nodename));
+    __neo_copy_cstr(buf->release, "", sizeof(buf->release));
+    __neo_copy_cstr(buf->version, "", sizeof(buf->version));
+    __neo_copy_cstr(buf->machine, "riscv64", sizeof(buf->machine));
+    __neo_copy_cstr(buf->domainname, "", sizeof(buf->domainname));
+    return 0;
+}
+
+typedef long time_t;
+
+struct tm {
+    int tm_sec;
+    int tm_min;
+    int tm_hour;
+    int tm_mday;
+    int tm_mon;
+    int tm_year;
+    int tm_wday;
+    int tm_yday;
+    int tm_isdst;
+    long tm_gmtoff;
+    const char* tm_zone;
+};
+
+__NEO_WEAK time_t time(time_t* t)
+{
+    time_t result = 0;
+    if(t) {
+        *t = result;
+    }
+    return result;
+}
+
+__NEO_WEAK struct tm* localtime(const time_t* t)
+{
+    static struct tm tm_;
+    (void)t;
+    tm_.tm_sec = 0;
+    tm_.tm_min = 0;
+    tm_.tm_hour = 0;
+    tm_.tm_mday = 1;
+    tm_.tm_mon = 0;
+    tm_.tm_year = 70;
+    tm_.tm_wday = 4;
+    tm_.tm_yday = 0;
+    tm_.tm_isdst = 0;
+    tm_.tm_gmtoff = 0;
+    tm_.tm_zone = "UTC";
+    return &tm_;
+}
+
+extern int main(int argc, char** argv) __attribute__((used));
+
+__attribute__((used, weak, naked, noreturn)) void _start(void)
+{
+    __asm__ volatile(
+        "call main\n"
+        "li a7, 70\n"
+        "ecall\n"
+        "1: j 1b\n"
+    );
+}
+}
+
+extern size_t brk(size_t size);
+extern long read(int fd, void* buf, size_t count);
+extern long write(int fd, const void* buf, size_t count);
+extern int open(const char* path, int flags, int mode);
+extern int close(int fd);
+extern int unlink(const char* path);
+extern int rename(const char* oldpath, const char* newpath);
+extern long lseek(int fd, long offset, int whence);
+extern void exit(int status);
+extern void putchar(char c);
+#elif defined(__linux__) && defined(__x86_64__)
+c_include {
+extern int errno;
+
+#define __NEO_WEAK __attribute__((weak))
+
+#if defined(__MINUX__) && defined(__riscv)
+#define SYS_write 64
+#define SYS_read 65
+#define SYS_open 66
+#define SYS_close 67
+#define SYS_exit 70
+#define SYS_brk 74
+#define SYS_getcwd 79
+#define SYS_chdir 80
+#define SYS_mkdir 81
+#define SYS_rmdir 82
+#define SYS_unlink 83
+#define SYS_rename 84
+#define SYS_stat 87
+#define SYS_lstat 89
+#define SYS_lseek 192
+#define SYS_fstat 210
+
+#ifndef SEEK_SET
+#define SEEK_SET 0
+#endif
+#ifndef SEEK_CUR
+#define SEEK_CUR 1
+#endif
+#ifndef SEEK_END
+#define SEEK_END 2
+#endif
+
+static long __neo_minux_syscall1(long n, long a0)
+{
+    register long _a0 asm("a0") = a0;
+    register long _a7 asm("a7") = n;
+    asm volatile("ecall" : "+r"(_a0) : "r"(_a7) : "memory");
+    return _a0;
+}
+
+static long __neo_minux_syscall2(long n, long a0, long a1)
+{
+    register long _a0 asm("a0") = a0;
+    register long _a1 asm("a1") = a1;
+    register long _a7 asm("a7") = n;
+    asm volatile("ecall" : "+r"(_a0) : "r"(_a1), "r"(_a7) : "memory");
+    return _a0;
+}
+
+static long __neo_minux_syscall3(long n, long a0, long a1, long a2)
+{
+    register long _a0 asm("a0") = a0;
+    register long _a1 asm("a1") = a1;
+    register long _a2 asm("a2") = a2;
+    register long _a7 asm("a7") = n;
+    asm volatile("ecall" : "+r"(_a0) : "r"(_a1), "r"(_a2), "r"(_a7) : "memory");
+    return _a0;
+}
+
+__NEO_WEAK int* __errno_location(void)
+{
+    return &errno;
+}
+
+__NEO_WEAK int bcmp(const void* s1, const void* s2, unsigned long n)
+{
+    const unsigned char* p1 = (const unsigned char*)s1;
+    const unsigned char* p2 = (const unsigned char*)s2;
+    unsigned long i;
+    for(i = 0; i < n; i++) {
+        if(p1[i] != p2[i]) {
+            return (int)p1[i] - (int)p2[i];
+        }
+    }
+    return 0;
+}
+
+__NEO_WEAK long read(int fd, void* buf, unsigned long count)
+{
+    return __neo_minux_syscall3(SYS_read, fd, (long)buf, (long)count);
+}
+
+__NEO_WEAK long write(int fd, const void* buf, unsigned long count)
+{
+    return __neo_minux_syscall3(SYS_write, fd, (long)buf, (long)count);
+}
+
+__NEO_WEAK int open(const char* path, int flags, int mode)
+{
+    return (int)__neo_minux_syscall3(SYS_open, (long)path, flags, mode);
+}
+
+__NEO_WEAK int close(int fd)
+{
+    return (int)__neo_minux_syscall1(SYS_close, fd);
+}
+
+__NEO_WEAK int unlink(const char* path)
+{
+    return (int)__neo_minux_syscall1(SYS_unlink, (long)path);
+}
+
+__NEO_WEAK int rename(const char* oldpath, const char* newpath)
+{
+    return (int)__neo_minux_syscall2(SYS_rename, (long)oldpath, (long)newpath);
+}
+
+__NEO_WEAK long lseek(int fd, long offset, int whence)
+{
+    return __neo_minux_syscall3(SYS_lseek, fd, offset, whence);
+}
+
+struct stat {
+    unsigned short type;
+    unsigned short nlink;
+    unsigned int size;
+    unsigned int inum;
+    unsigned int mode;
+    unsigned short uid;
+    unsigned short gid;
+    unsigned int atime;
+    unsigned int mtime;
+    unsigned int ctime;
+};
+
+__NEO_WEAK int stat(const char* path, struct stat* st)
+{
+    return (int)__neo_minux_syscall2(SYS_stat, (long)path, (long)st);
+}
+
+__NEO_WEAK int lstat(const char* path, struct stat* st)
+{
+    return (int)__neo_minux_syscall2(SYS_lstat, (long)path, (long)st);
+}
+
+__NEO_WEAK int fstat(int fd, struct stat* st)
+{
+    return (int)__neo_minux_syscall2(SYS_fstat, fd, (long)st);
+}
+
+__NEO_WEAK char* getcwd(char* buf, unsigned long size)
+{
+    long n = __neo_minux_syscall2(SYS_getcwd, (long)buf, (long)size);
+    return n < 0 ? (char*)0 : buf;
+}
+
+__NEO_WEAK int chdir(const char* path)
+{
+    return (int)__neo_minux_syscall1(SYS_chdir, (long)path);
+}
+
+__NEO_WEAK int mkdir(const char* path, int mode)
+{
+    return (int)__neo_minux_syscall2(SYS_mkdir, (long)path, mode);
+}
+
+__NEO_WEAK int rmdir(const char* path)
+{
+    return (int)__neo_minux_syscall1(SYS_rmdir, (long)path);
+}
+
+__attribute__((used, weak)) void exit(int status)
+{
+    __neo_minux_syscall1(SYS_exit, status);
+    for(;;) {
+    }
+}
+
+__NEO_WEAK void putchar(char c)
+{
+    write(1, &c, 1);
+}
+
+__NEO_WEAK unsigned long brk(unsigned long size)
+{
+    return (unsigned long)__neo_minux_syscall1(SYS_brk, (long)size);
+}
+
+struct utsname {
+    char sysname[65];
+    char nodename[65];
+    char release[65];
+    char version[65];
+    char machine[65];
+    char domainname[65];
+};
+
+static void __neo_copy_cstr(char* dst, const char* src, unsigned long n)
+{
+    unsigned long i = 0;
+    if(n == 0) {
+        return;
+    }
+    while(i + 1 < n && src[i]) {
+        dst[i] = src[i];
+        i++;
+    }
+    dst[i] = 0;
+}
+
+__NEO_WEAK int uname(struct utsname* buf)
+{
+    if(!buf) {
+        errno = 22;
+        return -1;
+    }
+    __neo_copy_cstr(buf->sysname, "Minux", sizeof(buf->sysname));
+    __neo_copy_cstr(buf->nodename, "minux9", sizeof(buf->nodename));
+    __neo_copy_cstr(buf->release, "", sizeof(buf->release));
+    __neo_copy_cstr(buf->version, "", sizeof(buf->version));
+    __neo_copy_cstr(buf->machine, "riscv64", sizeof(buf->machine));
+    __neo_copy_cstr(buf->domainname, "", sizeof(buf->domainname));
+    return 0;
+}
+
+typedef long time_t;
+
+struct tm {
+    int tm_sec;
+    int tm_min;
+    int tm_hour;
+    int tm_mday;
+    int tm_mon;
+    int tm_year;
+    int tm_wday;
+    int tm_yday;
+    int tm_isdst;
+    long tm_gmtoff;
+    const char* tm_zone;
+};
+
+__NEO_WEAK time_t time(time_t* t)
+{
+    time_t result = 0;
+    if(t) {
+        *t = result;
+    }
+    return result;
+}
+
+__NEO_WEAK struct tm* localtime(const time_t* t)
+{
+    static struct tm tm_;
+    (void)t;
+    tm_.tm_sec = 0;
+    tm_.tm_min = 0;
+    tm_.tm_hour = 0;
+    tm_.tm_mday = 1;
+    tm_.tm_mon = 0;
+    tm_.tm_year = 70;
+    tm_.tm_wday = 4;
+    tm_.tm_yday = 0;
+    tm_.tm_isdst = 0;
+    tm_.tm_gmtoff = 0;
+    tm_.tm_zone = "UTC";
+    return &tm_;
+}
+
+extern int main(int argc, char** argv) __attribute__((used));
+
+__attribute__((used, weak, naked, noreturn)) void _start(void)
+{
+    __asm__ volatile(
+        "call main\n"
+        "li a7, 70\n"
+        "ecall\n"
+        "1: j 1b\n"
+    );
+}
+#else
 
 static long __neo_linux_syscall1(long n, long a1)
 {
@@ -324,6 +879,7 @@ __attribute__((used, weak, naked, noreturn)) void _start(void)
         "call exit\n"
     );
 }
+#endif
 }
 
 extern size_t brk(size_t size);
@@ -387,7 +943,7 @@ uniq void exit(int status)
 extern void putchar(char c);
 #endif
 
-#if (defined(__linux__) && defined(__x86_64__)) || defined(__APPLE__) || defined(__NEO_DARWIN_BARE__)
+#if (defined(__MINUX__) && defined(__riscv)) || (defined(__linux__) && defined(__x86_64__)) || defined(__APPLE__) || defined(__NEO_DARWIN_BARE__)
 typedef struct __neo_FILE {
     int fd;
     int error;
