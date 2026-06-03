@@ -2,28 +2,6 @@
 /// typedef definition ///
 typedef unsigned long size_t;
 
-typedef int __darwin_natural_t;
-
-typedef __builtin_va_list __darwin_va_list;
-
-typedef unsigned long  int __darwin_size_t;
-
-typedef long __darwin_ssize_t;
-
-typedef long __darwin_intptr_t;
-
-typedef int __darwin_ct_rune_t;
-
-typedef int __darwin_rune_t;
-
-typedef int __darwin_wchar_t;
-
-typedef int __darwin_mbstate_t;
-
-typedef long __darwin_clock_t;
-
-typedef int __darwin_wint_t;
-
 typedef char* string;
 
 typedef unsigned long  long    ;

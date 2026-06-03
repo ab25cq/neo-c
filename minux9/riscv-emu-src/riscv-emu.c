@@ -224,6 +224,25 @@ static uint64_t g_timer_min_step_gap = 200000;
 static bool g_clean_console = false;
 static bool g_log_page_faults = false;
 
+typedef struct {
+    bool have_freerange;
+    bool have_mmu_init;
+    bool have_memset;
+    bool have_kmem;
+    bool have_kernel_pagetable;
+    bool have_kernel_satp;
+    bool have_phystop;
+    uint64_t freerange_pc;
+    uint64_t mmu_init_pc;
+    uint64_t memset_loop_pc;
+    uint64_t kmem_addr;
+    uint64_t kernel_pagetable_addr;
+    uint64_t kernel_satp_addr;
+    uint64_t phystop;
+} kernel_fast_syms_t;
+
+static kernel_fast_syms_t g_kernel_fast = {0};
+
 typedef enum {
     CONSOLE_NORMAL,
     CONSOLE_AFTER_CR,
@@ -676,10 +695,11 @@ static void device_write8(mem_t *mem, devices_t *dev, uint64_t addr, uint8_t val
 
 static inline bool mem_in_range(const mem_t *m, uint64_t addr, uint64_t len) {
     // Allow access to low memory (0x0 - 0x1000) for page tables and interrupt vectors
-    if (addr < 0x1000) return true;
+    if (addr < 0x1000) return len <= 0x1000 - addr;
     if (addr < m->base) return false;
     uint64_t off = addr - m->base;
-    return off + len <= m->size;
+    if (off > m->size) return false;
+    return len <= m->size - off;
 }
 // Check whether the specified address range lies within the memory region
 
@@ -1970,27 +1990,32 @@ static bool try_fast_kernel_memset_loop(cpu_t *cpu, mem_t *mem, devices_t *dev) 
      * 64-bit pattern. Collapsing this loop removes millions of interpreter
      * dispatches during kinit's page clearing.
      */
-    if (cpu->pc != 0x8000f6b4ULL || cpu->priv != 1) {
+    uint64_t loop_pc = g_kernel_fast.have_memset ? g_kernel_fast.memset_loop_pc : 0x8000f6b4ULL;
+    if (cpu->pc != loop_pc || cpu->priv != 1) {
         return false;
     }
 
     uint64_t fp = cpu->x[8];
     uint32_t count = vmem_read32(cpu, mem, dev, fp - 44, ACCESS_LOAD);
-    if (cpu->pc != 0x8000f6b4ULL || count < 16) {
+    if (cpu->pc != loop_pc || count < 16) {
         return false;
     }
 
     uint64_t dst = vmem_read64(cpu, mem, dev, fp - 40, ACCESS_LOAD);
     uint64_t pattern = vmem_read64(cpu, mem, dev, fp - 56, ACCESS_LOAD);
-    if (cpu->pc != 0x8000f6b4ULL) {
+    if (cpu->pc != loop_pc) {
         return true;
+    }
+    uint64_t byte_len = (uint64_t)count * 8;
+    if (cpu->csr_satp == 0 && !mem_in_range(mem, dst, byte_len)) {
+        return false;
     }
 
     if (!vmem_fill_u64(cpu, mem, dev, dst, count, pattern)) {
         return false;
     }
 
-    uint64_t new_dst = dst + (uint64_t)count * 8;
+    uint64_t new_dst = dst + byte_len;
     vmem_write64(cpu, mem, dev, fp - 40, new_dst, ACCESS_STORE);
     vmem_write32(cpu, mem, dev, fp - 44, UINT32_MAX, ACCESS_STORE);
     cpu->pc = 0x8000f6c2ULL;
@@ -2006,14 +2031,21 @@ static bool try_fast_kernel_freerange(cpu_t *cpu, mem_t *mem) {
      * kfree(), which only links the page into kmem.freelist. Build the same
      * singly-linked list directly.
      */
-    if (cpu->pc != 0x8000b37eULL || cpu->priv != 1) {
+    if (!g_kernel_fast.have_freerange || !g_kernel_fast.have_kmem) {
+        return false;
+    }
+    if (cpu->pc != g_kernel_fast.freerange_pc || cpu->priv != 1) {
         return false;
     }
 
     const uint64_t pgsize = 4096;
-    const uint64_t kmem_freelist = 0x8004b968ULL + 24;
+    const uint64_t kmem_freelist = g_kernel_fast.kmem_addr + 24;
     uint64_t start = (cpu->x[10] + pgsize - 1) & ~(pgsize - 1);
     uint64_t end = cpu->x[11];
+    uint64_t mem_end = mem->base + mem->size;
+    if (end > mem_end) {
+        end = mem_end;
+    }
     if (start >= end || !mem_in_range(mem, kmem_freelist, 8)) {
         return false;
     }
@@ -2038,7 +2070,10 @@ static bool try_fast_kernel_freerange(cpu_t *cpu, mem_t *mem) {
 }
 
 static bool fast_kalloc_page(mem_t *mem, uint64_t *pa_out) {
-    const uint64_t kmem_freelist = 0x8004b968ULL + 24;
+    if (!g_kernel_fast.have_kmem) {
+        return false;
+    }
+    const uint64_t kmem_freelist = g_kernel_fast.kmem_addr + 24;
     if (!mem_in_range(mem, kmem_freelist, 8)) {
         return false;
     }
@@ -2123,18 +2158,32 @@ static bool try_fast_kernel_mmu_init(cpu_t *cpu, mem_t *mem) {
      * Construct the same Sv39 page tables directly instead of interpreting
      * 100k+ calls through walk(), kalloc(), memset(), and mappages().
      */
-    if (cpu->pc != 0x8000bba8ULL || cpu->priv != 1 || cpu->csr_satp != 0) {
+    if (!g_kernel_fast.have_mmu_init ||
+        !g_kernel_fast.have_kernel_pagetable ||
+        !g_kernel_fast.have_kernel_satp ||
+        !g_kernel_fast.have_phystop) {
+        return false;
+    }
+    if (cpu->pc != g_kernel_fast.mmu_init_pc || cpu->priv != 1 || cpu->csr_satp != 0) {
         return false;
     }
 
-    const uint64_t kernel_pagetable_addr = 0x8004b840ULL;
-    const uint64_t kernel_satp_addr = 0x80090010ULL;
+    const uint64_t kernel_pagetable_addr = g_kernel_fast.kernel_pagetable_addr;
+    const uint64_t kernel_satp_addr = g_kernel_fast.kernel_satp_addr;
     const uint64_t kernbase = 0x80000000ULL;
-    const uint64_t phystop = 0xa0000000ULL;
+    uint64_t phystop = g_kernel_fast.phystop;
     const uint64_t pte_rwx = (1ULL << 1) | (1ULL << 2) | (1ULL << 3) | 1ULL;
     const uint64_t pte_rw = (1ULL << 1) | (1ULL << 2) | 1ULL;
     uint64_t root;
     uint64_t mapped = 0;
+    uint64_t mem_end = mem->base + mem->size;
+
+    if (phystop > mem_end) {
+        phystop = mem_end;
+    }
+    if (phystop <= kernbase) {
+        return false;
+    }
 
     if (!mem_in_range(mem, kernel_pagetable_addr, 8) ||
         !mem_in_range(mem, kernel_satp_addr, 8) ||
@@ -2198,11 +2247,122 @@ static void dump_regs(const cpu_t *cpu) {
 }
 // Register trace output
 
+static bool elf_read_shdr(FILE *f, uint64_t e_shoff, uint16_t e_shentsize,
+                          uint16_t idx, uint8_t sh[64]) {
+    if (e_shoff == 0 || e_shentsize < 64) {
+        return false;
+    }
+    if (fseek(f, (long)(e_shoff + (uint64_t)idx * e_shentsize), SEEK_SET) != 0) {
+        return false;
+    }
+    return fread(sh, 1, 64, f) == 64;
+}
+
+static void remember_kernel_symbol(const char *name, uint64_t value) {
+    if (strcmp(name, "freerange") == 0) {
+        g_kernel_fast.have_freerange = true;
+        g_kernel_fast.freerange_pc = value;
+    } else if (strcmp(name, "mmu_init") == 0) {
+        g_kernel_fast.have_mmu_init = true;
+        g_kernel_fast.mmu_init_pc = value;
+    } else if (strcmp(name, "memset") == 0) {
+        g_kernel_fast.have_memset = true;
+        g_kernel_fast.memset_loop_pc = value + 0xdc;
+    } else if (strcmp(name, "kmem") == 0) {
+        g_kernel_fast.have_kmem = true;
+        g_kernel_fast.kmem_addr = value;
+    } else if (strcmp(name, "kernel_pagetable") == 0) {
+        g_kernel_fast.have_kernel_pagetable = true;
+        g_kernel_fast.kernel_pagetable_addr = value;
+    } else if (strcmp(name, "kernel_satp") == 0) {
+        g_kernel_fast.have_kernel_satp = true;
+        g_kernel_fast.kernel_satp_addr = value;
+    } else if (strcmp(name, "PHYSTOP") == 0) {
+        g_kernel_fast.have_phystop = true;
+        g_kernel_fast.phystop = value;
+    }
+}
+
+static void load_kernel_fast_symbols(FILE *f, const uint8_t e[64]) {
+    memset(&g_kernel_fast, 0, sizeof(g_kernel_fast));
+
+    uint64_t e_shoff = get64le(e + 40);
+    uint16_t e_shentsize = get16le(e + 58);
+    uint16_t e_shnum = get16le(e + 60);
+    if (e_shoff == 0 || e_shnum == 0) {
+        return;
+    }
+
+    for (uint16_t i = 0; i < e_shnum; i++) {
+        uint8_t sh[64];
+        if (!elf_read_shdr(f, e_shoff, e_shentsize, i, sh)) {
+            return;
+        }
+
+        uint32_t sh_type = get32le(sh + 4);
+        if (sh_type != 2 /*SHT_SYMTAB*/) {
+            continue;
+        }
+
+        uint64_t sym_off = get64le(sh + 24);
+        uint64_t sym_size = get64le(sh + 32);
+        uint32_t str_idx = get32le(sh + 40);
+        uint64_t sym_entsize = get64le(sh + 56);
+        if (sym_entsize < 24 || str_idx >= e_shnum) {
+            continue;
+        }
+
+        uint8_t str_sh[64];
+        if (!elf_read_shdr(f, e_shoff, e_shentsize, (uint16_t)str_idx, str_sh)) {
+            return;
+        }
+        uint64_t str_off = get64le(str_sh + 24);
+        uint64_t str_size = get64le(str_sh + 32);
+        if (str_size == 0 || str_size > (1ULL << 26)) {
+            continue;
+        }
+
+        char *strtab = (char*)malloc((size_t)str_size);
+        if (!strtab) {
+            return;
+        }
+        if (fseek(f, (long)str_off, SEEK_SET) != 0 ||
+            fread(strtab, 1, (size_t)str_size, f) != (size_t)str_size) {
+            free(strtab);
+            return;
+        }
+
+        uint64_t count = sym_size / sym_entsize;
+        for (uint64_t n = 0; n < count; n++) {
+            uint8_t sym[24];
+            uint64_t off = sym_off + n * sym_entsize;
+            if (fseek(f, (long)off, SEEK_SET) != 0 ||
+                fread(sym, 1, sizeof(sym), f) != sizeof(sym)) {
+                break;
+            }
+            uint32_t name_off = get32le(sym + 0);
+            uint64_t value = get64le(sym + 8);
+            if (name_off >= str_size || value == 0) {
+                continue;
+            }
+            const char *name = strtab + name_off;
+            if (memchr(name, '\0', (size_t)(str_size - name_off)) == NULL) {
+                continue;
+            }
+            remember_kernel_symbol(name, value);
+        }
+
+        free(strtab);
+        return;
+    }
+}
+
 // ELF64 loader (very small subset)
 // Load only a small subset of RISC-V ELF64 (PT_LOAD segments only)
 static bool load_elf64_riscv(mem_t *mem, const char *path, uint64_t *entry_out) {
     FILE *f = fopen(path, "rb");
     if (!f) return false;
+    memset(&g_kernel_fast, 0, sizeof(g_kernel_fast));
     uint8_t e[64];
     if (fread(e, 1, 64, f) != 64) { fclose(f); return false; }
     if (e[0]!=0x7f || e[1]!='E' || e[2]!='L' || e[3]!='F') { fclose(f); return false; }
@@ -2239,6 +2399,7 @@ static bool load_elf64_riscv(mem_t *mem, const char *path, uint64_t *entry_out) 
         }
         if (fseek(f, (long)(e_phoff + (uint64_t)(i+1)*e_phentsize), SEEK_SET) != 0) { fclose(f); return false; }
     }
+    load_kernel_fast_symbols(f, e);
     fclose(f);
     if (entry_out) *entry_out = e_entry;
     return true;
