@@ -228,6 +228,7 @@ typedef struct {
     bool have_freerange;
     bool have_mmu_init;
     bool have_memset;
+    bool have_memmove;
     bool have_kmem;
     bool have_kernel_pagetable;
     bool have_kernel_satp;
@@ -235,6 +236,7 @@ typedef struct {
     uint64_t freerange_pc;
     uint64_t mmu_init_pc;
     uint64_t memset_loop_pc;
+    uint64_t memmove_pc;
     uint64_t kmem_addr;
     uint64_t kernel_pagetable_addr;
     uint64_t kernel_satp_addr;
@@ -1937,8 +1939,13 @@ static bool try_fast_kernel_asm_memmove(cpu_t *cpu, mem_t *mem, devices_t *dev) 
 }
 
 static bool try_fast_kernel_c_memmove_loop(cpu_t *cpu, mem_t *mem, devices_t *dev) {
-    const uint64_t backward_cond = 0x8000f82eULL;
-    const uint64_t forward_cond = 0x8000f85eULL;
+    if (!g_kernel_fast.have_memmove) {
+        return false;
+    }
+
+    const uint64_t backward_cond = g_kernel_fast.memmove_pc + 0x94;
+    const uint64_t forward_cond = g_kernel_fast.memmove_pc + 0xc4;
+    const uint64_t done_pc = g_kernel_fast.memmove_pc + 0xd2;
 
     if (cpu->priv != 1 || (cpu->pc != backward_cond && cpu->pc != forward_cond)) {
         return false;
@@ -1946,7 +1953,7 @@ static bool try_fast_kernel_c_memmove_loop(cpu_t *cpu, mem_t *mem, devices_t *de
 
     uint64_t fp = cpu->x[8];
     uint32_t stored_count = vmem_read32(cpu, mem, dev, fp - 52, ACCESS_LOAD);
-    uint64_t len = (uint64_t)(stored_count + 1U);
+    uint64_t len = (uint64_t)stored_count;
     if (cpu->pc != backward_cond && cpu->pc != forward_cond) {
         return true;
     }
@@ -1970,7 +1977,7 @@ static bool try_fast_kernel_c_memmove_loop(cpu_t *cpu, mem_t *mem, devices_t *de
         }
     }
 
-    cpu->pc = 0x8000f860ULL;
+    cpu->pc = done_pc;
     cpu->x[0] = 0;
     g_fast_memmove_bytes += len;
     g_fast_retired_bonus += len * 9;
@@ -2018,7 +2025,7 @@ static bool try_fast_kernel_memset_loop(cpu_t *cpu, mem_t *mem, devices_t *dev) 
     uint64_t new_dst = dst + byte_len;
     vmem_write64(cpu, mem, dev, fp - 40, new_dst, ACCESS_STORE);
     vmem_write32(cpu, mem, dev, fp - 44, UINT32_MAX, ACCESS_STORE);
-    cpu->pc = 0x8000f6c2ULL;
+    cpu->pc = loop_pc + 0x1c;
     g_fast_retired_bonus += (uint64_t)count * 7;
     g_fast_memset_bytes += (uint64_t)count * 8;
     cpu->x[0] = 0;
@@ -2268,6 +2275,9 @@ static void remember_kernel_symbol(const char *name, uint64_t value) {
     } else if (strcmp(name, "memset") == 0) {
         g_kernel_fast.have_memset = true;
         g_kernel_fast.memset_loop_pc = value + 0xdc;
+    } else if (strcmp(name, "memmove") == 0) {
+        g_kernel_fast.have_memmove = true;
+        g_kernel_fast.memmove_pc = value;
     } else if (strcmp(name, "kmem") == 0) {
         g_kernel_fast.have_kmem = true;
         g_kernel_fast.kmem_addr = value;

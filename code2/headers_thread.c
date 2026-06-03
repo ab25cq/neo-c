@@ -1,5 +1,9 @@
 /// c_include definition ///
 /// typedef definition ///
+typedef unsigned long size_t;
+
+typedef int wchar_t;
+
 typedef __builtin_va_list __gnuc_va_list;
 
 typedef unsigned char __u_char;
@@ -128,7 +132,7 @@ typedef unsigned int __socklen_t;
 
 typedef int __sig_atomic_t;
 
-typedef unsigned long  int size_t;
+typedef unsigned long  long    ;
 
 typedef long  int  time_t  ;
 
@@ -664,7 +668,7 @@ struct __jmp_buf_tag
     long  int  __jmpbuf[8]  ;
     int __mask_was_saved;
     struct {
-        unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
+        unsigned long  int __val[(1024 / (8*sizeof(unsigned long  int)))];
     } __saved_mask;
 };
 
@@ -782,7 +786,7 @@ struct anonymous_typeX21
 {
     void* ss_sp;
     int ss_flags;
-    unsigned long  int  ss_size  ;
+    unsigned long  ss_size  ;
 };
 
 typedef long long int  gregset_t[23]  ;
@@ -853,7 +857,7 @@ struct ucontext_t
     struct {
         void* ss_sp;
         int ss_flags;
-        unsigned long  int  ss_size  ;
+        unsigned long  ss_size  ;
     } uc_stack;
     struct {
         long long int  gregs[23]  ;
@@ -861,7 +865,7 @@ struct ucontext_t
         unsigned long  long __reserved1[8];
     } uc_mcontext;
     struct {
-        unsigned long  int __val[(1024/(8*sizeof(unsigned long  int)))];
+        unsigned long  int __val[(1024 / (8*sizeof(unsigned long  int)))];
     } uc_sigmask;
     struct _libc_fpstate  __fpregs_mem  ;
     unsigned long long int __ssp[4];
@@ -879,7 +883,7 @@ extern int getdate_err;
 
 // header function
 char* strdup(const char* );
-int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list    );
+int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list );
 int snprintf(char* , unsigned long  int , const char* , ...);
 int clone(int (*__fn)(void*), void* __child_stack, int __flags, void* __arg, ...);
 int unshare(int __flags);
@@ -888,8 +892,8 @@ int getcpu(unsigned int* , unsigned int* );
 int setns(int __fd, int __nstype);
 int sched_setattr(int  tid  , struct sched_attr*  attr  , unsigned int flags);
 int sched_getattr(int  tid  , struct sched_attr*  attr  , unsigned int size, unsigned int flags);
-int __sched_cpucount(unsigned long  int  __setsize  , const struct anonymous_typeX3*  __setp  );
-struct anonymous_typeX3*  __sched_cpualloc(unsigned long  int  __count  );
+int __sched_cpucount(unsigned long  __setsize  , const struct anonymous_typeX3*  __setp  );
+struct anonymous_typeX3*  __sched_cpualloc(unsigned long  __count  );
 void __sched_cpufree(struct anonymous_typeX3*  __set  );
 int sched_setparam(int  __pid  , const struct sched_param*  __param  );
 int sched_getparam(int  __pid  , struct sched_param*  __param  );
@@ -899,16 +903,16 @@ int sched_yield();
 int sched_get_priority_max(int __algorithm);
 int sched_get_priority_min(int __algorithm);
 int sched_rr_get_interval(int  __pid  , struct timespec*  __t  );
-int sched_setaffinity(int  __pid  , unsigned long  int  __cpusetsize  , const struct anonymous_typeX3*  __cpuset  );
-int sched_getaffinity(int  __pid  , unsigned long  int  __cpusetsize  , struct anonymous_typeX3*  __cpuset  );
+int sched_setaffinity(int  __pid  , unsigned long  __cpusetsize  , const struct anonymous_typeX3*  __cpuset  );
+int sched_getaffinity(int  __pid  , unsigned long  __cpusetsize  , struct anonymous_typeX3*  __cpuset  );
 int clock_adjtime(int  __clock_id  , struct timex*  __utx  );
 long  int  clock();
 long  int  time(long  int*  __timer  );
 double difftime(long  int  __time1  , long  int  __time0  );
 long  int  mktime(struct tm*  __tp  );
-unsigned long  int  strftime(char* __restrict __s, unsigned long  int  __maxsize  , const char* __restrict __format, const struct tm* __restrict  __tp  );
+unsigned long  strftime(char* __restrict __s, unsigned long  __maxsize  , const char* __restrict __format, const struct tm* __restrict  __tp  );
 char* strptime(const char* __restrict __s, const char* __restrict __fmt, struct tm*  __tp  );
-unsigned long  int  strftime_l(char* __restrict __s, unsigned long  int  __maxsize  , const char* __restrict __format, const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
+unsigned long  strftime_l(char* __restrict __s, unsigned long  __maxsize  , const char* __restrict __format, const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* strptime_l(const char* __restrict __s, const char* __restrict __fmt, struct tm*  __tp  , struct __locale_struct*  __loc  );
 struct tm*  gmtime(const long  int*  __timer  );
 struct tm*  localtime(const long  int*  __timer  );
@@ -951,8 +955,8 @@ int pthread_attr_init(union pthread_attr_t*  __attr  );
 int pthread_attr_destroy(union pthread_attr_t*  __attr  );
 int pthread_attr_getdetachstate(const union pthread_attr_t*  __attr  , int* __detachstate);
 int pthread_attr_setdetachstate(union pthread_attr_t*  __attr  , int __detachstate);
-int pthread_attr_getguardsize(const union pthread_attr_t*  __attr  , unsigned long  int*  __guardsize  );
-int pthread_attr_setguardsize(union pthread_attr_t*  __attr  , unsigned long  int  __guardsize  );
+int pthread_attr_getguardsize(const union pthread_attr_t*  __attr  , unsigned long*  __guardsize  );
+int pthread_attr_setguardsize(union pthread_attr_t*  __attr  , unsigned long  __guardsize  );
 int pthread_attr_getschedparam(const union pthread_attr_t* __restrict  __attr  , struct sched_param* __restrict  __param  );
 int pthread_attr_setschedparam(union pthread_attr_t* __restrict  __attr  , const struct sched_param* __restrict  __param  );
 int pthread_attr_getschedpolicy(const union pthread_attr_t* __restrict  __attr  , int* __restrict __policy);
@@ -963,12 +967,12 @@ int pthread_attr_getscope(const union pthread_attr_t* __restrict  __attr  , int*
 int pthread_attr_setscope(union pthread_attr_t*  __attr  , int __scope);
 int pthread_attr_getstackaddr(const union pthread_attr_t* __restrict  __attr  , void** __restrict __stackaddr) __attribute__ ((__deprecated__));
 int pthread_attr_setstackaddr(union pthread_attr_t*  __attr  , void* __stackaddr) __attribute__ ((__deprecated__));
-int pthread_attr_getstacksize(const union pthread_attr_t* __restrict  __attr  , unsigned long  int* __restrict  __stacksize  );
-int pthread_attr_setstacksize(union pthread_attr_t*  __attr  , unsigned long  int  __stacksize  );
-int pthread_attr_getstack(const union pthread_attr_t* __restrict  __attr  , void** __restrict __stackaddr, unsigned long  int* __restrict  __stacksize  );
-int pthread_attr_setstack(union pthread_attr_t*  __attr  , void* __stackaddr, unsigned long  int  __stacksize  );
-int pthread_attr_setaffinity_np(union pthread_attr_t*  __attr  , unsigned long  int  __cpusetsize  , const struct anonymous_typeX3*  __cpuset  );
-int pthread_attr_getaffinity_np(const union pthread_attr_t*  __attr  , unsigned long  int  __cpusetsize  , struct anonymous_typeX3*  __cpuset  );
+int pthread_attr_getstacksize(const union pthread_attr_t* __restrict  __attr  , unsigned long* __restrict  __stacksize  );
+int pthread_attr_setstacksize(union pthread_attr_t*  __attr  , unsigned long  __stacksize  );
+int pthread_attr_getstack(const union pthread_attr_t* __restrict  __attr  , void** __restrict __stackaddr, unsigned long* __restrict  __stacksize  );
+int pthread_attr_setstack(union pthread_attr_t*  __attr  , void* __stackaddr, unsigned long  __stacksize  );
+int pthread_attr_setaffinity_np(union pthread_attr_t*  __attr  , unsigned long  __cpusetsize  , const struct anonymous_typeX3*  __cpuset  );
+int pthread_attr_getaffinity_np(const union pthread_attr_t*  __attr  , unsigned long  __cpusetsize  , struct anonymous_typeX3*  __cpuset  );
 int pthread_getattr_default_np(union pthread_attr_t*  __attr  );
 int pthread_attr_setsigmask_np(union pthread_attr_t*  __attr  , const struct anonymous_typeX15*  sigmask  );
 int pthread_attr_getsigmask_np(const union pthread_attr_t*  __attr  , struct anonymous_typeX15*  sigmask  );
@@ -977,13 +981,13 @@ int pthread_getattr_np(unsigned long  int  __th  , union pthread_attr_t*  __attr
 int pthread_setschedparam(unsigned long  int  __target_thread  , int __policy, const struct sched_param*  __param  );
 int pthread_getschedparam(unsigned long  int  __target_thread  , int* __restrict __policy, struct sched_param* __restrict  __param  );
 int pthread_setschedprio(unsigned long  int  __target_thread  , int __prio);
-int pthread_getname_np(unsigned long  int  __target_thread  , char* __buf, unsigned long  int  __buflen  );
+int pthread_getname_np(unsigned long  int  __target_thread  , char* __buf, unsigned long  __buflen  );
 int pthread_setname_np(unsigned long  int  __target_thread  , const char* __name);
 int pthread_getconcurrency();
 int pthread_setconcurrency(int __level);
 int pthread_yield();
-int pthread_setaffinity_np(unsigned long  int  __th  , unsigned long  int  __cpusetsize  , const struct anonymous_typeX3*  __cpuset  );
-int pthread_getaffinity_np(unsigned long  int  __th  , unsigned long  int  __cpusetsize  , struct anonymous_typeX3*  __cpuset  );
+int pthread_setaffinity_np(unsigned long  int  __th  , unsigned long  __cpusetsize  , const struct anonymous_typeX3*  __cpuset  );
+int pthread_getaffinity_np(unsigned long  int  __th  , unsigned long  __cpusetsize  , struct anonymous_typeX3*  __cpuset  );
 int pthread_once(int*  __once_control  , void (*__init_routine)());
 int pthread_setcancelstate(int __state, int* __oldstate);
 int pthread_setcanceltype(int __type, int* __oldtype);
@@ -1068,7 +1072,6 @@ int pthread_key_delete(unsigned int  __key  );
 void* pthread_getspecific(unsigned int  __key  );
 int pthread_setspecific(unsigned int  __key  , const void* __pointer);
 int pthread_getcpuclockid(unsigned long  int  __thread_id  , int*  __clock_id  );
-int  pthread_gettid_np(unsigned long  int  __thread_id  );
 int pthread_atfork(void (*__prepare)(), void (*__parent)(), void (*__child)());
 int select(int __nfds, struct anonymous_typeX17* __restrict  __readfds  , struct anonymous_typeX17* __restrict  __writefds  , struct anonymous_typeX17* __restrict  __exceptfds  , struct timeval* __restrict  __timeout  );
 int pselect(int __nfds, struct anonymous_typeX17* __restrict  __readfds  , struct anonymous_typeX17* __restrict  __writefds  , struct anonymous_typeX17* __restrict  __exceptfds  , const struct timespec* __restrict  __timeout  , const struct anonymous_typeX15* __restrict  __sigmask  );

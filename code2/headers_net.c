@@ -1,5 +1,7 @@
 /// c_include definition ///
 /// typedef definition ///
+typedef unsigned long size_t;
+
 typedef __builtin_va_list __gnuc_va_list;
 
 typedef unsigned char __u_char;
@@ -136,7 +138,7 @@ typedef unsigned int  uint32_t  ;
 
 typedef unsigned long  int  uint64_t  ;
 
-typedef unsigned long  int size_t;
+typedef unsigned long  long    ;
 
 typedef unsigned char  u_char  ;
 
@@ -444,7 +446,7 @@ typedef unsigned int  tcp_seq  ;
 
 typedef long ptrdiff_t;
 
-typedef long  double max_align_t;
+typedef struct anonymous_typeX28 max_align_t;
 
 typedef struct __locale_struct*  __locale_t  ;
 
@@ -452,7 +454,7 @@ typedef struct __locale_struct*  locale_t  ;
 
 typedef int wchar_t;
 
-typedef struct anonymous_typeX62 imaxdiv_t;
+typedef struct anonymous_typeX63 imaxdiv_t;
 
 /// previous struct definition ///
 struct cmsghdr;
@@ -466,7 +468,7 @@ struct __fsid_t
 struct iovec
 {
     void* iov_base;
-    unsigned long  int  iov_len  ;
+    unsigned long  iov_len  ;
 };
 
 struct timeval
@@ -675,15 +677,15 @@ struct msghdr
     void* msg_name;
     unsigned int  msg_namelen  ;
     struct iovec*  msg_iov  ;
-    unsigned long  int  msg_iovlen  ;
+    unsigned long  msg_iovlen  ;
     void* msg_control;
-    unsigned long  int  msg_controllen  ;
+    unsigned long  msg_controllen  ;
     int msg_flags;
 };
 
 struct cmsghdr
 {
-    unsigned long  int  cmsg_len  ;
+    unsigned long  cmsg_len  ;
     int cmsg_level;
     int cmsg_type;
     unsigned char __cmsg_data[];
@@ -942,7 +944,7 @@ struct anonymous_typeX19
 
 union anonymous_typeZ18
 {
-int _pad[((64/sizeof(int))-4)];
+int _pad[((64 / sizeof(int))-4)];
 int  _tid  ;
     struct {
         void (*_function)(union sigval );
@@ -958,7 +960,7 @@ struct anonymous_typeX21
 
 union anonymous_typeZ20
 {
-int _pad[((64/sizeof(int))-4)];
+int _pad[((64 / sizeof(int))-4)];
 int  _tid  ;
     struct {
         void (*_function)(union sigval );
@@ -972,7 +974,7 @@ struct sigevent
     int sigev_signo;
     int sigev_notify;
     union {
-        int _pad[((64/sizeof(int))-4)];
+        int _pad[((64 / sizeof(int))-4)];
         int  _tid  ;
         struct {
             void (*_function)(union sigval );
@@ -1389,6 +1391,12 @@ struct sockaddr_un
     char sun_path[108];
 } __attribute__ ((__may_alias__)) ;
 
+struct anonymous_typeX28
+{
+    long long __attribute__((__aligned__(__alignof__(long long)))) __clang_max_align_nonce1 __attribute__((__aligned__(__alignof__(long long))));
+    long  double __attribute__((__aligned__(__alignof__(long double)))) __clang_max_align_nonce2 __attribute__((__aligned__(__alignof__(long double))));
+};
+
 struct __locale_struct
 {
     struct __locale_data* __locales[13];
@@ -1398,13 +1406,13 @@ struct __locale_struct
     const char* __names[13];
 };
 
-union anonymous_typeZ28
+union anonymous_typeZ29
 {
 struct sockaddr*  ifu_broadaddr  ;
 struct sockaddr*  ifu_dstaddr  ;
 };
 
-union anonymous_typeZ29
+union anonymous_typeZ30
 {
 struct sockaddr*  ifu_broadaddr  ;
 struct sockaddr*  ifu_dstaddr  ;
@@ -1448,13 +1456,13 @@ IFF_AUTOMEDIA=(0x4000),
 IFF_DYNAMIC=(0x8000)
 };
 
-union anonymous_typeZ30
+union anonymous_typeZ31
 {
 struct sockaddr  ifu_broadaddr  ;
 struct sockaddr  ifu_dstaddr  ;
 };
 
-union anonymous_typeZ31
+union anonymous_typeZ32
 {
 struct sockaddr  ifu_broadaddr  ;
 struct sockaddr  ifu_dstaddr  ;
@@ -1481,17 +1489,17 @@ struct ifmap
     unsigned char port;
 };
 
-union anonymous_typeZ32
-{
-char ifrn_name[16];
-};
-
 union anonymous_typeZ33
 {
 char ifrn_name[16];
 };
 
 union anonymous_typeZ34
+{
+char ifrn_name[16];
+};
+
+union anonymous_typeZ35
 {
 struct sockaddr  ifru_addr  ;
 struct sockaddr  ifru_dstaddr  ;
@@ -1507,7 +1515,7 @@ char ifru_newname[16];
 char*  ifru_data  ;
 };
 
-union anonymous_typeZ35
+union anonymous_typeZ36
 {
 struct sockaddr  ifru_addr  ;
 struct sockaddr  ifru_dstaddr  ;
@@ -1544,13 +1552,13 @@ struct ifreq
     } ifr_ifru;
 };
 
-union anonymous_typeZ36
+union anonymous_typeZ37
 {
 char*  ifcu_buf  ;
 struct ifreq*  ifcu_req  ;
 };
 
-union anonymous_typeZ37
+union anonymous_typeZ38
 {
 char*  ifcu_buf  ;
 struct ifreq*  ifcu_req  ;
@@ -1661,12 +1669,12 @@ struct tpacket_hdr_variant1
     unsigned short int  tp_padding  ;
 };
 
-union anonymous_typeZ38
+union anonymous_typeZ39
 {
 struct tpacket_hdr_variant1  hv1  ;
 };
 
-union anonymous_typeZ39
+union anonymous_typeZ40
 {
 struct tpacket_hdr_variant1  hv1  ;
 };
@@ -1687,13 +1695,13 @@ struct tpacket3_hdr
     unsigned char  tp_padding[8]  ;
 };
 
-union anonymous_typeZ40
+union anonymous_typeZ41
 {
 unsigned int ts_usec;
 unsigned int ts_nsec;
 };
 
-union anonymous_typeZ41
+union anonymous_typeZ42
 {
 unsigned int ts_usec;
 unsigned int ts_nsec;
@@ -1768,19 +1776,19 @@ struct fanout_args
     unsigned int  max_num_members  ;
 };
 
-struct anonymous_typeX43
+struct anonymous_typeX44
 {
     unsigned short int  id  ;
     unsigned short int  sequence  ;
 };
 
-struct anonymous_typeX44
+struct anonymous_typeX45
 {
     unsigned short int  __glibc_reserved  ;
     unsigned short int  mtu  ;
 };
 
-union anonymous_typeZ42
+union anonymous_typeZ43
 {
     struct {
         unsigned short int  id  ;
@@ -1793,19 +1801,19 @@ unsigned int  gateway  ;
     } frag;
 };
 
-struct anonymous_typeX46
+struct anonymous_typeX47
 {
     unsigned short int  id  ;
     unsigned short int  sequence  ;
 };
 
-struct anonymous_typeX47
+struct anonymous_typeX48
 {
     unsigned short int  __glibc_reserved  ;
     unsigned short int  mtu  ;
 };
 
-union anonymous_typeZ45
+union anonymous_typeZ46
 {
     struct {
         unsigned short int  id  ;
@@ -1891,26 +1899,26 @@ struct icmp_ra_addr
     unsigned int  ira_preference  ;
 };
 
-struct anonymous_typeX49
+struct anonymous_typeX50
 {
     unsigned short int  icd_id  ;
     unsigned short int  icd_seq  ;
-};
-
-struct anonymous_typeX50
-{
-    unsigned short int  ipm_void  ;
-    unsigned short int  ipm_nextmtu  ;
 };
 
 struct anonymous_typeX51
 {
+    unsigned short int  ipm_void  ;
+    unsigned short int  ipm_nextmtu  ;
+};
+
+struct anonymous_typeX52
+{
     unsigned char  irt_num_addrs  ;
     unsigned char  irt_wpa  ;
     unsigned short int  irt_lifetime  ;
 };
 
-union anonymous_typeZ48
+union anonymous_typeZ49
 {
 unsigned char ih_pptr;
 struct in_addr  ih_gwaddr  ;
@@ -1930,26 +1938,26 @@ unsigned int  ih_void  ;
     } ih_rtradv;
 };
 
-struct anonymous_typeX53
+struct anonymous_typeX54
 {
     unsigned short int  icd_id  ;
     unsigned short int  icd_seq  ;
 };
 
-struct anonymous_typeX54
+struct anonymous_typeX55
 {
     unsigned short int  ipm_void  ;
     unsigned short int  ipm_nextmtu  ;
 };
 
-struct anonymous_typeX55
+struct anonymous_typeX56
 {
     unsigned char  irt_num_addrs  ;
     unsigned char  irt_wpa  ;
     unsigned short int  irt_lifetime  ;
 };
 
-union anonymous_typeZ52
+union anonymous_typeZ53
 {
 unsigned char ih_pptr;
 struct in_addr  ih_gwaddr  ;
@@ -1969,19 +1977,19 @@ unsigned int  ih_void  ;
     } ih_rtradv;
 };
 
-struct anonymous_typeX57
+struct anonymous_typeX58
 {
     unsigned int  its_otime  ;
     unsigned int  its_rtime  ;
     unsigned int  its_ttime  ;
 };
 
-struct anonymous_typeX58
+struct anonymous_typeX59
 {
     struct ip  idi_ip  ;
 };
 
-union anonymous_typeZ56
+union anonymous_typeZ57
 {
     struct {
         unsigned int  its_otime  ;
@@ -1996,19 +2004,19 @@ unsigned int  id_mask  ;
 unsigned char  id_data[1]  ;
 };
 
-struct anonymous_typeX60
+struct anonymous_typeX61
 {
     unsigned int  its_otime  ;
     unsigned int  its_rtime  ;
     unsigned int  its_ttime  ;
 };
 
-struct anonymous_typeX61
+struct anonymous_typeX62
 {
     struct ip  idi_ip  ;
 };
 
-union anonymous_typeZ59
+union anonymous_typeZ60
 {
     struct {
         unsigned int  its_otime  ;
@@ -2061,13 +2069,13 @@ struct icmp
     } icmp_dun;
 };
 
-struct anonymous_typeX62
+struct anonymous_typeX63
 {
     long  int quot;
     long  int rem;
 };
 
-struct anonymous_typeX64
+struct anonymous_typeX65
 {
     unsigned int  ip6_un1_flow  ;
     unsigned short int  ip6_un1_plen  ;
@@ -2075,7 +2083,7 @@ struct anonymous_typeX64
     unsigned char  ip6_un1_hlim  ;
 };
 
-union anonymous_typeZ63
+union anonymous_typeZ64
 {
     struct {
         unsigned int  ip6_un1_flow  ;
@@ -2086,7 +2094,7 @@ union anonymous_typeZ63
 unsigned char  ip6_un2_vfc  ;
 };
 
-struct anonymous_typeX66
+struct anonymous_typeX67
 {
     unsigned int  ip6_un1_flow  ;
     unsigned short int  ip6_un1_plen  ;
@@ -2094,7 +2102,7 @@ struct anonymous_typeX66
     unsigned char  ip6_un1_hlim  ;
 };
 
-union anonymous_typeZ65
+union anonymous_typeZ66
 {
     struct {
         unsigned int  ip6_un1_flow  ;
@@ -2205,14 +2213,14 @@ struct icmp6_filter
     unsigned int  icmp6_filt[8]  ;
 };
 
-union anonymous_typeZ67
+union anonymous_typeZ68
 {
 unsigned int  icmp6_un_data32[1]  ;
 unsigned short int  icmp6_un_data16[2]  ;
 unsigned char  icmp6_un_data8[4]  ;
 };
 
-union anonymous_typeZ68
+union anonymous_typeZ69
 {
 unsigned int  icmp6_un_data32[1]  ;
 unsigned short int  icmp6_un_data16[2]  ;
@@ -2361,7 +2369,7 @@ struct nd_opt_home_agent_info
     unsigned short int  nd_opt_home_agent_info_lifetime  ;
 };
 
-struct anonymous_typeX70
+struct anonymous_typeX71
 {
     unsigned short int  uh_sport  ;
     unsigned short int  uh_dport  ;
@@ -2369,7 +2377,7 @@ struct anonymous_typeX70
     unsigned short int  uh_sum  ;
 };
 
-struct anonymous_typeX71
+struct anonymous_typeX72
 {
     unsigned short int  source  ;
     unsigned short int  dest  ;
@@ -2377,7 +2385,7 @@ struct anonymous_typeX71
     unsigned short int  check  ;
 };
 
-union anonymous_typeZ69
+union anonymous_typeZ70
 {
     struct {
         unsigned short int  uh_sport  ;
@@ -2393,7 +2401,7 @@ union anonymous_typeZ69
     };
 };
 
-struct anonymous_typeX73
+struct anonymous_typeX74
 {
     unsigned short int  uh_sport  ;
     unsigned short int  uh_dport  ;
@@ -2401,7 +2409,7 @@ struct anonymous_typeX73
     unsigned short int  uh_sum  ;
 };
 
-struct anonymous_typeX74
+struct anonymous_typeX75
 {
     unsigned short int  source  ;
     unsigned short int  dest  ;
@@ -2409,7 +2417,7 @@ struct anonymous_typeX74
     unsigned short int  check  ;
 };
 
-union anonymous_typeZ72
+union anonymous_typeZ73
 {
     struct {
         unsigned short int  uh_sport  ;
@@ -2449,7 +2457,7 @@ extern const struct in6_addr  in6addr_loopback  ;
 // source head
 
 // header function
-int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list    );
+int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list );
 int snprintf(char* , unsigned long  int , const char* , ...);
 int select(int __nfds, struct anonymous_typeX2* __restrict  __readfds  , struct anonymous_typeX2* __restrict  __writefds  , struct anonymous_typeX2* __restrict  __exceptfds  , struct timeval* __restrict  __timeout  );
 int pselect(int __nfds, struct anonymous_typeX2* __restrict  __readfds  , struct anonymous_typeX2* __restrict  __writefds  , struct anonymous_typeX2* __restrict  __exceptfds  , const struct timespec* __restrict  __timeout  , const struct anonymous_typeX1* __restrict  __sigmask  );
@@ -2460,10 +2468,10 @@ int bind(int __fd, const struct sockaddr* __restrict  __addr  , unsigned int  __
 int getsockname(int __fd, struct sockaddr* __restrict  __addr  , unsigned int* __restrict  __len  );
 int connect(int __fd, const struct sockaddr* __restrict  __addr  , unsigned int  __len  );
 int getpeername(int __fd, struct sockaddr* __restrict  __addr  , unsigned int* __restrict  __len  );
-long  int  send(int __fd, const void* __buf, unsigned long  int  __n  , int __flags);
-long  int  recv(int __fd, void* __buf, unsigned long  int  __n  , int __flags);
-long  int  sendto(int __fd, const void* __buf, unsigned long  int  __n  , int __flags, const struct sockaddr* __restrict  __addr  , unsigned int  __addr_len  );
-long  int  recvfrom(int __fd, void* __restrict __buf, unsigned long  int  __n  , int __flags, struct sockaddr* __restrict  __addr  , unsigned int* __restrict  __addr_len  );
+long  int  send(int __fd, const void* __buf, unsigned long  __n  , int __flags);
+long  int  recv(int __fd, void* __buf, unsigned long  __n  , int __flags);
+long  int  sendto(int __fd, const void* __buf, unsigned long  __n  , int __flags, const struct sockaddr* __restrict  __addr  , unsigned int  __addr_len  );
+long  int  recvfrom(int __fd, void* __restrict __buf, unsigned long  __n  , int __flags, struct sockaddr* __restrict  __addr  , unsigned int* __restrict  __addr_len  );
 long  int  sendmsg(int __fd, const struct msghdr*  __message  , int __flags);
 int sendmmsg(int __fd, struct mmsghdr*  __vmessages  , unsigned int __vlen, int __flags);
 long  int  recvmsg(int __fd, struct msghdr*  __message  , int __flags);
@@ -2514,9 +2522,9 @@ char* inet_ntoa(struct in_addr  __in  );
 int inet_pton(int __af, const char* __restrict __cp, void* __restrict __buf);
 const char* inet_ntop(int __af, const void* __restrict __cp, char* __restrict __buf, unsigned int  __len  );
 int inet_aton(const char* __cp, struct in_addr*  __inp  );
-char* inet_neta(unsigned int  __net  , char* __buf, unsigned long  int  __len  ) __attribute__ ((__deprecated__));
-char* inet_net_ntop(int __af, const void* __cp, int __bits, char* __buf, unsigned long  int  __len  );
-int inet_net_pton(int __af, const char* __cp, void* __buf, unsigned long  int  __len  );
+char* inet_neta(unsigned int  __net  , char* __buf, unsigned long  __len  ) __attribute__ ((__deprecated__));
+char* inet_net_ntop(int __af, const void* __cp, int __bits, char* __buf, unsigned long  __len  );
+int inet_net_pton(int __af, const char* __cp, void* __buf, unsigned long  __len  );
 unsigned int inet_nsap_addr(const char* __cp, unsigned char* __buf, int __len);
 char* inet_nsap_ntoa(int __len, const unsigned char* __cp, char* __buf);
 void setrpcent(int __stayopen);
@@ -2524,9 +2532,9 @@ void endrpcent();
 struct rpcent*  getrpcbyname(const char* __name);
 struct rpcent*  getrpcbynumber(int __number);
 struct rpcent*  getrpcent();
-int getrpcbyname_r(const char* __name, struct rpcent*  __result_buf  , char* __buffer, unsigned long  int  __buflen  , struct rpcent**  __result  );
-int getrpcbynumber_r(int __number, struct rpcent*  __result_buf  , char* __buffer, unsigned long  int  __buflen  , struct rpcent**  __result  );
-int getrpcent_r(struct rpcent*  __result_buf  , char* __buffer, unsigned long  int  __buflen  , struct rpcent**  __result  );
+int getrpcbyname_r(const char* __name, struct rpcent*  __result_buf  , char* __buffer, unsigned long  __buflen  , struct rpcent**  __result  );
+int getrpcbynumber_r(int __number, struct rpcent*  __result_buf  , char* __buffer, unsigned long  __buflen  , struct rpcent**  __result  );
+int getrpcent_r(struct rpcent*  __result_buf  , char* __buffer, unsigned long  __buflen  , struct rpcent**  __result  );
 int* __h_errno_location() __attribute__ ((__const__));
 void herror(const char* __str);
 const char* hstrerror(int __err_num);
@@ -2536,39 +2544,39 @@ struct hostent*  gethostent();
 struct hostent*  gethostbyaddr(const void* __addr, unsigned int  __len  , int __type);
 struct hostent*  gethostbyname(const char* __name);
 struct hostent*  gethostbyname2(const char* __name, int __af);
-int gethostent_r(struct hostent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct hostent** __restrict  __result  , int* __restrict __h_errnop);
-int gethostbyaddr_r(const void* __restrict __addr, unsigned int  __len  , int __type, struct hostent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct hostent** __restrict  __result  , int* __restrict __h_errnop);
-int gethostbyname_r(const char* __restrict __name, struct hostent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct hostent** __restrict  __result  , int* __restrict __h_errnop);
-int gethostbyname2_r(const char* __restrict __name, int __af, struct hostent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct hostent** __restrict  __result  , int* __restrict __h_errnop);
+int gethostent_r(struct hostent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct hostent** __restrict  __result  , int* __restrict __h_errnop);
+int gethostbyaddr_r(const void* __restrict __addr, unsigned int  __len  , int __type, struct hostent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct hostent** __restrict  __result  , int* __restrict __h_errnop);
+int gethostbyname_r(const char* __restrict __name, struct hostent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct hostent** __restrict  __result  , int* __restrict __h_errnop);
+int gethostbyname2_r(const char* __restrict __name, int __af, struct hostent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct hostent** __restrict  __result  , int* __restrict __h_errnop);
 void setnetent(int __stay_open);
 void endnetent();
 struct netent*  getnetent();
 struct netent*  getnetbyaddr(unsigned int  __net  , int __type);
 struct netent*  getnetbyname(const char* __name);
-int getnetent_r(struct netent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct netent** __restrict  __result  , int* __restrict __h_errnop);
-int getnetbyaddr_r(unsigned int  __net  , int __type, struct netent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct netent** __restrict  __result  , int* __restrict __h_errnop);
-int getnetbyname_r(const char* __restrict __name, struct netent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct netent** __restrict  __result  , int* __restrict __h_errnop);
+int getnetent_r(struct netent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct netent** __restrict  __result  , int* __restrict __h_errnop);
+int getnetbyaddr_r(unsigned int  __net  , int __type, struct netent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct netent** __restrict  __result  , int* __restrict __h_errnop);
+int getnetbyname_r(const char* __restrict __name, struct netent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct netent** __restrict  __result  , int* __restrict __h_errnop);
 void setservent(int __stay_open);
 void endservent();
 struct servent*  getservent();
 struct servent*  getservbyname(const char* __name, const char* __proto);
 struct servent*  getservbyport(int __port, const char* __proto);
-int getservent_r(struct servent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct servent** __restrict  __result  );
-int getservbyname_r(const char* __restrict __name, const char* __restrict __proto, struct servent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct servent** __restrict  __result  );
-int getservbyport_r(int __port, const char* __restrict __proto, struct servent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct servent** __restrict  __result  );
+int getservent_r(struct servent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct servent** __restrict  __result  );
+int getservbyname_r(const char* __restrict __name, const char* __restrict __proto, struct servent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct servent** __restrict  __result  );
+int getservbyport_r(int __port, const char* __restrict __proto, struct servent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct servent** __restrict  __result  );
 void setprotoent(int __stay_open);
 void endprotoent();
 struct protoent*  getprotoent();
 struct protoent*  getprotobyname(const char* __name);
 struct protoent*  getprotobynumber(int __proto);
-int getprotoent_r(struct protoent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct protoent** __restrict  __result  );
-int getprotobyname_r(const char* __restrict __name, struct protoent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct protoent** __restrict  __result  );
-int getprotobynumber_r(int __proto, struct protoent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  int  __buflen  , struct protoent** __restrict  __result  );
+int getprotoent_r(struct protoent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct protoent** __restrict  __result  );
+int getprotobyname_r(const char* __restrict __name, struct protoent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct protoent** __restrict  __result  );
+int getprotobynumber_r(int __proto, struct protoent* __restrict  __result_buf  , char* __restrict __buf, unsigned long  __buflen  , struct protoent** __restrict  __result  );
 int setnetgrent(const char* __netgroup);
 void endnetgrent();
 int getnetgrent(char** __restrict __hostp, char** __restrict __userp, char** __restrict __domainp);
 int innetgr(const char* __netgroup, const char* __host, const char* , const char* __domain);
-int getnetgrent_r(char** __restrict __hostp, char** __restrict __userp, char** __restrict __domainp, char* __restrict __buffer, unsigned long  int  __buflen  );
+int getnetgrent_r(char** __restrict __hostp, char** __restrict __userp, char** __restrict __domainp, char* __restrict __buffer, unsigned long  __buflen  );
 int rcmd(char** __restrict __ahost, unsigned short int __rport, const char* __restrict __locuser, const char* __restrict __remuser, const char* __restrict __cmd, int* __restrict __fd2p);
 int rcmd_af(char** __restrict __ahost, unsigned short int __rport, const char* __restrict __locuser, const char* __restrict __remuser, const char* __restrict __cmd, int* __restrict __fd2p, unsigned short int  __af  );
 int rexec(char** __restrict __ahost, int __rport, const char* __restrict __name, const char* __restrict __pass, const char* __restrict __cmd, int* __restrict __fd2p);
@@ -2594,77 +2602,77 @@ struct ether_addr*  ether_aton_r(const char* __asc, struct ether_addr*  __addr  
 int ether_ntohost(char* __hostname, const struct ether_addr*  __addr  );
 int ether_hostton(const char* __hostname, struct ether_addr*  __addr  );
 int ether_line(const char* __line, struct ether_addr*  __addr  , char* __hostname);
-void* memcpy(void* __restrict __dest, const void* __restrict __src, unsigned long  int  __n  );
-void* memmove(void* __dest, const void* __src, unsigned long  int  __n  );
-void* memccpy(void* __restrict __dest, const void* __restrict __src, int __c, unsigned long  int  __n  );
-void* memset(void* __s, int __c, unsigned long  int  __n  );
-int memcmp(const void* __s1, const void* __s2, unsigned long  int  __n  ) __attribute__ ((__pure__)) ;
-int __memcmpeq(const void* __s1, const void* __s2, unsigned long  int  __n  ) __attribute__ ((__pure__)) ;
-void* memchr(const void* __s, int __c, unsigned long  int  __n  ) __attribute__ ((__pure__)) ;
+void* memcpy(void* __restrict __dest, const void* __restrict __src, unsigned long  __n  );
+void* memmove(void* __dest, const void* __src, unsigned long  __n  );
+void* memccpy(void* __restrict __dest, const void* __restrict __src, int __c, unsigned long  __n  );
+void* memset(void* __s, int __c, unsigned long  __n  );
+int memcmp(const void* __s1, const void* __s2, unsigned long  __n  ) __attribute__ ((__pure__)) ;
+int __memcmpeq(const void* __s1, const void* __s2, unsigned long  __n  ) __attribute__ ((__pure__)) ;
+void* memchr(const void* __s, int __c, unsigned long  __n  ) __attribute__ ((__pure__)) ;
 void* rawmemchr(const void* __s, int __c) __attribute__ ((__pure__)) ;
-void* memrchr(const void* __s, int __c, unsigned long  int  __n  ) __attribute__ ((__pure__)) 
+void* memrchr(const void* __s, int __c, unsigned long  __n  ) __attribute__ ((__pure__)) 
       ;
 char* strcpy(char* __restrict __dest, const char* __restrict __src);
-char* strncpy(char* __restrict __dest, const char* __restrict __src, unsigned long  int  __n  );
+char* strncpy(char* __restrict __dest, const char* __restrict __src, unsigned long  __n  );
 char* strcat(char* __restrict __dest, const char* __restrict __src);
-char* strncat(char* __restrict __dest, const char* __restrict __src, unsigned long  int  __n  );
+char* strncat(char* __restrict __dest, const char* __restrict __src, unsigned long  __n  );
 int strcmp(const char* __s1, const char* __s2) __attribute__ ((__pure__)) ;
-int strncmp(const char* __s1, const char* __s2, unsigned long  int  __n  ) __attribute__ ((__pure__)) ;
+int strncmp(const char* __s1, const char* __s2, unsigned long  __n  ) __attribute__ ((__pure__)) ;
 int strcoll(const char* __s1, const char* __s2) __attribute__ ((__pure__)) ;
-unsigned long  int  strxfrm(char* __restrict __dest, const char* __restrict __src, unsigned long  int  __n  );
+unsigned long  strxfrm(char* __restrict __dest, const char* __restrict __src, unsigned long  __n  );
 int strcoll_l(const char* __s1, const char* __s2, struct __locale_struct*  __l  ) __attribute__ ((__pure__)) ;
-unsigned long  int  strxfrm_l(char* __dest, const char* __src, unsigned long  int  __n  , struct __locale_struct*  __l  );
+unsigned long  strxfrm_l(char* __dest, const char* __src, unsigned long  __n  , struct __locale_struct*  __l  );
 char* strdup(const char* __s) __attribute__ ((__malloc__)) ;
-char* strndup(const char* __string, unsigned long  int  __n  ) __attribute__ ((__malloc__)) ;
+char* strndup(const char* __string, unsigned long  __n  ) __attribute__ ((__malloc__)) ;
 char* strchr(const char* __s, int __c) __attribute__ ((__pure__)) ;
 char* strrchr(const char* __s, int __c) __attribute__ ((__pure__)) ;
 char* strchrnul(const char* __s, int __c) __attribute__ ((__pure__)) ;
-unsigned long  int  strcspn(const char* __s, const char* __reject) __attribute__ ((__pure__)) ;
-unsigned long  int  strspn(const char* __s, const char* __accept) __attribute__ ((__pure__)) ;
+unsigned long  strcspn(const char* __s, const char* __reject) __attribute__ ((__pure__)) ;
+unsigned long  strspn(const char* __s, const char* __accept) __attribute__ ((__pure__)) ;
 char* strpbrk(const char* __s, const char* __accept) __attribute__ ((__pure__)) ;
 char* strstr(const char* __haystack, const char* __needle) __attribute__ ((__pure__)) ;
 char* strtok(char* __restrict __s, const char* __restrict __delim);
 char* __strtok_r(char* __restrict __s, const char* __restrict __delim, char** __restrict __save_ptr);
 char* strtok_r(char* __restrict __s, const char* __restrict __delim, char** __restrict __save_ptr);
 char* strcasestr(const char* __haystack, const char* __needle) __attribute__ ((__pure__)) ;
-void* memmem(const void* __haystack, unsigned long  int  __haystacklen  , const void* __needle, unsigned long  int  __needlelen  ) __attribute__ ((__pure__)) 
+void* memmem(const void* __haystack, unsigned long  __haystacklen  , const void* __needle, unsigned long  __needlelen  ) __attribute__ ((__pure__)) 
     
     ;
-void* __mempcpy(void* __restrict __dest, const void* __restrict __src, unsigned long  int  __n  );
-void* mempcpy(void* __restrict __dest, const void* __restrict __src, unsigned long  int  __n  );
-unsigned long  int  strlen(const char* __s) __attribute__ ((__pure__)) ;
-unsigned long  int  strnlen(const char* __string, unsigned long  int  __maxlen  ) __attribute__ ((__pure__)) ;
+void* __mempcpy(void* __restrict __dest, const void* __restrict __src, unsigned long  __n  );
+void* mempcpy(void* __restrict __dest, const void* __restrict __src, unsigned long  __n  );
+unsigned long  strlen(const char* __s) __attribute__ ((__pure__)) ;
+unsigned long  strnlen(const char* __string, unsigned long  __maxlen  ) __attribute__ ((__pure__)) ;
 char* strerror(int __errnum);
-char* strerror_r(int __errnum, char* __buf, unsigned long  int  __buflen  );
+char* strerror_r(int __errnum, char* __buf, unsigned long  __buflen  );
 const char* strerrordesc_np(int __err);
 const char* strerrorname_np(int __err);
 char* strerror_l(int __errnum, struct __locale_struct*  __l  );
-int bcmp(const void* __s1, const void* __s2, unsigned long  int  __n  ) __attribute__ ((__pure__)) ;
-void bcopy(const void* __src, void* __dest, unsigned long  int  __n  );
-void bzero(void* __s, unsigned long  int  __n  );
+int bcmp(const void* __s1, const void* __s2, unsigned long  __n  ) __attribute__ ((__pure__)) ;
+void bcopy(const void* __src, void* __dest, unsigned long  __n  );
+void bzero(void* __s, unsigned long  __n  );
 char* index(const char* __s, int __c) __attribute__ ((__pure__)) ;
 char* rindex(const char* __s, int __c) __attribute__ ((__pure__)) ;
 int ffs(int __i) __attribute__ ((__const__));
 int ffsl(long  int __l) __attribute__ ((__const__));
 int ffsll(long long int __ll) __attribute__ ((__const__));
 int strcasecmp(const char* __s1, const char* __s2) __attribute__ ((__pure__)) ;
-int strncasecmp(const char* __s1, const char* __s2, unsigned long  int  __n  ) __attribute__ ((__pure__)) ;
+int strncasecmp(const char* __s1, const char* __s2, unsigned long  __n  ) __attribute__ ((__pure__)) ;
 int strcasecmp_l(const char* __s1, const char* __s2, struct __locale_struct*  __loc  ) __attribute__ ((__pure__)) ;
-int strncasecmp_l(const char* __s1, const char* __s2, unsigned long  int  __n  , struct __locale_struct*  __loc  ) __attribute__ ((__pure__)) ;
-void explicit_bzero(void* __s, unsigned long  int  __n  );
+int strncasecmp_l(const char* __s1, const char* __s2, unsigned long  __n  , struct __locale_struct*  __loc  ) __attribute__ ((__pure__)) ;
+void explicit_bzero(void* __s, unsigned long  __n  );
 char* strsep(char** __restrict __stringp, const char* __restrict __delim);
 char* strsignal(int __sig);
 const char* sigabbrev_np(int __sig);
 const char* sigdescr_np(int __sig);
 char* __stpcpy(char* __restrict __dest, const char* __restrict __src);
 char* stpcpy(char* __restrict __dest, const char* __restrict __src);
-char* __stpncpy(char* __restrict __dest, const char* __restrict __src, unsigned long  int  __n  );
-char* stpncpy(char* __restrict __dest, const char* __restrict __src, unsigned long  int  __n  );
-unsigned long  int  strlcpy(char* __restrict __dest, const char* __restrict __src, unsigned long  int  __n  );
-unsigned long  int  strlcat(char* __restrict __dest, const char* __restrict __src, unsigned long  int  __n  );
+char* __stpncpy(char* __restrict __dest, const char* __restrict __src, unsigned long  __n  );
+char* stpncpy(char* __restrict __dest, const char* __restrict __src, unsigned long  __n  );
+unsigned long  strlcpy(char* __restrict __dest, const char* __restrict __src, unsigned long  __n  );
+unsigned long  strlcat(char* __restrict __dest, const char* __restrict __src, unsigned long  __n  );
 int strverscmp(const char* __s1, const char* __s2) __attribute__ ((__pure__)) ;
 char* strfry(char* __string);
-void* memfrob(void* __s, unsigned long  int  __n  );
+void* memfrob(void* __s, unsigned long  __n  );
 char* basename(const char* __filename);
 int getifaddrs(struct ifaddrs**  __ifap  );
 void freeifaddrs(struct ifaddrs*  __ifa  );
@@ -2673,8 +2681,7 @@ char* if_indextoname(unsigned int __ifindex, char __ifname[16]);
 struct if_nameindex*  if_nameindex();
 void if_freenameindex(struct if_nameindex*  __ptr  );
 long  int  imaxabs(long  int  __n  ) __attribute__ ((__const__));
-unsigned long  int  uimaxabs(long  int  __n  ) __attribute__ ((__const__));
-struct anonymous_typeX62  imaxdiv(long  int  __numer  , long  int  __denom  ) __attribute__ ((__const__));
+struct anonymous_typeX63  imaxdiv(long  int  __numer  , long  int  __denom  ) __attribute__ ((__const__));
 long  int  strtoimax(const char* __restrict __nptr, char** __restrict __endptr, int __base);
 unsigned long  int  strtoumax(const char* __restrict __nptr, char** __restrict __endptr, int __base);
 long  int  wcstoimax(const int* __restrict  __nptr  , int** __restrict  __endptr  , int __base);

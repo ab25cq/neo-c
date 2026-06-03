@@ -1,5 +1,9 @@
 /// c_include definition ///
 /// typedef definition ///
+typedef unsigned long size_t;
+
+typedef int wchar_t;
+
 typedef __builtin_va_list __gnuc_va_list;
 
 typedef int __ipc_pid_t;
@@ -138,7 +142,7 @@ typedef unsigned int  mode_t  ;
 
 typedef int  key_t  ;
 
-typedef unsigned long  int size_t;
+typedef unsigned long  long    ;
 
 typedef unsigned long  int  msgqnum_t  ;
 
@@ -684,7 +688,7 @@ struct sembuf
 struct shmid_ds
 {
     struct ipc_perm  shm_perm  ;
-    unsigned long  int  shm_segsz  ;
+    unsigned long  shm_segsz  ;
     long  int  shm_atime  ;
     long  int  shm_dtime  ;
     long  int  shm_ctime  ;
@@ -729,6 +733,16 @@ struct winsize
     unsigned short int ws_col;
     unsigned short int ws_xpixel;
     unsigned short int ws_ypixel;
+};
+
+struct termio
+{
+    unsigned short int c_iflag;
+    unsigned short int c_oflag;
+    unsigned short int c_cflag;
+    unsigned short int c_lflag;
+    unsigned char c_line;
+    unsigned char c_cc[8];
 };
 
 enum { EPOLL_CLOEXEC=(02000000)
@@ -937,22 +951,22 @@ extern int getdate_err;
 
 // header function
 char* strdup(const char* );
-int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list    );
+int vsnprintf(char* , unsigned long  int , const char* , __builtin_va_list );
 int snprintf(char* , unsigned long  int , const char* , ...);
 int  ftok(const char* __pathname, int __proj_id);
 int msgctl(int __msqid, int __cmd, struct msqid_ds*  __buf  );
 int msgget(int  __key  , int __msgflg);
-long  int  msgrcv(int __msqid, void* __msgp, unsigned long  int  __msgsz  , long  int __msgtyp, int __msgflg);
-int msgsnd(int __msqid, const void* __msgp, unsigned long  int  __msgsz  , int __msgflg);
+long  int  msgrcv(int __msqid, void* __msgp, unsigned long  __msgsz  , long  int __msgtyp, int __msgflg);
+int msgsnd(int __msqid, const void* __msgp, unsigned long  __msgsz  , int __msgflg);
 int select(int __nfds, struct anonymous_typeX2* __restrict  __readfds  , struct anonymous_typeX2* __restrict  __writefds  , struct anonymous_typeX2* __restrict  __exceptfds  , struct timeval* __restrict  __timeout  );
 int pselect(int __nfds, struct anonymous_typeX2* __restrict  __readfds  , struct anonymous_typeX2* __restrict  __writefds  , struct anonymous_typeX2* __restrict  __exceptfds  , const struct timespec* __restrict  __timeout  , const struct anonymous_typeX1* __restrict  __sigmask  );
 int semctl(int __semid, int __semnum, int __cmd, ...);
 int semget(int  __key  , int __nsems, int __semflg);
-int semop(int __semid, struct sembuf*  __sops  , unsigned long  int  __nsops  );
-int semtimedop(int __semid, struct sembuf*  __sops  , unsigned long  int  __nsops  , const struct timespec*  __timeout  );
+int semop(int __semid, struct sembuf*  __sops  , unsigned long  __nsops  );
+int semtimedop(int __semid, struct sembuf*  __sops  , unsigned long  __nsops  , const struct timespec*  __timeout  );
 int __getpagesize() __attribute__ ((__const__));
 int shmctl(int __shmid, int __cmd, struct shmid_ds*  __buf  );
-int shmget(int  __key  , unsigned long  int  __size  , int __shmflg);
+int shmget(int  __key  , unsigned long  __size  , int __shmflg);
 void* shmat(int __shmid, const void* __shmaddr, int __shmflg);
 int shmdt(const void* __shmaddr);
 int eventfd(unsigned int __count, int __flags);
@@ -975,9 +989,9 @@ long  int  clock();
 long  int  time(long  int*  __timer  );
 double difftime(long  int  __time1  , long  int  __time0  );
 long  int  mktime(struct tm*  __tp  );
-unsigned long  int  strftime(char* __restrict __s, unsigned long  int  __maxsize  , const char* __restrict __format, const struct tm* __restrict  __tp  );
+unsigned long  strftime(char* __restrict __s, unsigned long  __maxsize  , const char* __restrict __format, const struct tm* __restrict  __tp  );
 char* strptime(const char* __restrict __s, const char* __restrict __fmt, struct tm*  __tp  );
-unsigned long  int  strftime_l(char* __restrict __s, unsigned long  int  __maxsize  , const char* __restrict __format, const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
+unsigned long  strftime_l(char* __restrict __s, unsigned long  __maxsize  , const char* __restrict __format, const struct tm* __restrict  __tp  , struct __locale_struct*  __loc  );
 char* strptime_l(const char* __restrict __s, const char* __restrict __fmt, struct tm*  __tp  , struct __locale_struct*  __loc  );
 struct tm*  gmtime(const long  int*  __timer  );
 struct tm*  localtime(const long  int*  __timer  );
