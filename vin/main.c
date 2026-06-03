@@ -322,6 +322,8 @@ typedef int (*comparison_fn_t)(const void*,const void*)  ;
 
 typedef int (*__compar_d_fn_t)(const void*,const void*,void*);
 
+typedef struct anonymous_typeX11  once_flag  ;
+
 typedef __builtin_va_list va_list;
 
 typedef int error_t;
@@ -533,7 +535,9 @@ struct _IO_FILE
     void* _freeres_buf;
     struct _IO_FILE**  _prevchain  ;
     int _mode;
-    char _unused2[15*sizeof(int)-5*sizeof(void*)];
+    int _unused3;
+    unsigned long  int  _total_written  ;
+    char _unused2[12*sizeof(int)-5*sizeof(void*)];
 };
 
 struct _IO_cookie_io_functions_t
@@ -617,7 +621,7 @@ struct __pthread_mutex_s
     unsigned int __nusers;
     int __kind;
     short __spins;
-    short __elision;
+    short __unused;
     struct __pthread_internal_list  __list  ;
 };
 
@@ -631,8 +635,7 @@ struct __pthread_rwlock_arch_t
     unsigned int __pad4;
     int __cur_writer;
     int __shared;
-    char __rwelision;
-    unsigned char __pad1[7];
+    unsigned long  int __pad1;
     unsigned long  int __pad2;
     unsigned int __flags;
 };
@@ -1916,6 +1919,7 @@ TRAP_TRACE
 ,TRAP_BRANCH 
 ,TRAP_HWBKPT 
 ,TRAP_UNK 
+,TRAP_PERF 
 };
 
 enum { CLD_EXITED=(1),
@@ -1932,6 +1936,10 @@ POLL_OUT
 ,POLL_ERR 
 ,POLL_PRI 
 ,POLL_HUP 
+};
+
+enum { SYS_SECCOMP=(1),
+SYS_USER_DISPATCH 
 };
 
 struct anonymous_typeX49
@@ -2453,6 +2461,8 @@ void* malloc(unsigned long  __size  ) __attribute__ ((__malloc__))
 void* calloc(unsigned long  __nmemb  , unsigned long  __size  ) __attribute__ ((__malloc__))  ;
 void* realloc(void* __ptr, unsigned long  __size  );
 void free(void* __ptr);
+void free_sized(void* __ptr, unsigned long  __size  );
+void free_aligned_sized(void* __ptr, unsigned long  __alignment  , unsigned long  __size  );
 void* reallocarray(void* __ptr, unsigned long  __nmemb  , unsigned long  __size  );
 void* alloca(unsigned long  __size  );
 void* valloc(unsigned long  __size  ) __attribute__ ((__malloc__))
@@ -2493,6 +2503,9 @@ void qsort_r(void* __base, unsigned long  __nmemb  , unsigned long  __size  , in
 int abs(int __x) __attribute__ ((__const__)) ;
 long  int labs(long  int __x) __attribute__ ((__const__)) ;
 long long int llabs(long long int __x) __attribute__ ((__const__)) ;
+unsigned int uabs(int __x) __attribute__ ((__const__)) ;
+unsigned long  int ulabs(long  int __x) __attribute__ ((__const__)) ;
+unsigned long long int ullabs(long long int __x) __attribute__ ((__const__)) ;
 struct anonymous_typeX4  div(int __numer, int __denom) __attribute__ ((__const__)) ;
 struct anonymous_typeX5  ldiv(long  int __numer, long  int __denom) __attribute__ ((__const__)) ;
 struct anonymous_typeX6  lldiv(long long int __numer, long long int __denom) __attribute__ ((__const__)) ;
@@ -2520,10 +2533,13 @@ char* ptsname(int __fd);
 int ptsname_r(int __fd, char* __buf, unsigned long  __buflen  );
 int getpt();
 int getloadavg(double __loadavg[], int __nelem);
+void call_once(struct anonymous_typeX11*  __flag  , void (*__func)());
+unsigned long  memalignment(const void* __p);
 void* memcpy(void* __restrict __dest, const void* __restrict __src, unsigned long  __n  );
 void* memmove(void* __dest, const void* __src, unsigned long  __n  );
 void* memccpy(void* __restrict __dest, const void* __restrict __src, int __c, unsigned long  __n  );
 void* memset(void* __s, int __c, unsigned long  __n  );
+void* memset_explicit(void* __s, int __c, unsigned long  __n  );
 int memcmp(const void* __s1, const void* __s2, unsigned long  __n  ) __attribute__ ((__pure__)) ;
 int __memcmpeq(const void* __s1, const void* __s2, unsigned long  __n  ) __attribute__ ((__pure__)) ;
 void* memchr(const void* __s, int __c, unsigned long  __n  ) __attribute__ ((__pure__)) ;
@@ -2603,6 +2619,7 @@ int* __errno_location() __attribute__ ((__const__));
 void __assert_fail(const char* __assertion, const char* __file, unsigned int __line, const char* __function) __attribute__ ((__noreturn__)) ;
 void __assert_perror_fail(int __errnum, const char* __file, unsigned int __line, const char* __function) __attribute__ ((__noreturn__)) ;
 void __assert(const char* __assertion, const char* __file, int __line) __attribute__ ((__noreturn__)) ;
+_Bool __assert_single_arg(_Bool );
 int*  wcscpy(int* __restrict  __dest  , const int* __restrict  __src  );
 int*  wcsncpy(int* __restrict  __dest  , const int* __restrict  __src  , unsigned long  __n  );
 unsigned long  wcslcpy(int* __restrict  __dest  , const int* __restrict  __src  , unsigned long  __n  );
@@ -3008,7 +3025,7 @@ int untouchwin(struct _win_st*    );
 void use_env(_Bool );
 void use_tioctl(_Bool );
 int vidattr(unsigned int    );
-int vidputs(unsigned int    , int (*anonymous_var_nameY443)(int)  );
+int vidputs(unsigned int    , int (*anonymous_var_nameY444)(int)  );
 int vline(unsigned int    , int );
 int vwprintw(struct _win_st*    , const char* , __builtin_va_list    ) __attribute__((deprecated))	
 		__attribute__((format(printf,2,0)));
@@ -3115,8 +3132,8 @@ int set_escdelay(int );
 int set_tabsize(int );
 int use_default_colors();
 int use_legacy_coding(int );
-int use_screen(struct screen*    , int (*anonymous_var_nameY644)(struct screen* ,void*)  , void* );
-int use_window(struct _win_st*    , int (*anonymous_var_nameY647)(struct _win_st* ,void*)  , void* );
+int use_screen(struct screen*    , int (*anonymous_var_nameY645)(struct screen* ,void*)  , void* );
+int use_window(struct _win_st*    , int (*anonymous_var_nameY648)(struct _win_st* ,void*)  , void* );
 int wresize(struct _win_st*    , int , int );
 int use_extended_names(_Bool );
 struct _win_st*  wgetparent(const struct _win_st*    );
@@ -3207,7 +3224,7 @@ int ungetch_sp(struct screen*    , int );
 void use_env_sp(struct screen*    , _Bool );
 void use_tioctl_sp(struct screen*    , _Bool );
 int vidattr_sp(struct screen*    , unsigned int    );
-int vidputs_sp(struct screen*    , unsigned int    , int (*anonymous_var_nameY804)(struct screen* ,int)  );
+int vidputs_sp(struct screen*    , unsigned int    , int (*anonymous_var_nameY805)(struct screen* ,int)  );
 int alloc_pair_sp(struct screen*    , int , int );
 int assume_default_colors_sp(struct screen*    , int , int );
 int define_key_sp(struct screen*    , const char* , int );
@@ -3304,7 +3321,7 @@ int slk_wset(int , const int*    , int );
 unsigned int  term_attrs();
 int unget_wch(const int    );
 int vid_attr(unsigned int    , short , void* );
-int vid_puts(unsigned int    , short , void* , int (*anonymous_var_nameY1076)(int)  );
+int vid_puts(unsigned int    , short , void* , int (*anonymous_var_nameY1077)(int)  );
 int vline_set(const struct anonymous_typeX21*    , int );
 int wadd_wch(struct _win_st*    , const struct anonymous_typeX21*    );
 int wadd_wchnstr(struct _win_st*    , const struct anonymous_typeX21*    , int );
@@ -3335,7 +3352,7 @@ int erasewchar_sp(struct screen*    , int*    );
 int killwchar_sp(struct screen*    , int*    );
 int unget_wch_sp(struct screen*    , const int    );
 int vid_attr_sp(struct screen*    , unsigned int    , short , void* );
-int vid_puts_sp(struct screen*    , unsigned int    , short , void* , int (*anonymous_var_nameY1156)(struct screen* ,int)  );
+int vid_puts_sp(struct screen*    , unsigned int    , short , void* , int (*anonymous_var_nameY1157)(struct screen* ,int)  );
 int*  wunctrl_sp(struct screen*    , struct anonymous_typeX21*    );
 _Bool has_mouse();
 int getmouse(struct anonymous_typeX22*    );
