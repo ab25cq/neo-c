@@ -1411,8 +1411,7 @@ static void take_trap(cpu_t *cpu, uint64_t cause, uint64_t tval);
 // Returns true if an interrupt was taken
 static bool check_pending_interrupts(cpu_t *cpu, devices_t *dev) {
     // Update timer interrupt pending bit in MIP based on mtimecmp
-    bool mmu_enabled = cpu->csr_satp != 0;
-    if (mmu_enabled) {
+    if (dev->mtimecmp != UINT64_MAX) {
         if (dev->mtime >= dev->mtimecmp) {
             cpu->csr_mip |= MIP_MTIP;  // Set machine timer interrupt pending
             // If MTIP is delegated to S-mode, also set STIP
@@ -1423,10 +1422,6 @@ static bool check_pending_interrupts(cpu_t *cpu, devices_t *dev) {
             cpu->csr_mip &= ~MIP_MTIP; // Clear if timer hasn't fired
             cpu->csr_sip &= ~MIP_STIP;
         }
-    } else {
-        // Avoid firing timer interrupts before SATP is programmed (boot-time quirk).
-        cpu->csr_mip &= ~MIP_MTIP;
-        cpu->csr_sip &= ~MIP_STIP;
     }
 
     // Also check stimecmp for S-mode timer interrupt (Sstc extension)
@@ -1474,26 +1469,24 @@ static bool check_pending_interrupts(cpu_t *cpu, devices_t *dev) {
     // Check machine-level interrupts (not delegated to S-mode)
     uint64_t m_interrupts = pending & ~cpu->csr_mideleg;
     if (m_interrupts) {
-        // M-mode interrupts can interrupt S-mode and U-mode
-        if (cpu->priv < 3) {
-            if (m_interrupts & MIP_MEIP) {
-                dev->external_interrupt_count++;
-                take_trap(cpu, INTERRUPT_M_EXTERNAL, 0);
-                return true;
+        // M-mode interrupts can interrupt any lower or equal privilege when MIE is set.
+        if (m_interrupts & MIP_MEIP) {
+            dev->external_interrupt_count++;
+            take_trap(cpu, INTERRUPT_M_EXTERNAL, 0);
+            return true;
+        }
+        if (m_interrupts & MIP_MTIP) {
+            if (g_step_counter - dev->last_timer_interrupt_step < g_timer_min_step_gap) {
+                return false;
             }
-            if (m_interrupts & MIP_MTIP) {
-                if (g_step_counter - dev->last_timer_interrupt_step < g_timer_min_step_gap) {
-                    return false;
-                }
-                dev->last_timer_interrupt_step = g_step_counter;
-                dev->timer_interrupt_count++;
-                take_trap(cpu, INTERRUPT_M_TIMER, 0);
-                return true;
-            }
-            if (m_interrupts & MIP_MSIP) {
-                take_trap(cpu, INTERRUPT_M_SOFTWARE, 0);
-                return true;
-            }
+            dev->last_timer_interrupt_step = g_step_counter;
+            dev->timer_interrupt_count++;
+            take_trap(cpu, INTERRUPT_M_TIMER, 0);
+            return true;
+        }
+        if (m_interrupts & MIP_MSIP) {
+            take_trap(cpu, INTERRUPT_M_SOFTWARE, 0);
+            return true;
         }
     }
 

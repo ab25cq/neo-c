@@ -5,7 +5,7 @@
 	.attribute stack_align, 16
 	.text
 .Ltext0:
-	.file 0 "/root/neo-c/minux9" "fs_neoc.c"
+	.file 0 "/home/ab25cq/neo-c/minux9" "fs_neoc.c"
 	.local	vbase
 	.comm	vbase,8,8
 	.local	Q
@@ -543,7 +543,6 @@ virtio_blk_init:
 	call	puts
 .L22:
 	.loc 1 930 14
-	nop
 	j	.L22
 .L21:
 	.loc 1 934 8
@@ -562,7 +561,6 @@ virtio_blk_init:
 	call	puts
 .L24:
 	.loc 1 936 14
-	nop
 	j	.L24
 .L23:
 	.loc 1 940 5
@@ -632,7 +630,6 @@ virtio_blk_init:
 	call	puts
 .L26:
 	.loc 1 949 14
-	nop
 	j	.L26
 .L25:
 	.loc 1 953 5
@@ -689,7 +686,6 @@ virtio_blk_init:
 	call	puts
 .L30:
 	.loc 1 960 14
-	nop
 	j	.L30
 .L29:
 	.loc 1 964 18
@@ -797,7 +793,6 @@ virtio_blk_init:
 	call	puts
 .L35:
 	.loc 1 977 14
-	nop
 	j	.L35
 .L34:
 	.loc 1 981 5
@@ -825,7 +820,6 @@ virtio_blk_init:
 	call	puts
 .L37:
 	.loc 1 985 14
-	nop
 	j	.L37
 .L36:
 	.loc 1 989 5
@@ -13537,7 +13531,7 @@ build_abs_normalized:
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 2499 11
-	beq	a5,zero,.L900
+	beq	a5,zero,.L899
 	.loc 1 2502 18
 	ld	a5,-40(s0)
 	sd	a5,-208(s0)
@@ -13580,20 +13574,22 @@ build_abs_normalized:
 	.loc 1 2507 18 discriminator 1
 	mv	a4,a5
 	li	a5,46
-	beq	a4,a5,.L826
+	bne	a4,a5,.L834
+	.loc 1 2507 18 is_stmt 0
+	j	.L826
 .L834:
-	.loc 1 2509 20
+	.loc 1 2509 20 is_stmt 1
 	lw	a4,-216(s0)
 	.loc 1 2509 16
 	li	a5,2
-	bne	a4,a5,.L836
+	bne	a4,a5,.L835
 	.loc 1 2509 34 discriminator 1
 	ld	a5,-208(s0)
 	lbu	a5,0(a5)
 	.loc 1 2509 23 discriminator 1
 	mv	a4,a5
 	li	a5,46
-	bne	a4,a5,.L836
+	bne	a4,a5,.L835
 	.loc 1 2509 52 discriminator 2
 	ld	a5,-208(s0)
 	addi	a5,a5,1
@@ -13601,7 +13597,7 @@ build_abs_normalized:
 	.loc 1 2509 41 discriminator 2
 	mv	a4,a5
 	li	a5,46
-	bne	a4,a5,.L836
+	bne	a4,a5,.L835
 	.loc 1 2510 21
 	lw	a5,-212(s0)
 	.loc 1 2510 15
@@ -13613,7 +13609,7 @@ build_abs_normalized:
 	sw	a5,-212(s0)
 	.loc 1 2510 15
 	j	.L826
-.L836:
+.L835:
 	.loc 1 2514 20
 	lw	a5,-216(s0)
 	.loc 1 2514 16
@@ -13625,16 +13621,16 @@ build_abs_normalized:
 	lw	a4,-220(s0)
 	.loc 1 2516 15
 	li	a5,14
-	ble	a4,a5,.L838
+	ble	a4,a5,.L837
 	.loc 1 2517 21
 	li	a5,14
 	sw	a5,-220(s0)
-.L838:
+.L837:
 	.loc 1 2519 18
 	sw	zero,-224(s0)
 	.loc 1 2519 13
-	j	.L839
-.L848:
+	j	.L838
+.L847:
 .LBB237:
 	.loc 1 2520 54
 	lw	a5,-212(s0)
@@ -13642,34 +13638,34 @@ build_abs_normalized:
 	sd	a5,-136(s0)
 	.loc 1 2520 76
 	ld	a5,-136(s0)
-	blt	a5,zero,.L840
+	blt	a5,zero,.L839
 	.loc 1 2520 103 discriminator 2
 	ld	a4,-136(s0)
 	li	a5,31
-	ble	a4,a5,.L841
-.L840:
+	ble	a4,a5,.L840
+.L839:
 .LBB238:
 	.loc 1 2520 225 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2520 262 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L842
+	beq	a5,zero,.L841
 	.loc 1 2520 275 discriminator 6
 	call	stackframe
-	j	.L843
-.L842:
+	j	.L842
+.L841:
 	.loc 1 2520 296 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2520 316 discriminator 10
 	lla	a0,__func__.11
 	call	puts
-.L843:
+.L842:
 	.loc 1 2520 334 discriminator 12
 	li	a0,2
 	call	exit
-.L841:
+.L840:
 .LBE238:
 	.loc 1 2520 379 discriminator 14
 	lw	a5,-224(s0)
@@ -13677,34 +13673,34 @@ build_abs_normalized:
 	sd	a5,-144(s0)
 	.loc 1 2520 397 discriminator 14
 	ld	a5,-144(s0)
-	blt	a5,zero,.L844
+	blt	a5,zero,.L843
 	.loc 1 2520 424 discriminator 16
 	ld	a4,-144(s0)
 	li	a5,14
-	ble	a4,a5,.L845
-.L844:
+	ble	a4,a5,.L844
+.L843:
 .LBB239:
 	.loc 1 2520 548 discriminator 17
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2520 585 discriminator 19
 	lla	a5,stackframe
-	beq	a5,zero,.L846
+	beq	a5,zero,.L845
 	.loc 1 2520 598 discriminator 20
 	call	stackframe
-	j	.L847
-.L846:
+	j	.L846
+.L845:
 	.loc 1 2520 619 discriminator 21
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2520 639 discriminator 24
 	lla	a0,__func__.11
 	call	puts
-.L847:
+.L846:
 	.loc 1 2520 657 discriminator 26
 	li	a0,2
 	call	exit
-.L845:
+.L844:
 .LBE239:
 	.loc 1 2520 720 discriminator 28
 	ld	a4,-136(s0)
@@ -13722,16 +13718,16 @@ build_abs_normalized:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-224(s0)
-.L839:
+.L838:
 	.loc 1 2519 34 discriminator 1
 	lw	a4,-224(s0)
 	li	a5,14
-	ble	a4,a5,.L848
+	ble	a4,a5,.L847
 	.loc 1 2522 21
 	sw	zero,-228(s0)
 	.loc 1 2522 13
-	j	.L849
-.L858:
+	j	.L848
+.L857:
 .LBB240:
 	.loc 1 2523 54
 	lw	a5,-212(s0)
@@ -13739,34 +13735,34 @@ build_abs_normalized:
 	sd	a5,-120(s0)
 	.loc 1 2523 76
 	ld	a5,-120(s0)
-	blt	a5,zero,.L850
+	blt	a5,zero,.L849
 	.loc 1 2523 103 discriminator 2
 	ld	a4,-120(s0)
 	li	a5,31
-	ble	a4,a5,.L851
-.L850:
+	ble	a4,a5,.L850
+.L849:
 .LBB241:
 	.loc 1 2523 225 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2523 262 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L852
+	beq	a5,zero,.L851
 	.loc 1 2523 275 discriminator 6
 	call	stackframe
-	j	.L853
-.L852:
+	j	.L852
+.L851:
 	.loc 1 2523 296 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2523 316 discriminator 10
 	lla	a0,__func__.11
 	call	puts
-.L853:
+.L852:
 	.loc 1 2523 334 discriminator 12
 	li	a0,2
 	call	exit
-.L851:
+.L850:
 .LBE241:
 	.loc 1 2523 379 discriminator 14
 	lw	a5,-228(s0)
@@ -13774,34 +13770,34 @@ build_abs_normalized:
 	sd	a5,-128(s0)
 	.loc 1 2523 400 discriminator 14
 	ld	a5,-128(s0)
-	blt	a5,zero,.L854
+	blt	a5,zero,.L853
 	.loc 1 2523 427 discriminator 16
 	ld	a4,-128(s0)
 	li	a5,14
-	ble	a4,a5,.L855
-.L854:
+	ble	a4,a5,.L854
+.L853:
 .LBB242:
 	.loc 1 2523 551 discriminator 17
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2523 588 discriminator 19
 	lla	a5,stackframe
-	beq	a5,zero,.L856
+	beq	a5,zero,.L855
 	.loc 1 2523 601 discriminator 20
 	call	stackframe
-	j	.L857
-.L856:
+	j	.L856
+.L855:
 	.loc 1 2523 622 discriminator 21
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2523 642 discriminator 24
 	lla	a0,__func__.11
 	call	puts
-.L857:
+.L856:
 	.loc 1 2523 660 discriminator 26
 	li	a0,2
 	call	exit
-.L855:
+.L854:
 .LBE242:
 	.loc 1 2523 734 discriminator 28
 	ld	a5,-208(s0)
@@ -13824,11 +13820,11 @@ build_abs_normalized:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-228(s0)
-.L849:
+.L848:
 	.loc 1 2522 40 discriminator 1
 	lw	a4,-228(s0)
 	lw	a5,-220(s0)
-	blt	a4,a5,.L858
+	blt	a4,a5,.L857
 .LBB243:
 	.loc 1 2525 50
 	lw	a5,-212(s0)
@@ -13836,34 +13832,34 @@ build_abs_normalized:
 	sd	a5,-104(s0)
 	.loc 1 2525 72
 	ld	a5,-104(s0)
-	blt	a5,zero,.L859
+	blt	a5,zero,.L858
 	.loc 1 2525 99 discriminator 2
 	ld	a4,-104(s0)
 	li	a5,31
-	ble	a4,a5,.L860
-.L859:
+	ble	a4,a5,.L859
+.L858:
 .LBB244:
 	.loc 1 2525 221 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2525 258 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L861
+	beq	a5,zero,.L860
 	.loc 1 2525 271 discriminator 6
 	call	stackframe
-	j	.L862
-.L861:
+	j	.L861
+.L860:
 	.loc 1 2525 292 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2525 312 discriminator 10
 	lla	a0,__func__.11
 	call	puts
-.L862:
+.L861:
 	.loc 1 2525 330 discriminator 12
 	li	a0,2
 	call	exit
-.L860:
+.L859:
 .LBE244:
 	.loc 1 2525 375 discriminator 14
 	lw	a5,-220(s0)
@@ -13871,34 +13867,34 @@ build_abs_normalized:
 	sd	a5,-112(s0)
 	.loc 1 2525 396 discriminator 14
 	ld	a5,-112(s0)
-	blt	a5,zero,.L863
+	blt	a5,zero,.L862
 	.loc 1 2525 423 discriminator 16
 	ld	a4,-112(s0)
 	li	a5,14
-	ble	a4,a5,.L864
-.L863:
+	ble	a4,a5,.L863
+.L862:
 .LBB245:
 	.loc 1 2525 547 discriminator 17
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2525 584 discriminator 19
 	lla	a5,stackframe
-	beq	a5,zero,.L865
+	beq	a5,zero,.L864
 	.loc 1 2525 597 discriminator 20
 	call	stackframe
-	j	.L866
-.L865:
+	j	.L865
+.L864:
 	.loc 1 2525 618 discriminator 21
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2525 638 discriminator 24
 	lla	a0,__func__.11
 	call	puts
-.L866:
+.L865:
 	.loc 1 2525 656 discriminator 26
 	li	a0,2
 	call	exit
-.L864:
+.L863:
 .LBE245:
 	.loc 1 2525 719 discriminator 28
 	ld	a4,-104(s0)
@@ -13927,7 +13923,7 @@ build_abs_normalized:
 	ld	a5,-96(s0)
 	bltu	a4,a5,.L827
 	j	.L830
-.L900:
+.L899:
 	.loc 1 2500 13
 	nop
 .L830:
@@ -13935,7 +13931,7 @@ build_abs_normalized:
 	sw	zero,-232(s0)
 	.loc 1 2532 7
 	ld	a5,-1264(s0)
-	beq	a5,zero,.L868
+	beq	a5,zero,.L867
 	.loc 1 2533 16
 	lw	a5,-232(s0)
 	addiw	a4,a5,1
@@ -13948,12 +13944,12 @@ build_abs_normalized:
 	.loc 1 2533 19
 	li	a4,47
 	sb	a4,0(a5)
-.L868:
+.L867:
 	.loc 1 2535 13
 	sw	zero,-236(s0)
 	.loc 1 2535 5
-	j	.L869
-.L896:
+	j	.L868
+.L895:
 	.loc 1 2536 26
 	lw	a5,-236(s0)
 	snez	a5,a5
@@ -13966,34 +13962,34 @@ build_abs_normalized:
 	sd	a5,-152(s0)
 	.loc 1 2536 100
 	ld	a5,-152(s0)
-	blt	a5,zero,.L870
+	blt	a5,zero,.L869
 	.loc 1 2536 127 discriminator 2
 	ld	a4,-152(s0)
 	li	a5,31
-	ble	a4,a5,.L871
-.L870:
+	ble	a4,a5,.L870
+.L869:
 .LBB247:
 	.loc 1 2536 249 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2536 286 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L872
+	beq	a5,zero,.L871
 	.loc 1 2536 299 discriminator 6
 	call	stackframe
-	j	.L873
-.L872:
+	j	.L872
+.L871:
 	.loc 1 2536 320 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2536 340 discriminator 10
 	lla	a0,__func__.11
 	call	puts
-.L873:
+.L872:
 	.loc 1 2536 358 discriminator 12
 	li	a0,2
 	call	exit
-.L871:
+.L870:
 .LBE247:
 	.loc 1 2536 369 discriminator 14
 	addi	a3,s0,-1240
@@ -14020,11 +14016,11 @@ build_abs_normalized:
 	add	a5,a4,a5
 	.loc 1 2537 11
 	ld	a4,-1264(s0)
-	bleu	a4,a5,.L901
+	bleu	a4,a5,.L900
 	.loc 1 2540 12
 	lw	a5,-236(s0)
 	.loc 1 2540 11
-	beq	a5,zero,.L876
+	beq	a5,zero,.L875
 	.loc 1 2541 20
 	lw	a5,-232(s0)
 	addiw	a4,a5,1
@@ -14037,12 +14033,12 @@ build_abs_normalized:
 	.loc 1 2541 23
 	li	a4,47
 	sb	a4,0(a5)
-.L876:
+.L875:
 	.loc 1 2543 14
 	sw	zero,-244(s0)
 	.loc 1 2543 9
-	j	.L877
-.L895:
+	j	.L876
+.L894:
 .LBB248:
 	.loc 1 2544 63
 	lw	a5,-236(s0)
@@ -14050,34 +14046,34 @@ build_abs_normalized:
 	sd	a5,-176(s0)
 	.loc 1 2544 84
 	ld	a5,-176(s0)
-	blt	a5,zero,.L878
+	blt	a5,zero,.L877
 	.loc 1 2544 111 discriminator 2
 	ld	a4,-176(s0)
 	li	a5,31
-	ble	a4,a5,.L879
-.L878:
+	ble	a4,a5,.L878
+.L877:
 .LBB249:
 	.loc 1 2544 233 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2544 270 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L880
+	beq	a5,zero,.L879
 	.loc 1 2544 283 discriminator 6
 	call	stackframe
-	j	.L881
-.L880:
+	j	.L880
+.L879:
 	.loc 1 2544 304 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2544 324 discriminator 10
 	lla	a0,__func__.11
 	call	puts
-.L881:
+.L880:
 	.loc 1 2544 342 discriminator 12
 	li	a0,2
 	call	exit
-.L879:
+.L878:
 .LBE249:
 	.loc 1 2544 387 discriminator 14
 	lw	a5,-244(s0)
@@ -14085,34 +14081,34 @@ build_abs_normalized:
 	sd	a5,-184(s0)
 	.loc 1 2544 405 discriminator 14
 	ld	a5,-184(s0)
-	blt	a5,zero,.L882
+	blt	a5,zero,.L881
 	.loc 1 2544 432 discriminator 16
 	ld	a4,-184(s0)
 	li	a5,14
-	ble	a4,a5,.L883
-.L882:
+	ble	a4,a5,.L882
+.L881:
 .LBB250:
 	.loc 1 2544 556 discriminator 17
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2544 593 discriminator 19
 	lla	a5,stackframe
-	beq	a5,zero,.L884
+	beq	a5,zero,.L883
 	.loc 1 2544 606 discriminator 20
 	call	stackframe
-	j	.L885
-.L884:
+	j	.L884
+.L883:
 	.loc 1 2544 627 discriminator 21
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2544 647 discriminator 24
 	lla	a0,__func__.11
 	call	puts
-.L885:
+.L884:
 	.loc 1 2544 665 discriminator 26
 	li	a0,2
 	call	exit
-.L883:
+.L882:
 .LBE250:
 	.loc 1 2544 676 discriminator 28
 	addi	a3,s0,-1240
@@ -14142,7 +14138,7 @@ build_abs_normalized:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-244(s0)
-.L877:
+.L876:
 .LBB251:
 	.loc 1 2543 64 discriminator 1
 	lw	a5,-236(s0)
@@ -14150,34 +14146,34 @@ build_abs_normalized:
 	sd	a5,-160(s0)
 	.loc 1 2543 85 discriminator 1
 	ld	a5,-160(s0)
-	blt	a5,zero,.L886
+	blt	a5,zero,.L885
 	.loc 1 2543 112 discriminator 4
 	ld	a4,-160(s0)
 	li	a5,31
-	ble	a4,a5,.L887
-.L886:
+	ble	a4,a5,.L886
+.L885:
 .LBB252:
 	.loc 1 2543 234 discriminator 5
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2543 271 discriminator 7
 	lla	a5,stackframe
-	beq	a5,zero,.L888
+	beq	a5,zero,.L887
 	.loc 1 2543 284 discriminator 8
 	call	stackframe
-	j	.L889
-.L888:
+	j	.L888
+.L887:
 	.loc 1 2543 305 discriminator 9
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2543 325 discriminator 12
 	lla	a0,__func__.11
 	call	puts
-.L889:
+.L888:
 	.loc 1 2543 343 discriminator 14
 	li	a0,2
 	call	exit
-.L887:
+.L886:
 .LBE252:
 	.loc 1 2543 388 discriminator 16
 	lw	a5,-244(s0)
@@ -14185,34 +14181,34 @@ build_abs_normalized:
 	sd	a5,-168(s0)
 	.loc 1 2543 406 discriminator 16
 	ld	a5,-168(s0)
-	blt	a5,zero,.L890
+	blt	a5,zero,.L889
 	.loc 1 2543 433 discriminator 18
 	ld	a4,-168(s0)
 	li	a5,14
-	ble	a4,a5,.L891
-.L890:
+	ble	a4,a5,.L890
+.L889:
 .LBB253:
 	.loc 1 2543 557 discriminator 19
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2543 594 discriminator 21
 	lla	a5,stackframe
-	beq	a5,zero,.L892
+	beq	a5,zero,.L891
 	.loc 1 2543 607 discriminator 22
 	call	stackframe
-	j	.L893
-.L892:
+	j	.L892
+.L891:
 	.loc 1 2543 628 discriminator 23
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2543 648 discriminator 26
 	lla	a0,__func__.11
 	call	puts
-.L893:
+.L892:
 	.loc 1 2543 666 discriminator 28
 	li	a0,2
 	call	exit
-.L891:
+.L890:
 .LBE253:
 	.loc 1 2543 677 discriminator 30
 	addi	a3,s0,-1240
@@ -14227,7 +14223,7 @@ build_abs_normalized:
 	.loc 1 2543 26 discriminator 30
 	lbu	a5,0(a5)
 	.loc 1 2543 734 discriminator 30
-	beq	a5,zero,.L894
+	beq	a5,zero,.L893
 	.loc 1 2543 736 discriminator 31
 	lw	a5,-232(s0)
 	mv	a4,a5
@@ -14235,31 +14231,31 @@ build_abs_normalized:
 	ld	a5,-1264(s0)
 	addi	a5,a5,-1
 	.loc 1 2543 734 discriminator 31
-	bltu	a4,a5,.L895
-.L894:
+	bltu	a4,a5,.L894
+.L893:
 	.loc 1 2535 35 discriminator 2
 	lw	a5,-236(s0)
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-236(s0)
-.L869:
+.L868:
 	.loc 1 2535 24 discriminator 1
 	lw	a4,-236(s0)
 	lw	a5,-212(s0)
-	blt	a4,a5,.L896
-	j	.L875
-.L901:
+	blt	a4,a5,.L895
+	j	.L874
+.L900:
 	.loc 1 2538 13
 	nop
-.L875:
+.L874:
 	.loc 1 2547 11
 	lw	a5,-232(s0)
 	.loc 1 2547 7
-	bne	a5,zero,.L897
+	bne	a5,zero,.L896
 	.loc 1 2548 11
 	ld	a4,-1264(s0)
 	li	a5,1
-	bleu	a4,a5,.L898
+	bleu	a4,a5,.L897
 	.loc 1 2549 19
 	ld	a5,-1256(s0)
 	li	a4,47
@@ -14270,17 +14266,17 @@ build_abs_normalized:
 	.loc 1 2550 19
 	sb	zero,0(a5)
 	.loc 1 2559 1
-	j	.L902
-.L898:
+	j	.L901
+.L897:
 	.loc 1 2552 16
 	ld	a5,-1264(s0)
-	beq	a5,zero,.L902
+	beq	a5,zero,.L901
 	.loc 1 2553 19
 	ld	a5,-1256(s0)
 	sb	zero,0(a5)
 	.loc 1 2559 1
-	j	.L902
-.L897:
+	j	.L901
+.L896:
 	.loc 1 2557 12
 	lw	a5,-232(s0)
 	mv	a4,a5
@@ -14288,7 +14284,7 @@ build_abs_normalized:
 	add	a5,a5,a4
 	.loc 1 2557 17
 	sb	zero,0(a5)
-.L902:
+.L901:
 	.loc 1 2559 1
 	nop
 	ld	ra,1272(sp)
@@ -14395,22 +14391,22 @@ fs_mkdir:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 2585 7 discriminator 1
-	bne	a5,zero,.L904
+	bne	a5,zero,.L903
 	.loc 1 2586 24
 	li	a5,-1
-	j	.L931
-.L904:
+	j	.L930
+.L903:
 	.loc 1 2588 8
 	addi	a5,s0,-536
 	mv	a0,a5
 	call	path_lookup
 	mv	a5,a0
 	.loc 1 2588 7 discriminator 1
-	beq	a5,zero,.L906
+	beq	a5,zero,.L905
 	.loc 1 2589 24
 	li	a5,-1
-	j	.L931
-.L906:
+	j	.L930
+.L905:
 	.loc 1 2592 5
 	addi	a5,s0,-552
 	li	a2,15
@@ -14420,8 +14416,8 @@ fs_mkdir:
 	.loc 1 2593 10
 	sw	zero,-40(s0)
 	.loc 1 2593 5
-	j	.L907
-.L912:
+	j	.L906
+.L911:
 .LBB254:
 	.loc 1 2594 46
 	lw	a5,-40(s0)
@@ -14429,34 +14425,34 @@ fs_mkdir:
 	sd	a5,-32(s0)
 	.loc 1 2594 64
 	ld	a5,-32(s0)
-	blt	a5,zero,.L908
+	blt	a5,zero,.L907
 	.loc 1 2594 91 discriminator 2
 	ld	a4,-32(s0)
 	li	a5,14
-	ble	a4,a5,.L909
-.L908:
+	ble	a4,a5,.L908
+.L907:
 .LBB255:
 	.loc 1 2594 215 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2594 252 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L910
+	beq	a5,zero,.L909
 	.loc 1 2594 265 discriminator 6
 	call	stackframe
-	j	.L911
-.L910:
+	j	.L910
+.L909:
 	.loc 1 2594 286 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2594 306 discriminator 10
 	lla	a0,__func__.10
 	call	puts
-.L911:
+.L910:
 	.loc 1 2594 324 discriminator 12
 	li	a0,2
 	call	exit
-.L909:
+.L908:
 .LBE255:
 	.loc 1 2594 363 discriminator 14
 	ld	a5,-32(s0)
@@ -14469,11 +14465,11 @@ fs_mkdir:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-40(s0)
-.L907:
+.L906:
 	.loc 1 2593 18 discriminator 1
 	lw	a4,-40(s0)
 	li	a5,14
-	ble	a4,a5,.L912
+	ble	a4,a5,.L911
 	.loc 1 2596 9
 	addi	a3,s0,-552
 	addi	a4,s0,-36
@@ -14484,11 +14480,11 @@ fs_mkdir:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 2596 7 discriminator 1
-	bne	a5,zero,.L913
+	bne	a5,zero,.L912
 	.loc 1 2597 24
 	li	a5,-1
-	j	.L931
-.L913:
+	j	.L930
+.L912:
 	.loc 1 2599 5
 	lw	a5,-36(s0)
 	addi	a4,s0,-128
@@ -14502,44 +14498,44 @@ fs_mkdir:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 2600 7 discriminator 1
-	bne	a5,zero,.L914
+	bne	a5,zero,.L913
 	.loc 1 2601 24
 	li	a5,-1
-	j	.L931
-.L914:
+	j	.L930
+.L913:
 .LBB256:
 	.loc 1 2603 23
 	sd	zero,-24(s0)
 	.loc 1 2603 65
 	ld	a5,-24(s0)
-	blt	a5,zero,.L915
+	blt	a5,zero,.L914
 	.loc 1 2603 92 discriminator 2
 	ld	a4,-24(s0)
 	li	a5,14
-	ble	a4,a5,.L916
-.L915:
+	ble	a4,a5,.L915
+.L914:
 .LBB257:
 	.loc 1 2603 216 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2603 253 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L917
+	beq	a5,zero,.L916
 	.loc 1 2603 266 discriminator 6
 	call	stackframe
-	j	.L918
-.L917:
+	j	.L917
+.L916:
 	.loc 1 2603 287 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2603 307 discriminator 10
 	lla	a0,__func__.10
 	call	puts
-.L918:
+.L917:
 	.loc 1 2603 325 discriminator 12
 	li	a0,2
 	call	exit
-.L916:
+.L915:
 .LBE257:
 	.loc 1 2603 336 discriminator 14
 	addi	a4,s0,-552
@@ -14549,19 +14545,19 @@ fs_mkdir:
 	.loc 1 2603 9 discriminator 14
 	lbu	a5,0(a5)
 	.loc 1 2603 7 discriminator 14
-	bne	a5,zero,.L919
+	bne	a5,zero,.L918
 	.loc 1 2604 24
 	li	a5,-1
-	j	.L931
-.L919:
+	j	.L930
+.L918:
 	.loc 1 2606 9
 	sw	zero,-220(s0)
 	.loc 1 2607 13
 	li	a5,1
 	sw	a5,-224(s0)
 	.loc 1 2607 5
-	j	.L920
-.L923:
+	j	.L919
+.L922:
 	.loc 1 2608 9
 	lw	a5,-224(s0)
 	addi	a4,s0,-216
@@ -14571,34 +14567,34 @@ fs_mkdir:
 	.loc 1 2609 14
 	lhu	a5,-216(s0)
 	.loc 1 2609 11
-	bne	a5,zero,.L921
+	bne	a5,zero,.L920
 	.loc 1 2610 17
 	lw	a5,-224(s0)
 	sw	a5,-220(s0)
 	.loc 1 2611 13
-	j	.L922
-.L921:
+	j	.L921
+.L920:
 	.loc 1 2607 51 discriminator 2
 	lw	a5,-224(s0)
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-224(s0)
-.L920:
+.L919:
 	.loc 1 2607 28 discriminator 1
 	lla	a5,sb
 	lw	a4,8(a5)
 	.loc 1 2607 24 discriminator 1
 	lw	a5,-224(s0)
-	bgeu	a4,a5,.L923
-.L922:
+	bgeu	a4,a5,.L922
+.L921:
 	.loc 1 2614 8
 	lw	a5,-220(s0)
 	.loc 1 2614 7
-	bne	a5,zero,.L924
+	bne	a5,zero,.L923
 	.loc 1 2615 24
 	li	a5,-1
-	j	.L931
-.L924:
+	j	.L930
+.L923:
 	.loc 1 2617 5
 	addi	a5,s0,-312
 	li	a2,88
@@ -14658,11 +14654,11 @@ fs_mkdir:
 	andi	a5,a5,1024
 	sext.w	a5,a5
 	.loc 1 2627 13
-	beq	a5,zero,.L925
+	beq	a5,zero,.L924
 	.loc 1 2627 13 is_stmt 0 discriminator 1
 	lhu	a5,-390(s0)
-	j	.L926
-.L925:
+	j	.L925
+.L924:
 	.loc 1 2627 73 is_stmt 1 discriminator 2
 	lla	a5,gActiveProc
 	lw	a5,0(a5)
@@ -14671,22 +14667,22 @@ fs_mkdir:
 	mv	a5,a0
 	.loc 1 2627 13 discriminator 4
 	lhu	a5,1020(a5)
-.L926:
+.L925:
 	.loc 1 2627 13 is_stmt 0 discriminator 5
 	sh	a5,-294(s0)
 	.loc 1 2628 38 is_stmt 1
 	lw	a5,-572(s0)
 	sext.w	a5,a5
-	beq	a5,zero,.L927
+	beq	a5,zero,.L926
 	.loc 1 2628 38 is_stmt 0 discriminator 1
 	lw	a5,-572(s0)
 	andi	a5,a5,511
 	sext.w	a5,a5
-	j	.L928
-.L927:
+	j	.L927
+.L926:
 	.loc 1 2628 38 discriminator 2
 	li	a5,493
-.L928:
+.L927:
 	.loc 1 2628 48 is_stmt 1 discriminator 4
 	lhu	a4,-314(s0)
 	sext.w	a4,a4
@@ -14703,14 +14699,14 @@ fs_mkdir:
 	andi	a5,a5,1024
 	sext.w	a5,a5
 	.loc 1 2629 7
-	beq	a5,zero,.L929
+	beq	a5,zero,.L928
 	.loc 1 2630 13
 	lw	a5,-300(s0)
 	.loc 1 2630 28
 	ori	a5,a5,1024
 	sext.w	a5,a5
 	sw	a5,-300(s0)
-.L929:
+.L928:
 	.loc 1 2632 5
 	lw	a5,-220(s0)
 	addi	a4,s0,-312
@@ -14727,14 +14723,14 @@ fs_mkdir:
 	call	add_dirent
 	mv	a5,a0
 	.loc 1 2633 7 discriminator 1
-	beq	a5,zero,.L930
+	beq	a5,zero,.L929
 	.loc 1 2634 24
 	li	a5,-1
-	j	.L931
-.L930:
+	j	.L930
+.L929:
 	.loc 1 2636 16
 	li	a5,0
-.L931:
+.L930:
 	.loc 1 2637 1
 	mv	a0,a5
 	ld	ra,568(sp)
@@ -14849,11 +14845,11 @@ fs_rmdir:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 2666 7 discriminator 1
-	bne	a5,zero,.L933
+	bne	a5,zero,.L932
 	.loc 1 2667 24
 	li	a5,-1
-	j	.L955
-.L933:
+	j	.L954
+.L932:
 	.loc 1 2669 10
 	addi	a5,s0,-456
 	mv	a0,a5
@@ -14864,11 +14860,11 @@ fs_rmdir:
 	.loc 1 2670 12
 	lw	a5,-28(s0)
 	.loc 1 2670 7
-	bne	a5,zero,.L935
+	bne	a5,zero,.L934
 	.loc 1 2671 24
 	li	a5,-1
-	j	.L955
-.L935:
+	j	.L954
+.L934:
 	.loc 1 2673 5
 	lw	a5,-28(s0)
 	addi	a4,s0,-120
@@ -14880,22 +14876,22 @@ fs_rmdir:
 	.loc 1 2674 7
 	sext.w	a4,a5
 	li	a5,1
-	beq	a4,a5,.L936
+	beq	a4,a5,.L935
 	.loc 1 2675 24
 	li	a5,-1
-	j	.L955
-.L936:
+	j	.L954
+.L935:
 	.loc 1 2677 10
 	lw	a5,-112(s0)
 	.loc 1 2677 7
-	beq	a5,zero,.L937
+	beq	a5,zero,.L936
 	.loc 1 2678 12
 	sw	zero,-124(s0)
 	.loc 1 2679 20
 	sw	zero,-128(s0)
 	.loc 1 2680 14
-	j	.L938
-.L945:
+	j	.L937
+.L944:
 	.loc 1 2681 13
 	lw	a4,-124(s0)
 	addi	a5,s0,-120
@@ -14913,8 +14909,8 @@ fs_rmdir:
 	.loc 1 2684 18
 	sw	zero,-144(s0)
 	.loc 1 2684 13
-	j	.L939
-.L942:
+	j	.L938
+.L941:
 	.loc 1 2685 22
 	ld	a4,-136(s0)
 	lw	a5,-144(s0)
@@ -14923,52 +14919,52 @@ fs_rmdir:
 	.loc 1 2685 25
 	lhu	a5,0(a5)
 	.loc 1 2685 19
-	beq	a5,zero,.L940
+	beq	a5,zero,.L939
 	.loc 1 2686 32
 	li	a5,1
 	sw	a5,-128(s0)
 	.loc 1 2687 21
-	j	.L941
-.L940:
+	j	.L940
+.L939:
 	.loc 1 2684 44 discriminator 2
 	lw	a5,-144(s0)
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-144(s0)
-.L939:
+.L938:
 	.loc 1 2684 34 discriminator 1
 	lw	a4,-144(s0)
 	lw	a5,-140(s0)
-	blt	a4,a5,.L942
-.L941:
+	blt	a4,a5,.L941
+.L940:
 	.loc 1 2690 16
 	lw	a5,-128(s0)
 	.loc 1 2690 15
-	bne	a5,zero,.L956
+	bne	a5,zero,.L955
 	.loc 1 2693 16
 	lw	a5,-124(s0)
 	addiw	a5,a5,512
 	sext.w	a5,a5
 	sw	a5,-124(s0)
-.L938:
+.L937:
 	.loc 1 2680 21
 	lw	a4,-112(s0)
 	.loc 1 2680 18
 	lw	a5,-124(s0)
-	bgtu	a4,a5,.L945
-	j	.L944
-.L956:
+	bgtu	a4,a5,.L944
+	j	.L943
+.L955:
 	.loc 1 2691 17
 	nop
-.L944:
+.L943:
 	.loc 1 2695 12
 	lw	a5,-128(s0)
 	.loc 1 2695 11
-	beq	a5,zero,.L937
+	beq	a5,zero,.L936
 	.loc 1 2696 32
 	li	a5,-1
-	j	.L955
-.L937:
+	j	.L954
+.L936:
 	.loc 1 2700 5
 	addi	a5,s0,-472
 	li	a2,15
@@ -14978,8 +14974,8 @@ fs_rmdir:
 	.loc 1 2701 13
 	sw	zero,-152(s0)
 	.loc 1 2701 5
-	j	.L946
-.L951:
+	j	.L945
+.L950:
 .LBB258:
 	.loc 1 2702 46
 	lw	a5,-152(s0)
@@ -14987,34 +14983,34 @@ fs_rmdir:
 	sd	a5,-24(s0)
 	.loc 1 2702 67
 	ld	a5,-24(s0)
-	blt	a5,zero,.L947
+	blt	a5,zero,.L946
 	.loc 1 2702 94 discriminator 2
 	ld	a4,-24(s0)
 	li	a5,14
-	ble	a4,a5,.L948
-.L947:
+	ble	a4,a5,.L947
+.L946:
 .LBB259:
 	.loc 1 2702 218 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2702 255 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L949
+	beq	a5,zero,.L948
 	.loc 1 2702 268 discriminator 6
 	call	stackframe
-	j	.L950
-.L949:
+	j	.L949
+.L948:
 	.loc 1 2702 289 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2702 309 discriminator 10
 	lla	a0,__func__.9
 	call	puts
-.L950:
+.L949:
 	.loc 1 2702 327 discriminator 12
 	li	a0,2
 	call	exit
-.L948:
+.L947:
 .LBE259:
 	.loc 1 2702 366 discriminator 14
 	ld	a5,-24(s0)
@@ -15027,11 +15023,11 @@ fs_rmdir:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-152(s0)
-.L946:
+.L945:
 	.loc 1 2701 24 discriminator 1
 	lw	a4,-152(s0)
 	li	a5,14
-	ble	a4,a5,.L951
+	ble	a4,a5,.L950
 	.loc 1 2704 9
 	addi	a3,s0,-472
 	addi	a4,s0,-148
@@ -15042,11 +15038,11 @@ fs_rmdir:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 2704 7 discriminator 1
-	bne	a5,zero,.L952
+	bne	a5,zero,.L951
 	.loc 1 2705 24
 	li	a5,-1
-	j	.L955
-.L952:
+	j	.L954
+.L951:
 	.loc 1 2707 5
 	lw	a5,-148(s0)
 	addi	a4,s0,-240
@@ -15060,11 +15056,11 @@ fs_rmdir:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 2708 7 discriminator 1
-	bne	a5,zero,.L953
+	bne	a5,zero,.L952
 	.loc 1 2709 24
 	li	a5,-1
-	j	.L955
-.L953:
+	j	.L954
+.L952:
 	.loc 1 2711 8
 	lw	a5,-148(s0)
 	addi	a4,s0,-472
@@ -15073,11 +15069,11 @@ fs_rmdir:
 	call	remove_dirent
 	mv	a5,a0
 	.loc 1 2711 7 discriminator 1
-	beq	a5,zero,.L954
+	beq	a5,zero,.L953
 	.loc 1 2712 24
 	li	a5,-1
-	j	.L955
-.L954:
+	j	.L954
+.L953:
 	.loc 1 2714 5
 	lw	a5,-28(s0)
 	addi	a4,s0,-120
@@ -15098,7 +15094,7 @@ fs_rmdir:
 	call	write_inode
 	.loc 1 2717 16
 	li	a5,0
-.L955:
+.L954:
 	.loc 1 2718 1
 	mv	a0,a5
 	ld	ra,488(sp)
@@ -15195,11 +15191,11 @@ fs_unlink:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 2741 7 discriminator 1
-	bne	a5,zero,.L958
+	bne	a5,zero,.L957
 	.loc 1 2742 24
 	li	a5,-1
-	j	.L973
-.L958:
+	j	.L972
+.L957:
 	.loc 1 2744 10
 	addi	a5,s0,-528
 	mv	a0,a5
@@ -15210,11 +15206,11 @@ fs_unlink:
 	.loc 1 2745 12
 	lw	a5,-28(s0)
 	.loc 1 2745 7
-	bne	a5,zero,.L960
+	bne	a5,zero,.L959
 	.loc 1 2746 24
 	li	a5,-1
-	j	.L973
-.L960:
+	j	.L972
+.L959:
 	.loc 1 2748 5
 	lw	a5,-28(s0)
 	addi	a4,s0,-120
@@ -15226,22 +15222,22 @@ fs_unlink:
 	.loc 1 2749 7
 	sext.w	a4,a5
 	li	a5,2
-	beq	a4,a5,.L961
+	beq	a4,a5,.L960
 	.loc 1 2750 24
 	li	a5,-1
-	j	.L973
-.L961:
+	j	.L972
+.L960:
 	.loc 1 2752 8
 	lw	a5,-28(s0)
 	mv	a0,a5
 	call	neoc_proc_is_file_open
 	mv	a5,a0
 	.loc 1 2752 7 discriminator 1
-	beq	a5,zero,.L962
+	beq	a5,zero,.L961
 	.loc 1 2753 24
 	li	a5,-1
-	j	.L973
-.L962:
+	j	.L972
+.L961:
 	.loc 1 2756 5
 	addi	a5,s0,-544
 	li	a2,15
@@ -15251,8 +15247,8 @@ fs_unlink:
 	.loc 1 2757 10
 	sw	zero,-128(s0)
 	.loc 1 2757 5
-	j	.L963
-.L968:
+	j	.L962
+.L967:
 .LBB260:
 	.loc 1 2758 47
 	lw	a5,-128(s0)
@@ -15260,34 +15256,34 @@ fs_unlink:
 	sd	a5,-24(s0)
 	.loc 1 2758 65
 	ld	a5,-24(s0)
-	blt	a5,zero,.L964
+	blt	a5,zero,.L963
 	.loc 1 2758 93 discriminator 2
 	ld	a4,-24(s0)
 	li	a5,14
-	ble	a4,a5,.L965
-.L964:
+	ble	a4,a5,.L964
+.L963:
 .LBB261:
 	.loc 1 2758 218 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2758 255 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L966
+	beq	a5,zero,.L965
 	.loc 1 2758 268 discriminator 6
 	call	stackframe
-	j	.L967
-.L966:
+	j	.L966
+.L965:
 	.loc 1 2758 289 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2758 309 discriminator 10
 	lla	a0,__func__.8
 	call	puts
-.L967:
+.L966:
 	.loc 1 2758 327 discriminator 12
 	li	a0,2
 	call	exit
-.L965:
+.L964:
 .LBE261:
 	.loc 1 2758 367 discriminator 14
 	ld	a5,-24(s0)
@@ -15300,11 +15296,11 @@ fs_unlink:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-128(s0)
-.L963:
+.L962:
 	.loc 1 2757 18 discriminator 1
 	lw	a4,-128(s0)
 	li	a5,14
-	ble	a4,a5,.L968
+	ble	a4,a5,.L967
 	.loc 1 2760 9
 	addi	a3,s0,-544
 	addi	a4,s0,-124
@@ -15315,11 +15311,11 @@ fs_unlink:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 2760 7 discriminator 1
-	bne	a5,zero,.L969
+	bne	a5,zero,.L968
 	.loc 1 2761 24
 	li	a5,-1
-	j	.L973
-.L969:
+	j	.L972
+.L968:
 	.loc 1 2763 5
 	lw	a5,-124(s0)
 	addi	a4,s0,-216
@@ -15333,11 +15329,11 @@ fs_unlink:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 2764 7 discriminator 1
-	bne	a5,zero,.L970
+	bne	a5,zero,.L969
 	.loc 1 2765 24
 	li	a5,-1
-	j	.L973
-.L970:
+	j	.L972
+.L969:
 	.loc 1 2767 5
 	lw	a5,-124(s0)
 	addi	a4,s0,-304
@@ -15350,7 +15346,7 @@ fs_unlink:
 	andi	a5,a5,512
 	sext.w	a5,a5
 	.loc 1 2768 7
-	beq	a5,zero,.L971
+	beq	a5,zero,.L970
 	.loc 1 2769 12
 	lla	a5,gActiveProc
 	lw	a5,0(a5)
@@ -15363,7 +15359,7 @@ fs_unlink:
 	ld	a5,-312(s0)
 	lhu	a5,1018(a5)
 	.loc 1 2770 11
-	beq	a5,zero,.L971
+	beq	a5,zero,.L970
 	.loc 1 2770 28 discriminator 1
 	ld	a5,-312(s0)
 	lhu	a4,1018(a5)
@@ -15372,7 +15368,7 @@ fs_unlink:
 	.loc 1 2770 24 discriminator 1
 	sext.w	a4,a4
 	sext.w	a5,a5
-	beq	a4,a5,.L971
+	beq	a4,a5,.L970
 	.loc 1 2770 55 discriminator 2
 	ld	a5,-312(s0)
 	lhu	a4,1018(a5)
@@ -15381,11 +15377,11 @@ fs_unlink:
 	.loc 1 2770 12 discriminator 2
 	sext.w	a4,a4
 	sext.w	a5,a5
-	beq	a4,a5,.L971
+	beq	a4,a5,.L970
 	.loc 1 2771 32
 	li	a5,-1
-	j	.L973
-.L971:
+	j	.L972
+.L970:
 	.loc 1 2774 8
 	lw	a5,-124(s0)
 	addi	a4,s0,-544
@@ -15394,11 +15390,11 @@ fs_unlink:
 	call	remove_dirent
 	mv	a5,a0
 	.loc 1 2774 7 discriminator 1
-	beq	a5,zero,.L972
+	beq	a5,zero,.L971
 	.loc 1 2775 24
 	li	a5,-1
-	j	.L973
-.L972:
+	j	.L972
+.L971:
 	.loc 1 2777 5
 	lw	a5,-28(s0)
 	addi	a4,s0,-120
@@ -15419,7 +15415,7 @@ fs_unlink:
 	call	write_inode
 	.loc 1 2780 16
 	li	a5,0
-.L973:
+.L972:
 	.loc 1 2781 1
 	mv	a0,a5
 	ld	ra,552(sp)
@@ -15499,8 +15495,8 @@ write_data_inode:
 	ld	a5,-88(s0)
 	sd	a5,-24(s0)
 	.loc 1 2800 10
-	j	.L975
-.L985:
+	j	.L974
+.L984:
 .LBB262:
 	.loc 1 2801 36
 	li	a5,512
@@ -15508,29 +15504,29 @@ write_data_inode:
 	.loc 1 2801 65
 	lw	a5,-28(s0)
 	sext.w	a5,a5
-	bne	a5,zero,.L976
+	bne	a5,zero,.L975
 .LBB263:
 	.loc 1 2801 167 discriminator 1
 	lla	a0,.LC0
 	call	puts
 	.loc 1 2801 195 discriminator 3
 	lla	a5,stackframe
-	beq	a5,zero,.L977
+	beq	a5,zero,.L976
 	.loc 1 2801 208 discriminator 4
 	call	stackframe
-	j	.L978
-.L977:
+	j	.L977
+.L976:
 	.loc 1 2801 229 discriminator 5
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2801 249 discriminator 8
 	lla	a0,__func__.7
 	call	puts
-.L978:
+.L977:
 	.loc 1 2801 267 discriminator 10
 	li	a0,2
 	call	exit
-.L976:
+.L975:
 .LBE263:
 	.loc 1 2801 284 discriminator 12
 	lw	a4,-40(s0)
@@ -15547,29 +15543,29 @@ write_data_inode:
 	.loc 1 2802 65
 	lw	a5,-32(s0)
 	sext.w	a5,a5
-	bne	a5,zero,.L979
+	bne	a5,zero,.L978
 .LBB265:
 	.loc 1 2802 167 discriminator 1
 	lla	a0,.LC8
 	call	puts
 	.loc 1 2802 193 discriminator 3
 	lla	a5,stackframe
-	beq	a5,zero,.L980
+	beq	a5,zero,.L979
 	.loc 1 2802 206 discriminator 4
 	call	stackframe
-	j	.L981
-.L980:
+	j	.L980
+.L979:
 	.loc 1 2802 227 discriminator 5
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2802 247 discriminator 8
 	lla	a0,__func__.7
 	call	puts
-.L981:
+.L980:
 	.loc 1 2802 265 discriminator 10
 	li	a0,2
 	call	exit
-.L979:
+.L978:
 .LBE265:
 	.loc 1 2802 282 discriminator 12
 	lw	a4,-40(s0)
@@ -15590,11 +15586,11 @@ write_data_inode:
 	lw	a4,-52(s0)
 	lw	a5,-36(s0)
 	.loc 1 2804 11
-	bleu	a4,a5,.L982
+	bleu	a4,a5,.L981
 	.loc 1 2805 21
 	lw	a5,-36(s0)
 	sw	a5,-52(s0)
-.L982:
+.L981:
 	.loc 1 2807 18
 	lw	a4,-44(s0)
 	lw	a5,-68(s0)
@@ -15608,11 +15604,11 @@ write_data_inode:
 	.loc 1 2808 12
 	lw	a5,-56(s0)
 	.loc 1 2808 11
-	bne	a5,zero,.L983
+	bne	a5,zero,.L982
 	.loc 1 2809 32
 	li	a5,-1
-	j	.L986
-.L983:
+	j	.L985
+.L982:
 	.loc 1 2811 9
 	lw	a5,-56(s0)
 	lla	a1,block_buf
@@ -15653,10 +15649,10 @@ write_data_inode:
 	ld	a4,-24(s0)
 	add	a5,a4,a5
 	sd	a5,-24(s0)
-.L975:
+.L974:
 	.loc 1 2800 15
 	lw	a5,-36(s0)
-	bne	a5,zero,.L985
+	bne	a5,zero,.L984
 	.loc 1 2818 13
 	ld	a5,-80(s0)
 	lw	a4,-72(s0)
@@ -15675,7 +15671,7 @@ write_data_inode:
 	call	write_inode
 	.loc 1 2821 16
 	li	a5,0
-.L986:
+.L985:
 	.loc 1 2822 1
 	mv	a0,a5
 	ld	ra,88(sp)
@@ -15773,22 +15769,22 @@ fs_symlink:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 2845 7 discriminator 1
-	bne	a5,zero,.L988
+	bne	a5,zero,.L987
 	.loc 1 2846 24
 	li	a5,-1
-	j	.L1012
-.L988:
+	j	.L1011
+.L987:
 	.loc 1 2848 8
 	addi	a5,s0,-448
 	mv	a0,a5
 	call	path_lookup
 	mv	a5,a0
 	.loc 1 2848 7 discriminator 1
-	beq	a5,zero,.L990
+	beq	a5,zero,.L989
 	.loc 1 2849 24
 	li	a5,-1
-	j	.L1012
-.L990:
+	j	.L1011
+.L989:
 	.loc 1 2852 5
 	addi	a5,s0,-464
 	li	a2,15
@@ -15798,8 +15794,8 @@ fs_symlink:
 	.loc 1 2853 10
 	sw	zero,-40(s0)
 	.loc 1 2853 5
-	j	.L991
-.L996:
+	j	.L990
+.L995:
 .LBB266:
 	.loc 1 2854 47
 	lw	a5,-40(s0)
@@ -15807,34 +15803,34 @@ fs_symlink:
 	sd	a5,-32(s0)
 	.loc 1 2854 65
 	ld	a5,-32(s0)
-	blt	a5,zero,.L992
+	blt	a5,zero,.L991
 	.loc 1 2854 93 discriminator 2
 	ld	a4,-32(s0)
 	li	a5,14
-	ble	a4,a5,.L993
-.L992:
+	ble	a4,a5,.L992
+.L991:
 .LBB267:
 	.loc 1 2854 218 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2854 255 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L994
+	beq	a5,zero,.L993
 	.loc 1 2854 268 discriminator 6
 	call	stackframe
-	j	.L995
-.L994:
+	j	.L994
+.L993:
 	.loc 1 2854 289 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2854 309 discriminator 10
 	lla	a0,__func__.6
 	call	puts
-.L995:
+.L994:
 	.loc 1 2854 327 discriminator 12
 	li	a0,2
 	call	exit
-.L993:
+.L992:
 .LBE267:
 	.loc 1 2854 367 discriminator 14
 	ld	a5,-32(s0)
@@ -15847,11 +15843,11 @@ fs_symlink:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-40(s0)
-.L991:
+.L990:
 	.loc 1 2853 18 discriminator 1
 	lw	a4,-40(s0)
 	li	a5,14
-	ble	a4,a5,.L996
+	ble	a4,a5,.L995
 	.loc 1 2856 9
 	addi	a3,s0,-464
 	addi	a4,s0,-36
@@ -15862,44 +15858,44 @@ fs_symlink:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 2856 7 discriminator 1
-	bne	a5,zero,.L997
+	bne	a5,zero,.L996
 	.loc 1 2857 24
 	li	a5,-1
-	j	.L1012
-.L997:
+	j	.L1011
+.L996:
 .LBB268:
 	.loc 1 2859 23
 	sd	zero,-24(s0)
 	.loc 1 2859 66
 	ld	a5,-24(s0)
-	blt	a5,zero,.L998
+	blt	a5,zero,.L997
 	.loc 1 2859 94 discriminator 2
 	ld	a4,-24(s0)
 	li	a5,14
-	ble	a4,a5,.L999
-.L998:
+	ble	a4,a5,.L998
+.L997:
 .LBB269:
 	.loc 1 2859 219 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2859 256 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1000
+	beq	a5,zero,.L999
 	.loc 1 2859 269 discriminator 6
 	call	stackframe
-	j	.L1001
-.L1000:
+	j	.L1000
+.L999:
 	.loc 1 2859 290 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2859 310 discriminator 10
 	lla	a0,__func__.6
 	call	puts
-.L1001:
+.L1000:
 	.loc 1 2859 328 discriminator 12
 	li	a0,2
 	call	exit
-.L999:
+.L998:
 .LBE269:
 	.loc 1 2859 339 discriminator 14
 	addi	a4,s0,-464
@@ -15909,11 +15905,11 @@ fs_symlink:
 	.loc 1 2859 9 discriminator 14
 	lbu	a5,0(a5)
 	.loc 1 2859 7 discriminator 14
-	bne	a5,zero,.L1002
+	bne	a5,zero,.L1001
 	.loc 1 2860 24
 	li	a5,-1
-	j	.L1012
-.L1002:
+	j	.L1011
+.L1001:
 	.loc 1 2862 5
 	lw	a5,-36(s0)
 	addi	a4,s0,-128
@@ -15927,19 +15923,19 @@ fs_symlink:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 2863 7 discriminator 1
-	bne	a5,zero,.L1003
+	bne	a5,zero,.L1002
 	.loc 1 2864 24
 	li	a5,-1
-	j	.L1012
-.L1003:
+	j	.L1011
+.L1002:
 	.loc 1 2866 9
 	sw	zero,-220(s0)
 	.loc 1 2867 13
 	li	a5,1
 	sw	a5,-224(s0)
 	.loc 1 2867 5
-	j	.L1004
-.L1007:
+	j	.L1003
+.L1006:
 	.loc 1 2868 9
 	lw	a5,-224(s0)
 	addi	a4,s0,-216
@@ -15949,34 +15945,34 @@ fs_symlink:
 	.loc 1 2869 14
 	lhu	a5,-216(s0)
 	.loc 1 2869 11
-	bne	a5,zero,.L1005
+	bne	a5,zero,.L1004
 	.loc 1 2870 17
 	lw	a5,-224(s0)
 	sw	a5,-220(s0)
 	.loc 1 2871 13
-	j	.L1006
-.L1005:
+	j	.L1005
+.L1004:
 	.loc 1 2867 51 discriminator 2
 	lw	a5,-224(s0)
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-224(s0)
-.L1004:
+.L1003:
 	.loc 1 2867 28 discriminator 1
 	lla	a5,sb
 	lw	a4,8(a5)
 	.loc 1 2867 24 discriminator 1
 	lw	a5,-224(s0)
-	bgeu	a4,a5,.L1007
-.L1006:
+	bgeu	a4,a5,.L1006
+.L1005:
 	.loc 1 2874 8
 	lw	a5,-220(s0)
 	.loc 1 2874 7
-	bne	a5,zero,.L1008
+	bne	a5,zero,.L1007
 	.loc 1 2875 24
 	li	a5,-1
-	j	.L1012
-.L1008:
+	j	.L1011
+.L1007:
 	.loc 1 2877 5
 	addi	a5,s0,-312
 	li	a2,88
@@ -16016,11 +16012,11 @@ fs_symlink:
 	call	add_dirent
 	mv	a5,a0
 	.loc 1 2884 7 discriminator 1
-	beq	a5,zero,.L1009
+	beq	a5,zero,.L1008
 	.loc 1 2885 24
 	li	a5,-1
-	j	.L1012
-.L1009:
+	j	.L1011
+.L1008:
 	.loc 1 2887 10
 	ld	a0,-712(s0)
 	call	strlen
@@ -16031,11 +16027,11 @@ fs_symlink:
 	lw	a4,-316(s0)
 	.loc 1 2888 7
 	li	a5,240
-	bleu	a4,a5,.L1010
+	bleu	a4,a5,.L1009
 	.loc 1 2889 13
 	li	a5,240
 	sw	a5,-316(s0)
-.L1010:
+.L1009:
 	.loc 1 2892 5
 	addi	a5,s0,-704
 	li	a2,240
@@ -16072,14 +16068,14 @@ fs_symlink:
 	call	write_data_inode
 	mv	a5,a0
 	.loc 1 2896 7 discriminator 1
-	beq	a5,zero,.L1011
+	beq	a5,zero,.L1010
 	.loc 1 2897 24
 	li	a5,-1
-	j	.L1012
-.L1011:
+	j	.L1011
+.L1010:
 	.loc 1 2899 16
 	li	a5,0
-.L1012:
+.L1011:
 	.loc 1 2900 1
 	mv	a0,a5
 	ld	ra,712(sp)
@@ -16178,11 +16174,11 @@ fs_rename:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 2923 7 discriminator 1
-	bne	a5,zero,.L1014
+	bne	a5,zero,.L1013
 	.loc 1 2924 24
 	li	a5,0
-	j	.L1047
-.L1014:
+	j	.L1046
+.L1013:
 	.loc 1 2926 8
 	addi	a5,s0,-544
 	lla	a1,.LC11
@@ -16190,11 +16186,11 @@ fs_rename:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 2926 7 discriminator 1
-	bne	a5,zero,.L1016
+	bne	a5,zero,.L1015
 	.loc 1 2927 24
 	li	a5,-1
-	j	.L1047
-.L1016:
+	j	.L1046
+.L1015:
 	.loc 1 2929 10
 	addi	a5,s0,-544
 	mv	a0,a5
@@ -16205,22 +16201,22 @@ fs_rename:
 	.loc 1 2930 12
 	lw	a5,-52(s0)
 	.loc 1 2930 7
-	bne	a5,zero,.L1017
+	bne	a5,zero,.L1016
 	.loc 1 2931 24
 	li	a5,-1
-	j	.L1047
-.L1017:
+	j	.L1046
+.L1016:
 	.loc 1 2933 8
 	addi	a5,s0,-672
 	mv	a0,a5
 	call	path_lookup
 	mv	a5,a0
 	.loc 1 2933 7 discriminator 1
-	beq	a5,zero,.L1018
+	beq	a5,zero,.L1017
 	.loc 1 2934 24
 	li	a5,-1
-	j	.L1047
-.L1018:
+	j	.L1046
+.L1017:
 	.loc 1 2937 5
 	addi	a5,s0,-680
 	li	a2,4
@@ -16242,8 +16238,8 @@ fs_rename:
 	.loc 1 2943 10
 	sw	zero,-56(s0)
 	.loc 1 2943 5
-	j	.L1019
-.L1028:
+	j	.L1018
+.L1027:
 .LBB270:
 	.loc 1 2944 47
 	lw	a5,-56(s0)
@@ -16251,34 +16247,34 @@ fs_rename:
 	sd	a5,-40(s0)
 	.loc 1 2944 65
 	ld	a5,-40(s0)
-	blt	a5,zero,.L1020
+	blt	a5,zero,.L1019
 	.loc 1 2944 93 discriminator 2
 	ld	a4,-40(s0)
 	li	a5,14
-	ble	a4,a5,.L1021
-.L1020:
+	ble	a4,a5,.L1020
+.L1019:
 .LBB271:
 	.loc 1 2944 218 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2944 255 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1022
+	beq	a5,zero,.L1021
 	.loc 1 2944 268 discriminator 6
 	call	stackframe
-	j	.L1023
-.L1022:
+	j	.L1022
+.L1021:
 	.loc 1 2944 289 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2944 309 discriminator 10
 	lla	a0,__func__.5
 	call	puts
-.L1023:
+.L1022:
 	.loc 1 2944 327 discriminator 12
 	li	a0,2
 	call	exit
-.L1021:
+.L1020:
 .LBE271:
 	.loc 1 2944 368 discriminator 14
 	ld	a5,-40(s0)
@@ -16293,34 +16289,34 @@ fs_rename:
 	sd	a5,-48(s0)
 	.loc 1 2945 65
 	ld	a5,-48(s0)
-	blt	a5,zero,.L1024
+	blt	a5,zero,.L1023
 	.loc 1 2945 93 discriminator 2
 	ld	a4,-48(s0)
 	li	a5,14
-	ble	a4,a5,.L1025
-.L1024:
+	ble	a4,a5,.L1024
+.L1023:
 .LBB273:
 	.loc 1 2945 218 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2945 255 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1026
+	beq	a5,zero,.L1025
 	.loc 1 2945 268 discriminator 6
 	call	stackframe
-	j	.L1027
-.L1026:
+	j	.L1026
+.L1025:
 	.loc 1 2945 289 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2945 309 discriminator 10
 	lla	a0,__func__.5
 	call	puts
-.L1027:
+.L1026:
 	.loc 1 2945 327 discriminator 12
 	li	a0,2
 	call	exit
-.L1025:
+.L1024:
 .LBE273:
 	.loc 1 2945 368 discriminator 14
 	ld	a5,-48(s0)
@@ -16333,11 +16329,11 @@ fs_rename:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-56(s0)
-.L1019:
+.L1018:
 	.loc 1 2943 18 discriminator 1
 	lw	a4,-56(s0)
 	li	a5,14
-	ble	a4,a5,.L1028
+	ble	a4,a5,.L1027
 	.loc 1 2947 9
 	addi	a3,s0,-696
 	addi	a4,s0,-676
@@ -16348,11 +16344,11 @@ fs_rename:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 2947 7 discriminator 1
-	bne	a5,zero,.L1029
+	bne	a5,zero,.L1028
 	.loc 1 2948 24
 	li	a5,-1
-	j	.L1047
-.L1029:
+	j	.L1046
+.L1028:
 	.loc 1 2950 9
 	addi	a3,s0,-712
 	addi	a4,s0,-680
@@ -16363,44 +16359,44 @@ fs_rename:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 2950 7 discriminator 1
-	bne	a5,zero,.L1030
+	bne	a5,zero,.L1029
 	.loc 1 2951 24
 	li	a5,-1
-	j	.L1047
-.L1030:
+	j	.L1046
+.L1029:
 .LBB274:
 	.loc 1 2953 23
 	sd	zero,-24(s0)
 	.loc 1 2953 66
 	ld	a5,-24(s0)
-	blt	a5,zero,.L1031
+	blt	a5,zero,.L1030
 	.loc 1 2953 94 discriminator 2
 	ld	a4,-24(s0)
 	li	a5,14
-	ble	a4,a5,.L1032
-.L1031:
+	ble	a4,a5,.L1031
+.L1030:
 .LBB275:
 	.loc 1 2953 219 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2953 256 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1033
+	beq	a5,zero,.L1032
 	.loc 1 2953 269 discriminator 6
 	call	stackframe
-	j	.L1034
-.L1033:
+	j	.L1033
+.L1032:
 	.loc 1 2953 290 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2953 310 discriminator 10
 	lla	a0,__func__.5
 	call	puts
-.L1034:
+.L1033:
 	.loc 1 2953 328 discriminator 12
 	li	a0,2
 	call	exit
-.L1032:
+.L1031:
 .LBE275:
 	.loc 1 2953 339 discriminator 14
 	addi	a4,s0,-696
@@ -16410,40 +16406,40 @@ fs_rename:
 	.loc 1 2953 9 discriminator 14
 	lbu	a5,0(a5)
 	.loc 1 2953 7 discriminator 14
-	beq	a5,zero,.L1035
+	beq	a5,zero,.L1034
 .LBB276:
 	.loc 1 2953 394 discriminator 15
 	sd	zero,-32(s0)
 	.loc 1 2953 437 discriminator 15
 	ld	a5,-32(s0)
-	blt	a5,zero,.L1036
+	blt	a5,zero,.L1035
 	.loc 1 2953 465 discriminator 17
 	ld	a4,-32(s0)
 	li	a5,14
-	ble	a4,a5,.L1037
-.L1036:
+	ble	a4,a5,.L1036
+.L1035:
 .LBB277:
 	.loc 1 2953 590 discriminator 18
 	lla	a0,.LC9
 	call	puts
 	.loc 1 2953 627 discriminator 20
 	lla	a5,stackframe
-	beq	a5,zero,.L1038
+	beq	a5,zero,.L1037
 	.loc 1 2953 640 discriminator 21
 	call	stackframe
-	j	.L1039
-.L1038:
+	j	.L1038
+.L1037:
 	.loc 1 2953 661 discriminator 22
 	lla	a0,.LC1
 	call	puts
 	.loc 1 2953 681 discriminator 25
 	lla	a0,__func__.5
 	call	puts
-.L1039:
+.L1038:
 	.loc 1 2953 699 discriminator 27
 	li	a0,2
 	call	exit
-.L1037:
+.L1036:
 .LBE277:
 	.loc 1 2953 710 discriminator 29
 	addi	a4,s0,-712
@@ -16453,12 +16449,12 @@ fs_rename:
 	.loc 1 2953 380 discriminator 29
 	lbu	a5,0(a5)
 	.loc 1 2953 377 discriminator 29
-	bne	a5,zero,.L1040
-.L1035:
+	bne	a5,zero,.L1039
+.L1034:
 	.loc 1 2954 24
 	li	a5,-1
-	j	.L1047
-.L1040:
+	j	.L1046
+.L1039:
 	.loc 1 2956 5
 	lw	a5,-680(s0)
 	addi	a4,s0,-144
@@ -16470,11 +16466,11 @@ fs_rename:
 	.loc 1 2957 7
 	sext.w	a4,a5
 	li	a5,1
-	beq	a4,a5,.L1041
+	beq	a4,a5,.L1040
 	.loc 1 2958 24
 	li	a5,-1
-	j	.L1047
-.L1041:
+	j	.L1046
+.L1040:
 	.loc 1 2960 5
 	lw	a5,-676(s0)
 	addi	a4,s0,-232
@@ -16488,11 +16484,11 @@ fs_rename:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 2961 7 discriminator 1
-	bne	a5,zero,.L1042
+	bne	a5,zero,.L1041
 	.loc 1 2962 24
 	li	a5,-1
-	j	.L1047
-.L1042:
+	j	.L1046
+.L1041:
 	.loc 1 2964 9
 	addi	a5,s0,-144
 	li	a1,3
@@ -16500,11 +16496,11 @@ fs_rename:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 2964 7 discriminator 1
-	bne	a5,zero,.L1043
+	bne	a5,zero,.L1042
 	.loc 1 2965 24
 	li	a5,-1
-	j	.L1047
-.L1043:
+	j	.L1046
+.L1042:
 	.loc 1 2967 5
 	lw	a5,-676(s0)
 	addi	a4,s0,-320
@@ -16523,7 +16519,7 @@ fs_rename:
 	andi	a5,a5,512
 	sext.w	a5,a5
 	.loc 1 2969 7
-	beq	a5,zero,.L1044
+	beq	a5,zero,.L1043
 	.loc 1 2970 12
 	lla	a5,gActiveProc
 	lw	a5,0(a5)
@@ -16536,7 +16532,7 @@ fs_rename:
 	ld	a5,-416(s0)
 	lhu	a5,1018(a5)
 	.loc 1 2971 11
-	beq	a5,zero,.L1044
+	beq	a5,zero,.L1043
 	.loc 1 2971 28 discriminator 1
 	ld	a5,-416(s0)
 	lhu	a4,1018(a5)
@@ -16545,7 +16541,7 @@ fs_rename:
 	.loc 1 2971 24 discriminator 1
 	sext.w	a4,a4
 	sext.w	a5,a5
-	beq	a4,a5,.L1044
+	beq	a4,a5,.L1043
 	.loc 1 2971 59 discriminator 2
 	ld	a5,-416(s0)
 	lhu	a4,1018(a5)
@@ -16554,11 +16550,11 @@ fs_rename:
 	.loc 1 2971 12 discriminator 2
 	sext.w	a4,a4
 	sext.w	a5,a5
-	beq	a4,a5,.L1044
+	beq	a4,a5,.L1043
 	.loc 1 2972 32
 	li	a5,-1
-	j	.L1047
-.L1044:
+	j	.L1046
+.L1043:
 	.loc 1 2975 8
 	lw	a5,-680(s0)
 	lw	a3,-52(s0)
@@ -16569,11 +16565,11 @@ fs_rename:
 	call	add_dirent
 	mv	a5,a0
 	.loc 1 2975 7 discriminator 1
-	beq	a5,zero,.L1045
+	beq	a5,zero,.L1044
 	.loc 1 2976 24
 	li	a5,-1
-	j	.L1047
-.L1045:
+	j	.L1046
+.L1044:
 	.loc 1 2978 8
 	lw	a5,-676(s0)
 	addi	a4,s0,-696
@@ -16582,14 +16578,14 @@ fs_rename:
 	call	remove_dirent
 	mv	a5,a0
 	.loc 1 2978 7 discriminator 1
-	beq	a5,zero,.L1046
+	beq	a5,zero,.L1045
 	.loc 1 2979 24
 	li	a5,-1
-	j	.L1047
-.L1046:
+	j	.L1046
+.L1045:
 	.loc 1 2981 16
 	li	a5,0
-.L1047:
+.L1046:
 	.loc 1 2982 1
 	mv	a0,a5
 	ld	ra,728(sp)
@@ -16675,7 +16671,7 @@ fs_link:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 3001 7 discriminator 1
-	beq	a5,zero,.L1049
+	beq	a5,zero,.L1048
 	.loc 1 3001 31 discriminator 2
 	addi	a5,s0,-352
 	lla	a1,.LC11
@@ -16683,12 +16679,12 @@ fs_link:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 3001 29 discriminator 3
-	bne	a5,zero,.L1050
-.L1049:
+	bne	a5,zero,.L1049
+.L1048:
 	.loc 1 3002 24
 	li	a5,-1
-	j	.L1069
-.L1050:
+	j	.L1068
+.L1049:
 	.loc 1 3004 10
 	addi	a5,s0,-352
 	mv	a0,a5
@@ -16699,22 +16695,22 @@ fs_link:
 	.loc 1 3005 12
 	lw	a5,-36(s0)
 	.loc 1 3005 7
-	bne	a5,zero,.L1052
+	bne	a5,zero,.L1051
 	.loc 1 3006 24
 	li	a5,-1
-	j	.L1069
-.L1052:
+	j	.L1068
+.L1051:
 	.loc 1 3008 8
 	addi	a5,s0,-480
 	mv	a0,a5
 	call	path_lookup
 	mv	a5,a0
 	.loc 1 3008 7 discriminator 1
-	beq	a5,zero,.L1053
+	beq	a5,zero,.L1052
 	.loc 1 3009 24
 	li	a5,-1
-	j	.L1069
-.L1053:
+	j	.L1068
+.L1052:
 	.loc 1 3011 5
 	lw	a5,-36(s0)
 	addi	a4,s0,-128
@@ -16726,11 +16722,11 @@ fs_link:
 	.loc 1 3012 7
 	sext.w	a4,a5
 	li	a5,2
-	beq	a4,a5,.L1054
+	beq	a4,a5,.L1053
 	.loc 1 3013 24
 	li	a5,-1
-	j	.L1069
-.L1054:
+	j	.L1068
+.L1053:
 	.loc 1 3016 5
 	addi	a5,s0,-496
 	li	a2,15
@@ -16740,8 +16736,8 @@ fs_link:
 	.loc 1 3017 10
 	sw	zero,-136(s0)
 	.loc 1 3017 5
-	j	.L1055
-.L1060:
+	j	.L1054
+.L1059:
 .LBB278:
 	.loc 1 3018 47
 	lw	a5,-136(s0)
@@ -16749,34 +16745,34 @@ fs_link:
 	sd	a5,-32(s0)
 	.loc 1 3018 65
 	ld	a5,-32(s0)
-	blt	a5,zero,.L1056
+	blt	a5,zero,.L1055
 	.loc 1 3018 93 discriminator 2
 	ld	a4,-32(s0)
 	li	a5,14
-	ble	a4,a5,.L1057
-.L1056:
+	ble	a4,a5,.L1056
+.L1055:
 .LBB279:
 	.loc 1 3018 218 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 3018 255 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1058
+	beq	a5,zero,.L1057
 	.loc 1 3018 268 discriminator 6
 	call	stackframe
-	j	.L1059
-.L1058:
+	j	.L1058
+.L1057:
 	.loc 1 3018 289 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 3018 309 discriminator 10
 	lla	a0,__func__.4
 	call	puts
-.L1059:
+.L1058:
 	.loc 1 3018 327 discriminator 12
 	li	a0,2
 	call	exit
-.L1057:
+.L1056:
 .LBE279:
 	.loc 1 3018 367 discriminator 14
 	ld	a5,-32(s0)
@@ -16789,11 +16785,11 @@ fs_link:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-136(s0)
-.L1055:
+.L1054:
 	.loc 1 3017 18 discriminator 1
 	lw	a4,-136(s0)
 	li	a5,14
-	ble	a4,a5,.L1060
+	ble	a4,a5,.L1059
 	.loc 1 3020 9
 	addi	a3,s0,-496
 	addi	a4,s0,-132
@@ -16804,44 +16800,44 @@ fs_link:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 3020 7 discriminator 1
-	bne	a5,zero,.L1061
+	bne	a5,zero,.L1060
 	.loc 1 3021 24
 	li	a5,-1
-	j	.L1069
-.L1061:
+	j	.L1068
+.L1060:
 .LBB280:
 	.loc 1 3023 23
 	sd	zero,-24(s0)
 	.loc 1 3023 66
 	ld	a5,-24(s0)
-	blt	a5,zero,.L1062
+	blt	a5,zero,.L1061
 	.loc 1 3023 94 discriminator 2
 	ld	a4,-24(s0)
 	li	a5,14
-	ble	a4,a5,.L1063
-.L1062:
+	ble	a4,a5,.L1062
+.L1061:
 .LBB281:
 	.loc 1 3023 219 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 3023 256 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1064
+	beq	a5,zero,.L1063
 	.loc 1 3023 269 discriminator 6
 	call	stackframe
-	j	.L1065
-.L1064:
+	j	.L1064
+.L1063:
 	.loc 1 3023 290 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 3023 310 discriminator 10
 	lla	a0,__func__.4
 	call	puts
-.L1065:
+.L1064:
 	.loc 1 3023 328 discriminator 12
 	li	a0,2
 	call	exit
-.L1063:
+.L1062:
 .LBE281:
 	.loc 1 3023 339 discriminator 14
 	addi	a4,s0,-496
@@ -16851,11 +16847,11 @@ fs_link:
 	.loc 1 3023 9 discriminator 14
 	lbu	a5,0(a5)
 	.loc 1 3023 7 discriminator 14
-	bne	a5,zero,.L1066
+	bne	a5,zero,.L1065
 	.loc 1 3024 24
 	li	a5,-1
-	j	.L1069
-.L1066:
+	j	.L1068
+.L1065:
 	.loc 1 3026 5
 	lw	a5,-132(s0)
 	addi	a4,s0,-224
@@ -16869,11 +16865,11 @@ fs_link:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 3027 7 discriminator 1
-	bne	a5,zero,.L1067
+	bne	a5,zero,.L1066
 	.loc 1 3028 24
 	li	a5,-1
-	j	.L1069
-.L1067:
+	j	.L1068
+.L1066:
 	.loc 1 3030 8
 	lw	a5,-132(s0)
 	lw	a3,-36(s0)
@@ -16884,11 +16880,11 @@ fs_link:
 	call	add_dirent
 	mv	a5,a0
 	.loc 1 3030 7 discriminator 1
-	beq	a5,zero,.L1068
+	beq	a5,zero,.L1067
 	.loc 1 3031 24
 	li	a5,-1
-	j	.L1069
-.L1068:
+	j	.L1068
+.L1067:
 	.loc 1 3033 7
 	lhu	a5,-122(s0)
 	.loc 1 3033 23
@@ -16909,7 +16905,7 @@ fs_link:
 	call	write_inode
 	.loc 1 3036 16
 	li	a5,0
-.L1069:
+.L1068:
 	.loc 1 3037 1
 	mv	a0,a5
 	ld	ra,504(sp)
@@ -16954,11 +16950,11 @@ fs_stat:
 	call	memset
 	.loc 1 3045 7
 	ld	a5,-256(s0)
-	bne	a5,zero,.L1071
+	bne	a5,zero,.L1070
 	.loc 1 3046 24
 	li	a5,-1
-	j	.L1074
-.L1071:
+	j	.L1073
+.L1070:
 	.loc 1 3049 5
 	addi	a5,s0,-240
 	li	a2,128
@@ -16981,11 +16977,11 @@ fs_stat:
 	.loc 1 3052 8
 	lw	a5,-20(s0)
 	.loc 1 3052 7
-	bne	a5,zero,.L1073
+	bne	a5,zero,.L1072
 	.loc 1 3053 24
 	li	a5,-1
-	j	.L1074
-.L1073:
+	j	.L1073
+.L1072:
 	.loc 1 3055 5
 	lw	a5,-20(s0)
 	addi	a4,s0,-112
@@ -17043,7 +17039,7 @@ fs_stat:
 	sw	a4,28(a5)
 	.loc 1 3066 16
 	li	a5,0
-.L1074:
+.L1073:
 	.loc 1 3067 1
 	mv	a0,a5
 	ld	ra,248(sp)
@@ -17114,16 +17110,16 @@ fs_readlink:
 	call	memset
 	.loc 1 3083 7
 	ld	a5,-384(s0)
-	beq	a5,zero,.L1076
+	beq	a5,zero,.L1075
 	.loc 1 3083 12 discriminator 1
 	lw	a5,-388(s0)
 	sext.w	a5,a5
-	bgt	a5,zero,.L1077
-.L1076:
+	bgt	a5,zero,.L1076
+.L1075:
 	.loc 1 3084 24
 	li	a5,-1
-	j	.L1092
-.L1077:
+	j	.L1091
+.L1076:
 	.loc 1 3087 5
 	addi	a5,s0,-352
 	li	a2,128
@@ -17145,8 +17141,8 @@ fs_readlink:
 	.loc 1 3091 10
 	sw	zero,-32(s0)
 	.loc 1 3091 5
-	j	.L1079
-.L1084:
+	j	.L1078
+.L1083:
 .LBB282:
 	.loc 1 3092 47
 	lw	a5,-32(s0)
@@ -17154,34 +17150,34 @@ fs_readlink:
 	sd	a5,-24(s0)
 	.loc 1 3092 65
 	ld	a5,-24(s0)
-	blt	a5,zero,.L1080
+	blt	a5,zero,.L1079
 	.loc 1 3092 93 discriminator 2
 	ld	a4,-24(s0)
 	li	a5,14
-	ble	a4,a5,.L1081
-.L1080:
+	ble	a4,a5,.L1080
+.L1079:
 .LBB283:
 	.loc 1 3092 218 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 3092 255 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1082
+	beq	a5,zero,.L1081
 	.loc 1 3092 268 discriminator 6
 	call	stackframe
-	j	.L1083
-.L1082:
+	j	.L1082
+.L1081:
 	.loc 1 3092 289 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 3092 309 discriminator 10
 	lla	a0,__func__.3
 	call	puts
-.L1083:
+.L1082:
 	.loc 1 3092 327 discriminator 12
 	li	a0,2
 	call	exit
-.L1081:
+.L1080:
 .LBE283:
 	.loc 1 3092 367 discriminator 14
 	ld	a5,-24(s0)
@@ -17194,11 +17190,11 @@ fs_readlink:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-32(s0)
-.L1079:
+.L1078:
 	.loc 1 3091 18 discriminator 1
 	lw	a4,-32(s0)
 	li	a5,14
-	ble	a4,a5,.L1084
+	ble	a4,a5,.L1083
 	.loc 1 3094 9
 	addi	a3,s0,-368
 	addi	a4,s0,-28
@@ -17209,11 +17205,11 @@ fs_readlink:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 3094 7 discriminator 1
-	bne	a5,zero,.L1085
+	bne	a5,zero,.L1084
 	.loc 1 3095 24
 	li	a5,-1
-	j	.L1092
-.L1085:
+	j	.L1091
+.L1084:
 	.loc 1 3097 5
 	lw	a5,-28(s0)
 	addi	a4,s0,-120
@@ -17225,11 +17221,11 @@ fs_readlink:
 	.loc 1 3098 7
 	sext.w	a4,a5
 	li	a5,1
-	beq	a4,a5,.L1086
+	beq	a4,a5,.L1085
 	.loc 1 3099 24
 	li	a5,-1
-	j	.L1092
-.L1086:
+	j	.L1091
+.L1085:
 	.loc 1 3101 10
 	addi	a4,s0,-368
 	addi	a5,s0,-120
@@ -17242,11 +17238,11 @@ fs_readlink:
 	.loc 1 3102 8
 	lw	a5,-124(s0)
 	.loc 1 3102 7
-	bne	a5,zero,.L1087
+	bne	a5,zero,.L1086
 	.loc 1 3103 24
 	li	a5,-1
-	j	.L1092
-.L1087:
+	j	.L1091
+.L1086:
 	.loc 1 3105 5
 	lw	a5,-124(s0)
 	addi	a4,s0,-216
@@ -17258,11 +17254,11 @@ fs_readlink:
 	.loc 1 3106 7
 	sext.w	a4,a5
 	li	a5,3
-	beq	a4,a5,.L1088
+	beq	a4,a5,.L1087
 	.loc 1 3107 24
 	li	a5,-1
-	j	.L1092
-.L1088:
+	j	.L1091
+.L1087:
 	.loc 1 3109 9
 	lw	a5,-208(s0)
 	.loc 1 3109 6
@@ -17272,22 +17268,22 @@ fs_readlink:
 	.loc 1 3110 7
 	lw	a4,-388(s0)
 	sext.w	a4,a4
-	bge	a4,a5,.L1089
+	bge	a4,a5,.L1088
 	.loc 1 3111 10
 	lw	a5,-388(s0)
 	sw	a5,-220(s0)
-.L1089:
+.L1088:
 	.loc 1 3113 9
 	lw	a5,-220(s0)
 	.loc 1 3113 7
-	bge	a5,zero,.L1090
+	bge	a5,zero,.L1089
 	.loc 1 3114 10
 	sw	zero,-220(s0)
-.L1090:
+.L1089:
 	.loc 1 3116 9
 	lw	a5,-220(s0)
 	.loc 1 3116 7
-	ble	a5,zero,.L1091
+	ble	a5,zero,.L1090
 	.loc 1 3117 9
 	lw	a5,-220(s0)
 	mv	a4,a5
@@ -17297,10 +17293,10 @@ fs_readlink:
 	li	a1,0
 	mv	a0,a5
 	call	read_data
-.L1091:
+.L1090:
 	.loc 1 3119 16
 	lw	a5,-220(s0)
-.L1092:
+.L1091:
 	.loc 1 3120 1
 	mv	a0,a5
 	ld	ra,392(sp)
@@ -17363,11 +17359,11 @@ fs_lstat:
 	call	memset
 	.loc 1 3134 7
 	ld	a5,-384(s0)
-	bne	a5,zero,.L1094
+	bne	a5,zero,.L1093
 	.loc 1 3135 24
 	li	a5,-1
-	j	.L1105
-.L1094:
+	j	.L1104
+.L1093:
 	.loc 1 3138 5
 	addi	a5,s0,-344
 	li	a2,128
@@ -17389,8 +17385,8 @@ fs_lstat:
 	.loc 1 3142 10
 	sw	zero,-32(s0)
 	.loc 1 3142 5
-	j	.L1096
-.L1101:
+	j	.L1095
+.L1100:
 .LBB284:
 	.loc 1 3143 47
 	lw	a5,-32(s0)
@@ -17398,34 +17394,34 @@ fs_lstat:
 	sd	a5,-24(s0)
 	.loc 1 3143 65
 	ld	a5,-24(s0)
-	blt	a5,zero,.L1097
+	blt	a5,zero,.L1096
 	.loc 1 3143 93 discriminator 2
 	ld	a4,-24(s0)
 	li	a5,14
-	ble	a4,a5,.L1098
-.L1097:
+	ble	a4,a5,.L1097
+.L1096:
 .LBB285:
 	.loc 1 3143 218 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 3143 255 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1099
+	beq	a5,zero,.L1098
 	.loc 1 3143 268 discriminator 6
 	call	stackframe
-	j	.L1100
-.L1099:
+	j	.L1099
+.L1098:
 	.loc 1 3143 289 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 3143 309 discriminator 10
 	lla	a0,__func__.2
 	call	puts
-.L1100:
+.L1099:
 	.loc 1 3143 327 discriminator 12
 	li	a0,2
 	call	exit
-.L1098:
+.L1097:
 .LBE285:
 	.loc 1 3143 367 discriminator 14
 	ld	a5,-24(s0)
@@ -17438,11 +17434,11 @@ fs_lstat:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-32(s0)
-.L1096:
+.L1095:
 	.loc 1 3142 18 discriminator 1
 	lw	a4,-32(s0)
 	li	a5,14
-	ble	a4,a5,.L1101
+	ble	a4,a5,.L1100
 	.loc 1 3145 9
 	addi	a3,s0,-360
 	addi	a4,s0,-28
@@ -17453,11 +17449,11 @@ fs_lstat:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 3145 7 discriminator 1
-	bne	a5,zero,.L1102
+	bne	a5,zero,.L1101
 	.loc 1 3146 24
 	li	a5,-1
-	j	.L1105
-.L1102:
+	j	.L1104
+.L1101:
 	.loc 1 3148 5
 	lw	a5,-28(s0)
 	addi	a4,s0,-120
@@ -17469,11 +17465,11 @@ fs_lstat:
 	.loc 1 3149 7
 	sext.w	a4,a5
 	li	a5,1
-	beq	a4,a5,.L1103
+	beq	a4,a5,.L1102
 	.loc 1 3150 24
 	li	a5,-1
-	j	.L1105
-.L1103:
+	j	.L1104
+.L1102:
 	.loc 1 3152 10
 	addi	a4,s0,-360
 	addi	a5,s0,-120
@@ -17486,11 +17482,11 @@ fs_lstat:
 	.loc 1 3153 8
 	lw	a5,-124(s0)
 	.loc 1 3153 7
-	bne	a5,zero,.L1104
+	bne	a5,zero,.L1103
 	.loc 1 3154 24
 	li	a5,-1
-	j	.L1105
-.L1104:
+	j	.L1104
+.L1103:
 	.loc 1 3156 5
 	lw	a5,-124(s0)
 	addi	a4,s0,-216
@@ -17548,7 +17544,7 @@ fs_lstat:
 	sw	a4,28(a5)
 	.loc 1 3167 16
 	li	a5,0
-.L1105:
+.L1104:
 	.loc 1 3168 1
 	mv	a0,a5
 	ld	ra,376(sp)
@@ -17620,11 +17616,11 @@ fs_chmod:
 	.loc 1 3182 8
 	lw	a5,-20(s0)
 	.loc 1 3182 7
-	bne	a5,zero,.L1107
+	bne	a5,zero,.L1106
 	.loc 1 3183 24
 	li	a5,-1
-	j	.L1110
-.L1107:
+	j	.L1109
+.L1106:
 	.loc 1 3185 5
 	lw	a5,-20(s0)
 	addi	a4,s0,-112
@@ -17643,7 +17639,7 @@ fs_chmod:
 	ld	a5,-120(s0)
 	lhu	a5,1018(a5)
 	.loc 1 3187 7
-	beq	a5,zero,.L1109
+	beq	a5,zero,.L1108
 	.loc 1 3187 22 discriminator 1
 	ld	a5,-120(s0)
 	lhu	a4,1018(a5)
@@ -17652,11 +17648,11 @@ fs_chmod:
 	.loc 1 3187 8 discriminator 1
 	sext.w	a4,a4
 	sext.w	a5,a5
-	beq	a4,a5,.L1109
+	beq	a4,a5,.L1108
 	.loc 1 3188 24
 	li	a5,-1
-	j	.L1110
-.L1109:
+	j	.L1109
+.L1108:
 	.loc 1 3190 17
 	lw	a5,-268(s0)
 	mv	a4,a5
@@ -17679,7 +17675,7 @@ fs_chmod:
 	call	write_inode
 	.loc 1 3193 16
 	li	a5,0
-.L1110:
+.L1109:
 	.loc 1 3194 1
 	mv	a0,a5
 	ld	ra,264(sp)
@@ -17748,11 +17744,11 @@ fs_chown:
 	.loc 1 3206 8
 	lw	a5,-20(s0)
 	.loc 1 3206 7
-	bne	a5,zero,.L1112
+	bne	a5,zero,.L1111
 	.loc 1 3207 24
 	li	a5,-1
-	j	.L1115
-.L1112:
+	j	.L1114
+.L1111:
 	.loc 1 3209 5
 	lw	a5,-20(s0)
 	addi	a4,s0,-112
@@ -17768,11 +17764,11 @@ fs_chown:
 	.loc 1 3210 34 discriminator 1
 	lhu	a5,1018(a5)
 	.loc 1 3210 7 discriminator 1
-	beq	a5,zero,.L1114
+	beq	a5,zero,.L1113
 	.loc 1 3211 24
 	li	a5,-1
-	j	.L1115
-.L1114:
+	j	.L1114
+.L1113:
 	.loc 1 3213 11
 	lhu	a5,-250(s0)
 	sh	a5,-96(s0)
@@ -17792,7 +17788,7 @@ fs_chown:
 	call	write_inode
 	.loc 1 3217 16
 	li	a5,0
-.L1115:
+.L1114:
 	.loc 1 3218 1
 	mv	a0,a5
 	ld	ra,248(sp)
@@ -17867,11 +17863,11 @@ fs_utimes:
 	.loc 1 3232 8
 	lw	a5,-20(s0)
 	.loc 1 3232 7
-	bne	a5,zero,.L1117
+	bne	a5,zero,.L1116
 	.loc 1 3233 24
 	li	a5,-1
-	j	.L1123
-.L1117:
+	j	.L1122
+.L1116:
 	.loc 1 3235 5
 	lw	a5,-20(s0)
 	addi	a4,s0,-112
@@ -17887,28 +17883,28 @@ fs_utimes:
 	lw	a5,-268(s0)
 	sext.w	a4,a5
 	li	a5,-1
-	bne	a4,a5,.L1119
+	bne	a4,a5,.L1118
 	.loc 1 3237 43 is_stmt 0 discriminator 1
 	lw	a5,-116(s0)
-	j	.L1120
-.L1119:
+	j	.L1119
+.L1118:
 	.loc 1 3237 43 discriminator 2
 	lw	a5,-268(s0)
-.L1120:
+.L1119:
 	.loc 1 3237 13 is_stmt 1 discriminator 4
 	sw	a5,-92(s0)
 	.loc 1 3238 43
 	lw	a5,-272(s0)
 	sext.w	a4,a5
 	li	a5,-1
-	bne	a4,a5,.L1121
+	bne	a4,a5,.L1120
 	.loc 1 3238 43 is_stmt 0 discriminator 1
 	lw	a5,-116(s0)
-	j	.L1122
-.L1121:
+	j	.L1121
+.L1120:
 	.loc 1 3238 43 discriminator 2
 	lw	a5,-272(s0)
-.L1122:
+.L1121:
 	.loc 1 3238 13 is_stmt 1 discriminator 4
 	sw	a5,-88(s0)
 	.loc 1 3239 13
@@ -17922,7 +17918,7 @@ fs_utimes:
 	call	write_inode
 	.loc 1 3241 16
 	li	a5,0
-.L1123:
+.L1122:
 	.loc 1 3242 1
 	mv	a0,a5
 	ld	ra,264(sp)
@@ -18114,26 +18110,26 @@ fs_open2:
 	call	memset
 	.loc 1 3288 7
 	ld	a5,-472(s0)
-	beq	a5,zero,.L1127
+	beq	a5,zero,.L1126
 	.loc 1 3288 19 discriminator 1
 	ld	a5,-472(s0)
 	lbu	a5,0(a5)
 	.loc 1 3288 13 discriminator 1
-	beq	a5,zero,.L1127
+	beq	a5,zero,.L1126
 	.loc 1 3288 32 discriminator 2
 	ld	a5,-472(s0)
 	lbu	a5,0(a5)
 	.loc 1 3288 25 discriminator 2
 	mv	a4,a5
 	li	a5,46
-	bne	a4,a5,.L1128
+	bne	a4,a5,.L1127
 	.loc 1 3288 45 discriminator 3
 	ld	a5,-472(s0)
 	addi	a5,a5,1
 	lbu	a5,0(a5)
 	.loc 1 3288 39 discriminator 3
-	bne	a5,zero,.L1128
-.L1127:
+	bne	a5,zero,.L1127
+.L1126:
 	.loc 1 3289 11
 	lla	a5,gActiveProc
 	lw	a5,0(a5)
@@ -18151,15 +18147,15 @@ fs_open2:
 	li	a1,128
 	mv	a0,a5
 	call	build_abs_normalized
-	j	.L1129
-.L1128:
+	j	.L1128
+.L1127:
 	.loc 1 3293 9
 	addi	a5,s0,-424
 	ld	a2,-472(s0)
 	li	a1,128
 	mv	a0,a5
 	call	build_abs_normalized
-.L1129:
+.L1128:
 	.loc 1 3295 8
 	addi	a5,s0,-424
 	lla	a1,.LC22
@@ -18167,13 +18163,13 @@ fs_open2:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 3295 7 discriminator 1
-	bne	a5,zero,.L1130
+	bne	a5,zero,.L1129
 	.loc 1 3296 14
 	li	a5,3
 	sw	a5,-68(s0)
 	.loc 1 3296 9
-	j	.L1131
-.L1134:
+	j	.L1130
+.L1133:
 	.loc 1 3297 26
 	ld	a4,-56(s0)
 	lw	a5,-68(s0)
@@ -18181,7 +18177,7 @@ fs_open2:
 	add	a5,a4,a5
 	ld	a5,0(a5)
 	.loc 1 3297 15
-	bne	a5,zero,.L1132
+	bne	a5,zero,.L1131
 	.loc 1 3298 27
 	ld	a4,-56(s0)
 	lw	a5,-68(s0)
@@ -18254,22 +18250,22 @@ fs_open2:
 	sw	a4,124(a5)
 	.loc 1 3306 40
 	lw	a5,-68(s0)
-	j	.L1171
-.L1132:
+	j	.L1170
+.L1131:
 	.loc 1 3296 31 discriminator 2
 	lw	a5,-68(s0)
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-68(s0)
-.L1131:
+.L1130:
 	.loc 1 3296 26 discriminator 1
 	lw	a4,-68(s0)
 	li	a5,31
-	ble	a4,a5,.L1134
+	ble	a4,a5,.L1133
 	.loc 1 3309 24
 	li	a5,-1
-	j	.L1171
-.L1130:
+	j	.L1170
+.L1129:
 	.loc 1 3311 10
 	addi	a5,s0,-424
 	mv	a0,a5
@@ -18282,13 +18278,13 @@ fs_open2:
 	.loc 1 3313 12
 	lw	a5,-72(s0)
 	.loc 1 3313 7
-	bne	a5,zero,.L1135
+	bne	a5,zero,.L1134
 	.loc 1 3314 17
 	lw	a5,-476(s0)
 	andi	a5,a5,512
 	sext.w	a5,a5
 	.loc 1 3314 11
-	beq	a5,zero,.L1136
+	beq	a5,zero,.L1135
 .LBB286:
 	.loc 1 3316 13
 	addi	a5,s0,-440
@@ -18299,8 +18295,8 @@ fs_open2:
 	.loc 1 3317 21
 	sw	zero,-172(s0)
 	.loc 1 3317 13
-	j	.L1137
-.L1142:
+	j	.L1136
+.L1141:
 .LBB287:
 	.loc 1 3318 55
 	lw	a5,-172(s0)
@@ -18308,34 +18304,34 @@ fs_open2:
 	sd	a5,-48(s0)
 	.loc 1 3318 76
 	ld	a5,-48(s0)
-	blt	a5,zero,.L1138
+	blt	a5,zero,.L1137
 	.loc 1 3318 104 discriminator 2
 	ld	a4,-48(s0)
 	li	a5,14
-	ble	a4,a5,.L1139
-.L1138:
+	ble	a4,a5,.L1138
+.L1137:
 .LBB288:
 	.loc 1 3318 229 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 3318 266 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1140
+	beq	a5,zero,.L1139
 	.loc 1 3318 279 discriminator 6
 	call	stackframe
-	j	.L1141
-.L1140:
+	j	.L1140
+.L1139:
 	.loc 1 3318 300 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 3318 320 discriminator 10
 	lla	a0,__func__.1
 	call	puts
-.L1141:
+.L1140:
 	.loc 1 3318 338 discriminator 12
 	li	a0,2
 	call	exit
-.L1139:
+.L1138:
 .LBE288:
 	.loc 1 3318 378 discriminator 14
 	ld	a5,-48(s0)
@@ -18348,11 +18344,11 @@ fs_open2:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-172(s0)
-.L1137:
+.L1136:
 	.loc 1 3317 40 discriminator 1
 	lw	a4,-172(s0)
 	li	a5,14
-	ble	a4,a5,.L1142
+	ble	a4,a5,.L1141
 	.loc 1 3320 17
 	addi	a3,s0,-440
 	addi	a4,s0,-168
@@ -18363,11 +18359,11 @@ fs_open2:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 3320 15 discriminator 1
-	bne	a5,zero,.L1143
+	bne	a5,zero,.L1142
 	.loc 1 3321 40
 	li	a5,-1
-	j	.L1171
-.L1143:
+	j	.L1170
+.L1142:
 	.loc 1 3323 22
 	call	alloc_inode_T_FILE
 	mv	a5,a0
@@ -18376,11 +18372,11 @@ fs_open2:
 	.loc 1 3324 24
 	lw	a5,-176(s0)
 	.loc 1 3324 15
-	bne	a5,zero,.L1145
+	bne	a5,zero,.L1144
 	.loc 1 3325 40
 	li	a5,-1
-	j	.L1171
-.L1145:
+	j	.L1170
+.L1144:
 	.loc 1 3327 16
 	lw	a5,-168(s0)
 	lw	a3,-176(s0)
@@ -18391,11 +18387,11 @@ fs_open2:
 	call	add_dirent
 	mv	a5,a0
 	.loc 1 3327 15 discriminator 1
-	beq	a5,zero,.L1146
+	beq	a5,zero,.L1145
 	.loc 1 3328 40
 	li	a5,-1
-	j	.L1171
-.L1146:
+	j	.L1170
+.L1145:
 	.loc 1 3330 17
 	lw	a5,-176(s0)
 	sw	a5,-72(s0)
@@ -18424,8 +18420,8 @@ fs_open2:
 	.loc 1 3335 19
 	sw	zero,-188(s0)
 	.loc 1 3335 13
-	j	.L1147
-.L1152:
+	j	.L1146
+.L1151:
 .LBB289:
 	.loc 1 3336 55
 	lw	a5,-188(s0)
@@ -18433,34 +18429,34 @@ fs_open2:
 	sd	a5,-40(s0)
 	.loc 1 3336 74
 	ld	a5,-40(s0)
-	blt	a5,zero,.L1148
+	blt	a5,zero,.L1147
 	.loc 1 3336 102 discriminator 2
 	ld	a4,-40(s0)
 	li	a5,14
-	ble	a4,a5,.L1149
-.L1148:
+	ble	a4,a5,.L1148
+.L1147:
 .LBB290:
 	.loc 1 3336 227 discriminator 3
 	lla	a0,.LC9
 	call	puts
 	.loc 1 3336 264 discriminator 5
 	lla	a5,stackframe
-	beq	a5,zero,.L1150
+	beq	a5,zero,.L1149
 	.loc 1 3336 277 discriminator 6
 	call	stackframe
-	j	.L1151
-.L1150:
+	j	.L1150
+.L1149:
 	.loc 1 3336 298 discriminator 7
 	lla	a0,.LC1
 	call	puts
 	.loc 1 3336 318 discriminator 10
 	lla	a0,__func__.1
 	call	puts
-.L1151:
+.L1150:
 	.loc 1 3336 336 discriminator 12
 	li	a0,2
 	call	exit
-.L1149:
+.L1148:
 .LBE290:
 	.loc 1 3336 377 discriminator 14
 	ld	a5,-40(s0)
@@ -18473,11 +18469,11 @@ fs_open2:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-188(s0)
-.L1147:
+.L1146:
 	.loc 1 3335 36 discriminator 1
 	lw	a4,-188(s0)
 	li	a5,14
-	ble	a4,a5,.L1152
+	ble	a4,a5,.L1151
 	.loc 1 3338 17
 	lla	a5,gActiveProc
 	lw	a5,0(a5)
@@ -18498,7 +18494,7 @@ fs_open2:
 	call	path_parent_lookup_abs
 	mv	a5,a0
 	.loc 1 3339 15 discriminator 1
-	beq	a5,zero,.L1153
+	beq	a5,zero,.L1152
 	.loc 1 3340 17
 	lw	a5,-184(s0)
 	addi	a4,s0,-280
@@ -18511,12 +18507,12 @@ fs_open2:
 	andi	a5,a5,1024
 	sext.w	a5,a5
 	.loc 1 3341 19
-	beq	a5,zero,.L1153
+	beq	a5,zero,.L1152
 	.loc 1 3342 32
 	lhu	a5,-262(s0)
 	.loc 1 3342 24
 	sh	a5,-190(s0)
-.L1153:
+.L1152:
 	.loc 1 3345 20
 	lla	a5,gActiveProc
 	lw	a5,0(a5)
@@ -18535,16 +18531,16 @@ fs_open2:
 	andi	a5,a5,511
 	sext.w	a5,a5
 	.loc 1 3347 50
-	beq	a5,zero,.L1154
+	beq	a5,zero,.L1153
 	.loc 1 3347 50 is_stmt 0 discriminator 1
 	lw	a5,-480(s0)
 	andi	a5,a5,511
 	sext.w	a5,a5
-	j	.L1155
-.L1154:
+	j	.L1154
+.L1153:
 	.loc 1 3347 50 discriminator 2
 	li	a5,420
-.L1155:
+.L1154:
 	.loc 1 3347 60 is_stmt 1 discriminator 4
 	lhu	a4,-178(s0)
 	sext.w	a4,a4
@@ -18578,92 +18574,92 @@ fs_open2:
 	li	a5,1
 	sw	a5,-164(s0)
 .LBE286:
-	j	.L1156
-.L1136:
+	j	.L1155
+.L1135:
 	.loc 1 3353 32
 	li	a5,-1
-	j	.L1171
-.L1135:
+	j	.L1170
+.L1134:
 	.loc 1 3357 9
 	lw	a5,-72(s0)
 	addi	a4,s0,-160
 	mv	a1,a4
 	mv	a0,a5
 	call	read_inode
-.L1156:
+.L1155:
 	.loc 1 3359 10
 	lhu	a5,-160(s0)
 	.loc 1 3359 7
 	sext.w	a4,a5
 	li	a5,2
-	beq	a4,a5,.L1157
+	beq	a4,a5,.L1156
 	.loc 1 3359 32 discriminator 1
 	lhu	a5,-160(s0)
 	.loc 1 3359 28 discriminator 1
 	sext.w	a4,a5
 	li	a5,1
-	beq	a4,a5,.L1157
+	beq	a4,a5,.L1156
 	.loc 1 3360 24
 	li	a5,-1
-	j	.L1171
-.L1157:
+	j	.L1170
+.L1156:
 	.loc 1 3362 10
 	lhu	a5,-160(s0)
 	.loc 1 3362 7
 	sext.w	a4,a5
 	li	a5,2
-	bne	a4,a5,.L1158
+	bne	a4,a5,.L1157
 	.loc 1 3363 13
 	sw	zero,-284(s0)
 	.loc 1 3364 11
 	lw	a5,-476(s0)
 	sext.w	a5,a5
-	bne	a5,zero,.L1159
+	bne	a5,zero,.L1158
 	.loc 1 3365 17
 	lw	a5,-284(s0)
 	ori	a5,a5,4
 	sext.w	a5,a5
 	sw	a5,-284(s0)
-.L1159:
+.L1158:
 	.loc 1 3367 17
 	lw	a5,-476(s0)
 	andi	a5,a5,1
 	sext.w	a5,a5
 	.loc 1 3367 11
-	beq	a5,zero,.L1160
+	beq	a5,zero,.L1159
 	.loc 1 3368 17
 	lw	a5,-284(s0)
 	ori	a5,a5,2
 	sext.w	a5,a5
 	sw	a5,-284(s0)
-.L1160:
+.L1159:
 	.loc 1 3370 17
 	lw	a5,-476(s0)
 	andi	a5,a5,2
 	sext.w	a5,a5
 	.loc 1 3370 11
-	beq	a5,zero,.L1161
+	beq	a5,zero,.L1160
 	.loc 1 3371 17
 	lw	a5,-284(s0)
 	ori	a5,a5,6
 	sext.w	a5,a5
 	sw	a5,-284(s0)
-.L1161:
+.L1160:
 	.loc 1 3373 12
 	lw	a5,-164(s0)
 	.loc 1 3373 11
-	bne	a5,zero,.L1162
+	bne	a5,zero,.L1161
 	.loc 1 3374 39
 	lw	a5,-284(s0)
 	.loc 1 3374 17
-	beq	a5,zero,.L1163
+	beq	a5,zero,.L1162
 	.loc 1 3374 17 is_stmt 0 discriminator 1
 	lw	a5,-284(s0)
-	j	.L1164
-.L1163:
+	j	.L1163
+.L1162:
 	.loc 1 3374 17 discriminator 2
 	li	a5,4
-.L1164:
+.L1163:
 	.loc 1 3374 17 discriminator 4
 	addi	a4,s0,-160
 	mv	a1,a5
@@ -18671,17 +18667,17 @@ fs_open2:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 3374 15 is_stmt 1 discriminator 5
-	bne	a5,zero,.L1162
+	bne	a5,zero,.L1161
 	.loc 1 3375 40
 	li	a5,-1
-	j	.L1171
-.L1158:
+	j	.L1170
+.L1157:
 	.loc 1 3379 15
 	lhu	a5,-160(s0)
 	.loc 1 3379 12
 	sext.w	a4,a5
 	li	a5,1
-	bne	a4,a5,.L1162
+	bne	a4,a5,.L1161
 	.loc 1 3380 13
 	addi	a5,s0,-160
 	li	a1,5
@@ -18689,17 +18685,17 @@ fs_open2:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 3380 11 discriminator 1
-	bne	a5,zero,.L1162
+	bne	a5,zero,.L1161
 	.loc 1 3381 32
 	li	a5,-1
-	j	.L1171
-.L1162:
+	j	.L1170
+.L1161:
 	.loc 1 3384 13
 	li	a5,3
 	sw	a5,-288(s0)
 	.loc 1 3384 5
-	j	.L1165
-.L1170:
+	j	.L1164
+.L1169:
 	.loc 1 3385 22
 	ld	a4,-56(s0)
 	lw	a5,-288(s0)
@@ -18707,7 +18703,7 @@ fs_open2:
 	add	a5,a4,a5
 	ld	a5,0(a5)
 	.loc 1 3385 11
-	bne	a5,zero,.L1166
+	bne	a5,zero,.L1165
 	.loc 1 3386 23
 	ld	a4,-56(s0)
 	lw	a5,-288(s0)
@@ -18812,7 +18808,7 @@ fs_open2:
 	andi	a5,a5,1024
 	sext.w	a5,a5
 	.loc 1 3395 15
-	beq	a5,zero,.L1167
+	beq	a5,zero,.L1166
 	.loc 1 3395 43 discriminator 1
 	ld	a4,-56(s0)
 	lw	a5,-288(s0)
@@ -18824,7 +18820,7 @@ fs_open2:
 	.loc 1 3395 31 discriminator 1
 	sext.w	a4,a5
 	li	a5,2
-	bne	a4,a5,.L1167
+	bne	a4,a5,.L1166
 	.loc 1 3396 17
 	lw	a3,-72(s0)
 	.loc 1 3396 51
@@ -18892,7 +18888,7 @@ fs_open2:
 	ld	a5,0(a5)
 	.loc 1 3402 38
 	sw	zero,96(a5)
-.L1167:
+.L1166:
 	.loc 1 3404 22
 	lw	a5,-476(s0)
 	mv	a4,a5
@@ -18901,7 +18897,7 @@ fs_open2:
 	and	a5,a4,a5
 	sext.w	a5,a5
 	.loc 1 3404 15
-	beq	a5,zero,.L1168
+	beq	a5,zero,.L1167
 	.loc 1 3404 43 discriminator 1
 	ld	a4,-56(s0)
 	lw	a5,-288(s0)
@@ -18913,7 +18909,7 @@ fs_open2:
 	.loc 1 3404 31 discriminator 1
 	sext.w	a4,a5
 	li	a5,2
-	bne	a4,a5,.L1168
+	bne	a4,a5,.L1167
 	.loc 1 3405 49
 	ld	a4,-56(s0)
 	lw	a5,-288(s0)
@@ -18930,11 +18926,11 @@ fs_open2:
 	lw	a4,16(a4)
 	.loc 1 3405 38
 	sw	a4,96(a5)
-.L1168:
+.L1167:
 	.loc 1 3407 16
 	lw	a5,-164(s0)
 	.loc 1 3407 15
-	beq	a5,zero,.L1169
+	beq	a5,zero,.L1168
 	.loc 1 3408 27
 	ld	a4,-56(s0)
 	lw	a5,-288(s0)
@@ -18964,24 +18960,24 @@ fs_open2:
 	sd	a4,80(a5)
 	ld	a4,-80(s0)
 	sd	a4,88(a5)
-.L1169:
+.L1168:
 	.loc 1 3410 32
 	lw	a5,-288(s0)
-	j	.L1171
-.L1166:
+	j	.L1170
+.L1165:
 	.loc 1 3384 32 discriminator 2
 	lw	a5,-288(s0)
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-288(s0)
-.L1165:
+.L1164:
 	.loc 1 3384 24 discriminator 1
 	lw	a4,-288(s0)
 	li	a5,31
-	ble	a4,a5,.L1170
+	ble	a4,a5,.L1169
 	.loc 1 3413 16
 	li	a5,-1
-.L1171:
+.L1170:
 	.loc 1 3414 1
 	mv	a0,a5
 	ld	ra,472(sp)
@@ -19060,28 +19056,28 @@ fs_read:
 	add	a5,a4,a5
 	ld	a5,0(a5)
 	.loc 1 3429 7
-	bne	a5,zero,.L1173
+	bne	a5,zero,.L1172
 	.loc 1 3430 24
 	li	a5,-1
-	j	.L1179
-.L1173:
+	j	.L1178
+.L1172:
 	.loc 1 3432 8
 	lw	a5,-68(s0)
 	sw	a5,-44(s0)
 	.loc 1 3433 11
 	lw	a5,-44(s0)
 	.loc 1 3433 7
-	blt	a5,zero,.L1175
+	blt	a5,zero,.L1174
 	.loc 1 3433 18 discriminator 1
 	lw	a4,-44(s0)
 	.loc 1 3433 13 discriminator 1
 	li	a5,31
-	ble	a4,a5,.L1176
-.L1175:
+	ble	a4,a5,.L1175
+.L1174:
 	.loc 1 3434 24
 	li	a5,-1
-	j	.L1179
-.L1176:
+	j	.L1178
+.L1175:
 	.loc 1 3436 17
 	ld	a4,-40(s0)
 	lw	a5,-44(s0)
@@ -19105,19 +19101,19 @@ fs_read:
 	.loc 1 3438 17
 	lw	a5,-60(s0)
 	.loc 1 3438 7
-	bne	a5,zero,.L1177
+	bne	a5,zero,.L1176
 	.loc 1 3439 24
 	li	a5,0
-	j	.L1179
-.L1177:
+	j	.L1178
+.L1176:
 	.loc 1 3441 41
 	lw	a5,-60(s0)
 	slli	a4,a5,32
 	srli	a4,a4,32
 	ld	a5,-88(s0)
-	bleu	a5,a4,.L1178
+	bleu	a5,a4,.L1177
 	mv	a5,a4
-.L1178:
+.L1177:
 	.loc 1 3441 12
 	sext.w	a5,a5
 	sw	a5,-64(s0)
@@ -19166,7 +19162,7 @@ fs_read:
 	call	write_inode
 	.loc 1 3446 16
 	lw	a5,-64(s0)
-.L1179:
+.L1178:
 	.loc 1 3447 1
 	mv	a0,a5
 	ld	ra,88(sp)
@@ -19277,17 +19273,17 @@ fs_write:
 	.loc 1 3474 7
 	lw	a5,-628(s0)
 	sext.w	a5,a5
-	blt	a5,zero,.L1181
+	blt	a5,zero,.L1180
 	.loc 1 3474 12 discriminator 1
 	lw	a5,-628(s0)
 	sext.w	a4,a5
 	li	a5,31
-	ble	a4,a5,.L1182
-.L1181:
+	ble	a4,a5,.L1181
+.L1180:
 	.loc 1 3475 24
 	li	a5,-1
-	j	.L1202
-.L1182:
+	j	.L1201
+.L1181:
 	.loc 1 3477 18
 	ld	a4,-56(s0)
 	lw	a5,-628(s0)
@@ -19295,11 +19291,11 @@ fs_write:
 	add	a5,a4,a5
 	ld	a5,0(a5)
 	.loc 1 3477 7
-	bne	a5,zero,.L1184
+	bne	a5,zero,.L1183
 	.loc 1 3478 24
 	li	a5,-1
-	j	.L1202
-.L1184:
+	j	.L1201
+.L1183:
 	.loc 1 3480 17
 	ld	a4,-56(s0)
 	lw	a5,-628(s0)
@@ -19313,11 +19309,11 @@ fs_write:
 	lw	a4,0(a5)
 	.loc 1 3481 7
 	li	a5,3
-	beq	a4,a5,.L1185
+	beq	a4,a5,.L1184
 	.loc 1 3482 24
 	li	a5,-1
-	j	.L1202
-.L1185:
+	j	.L1201
+.L1184:
 	.loc 1 3484 22
 	ld	a5,-64(s0)
 	.loc 1 3484 9
@@ -19327,11 +19323,11 @@ fs_write:
 	call	check_perm
 	mv	a5,a0
 	.loc 1 3484 7 discriminator 1
-	bne	a5,zero,.L1186
+	bne	a5,zero,.L1185
 	.loc 1 3485 24
 	li	a5,-1
-	j	.L1202
-.L1186:
+	j	.L1201
+.L1185:
 	.loc 1 3487 13
 	ld	a5,-648(s0)
 	sext.w	a5,a5
@@ -19351,18 +19347,18 @@ fs_write:
 	and	a5,a4,a5
 	sext.w	a5,a5
 	.loc 1 3490 55
-	beq	a5,zero,.L1187
+	beq	a5,zero,.L1186
 	.loc 1 3490 34 discriminator 1
 	ld	a5,-64(s0)
 	.loc 1 3490 55 discriminator 1
 	lw	a5,16(a5)
-	j	.L1188
-.L1187:
+	j	.L1187
+.L1186:
 	.loc 1 3490 58 discriminator 2
 	ld	a5,-64(s0)
 	.loc 1 3490 55 discriminator 2
 	lw	a5,96(a5)
-.L1188:
+.L1187:
 	.loc 1 3490 8 discriminator 4
 	sw	a5,-76(s0)
 	.loc 1 3491 9
@@ -19374,18 +19370,18 @@ fs_write:
 	and	a5,a4,a5
 	sext.w	a5,a5
 	.loc 1 3491 7
-	beq	a5,zero,.L1189
+	beq	a5,zero,.L1188
 	.loc 1 3492 10
 	ld	a5,-64(s0)
 	.loc 1 3492 15
 	lw	a4,-76(s0)
 	sw	a4,96(a5)
-.L1189:
+.L1188:
 	.loc 1 3494 12
 	sw	zero,-80(s0)
 	.loc 1 3495 10
-	j	.L1190
-.L1200:
+	j	.L1189
+.L1199:
 .LBB291:
 .LBB292:
 	.loc 1 3496 36
@@ -19394,29 +19390,29 @@ fs_write:
 	.loc 1 3496 65
 	lw	a5,-44(s0)
 	sext.w	a5,a5
-	bne	a5,zero,.L1191
+	bne	a5,zero,.L1190
 .LBB293:
 	.loc 1 3496 167 discriminator 1
 	lla	a0,.LC0
 	call	puts
 	.loc 1 3496 195 discriminator 3
 	lla	a5,stackframe
-	beq	a5,zero,.L1192
+	beq	a5,zero,.L1191
 	.loc 1 3496 208 discriminator 4
 	call	stackframe
-	j	.L1193
-.L1192:
+	j	.L1192
+.L1191:
 	.loc 1 3496 229 discriminator 5
 	lla	a0,.LC1
 	call	puts
 	.loc 1 3496 249 discriminator 8
 	lla	a0,__func__.0
 	call	puts
-.L1193:
+.L1192:
 	.loc 1 3496 267 discriminator 10
 	li	a0,2
 	call	exit
-.L1191:
+.L1190:
 .LBE293:
 	.loc 1 3496 284 discriminator 12
 	lw	a4,-76(s0)
@@ -19433,29 +19429,29 @@ fs_write:
 	.loc 1 3497 65
 	lw	a5,-48(s0)
 	sext.w	a5,a5
-	bne	a5,zero,.L1194
+	bne	a5,zero,.L1193
 .LBB295:
 	.loc 1 3497 167 discriminator 1
 	lla	a0,.LC8
 	call	puts
 	.loc 1 3497 193 discriminator 3
 	lla	a5,stackframe
-	beq	a5,zero,.L1195
+	beq	a5,zero,.L1194
 	.loc 1 3497 206 discriminator 4
 	call	stackframe
-	j	.L1196
-.L1195:
+	j	.L1195
+.L1194:
 	.loc 1 3497 227 discriminator 5
 	lla	a0,.LC1
 	call	puts
 	.loc 1 3497 247 discriminator 8
 	lla	a0,__func__.0
 	call	puts
-.L1196:
+.L1195:
 	.loc 1 3497 265 discriminator 10
 	li	a0,2
 	call	exit
-.L1194:
+.L1193:
 .LBE295:
 	.loc 1 3497 282 discriminator 12
 	lw	a4,-76(s0)
@@ -19476,11 +19472,11 @@ fs_write:
 	lw	a4,-92(s0)
 	lw	a5,-72(s0)
 	.loc 1 3499 11
-	bleu	a4,a5,.L1197
+	bleu	a4,a5,.L1196
 	.loc 1 3500 21
 	lw	a5,-72(s0)
 	sw	a5,-92(s0)
-.L1197:
+.L1196:
 	.loc 1 3502 36
 	ld	a5,-64(s0)
 	.loc 1 3502 18
@@ -19500,7 +19496,7 @@ fs_write:
 	.loc 1 3503 20
 	lw	a5,-96(s0)
 	.loc 1 3503 11
-	beq	a5,zero,.L1203
+	beq	a5,zero,.L1202
 	.loc 1 3507 9
 	addi	a5,s0,-616
 	li	a2,512
@@ -19555,17 +19551,17 @@ fs_write:
 	addw	a5,a4,a5
 	sext.w	a5,a5
 	sw	a5,-80(s0)
-.L1190:
+.L1189:
 .LBE291:
 	.loc 1 3495 15
 	lw	a5,-72(s0)
-	bne	a5,zero,.L1200
-	j	.L1199
-.L1203:
+	bne	a5,zero,.L1199
+	j	.L1198
+.L1202:
 .LBB296:
 	.loc 1 3504 13
 	nop
-.L1199:
+.L1198:
 .LBE296:
 	.loc 1 3516 6
 	ld	a5,-64(s0)
@@ -19590,13 +19586,13 @@ fs_write:
 	.loc 1 3518 15
 	lw	a5,-100(s0)
 	.loc 1 3518 7
-	bgeu	a4,a5,.L1201
+	bgeu	a4,a5,.L1200
 	.loc 1 3519 10
 	ld	a5,-64(s0)
 	.loc 1 3519 20
 	lw	a4,-100(s0)
 	sw	a4,16(a5)
-.L1201:
+.L1200:
 	.loc 1 3521 6
 	ld	s1,-64(s0)
 	.loc 1 3521 18
@@ -19618,7 +19614,7 @@ fs_write:
 	call	write_inode
 	.loc 1 3523 16
 	lw	a5,-80(s0)
-.L1202:
+.L1201:
 	.loc 1 3524 1
 	mv	a0,a5
 	ld	ra,648(sp)
@@ -19681,23 +19677,23 @@ fs_size:
 	add	a5,a4,a5
 	ld	a5,0(a5)
 	.loc 1 3535 7
-	bne	a5,zero,.L1205
+	bne	a5,zero,.L1204
 	.loc 1 3536 24
 	li	a5,-1
-	j	.L1209
-.L1205:
+	j	.L1208
+.L1204:
 	.loc 1 3538 8
 	lw	a5,-52(s0)
 	sw	a5,-28(s0)
 	.loc 1 3539 11
 	lw	a5,-28(s0)
 	.loc 1 3539 7
-	blt	a5,zero,.L1207
+	blt	a5,zero,.L1206
 	.loc 1 3539 18 discriminator 1
 	lw	a4,-28(s0)
 	.loc 1 3539 13 discriminator 1
 	li	a5,31
-	bgt	a4,a5,.L1207
+	bgt	a4,a5,.L1206
 	.loc 1 3539 35 discriminator 2
 	ld	a4,-24(s0)
 	lw	a5,-28(s0)
@@ -19707,12 +19703,12 @@ fs_size:
 	.loc 1 3539 40 discriminator 2
 	lw	a5,100(a5)
 	.loc 1 3539 22 discriminator 2
-	bne	a5,zero,.L1208
-.L1207:
+	bne	a5,zero,.L1207
+.L1206:
 	.loc 1 3540 24
 	li	a5,-1
-	j	.L1209
-.L1208:
+	j	.L1208
+.L1207:
 	.loc 1 3542 17
 	ld	a4,-24(s0)
 	lw	a5,-28(s0)
@@ -19725,7 +19721,7 @@ fs_size:
 	ld	a5,-40(s0)
 	.loc 1 3543 22
 	lw	a5,16(a5)
-.L1209:
+.L1208:
 	.loc 1 3544 1
 	mv	a0,a5
 	ld	ra,56(sp)
@@ -19784,16 +19780,16 @@ fs_close:
 	sd	a5,-40(s0)
 	.loc 1 3555 7
 	ld	a5,-72(s0)
-	blt	a5,zero,.L1211
+	blt	a5,zero,.L1210
 	.loc 1 3555 12 discriminator 1
 	ld	a4,-72(s0)
 	li	a5,31
-	ble	a4,a5,.L1212
-.L1211:
+	ble	a4,a5,.L1211
+.L1210:
 	.loc 1 3556 24
 	li	a5,-1
-	j	.L1222
-.L1212:
+	j	.L1221
+.L1211:
 	.loc 1 3558 9
 	ld	a4,-40(s0)
 	ld	a5,-72(s0)
@@ -19805,11 +19801,11 @@ fs_close:
 	.loc 1 3559 8
 	ld	a5,-48(s0)
 	.loc 1 3559 7
-	bne	a5,zero,.L1214
+	bne	a5,zero,.L1213
 	.loc 1 3560 24
 	li	a5,-1
-	j	.L1222
-.L1214:
+	j	.L1221
+.L1213:
 	.loc 1 3562 7
 	ld	a4,-40(s0)
 	ld	a5,-72(s0)
@@ -19820,7 +19816,7 @@ fs_close:
 	.loc 1 3563 7
 	lw	a5,-76(s0)
 	sext.w	a5,a5
-	beq	a5,zero,.L1215
+	beq	a5,zero,.L1214
 	.loc 1 3564 9
 	ld	s1,-48(s0)
 	lla	a5,gActiveProc
@@ -19832,12 +19828,12 @@ fs_close:
 	mv	a1,a5
 	mv	a0,s1
 	call	owner_remove
-.L1215:
+.L1214:
 	.loc 1 3566 9 is_stmt 1
 	ld	a5,-48(s0)
 	lw	a5,100(a5)
 	.loc 1 3566 7
-	ble	a5,zero,.L1216
+	ble	a5,zero,.L1215
 	.loc 1 3567 10
 	ld	a5,-48(s0)
 	lw	a4,100(a5)
@@ -19845,16 +19841,16 @@ fs_close:
 	addiw	a4,a4,-1
 	sext.w	a4,a4
 	sw	a4,100(a5)
-.L1216:
+.L1215:
 	.loc 1 3569 9
 	ld	a5,-48(s0)
 	lw	a5,100(a5)
 	.loc 1 3569 7
-	ble	a5,zero,.L1217
+	ble	a5,zero,.L1216
 	.loc 1 3570 24
 	li	a5,0
-	j	.L1222
-.L1217:
+	j	.L1221
+.L1216:
 	.loc 1 3572 8
 	ld	a5,-48(s0)
 	ld	a5,104(a5)
@@ -19863,17 +19859,17 @@ fs_close:
 	.loc 1 3573 8
 	ld	a5,-56(s0)
 	.loc 1 3573 7
-	beq	a5,zero,.L1218
+	beq	a5,zero,.L1217
 	.loc 1 3574 13
 	ld	a5,-48(s0)
 	lw	a5,116(a5)
 	.loc 1 3574 11
-	beq	a5,zero,.L1219
+	beq	a5,zero,.L1218
 	.loc 1 3574 27 discriminator 1
 	ld	a5,-56(s0)
 	lw	a5,528(a5)
 	.loc 1 3574 24 discriminator 1
-	ble	a5,zero,.L1219
+	ble	a5,zero,.L1218
 	.loc 1 3575 19
 	ld	a5,-56(s0)
 	lw	a4,528(a5)
@@ -19885,22 +19881,22 @@ fs_close:
 	.loc 1 3575 19
 	lw	a5,528(a5)
 	.loc 1 3575 15
-	bne	a5,zero,.L1219
+	bne	a5,zero,.L1218
 	.loc 1 3576 18
 	ld	a5,-56(s0)
 	.loc 1 3576 29
 	sw	zero,520(a5)
-.L1219:
+.L1218:
 	.loc 1 3579 13
 	ld	a5,-48(s0)
 	lw	a5,120(a5)
 	.loc 1 3579 11
-	beq	a5,zero,.L1220
+	beq	a5,zero,.L1219
 	.loc 1 3579 28 discriminator 1
 	ld	a5,-56(s0)
 	lw	a5,532(a5)
 	.loc 1 3579 25 discriminator 1
-	ble	a5,zero,.L1220
+	ble	a5,zero,.L1219
 	.loc 1 3580 19
 	ld	a5,-56(s0)
 	lw	a4,532(a5)
@@ -19912,17 +19908,17 @@ fs_close:
 	.loc 1 3580 19
 	lw	a5,532(a5)
 	.loc 1 3580 15
-	bne	a5,zero,.L1220
+	bne	a5,zero,.L1219
 	.loc 1 3581 18
 	ld	a5,-56(s0)
 	.loc 1 3581 30
 	sw	zero,524(a5)
-.L1220:
+.L1219:
 	.loc 1 3584 13
 	ld	a5,-56(s0)
 	lw	a5,536(a5)
 	.loc 1 3584 11
-	ble	a5,zero,.L1221
+	ble	a5,zero,.L1220
 	.loc 1 3585 14
 	ld	a5,-56(s0)
 	lw	a4,536(a5)
@@ -19930,7 +19926,7 @@ fs_close:
 	addiw	a4,a4,-1
 	sext.w	a4,a4
 	sw	a4,536(a5)
-.L1221:
+.L1220:
 	.loc 1 3587 9
 	ld	a5,-56(s0)
 	ld	a4,-48(s0)
@@ -19941,7 +19937,7 @@ fs_close:
 	ld	a5,-56(s0)
 	lw	a5,536(a5)
 	.loc 1 3588 11
-	bne	a5,zero,.L1218
+	bne	a5,zero,.L1217
 	.loc 1 3589 13
 	ld	a5,-56(s0)
 	mv	a0,a5
@@ -19950,14 +19946,14 @@ fs_close:
 	ld	a5,-56(s0)
 	mv	a0,a5
 	call	free_pipe
-.L1218:
+.L1217:
 	.loc 1 3593 5
 	ld	a5,-48(s0)
 	mv	a0,a5
 	call	free_file
 	.loc 1 3594 16
 	li	a5,0
-.L1222:
+.L1221:
 	.loc 1 3595 1
 	mv	a0,a5
 	ld	ra,72(sp)
@@ -19998,8 +19994,8 @@ fs_exit:
 	.loc 1 3601 10
 	sw	zero,-20(s0)
 	.loc 1 3601 5
-	j	.L1224
-.L1225:
+	j	.L1223
+.L1224:
 	.loc 1 3602 9
 	lw	a5,-20(s0)
 	li	a1,1
@@ -20010,11 +20006,11 @@ fs_exit:
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-20(s0)
-.L1224:
+.L1223:
 	.loc 1 3601 18 discriminator 1
 	lw	a4,-20(s0)
 	li	a5,31
-	ble	a4,a5,.L1225
+	ble	a4,a5,.L1224
 	.loc 1 3604 1
 	nop
 	nop
@@ -20056,8 +20052,8 @@ fs_dup_table:
 	.loc 1 3610 10
 	sw	zero,-20(s0)
 	.loc 1 3610 5
-	j	.L1227
-.L1229:
+	j	.L1226
+.L1228:
 	.loc 1 3611 16
 	lw	a5,-20(s0)
 	slli	a5,a5,3
@@ -20065,7 +20061,7 @@ fs_dup_table:
 	add	a5,a4,a5
 	ld	a5,0(a5)
 	.loc 1 3611 11
-	beq	a5,zero,.L1228
+	beq	a5,zero,.L1227
 	.loc 1 3612 27
 	lw	a5,-20(s0)
 	slli	a5,a5,3
@@ -20102,17 +20098,17 @@ fs_dup_table:
 	ld	a1,-40(s0)
 	mv	a0,a5
 	call	owner_add
-.L1228:
+.L1227:
 	.loc 1 3610 23 discriminator 2
 	lw	a5,-20(s0)
 	addiw	a5,a5,1
 	sext.w	a5,a5
 	sw	a5,-20(s0)
-.L1227:
+.L1226:
 	.loc 1 3610 18 discriminator 1
 	lw	a4,-20(s0)
 	li	a5,31
-	ble	a4,a5,.L1229
+	ble	a4,a5,.L1228
 	.loc 1 3617 1
 	nop
 	nop
@@ -20190,21 +20186,21 @@ fs_dup2:
 	.loc 1 3628 7
 	lw	a5,-36(s0)
 	sext.w	a5,a5
-	blt	a5,zero,.L1241
+	blt	a5,zero,.L1240
 	.loc 1 3628 15 discriminator 1
 	lw	a5,-36(s0)
 	sext.w	a4,a5
 	li	a5,31
-	bgt	a4,a5,.L1241
+	bgt	a4,a5,.L1240
 	.loc 1 3631 7
 	lw	a5,-40(s0)
 	sext.w	a5,a5
-	blt	a5,zero,.L1242
+	blt	a5,zero,.L1241
 	.loc 1 3631 15 discriminator 1
 	lw	a5,-40(s0)
 	sext.w	a4,a5
 	li	a5,31
-	bgt	a4,a5,.L1242
+	bgt	a4,a5,.L1241
 	.loc 1 3634 10
 	ld	a4,-24(s0)
 	lw	a5,-36(s0)
@@ -20212,14 +20208,14 @@ fs_dup2:
 	add	a5,a4,a5
 	ld	a5,0(a5)
 	.loc 1 3634 7
-	beq	a5,zero,.L1243
+	beq	a5,zero,.L1242
 	.loc 1 3637 7
 	lw	a5,-36(s0)
 	mv	a4,a5
 	lw	a5,-40(s0)
 	sext.w	a4,a4
 	sext.w	a5,a5
-	beq	a4,a5,.L1244
+	beq	a4,a5,.L1243
 	.loc 1 3640 10
 	ld	a4,-24(s0)
 	lw	a5,-40(s0)
@@ -20227,13 +20223,13 @@ fs_dup2:
 	add	a5,a4,a5
 	ld	a5,0(a5)
 	.loc 1 3640 7
-	beq	a5,zero,.L1239
+	beq	a5,zero,.L1238
 	.loc 1 3641 9
 	lw	a5,-40(s0)
 	li	a1,0
 	mv	a0,a5
 	call	fs_close
-.L1239:
+.L1238:
 	.loc 1 3643 17
 	ld	a4,-24(s0)
 	lw	a5,-36(s0)
@@ -20260,23 +20256,23 @@ fs_dup2:
 	addiw	a4,a4,1
 	sext.w	a4,a4
 	sw	a4,100(a5)
-	j	.L1231
-.L1241:
+	j	.L1230
+.L1240:
 	.loc 1 3629 17
 	nop
-	j	.L1231
-.L1242:
+	j	.L1230
+.L1241:
 	.loc 1 3632 17
 	nop
-	j	.L1231
-.L1243:
+	j	.L1230
+.L1242:
 	.loc 1 3635 17
 	nop
-	j	.L1231
-.L1244:
+	j	.L1230
+.L1243:
 	.loc 1 3638 17
 	nop
-.L1231:
+.L1230:
 	.loc 1 3645 1
 	ld	ra,40(sp)
 	.cfi_restore 1
@@ -20321,11 +20317,11 @@ fs_fstat_fd:
 	call	memset
 	.loc 1 3653 7
 	ld	a5,-48(s0)
-	bne	a5,zero,.L1246
+	bne	a5,zero,.L1245
 	.loc 1 3654 24
 	li	a5,-1
-	j	.L1252
-.L1246:
+	j	.L1251
+.L1245:
 	.loc 1 3656 8
 	call	get_current_file_table
 	mv	a5,a0
@@ -20334,17 +20330,17 @@ fs_fstat_fd:
 	.loc 1 3657 7
 	lw	a5,-36(s0)
 	sext.w	a5,a5
-	blt	a5,zero,.L1248
+	blt	a5,zero,.L1247
 	.loc 1 3657 12 discriminator 1
 	lw	a5,-36(s0)
 	sext.w	a4,a5
 	li	a5,31
-	ble	a4,a5,.L1249
-.L1248:
+	ble	a4,a5,.L1248
+.L1247:
 	.loc 1 3658 24
 	li	a5,-1
-	j	.L1252
-.L1249:
+	j	.L1251
+.L1248:
 	.loc 1 3660 9
 	ld	a4,-24(s0)
 	lw	a5,-36(s0)
@@ -20356,17 +20352,17 @@ fs_fstat_fd:
 	.loc 1 3661 8
 	ld	a5,-32(s0)
 	.loc 1 3661 7
-	beq	a5,zero,.L1250
+	beq	a5,zero,.L1249
 	.loc 1 3661 14 discriminator 1
 	ld	a5,-32(s0)
 	lw	a5,100(a5)
 	.loc 1 3661 10 discriminator 1
-	bne	a5,zero,.L1251
-.L1250:
+	bne	a5,zero,.L1250
+.L1249:
 	.loc 1 3662 24
 	li	a5,-1
-	j	.L1252
-.L1251:
+	j	.L1251
+.L1250:
 	.loc 1 3664 5
 	li	a2,32
 	li	a1,0
@@ -20437,7 +20433,7 @@ fs_fstat_fd:
 	sw	a4,28(a5)
 	.loc 1 3674 16
 	li	a5,0
-.L1252:
+.L1251:
 	.loc 1 3675 1
 	mv	a0,a5
 	ld	ra,40(sp)
@@ -20499,17 +20495,17 @@ fs_lseek:
 	.loc 1 3687 7
 	lw	a5,-52(s0)
 	sext.w	a5,a5
-	blt	a5,zero,.L1254
+	blt	a5,zero,.L1253
 	.loc 1 3687 12 discriminator 1
 	lw	a5,-52(s0)
 	sext.w	a4,a5
 	li	a5,31
-	ble	a4,a5,.L1255
-.L1254:
+	ble	a4,a5,.L1254
+.L1253:
 	.loc 1 3688 24
 	li	a5,-1
-	j	.L1264
-.L1255:
+	j	.L1263
+.L1254:
 	.loc 1 3690 8
 	call	get_current_file_table
 	mv	a5,a0
@@ -20526,34 +20522,34 @@ fs_lseek:
 	.loc 1 3692 8
 	ld	a5,-32(s0)
 	.loc 1 3692 7
-	bne	a5,zero,.L1257
+	bne	a5,zero,.L1256
 	.loc 1 3693 24
 	li	a5,-1
-	j	.L1264
-.L1257:
+	j	.L1263
+.L1256:
 	.loc 1 3695 5
 	lw	a5,-56(s0)
 	sext.w	a4,a5
 	li	a5,2
-	beq	a4,a5,.L1258
+	beq	a4,a5,.L1257
 	lw	a5,-56(s0)
 	sext.w	a4,a5
 	li	a5,2
-	bgt	a4,a5,.L1259
+	bgt	a4,a5,.L1258
 	lw	a5,-56(s0)
 	sext.w	a5,a5
-	beq	a5,zero,.L1260
+	beq	a5,zero,.L1259
 	lw	a5,-56(s0)
 	sext.w	a4,a5
 	li	a5,1
-	beq	a4,a5,.L1261
-	j	.L1259
-.L1260:
+	beq	a4,a5,.L1260
+	j	.L1258
+.L1259:
 	.loc 1 3697 13
 	sd	zero,-40(s0)
 	.loc 1 3698 9
-	j	.L1262
-.L1261:
+	j	.L1261
+.L1260:
 	.loc 1 3700 21
 	ld	a5,-32(s0)
 	lw	a5,96(a5)
@@ -20563,8 +20559,8 @@ fs_lseek:
 	.loc 1 3700 13
 	sd	a5,-40(s0)
 	.loc 1 3701 9
-	j	.L1262
-.L1258:
+	j	.L1261
+.L1257:
 	.loc 1 3703 21
 	ld	a5,-32(s0)
 	.loc 1 3703 26
@@ -20575,12 +20571,12 @@ fs_lseek:
 	.loc 1 3703 13
 	sd	a5,-40(s0)
 	.loc 1 3704 9
-	j	.L1262
-.L1259:
+	j	.L1261
+.L1258:
 	.loc 1 3706 24
 	li	a5,-1
-	j	.L1264
-.L1262:
+	j	.L1263
+.L1261:
 	.loc 1 3708 16
 	ld	a4,-40(s0)
 	ld	a5,-64(s0)
@@ -20590,11 +20586,11 @@ fs_lseek:
 	.loc 1 3709 14
 	ld	a5,-48(s0)
 	.loc 1 3709 7
-	bge	a5,zero,.L1263
+	bge	a5,zero,.L1262
 	.loc 1 3710 24
 	li	a5,-1
-	j	.L1264
-.L1263:
+	j	.L1263
+.L1262:
 	.loc 1 3712 12
 	ld	a4,-48(s0)
 	.loc 1 3712 6
@@ -20609,7 +20605,7 @@ fs_lseek:
 	.loc 1 3713 16
 	slli	a5,a5,32
 	srli	a5,a5,32
-.L1264:
+.L1263:
 	.loc 1 3714 1
 	mv	a0,a5
 	ld	ra,56(sp)
@@ -32882,6 +32878,8 @@ __func__.0:
 	.string	"need"
 .LASF52:
 	.string	"file_table"
+.LASF502:
+	.string	"GNU C23 15.2.1 20250808 (Red Hat Cross 15.2.1-1) -mabi=lp64d -mno-small-data-limit=0 -mcmodel=medany -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdc_zicsr_zifencei_zmmul_zaamo_zalrsc_zca_zcd -g -fno-pie -ffreestanding"
 .LASF143:
 	.string	"printf"
 .LASF37:
@@ -33154,8 +33152,6 @@ __func__.0:
 	.string	"path_lookup_lim"
 .LASF89:
 	.string	"virtq_desc"
-.LASF502:
-	.string	"GNU C23 15.2.0 -mabi=lp64d -mno-small-data-limit=0 -mcmodel=medany -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdc_zicsr_zifencei_zmmul_zaamo_zalrsc_zca_zcd -g -fno-pie -ffreestanding -fzero-init-padding-bits=all"
 .LASF96:
 	.string	"virtio_blk_req"
 .LASF437:
@@ -33559,9 +33555,9 @@ __func__.0:
 .LASF252:
 	.string	"compn"
 	.section	.debug_line_str,"MS",@progbits,1
+.LASF1:
+	.string	"/home/ab25cq/neo-c/minux9"
 .LASF0:
 	.string	"fs_neoc.c"
-.LASF1:
-	.string	"/root/neo-c/minux9"
-	.ident	"GCC: (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+	.ident	"GCC: (GNU) 15.2.1 20250808 (Red Hat Cross 15.2.1-1)"
 	.section	.note.GNU-stack,"",@progbits

@@ -2681,6 +2681,7 @@ char* if_indextoname(unsigned int __ifindex, char __ifname[16]);
 struct if_nameindex*  if_nameindex();
 void if_freenameindex(struct if_nameindex*  __ptr  );
 long  int  imaxabs(long  int  __n  ) __attribute__ ((__const__));
+unsigned long  int  uimaxabs(long  int  __n  ) __attribute__ ((__const__));
 struct anonymous_typeX63  imaxdiv(long  int  __numer  , long  int  __denom  ) __attribute__ ((__const__));
 long  int  strtoimax(const char* __restrict __nptr, char** __restrict __endptr, int __base);
 unsigned long  int  strtoumax(const char* __restrict __nptr, char** __restrict __endptr, int __base);

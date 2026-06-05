@@ -151,6 +151,24 @@ With `-bare`, neo-c can also build without the standard C library on supported b
 
 `-bare`を使うと、対応しているbareターゲットでは標準Cライブラリなしでもビルドできます。Linux x86_64では`neo-c-libc.h`のsyscallラッパーを使い、`-nostdlib`でリンクするため、libcに依存しない単体実行ファイルになります。
 
+## PICO
+
+neo-c can generate bare-metal C for Raspberry Pi Pico / RP2040 targets with `-bare` and `-micro`
+For this path, `neo-c.h` selects `neo-c-libc.h`, and the generated C is meant to be compiled by a bare-metal ARM toolchain such as `arm-none-eabi-gcc`.
+
+`-pico` is the Pico SDK path. Use it when you want neo-c to include the SDK headers and build against the Pico SDK environment.
+
+Pico向けには`-bare`と`-micro`を使います。この経路では`neo-c.h`が`neo-c-libc.h`を選び、生成されたCは`arm-none-eabi-gcc`のようなbare-metal ARMツールチェインでコンパイルする想定です。
+
+`-pico`はPico SDKを使う経路です。Pico SDKのヘッダを取り込み、SDK環境に対してビルドしたいときに使います。
+
+Example:
+
+```sh
+neo-c -bare utkernel.nc
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-builtin -nostdlib -nostartfiles ...
+```
+
 ## minux9
 
 `minux9` is a small Unix-like operating system for RISC-V made with neo-c.

@@ -23,12 +23,11 @@ typedef char*% string;
 
 #if defined(__MINUX__)
 #define UNIX 1
-#elif defined(__BAREMETAL__) && defined(__linux__) && defined(__x86_64__)
+#elif defined(__BAREMETAL__) && defined(__NEO_BARE_HOST_SYSCALLS__) && defined(__linux__) && defined(__x86_64__)
 #define UNIX 1
-#elif defined(__BAREMETAL__) && defined(__APPLE__)
+#elif defined(__BAREMETAL__) && defined(__NEO_BARE_HOST_SYSCALLS__) && defined(__APPLE__)
 #define UNIX 1
 #elif defined(__BAREMETAL__)
-#define UNIX 1
 #elif defined(__PICO__)
 #elif defined(__M5STACK__)
 #else
@@ -37,9 +36,18 @@ typedef char*% string;
 
 
 ///////////////////////////////////////////////////////////////////////////
+// BARE METAL
+///////////////////////////////////////////////////////////////////////////
+#if defined(__BAREMETAL__)
+    #include "neo-c-libc.h"
+
+    using neo-c;
+    using unsafe;
+
+///////////////////////////////////////////////////////////////////////////
 // PICO
 ///////////////////////////////////////////////////////////////////////////
-#if defined(__PICO__)
+#elif defined(__PICO__)
     c_include {#define _GNU_SOURCE}
     c_include {#include "stdarg.h"}
     c_include {#include "stdlib.h"}
@@ -68,15 +76,6 @@ typedef char*% string;
     using neo-c;
     using unsafe;
 
-///////////////////////////////////////////////////////////////////////////
-// BARE METAL 
-///////////////////////////////////////////////////////////////////////////
-#elif defined(__BAREMETAL__)
-    #include "neo-c-libc.h"
-
-    using neo-c;
-    using unsafe;
-    
 ///////////////////////////////////////////////////////////////////////////
 // M5STACK
 ///////////////////////////////////////////////////////////////////////////

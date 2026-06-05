@@ -423,7 +423,8 @@ extern int errno;
 
 #define __NEO_WEAK __attribute__((weak))
 
-#if defined(__MINUX__) && defined(__riscv)
+#ifdef __MICRO__
+#elif defined(__MINUX__) && defined(__riscv)
 #define SYS_write 64
 #define SYS_read 65
 #define SYS_open 66
@@ -943,7 +944,8 @@ uniq void exit(int status)
 extern void putchar(char c);
 #endif
 
-#if (defined(__MINUX__) && defined(__riscv)) || (defined(__linux__) && defined(__x86_64__)) || defined(__APPLE__) || defined(__NEO_DARWIN_BARE__)
+#ifdef __MICRO__
+#elif (defined(__MINUX__) && defined(__riscv)) || (defined(__linux__) && defined(__x86_64__)) || defined(__APPLE__) || defined(__NEO_DARWIN_BARE__)
 typedef struct __neo_FILE {
     int fd;
     int error;

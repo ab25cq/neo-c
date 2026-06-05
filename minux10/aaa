@@ -1,0 +1,484 @@
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `valid_task':
+utkernel.c:(.text.valid_task+0x1c): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `valid_sem':
+utkernel.c:(.text.valid_sem+0x20): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `valid_flg':
+utkernel.c:(.text.valid_flg+0x20): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `valid_mbx':
+utkernel.c:(.text.valid_mbx+0x20): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `mmio_write32':
+utkernel.c:(.text.mmio_write32+0x24): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.mmio_write32+0x24): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.mmio_write32+0x30): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.mmio_write32+0x34): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_putchar':
+utkernel.c:(.text.tk_putchar+0x24): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_putchar+0x24): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_putchar+0x34): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_putchar+0x38): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_puts':
+utkernel.c:(.text.tk_puts+0x40): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_puts+0x44): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_puthex':
+utkernel.c:(.text.tk_puthex+0x22): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_puthex+0x22): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_puthex+0x54): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_puthex+0x58): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_kernel_exit':
+utkernel.c:(.text.tk_kernel_exit+0x28): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_kernel_exit+0x2c): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_cre_tsk':
+utkernel.c:(.text.tk_cre_tsk+0x26): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x26): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x44): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x44): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x54): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x54): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x74): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x74): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x84): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x84): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x9c): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x9c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0xac): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0xac): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0xc4): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0xc4): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0xd4): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0xd4): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0xec): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0xec): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0xfc): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0xfc): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x116): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x116): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x11c): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x11c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x124): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x124): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x12a): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x12a): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x132): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x132): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o:utkernel.c:(.text.tk_cre_tsk+0x138): more undefined references to `puts' follow
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.o: in function `tk_cre_tsk':
+utkernel.c:(.text.tk_cre_tsk+0x138): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x140): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x146): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x14e): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_tsk+0x154): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x160): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_tsk+0x164): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_sta_tsk':
+utkernel.c:(.text.tk_sta_tsk+0x52): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_sta_tsk+0x52): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sta_tsk+0x62): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_sta_tsk+0x62): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sta_tsk+0x6e): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_sta_tsk+0x6e): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sta_tsk+0x7c): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_sta_tsk+0x7c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sta_tsk+0x84): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_sta_tsk+0x84): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sta_tsk+0x8a): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_sta_tsk+0x8a): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sta_tsk+0x92): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_sta_tsk+0x92): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sta_tsk+0x98): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_sta_tsk+0x98): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sta_tsk+0xa8): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sta_tsk+0xac): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_ext_tsk':
+utkernel.c:(.text.tk_ext_tsk+0x34): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_ext_tsk+0x34): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_ext_tsk+0x44): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_ext_tsk+0x44): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_ext_tsk+0x5c): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_ext_tsk+0x5c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_ext_tsk+0x62): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_ext_tsk+0x62): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_ext_tsk+0x68): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_ext_tsk+0x6c): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_dly_tsk':
+utkernel.c:(.text.tk_dly_tsk+0x30): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_dly_tsk+0x34): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_get_tick':
+utkernel.c:(.text.tk_get_tick+0x10): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_get_tid':
+utkernel.c:(.text.tk_get_tid+0x10): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_cre_sem':
+utkernel.c:(.text.tk_cre_sem+0x26): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x26): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x44): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x44): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x54): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x54): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x72): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x72): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x82): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x82): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x9c): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x9c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0xac): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0xac): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0xc6): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0xc6): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0xd6): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0xd6): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0xf4): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0xf4): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0xfa): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0xfa): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x102): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x102): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x108): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x108): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x110): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x110): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o:utkernel.c:(.text.tk_cre_sem+0x116): more undefined references to `puts' follow
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.o: in function `tk_cre_sem':
+utkernel.c:(.text.tk_cre_sem+0x116): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x11e): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_sem+0x124): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x130): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_sem+0x134): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_sig_sem':
+utkernel.c:(.text.tk_sig_sem+0x24): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_sig_sem+0x24): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sig_sem+0x58): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_sig_sem+0x5c): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_wai_sem':
+utkernel.c:(.text.tk_wai_sem+0x24): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_wai_sem+0x24): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_wai_sem+0x58): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_wai_sem+0x5c): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_cre_flg':
+utkernel.c:(.text.tk_cre_flg+0x26): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0x26): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0x44): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0x44): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0x54): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0x54): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0x70): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0x70): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0x80): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0x80): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0x98): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0x98): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0xa8): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0xa8): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0xc2): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0xc2): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0xc8): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0xc8): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0xd0): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0xd0): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0xd6): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0xd6): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0xde): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_flg+0xde): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o:utkernel.c:(.text.tk_cre_flg+0xe4): more undefined references to `puts' follow
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.o: in function `tk_cre_flg':
+utkernel.c:(.text.tk_cre_flg+0xe4): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0xf0): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_flg+0xf4): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_set_flg':
+utkernel.c:(.text.tk_set_flg+0x32): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_set_flg+0x32): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_set_flg+0x42): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_set_flg+0x42): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_set_flg+0x5c): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_set_flg+0x5c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_set_flg+0x62): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_set_flg+0x62): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_set_flg+0x74): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_set_flg+0x78): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_wai_flg':
+utkernel.c:(.text.tk_wai_flg+0x2a): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_wai_flg+0x2a): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_wai_flg+0x34): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_wai_flg+0x34): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_wai_flg+0x80): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_wai_flg+0x84): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `monitor_task':
+utkernel.c:(.text.monitor_task+0x20): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.monitor_task+0x20): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.monitor_task+0x9c): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.monitor_task+0xa0): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_cre_mbx':
+utkernel.c:(.text.tk_cre_mbx+0x24): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x24): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0x42): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x42): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0x52): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x52): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0x70): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x70): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0x80): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x80): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0x9a): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x9a): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0xaa): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0xaa): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0xc2): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0xc2): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0xd2): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0xd2): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0xee): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0xee): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0xf4): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0xf4): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0xfc): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0xfc): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0x102): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x102): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0x10a): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x10a): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o:utkernel.c:(.text.tk_cre_mbx+0x110): more undefined references to `puts' follow
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.o: in function `tk_cre_mbx':
+utkernel.c:(.text.tk_cre_mbx+0x110): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x118): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_cre_mbx+0x11e): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0x128): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_cre_mbx+0x12c): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_snd_mbx':
+utkernel.c:(.text.tk_snd_mbx+0x26): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_snd_mbx+0x26): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_snd_mbx+0x68): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_snd_mbx+0x6c): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `producer_task':
+utkernel.c:(.text.producer_task+0x5c): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.producer_task+0x60): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `tk_rcv_mbx':
+utkernel.c:(.text.tk_rcv_mbx+0x24): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.tk_rcv_mbx+0x24): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_rcv_mbx+0x64): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.tk_rcv_mbx+0x68): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `worker_task':
+utkernel.c:(.text.worker_task+0x22): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.worker_task+0x22): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.worker_task+0x2c): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.worker_task+0x2c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.worker_task+0x80): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.worker_task+0x84): undefined reference to `neo_frame_id'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o: in function `reset_handler':
+utkernel.c:(.text.reset_handler+0x22): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x22): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x5c): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x5c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x66): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x66): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x70): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x70): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x7a): undefined reference to `memset'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x7a): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o:utkernel.c:(.text.reset_handler+0x84): more undefined references to `memset' follow
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.o: in function `reset_handler':
+utkernel.c:(.text.reset_handler+0x84): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x8e): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x98): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x134): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x13e): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x148): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x152): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (memset): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x15c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x184): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x184): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x196): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x196): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x1b0): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x1b0): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x1c2): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x1c2): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x1d8): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x1d8): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x1ea): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x1ea): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x206): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x206): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x218): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x218): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x232): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x232): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x244): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x244): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x262): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x262): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x272): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x272): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x28e): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x28e): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x29e): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x29e): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x2be): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x2be): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x2ce): undefined reference to `exit'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (exit): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x2ce): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x2e2): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x2e2): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x2e8): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x2e8): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x2f0): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x2f0): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x2f6): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x2f6): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x2fe): undefined reference to `puts'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x2fe): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.o:utkernel.c:(.text.reset_handler+0x304): more undefined references to `puts' follow
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.o: in function `reset_handler':
+utkernel.c:(.text.reset_handler+0x304): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x30c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x312): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x31a): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x320): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x328): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x32e): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x336): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x33c): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x344): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: (puts): Unknown destination type (ARM/Thumb) in utkernel.o
+utkernel.c:(.text.reset_handler+0x34a): dangerous relocation: unsupported relocation
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x35c): undefined reference to `neo_current_frame'
+/usr/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/bin/ld: utkernel.c:(.text.reset_handler+0x360): undefined reference to `neo_frame_id'
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:24: utkernel.elf] エラー 1

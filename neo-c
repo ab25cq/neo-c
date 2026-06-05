@@ -36,6 +36,8 @@ compile_only=false
 all_object_file=true
 m5stack=false
 pico=false
+no_compile=false
+micro=false
 portable_c_disabled=false
 
 for arg in "$@"; do
@@ -49,18 +51,27 @@ for arg in "$@"; do
     -E)
       no_rm_pp=false
       ;;
+    -micro)
+      opts+=("-D__MICRO__")
+      ncc_opts+=("-D__MICRO__")
+      micro=true
+      ;;
+    -S)
+      no_compile=true
+      ;;
+    -s)
+      no_compile=true
+      ;;
     -gcc)
       CC=gcc
       ;;
     -pico)
       opts+=("-D__PICO__")
+      ncc_opts+=("-D__PICO__")
       pico=true
       ;;
     -m5stack)
-      opts+=("-m5stack")
       opts+=("-D__M5STACK__")
-      opts+=("-cpp")
-      opts+=("-uniq")
       m5stack=true
       ;;
     -uniq)
@@ -188,11 +199,15 @@ strip_output_executable()
 
 if [ "$pico" = true ]
 then
-    echo pico
     exit 0
 elif [ "$m5stack" = true ]
 then
-    echo m5stack
+    exit 0
+elif [ "$micro" = true ]
+then
+    exit 0
+elif [ "$no_compile" = true ]
+then
     exit 0
 elif [ "$all_object_file" = true ]
 then

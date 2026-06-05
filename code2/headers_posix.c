@@ -354,6 +354,8 @@ typedef unsigned int speed_t;
 
 typedef unsigned int tcflag_t;
 
+typedef unsigned int  baud_t  ;
+
 /// previous struct definition ///
 struct _IO_FILE;
 
@@ -712,16 +714,6 @@ struct winsize
     unsigned short int ws_col;
     unsigned short int ws_xpixel;
     unsigned short int ws_ypixel;
-};
-
-struct termio
-{
-    unsigned short int c_iflag;
-    unsigned short int c_oflag;
-    unsigned short int c_cflag;
-    unsigned short int c_lflag;
-    unsigned char c_line;
-    unsigned char c_cc[8];
 };
 
 enum  __rlimit_resource { RLIMIT_CPU=(0),
@@ -2109,6 +2101,30 @@ enum  anonymous_typeY79 { P_ALL
 ,P_PIDFD 
 };
 
+union anonymous_typeZ80
+{
+unsigned int  __ispeed  ;
+unsigned int  c_ispeed  ;
+};
+
+union anonymous_typeZ81
+{
+unsigned int  __ispeed  ;
+unsigned int  c_ispeed  ;
+};
+
+union anonymous_typeZ82
+{
+unsigned int  __ospeed  ;
+unsigned int  c_ospeed  ;
+};
+
+union anonymous_typeZ83
+{
+unsigned int  __ospeed  ;
+unsigned int  c_ospeed  ;
+};
+
 struct termios
 {
     unsigned int  c_iflag  ;
@@ -2117,8 +2133,14 @@ struct termios
     unsigned int  c_lflag  ;
     unsigned char  c_line  ;
     unsigned char  c_cc[32]  ;
-    unsigned int  c_ispeed  ;
-    unsigned int  c_ospeed  ;
+    union {
+        unsigned int  __ispeed  ;
+        unsigned int  c_ispeed  ;
+    };
+    union {
+        unsigned int  __ospeed  ;
+        unsigned int  c_ospeed  ;
+    };
 };
 
 /// variable definition ///
@@ -2498,6 +2520,11 @@ unsigned int  cfgetispeed(const struct termios*  __termios_p  );
 int cfsetospeed(struct termios*  __termios_p  , unsigned int  __speed  );
 int cfsetispeed(struct termios*  __termios_p  , unsigned int  __speed  );
 int cfsetspeed(struct termios*  __termios_p  , unsigned int  __speed  );
+unsigned int  cfgetobaud(const struct termios*  __termios_p  );
+unsigned int  cfgetibaud(const struct termios*  __termios_p  );
+int cfsetobaud(struct termios*  __termios_p  , unsigned int  __baud  );
+int cfsetibaud(struct termios*  __termios_p  , unsigned int  __baud  );
+int cfsetbaud(struct termios*  __termios_p  , unsigned int  __baud  );
 int tcgetattr(int __fd, struct termios*  __termios_p  );
 int tcsetattr(int __fd, int __optional_actions, const struct termios*  __termios_p  );
 void cfmakeraw(struct termios*  __termios_p  );

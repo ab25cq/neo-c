@@ -5,7 +5,7 @@
 	.attribute stack_align, 16
 	.text
 .Ltext0:
-	.file 0 "/root/neo-c/minux9" "sh.c"
+	.file 0 "/home/ab25cq/neo-c/minux9" "sh.c"
 	.align	1
 	.type	s_strchr, @function
 s_strchr:
@@ -1400,7 +1400,7 @@ eval_line:
 	bne	a5,zero,.L86
 	.loc 1 249 16
 	li	a5,0
-	j	.L139
+	j	.L137
 .L86:
 	.loc 1 252 18
 	sw	zero,-28(s0)
@@ -1423,7 +1423,7 @@ eval_line:
 	mul	a5,a3,a5
 	add	a5,a4,a5
 	sb	zero,284(a5)
-.L121:
+.L119:
 	.loc 1 260 12
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
@@ -1520,7 +1520,7 @@ eval_line:
 	lw	a5,-28(s0)
 	sext.w	a4,a5
 	li	a5,15
-	ble	a4,a5,.L121
+	ble	a4,a5,.L119
 	.loc 1 281 17
 	lla	a0,.LC3
 	call	puts
@@ -1609,7 +1609,7 @@ eval_line:
 	sw	zero,-48(s0)
 	.loc 1 301 18
 	j	.L99
-.L101:
+.L100:
 	.loc 1 302 63
 	ld	a5,-40(s0)
 	addi	a4,a5,1
@@ -1649,35 +1649,35 @@ eval_line:
 	call	xisalnum
 	mv	a5,a0
 	.loc 1 301 71 discriminator 1
-	bne	a5,zero,.L101
+	bne	a5,zero,.L100
 	.loc 1 301 35 discriminator 2
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 301 32 discriminator 2
 	mv	a4,a5
 	li	a5,46
-	beq	a4,a5,.L101
+	beq	a4,a5,.L100
 	.loc 1 301 48 discriminator 3
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 301 45 discriminator 3
 	mv	a4,a5
 	li	a5,95
-	beq	a4,a5,.L101
+	beq	a4,a5,.L100
 	.loc 1 301 61 discriminator 4
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 301 58 discriminator 4
 	mv	a4,a5
 	li	a5,45
-	beq	a4,a5,.L101
+	beq	a4,a5,.L100
 	.loc 1 301 74 discriminator 5
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 301 71 discriminator 5
 	mv	a4,a5
 	li	a5,47
-	beq	a4,a5,.L101
+	beq	a4,a5,.L100
 	.loc 1 309 53
 	li	a5,-16384
 	addi	a5,a5,-16
@@ -1699,27 +1699,27 @@ eval_line:
 	add	a5,a4,a5
 	sw	zero,316(a5)
 	.loc 1 312 18
-	j	.L102
-.L103:
+	j	.L101
+.L102:
 	.loc 1 313 18
 	ld	a5,-40(s0)
 	addi	a5,a5,1
 	sd	a5,-40(s0)
-.L102:
+.L101:
 	.loc 1 312 19
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 312 29
 	mv	a4,a5
 	li	a5,32
-	beq	a4,a5,.L103
+	beq	a4,a5,.L102
 	.loc 1 312 32 discriminator 1
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 312 29 discriminator 1
 	mv	a4,a5
 	li	a5,9
-	beq	a4,a5,.L103
+	beq	a4,a5,.L102
 .LBE32:
 	.loc 1 285 45
 	j	.L93
@@ -1730,7 +1730,7 @@ eval_line:
 	.loc 1 316 16
 	mv	a4,a5
 	li	a5,62
-	bne	a4,a5,.L104
+	bne	a4,a5,.L103
 	.loc 1 316 33 discriminator 1
 	ld	a5,-40(s0)
 	addi	a5,a5,1
@@ -1739,11 +1739,11 @@ eval_line:
 	.loc 1 316 27 discriminator 1
 	mv	a4,a5
 	li	a5,62
-	bne	a4,a5,.L104
+	bne	a4,a5,.L103
 .LBB33:
 	.loc 1 317 15
 	ld	a5,-24(s0)
-	ble	a5,zero,.L105
+	ble	a5,zero,.L104
 	.loc 1 318 57
 	li	a5,-16384
 	addi	a5,a5,-16
@@ -1766,47 +1766,47 @@ eval_line:
 	lw	a5,-32(s0)
 	sext.w	a4,a5
 	li	a5,31
-	ble	a4,a5,.L106
+	ble	a4,a5,.L105
 	.loc 1 321 21
 	lla	a0,.LC2
 	call	puts
 	.loc 1 322 21
 	j	.L90
-.L106:
+.L105:
 	.loc 1 324 19
 	sd	zero,-24(s0)
-.L105:
+.L104:
 	.loc 1 326 15
 	ld	a5,-40(s0)
 	addi	a5,a5,2
 	sd	a5,-40(s0)
 	.loc 1 327 18
-	j	.L107
-.L108:
+	j	.L106
+.L107:
 	.loc 1 328 18
 	ld	a5,-40(s0)
 	addi	a5,a5,1
 	sd	a5,-40(s0)
-.L107:
+.L106:
 	.loc 1 327 19
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 327 29
 	mv	a4,a5
 	li	a5,32
-	beq	a4,a5,.L108
+	beq	a4,a5,.L107
 	.loc 1 327 32 discriminator 1
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 327 29 discriminator 1
 	mv	a4,a5
 	li	a5,9
-	beq	a4,a5,.L108
+	beq	a4,a5,.L107
 	.loc 1 331 17
 	sw	zero,-52(s0)
 	.loc 1 332 18
-	j	.L109
-.L111:
+	j	.L108
+.L109:
 	.loc 1 333 63
 	ld	a5,-40(s0)
 	addi	a4,a5,1
@@ -1831,14 +1831,14 @@ eval_line:
 	lw	a5,-52(s0)
 	sext.w	a4,a5
 	li	a5,32
-	ble	a4,a5,.L109
+	ble	a4,a5,.L108
 	.loc 1 336 21
 	lla	a0,.LC4
 	call	puts
 	.loc 1 337 21
 	li	a0,2
 	call	exit
-.L109:
+.L108:
 	.loc 1 332 19
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
@@ -1846,35 +1846,35 @@ eval_line:
 	call	xisalnum
 	mv	a5,a0
 	.loc 1 332 71 discriminator 1
-	bne	a5,zero,.L111
+	bne	a5,zero,.L109
 	.loc 1 332 35 discriminator 2
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 332 32 discriminator 2
 	mv	a4,a5
 	li	a5,46
-	beq	a4,a5,.L111
+	beq	a4,a5,.L109
 	.loc 1 332 48 discriminator 3
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 332 45 discriminator 3
 	mv	a4,a5
 	li	a5,95
-	beq	a4,a5,.L111
+	beq	a4,a5,.L109
 	.loc 1 332 61 discriminator 4
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 332 58 discriminator 4
 	mv	a4,a5
 	li	a5,45
-	beq	a4,a5,.L111
+	beq	a4,a5,.L109
 	.loc 1 332 74 discriminator 5
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 332 71 discriminator 5
 	mv	a4,a5
 	li	a5,47
-	beq	a4,a5,.L111
+	beq	a4,a5,.L109
 	.loc 1 340 53
 	li	a5,-16384
 	addi	a5,a5,-16
@@ -1897,70 +1897,70 @@ eval_line:
 	li	a4,1
 	sw	a4,316(a5)
 	.loc 1 343 18
-	j	.L112
-.L113:
+	j	.L110
+.L111:
 	.loc 1 344 18
 	ld	a5,-40(s0)
 	addi	a5,a5,1
 	sd	a5,-40(s0)
-.L112:
+.L110:
 	.loc 1 343 19
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 343 29
 	mv	a4,a5
 	li	a5,32
-	beq	a4,a5,.L113
+	beq	a4,a5,.L111
 	.loc 1 343 32 discriminator 1
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 343 29 discriminator 1
 	mv	a4,a5
 	li	a5,9
-	beq	a4,a5,.L113
+	beq	a4,a5,.L111
 .LBE33:
 	.loc 1 316 45
 	j	.L93
-.L104:
+.L103:
 	.loc 1 347 17
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 347 16
 	mv	a4,a5
 	li	a5,32
-	beq	a4,a5,.L116
+	beq	a4,a5,.L114
 	.loc 1 347 30 discriminator 1
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 347 27 discriminator 1
 	mv	a4,a5
 	li	a5,9
-	bne	a4,a5,.L115
+	bne	a4,a5,.L113
 	.loc 1 348 18
-	j	.L116
-.L117:
+	j	.L114
+.L115:
 	.loc 1 349 18
 	ld	a5,-40(s0)
 	addi	a5,a5,1
 	sd	a5,-40(s0)
-.L116:
+.L114:
 	.loc 1 348 19
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 348 29
 	mv	a4,a5
 	li	a5,32
-	beq	a4,a5,.L117
+	beq	a4,a5,.L115
 	.loc 1 348 32 discriminator 1
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 348 29 discriminator 1
 	mv	a4,a5
 	li	a5,9
-	beq	a4,a5,.L117
+	beq	a4,a5,.L115
 	.loc 1 351 15
 	ld	a5,-24(s0)
-	ble	a5,zero,.L140
+	ble	a5,zero,.L138
 	.loc 1 352 57
 	li	a5,-16384
 	addi	a5,a5,-16
@@ -1985,21 +1985,21 @@ eval_line:
 	lw	a5,-32(s0)
 	sext.w	a4,a5
 	li	a5,31
-	ble	a4,a5,.L140
+	ble	a4,a5,.L138
 	.loc 1 356 21
 	lla	a0,.LC2
 	call	puts
 	.loc 1 357 21
 	j	.L90
-.L115:
+.L113:
 	.loc 1 361 17
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
 	.loc 1 361 16
-	bne	a5,zero,.L119
+	bne	a5,zero,.L117
 	.loc 1 362 16
 	ld	a5,-24(s0)
-	ble	a5,zero,.L120
+	ble	a5,zero,.L118
 	.loc 1 363 57
 	li	a5,-16384
 	addi	a5,a5,-16
@@ -2020,7 +2020,7 @@ eval_line:
 	sw	a5,-32(s0)
 	.loc 1 365 19
 	sd	zero,-24(s0)
-.L120:
+.L118:
 	.loc 1 368 44
 	li	a5,-16384
 	addi	a5,a5,-16
@@ -2037,7 +2037,7 @@ eval_line:
 	sw	a5,-28(s0)
 	.loc 1 370 13
 	j	.L90
-.L119:
+.L117:
 	.loc 1 373 55
 	ld	a5,-40(s0)
 	lbu	a4,0(a5)
@@ -2066,31 +2066,31 @@ eval_line:
 	.loc 1 377 15
 	ld	a4,-24(s0)
 	li	a5,31
-	ble	a4,a5,.L121
+	ble	a4,a5,.L119
 	.loc 1 378 17
 	lla	a0,.LC5
 	call	puts
 	.loc 1 379 17
 	j	.L90
-.L140:
+.L138:
 	.loc 1 351 15
 	nop
 .L93:
 	.loc 1 260 11
-	j	.L121
+	j	.L119
 .L90:
 	.loc 1 384 8
 	lw	a5,-28(s0)
 	sext.w	a4,a5
 	li	a5,1
-	bne	a4,a5,.L122
+	bne	a4,a5,.L120
 	.loc 1 384 41 discriminator 1
 	li	a5,-16384
 	addi	a5,a5,-16
 	add	a5,a5,s0
 	lw	a5,280(a5)
 	.loc 1 384 27 discriminator 1
-	ble	a5,zero,.L122
+	ble	a5,zero,.L120
 	.loc 1 384 58 discriminator 2
 	li	a5,-16384
 	addi	a5,a5,-744
@@ -2101,7 +2101,7 @@ eval_line:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 384 55 discriminator 3
-	bne	a5,zero,.L122
+	bne	a5,zero,.L120
 .LBB34:
 	.loc 1 385 21
 	lla	a5,.LC7
@@ -2113,14 +2113,14 @@ eval_line:
 	lw	a4,280(a5)
 	.loc 1 386 12
 	li	a5,1
-	ble	a4,a5,.L123
+	ble	a4,a5,.L121
 	.loc 1 386 60 discriminator 1
 	li	a5,-16384
 	addi	a5,a5,-16
 	add	a5,a5,s0
 	lbu	a5,-712(a5)
 	.loc 1 386 38 discriminator 1
-	beq	a5,zero,.L123
+	beq	a5,zero,.L121
 	.loc 1 387 20
 	li	a5,-16384
 	addi	a5,a5,-744
@@ -2128,7 +2128,7 @@ eval_line:
 	add	a5,a5,s0
 	addi	a5,a5,32
 	sd	a5,-64(s0)
-.L123:
+.L121:
 .LBB35:
 	.loc 1 389 13
 	ld	a5,-64(s0)
@@ -2143,15 +2143,15 @@ eval_line:
 	sext.w	a5,a5
 .LBE35:
 	.loc 1 389 12
-	bge	a5,zero,.L124
+	bge	a5,zero,.L122
 	.loc 1 390 13
 	lla	a0,.LC8
 	call	puts
-.L124:
+.L122:
 	.loc 1 392 16
 	li	a5,0
-	j	.L139
-.L122:
+	j	.L137
+.L120:
 .LBE34:
 .LBB36:
 	.loc 1 396 13
@@ -2161,7 +2161,7 @@ eval_line:
 	lw	a5,-28(s0)
 	sext.w	a4,a5
 	li	a5,1
-	bne	a4,a5,.L125
+	bne	a4,a5,.L123
 	.loc 1 399 27
 	li	a5,-16384
 	addi	a5,a5,-16
@@ -2169,7 +2169,7 @@ eval_line:
 	lw	a4,280(a5)
 	.loc 1 399 13
 	li	a5,1
-	ble	a4,a5,.L125
+	ble	a4,a5,.L123
 	.loc 1 400 17
 	li	a5,-16384
 	addi	a5,a5,-744
@@ -2180,7 +2180,7 @@ eval_line:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 400 13 discriminator 1
-	beq	a5,zero,.L126
+	beq	a5,zero,.L124
 	.loc 1 401 20
 	li	a5,-16384
 	addi	a5,a5,-744
@@ -2191,8 +2191,8 @@ eval_line:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 401 17 discriminator 1
-	bne	a5,zero,.L125
-.L126:
+	bne	a5,zero,.L123
+.L124:
 	.loc 1 402 16
 	li	a5,-16384
 	addi	a5,a5,-744
@@ -2204,15 +2204,15 @@ eval_line:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 402 13 discriminator 2
-	beq	a5,zero,.L125
+	beq	a5,zero,.L123
 	.loc 1 402 13 is_stmt 0 discriminator 3
 	li	a5,1
 	.loc 1 402 13
-	j	.L127
-.L125:
+	j	.L125
+.L123:
 	.loc 1 402 13 discriminator 4
 	li	a5,0
-.L127:
+.L125:
 	.loc 1 397 13 is_stmt 1
 	sw	a5,-84(s0)
 	.loc 1 403 11
@@ -2221,7 +2221,7 @@ eval_line:
 	add	a5,a5,s0
 	lw	a5,-768(a5)
 	sext.w	a5,a5
-	beq	a5,zero,.L128
+	beq	a5,zero,.L126
 .LBB37:
 	.loc 1 404 26
 	li	a7,105
@@ -2247,7 +2247,7 @@ eval_line:
 # 0 "" 2
 #NO_APP
 	sd	a0,-104(s0)
-.L128:
+.L126:
 .LBE38:
 .LBB39:
 	.loc 1 408 15
@@ -2264,11 +2264,11 @@ eval_line:
 	.loc 1 410 11
 	lw	a5,-108(s0)
 	sext.w	a5,a5
-	bne	a5,zero,.L129
+	bne	a5,zero,.L127
 	.loc 1 411 15
 	lw	a5,-68(s0)
 	sext.w	a5,a5
-	blt	a5,zero,.L130
+	blt	a5,zero,.L128
 .LBB40:
 	.loc 1 412 17
 	li	a0,0
@@ -2281,7 +2281,7 @@ eval_line:
 # 0 "" 2
 #NO_APP
 	sd	a0,-120(s0)
-.L130:
+.L128:
 .LBE40:
 	.loc 1 414 13
 	lw	a4,-68(s0)
@@ -2297,33 +2297,33 @@ eval_line:
 	mv	a1,a5
 	li	a0,0
 	call	run_command
-	j	.L131
-.L129:
+	j	.L129
+.L127:
 .LBB41:
 	.loc 1 417 47
 	lw	a5,-84(s0)
 	sext.w	a5,a5
-	bne	a5,zero,.L132
+	bne	a5,zero,.L130
 	.loc 1 417 17 discriminator 1
 	lw	a5,-28(s0)
 	sw	a5,-72(s0)
-	j	.L133
-.L132:
+	j	.L131
+.L130:
 	.loc 1 417 17 is_stmt 0 discriminator 2
 	li	a5,1
 	sw	a5,-72(s0)
-.L133:
+.L131:
 .LBB42:
 	.loc 1 418 21 is_stmt 1
 	sw	zero,-76(s0)
 	.loc 1 418 13
-	j	.L134
-.L138:
+	j	.L132
+.L136:
 .LBB43:
 	.loc 1 421 19
 	lw	a5,-84(s0)
 	sext.w	a5,a5
-	beq	a5,zero,.L135
+	beq	a5,zero,.L133
 .LBB44:
 	.loc 1 422 34
 	li	a5,-16384
@@ -2342,8 +2342,8 @@ eval_line:
 .LBE44:
 	.loc 1 422 32
 	sw	a5,-80(s0)
-	j	.L136
-.L135:
+	j	.L134
+.L133:
 .LBB45:
 	.loc 1 425 34
 	li	a5,-16384
@@ -2362,11 +2362,11 @@ eval_line:
 .LBE45:
 	.loc 1 425 32
 	sw	a5,-80(s0)
-.L136:
+.L134:
 	.loc 1 427 19
 	lw	a5,-80(s0)
 	sext.w	a5,a5
-	blt	a5,zero,.L141
+	blt	a5,zero,.L139
 	.loc 1 430 17
 	li	a5,-16384
 	addi	a5,a5,-16
@@ -2380,27 +2380,27 @@ eval_line:
 	lw	a5,-76(s0)
 	addiw	a5,a5,1
 	sw	a5,-76(s0)
-.L134:
+.L132:
 	.loc 1 418 27 discriminator 1
 	lw	a5,-76(s0)
 	mv	a4,a5
 	lw	a5,-72(s0)
 	sext.w	a4,a4
 	sext.w	a5,a5
-	blt	a4,a5,.L138
-	j	.L131
-.L141:
+	blt	a4,a5,.L136
+	j	.L129
+.L139:
 .LBB46:
 	.loc 1 428 21
 	nop
-.L131:
+.L129:
 .LBE46:
 .LBE42:
 .LBE41:
 .LBE36:
 	.loc 1 435 12
 	li	a5,0
-.L139:
+.L137:
 	.loc 1 436 1
 	mv	a0,a5
 	li	t0,16384
@@ -2460,8 +2460,8 @@ main:
 	li	a5,1
 	sw	a5,-24(s0)
 	.loc 1 450 5
-	j	.L143
-.L147:
+	j	.L141
+.L145:
 	.loc 1 451 23
 	lw	a5,-24(s0)
 	slli	a5,a5,3
@@ -2474,16 +2474,16 @@ main:
 	call	strcmp
 	mv	a5,a0
 	.loc 1 451 11 discriminator 1
-	bne	a5,zero,.L144
+	bne	a5,zero,.L142
 	.loc 1 452 22
 	li	a5,1
 	sw	a5,-28(s0)
-	j	.L145
-.L144:
+	j	.L143
+.L142:
 	.loc 1 454 16
 	lw	a5,-28(s0)
 	sext.w	a5,a5
-	beq	a5,zero,.L146
+	beq	a5,zero,.L144
 	.loc 1 455 30
 	lw	a5,-24(s0)
 	slli	a5,a5,3
@@ -2502,11 +2502,11 @@ main:
 	lla	a1,.LC13
 	mv	a0,a5
 	call	strncat
-	j	.L145
-.L146:
+	j	.L143
+.L144:
 	.loc 1 458 16
 	ld	a5,-40(s0)
-	bne	a5,zero,.L145
+	bne	a5,zero,.L143
 	.loc 1 459 31
 	lw	a5,-24(s0)
 	slli	a5,a5,3
@@ -2515,22 +2515,22 @@ main:
 	.loc 1 459 25
 	ld	a5,0(a5)
 	sd	a5,-40(s0)
-.L145:
+.L143:
 	.loc 1 450 23 discriminator 2
 	lw	a5,-24(s0)
 	addiw	a5,a5,1
 	sw	a5,-24(s0)
-.L143:
+.L141:
 	.loc 1 450 15 discriminator 1
 	lw	a5,-24(s0)
 	mv	a4,a5
 	lw	a5,-196(s0)
 	sext.w	a4,a4
 	sext.w	a5,a5
-	blt	a4,a5,.L147
+	blt	a4,a5,.L145
 	.loc 1 463 7
 	ld	a5,-40(s0)
-	beq	a5,zero,.L158
+	beq	a5,zero,.L156
 .LBB47:
 	.loc 1 464 21
 	ld	a5,-40(s0)
@@ -2551,7 +2551,7 @@ main:
 	.loc 1 465 11
 	lw	a5,-20(s0)
 	sext.w	a5,a5
-	bge	a5,zero,.L149
+	bge	a5,zero,.L147
 	.loc 1 466 13
 	ld	a1,-40(s0)
 	lla	a0,.LC14
@@ -2559,12 +2559,12 @@ main:
 	.loc 1 467 13
 	li	a0,1
 	call	exit
-.L149:
+.L147:
 	.loc 1 469 21
 	lla	a5,g_script_fd
 	lw	a4,-20(s0)
 	sw	a4,0(a5)
-.L158:
+.L156:
 .LBB48:
 	.loc 1 473 15
 	sd	zero,-48(s0)
@@ -2575,10 +2575,10 @@ main:
 	.loc 1 477 11
 	lw	a5,-28(s0)
 	sext.w	a5,a5
-	bne	a5,zero,.L150
+	bne	a5,zero,.L148
 	.loc 1 477 26 discriminator 1
 	ld	a5,-40(s0)
-	bne	a5,zero,.L150
+	bne	a5,zero,.L148
 	.loc 1 478 25
 	li	a5,1
 	sw	a5,-52(s0)
@@ -2588,18 +2588,18 @@ main:
 	sd	a0,-48(s0)
 	.loc 1 480 15
 	ld	a5,-48(s0)
-	bne	a5,zero,.L151
+	bne	a5,zero,.L149
 	.loc 1 481 17
 	li	a0,0
 	call	exit
-.L151:
+.L149:
 	.loc 1 484 23
 	ld	a5,-48(s0)
 	lbu	a5,0(a5)
 	.loc 1 484 15
 	mv	a4,a5
 	li	a5,33
-	bne	a4,a5,.L152
+	bne	a4,a5,.L150
 	.loc 1 485 24
 	li	a5,1
 	sw	a5,-32(s0)
@@ -2613,8 +2613,8 @@ main:
 	mv	a0,a5
 	call	strncpy
 	.loc 1 484 15
-	j	.L154
-.L152:
+	j	.L152
+.L150:
 	.loc 1 489 17
 	addi	a5,s0,-120
 	li	a2,64
@@ -2622,11 +2622,11 @@ main:
 	mv	a0,a5
 	call	strncpy
 	.loc 1 484 15
-	j	.L154
-.L150:
+	j	.L152
+.L148:
 	.loc 1 492 16
 	ld	a5,-40(s0)
-	beq	a5,zero,.L154
+	beq	a5,zero,.L152
 	.loc 1 493 16
 	addi	a4,s0,-184
 	lw	a5,-20(s0)
@@ -2636,7 +2636,7 @@ main:
 	call	script_readline_fd
 	mv	a5,a0
 	.loc 1 493 15 discriminator 1
-	bge	a5,zero,.L155
+	bge	a5,zero,.L153
 .LBB49:
 	.loc 1 494 17
 	lw	a5,-20(s0)
@@ -2655,7 +2655,7 @@ main:
 	.loc 1 496 17
 	li	a0,0
 	call	exit
-.L155:
+.L153:
 	.loc 1 499 13
 	addi	a4,s0,-184
 	addi	a5,s0,-120
@@ -2667,7 +2667,7 @@ main:
 	addi	a5,s0,-120
 	mv	a0,a5
 	call	normalize_line
-.L154:
+.L152:
 	.loc 1 503 9
 	lw	a3,-52(s0)
 	lw	a4,-32(s0)
@@ -2678,21 +2678,21 @@ main:
 	call	eval_line
 	.loc 1 505 11
 	ld	a5,-48(s0)
-	beq	a5,zero,.L156
+	beq	a5,zero,.L154
 	.loc 1 506 13
 	ld	a0,-48(s0)
 	call	free
-.L156:
+.L154:
 	.loc 1 509 11
 	lw	a5,-28(s0)
 	sext.w	a5,a5
-	beq	a5,zero,.L158
+	beq	a5,zero,.L156
 	.loc 1 510 13
 	li	a0,0
 	call	exit
 .LBE48:
 	.loc 1 472 14
-	j	.L158
+	j	.L156
 	.cfi_endproc
 .LFE11:
 	.size	main, .-main
@@ -5168,8 +5168,8 @@ main:
 	.string	"strncat"
 .LASF19:
 	.string	"redirect_append"
-.LASF52:
-	.string	"envbuf"
+.LASF15:
+	.string	"g_script_fd"
 .LASF25:
 	.string	"free"
 .LASF9:
@@ -5200,6 +5200,8 @@ main:
 	.string	"command"
 .LASF8:
 	.string	"long unsigned int"
+.LASF52:
+	.string	"envbuf"
 .LASF45:
 	.string	"waits"
 .LASF32:
@@ -5220,13 +5222,13 @@ main:
 	.string	"xisdigit"
 .LASF27:
 	.string	"puts"
-.LASF71:
-	.ascii	"GNU C23 15.2.0 -mno-small-data-limit=0 -mcm"
-	.string	"odel=medany -mcmodel=medany -mno-small-data-limit=0 -mabi=lp64d -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdc_zicsr_zifencei_zmmul_zaamo_zalrsc_zca_zcd -g -O0 -ffreestanding -fno-stack-protector -fno-builtin -fno-pie -fzero-init-padding-bits=all"
+.LASF39:
+	.string	"num_commands"
 .LASF10:
 	.string	"long double"
-.LASF15:
-	.string	"g_script_fd"
+.LASF71:
+	.ascii	"GNU C23 15.2.1 20250808 (Red Hat Cross 15.2.1-1)"
+	.string	" -mno-small-data-limit=0 -mcmodel=medany -mcmodel=medany -mno-small-data-limit=0 -mabi=lp64d -misa-spec=20191213 -mtls-dialect=trad -march=rv64imafdc_zicsr_zifencei_zmmul_zaamo_zalrsc_zca_zcd -g -O0 -ffreestanding -fno-stack-protector -fno-builtin -fno-pie"
 .LASF50:
 	.string	"pipes"
 .LASF65:
@@ -5271,8 +5273,6 @@ main:
 	.string	"status"
 .LASF28:
 	.string	"memmove"
-.LASF39:
-	.string	"num_commands"
 .LASF56:
 	.string	"exec_command_argv"
 .LASF43:
@@ -5291,6 +5291,6 @@ main:
 .LASF0:
 	.string	"sh.c"
 .LASF1:
-	.string	"/root/neo-c/minux9"
-	.ident	"GCC: (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+	.string	"/home/ab25cq/neo-c/minux9"
+	.ident	"GCC: (GNU) 15.2.1 20250808 (Red Hat Cross 15.2.1-1)"
 	.section	.note.GNU-stack,"",@progbits

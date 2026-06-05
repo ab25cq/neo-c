@@ -1072,6 +1072,7 @@ int pthread_key_delete(unsigned int  __key  );
 void* pthread_getspecific(unsigned int  __key  );
 int pthread_setspecific(unsigned int  __key  , const void* __pointer);
 int pthread_getcpuclockid(unsigned long  int  __thread_id  , int*  __clock_id  );
+int  pthread_gettid_np(unsigned long  int  __thread_id  );
 int pthread_atfork(void (*__prepare)(), void (*__parent)(), void (*__child)());
 int select(int __nfds, struct anonymous_typeX17* __restrict  __readfds  , struct anonymous_typeX17* __restrict  __writefds  , struct anonymous_typeX17* __restrict  __exceptfds  , struct timeval* __restrict  __timeout  );
 int pselect(int __nfds, struct anonymous_typeX17* __restrict  __readfds  , struct anonymous_typeX17* __restrict  __writefds  , struct anonymous_typeX17* __restrict  __exceptfds  , const struct timespec* __restrict  __timeout  , const struct anonymous_typeX15* __restrict  __sigmask  );
