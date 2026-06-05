@@ -16,6 +16,10 @@ if [ -e minux9/Makefile ]
 then
     (cd minux9; make clean)
 fi
+if [ -e minux10/Makefile ]
+then
+    (cd minux10; make clean)
+fi
 
 if [ -e vin/Makefile ]
 then
