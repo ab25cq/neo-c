@@ -912,7 +912,7 @@ bool output_source_file(sInfo* info)
         }
     }
     
-    if(gComeUniq) {
+    if(gComeUniq || gComeMicro) {
         main_module = true;
     }
     
@@ -942,6 +942,9 @@ bool output_source_file(sInfo* info)
     fprintf(f, "/// c_include definition ///\n");
     if(gComeBareMetal) {
         fprintf(f, "#ifndef __BAREMETAL__\n#define __BAREMETAL__ 1\n#endif\n\n");
+    }
+    if(gComeMicro) {
+        fprintf(f, "#ifndef __NEO_MICRO__\n#define __NEO_MICRO__ 1\n#endif\n\n");
     }
     foreach(it, info.c_include_definition) {
         buffer* buf = borrow info.c_include_definition[string(it)];

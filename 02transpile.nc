@@ -6,6 +6,7 @@ bool gComePthread = false;
 bool gComeDebug = false;
 bool gComeOriginalSourcePosition = false;
 bool gComeBareMetal = false;
+bool gComeMicro = false;
 bool gComeCPlusPlus = false;
 bool gComelang = false;
 bool gComeSafe = false;
@@ -242,6 +243,10 @@ static bool cpp(sInfo* info)
     else if(is_pico) {
         set_macro("__PICO__", "1");
     }
+    else if(gComeMicro) {
+        set_macro("__BAREMETAL__", "1");
+        set_macro("__NEO_MICRO__", "1");
+    }
     else if(gComeBareMetal) {
         set_macro("__BAREMETAL__", "1");
         if(is_mac) {
@@ -414,6 +419,10 @@ static void init_classes(sInfo* info)
         }
         else if(argv[i] === "-bare") {
             gComeBareMetal = true;
+        }
+        else if(argv[i] === "-micro") {
+            gComeBareMetal = true;
+            gComeMicro = true;
         }
         else if(argv[i] === "-lowmem") {
             gComeLowMemory = true;

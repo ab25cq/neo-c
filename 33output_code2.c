@@ -1566,6 +1566,7 @@ extern _Bool gComePthread;
 extern _Bool gComeNet;
 extern _Bool gComeMalloc;
 extern _Bool gComeBareMetal;
+extern _Bool gComeMicro;
 extern _Bool gComeCPlusPlus;
 extern _Bool gComelang;
 extern _Bool gComeSafe;
@@ -5638,7 +5639,7 @@ _Bool output_source_file(struct sInfo*  info  )
             main_module=(_Bool)1;
         }
     }
-    if(gComeUniq) {
+    if(gComeUniq||gComeMicro) {
         main_module=(_Bool)1;
     }
     if(main_module) {
@@ -5676,129 +5677,132 @@ _Bool output_source_file(struct sInfo*  info  )
     if(gComeBareMetal) {
         fprintf(f,"#ifndef __BAREMETAL__\n#define __BAREMETAL__ 1\n#endif\n\n");
     }
-    for(_o2_saved_14=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->c_include_definition, "33output_code2.nc", 946, 622),it_68=map$2char$phbuffer$ph_begin(_o2_saved_14)    ;!map$2char$phbuffer$ph_end(_o2_saved_14);it_68=map$2char$phbuffer$ph_next(_o2_saved_14)){
+    if(gComeMicro) {
+        fprintf(f,"#ifndef __NEO_MICRO__\n#define __NEO_MICRO__ 1\n#endif\n\n");
+    }
+    for(_o2_saved_14=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->c_include_definition, "33output_code2.nc", 949, 622),it_68=map$2char$phbuffer$ph_begin(_o2_saved_14)    ;!map$2char$phbuffer$ph_end(_o2_saved_14);it_68=map$2char$phbuffer$ph_next(_o2_saved_14)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        buf=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->c_include_definition,((char* )(__right_value1=__builtin_string(it_68,"33output_code2.nc",947))))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 947, 653));
+        buf=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->c_include_definition,((char* )(__right_value1=__builtin_string(it_68,"33output_code2.nc",950))))));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 950, 653));
         __right_value0 = (void*)0;
         fputs(((char* )(__right_value0=buffer_to_string(buf))),f);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 948, 654));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 951, 654));
         fputc(10,f);
     }
     fprintf(f,"/// typedef definition ///\n");
     if(!ccpp_source) {
-        for(_o2_saved_15=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->typedef_definition, "33output_code2.nc", 954, 655),it_70=map$2char$phbuffer$ph_begin(_o2_saved_15)        ;!map$2char$phbuffer$ph_end(_o2_saved_15);it_70=map$2char$phbuffer$ph_next(_o2_saved_15)){
+        for(_o2_saved_15=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->typedef_definition, "33output_code2.nc", 957, 655),it_70=map$2char$phbuffer$ph_begin(_o2_saved_15)        ;!map$2char$phbuffer$ph_end(_o2_saved_15);it_70=map$2char$phbuffer$ph_next(_o2_saved_15)){
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            buf_71=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->typedef_definition,((char* )(__right_value1=__builtin_string(it_70,"33output_code2.nc",955))))));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 955, 656));
+            buf_71=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->typedef_definition,((char* )(__right_value1=__builtin_string(it_70,"33output_code2.nc",958))))));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 958, 656));
             __right_value0 = (void*)0;
             fputs(((char* )(__right_value0=buffer_to_string(buf_71))),f);
-            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 956, 657));
+            (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 959, 657));
             fputc(10,f);
         }
         come_call_finalizer(map$2char$phbuffer$ph$p_finalize, _o2_saved_15, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 3, 663);
     }
     fprintf(f,"/// previous struct definition ///\n");
-    for(_o2_saved_16=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->previous_struct_definition, "33output_code2.nc", 962, 664),it_73=map$2char$phbuffer$ph_begin(_o2_saved_16)    ;!map$2char$phbuffer$ph_end(_o2_saved_16);it_73=map$2char$phbuffer$ph_next(_o2_saved_16)){
+    for(_o2_saved_16=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->previous_struct_definition, "33output_code2.nc", 965, 664),it_73=map$2char$phbuffer$ph_begin(_o2_saved_16)    ;!map$2char$phbuffer$ph_end(_o2_saved_16);it_73=map$2char$phbuffer$ph_next(_o2_saved_16)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        buf_74=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->previous_struct_definition,((char* )(__right_value1=__builtin_string(it_73,"33output_code2.nc",963))))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 963, 665));
+        buf_74=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->previous_struct_definition,((char* )(__right_value1=__builtin_string(it_73,"33output_code2.nc",966))))));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 966, 665));
         __right_value0 = (void*)0;
         fputs(((char* )(__right_value0=buffer_to_string(buf_74))),f);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 964, 666));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 967, 666));
         fputc(10,f);
     }
     fprintf(f,"/// struct definition ///\n");
-    for(_o2_saved_17=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->struct_definition, "33output_code2.nc", 969, 667),it_75=map$2char$phbuffer$ph_begin(_o2_saved_17)    ;!map$2char$phbuffer$ph_end(_o2_saved_17);it_75=map$2char$phbuffer$ph_next(_o2_saved_17)){
+    for(_o2_saved_17=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->struct_definition, "33output_code2.nc", 972, 667),it_75=map$2char$phbuffer$ph_begin(_o2_saved_17)    ;!map$2char$phbuffer$ph_end(_o2_saved_17);it_75=map$2char$phbuffer$ph_next(_o2_saved_17)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        buf_76=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char* )(__right_value1=__builtin_string(it_75,"33output_code2.nc",970))))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 970, 668));
+        buf_76=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->struct_definition,((char* )(__right_value1=__builtin_string(it_75,"33output_code2.nc",973))))));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 973, 668));
         __right_value0 = (void*)0;
         fputs(((char* )(__right_value0=buffer_to_string(buf_76))),f);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 971, 669));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 974, 669));
         fputc(10,f);
     }
     fprintf(f,"/// variable definition ///\n");
-    for(_o2_saved_18=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->var_definition, "33output_code2.nc", 976, 670),it_77=map$2char$phbuffer$ph_begin(_o2_saved_18)    ;!map$2char$phbuffer$ph_end(_o2_saved_18);it_77=map$2char$phbuffer$ph_next(_o2_saved_18)){
+    for(_o2_saved_18=(struct map$2char$phbuffer$ph*)come_increment_ref_count(info->var_definition, "33output_code2.nc", 979, 670),it_77=map$2char$phbuffer$ph_begin(_o2_saved_18)    ;!map$2char$phbuffer$ph_end(_o2_saved_18);it_77=map$2char$phbuffer$ph_next(_o2_saved_18)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        buf_78=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->var_definition,((char* )(__right_value1=__builtin_string(it_77,"33output_code2.nc",977))))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 977, 671));
+        buf_78=((struct buffer* )(__right_value2=map$2char$phbuffer$ph_operator_load_element(info->var_definition,((char* )(__right_value1=__builtin_string(it_77,"33output_code2.nc",980))))));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 980, 671));
         __right_value0 = (void*)0;
         fputs(((char* )(__right_value0=buffer_to_string(buf_78))),f);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 978, 672));
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 981, 672));
         fputc(10,f);
     }
     fprintf(f,"// source head\n");
     __right_value0 = (void*)0;
     fputs(((char* )(__right_value0=buffer_to_string(info->module->mSourceHead))),f);
-    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 983, 673));
+    (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 986, 673));
     fputc(10,f);
     fprintf(f,"// header function\n");
-    for(_o2_saved_19=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->funcs, "33output_code2.nc", 987, 674),it_79=map$2char$phsFun$ph_begin(_o2_saved_19)    ;!map$2char$phsFun$ph_end(_o2_saved_19);it_79=map$2char$phsFun$ph_next(_o2_saved_19)){
+    for(_o2_saved_19=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->funcs, "33output_code2.nc", 990, 674),it_79=map$2char$phsFun$ph_begin(_o2_saved_19)    ;!map$2char$phsFun$ph_end(_o2_saved_19);it_79=map$2char$phsFun$ph_next(_o2_saved_19)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        it2_80=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_79,"33output_code2.nc",988))))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 988, 675));
+        it2_80=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_79,"33output_code2.nc",991))))));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 991, 675));
         contained_generics=is_contained_generics_funcstion(it2_80,info);
         if(!contained_generics) {
             __right_value0 = (void*)0;
-            header=(char* )come_increment_ref_count(header_function(it2_80,info), "33output_code2.nc", 993, 676);
+            header=(char* )come_increment_ref_count(header_function(it2_80,info), "33output_code2.nc", 996, 676);
             if(it2_80->mInline) {
             }
             else if(string_operator_not_equals(it_79,"__builtin_va_start")&&string_operator_not_equals(it_79,"__builtin_va_end")) {
                 fprintf(f,"%s",header);
             }
-            (header = come_decrement_ref_count(header, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1001, 677));
+            (header = come_decrement_ref_count(header, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1004, 677));
         }
     }
     fprintf(f,"// uniq global variable\n");
     if(main_module) {
-        for(_o2_saved_20=(struct map$2char$phchar$ph*)come_increment_ref_count(info->uniq_definition, "33output_code2.nc", 1005, 678),it_82=map$2char$phchar$ph_begin(_o2_saved_20)        ;!map$2char$phchar$ph_end(_o2_saved_20);it_82=map$2char$phchar$ph_next(_o2_saved_20)){
+        for(_o2_saved_20=(struct map$2char$phchar$ph*)come_increment_ref_count(info->uniq_definition, "33output_code2.nc", 1008, 678),it_82=map$2char$phchar$ph_begin(_o2_saved_20)        ;!map$2char$phchar$ph_end(_o2_saved_20);it_82=map$2char$phchar$ph_next(_o2_saved_20)){
             __right_value0 = (void*)0;
             __right_value1 = (void*)0;
             __right_value2 = (void*)0;
-            str=((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(info->uniq_definition,((char* )(__right_value1=__builtin_string(it_82,"33output_code2.nc",1006))))));
-            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1006, 709));
+            str=((char* )(__right_value2=map$2char$phchar$ph_operator_load_element(info->uniq_definition,((char* )(__right_value1=__builtin_string(it_82,"33output_code2.nc",1009))))));
+            (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1009, 709));
             fprintf(f,"%s\n",str);
         }
         come_call_finalizer(map$2char$phchar$ph$p_finalize, _o2_saved_20, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 3, 715);
     }
     fprintf(f,"// inline function\n");
-    for(_o2_saved_21=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->funcs, "33output_code2.nc", 1012, 716),it_85=map$2char$phsFun$ph_begin(_o2_saved_21)    ;!map$2char$phsFun$ph_end(_o2_saved_21);it_85=map$2char$phsFun$ph_next(_o2_saved_21)){
+    for(_o2_saved_21=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->funcs, "33output_code2.nc", 1015, 716),it_85=map$2char$phsFun$ph_begin(_o2_saved_21)    ;!map$2char$phsFun$ph_end(_o2_saved_21);it_85=map$2char$phsFun$ph_next(_o2_saved_21)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        it2_86=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_85,"33output_code2.nc",1013))))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1013, 717));
+        it2_86=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_85,"33output_code2.nc",1016))))));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1016, 717));
         contained_generics_87=is_contained_generics_funcstion(it2_86,info);
         if(contained_generics_87) {
         }
         else if(it2_86->mInline) {
             __right_value0 = (void*)0;
-            output=(char* )come_increment_ref_count(output_function(it2_86,info), "33output_code2.nc", 1019, 718);
+            output=(char* )come_increment_ref_count(output_function(it2_86,info), "33output_code2.nc", 1022, 718);
             fprintf(f,"%s",output);
-            (output = come_decrement_ref_count(output, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1022, 719));
+            (output = come_decrement_ref_count(output, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1025, 719));
         }
     }
     fprintf(f,"\n");
     fprintf(f,"// body function\n");
-    for(_o2_saved_22=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->funcs, "33output_code2.nc", 1027, 720),it_88=map$2char$phsFun$ph_begin(_o2_saved_22)    ;!map$2char$phsFun$ph_end(_o2_saved_22);it_88=map$2char$phsFun$ph_next(_o2_saved_22)){
+    for(_o2_saved_22=(struct map$2char$phsFun$ph*)come_increment_ref_count(info->funcs, "33output_code2.nc", 1030, 720),it_88=map$2char$phsFun$ph_begin(_o2_saved_22)    ;!map$2char$phsFun$ph_end(_o2_saved_22);it_88=map$2char$phsFun$ph_next(_o2_saved_22)){
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
         __right_value2 = (void*)0;
-        it2_89=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_88,"33output_code2.nc",1028))))));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1028, 721));
+        it2_89=((struct sFun* )(__right_value2=map$2char$phsFun$ph_operator_load_element(info->funcs,((char* )(__right_value1=__builtin_string(it_88,"33output_code2.nc",1031))))));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1031, 721));
         contained_generics_90=is_contained_generics_funcstion(it2_89,info);
         if(contained_generics_90) {
         }
@@ -5810,46 +5814,46 @@ _Bool output_source_file(struct sInfo*  info  )
         }
         else {
             __right_value0 = (void*)0;
-            output_91=(char* )come_increment_ref_count(output_function(it2_89,info), "33output_code2.nc", 1041, 722);
+            output_91=(char* )come_increment_ref_count(output_function(it2_89,info), "33output_code2.nc", 1044, 722);
             fprintf(f,"%s",output_91);
             fprintf(f,"\n");
-            (output_91 = come_decrement_ref_count(output_91, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1047, 723));
+            (output_91 = come_decrement_ref_count(output_91, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1050, 723));
         }
     }
     fclose(f);
     if(gPortableC) {
         __right_value0 = (void*)0;
         portable_file=Result$1_IO_FILE$p_unwrap(((struct Result$1_IO_FILE$p*)(__right_value0=xfopen(output_file_name,"r"))));
-        come_call_finalizer(Result$1_IO_FILE$p$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "33output_code2.nc}", 1052, 724);
+        come_call_finalizer(Result$1_IO_FILE$p$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "33output_code2.nc}", 1055, 724);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        portable_source=(struct buffer* )come_increment_ref_count(Result$1buffer$ph_unwrap(((struct Result$1buffer$ph*)(__right_value0=FILE_fread(portable_file)))), "33output_code2.nc", 1053, 730);
-        come_call_finalizer(Result$1buffer$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "33output_code2.nc}", 1053, 732);
+        portable_source=(struct buffer* )come_increment_ref_count(Result$1buffer$ph_unwrap(((struct Result$1buffer$ph*)(__right_value0=FILE_fread(portable_file)))), "33output_code2.nc", 1056, 730);
+        come_call_finalizer(Result$1buffer$ph$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "33output_code2.nc}", 1056, 732);
         __right_value0 = (void*)0;
         Result$1int$_unwrap(((struct Result$1int$*)(__right_value0=FILE_fclose(portable_file))));
-        come_call_finalizer(Result$1int$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "33output_code2.nc}", 1054, 733);
+        come_call_finalizer(Result$1int$$p_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "33output_code2.nc}", 1057, 733);
         __right_value0 = (void*)0;
         __right_value1 = (void*)0;
-        normalized=(char* )come_increment_ref_count(normalize_portable_c_source(((char* )(__right_value0=buffer_to_string(portable_source)))), "33output_code2.nc", 1055, 734);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1055, 735));
+        normalized=(char* )come_increment_ref_count(normalize_portable_c_source(((char* )(__right_value0=buffer_to_string(portable_source)))), "33output_code2.nc", 1058, 734);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1058, 735));
         f2=fopen(output_file_name,"w");
         if(f2==((void*)0)) {
-            die("fopen","33output_code2.nc",1058);
+            die("fopen","33output_code2.nc",1061);
         }
         fwrite(normalized,1,string_length(normalized),f2);
         fclose(f2);
-        come_call_finalizer(buffer_finalize, portable_source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1064, 736);
-        (normalized = come_decrement_ref_count(normalized, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1064, 737));
+        come_call_finalizer(buffer_finalize, portable_source, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1067, 736);
+        (normalized = come_decrement_ref_count(normalized, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1067, 737));
     }
         __result_obj__0 = (_Bool)1;
-    (output_file_name = come_decrement_ref_count(output_file_name, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1064, 738));
-    come_call_finalizer(map$2char$phbuffer$ph$p_finalize, _o2_saved_14, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1064, 739);
-    come_call_finalizer(map$2char$phbuffer$ph$p_finalize, _o2_saved_16, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1064, 740);
-    come_call_finalizer(map$2char$phbuffer$ph$p_finalize, _o2_saved_17, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1064, 741);
-    come_call_finalizer(map$2char$phbuffer$ph$p_finalize, _o2_saved_18, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1064, 742);
-    come_call_finalizer(map$2char$phsFun$ph$p_finalize, _o2_saved_19, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1064, 743);
-    come_call_finalizer(map$2char$phsFun$ph$p_finalize, _o2_saved_21, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1064, 744);
-    come_call_finalizer(map$2char$phsFun$ph$p_finalize, _o2_saved_22, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1064, 745);
+    (output_file_name = come_decrement_ref_count(output_file_name, (void*)0, (void*)0, 0, 0, (void*)0, "33output_code2.nc", 1067, 738));
+    come_call_finalizer(map$2char$phbuffer$ph$p_finalize, _o2_saved_14, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1067, 739);
+    come_call_finalizer(map$2char$phbuffer$ph$p_finalize, _o2_saved_16, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1067, 740);
+    come_call_finalizer(map$2char$phbuffer$ph$p_finalize, _o2_saved_17, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1067, 741);
+    come_call_finalizer(map$2char$phbuffer$ph$p_finalize, _o2_saved_18, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1067, 742);
+    come_call_finalizer(map$2char$phsFun$ph$p_finalize, _o2_saved_19, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1067, 743);
+    come_call_finalizer(map$2char$phsFun$ph$p_finalize, _o2_saved_21, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1067, 744);
+    come_call_finalizer(map$2char$phsFun$ph$p_finalize, _o2_saved_22, (void*)0, (void*)0, 0, 0, 0, (void*)0, "33output_code2.nc}", 1067, 745);
     neo_current_frame = fr.prev;
     return __result_obj__0;
 }
@@ -7275,13 +7279,13 @@ void add_last_code_to_source(struct sInfo*  info  )
         add_come_code(info,"%s;\n",info->module->mLastCode);
         __dec_obj43=info->module->mLastCode,
         info->module->mLastCode=((void*)0);
-        __dec_obj43 = come_decrement_ref_count(__dec_obj43, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1150, 746);
+        __dec_obj43 = come_decrement_ref_count(__dec_obj43, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1153, 746);
     }
     if(info->module->mLastCode2) {
         add_come_code(info,"%s;\n",info->module->mLastCode2);
         __dec_obj44=info->module->mLastCode2,
         info->module->mLastCode2=((void*)0);
-        __dec_obj44 = come_decrement_ref_count(__dec_obj44, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1154, 747);
+        __dec_obj44 = come_decrement_ref_count(__dec_obj44, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1157, 747);
     }
     neo_current_frame = fr.prev;
 }
@@ -7308,8 +7312,8 @@ void add_come_last_code(struct sInfo*  info  , const char* msg, ...)
     __builtin_va_start(args,msg);
     if(strchr(msg,37)==((void*)0)) {
         __dec_obj45=info->module->mLastCode,
-        info->module->mLastCode=(char* )come_increment_ref_count(__builtin_string(msg,"33output_code2.nc",1167), "33output_code2.nc", 1167, 749);
-        __dec_obj45 = come_decrement_ref_count(__dec_obj45, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1167, 748);
+        info->module->mLastCode=(char* )come_increment_ref_count(__builtin_string(msg,"33output_code2.nc",1170), "33output_code2.nc", 1170, 749);
+        __dec_obj45 = come_decrement_ref_count(__dec_obj45, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1170, 748);
         __builtin_va_end(args);
                 neo_current_frame = fr.prev;
         return;
@@ -7318,10 +7322,10 @@ void add_come_last_code(struct sInfo*  info  , const char* msg, ...)
         msg2=__builtin_va_arg(args,char*);
         __right_value0 = (void*)0;
         __dec_obj46=info->module->mLastCode,
-        info->module->mLastCode=(char* )come_increment_ref_count(((msg2)?(((char* )(__right_value0=__builtin_string(msg2,"33output_code2.nc",1173)))):(((char* )(__right_value1=__builtin_string("","33output_code2.nc",1173))))), "33output_code2.nc", 1173, 751);
-        __dec_obj46 = come_decrement_ref_count(__dec_obj46, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1173, 750);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1173, 752));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1173, 753));
+        info->module->mLastCode=(char* )come_increment_ref_count(((msg2)?(((char* )(__right_value0=__builtin_string(msg2,"33output_code2.nc",1176)))):(((char* )(__right_value1=__builtin_string("","33output_code2.nc",1176))))), "33output_code2.nc", 1176, 751);
+        __dec_obj46 = come_decrement_ref_count(__dec_obj46, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1176, 750);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1176, 752));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1176, 753));
         __builtin_va_end(args);
                 neo_current_frame = fr.prev;
         return;
@@ -7334,8 +7338,8 @@ void add_come_last_code(struct sInfo*  info  , const char* msg, ...)
     }
     __right_value0 = (void*)0;
     __dec_obj47=info->module->mLastCode,
-    info->module->mLastCode=(char* )come_increment_ref_count(__builtin_string(msg2_94,"33output_code2.nc",1185), "33output_code2.nc", 1185, 755);
-    __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1185, 754);
+    info->module->mLastCode=(char* )come_increment_ref_count(__builtin_string(msg2_94,"33output_code2.nc",1188), "33output_code2.nc", 1188, 755);
+    __dec_obj47 = come_decrement_ref_count(__dec_obj47, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1188, 754);
     free(msg2_94);
     neo_current_frame = fr.prev;
 }
@@ -7362,8 +7366,8 @@ void add_come_last_code2(struct sInfo*  info  , const char* msg, ...)
     __builtin_va_start(args,msg);
     if(strchr(msg,37)==((void*)0)) {
         __dec_obj48=info->module->mLastCode2,
-        info->module->mLastCode2=(char* )come_increment_ref_count(__builtin_string(msg,"33output_code2.nc",1198), "33output_code2.nc", 1198, 757);
-        __dec_obj48 = come_decrement_ref_count(__dec_obj48, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1198, 756);
+        info->module->mLastCode2=(char* )come_increment_ref_count(__builtin_string(msg,"33output_code2.nc",1201), "33output_code2.nc", 1201, 757);
+        __dec_obj48 = come_decrement_ref_count(__dec_obj48, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1201, 756);
         __builtin_va_end(args);
                 neo_current_frame = fr.prev;
         return;
@@ -7372,10 +7376,10 @@ void add_come_last_code2(struct sInfo*  info  , const char* msg, ...)
         msg2=__builtin_va_arg(args,char*);
         __right_value0 = (void*)0;
         __dec_obj49=info->module->mLastCode2,
-        info->module->mLastCode2=(char* )come_increment_ref_count(((msg2)?(((char* )(__right_value0=__builtin_string(msg2,"33output_code2.nc",1204)))):(((char* )(__right_value1=__builtin_string("","33output_code2.nc",1204))))), "33output_code2.nc", 1204, 759);
-        __dec_obj49 = come_decrement_ref_count(__dec_obj49, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1204, 758);
-        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1204, 760));
-        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1204, 761));
+        info->module->mLastCode2=(char* )come_increment_ref_count(((msg2)?(((char* )(__right_value0=__builtin_string(msg2,"33output_code2.nc",1207)))):(((char* )(__right_value1=__builtin_string("","33output_code2.nc",1207))))), "33output_code2.nc", 1207, 759);
+        __dec_obj49 = come_decrement_ref_count(__dec_obj49, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1207, 758);
+        (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1207, 760));
+        (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "33output_code2.nc", 1207, 761));
         __builtin_va_end(args);
                 neo_current_frame = fr.prev;
         return;
@@ -7388,8 +7392,8 @@ void add_come_last_code2(struct sInfo*  info  , const char* msg, ...)
     }
     __right_value0 = (void*)0;
     __dec_obj50=info->module->mLastCode2,
-    info->module->mLastCode2=(char* )come_increment_ref_count(__builtin_string(msg2_95,"33output_code2.nc",1216), "33output_code2.nc", 1216, 763);
-    __dec_obj50 = come_decrement_ref_count(__dec_obj50, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1216, 762);
+    info->module->mLastCode2=(char* )come_increment_ref_count(__builtin_string(msg2_95,"33output_code2.nc",1219), "33output_code2.nc", 1219, 763);
+    __dec_obj50 = come_decrement_ref_count(__dec_obj50, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1219, 762);
     free(msg2_95);
     neo_current_frame = fr.prev;
 }
@@ -7590,18 +7594,18 @@ struct CVALUE*  get_value_from_stack(int offset, struct sInfo*  info  )
     memset(&result, 0, sizeof(result));
     __dec_obj51=info->module->mLastCode,
     info->module->mLastCode=((void*)0);
-    __dec_obj51 = come_decrement_ref_count(__dec_obj51, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1227, 769);
-    result=(struct CVALUE* )come_increment_ref_count(CVALUE_clone(((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(info->stack,offset)))), "33output_code2.nc", 1229, 809);
-    come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "33output_code2.nc}", 1231, 810);
+    __dec_obj51 = come_decrement_ref_count(__dec_obj51, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1230, 769);
+    result=(struct CVALUE* )come_increment_ref_count(CVALUE_clone(((struct CVALUE* )(__right_value0=list$1CVALUE$ph_operator_load_element(info->stack,offset)))), "33output_code2.nc", 1232, 809);
+    come_call_finalizer(CVALUE_finalize, __right_value0, (void*)0, (void*)0, 0, 1, 0, (void*)0, "33output_code2.nc}", 1234, 810);
     if(result==((void*)0)) {
         err_msg(info,"invalid stack value");
         exit(2);
     }
     list$1CVALUE$ph_delete(info->stack,-1,-1);
-        __result_obj__0 = (struct CVALUE* )come_increment_ref_count(result, "33output_code2.nc", 1238, 811);
-    come_call_finalizer(CVALUE_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "33output_code2.nc}", 1238, 812);
+        __result_obj__0 = (struct CVALUE* )come_increment_ref_count(result, "33output_code2.nc", 1241, 811);
+    come_call_finalizer(CVALUE_finalize, result, (void*)0, (void*)0, 0, 0, 1, (void*)0, "33output_code2.nc}", 1241, 812);
     neo_current_frame = fr.prev;
-    come_call_finalizer(CVALUE_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "33output_code2.nc}", 1238, 813);
+    come_call_finalizer(CVALUE_finalize, __result_obj__0, (void*)0, (void*)0, 0, 0, 1, (void*)0, "33output_code2.nc}", 1241, 813);
     return __result_obj__0;
 }
 
@@ -7767,10 +7771,10 @@ void transpiler_clear_last_code(struct sInfo*  info  )
     char*  __dec_obj58  ;
     __dec_obj57=info->module->mLastCode,
     info->module->mLastCode=((void*)0);
-    __dec_obj57 = come_decrement_ref_count(__dec_obj57, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1243, 814);
+    __dec_obj57 = come_decrement_ref_count(__dec_obj57, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1246, 814);
     __dec_obj58=info->module->mLastCode2,
     info->module->mLastCode2=((void*)0);
-    __dec_obj58 = come_decrement_ref_count(__dec_obj58, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1244, 815);
+    __dec_obj58 = come_decrement_ref_count(__dec_obj58, (void*)0, (void*)0, 0,0, (void*)0, "33output_code2.nc", 1247, 815);
     neo_current_frame = fr.prev;
 }
 

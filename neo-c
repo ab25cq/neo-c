@@ -52,8 +52,12 @@ for arg in "$@"; do
       no_rm_pp=false
       ;;
     -micro)
-      opts+=("-D__MICRO__")
-      ncc_opts+=("-D__MICRO__")
+      bare=true
+      opts+=("-D__NEO_MICRO__")
+      opts+=("-D__BAREMETAL__")
+      ncc_opts+=("-micro")
+      ncc_opts+=("-bare")
+      ncc_opts+=("-D__NEO_MICRO__")
       micro=true
       ;;
     -S)

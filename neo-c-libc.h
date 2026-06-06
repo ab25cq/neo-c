@@ -135,7 +135,51 @@ uniq void __append_str(char **p, unsigned long *rem, const char *s) {
 
 uniq int errno;
 
-#if defined(__MINUX__) && defined(__riscv)
+#ifdef __NEO_MICRO__
+extern unsigned long brk(unsigned long addr);
+extern void putchar(char c);
+extern void exit(int status);
+#endif
+
+#if defined(__NEO_MICRO__)
+c_include {
+extern int errno;
+extern void putchar(char c);
+
+#ifndef NEO_MICRO_HEAP_SIZE
+#define NEO_MICRO_HEAP_SIZE (64 * 1024)
+#endif
+
+static unsigned char __neo_micro_heap[NEO_MICRO_HEAP_SIZE];
+static unsigned long __neo_micro_brk_offset = 0;
+
+unsigned long brk(unsigned long addr)
+{
+    unsigned long base = (unsigned long)__neo_micro_heap;
+    unsigned long limit = base + (unsigned long)NEO_MICRO_HEAP_SIZE;
+    unsigned long request = (unsigned long)addr;
+
+    if(addr == 0) {
+        return base + __neo_micro_brk_offset;
+    }
+    if(request < base || request > limit) {
+        errno = 12;
+        return (unsigned long)-1;
+    }
+
+    __neo_micro_brk_offset = request - base;
+    return addr;
+}
+
+void exit(int status)
+{
+    (void)status;
+    for(;;) {
+    }
+}
+}
+
+#elif defined(__MINUX__) && defined(__riscv)
 c_include {
 extern int errno;
 
@@ -423,8 +467,7 @@ extern int errno;
 
 #define __NEO_WEAK __attribute__((weak))
 
-#ifdef __MICRO__
-#elif defined(__MINUX__) && defined(__riscv)
+#if defined(__MINUX__) && defined(__riscv)
 #define SYS_write 64
 #define SYS_read 65
 #define SYS_open 66
@@ -944,7 +987,7 @@ uniq void exit(int status)
 extern void putchar(char c);
 #endif
 
-#ifdef __MICRO__
+#ifdef __NEO_MICRO__
 #elif (defined(__MINUX__) && defined(__riscv)) || (defined(__linux__) && defined(__x86_64__)) || defined(__APPLE__) || defined(__NEO_DARWIN_BARE__)
 typedef struct __neo_FILE {
     int fd;

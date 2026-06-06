@@ -22,6 +22,7 @@ extern bool gComePthread;
 extern bool gComeNet;
 extern bool gComeMalloc;
 extern bool gComeBareMetal;
+extern bool gComeMicro;
 extern bool gComeCPlusPlus;
 extern bool gComelang;
 extern bool gComeSafe;

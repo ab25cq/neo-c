@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.22
+version 1.0.3.25
 
 ## Small binaries
 
@@ -153,21 +153,51 @@ With `-bare`, neo-c can also build without the standard C library on supported b
 
 ## PICO
 
-neo-c can generate bare-metal C for Raspberry Pi Pico / RP2040 targets with `-bare` and `-micro`
-For this path, `neo-c.h` selects `neo-c-libc.h`, and the generated C is meant to be compiled by a bare-metal ARM toolchain such as `arm-none-eabi-gcc`.
+neo-c has two Pico / RP2040 paths.
 
-`-pico` is the Pico SDK path. Use it when you want neo-c to include the SDK headers and build against the Pico SDK environment.
+`-pico` is the Pico SDK path. Use it when you want neo-c to include Pico SDK headers and build against the SDK environment.
 
-Pico向けには`-bare`と`-micro`を使います。この経路では`neo-c.h`が`neo-c-libc.h`を選び、生成されたCは`arm-none-eabi-gcc`のようなbare-metal ARMツールチェインでコンパイルする想定です。
+`-micro` is the no-SDK bare-metal path. It implies `-bare`, defines `__BAREMETAL__` and `__NEO_MICRO__`, selects `neo-c-libc.h`, and generates freestanding C that is meant to be compiled by a target toolchain such as `arm-none-eabi-gcc`.
+
+neo-cにはPico / RP2040向けに2つの経路があります。
 
 `-pico`はPico SDKを使う経路です。Pico SDKのヘッダを取り込み、SDK環境に対してビルドしたいときに使います。
+
+`-micro`はSDKなしのbare-metal経路です。`-bare`を含み、`__BAREMETAL__`と`__NEO_MICRO__`を定義し、`neo-c-libc.h`を選びます。生成されたCは`arm-none-eabi-gcc`のようなターゲット用ツールチェインでコンパイルします。
 
 Example:
 
 ```sh
-neo-c -bare utkernel.nc
-arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-builtin -nostdlib -nostartfiles ...
+neo-c -micro -S utkernel.nc
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-builtin \
+    -fno-stack-protector -c -o utkernel.o utkernel.c
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-builtin \
+    -fno-stack-protector -nostdlib -nostartfiles -T link.ld \
+    -o utkernel.elf utkernel.o -lgcc
 ```
+
+`minux10` is a tested Pico-style sample. It contains a small Cortex-M0+ emulator written in neo-c and a minimal uT-Kernel subset generated with `-micro`.
+
+`minux10`はテスト済みのPico風サンプルです。neo-cで書かれた小さなCortex-M0+エミュレータと、`-micro`で生成する最小uT-Kernelサブセットを含みます。
+
+```sh
+cd minux10
+make test
+```
+
+## Microcontrollers
+
+`-micro` is for small non-Unix microcontroller targets. It generates C only, links no standard C library, and expects the final object or ELF to be built by the target toolchain.
+
+The user side only needs to provide `putchar(char)`. neo-c provides the rest of its small standard-C-compatible runtime from `neo-c-libc.h`, including `puts`, `printf`, `memset`, allocation support, `exit`, frame globals, and `uniq` runtime definitions. Programs without a `main` function are also valid with `-micro` and `-uniq`, which is useful for kernel or firmware objects.
+
+The default micro heap is 64KB. Override it from the C compiler with `-DNEO_MICRO_HEAP_SIZE=...` if the target needs a different static heap size.
+
+`-micro`は小さな非Unixマイコン向けです。Cだけを生成し、標準Cライブラリはリンクしません。最終的なオブジェクトやELFはターゲット用ツールチェインでビルドします。
+
+ユーザー側で必要なのは`putchar(char)`の定義だけです。`puts`、`printf`、`memset`、メモリ確保、`exit`、フレーム管理用グローバル、`uniq`ランタイム定義などは`neo-c-libc.h`から生成Cへ入ります。`main`関数が無いカーネルやファームウェア用オブジェクトでも、`-micro`と`-uniq`で破綻しないようになっています。
+
+デフォルトのmicroヒープは64KBです。ターゲットに合わせて変えたい場合はCコンパイラ側で`-DNEO_MICRO_HEAP_SIZE=...`を指定してください。
 
 ## minux9
 
@@ -341,6 +371,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.25 Added `-micro` as a non-Unix microcontroller source-generation mode. `-micro` now implies `-bare`, emits `__BAREMETAL__` and `__NEO_MICRO__`, uses `neo-c-libc.h` without Unix file/syscall APIs, requires only user-provided `putchar(char)`, and emits `uniq` runtime definitions even when the source has no `main`. Updated the Pico documentation and verified `minux10` with `make -B test`.
 1.0.3.24 Added `bare-self-host.sh`, documented the `clean-self-host.sh` to `bare-self-host.sh` workflow, and kept the checked-in self-host C sources in normal libc-generated form. `make clean` also removes the old generated `self-host` file.
 1.0.3.23 `fast_build.sh` now detects self-host C sources generated with `-bare`, rebuilds a temporary bare `ncc`, regenerates normal libc self-host sources, and then continues the normal install build; `ccpp.c` generation no longer emits duplicate typedefs because `ccpp_body.h` owns its libc/bare declarations.
 1.0.3.22 Fixed Linux x86_64 bare self-host file creation by using Linux `O_CREAT`/`O_TRUNC`/`O_APPEND` values in `neo-c-libc.h`; bare `ncc` can now generate preprocessor output files such as `a.nc.i` during libc-free builds.

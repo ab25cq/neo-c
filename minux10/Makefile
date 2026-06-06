@@ -4,8 +4,10 @@ ARM_CC ?= arm-none-eabi-gcc
 ARM_OBJDUMP ?= arm-none-eabi-objdump
 
 ARM_CFLAGS := -std=gnu11 -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-builtin \
-	-fno-stack-protector -fdata-sections -ffunction-sections -Os -Wall -Wextra -D__MICRO__
+	-fno-stack-protector -fdata-sections -ffunction-sections -Os -Wall -Wextra \
+	-D__NEO_MICRO__ -D__BAREMETAL__
 ARM_LDFLAGS := -nostdlib -nostartfiles -Wl,--gc-sections -Wl,-Map=utkernel.map -T link.ld
+ARM_LIBS := -lgcc
 
 .PHONY: all run test clean disasm
 
@@ -15,13 +17,13 @@ emu/pico_emu: emu/pico_emu.nc
 	$(NEOC) $< -o $@
 
 utkernel.c: utkernel.nc
-	$(NEOC) -bare -micro -S $<
+	$(NEOC) -micro -S $<
 
 utkernel.o: utkernel.c
 	$(ARM_CC) $(ARM_CFLAGS) -c -o $@ $<
 
 utkernel.elf: utkernel.o link.ld
-	$(ARM_CC) $(ARM_CFLAGS) $(ARM_LDFLAGS) -o $@ utkernel.o
+	$(ARM_CC) $(ARM_CFLAGS) $(ARM_LDFLAGS) -o $@ utkernel.o $(ARM_LIBS)
 
 run: all
 	emu/pico_emu utkernel.elf
