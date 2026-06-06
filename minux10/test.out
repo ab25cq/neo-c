@@ -1,0 +1,9 @@
+uT-Kernel on neo-c Pico emulator
+task producer start
+task producer done
+task worker start
+task worker got message
+task monitor start
+monitor flags=0x00000003 tick=0x00000003 tid=0x00000003
+uT-Kernel demo PASS
+EMU exit: 0
