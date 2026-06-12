@@ -8,6 +8,8 @@ Archive member included to satisfy reference by file (symbol)
                               utkernel.o (__gnu_thumb1_case_shi)
 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
                               utkernel.o (__aeabi_uidivmod)
+/usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+                              utkernel.o (__aeabi_idivmod)
 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
                               /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o) (__aeabi_idiv0)
 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_arm_cmpdf2.o)
@@ -354,6 +356,14 @@ Discarded input sections
                 0x00000000       0x89 utkernel.o
  .text.arg_print_errors
                 0x00000000      0x114 utkernel.o
+ .rodata.tk_stp_alm.str1.1
+                0x00000000        0xb utkernel.o
+ .text.tk_stp_alm
+                0x00000000       0x68 utkernel.o
+ .rodata.tk_stp_cyc.str1.1
+                0x00000000        0xb utkernel.o
+ .text.tk_stp_cyc
+                0x00000000       0x68 utkernel.o
  .rodata.arg_parse.str1.1
                 0x00000000       0xb3 utkernel.o
  .text.arg_parse
@@ -582,7 +592,7 @@ Discarded input sections
  .rodata.list$1char$p$p_finalize.str1.1
                 0x00000000       0x18 utkernel.o
  .text.list$1char$p$p_finalize
-                0x00000000       0x80 utkernel.o
+                0x00000000       0x84 utkernel.o
  .rodata.list$1short$$p_finalize.str1.1
                 0x00000000       0x18 utkernel.o
  .text.list$1short$$p_finalize
@@ -658,11 +668,11 @@ Discarded input sections
  .rodata.charpa_to_list.str1.1
                 0x00000000       0x79 utkernel.o
  .text.charpa_to_list
-                0x00000000      0x234 utkernel.o
+                0x00000000      0x244 utkernel.o
  .rodata.shorta_to_list.str1.1
                 0x00000000       0x79 utkernel.o
  .text.shorta_to_list
-                0x00000000      0x24c utkernel.o
+                0x00000000      0x250 utkernel.o
  .rodata.inta_to_list.str1.1
                 0x00000000       0x6f utkernel.o
  .text.inta_to_list
@@ -698,7 +708,7 @@ Discarded input sections
  .rodata.charp_sub_plain.str1.1
                 0x00000000       0x10 utkernel.o
  .text.charp_sub_plain
-                0x00000000      0x1c8 utkernel.o
+                0x00000000      0x1cc utkernel.o
  .rodata.die.str1.1
                 0x00000000        0xd utkernel.o
  .text.die      0x00000000       0xf8 utkernel.o
@@ -793,6 +803,8 @@ Discarded input sections
  .bss           0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
  .data          0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
  .bss           0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+ .data          0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+ .bss           0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
  .data          0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .bss           0x00000000        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .text          0x00000000       0x7c /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_arm_cmpdf2.o)
@@ -1148,7 +1160,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a
 
 .vectors        0x10000000       0x40
                 0x10000000        0x4 LONG 0x20042000 (ORIGIN (SRAM) + LENGTH (SRAM))
-                0x10000004        0x4 LONG 0x10001429 (reset_handler + 0x1)
+                0x10000004        0x4 LONG 0x10003051 (reset_handler + 0x1)
                 0x10000008        0x4 LONG 0x1 (default_handler + 0x1)
                 0x1000000c        0x4 LONG 0x1 (default_handler + 0x1)
                 0x10000010        0x4 LONG 0x1 (default_handler + 0x1)
@@ -1164,7 +1176,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a
                 0x10000038        0x4 LONG 0x1 (default_handler + 0x1)
                 0x1000003c        0x4 LONG 0x1 (default_handler + 0x1)
 
-.text           0x10000040     0x2d65
+.text           0x10000040     0x4f68
  *(.text*)
  .text.valid_task
                 0x10000040       0x24 utkernel.o
@@ -1174,315 +1186,477 @@ LOAD /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a
                 0x1000008c       0x28 utkernel.o
  .text.valid_mbx
                 0x100000b4       0x28 utkernel.o
+ .text.valid_mtx
+                0x100000dc       0x28 utkernel.o
+ .text.valid_dtq
+                0x10000104       0x28 utkernel.o
+ .text.valid_pdq
+                0x1000012c       0x28 utkernel.o
+ .text.valid_mbf
+                0x10000154       0x28 utkernel.o
+ .text.valid_mpf
+                0x1000017c       0x28 utkernel.o
+ .text.valid_mpl
+                0x100001a4       0x28 utkernel.o
+ .text.valid_alm
+                0x100001cc       0x28 utkernel.o
+ .text.valid_cyc
+                0x100001f4       0x28 utkernel.o
  .text.__builtin_va_list_finalize
-                0x100000dc       0x10 utkernel.o
- .text.brk      0x100000ec       0x3c utkernel.o
-                0x100000ec                brk
+                0x1000021c       0x10 utkernel.o
+ .text.brk      0x1000022c       0x3c utkernel.o
+                0x1000022c                brk
  .text.tk_get_tick
-                0x10000128       0x18 utkernel.o
-                0x10000128                tk_get_tick
+                0x10000268       0x18 utkernel.o
+                0x10000268                tk_get_tick
  .text.tk_get_tid
-                0x10000140       0x18 utkernel.o
-                0x10000140                tk_get_tid
- .text.memset   0x10000158       0x28 utkernel.o
-                0x10000158                memset
+                0x10000280       0x18 utkernel.o
+                0x10000280                tk_get_tid
+ .text.memset   0x10000298       0x28 utkernel.o
+                0x10000298                memset
  .text.tk_putchar
-                0x10000180       0x3c utkernel.o
-                0x10000180                tk_putchar
- .text.putchar  0x100001bc       0x28 utkernel.o
-                0x100001bc                putchar
- .text.tk_puts  0x100001e4       0x44 utkernel.o
-                0x100001e4                tk_puts
+                0x100002c0       0x3c utkernel.o
+                0x100002c0                tk_putchar
+ .text.putchar  0x100002fc       0x28 utkernel.o
+                0x100002fc                putchar
+ .text.tk_puts  0x10000324       0x44 utkernel.o
+                0x10000324                tk_puts
+ .text.cyclic_handler
+                0x10000368       0x44 utkernel.o
+ .text.alarm_handler
+                0x100003ac       0x44 utkernel.o
  .text.tk_puthex
-                0x10000228       0x64 utkernel.o
-                0x10000228                tk_puthex
+                0x100003f0       0x64 utkernel.o
+                0x100003f0                tk_puthex
  .text.mmio_write32
-                0x1000028c       0x34 utkernel.o
+                0x10000454       0x34 utkernel.o
  .text.tk_kernel_exit
-                0x100002c0       0x2c utkernel.o
-                0x100002c0                tk_kernel_exit
- .text.tk_dly_tsk
-                0x100002ec       0x3c utkernel.o
-                0x100002ec                tk_dly_tsk
- .text.sbrk     0x10000328       0xcc utkernel.o
-                0x10000328                sbrk
- .text.free     0x100003f4       0x48 utkernel.o
-                0x100003f4                free
+                0x10000488       0x2c utkernel.o
+                0x10000488                tk_kernel_exit
+ .text.sbrk     0x100004b4       0xcc utkernel.o
+                0x100004b4                sbrk
+ .text.free     0x10000580       0x48 utkernel.o
+                0x10000580                free
  .text.tk_sig_sem
-                0x1000043c       0x60 utkernel.o
-                0x1000043c                tk_sig_sem
+                0x100005c8       0x60 utkernel.o
+                0x100005c8                tk_sig_sem
  .text.tk_wai_sem
-                0x1000049c       0x60 utkernel.o
-                0x1000049c                tk_wai_sem
+                0x10000628       0x60 utkernel.o
+                0x10000628                tk_wai_sem
  .text.tk_wai_flg
-                0x100004fc       0x88 utkernel.o
-                0x100004fc                tk_wai_flg
- .text.monitor_task
-                0x10000584       0xd8 utkernel.o
+                0x10000688       0x88 utkernel.o
+                0x10000688                tk_wai_flg
  .text.tk_snd_mbx
-                0x1000065c       0x70 utkernel.o
-                0x1000065c                tk_snd_mbx
+                0x10000710       0x70 utkernel.o
+                0x10000710                tk_snd_mbx
  .text.tk_rcv_mbx
-                0x100006cc       0x6c utkernel.o
-                0x100006cc                tk_rcv_mbx
- .text.malloc   0x10000738       0xa0 utkernel.o
-                0x10000738                malloc
- .text.calloc   0x100007d8       0x60 utkernel.o
-                0x100007d8                calloc
- .text.memmove  0x10000838       0x6c utkernel.o
-                0x10000838                memmove
- .text.memcpy   0x100008a4       0x2c utkernel.o
-                0x100008a4                memcpy
- .text.strncpy  0x100008d0       0x64 utkernel.o
-                0x100008d0                strncpy
- .text.strlen   0x10000934       0x40 utkernel.o
-                0x10000934                strlen
- .text.strdup   0x10000974       0x5c utkernel.o
-                0x10000974                strdup
- .text.puts     0x100009d0       0x40 utkernel.o
-                0x100009d0                puts
+                0x10000780       0x6c utkernel.o
+                0x10000780                tk_rcv_mbx
+ .text.tk_loc_mtx
+                0x100007ec       0x68 utkernel.o
+                0x100007ec                tk_loc_mtx
+ .text.tk_unl_mtx
+                0x10000854       0x70 utkernel.o
+                0x10000854                tk_unl_mtx
+ .text.tk_ref_mbf
+                0x100008c4       0x6c utkernel.o
+                0x100008c4                tk_ref_mbf
+ .text.malloc   0x10000930       0xa0 utkernel.o
+                0x10000930                malloc
+ .text.calloc   0x100009d0       0x60 utkernel.o
+                0x100009d0                calloc
+ .text.memmove  0x10000a30       0x6c utkernel.o
+                0x10000a30                memmove
+ .text.memcpy   0x10000a9c       0x2c utkernel.o
+                0x10000a9c                memcpy
+ .text.strncpy  0x10000ac8       0x64 utkernel.o
+                0x10000ac8                strncpy
+ .text.strlen   0x10000b2c       0x40 utkernel.o
+                0x10000b2c                strlen
+ .text.strdup   0x10000b6c       0x5c utkernel.o
+                0x10000b6c                strdup
+ .text.puts     0x10000bc8       0x40 utkernel.o
+                0x10000bc8                puts
  .text.__fmt_putc
-                0x10000a10       0x7c utkernel.o
-                0x10000a10                __fmt_putc
+                0x10000c08       0x7c utkernel.o
+                0x10000c08                __fmt_putc
  .text.__emit_pad
-                0x10000a8c       0x40 utkernel.o
-                0x10000a8c                __emit_pad
+                0x10000c84       0x40 utkernel.o
+                0x10000c84                __emit_pad
  .text.alloc_from_pages
-                0x10000acc       0x8c utkernel.o
-                0x10000acc                alloc_from_pages
+                0x10000cc4       0x8c utkernel.o
+                0x10000cc4                alloc_from_pages
  .text.come_free_mem_of_heap_pool
-                0x10000b58       0xac utkernel.o
-                0x10000b58                come_free_mem_of_heap_pool
+                0x10000d50       0xac utkernel.o
+                0x10000d50                come_free_mem_of_heap_pool
  .text.come_is_alive
-                0x10000c04       0x44 utkernel.o
-                0x10000c04                come_is_alive
+                0x10000dfc       0x44 utkernel.o
+                0x10000dfc                come_is_alive
  .text.charp_to_string
-                0x10000c48       0xe4 utkernel.o
-                0x10000c48                charp_to_string
+                0x10000e40       0xe4 utkernel.o
+                0x10000e40                charp_to_string
  .text.come_call_finalizer
-                0x10000d2c      0x1d0 utkernel.o
-                0x10000d2c                come_call_finalizer
- .text.printf   0x10000efc       0x8c utkernel.o
-                0x10000efc                printf
+                0x10000f24      0x1d0 utkernel.o
+                0x10000f24                come_call_finalizer
+ .text.printf   0x100010f4       0x8c utkernel.o
+                0x100010f4                printf
  .text.stackframe
-                0x10000f88       0x5c utkernel.o
-                0x10000f88                stackframe
+                0x10001180       0x5c utkernel.o
+                0x10001180                stackframe
  .text.tk_cre_tsk
-                0x10000fe4       0x78 utkernel.o
-                0x10000fe4                tk_cre_tsk
+                0x100011dc       0x78 utkernel.o
+                0x100011dc                tk_cre_tsk
  .text.tk_sta_tsk
-                0x1000105c       0x6c utkernel.o
-                0x1000105c                tk_sta_tsk
+                0x10001254       0x6c utkernel.o
+                0x10001254                tk_sta_tsk
+ .text.tk_chg_pri
+                0x100012c0       0x6c utkernel.o
+                0x100012c0                tk_chg_pri
  .text.tk_ext_tsk
-                0x100010c8       0x64 utkernel.o
-                0x100010c8                tk_ext_tsk
+                0x1000132c       0x64 utkernel.o
+                0x1000132c                tk_ext_tsk
+ .text.tk_dly_tsk
+                0x10001390      0x134 utkernel.o
+                0x10001390                tk_dly_tsk
+ .text.tk_ref_tsk
+                0x100014c4       0x74 utkernel.o
+                0x100014c4                tk_ref_tsk
  .text.tk_cre_sem
-                0x1000112c       0x7c utkernel.o
-                0x1000112c                tk_cre_sem
+                0x10001538       0x7c utkernel.o
+                0x10001538                tk_cre_sem
  .text.tk_cre_flg
-                0x100011a8       0x78 utkernel.o
-                0x100011a8                tk_cre_flg
+                0x100015b4       0x78 utkernel.o
+                0x100015b4                tk_cre_flg
  .text.tk_set_flg
-                0x10001220       0x6c utkernel.o
-                0x10001220                tk_set_flg
- .text.producer_task
-                0x1000128c       0x84 utkernel.o
- .text.worker_task
-                0x10001310       0xa0 utkernel.o
+                0x1000162c       0x6c utkernel.o
+                0x1000162c                tk_set_flg
  .text.tk_cre_mbx
-                0x100013b0       0x78 utkernel.o
-                0x100013b0                tk_cre_mbx
+                0x10001698       0x78 utkernel.o
+                0x10001698                tk_cre_mbx
+ .text.tk_cre_mtx
+                0x10001710       0x78 utkernel.o
+                0x10001710                tk_cre_mtx
+ .text.tk_cre_dtq
+                0x10001788       0xa0 utkernel.o
+                0x10001788                tk_cre_dtq
+ .text.tk_snd_dtq
+                0x10001828       0xb4 utkernel.o
+                0x10001828                tk_snd_dtq
+ .text.tk_rcv_dtq
+                0x100018dc       0xb8 utkernel.o
+                0x100018dc                tk_rcv_dtq
+ .text.tk_cre_pdq
+                0x10001994       0x98 utkernel.o
+                0x10001994                tk_cre_pdq
+ .text.tk_snd_pdq
+                0x10001a2c       0xa8 utkernel.o
+                0x10001a2c                tk_snd_pdq
+ .text.tk_rcv_pdq
+                0x10001ad4      0x13c utkernel.o
+                0x10001ad4                tk_rcv_pdq
+ .text.tk_ref_pdq
+                0x10001c10       0x6c utkernel.o
+                0x10001c10                tk_ref_pdq
+ .text.tk_cre_mbf
+                0x10001c7c       0xbc utkernel.o
+                0x10001c7c                tk_cre_mbf
+ .text.tk_snd_mbf
+                0x10001d38      0x12c utkernel.o
+                0x10001d38                tk_snd_mbf
+ .text.tk_rcv_mbf
+                0x10001e64      0x12c utkernel.o
+                0x10001e64                tk_rcv_mbf
+ .text.tk_cre_mpf
+                0x10001f90       0xc8 utkernel.o
+                0x10001f90                tk_cre_mpf
+ .text.tk_get_mpf
+                0x10002058       0xe0 utkernel.o
+                0x10002058                tk_get_mpf
+ .text.tk_rel_mpf
+                0x10002138       0xcc utkernel.o
+                0x10002138                tk_rel_mpf
+ .text.tk_cre_mpl
+                0x10002204       0x9c utkernel.o
+                0x10002204                tk_cre_mpl
+ .text.tk_get_mpl
+                0x100022a0      0x1e0 utkernel.o
+                0x100022a0                tk_get_mpl
+ .text.producer_task
+                0x10002480      0x180 utkernel.o
+ .text.tk_rel_mpl
+                0x10002600      0x268 utkernel.o
+                0x10002600                tk_rel_mpl
+ .text.worker_task
+                0x10002868      0x1fc utkernel.o
+ .text.tk_ref_mpl
+                0x10002a64       0xd8 utkernel.o
+                0x10002a64                tk_ref_mpl
+ .text.monitor_task
+                0x10002b3c      0x2dc utkernel.o
+ .text.tk_cre_alm
+                0x10002e18       0x88 utkernel.o
+                0x10002e18                tk_cre_alm
+ .text.tk_sta_alm
+                0x10002ea0       0x84 utkernel.o
+                0x10002ea0                tk_sta_alm
+ .text.tk_cre_cyc
+                0x10002f24       0xac utkernel.o
+                0x10002f24                tk_cre_cyc
+ .text.tk_sta_cyc
+                0x10002fd0       0x80 utkernel.o
+                0x10002fd0                tk_sta_cyc
  .text.reset_handler
-                0x10001428      0x204 utkernel.o
-                0x10001428                reset_handler
- .text.itoa     0x1000162c      0x12c utkernel.o
-                0x1000162c                itoa
+                0x10003050      0x344 utkernel.o
+                0x10003050                reset_handler
+ .text.itoa     0x10003394      0x12c utkernel.o
+                0x10003394                itoa
  .text.vasprintf
-                0x10001758      0x184 utkernel.o
-                0x10001758                vasprintf
+                0x100034c0      0x184 utkernel.o
+                0x100034c0                vasprintf
  .text.__utoa_ull
-                0x100018dc      0x110 utkernel.o
-                0x100018dc                __utoa_ull
+                0x10003644      0x110 utkernel.o
+                0x10003644                __utoa_ull
  .text.__emit_num
-                0x100019ec       0xd4 utkernel.o
-                0x100019ec                __emit_num
+                0x10003754       0xd4 utkernel.o
+                0x10003754                __emit_num
  .text.__vformat
-                0x10001ac0      0x3e0 utkernel.o
-                0x10001ac0                __vformat
+                0x10003828      0x3e0 utkernel.o
+                0x10003828                __vformat
  .text.come_alloc_mem_from_heap_pool
-                0x10001ea0       0xe0 utkernel.o
-                0x10001ea0                come_alloc_mem_from_heap_pool
+                0x10003c08       0xe0 utkernel.o
+                0x10003c08                come_alloc_mem_from_heap_pool
  .text.come_calloc
-                0x10001f80       0x78 utkernel.o
-                0x10001f80                come_calloc
+                0x10003ce8       0x78 utkernel.o
+                0x10003ce8                come_calloc
  .text.come_calloc_v2
-                0x10001ff8       0x3c utkernel.o
-                0x10001ff8                come_calloc_v2
+                0x10003d60       0x3c utkernel.o
+                0x10003d60                come_calloc_v2
  .text.stackframe2
-                0x10002034       0x88 utkernel.o
-                0x10002034                stackframe2
+                0x10003d9c       0x88 utkernel.o
+                0x10003d9c                stackframe2
  .text.come_free
-                0x100020bc       0x68 utkernel.o
-                0x100020bc                come_free
+                0x10003e24       0x68 utkernel.o
+                0x10003e24                come_free
  .text.come_free_v2
-                0x10002124       0x30 utkernel.o
-                0x10002124                come_free_v2
+                0x10003e8c       0x30 utkernel.o
+                0x10003e8c                come_free_v2
  .text.come_decrement_ref_count
-                0x10002154      0x158 utkernel.o
-                0x10002154                come_decrement_ref_count
+                0x10003ebc      0x158 utkernel.o
+                0x10003ebc                come_decrement_ref_count
  .text.__builtin_string
-                0x100022ac       0xd8 utkernel.o
-                0x100022ac                __builtin_string
+                0x10004014       0xd8 utkernel.o
+                0x10004014                __builtin_string
  .text.xsprintf
-                0x10002384      0x190 utkernel.o
-                0x10002384                xsprintf
+                0x100040ec      0x190 utkernel.o
+                0x100040ec                xsprintf
  .text.int_to_string
-                0x10002514       0x94 utkernel.o
-                0x10002514                int_to_string
+                0x1000427c       0x94 utkernel.o
+                0x1000427c                int_to_string
  .text.come_increment_ref_count
-                0x100025a8      0x100 utkernel.o
-                0x100025a8                come_increment_ref_count
- .text          0x100026a8       0x14 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_sqi.o)
-                0x100026a8                __gnu_thumb1_case_sqi
- .text          0x100026bc       0x14 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
-                0x100026bc                __gnu_thumb1_case_shi
- .text          0x100026d0      0x114 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
-                0x100026d0                __udivsi3
-                0x100026d0                __aeabi_uidiv
-                0x100027dc                __aeabi_uidivmod
- .text          0x100027e4        0x4 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
-                0x100027e4                __aeabi_ldiv0
-                0x100027e4                __aeabi_idiv0
- .text          0x100027e8       0x40 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
-                0x100027e8                __aeabi_uldivmod
- .text          0x10002828      0x190 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
-                0x10002828                __udivmoddi4
- .text          0x100029b8       0x3c /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
-                0x100029b8                __clzsi2
- .text          0x100029f4       0x18 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
-                0x100029f4                __clzdi2
+                0x10004310      0x100 utkernel.o
+                0x10004310                come_increment_ref_count
+ .text          0x10004410       0x14 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_sqi.o)
+                0x10004410                __gnu_thumb1_case_sqi
+ .text          0x10004424       0x14 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
+                0x10004424                __gnu_thumb1_case_shi
+ .text          0x10004438      0x114 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+                0x10004438                __udivsi3
+                0x10004438                __aeabi_uidiv
+                0x10004544                __aeabi_uidivmod
+ .text          0x1000454c      0x1d4 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+                0x1000454c                __aeabi_idiv
+                0x1000454c                __divsi3
+                0x10004718                __aeabi_idivmod
+ .text          0x10004720        0x4 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+                0x10004720                __aeabi_ldiv0
+                0x10004720                __aeabi_idiv0
+ .text          0x10004724       0x40 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+                0x10004724                __aeabi_uldivmod
+ .text          0x10004764      0x190 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
+                0x10004764                __udivmoddi4
+ .text          0x100048f4       0x3c /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
+                0x100048f4                __clzsi2
+ .text          0x10004930       0x18 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
+                0x10004930                __clzdi2
  *(.rodata*)
+ .rodata.cyclic_handler.str1.1
+                0x10004948      0x63e utkernel.o
+                                 0x1d (size before relaxing)
+ .rodata.alarm_handler.str1.1
+                0x10004f86        0x0 utkernel.o
+                                 0x1b (size before relaxing)
  .rodata.tk_puthex.str1.1
-                0x10002a0c      0x377 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x1e (size before relaxing)
- .rodata.monitor_task.str1.1
-                0x10002d83        0x0 utkernel.o
-                                 0x83 (size before relaxing)
  .rodata.arg_file_reset.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0x1 (size before relaxing)
  .rodata.charp_to_string.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x2b (size before relaxing)
  .rodata.come_call_finalizer.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x33 (size before relaxing)
  .rodata.printf.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x28 (size before relaxing)
  .rodata.stackframe.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0xf (size before relaxing)
  .rodata.tk_sta_tsk.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x25 (size before relaxing)
+ .rodata.tk_chg_pri.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
  .rodata.tk_ext_tsk.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_dly_tsk.str1.1
+                0x10004f86        0x0 utkernel.o
+                                 0x1f (size before relaxing)
+ .rodata.tk_ref_tsk.str1.1
+                0x10004f86        0x0 utkernel.o
                                   0xb (size before relaxing)
  .rodata.tk_set_flg.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_snd_dtq.str1.1
+                0x10004f86        0x0 utkernel.o
+                                 0x1a (size before relaxing)
+ .rodata.tk_rcv_dtq.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_snd_pdq.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_rcv_pdq.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_ref_pdq.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_snd_mbf.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_rcv_mbf.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_get_mpf.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_rel_mpf.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_get_mpl.str1.1
+                0x10004f86        0x0 utkernel.o
                                   0xb (size before relaxing)
  .rodata.producer_task.str1.1
-                0x10002d83        0x0 utkernel.o
-                                 0x37 (size before relaxing)
+                0x10004f86        0x0 utkernel.o
+                                 0xbe (size before relaxing)
+ .rodata.tk_rel_mpl.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
  .rodata.worker_task.str1.1
-                0x10002d83        0x0 utkernel.o
-                                 0x38 (size before relaxing)
+                0x10004f86        0x0 utkernel.o
+                                 0xc4 (size before relaxing)
+ .rodata.tk_ref_mpl.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.monitor_task.str1.1
+                0x10004f86        0x0 utkernel.o
+                                0x121 (size before relaxing)
+ .rodata.tk_sta_alm.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
+ .rodata.tk_sta_cyc.str1.1
+                0x10004f86        0x0 utkernel.o
+                                  0xb (size before relaxing)
  .rodata.reset_handler.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x47 (size before relaxing)
  .rodata.itoa.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0x5 (size before relaxing)
  .rodata.vasprintf.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x11 (size before relaxing)
  .rodata.__utoa_ull.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0xb (size before relaxing)
  .rodata.__emit_num.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0xb (size before relaxing)
  .rodata.__vformat.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0xa (size before relaxing)
  .rodata.come_alloc_mem_from_heap_pool.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x1e (size before relaxing)
  .rodata.come_calloc.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0xc (size before relaxing)
  .rodata.come_calloc_v2.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0xf (size before relaxing)
  .rodata.come_get_ref_count.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x27 (size before relaxing)
  .rodata.stackframe2.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x31 (size before relaxing)
  .rodata.come_free.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0xa (size before relaxing)
  .rodata.come_free_v2.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0xd (size before relaxing)
  .rodata.come_decrement_ref_count.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x37 (size before relaxing)
  .rodata.__builtin_string.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x18 (size before relaxing)
  .rodata.xsprintf.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                   0x9 (size before relaxing)
  .rodata.int_to_string.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x11 (size before relaxing)
  .rodata.come_increment_ref_count.str1.1
-                0x10002d83        0x0 utkernel.o
+                0x10004f86        0x0 utkernel.o
                                  0x19 (size before relaxing)
- .rodata.U.0    0x10002d83       0x11 utkernel.o
- .rodata.L.1    0x10002d94       0x11 utkernel.o
+ .rodata.U.0    0x10004f86       0x11 utkernel.o
+ .rodata.L.1    0x10004f97       0x11 utkernel.o
 
-.glue_7         0x10002da8        0x0
- .glue_7        0x10002da8        0x0 linker stubs
+.glue_7         0x10004fa8        0x0
+ .glue_7        0x10004fa8        0x0 linker stubs
 
-.glue_7t        0x10002da8        0x0
- .glue_7t       0x10002da8        0x0 linker stubs
+.glue_7t        0x10004fa8        0x0
+ .glue_7t       0x10004fa8        0x0 linker stubs
 
-.vfp11_veneer   0x10002da8        0x0
- .vfp11_veneer  0x10002da8        0x0 linker stubs
+.vfp11_veneer   0x10004fa8        0x0
+ .vfp11_veneer  0x10004fa8        0x0 linker stubs
 
-.v4_bx          0x10002da8        0x0
- .v4_bx         0x10002da8        0x0 linker stubs
+.v4_bx          0x10004fa8        0x0
+ .v4_bx         0x10004fa8        0x0 linker stubs
 
-.iplt           0x10002da8        0x0
- .iplt          0x10002da8        0x0 utkernel.o
+.iplt           0x10004fa8        0x0
+ .iplt          0x10004fa8        0x0 utkernel.o
 
-.rel.dyn        0x10002da8        0x0
- .rel.iplt      0x10002da8        0x0 utkernel.o
+.rel.dyn        0x10004fa8        0x0
+ .rel.iplt      0x10004fa8        0x0 utkernel.o
 
-.ARM.exidx      0x10002da8        0x8
- .ARM.exidx     0x10002da8        0x8 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
+.ARM.exidx      0x10004fa8        0x8
+ .ARM.exidx     0x10004fa8        0x8 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
 
 .data
  *(.data*)
 
-.igot.plt       0x20000000        0x0 load address 0x10002db0
+.igot.plt       0x20000000        0x0 load address 0x10004fb0
  .igot.plt      0x20000000        0x0 utkernel.o
 
-.bss            0x20000000    0x10150 load address 0x10002db0
+.bss            0x20000000    0x10808 load address 0x10004fb0
                 0x20000000                        __bss_start__ = .
  *(.bss*)
  .bss.gNumFree  0x20000000        0x4 utkernel.o
@@ -1513,26 +1687,60 @@ LOAD /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a
  .bss.errno     0x20000024        0x4 utkernel.o
                 0x20000024                errno
  .bss.g_msg     0x20000028        0x8 utkernel.o
- .bss.g_worker_sum
+ .bss.g_cyclic_count
                 0x20000030        0x4 utkernel.o
- .bss.g_msg_value
+ .bss.g_alarm_count
                 0x20000034        0x4 utkernel.o
- .bss.g_mbox    0x20000038        0x4 utkernel.o
- .bss.g_flag    0x2000003c        0x4 utkernel.o
- .bss.g_sem     0x20000040        0x4 utkernel.o
- .bss.g_current_tid
+ .bss.g_pri_changed
+                0x20000038        0x4 utkernel.o
+ .bss.g_mutex_score
+                0x2000003c        0x4 utkernel.o
+ .bss.g_varpool_score
+                0x20000040        0x4 utkernel.o
+ .bss.g_messagebuf_score
                 0x20000044        0x4 utkernel.o
- .bss.g_tick    0x20000048        0x4 utkernel.o
- .bss.g_mbx     0x2000004c       0x30 utkernel.o
- .bss.g_flgs    0x2000007c       0x20 utkernel.o
- .bss.g_sems    0x2000009c       0x30 utkernel.o
- .bss.g_tasks   0x200000cc       0x80 utkernel.o
+ .bss.g_pdq_score
+                0x20000048        0x4 utkernel.o
+ .bss.g_worker_sum
+                0x2000004c        0x4 utkernel.o
+ .bss.g_msg_value
+                0x20000050        0x4 utkernel.o
+ .bss.g_varblock
+                0x20000054        0x4 utkernel.o
+ .bss.g_varpool
+                0x20000058        0x4 utkernel.o
+ .bss.g_mempool
+                0x2000005c        0x4 utkernel.o
+ .bss.g_messagebuf
+                0x20000060        0x4 utkernel.o
+ .bss.g_pridataq
+                0x20000064        0x4 utkernel.o
+ .bss.g_dataq   0x20000068        0x4 utkernel.o
+ .bss.g_mutex   0x2000006c        0x4 utkernel.o
+ .bss.g_mbox    0x20000070        0x4 utkernel.o
+ .bss.g_flag    0x20000074        0x4 utkernel.o
+ .bss.g_sem     0x20000078        0x4 utkernel.o
+ .bss.g_current_tid
+                0x2000007c        0x4 utkernel.o
+ .bss.g_tick    0x20000080        0x4 utkernel.o
+ .bss.g_cyc     0x20000084       0x60 utkernel.o
+ .bss.g_alm     0x200000e4       0x50 utkernel.o
+ .bss.g_mpl     0x20000134      0x1d8 utkernel.o
+ .bss.g_mpf     0x2000030c      0x120 utkernel.o
+ .bss.g_mbf     0x2000042c      0x138 utkernel.o
+ .bss.g_pdq     0x20000564       0xa0 utkernel.o
+ .bss.g_dtq     0x20000604       0xd0 utkernel.o
+ .bss.g_mtx     0x200006d4       0x30 utkernel.o
+ .bss.g_mbx     0x20000704       0x30 utkernel.o
+ .bss.g_flgs    0x20000734       0x20 utkernel.o
+ .bss.g_sems    0x20000754       0x30 utkernel.o
+ .bss.g_tasks   0x20000784       0x80 utkernel.o
  .bss.__neo_micro_brk_offset
-                0x2000014c        0x4 utkernel.o
+                0x20000804        0x4 utkernel.o
  .bss.__neo_micro_heap
-                0x20000150    0x10000 utkernel.o
+                0x20000808    0x10000 utkernel.o
  *(COMMON)
-                0x20010150                        __bss_end__ = .
+                0x20010808                        __bss_end__ = .
 OUTPUT(utkernel.elf elf32-littlearm)
 LOAD linker stubs
 
@@ -1553,25 +1761,28 @@ LOAD linker stubs
  .ARM.attributes
                 0x00000068       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
  .ARM.attributes
-                0x00000086       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+                0x00000086       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
  .ARM.attributes
-                0x000000a4       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+                0x000000a4       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .ARM.attributes
-                0x000000c2       0x2c /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
+                0x000000c2       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
  .ARM.attributes
-                0x000000ee       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
+                0x000000e0       0x2c /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
  .ARM.attributes
-                0x0000010c       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
+                0x0000010c       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
+ .ARM.attributes
+                0x0000012a       0x1e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
 
-.debug_line     0x00000000      0x40d
+.debug_line     0x00000000      0x46a
  .debug_line    0x00000000       0x52 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_sqi.o)
  .debug_line    0x00000052       0x53 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
  .debug_line    0x000000a5       0x56 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
- .debug_line    0x000000fb       0x4a /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
- .debug_line    0x00000145       0x55 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
- .debug_line    0x0000019a      0x1c1 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
- .debug_line    0x0000035b       0x5e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
- .debug_line    0x000003b9       0x54 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
+ .debug_line    0x000000fb       0x5d /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+ .debug_line    0x00000158       0x4a /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+ .debug_line    0x000001a2       0x55 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .debug_line    0x000001f7      0x1c1 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
+ .debug_line    0x000003b8       0x5e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
+ .debug_line    0x00000416       0x54 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
 
 .debug_line_str
                 0x00000000       0xd2
@@ -1583,6 +1794,9 @@ LOAD linker stubs
                                  0xc6 (size before relaxing)
  .debug_line_str
                 0x000000d2        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+                                 0xc6 (size before relaxing)
+ .debug_line_str
+                0x000000d2        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
                                  0xc6 (size before relaxing)
  .debug_line_str
                 0x000000d2        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
@@ -1597,27 +1811,29 @@ LOAD linker stubs
                 0x000000d2        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
                                  0xc6 (size before relaxing)
 
-.debug_info     0x00000000      0x50a
+.debug_info     0x00000000      0x548
  .debug_info    0x00000000       0x31 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_sqi.o)
  .debug_info    0x00000031       0x31 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
  .debug_info    0x00000062       0x3e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
- .debug_info    0x000000a0       0x3c /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
- .debug_info    0x000000dc       0x31 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
- .debug_info    0x0000010d      0x3a8 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
- .debug_info    0x000004b5       0x31 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
- .debug_info    0x000004e6       0x24 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
+ .debug_info    0x000000a0       0x3e /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+ .debug_info    0x000000de       0x3c /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+ .debug_info    0x0000011a       0x31 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .debug_info    0x0000014b      0x3a8 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
+ .debug_info    0x000004f3       0x31 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
+ .debug_info    0x00000524       0x24 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
 
-.debug_abbrev   0x00000000      0x228
+.debug_abbrev   0x00000000      0x250
  .debug_abbrev  0x00000000       0x28 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_sqi.o)
  .debug_abbrev  0x00000028       0x28 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
  .debug_abbrev  0x00000050       0x28 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
- .debug_abbrev  0x00000078       0x26 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
- .debug_abbrev  0x0000009e       0x28 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
- .debug_abbrev  0x000000c6      0x126 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
- .debug_abbrev  0x000001ec       0x28 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
- .debug_abbrev  0x00000214       0x14 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
+ .debug_abbrev  0x00000078       0x28 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+ .debug_abbrev  0x000000a0       0x26 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+ .debug_abbrev  0x000000c6       0x28 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .debug_abbrev  0x000000ee      0x126 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
+ .debug_abbrev  0x00000214       0x28 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
+ .debug_abbrev  0x0000023c       0x14 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
 
-.debug_aranges  0x00000000      0x100
+.debug_aranges  0x00000000      0x120
  .debug_aranges
                 0x00000000       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_sqi.o)
  .debug_aranges
@@ -1625,37 +1841,42 @@ LOAD linker stubs
  .debug_aranges
                 0x00000040       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
  .debug_aranges
-                0x00000060       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+                0x00000060       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
  .debug_aranges
-                0x00000080       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+                0x00000080       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .debug_aranges
-                0x000000a0       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
+                0x000000a0       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
  .debug_aranges
-                0x000000c0       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
+                0x000000c0       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
  .debug_aranges
-                0x000000e0       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
+                0x000000e0       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
+ .debug_aranges
+                0x00000100       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
 
-.debug_str      0x00000000      0x73a
- .debug_str     0x00000000      0x73a /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_sqi.o)
+.debug_str      0x00000000      0x753
+ .debug_str     0x00000000      0x753 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_sqi.o)
                                  0xe8 (size before relaxing)
- .debug_str     0x0000073a        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
+ .debug_str     0x00000753        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_thumb1_case_shi.o)
                                  0xe8 (size before relaxing)
- .debug_str     0x0000073a        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
+ .debug_str     0x00000753        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
                                  0xed (size before relaxing)
- .debug_str     0x0000073a        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
+ .debug_str     0x00000753        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+                                 0xeb (size before relaxing)
+ .debug_str     0x00000753        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
                                  0xee (size before relaxing)
- .debug_str     0x0000073a        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .debug_str     0x00000753        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_aeabi_uldivmod.o)
                                  0xe3 (size before relaxing)
- .debug_str     0x0000073a        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
+ .debug_str     0x00000753        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
                                 0x666 (size before relaxing)
- .debug_str     0x0000073a        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
+ .debug_str     0x00000753        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzsi2.o)
                                  0xdb (size before relaxing)
- .debug_str     0x0000073a        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
+ .debug_str     0x00000753        0x0 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_clzdi2.o)
                                  0xd2 (size before relaxing)
 
-.debug_frame    0x00000000       0x5c
+.debug_frame    0x00000000       0x7c
  .debug_frame   0x00000000       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivsi3.o)
- .debug_frame   0x00000020       0x3c /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x00000020       0x20 /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_divsi3.o)
+ .debug_frame   0x00000040       0x3c /usr/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/libgcc.a(_udivmoddi4.o)
 
 .debug_loclists
                 0x00000000      0x28b

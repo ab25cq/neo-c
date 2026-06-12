@@ -29,10 +29,29 @@ run: all
 	emu/pico_emu utkernel.elf
 
 test: all
+	emu/pico_emu --self-test
 	emu/pico_emu utkernel.elf > test.out
 	grep -q "uT-Kernel on neo-c Pico emulator" test.out
 	grep -q "task producer start" test.out
+	grep -q "task producer locked mutex" test.out
+	grep -q "task producer sent dtq" test.out
+	grep -q "task producer allocated mpl" test.out
+	grep -q "task producer sent mbf" test.out
+	grep -q "task producer sent pdq" test.out
+	grep -q "alarm fired" test.out
+	grep -q "cyclic fired" test.out
 	grep -q "task worker got message" test.out
+	grep -q "task worker locked mutex" test.out
+	grep -q "task worker got dtq" test.out
+	grep -q "task worker released mpl" test.out
+	grep -q "task worker received mbf" test.out
+	grep -q "task worker received pdq priority order" test.out
+	grep -q "monitor alarms" test.out
+	grep -q "monitor mutex" test.out
+	grep -q "monitor mpl_score" test.out
+	grep -q "monitor mbf_score" test.out
+	grep -q "monitor pdq_score" test.out
+	grep -q "monitor self state" test.out
 	grep -q "uT-Kernel demo PASS" test.out
 	grep -q "EMU exit: 0" test.out
 	@echo "PASS minux10"
