@@ -60,6 +60,44 @@ for arg in "$@"; do
       ncc_opts+=("-D__NEO_MICRO__")
       micro=true
       ;;
+    -micro32)
+      bare=true
+      opts+=("-D__NEO_MICRO32__")
+      opts+=("-D__NEO_MICRO__")
+      opts+=("-D__BAREMETAL__")
+      ncc_opts+=("-micro32")
+      ncc_opts+=("-micro")
+      ncc_opts+=("-bare")
+      ncc_opts+=("-D__NEO_MICRO32__")
+      ncc_opts+=("-D__NEO_MICRO__")
+      micro=true
+      ;;
+    -micro16)
+      bare=true
+      opts+=("-D__NEO_MICRO16__")
+      opts+=("-D__NEO_MICRO__")
+      opts+=("-D__BAREMETAL__")
+      ncc_opts+=("-micro16")
+      ncc_opts+=("-micro")
+      ncc_opts+=("-bare")
+      ncc_opts+=("-D__NEO_MICRO16__")
+      ncc_opts+=("-D__NEO_MICRO__")
+      micro=true
+      ;;
+    -micro8)
+      bare=true
+      opts+=("-D__NEO_MICRO8__")
+      opts+=("-D__NEO_MICRO16__")
+      opts+=("-D__NEO_MICRO__")
+      opts+=("-D__BAREMETAL__")
+      ncc_opts+=("-micro8")
+      ncc_opts+=("-micro")
+      ncc_opts+=("-bare")
+      ncc_opts+=("-D__NEO_MICRO8__")
+      ncc_opts+=("-D__NEO_MICRO16__")
+      ncc_opts+=("-D__NEO_MICRO__")
+      micro=true
+      ;;
     -S)
       no_compile=true
       ;;

@@ -6,7 +6,7 @@ uT-Kernel subset. Both primary sources are written in neo-c:
 - `emu/pico_emu.nc`: host-side Pico/Cortex-M0+ emulator
 - `utkernel.nc`: Cortex-M0+ uT-Kernel demo kernel
 
-The kernel build uses `../neo-c -micro` to generate freestanding C with
+The kernel build uses `../neo-c -micro32` to generate freestanding 32-bit C with
 neo-c's microcontroller runtime. The emulator does not use `-micro`.
 
 The build uses `../neo-c` to generate C, then builds:

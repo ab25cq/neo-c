@@ -5,7 +5,19 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.25
+version 1.0.3.26
+
+neo-c supports freestanding 16-bit and 8-bit microcontroller targets through
+`-micro16` and `-micro8`. The generated C uses a 16-bit pointer/`int` ABI with
+a 32-bit `long`; `-micro8` additionally selects smaller heap and formatting
+buffers for RAM-constrained 8-bit CPUs. AVR, MSP430, and Z80 builds are covered
+by the `minux12`, `minux13`, and `minux14` execution tests.
+
+neo-cは`-micro16`と`-micro8`により、標準Cライブラリを使わない16bit・8bit
+マイコンに対応しています。生成Cは16bitポインタ、16bit `int`、32bit
+`long`のABIを使用し、`-micro8`ではRAMの少ない8bit CPU向けにヒープと
+書式化用バッファをさらに縮小します。AVR、MSP430、Z80でのビルドと実行は
+`minux12`、`minux13`、`minux14`でテストできます。
 
 ## Small binaries
 
@@ -157,18 +169,24 @@ neo-c has two Pico / RP2040 paths.
 
 `-pico` is the Pico SDK path. Use it when you want neo-c to include Pico SDK headers and build against the SDK environment.
 
-`-micro` is the no-SDK bare-metal path. It implies `-bare`, defines `__BAREMETAL__` and `__NEO_MICRO__`, selects `neo-c-libc.h`, and generates freestanding C that is meant to be compiled by a target toolchain such as `arm-none-eabi-gcc`.
+`-micro32` is the recommended no-SDK bare-metal path for RP2040. It implies
+`-micro` and `-bare`, defines `__BAREMETAL__`, `__NEO_MICRO__`, and
+`__NEO_MICRO32__`, selects `neo-c-libc.h`, and verifies that the target C
+compiler uses the 32-bit ILP32 data model.
 
 neo-cにはPico / RP2040向けに2つの経路があります。
 
 `-pico`はPico SDKを使う経路です。Pico SDKのヘッダを取り込み、SDK環境に対してビルドしたいときに使います。
 
-`-micro`はSDKなしのbare-metal経路です。`-bare`を含み、`__BAREMETAL__`と`__NEO_MICRO__`を定義し、`neo-c-libc.h`を選びます。生成されたCは`arm-none-eabi-gcc`のようなターゲット用ツールチェインでコンパイルします。
+`-micro32`はRP2040向けに推奨するSDKなしのbare-metal経路です。
+`-micro`と`-bare`を含み、`__BAREMETAL__`、`__NEO_MICRO__`、
+`__NEO_MICRO32__`を定義して`neo-c-libc.h`を選びます。また、ターゲットC
+コンパイラが32bitのILP32データモデルであることをコンパイル時に検査します。
 
 Example:
 
 ```sh
-neo-c -micro -S utkernel.nc
+neo-c -micro32 -S utkernel.nc
 arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-builtin \
     -fno-stack-protector -c -o utkernel.o utkernel.c
 arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-builtin \
@@ -176,9 +194,13 @@ arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -ffreestanding -fno-builtin \
     -o utkernel.elf utkernel.o -lgcc
 ```
 
-`minux10` is a tested Pico-style sample. It contains a small Cortex-M0+ emulator written in neo-c and a minimal uT-Kernel subset generated with `-micro`.
+`minux10` is a tested Pico-style sample. It contains a small Cortex-M0+
+emulator written in neo-c and a minimal uT-Kernel subset generated with
+`-micro32`.
 
-`minux10`はテスト済みのPico風サンプルです。neo-cで書かれた小さなCortex-M0+エミュレータと、`-micro`で生成する最小uT-Kernelサブセットを含みます。
+`minux10`はテスト済みのPico風サンプルです。neo-cで書かれた小さな
+Cortex-M0+エミュレータと、`-micro32`で生成する最小uT-Kernelサブセットを
+含みます。
 
 ```sh
 cd minux10
@@ -187,17 +209,260 @@ make test
 
 ## Microcontrollers
 
-`-micro` is for small non-Unix microcontroller targets. It generates C only, links no standard C library, and expects the final object or ELF to be built by the target toolchain.
+`-micro32` is the recommended mode for 32-bit non-Unix microcontrollers. It
+supports the common ILP32 ABI used by ARM Cortex-M, RISC-V RV32, and 32-bit
+ESP32 targets. It generates C only, links no standard C library, and expects
+the final object or ELF to be built by the target toolchain.
+
+`-micro16` targets small microcontrollers with 16-bit pointers and `int`, plus
+a 32-bit `long`, such as the common MSP430 data model. It defines
+`__NEO_MICRO16__`, uses 16-bit `size_t`, `ptrdiff_t`, `uintptr_t`, and
+`intptr_t`, and maps `int32_t`/`uint32_t` to `long`/`unsigned long`.
+
+`-micro8` targets 8-bit CPUs such as AVR. Standard C still requires `int` to
+be at least 16-bit, and common 8-bit MCU toolchains use 16-bit pointers and
+`int`, so this mode uses the same data ABI as `-micro16` while additionally
+defining `__NEO_MICRO8__`. Its default heap is 512 bytes and its `vasprintf`
+temporary stack buffer is 96 bytes.
+
+`-micro32` fixes `size_t`, `ptrdiff_t`, `uintptr_t`, and `intptr_t` to 32-bit
+types. A compiler whose pointers, `int`, or `long` are not 32-bit stops with a
+compile error instead of producing a binary with an incompatible runtime ABI.
+`-micro16` performs the corresponding checks for 16-bit pointers and `int`
+with a 32-bit `long`.
+
+Use `-micro` when implementing a different target ABI yourself. `-micro8`,
+`-micro16`, and `-micro32` include all `-micro` behavior.
 
 The user side only needs to provide `putchar(char)`. neo-c provides the rest of its small standard-C-compatible runtime from `neo-c-libc.h`, including `puts`, `printf`, `memset`, allocation support, `exit`, frame globals, and `uniq` runtime definitions. Programs without a `main` function are also valid with `-micro` and `-uniq`, which is useful for kernel or firmware objects.
 
-The default micro heap is 64KB. Override it from the C compiler with `-DNEO_MICRO_HEAP_SIZE=...` if the target needs a different static heap size.
+The default `-micro32` heap is 64KB. The `-micro16` default is 1KB and its
+`vasprintf` temporary stack buffer is reduced to 128 bytes. Override the heap
+from the C compiler with `-DNEO_MICRO_HEAP_SIZE=...`.
 
-`-micro`は小さな非Unixマイコン向けです。Cだけを生成し、標準Cライブラリはリンクしません。最終的なオブジェクトやELFはターゲット用ツールチェインでビルドします。
+Example for an AVR-style target:
+
+```sh
+neo-c -micro8 -S firmware.nc
+avr-gcc -mmcu=atmega328p -std=gnu11 -Os -ffreestanding \
+    -fno-builtin -fno-stack-protector -c firmware.c
+```
+
+The target project must still provide its startup code, vector table, linker
+script, clock and peripheral initialization, and final link command. The
+generated runtime uses GNU C extensions and is intended for GCC or Clang
+compatible embedded toolchains.
+
+| Target class | Status |
+|---|---|
+| ARM Cortex-M0/M0+/M3/M4/M7/M23/M33 | `-micro32`; tested by `minux10` |
+| RISC-V RV32 | `-micro32` target |
+| ESP32 Xtensa/RISC-V with a 32-bit GCC-compatible ABI | `-micro32` target |
+| AVR and similar 8-bit CPUs with a 16-bit C ABI | `-micro8`; AVR ABI tested by `minux12` |
+| MSP430-style 16-bit CPU and pointer ABI | `-micro16`; tested by `minux13` |
+| Z80 with SDCC's 16-bit pointer and `int` ABI | `-micro8`; tested by `minux14` |
+| PIC and targets with nonstandard pointer widths/address spaces | Target-specific work may be required |
+| 64-bit embedded targets | Use `-micro` and a target-specific runtime |
+
+`-micro32`は32bitの非Unixマイコン向けの推奨モードです。ARM Cortex-M、
+RISC-V RV32、32bit ESP32などで一般的なILP32 ABIを対象にします。Cだけを
+生成し、標準Cライブラリはリンクしません。最終的なオブジェクトやELFは
+ターゲット用ツールチェインでビルドします。
+
+`-micro16`は、ポインタと`int`が16bit、`long`が32bitの小型マイコンを
+対象にします。代表的にはMSP430系のデータモデルです。
+`__NEO_MICRO16__`を定義し、`size_t`、`ptrdiff_t`、`uintptr_t`、
+`intptr_t`を16bit、`int32_t`と`uint32_t`を32bitの`long`型として生成します。
+
+`-micro8`はAVRなどの8bit CPU向けです。標準Cの`int`は最低16bitであり、
+一般的な8bit MCU用Cコンパイラもポインタと`int`に16bitを使うため、
+データABIは`-micro16`と同じです。追加で`__NEO_MICRO8__`を定義し、
+既定ヒープを512バイト、`vasprintf`の一時スタック領域を96バイトに
+抑えます。
+
+`size_t`、`ptrdiff_t`、`uintptr_t`、`intptr_t`を32bit型に固定し、
+ポインタ、`int`、`long`が32bitではないコンパイラでは、互換性のない
+バイナリを生成せずコンパイルエラーにします。異なるABIを独自実装する場合は`-micro`
+を使用してください。`-micro8`、`-micro16`、`-micro32`には
+`-micro`の全機能が含まれます。
 
 ユーザー側で必要なのは`putchar(char)`の定義だけです。`puts`、`printf`、`memset`、メモリ確保、`exit`、フレーム管理用グローバル、`uniq`ランタイム定義などは`neo-c-libc.h`から生成Cへ入ります。`main`関数が無いカーネルやファームウェア用オブジェクトでも、`-micro`と`-uniq`で破綻しないようになっています。
 
-デフォルトのmicroヒープは64KBです。ターゲットに合わせて変えたい場合はCコンパイラ側で`-DNEO_MICRO_HEAP_SIZE=...`を指定してください。
+`-micro32`の既定ヒープは64KBです。`-micro16`では既定ヒープを1KB、
+`vasprintf`の一時スタック領域を128バイトに抑えています。ターゲットに
+合わせる場合はCコンパイラ側で`-DNEO_MICRO_HEAP_SIZE=...`を指定してください。
+
+ターゲット側ではstartupコード、割り込みベクタ、リンカースクリプト、
+クロックと周辺機器の初期化、最終リンク設定が別途必要です。生成ランタイムは
+GNU C拡張を使うため、GCCまたはClang互換の組み込み向けツールチェインを
+使用します。特殊なポインタ幅や複数アドレス空間を使うPICなどでは、
+ターゲット固有のランタイム調整が必要になる場合があります。
+
+### CPU別の使い方
+
+neo-cはマイコン用の機械語を直接生成せず、対象ABIに合わせたCを生成します。
+最初にneo-cで`.nc`を`.c`へ変換し、その後は各CPUのクロスコンパイラ、
+startupコード、リンカースクリプトを使ってオブジェクトまたはELFを作ります。
+
+ユーザー側では最低限、対象機のUARTなどへ1文字出力する`putchar`を定義します。
+
+```c
+#include <neo-c.h>
+
+void putchar(char c)
+{
+    volatile unsigned char* uart = (volatile unsigned char*)UART_TX_ADDRESS;
+    *uart = (unsigned char)c;
+}
+```
+
+`main`がないファームウェアでは、任意のエントリ関数をstartupコードから
+呼び出せます。
+
+```c
+int firmware_entry()
+{
+    puts("HELLO WORLD");
+    return 0;
+}
+```
+
+#### ARM Cortex-M / Raspberry Pi Pico
+
+Cortex-MとRP2040は32bitポインタ、32bit `int`、32bit `long`のILP32 ABI
+なので`-micro32`を使用します。
+
+```sh
+neo-c -micro32 -S firmware.nc
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -Os -ffreestanding \
+    -fno-builtin -fno-stack-protector -c firmware.c -o firmware.o
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -nostdlib -nostartfiles \
+    -T link.ld -Wl,--gc-sections -o firmware.elf startup.o firmware.o -lgcc
+```
+
+Cortex-M3/M4/M7などでは`-mcpu=`を対象CPUへ変更し、必要ならFPU関連の
+`-mfpu=`と`-mfloat-abi=`も指定します。RP2040/uT-Kernelの実行例は
+`minux10`で確認できます。
+
+```sh
+cd minux10
+make test
+```
+
+#### RISC-V RV32
+
+RV32もILP32 ABIなので`-micro32`を使用します。CPUに応じて`-march`と
+`-mabi`を変更してください。
+
+```sh
+neo-c -micro32 -S firmware.nc
+riscv64-linux-gnu-gcc -march=rv32imac -mabi=ilp32 -Os -ffreestanding \
+    -fno-builtin -fno-stack-protector -c firmware.c -o firmware.o
+riscv64-linux-gnu-gcc -march=rv32imac -mabi=ilp32 -nostdlib -nostartfiles \
+    -T link.ld -Wl,--gc-sections -o firmware.elf startup.o firmware.o -lgcc
+```
+
+ハードウェア浮動小数点を使う場合は、CPUとツールチェインに合わせて
+`rv32imafc`/`ilp32f`などの組み合わせへ変更します。
+
+#### ESP32
+
+32bitのESP32 XtensaおよびESP32-C3などのRV32製品では`-micro32`を
+使用します。生成したCをESP-IDFのcomponentへ追加し、ESP-IDF側でstartup、
+フラッシュ配置、割り込み、UART初期化を行います。
+
+```sh
+neo-c -micro32 -S firmware.nc
+```
+
+ESP32 Xtensaでは`xtensa-esp32-elf-gcc`、ESP32-C3/C6などでは
+`riscv32-esp-elf-gcc`が使用されます。通常はコンパイラを直接呼ばず、
+`idf.py build`から生成Cをビルドします。`putchar`はESP-IDFのUART APIまたは
+対象UARTレジスタへ接続してください。
+
+#### AVR ATmega
+
+AVRは8bit CPUですが、通常のAVR GCC ABIではポインタと`int`が16bit、
+`long`が32bitです。通常はCPU幅を明示する`-micro8`を使用します。
+
+```sh
+neo-c -micro8 -S firmware.nc
+avr-gcc -mmcu=atmega328p -std=gnu11 -Os -ffreestanding \
+    -fno-builtin -fno-stack-protector -c firmware.c -o firmware.o
+avr-gcc -mmcu=atmega328p -nostdlib -Wl,--gc-sections \
+    -o firmware.elf startup.o firmware.o -lgcc
+```
+
+`minux12`はAVRの16bit C ABIそのものを検証する目的で、意図的に
+`-micro16`を使用しています。`-micro8`と`-micro16`はAVR上で同じ型幅を
+検証しますが、`-micro8`はヒープと書式化用スタックをさらに小さくします。
+
+```sh
+cd minux12
+make test
+```
+
+#### MSP430
+
+MSP430はCPU、ポインタ、`int`が16bitで、`long`が32bitなので
+`-micro16`を使用します。ClangにMSP430バックエンドが含まれる環境では
+次のようにビルドできます。
+
+```sh
+neo-c -micro16 -S firmware.nc
+clang --target=msp430 -mmcu=msp430g2553 -Oz -ffreestanding \
+    -fno-builtin -fno-stack-protector -c firmware.c -o firmware.o
+ld.lld -T link.ld -e firmware_entry -o firmware.elf firmware.o
+```
+
+MSP430G2553のELF生成とneo-c製エミュレータでの実行は`minux13`にあります。
+
+```sh
+cd minux13
+make test
+```
+
+#### Zilog Z80
+
+Z80は8bit CPU、16bitアドレス空間で、SDCCのZ80 ABIは16bitポインタと
+16bit `int`を使うため`-micro8`を使用します。
+
+```sh
+neo-c -micro8 -S firmware.nc
+sdcc-sdcc -mz80 --std-c11 --opt-code-size --no-std-crt0 \
+    --code-loc 0x0100 --data-loc 0x8000 \
+    '-D__builtin_va_list=void *' firmware.c -o firmware.ihx
+```
+
+SDCCでは、最小ファームウェアが可変長引数を使わない場合でも、neo-cが生成する
+型定義を解釈させるため`__builtin_va_list`の互換定義が必要です。
+Intel HEX生成、neo-c製Z80エミュレータ、`LOCATE`を含むncurses全画面の
+MSX-BASIC風IDEは`minux14`にあります。
+
+```sh
+cd minux14
+make test
+make ide
+```
+
+#### その他のCPU
+
+次の条件を確認してオプションを選択します。
+
+| C ABI | neo-c option |
+|---|---|
+| 32bit pointer / 32bit `int` / 32bit `long` | `-micro32` |
+| 16bit pointer / 16bit `int` / 32bit `long` on a 16bit CPU | `-micro16` |
+| 16bit pointer / 16bit `int` / 32bit `long` on an 8bit CPU | `-micro8` |
+| Other data model | `-micro` with a target-specific runtime |
+
+PICの複数アドレス空間、banked memory、24bitポインタなど、通常のフラットな
+CポインタモデルではないCPUには追加対応が必要です。RAMが小さい場合は
+`NEO_MICRO_HEAP_SIZE`も対象に合わせて縮小します。
+
+```sh
+target-gcc -DNEO_MICRO_HEAP_SIZE=256 ...
+```
 
 ## minux9
 
@@ -371,6 +636,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.26 Added `-micro16` and `-micro8` freestanding target modes. `-micro16` supports a 16-bit pointer/`int` ABI with a 32-bit `long`; `-micro8` uses the same C ABI while reducing the default heap and formatting stack buffers for 8-bit CPUs. Added AVR, MSP430, and Z80 Hello World execution tests in `minux12`, `minux13`, and `minux14`. `minux14` also includes an ncurses 40x24 full-screen MSX-BASIC-style IDE with `LOCATE`, compound statements, line editing, history, and function keys.
 1.0.3.25 Added `-micro` as a non-Unix microcontroller source-generation mode. `-micro` now implies `-bare`, emits `__BAREMETAL__` and `__NEO_MICRO__`, uses `neo-c-libc.h` without Unix file/syscall APIs, requires only user-provided `putchar(char)`, and emits `uniq` runtime definitions even when the source has no `main`. Updated the Pico documentation and verified `minux10` with `make -B test`.
 1.0.3.24 Added `bare-self-host.sh`, documented the `clean-self-host.sh` to `bare-self-host.sh` workflow, and kept the checked-in self-host C sources in normal libc-generated form. `make clean` also removes the old generated `self-host` file.
 1.0.3.23 `fast_build.sh` now detects self-host C sources generated with `-bare`, rebuilds a temporary bare `ncc`, regenerates normal libc self-host sources, and then continues the normal install build; `ccpp.c` generation no longer emits duplicate typedefs because `ccpp_body.h` owns its libc/bare declarations.

@@ -239,7 +239,7 @@ struct sMemHeader
     long size;
     long compiletime_size;
     long alloc_size;
-    int allocated;            /// ALLOCATED_MAGIC_NUM 
+    int32_t allocated;        /// ALLOCATED_MAGIC_NUM
     int alive;
     struct sMemHeader* next;
     struct sMemHeader* prev;
@@ -366,6 +366,8 @@ uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, c
     size_t size2 = size + sizeof(sMemHeader);
 #ifdef __32BIT_CPU__
     size2 = (size2 + 3 & ~0x3);
+#elif defined(__16BIT_CPU__)
+    size2 = (size2 + 1 & ~0x1);
 #else
     size2 = (size2 + 7 & ~0x7);
 #endif
@@ -6767,9 +6769,6 @@ uniq string char*::print(char* self)
 
 uniq int int::printf(int self, char* msg)
 {
-    if(self == null) {
-        return self;
-    }
     printf(msg, self);
     
     return self;
@@ -6777,9 +6776,6 @@ uniq int int::printf(int self, char* msg)
 
 uniq long long::printf(long self, char* msg)
 {
-    if(self == null) {
-        return self;
-    }
     printf(msg, self);
     
     return self;

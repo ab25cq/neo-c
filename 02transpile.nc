@@ -7,6 +7,9 @@ bool gComeDebug = false;
 bool gComeOriginalSourcePosition = false;
 bool gComeBareMetal = false;
 bool gComeMicro = false;
+bool gComeMicro32 = false;
+bool gComeMicro16 = false;
+bool gComeMicro8 = false;
 bool gComeCPlusPlus = false;
 bool gComelang = false;
 bool gComeSafe = false;
@@ -246,6 +249,20 @@ static bool cpp(sInfo* info)
     else if(gComeMicro) {
         set_macro("__BAREMETAL__", "1");
         set_macro("__NEO_MICRO__", "1");
+        if(gComeMicro32) {
+            set_macro("__NEO_MICRO32__", "1");
+            set_macro("__32BIT_CPU__", "1");
+        }
+        else if(gComeMicro8) {
+            set_macro("__NEO_MICRO8__", "1");
+            set_macro("__NEO_MICRO16__", "1");
+            set_macro("__8BIT_CPU__", "1");
+            set_macro("__16BIT_CPU__", "1");
+        }
+        else if(gComeMicro16) {
+            set_macro("__NEO_MICRO16__", "1");
+            set_macro("__16BIT_CPU__", "1");
+        }
     }
     else if(gComeBareMetal) {
         set_macro("__BAREMETAL__", "1");
@@ -423,6 +440,21 @@ static void init_classes(sInfo* info)
         else if(argv[i] === "-micro") {
             gComeBareMetal = true;
             gComeMicro = true;
+        }
+        else if(argv[i] === "-micro32") {
+            gComeBareMetal = true;
+            gComeMicro = true;
+            gComeMicro32 = true;
+        }
+        else if(argv[i] === "-micro16") {
+            gComeBareMetal = true;
+            gComeMicro = true;
+            gComeMicro16 = true;
+        }
+        else if(argv[i] === "-micro8") {
+            gComeBareMetal = true;
+            gComeMicro = true;
+            gComeMicro8 = true;
         }
         else if(argv[i] === "-lowmem") {
             gComeLowMemory = true;

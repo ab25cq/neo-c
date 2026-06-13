@@ -946,6 +946,36 @@ bool output_source_file(sInfo* info)
     if(gComeMicro) {
         fprintf(f, "#ifndef __NEO_MICRO__\n#define __NEO_MICRO__ 1\n#endif\n\n");
     }
+    if(gComeMicro32) {
+        fprintf(f, "#ifndef __NEO_MICRO32__\n#define __NEO_MICRO32__ 1\n#endif\n\n");
+        fprintf(f, "#if defined(__SIZEOF_POINTER__) && __SIZEOF_POINTER__ != 4\n");
+        fprintf(f, "#error \"-micro32 requires 32-bit pointers\"\n#endif\n");
+        fprintf(f, "#if defined(__SIZEOF_INT__) && __SIZEOF_INT__ != 4\n");
+        fprintf(f, "#error \"-micro32 requires a 32-bit int type\"\n#endif\n\n");
+        fprintf(f, "#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ != 4\n");
+        fprintf(f, "#error \"-micro32 requires a 32-bit long type\"\n#endif\n\n");
+    }
+    if(gComeMicro16) {
+        fprintf(f, "#ifndef __NEO_MICRO16__\n#define __NEO_MICRO16__ 1\n#endif\n\n");
+        fprintf(f, "#if defined(__SIZEOF_POINTER__) && __SIZEOF_POINTER__ != 2\n");
+        fprintf(f, "#error \"-micro16 requires 16-bit pointers\"\n#endif\n");
+        fprintf(f, "#if defined(__SIZEOF_INT__) && __SIZEOF_INT__ != 2\n");
+        fprintf(f, "#error \"-micro16 requires a 16-bit int type\"\n#endif\n");
+        fprintf(f, "#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ != 4\n");
+        fprintf(f, "#error \"-micro16 requires a 32-bit long type\"\n#endif\n\n");
+    }
+    if(gComeMicro8) {
+        fprintf(f, "#ifndef __NEO_MICRO8__\n#define __NEO_MICRO8__ 1\n#endif\n\n");
+        fprintf(f, "#ifndef __NEO_MICRO16__\n#define __NEO_MICRO16__ 1\n#endif\n\n");
+        fprintf(f, "#if defined(__CHAR_BIT__) && __CHAR_BIT__ != 8\n");
+        fprintf(f, "#error \"-micro8 requires 8-bit bytes\"\n#endif\n");
+        fprintf(f, "#if defined(__SIZEOF_POINTER__) && __SIZEOF_POINTER__ != 2\n");
+        fprintf(f, "#error \"-micro8 requires 16-bit pointers\"\n#endif\n");
+        fprintf(f, "#if defined(__SIZEOF_INT__) && __SIZEOF_INT__ != 2\n");
+        fprintf(f, "#error \"-micro8 requires a 16-bit int type\"\n#endif\n");
+        fprintf(f, "#if defined(__SIZEOF_LONG__) && __SIZEOF_LONG__ != 4\n");
+        fprintf(f, "#error \"-micro8 requires a 32-bit long type\"\n#endif\n\n");
+    }
     foreach(it, info.c_include_definition) {
         buffer* buf = borrow info.c_include_definition[string(it)];
         fputs(buf.to_string(), f);

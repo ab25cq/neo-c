@@ -3,17 +3,37 @@
 
 #if defined(__BAREMETAL__)
 typedef __builtin_va_list va_list;
+#if defined(__NEO_MICRO16__) || defined(__NEO_MICRO8__)
+typedef unsigned int size_t;
+typedef int ptrdiff_t;
+typedef unsigned int uintptr_t;
+typedef int intptr_t;
+#elif defined(__NEO_MICRO32__)
+typedef unsigned int size_t;
+typedef int ptrdiff_t;
+typedef unsigned int uintptr_t;
+typedef int intptr_t;
+#else
 typedef unsigned long size_t;
 typedef long ptrdiff_t;
 typedef unsigned long uintptr_t;
 typedef long intptr_t;
+#endif
 typedef char int8_t;
 typedef short int16_t;
+#if defined(__NEO_MICRO16__) || defined(__NEO_MICRO8__)
+typedef long int32_t;
+#else
 typedef int int32_t;
+#endif
 typedef long long int64_t;
 typedef unsigned char uint8_t;
 typedef unsigned short uint16_t;
+#if defined(__NEO_MICRO16__) || defined(__NEO_MICRO8__)
+typedef unsigned long uint32_t;
+#else
 typedef unsigned int uint32_t;
+#endif
 typedef unsigned long long uint64_t;
 typedef int wchar_t;
 #ifndef bool
@@ -54,7 +74,11 @@ typedef _Bool bool;
 #endif
 
 #ifndef NEO_VASPRINTF_STACK_SIZE
-#if defined(__BAREMETAL__) || defined(__MINUX__)
+#if defined(__NEO_MICRO8__)
+#define NEO_VASPRINTF_STACK_SIZE 96
+#elif defined(__NEO_MICRO16__)
+#define NEO_VASPRINTF_STACK_SIZE 128
+#elif defined(__BAREMETAL__) || defined(__MINUX__)
 #define NEO_VASPRINTF_STACK_SIZE 512
 #elif defined(__APPLE__) || defined(__NEO_DARWIN_BARE__) || defined(__x86_64__) || defined(__i386__)
 #define NEO_VASPRINTF_STACK_SIZE 262144
@@ -147,7 +171,13 @@ extern int errno;
 extern void putchar(char c);
 
 #ifndef NEO_MICRO_HEAP_SIZE
+#ifdef __NEO_MICRO8__
+#define NEO_MICRO_HEAP_SIZE 512U
+#elif defined(__NEO_MICRO16__)
+#define NEO_MICRO_HEAP_SIZE 1024U
+#else
 #define NEO_MICRO_HEAP_SIZE (64 * 1024)
+#endif
 #endif
 
 static unsigned char __neo_micro_heap[NEO_MICRO_HEAP_SIZE];

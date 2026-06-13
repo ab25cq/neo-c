@@ -17,7 +17,7 @@ emu/pico_emu: emu/pico_emu.nc
 	$(NEOC) $< -o $@
 
 utkernel.c: utkernel.nc
-	$(NEOC) -micro -S $<
+	$(NEOC) -micro32 -S $<
 
 utkernel.o: utkernel.c
 	$(ARM_CC) $(ARM_CFLAGS) -c -o $@ $<
