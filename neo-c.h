@@ -163,7 +163,11 @@ uniq string bool::to_string(bool self);
 uniq string _Bool::to_string(bool self);
 uniq bool string::equals(char* self, const char* right);
 
+#ifdef __NEO_MICRO_RAM_8K__
+#define COME_STACKFRAME_MAX 2
+#else
 #define COME_STACKFRAME_MAX 8
+#endif
 #define COME_STACKFRAME_SNAME_MAX 8
 
 struct neo_frame {
@@ -208,9 +212,10 @@ bool come_is_alive(void* mem);
 uniq void stackframe2(void* mem)
 {
     if(come_is_alive(mem) && mem) {
+#ifndef __NEO_MICRO_RAM_8K__
         sMemHeader* it = (sMemHeader*)((char*)mem - sizeof(size_t) - sizeof(size_t) - sizeof(sMemHeader));
-        
         printf("allocated at %s %d #%d. type is %s.\n", it->sname, it->sline, it->id, it->class_name);
+#endif
     }
     
     neo_frame *f = neo_current_frame;
@@ -236,22 +241,31 @@ uniq bool die(const char* msg, char* sname=__caller_sname__, int sline=__caller_
 //////////////////////////////
 struct sMemHeader
 {
+#ifdef __NEO_MICRO_RAM_8K__
+    size_t size;
+    size_t compiletime_size;
+    size_t alloc_size;
+#else
     long size;
     long compiletime_size;
     long alloc_size;
+#endif
     int32_t allocated;        /// ALLOCATED_MAGIC_NUM
     int alive;
     struct sMemHeader* next;
     struct sMemHeader* prev;
     struct sMemHeader* free_next;
-    
+
+#if defined(__NEO_MEMLEAK_STACKTRACE__) && !defined(__NEO_MICRO_RAM_8K__)
     char* fun_name[COME_STACKFRAME_MAX];
-    
+#endif
+
+#ifndef __NEO_MICRO_RAM_8K__
     const char* class_name;
-    
     const char* sname;
     int sline;
     int id;
+#endif
 };
 
 using unsafe {
@@ -267,21 +281,23 @@ uniq void come_memleak_checker()
     int n = 0;
     while(it) {
         n++;
-        
-        bool flag = false;
+
+#ifdef __NEO_MICRO_RAM_8K__
+        printf("#%d allocation\n", n);
+#else
         printf("#%d ", n);
         if(it->class_name) {
             printf("%p (%s) %s %d: ", (char*)it + sizeof(sMemHeader) + sizeof(size_t) + sizeof(size_t), it->class_name, it->sname, it->sline);
         }
+#ifdef __NEO_MEMLEAK_STACKTRACE__
         for(int i=0; i<COME_STACKFRAME_MAX; i++) {
             if(it->fun_name[i]) {
                 printf("%s, ", it->fun_name[i]);
-                flag = true;
             }
         }
-        if(flag) {
-            puts("");
-        }
+#endif
+        puts("");
+#endif
         it = it->next;
     }
     if(n > 0) printf("%d memory leaks. %d alloc, %d free.\n", n, gNumAlloc, gNumFree);
@@ -309,6 +325,9 @@ uniq void* alloc_from_pages(size_t size)
     }
     
     sMemHeader* it = (sMemHeader*)calloc(1, size);
+    if(it == null) {
+        return null;
+    }
     it->alloc_size = size;
     return it;
 }
@@ -372,6 +391,12 @@ uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, c
     size2 = (size2 + 7 & ~0x7);
 #endif
     void* result = alloc_from_pages(size2);
+    if(result == null) {
+        puts("out of memory");
+        stackframe();
+        exit(5);
+        return null;
+    }
     
     sMemHeader* it = result;
     
@@ -382,6 +407,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, c
     it->free_next = NULL;
     it->alive = 1;
     
+#if defined(__NEO_MEMLEAK_STACKTRACE__) && !defined(__NEO_MICRO_RAM_8K__)
     int n = 0;
     neo_frame *f = neo_current_frame;
     while(f && n < COME_STACKFRAME_MAX) {
@@ -392,7 +418,9 @@ uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, c
         n++;
         f = f->prev;
     }
+#endif
     
+#ifndef __NEO_MICRO_RAM_8K__
     it->next = gAllocMem;
     it->prev = null;
     
@@ -400,6 +428,7 @@ uniq void* come_alloc_mem_from_heap_pool(size_t compiletime_size, size_t size, c
     it->sname = sname;
     it->sline = sline;
     it->id = id;
+#endif
     
     if(gAllocMem) {
         gAllocMem->prev = it;
@@ -430,7 +459,11 @@ uniq char* come_dynamic_typeof(void* mem)
         exit(2);
     }
     
+#ifdef __NEO_MICRO_RAM_8K__
+    return "";
+#else
     return (char*)it->class_name;
+#endif
 }
 
 uniq size_t dynamic_sizeof(void* mem)
@@ -2798,7 +2831,11 @@ impl vector<T>
 {
     vector<T>*% initialize(vector<T>*% self) 
     {
+#ifdef __NEO_MICRO_RAM_8K__
+        self.size = 4;
+#else
         self.size = 16;
+#endif
         self.len = 0;
         self.items = borrow new T[self.size];
         
@@ -2916,7 +2953,10 @@ impl vector<T>
         using unsafe;
         
         if(self.len == self.size) {
-            auto new_size = self.size * 2;
+            auto new_size = self.size + self.size / 2;
+            if(new_size <= self.size) {
+                new_size = self.size + 1;
+            }
             auto items = self.items;
 
             self.items = come_calloc(1, sizeof(T)*new_size);
@@ -3446,7 +3486,12 @@ struct map<T, T2>
     int it;
 };
 
+#ifdef __NEO_MICRO_RAM_8K__
+#define MAP_TABLE_DEFAULT_SIZE 16
+#else
 #define MAP_TABLE_DEFAULT_SIZE 128
+#endif
+#define MAP_TABLE_GROWTH_FACTOR 2
 
 impl map <T, T2>
 {
@@ -3922,7 +3967,7 @@ impl map <T, T2>
         using unsafe;
         
         int old_size = self.size;
-        int size = self.size * 10;
+        int size = self.size * MAP_TABLE_GROWTH_FACTOR;
         T^* keys = borrow gc_inc(new T[size]);
         T2^* items = borrow gc_inc(new T2[size]);
         unsigned int* hashes = borrow gc_inc(new unsigned int[size]);
@@ -4008,7 +4053,7 @@ impl map <T, T2>
             return self;
         }
         
-        if(self.len*10 >= self.size) {
+        if(self.len*2 >= self.size) {
             self.rehash();
         }
         bool add_to_key_list = false;

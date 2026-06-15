@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.27
+version 1.0.3.28
 
 neo-c supports freestanding 16-bit and 8-bit microcontroller targets through
 `-micro16` and `-micro8`. The generated C uses a 16-bit pointer/`int` ABI with
@@ -264,7 +264,7 @@ compatible embedded toolchains.
 | ARM Cortex-M0/M0+/M3/M4/M7/M23/M33 | `-micro32`; tested by `minux10` |
 | RISC-V RV32 | `-micro32` target |
 | ESP32 Xtensa/RISC-V with a 32-bit GCC-compatible ABI | `-micro32` target |
-| AVR and similar 8-bit CPUs with a 16-bit C ABI | `-micro8`; AVR ABI tested by `minux12` |
+| AVR and similar 8-bit CPUs with a 16-bit C ABI | `-micro8`; AVR ABI tested by `minux12`, 8KB SRAM collections by `minux16` |
 | MSP430-style 16-bit CPU and pointer ABI | `-micro16`; tested by `minux13` |
 | Z80 with SDCC's 16-bit pointer and `int` ABI | `-micro8`; tested by `minux14` |
 | PIC16F877A and PIC targets with multiple address spaces | `-micro` plus target glue; tested by `minux15` |
@@ -297,6 +297,56 @@ RISC-V RV32、32bit ESP32などで一般的なILP32 ABIを対象にします。C
 `-micro32`の既定ヒープは64KBです。`-micro16`では既定ヒープを1KB、
 `vasprintf`の一時スタック領域を128バイトに抑えています。ターゲットに
 合わせる場合はCコンパイラ側で`-DNEO_MICRO_HEAP_SIZE=...`を指定してください。
+
+### 8KB RAMでコレクションを使う
+
+RAMが8KBあるマイコンでは、CPU ABI用オプションに`-micro-ram8k`を追加すると
+`vector`、`list`、`map`を実用的な範囲で使用できます。
+
+```sh
+neo-c -micro8 -micro-ram8k -S firmware.nc
+```
+
+16bit CPUなら`-micro16 -micro-ram8k`、32bit CPUなら
+`-micro32 -micro-ram8k`とします。特殊なポインタABIでは
+`-micro -micro-ram8k`を使用できます。
+
+このプロファイルは8KBのうち6KBをneo-cヒープに割り当て、残り約2KBを
+スタック、グローバル変数、割り込み処理用として残します。さらに次の
+省メモリ設定を有効にします。
+
+- `vector`の初期容量を16要素から4要素へ縮小
+- `map`の初期テーブルを128要素から16要素へ縮小
+- `map`は容量不足時に2倍、`vector`は1.5倍ずつ拡張
+- GC割り当てヘッダから型名、ソース位置、割り当て時履歴を除去
+- `vasprintf`の一時スタック領域を128バイトに制限
+- 8bit/16bit ABIのmallocアラインメントを2バイトへ縮小
+
+現在の回帰テストでは、6KB固定ヒープ内で`vector<int>` 128要素、
+`list<int>` 12要素、`map<int,int>` 6要素を同時に作成し、追加、検索、
+集計、参照カウントによる解放まで実行しています。要素型や一時オブジェクトに
+よって使用量は変わるため、大きな文字列や複数の大型mapを保持する場合は
+アプリケーション側で上限を決めてください。
+
+`minux16`ではSRAMがちょうど8KBのATmega640用ELFを生成し、neo-c製AVR
+エミュレータで同じ`vector`、`list`、`map`試験を実行します。AVR GCCは
+通常の文字列定数もSRAMへ配置するため、この実機向けイメージではヒープを
+4KBへ上書きし、`.data`、`.bss`、スタック用の領域を確保しています。
+
+```sh
+cd minux16
+make test
+```
+
+ヒープ量は引き続き上書きできます。
+
+```sh
+target-gcc -DNEO_MICRO_HEAP_SIZE=5632 ...
+```
+
+`-micro-ram8k`では割り当て時の詳細な型名・ソース位置は保存しませんが、
+panic時の現在のstackframe表示、参照カウント、生存チェック、境界チェックは
+維持されます。メモリ不足時は不正アドレスを参照せず`out of memory`で停止します。
 
 ターゲット側ではstartupコード、割り込みベクタ、リンカースクリプト、
 クロックと周辺機器の初期化、最終リンク設定が別途必要です。生成ランタイムは
@@ -664,6 +714,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.28 Added `-memleak-stacktrace` as an optional allocation-call-stack mode while keeping leak detection enabled by default. Reduced `vector` growth to 1.5x and standardized `map` growth to 2x, then documented the `-micro-ram8k` profile and added `minux16`, which runs `vector`/`list`/`map` on an emulated 8KB-SRAM ATmega640.
 1.0.3.27 Added `minux15`, a PIC16F877A target test. neo-c generates freestanding C with `-micro`, SDCC and gputils produce a real PIC Intel HEX image, and the neo-c-written PIC16 emulator verifies `HELLO WORLD` through the emulated `TXREG`. Documented why PIC uses `-micro` instead of `-micro8`: SDCC generic pointers are three bytes because they encode the Harvard address space. Added PIC startup code, target-specific UART glue, banked file-register handling, and an eight-level hardware return stack model.
 1.0.3.26 Added `-micro16` and `-micro8` freestanding target modes. `-micro16` supports a 16-bit pointer/`int` ABI with a 32-bit `long`; `-micro8` uses the same C ABI while reducing the default heap and formatting stack buffers for 8-bit CPUs. Added AVR, MSP430, and Z80 Hello World execution tests in `minux12`, `minux13`, and `minux14`. `minux14` also includes an ncurses 40x24 full-screen MSX-BASIC-style IDE with `LOCATE`, compound statements, line editing, history, and function keys.
 1.0.3.25 Added `-micro` as a non-Unix microcontroller source-generation mode. `-micro` now implies `-bare`, emits `__BAREMETAL__` and `__NEO_MICRO__`, uses `neo-c-libc.h` without Unix file/syscall APIs, requires only user-provided `putchar(char)`, and emits `uniq` runtime definitions even when the source has no `main`. Updated the Pico documentation and verified `minux10` with `make -B test`.
@@ -3440,6 +3491,27 @@ int main()
 ```
 
 # Memory leak detector
+
+Memory leak detection remains enabled by default. It records the allocation
+count, object type, source file, and source line, then reports allocations
+that remain alive when `main` exits. The allocation-time call stack consumes
+additional memory for every live allocation, so it is now optional.
+
+Use `-memleak-stacktrace` when the full allocation call stack is needed:
+
+```sh
+neo-c -memleak-stacktrace a.nc
+```
+
+通常でもメモリリーク検出は有効です。確保回数、型、ソースファイル、行番号を
+記録し、`main`終了時に未解放オブジェクトを報告します。確保時の呼び出し履歴は
+各オブジェクトの管理領域を大きくするため、必要な場合だけ
+`-memleak-stacktrace`で有効にします。
+
+`map`のハッシュテーブルは使用率50%で、従来の10倍拡張ではなく2倍拡張に
+なりました。
+`vector`は2倍ではなく1.5倍ずつ拡張します。再確保時の一時的なピークメモリと
+未使用容量を抑えるための設定です。
 
 ``` 
 #include <neo-c.h>

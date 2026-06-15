@@ -74,7 +74,9 @@ typedef _Bool bool;
 #endif
 
 #ifndef NEO_VASPRINTF_STACK_SIZE
-#if defined(__NEO_MICRO8__)
+#if defined(__NEO_MICRO_RAM_8K__)
+#define NEO_VASPRINTF_STACK_SIZE 128
+#elif defined(__NEO_MICRO8__)
 #define NEO_VASPRINTF_STACK_SIZE 96
 #elif defined(__NEO_MICRO16__)
 #define NEO_VASPRINTF_STACK_SIZE 128
@@ -171,7 +173,9 @@ extern int errno;
 extern void putchar(char c);
 
 #ifndef NEO_MICRO_HEAP_SIZE
-#ifdef __NEO_MICRO8__
+#ifdef __NEO_MICRO_RAM_8K__
+#define NEO_MICRO_HEAP_SIZE 6144U
+#elif defined(__NEO_MICRO8__)
 #define NEO_MICRO_HEAP_SIZE 512U
 #elif defined(__NEO_MICRO16__)
 #define NEO_MICRO_HEAP_SIZE 1024U
@@ -1356,8 +1360,15 @@ uniq void *malloc(size_t size) {
         return NULL;
     }
 
-    if (size % 8 != 0) {
-        size += 8 - (size % 8);
+#if defined(__NEO_MICRO8__) || defined(__NEO_MICRO16__)
+    const size_t alignment = 2;
+#elif defined(__NEO_MICRO32__) || defined(__NEO_MICRO_RAM_8K__)
+    const size_t alignment = 4;
+#else
+    const size_t alignment = 8;
+#endif
+    if (size % alignment != 0) {
+        size += alignment - (size % alignment);
     }
     size += sizeof(mem_block_t); 
 

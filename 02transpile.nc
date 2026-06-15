@@ -10,6 +10,8 @@ bool gComeMicro = false;
 bool gComeMicro32 = false;
 bool gComeMicro16 = false;
 bool gComeMicro8 = false;
+bool gComeMicroRam8K = false;
+bool gComeMemleakStacktrace = false;
 bool gComeCPlusPlus = false;
 bool gComelang = false;
 bool gComeSafe = false;
@@ -239,6 +241,9 @@ static bool cpp(sInfo* info)
     if(_32bit) {
         set_macro("__32BIT_CPU__", "1");
     }
+    if(gComeMemleakStacktrace) {
+        set_macro("__NEO_MEMLEAK_STACKTRACE__", "1");
+    }
     
     if(is_m5stack) {
         set_macro("__M5STACK__", "1");
@@ -246,10 +251,13 @@ static bool cpp(sInfo* info)
     else if(is_pico) {
         set_macro("__PICO__", "1");
     }
-    else if(gComeMicro) {
-        set_macro("__BAREMETAL__", "1");
-        set_macro("__NEO_MICRO__", "1");
-        if(gComeMicro32) {
+        else if(gComeMicro) {
+            set_macro("__BAREMETAL__", "1");
+            set_macro("__NEO_MICRO__", "1");
+            if(gComeMicroRam8K) {
+                set_macro("__NEO_MICRO_RAM_8K__", "1");
+            }
+            if(gComeMicro32) {
             set_macro("__NEO_MICRO32__", "1");
             set_macro("__32BIT_CPU__", "1");
         }
@@ -455,6 +463,14 @@ static void init_classes(sInfo* info)
             gComeBareMetal = true;
             gComeMicro = true;
             gComeMicro8 = true;
+        }
+        else if(argv[i] === "-micro-ram8k") {
+            gComeBareMetal = true;
+            gComeMicro = true;
+            gComeMicroRam8K = true;
+        }
+        else if(argv[i] === "-memleak-stacktrace") {
+            gComeMemleakStacktrace = true;
         }
         else if(argv[i] === "-lowmem") {
             gComeLowMemory = true;

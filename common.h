@@ -26,6 +26,8 @@ extern bool gComeMicro;
 extern bool gComeMicro32;
 extern bool gComeMicro16;
 extern bool gComeMicro8;
+extern bool gComeMicroRam8K;
+extern bool gComeMemleakStacktrace;
 extern bool gComeCPlusPlus;
 extern bool gComelang;
 extern bool gComeSafe;

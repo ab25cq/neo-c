@@ -98,6 +98,22 @@ for arg in "$@"; do
       ncc_opts+=("-D__NEO_MICRO__")
       micro=true
       ;;
+    -micro-ram8k)
+      bare=true
+      opts+=("-D__NEO_MICRO_RAM_8K__")
+      opts+=("-D__NEO_MICRO__")
+      opts+=("-D__BAREMETAL__")
+      ncc_opts+=("-micro-ram8k")
+      ncc_opts+=("-micro")
+      ncc_opts+=("-bare")
+      ncc_opts+=("-D__NEO_MICRO_RAM_8K__")
+      ncc_opts+=("-D__NEO_MICRO__")
+      micro=true
+      ;;
+    -memleak-stacktrace)
+      opts+=("-D__NEO_MEMLEAK_STACKTRACE__")
+      ncc_opts+=("-memleak-stacktrace")
+      ;;
     -S)
       no_compile=true
       ;;

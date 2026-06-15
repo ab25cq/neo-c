@@ -34,7 +34,7 @@ TEST_FAIL_VANISHED := \
 
 TEST_FAIL_SPAN_RANGE :=
 
-.PHONY: all test test-micro8 test-micro16 test-micro32 clean
+.PHONY: all test test-memleak-stacktrace test-micro8 test-micro16 test-micro32 test-micro-ram8k clean
 
 all: test
 
@@ -91,6 +91,26 @@ test:
 		rm -f $$t.out; \
 	done; \
 	echo "code5 tests passed"
+
+test-memleak-stacktrace:
+	$(NEOC) $(NFLAGS) -S memleak_stacktrace.nc
+	! grep -q '^#define __NEO_MEMLEAK_STACKTRACE__ 1$$' memleak_stacktrace.c
+	! grep -q 'fun_name\[8\]' memleak_stacktrace.c
+	$(HOST_CC) -std=gnu11 -O2 memleak_stacktrace.c -o memleak_stacktrace
+	./memleak_stacktrace > memleak_stacktrace.out
+	grep -q '1 memory leaks. 1 alloc, 0 free.' memleak_stacktrace.out
+	grep -q 'memleak_stacktrace.nc 5:' memleak_stacktrace.out
+	! grep -q 'leak_from_helper,' memleak_stacktrace.out
+	rm -f memleak_stacktrace memleak_stacktrace.c memleak_stacktrace.nc.i memleak_stacktrace.out
+	$(NEOC) $(NFLAGS) -memleak-stacktrace -S memleak_stacktrace.nc
+	grep -q '^#define __NEO_MEMLEAK_STACKTRACE__ 1$$' memleak_stacktrace.c
+	grep -q 'fun_name\[8\]' memleak_stacktrace.c
+	$(HOST_CC) -std=gnu11 -O2 memleak_stacktrace.c -o memleak_stacktrace
+	./memleak_stacktrace > memleak_stacktrace.out
+	grep -q '1 memory leaks. 1 alloc, 0 free.' memleak_stacktrace.out
+	grep -q 'leak_from_helper,' memleak_stacktrace.out
+	rm -f memleak_stacktrace memleak_stacktrace.c memleak_stacktrace.nc.i memleak_stacktrace.out
+	@echo "memory leak stacktrace option tests passed"
 
 test-micro32:
 	$(NEOC) $(NFLAGS) -micro32 -S micro32_smoke.nc
@@ -158,6 +178,27 @@ test-micro8:
 	grep -q -- "-micro8 requires 16-bit pointers" micro8_smoke.out
 	rm -f micro8_smoke.c micro8_smoke.nc.i micro8_smoke.o micro8_smoke-host.o micro8_smoke.out
 	@echo "micro8 tests passed"
+
+test-micro-ram8k:
+	$(NEOC) $(NFLAGS) -micro -micro-ram8k -S micro_ram8k_collections.nc
+	grep -q '^#define __NEO_MICRO_RAM_8K__ 1$$' micro_ram8k_collections.c
+	grep -q '^#define NEO_MICRO_HEAP_SIZE 6144U$$' micro_ram8k_collections.c
+	grep -q 'static unsigned char __neo_micro_heap\[NEO_MICRO_HEAP_SIZE\]' micro_ram8k_collections.c
+	grep -q 'self->size=4;' micro_ram8k_collections.c
+	grep -q 'self->size=16;' micro_ram8k_collections.c
+	grep -q 'new_size=self->size+({' micro_ram8k_collections.c
+	grep -q '(self->size) / __neo_div_right' micro_ram8k_collections.c
+	grep -Fq 'size=self->size*2;' micro_ram8k_collections.c
+	! grep -Fq 'self->len*10' micro_ram8k_collections.c
+	$(HOST_CC) -std=gnu11 -O2 -fno-builtin \
+		-Dmalloc=neo_malloc -Dcalloc=neo_calloc -Drealloc=neo_realloc \
+		-Dfree=neo_free -Dbrk=neo_brk -Dputchar=neo_putchar \
+		-Dexit=neo_exit -ffunction-sections -fdata-sections \
+		-Wl,--gc-sections micro_ram8k_collections.c -o micro_ram8k_collections
+	./micro_ram8k_collections
+	rm -f micro_ram8k_collections micro_ram8k_collections.c \
+		micro_ram8k_collections.nc.i
+	@echo "micro 8KB RAM collection tests passed"
 
 clean:
 	rm -f $(TEST_OK) $(TEST_FAIL_NULL) $(TEST_FAIL_REF_INIT) $(TEST_FAIL_VANISHED) $(TEST_FAIL_SPAN_RANGE) *.c *.c.error *.nc.i *.o *.out

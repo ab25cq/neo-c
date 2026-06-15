@@ -946,6 +946,12 @@ bool output_source_file(sInfo* info)
     if(gComeMicro) {
         fprintf(f, "#ifndef __NEO_MICRO__\n#define __NEO_MICRO__ 1\n#endif\n\n");
     }
+    if(gComeMicroRam8K) {
+        fprintf(f, "#ifndef __NEO_MICRO_RAM_8K__\n#define __NEO_MICRO_RAM_8K__ 1\n#endif\n\n");
+    }
+    if(gComeMemleakStacktrace) {
+        fprintf(f, "#ifndef __NEO_MEMLEAK_STACKTRACE__\n#define __NEO_MEMLEAK_STACKTRACE__ 1\n#endif\n\n");
+    }
     if(gComeMicro32) {
         fprintf(f, "#ifndef __NEO_MICRO32__\n#define __NEO_MICRO32__ 1\n#endif\n\n");
         fprintf(f, "#if defined(__SIZEOF_POINTER__) && __SIZEOF_POINTER__ != 4\n");
