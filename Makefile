@@ -445,16 +445,7 @@ install:
 	mkdir -p "$(DESTDIR)/bin"
 	$(INSTALL) -m 755 ./neo-c "$(DESTDIR)/bin"
 	$(INSTALL) -m 755 ./ncc "$(DESTDIR)/bin"
-	mkdir -p "$(DESTDIR)/include"
-	$(INSTALL) -m 644 ./neo-c.h "$(DESTDIR)/include"
-	$(INSTALL) -m 644 ./neo-c-str.h "$(DESTDIR)/include"
-	$(INSTALL) -m 644 ./neo-c-libc.h "$(DESTDIR)/include"
-	$(INSTALL) -m 644 ./neo-c-net.h "$(DESTDIR)/include"
-	$(INSTALL) -m 644 ./neo-c-pthread.h "$(DESTDIR)/include"
-	mkdir -p "$(DESTDIR)/lib"
-	$(INSTALL) -m 644 ./neo-c-str.o "$(DESTDIR)/lib"
-	mkdir -p "$(DESTDIR)/share/doc/neo-c"
-	$(INSTALL) -m 644 README.md "$(DESTDIR)/share/doc/neo-c/README.md"
+	$(MAKE) -C cpm install DESTDIR="$(DESTDIR)"
 
 #########################################
 # clean
@@ -475,19 +466,7 @@ distclean: clean
 uninstall:
 	rm -f "$(DESTDIR)"/bin/neo-c
 	rm -f "$(DESTDIR)"/bin/ncc
-	rm -f "$(DESTDIR)"/lib/neo-c-str.o
-	rm -f "$(DESTDIR)"/include/neo-c.h
-	rm -f "$(DESTDIR)"/include/neo-c-str.h
-	rm -f "$(DESTDIR)"/include/neo-c-libc.h
-	rm -f "$(DESTDIR)"/include/neo-c-net.h
-	rm -f "$(DESTDIR)"/include/neo-c-pthread.h
-	rm -f "$(DESTDIR)/share/doc/neo-c/README.md
-	rm -f "$(DESTDIR)"/include/neo-c.h
-	rm -f "$(DESTDIR)"/include/neo-c-str.h
-	rm -f "$(DESTDIR)"/include/neo-c-libc.h
-	rm -f "$(DESTDIR)"/include/neo-c-net.h
-	rm -f "$(DESTDIR)"/include/neo-c-pthread.h
-	rm -f "$(DESTDIR)/share/doc/neo-c/README.md
+	rm -f "$(DESTDIR)"/bin/cpm
 
 test:
 	(cd code && make test)

@@ -39,6 +39,7 @@ pico=false
 no_compile=false
 micro=false
 portable_c_disabled=false
+debug=false
 
 for arg in "$@"; do
   if [ "$expect_target" = true ]; then
@@ -113,6 +114,10 @@ for arg in "$@"; do
     -memleak-stacktrace)
       opts+=("-D__NEO_MEMLEAK_STACKTRACE__")
       ncc_opts+=("-memleak-stacktrace")
+      ;;
+    -g)
+      debug=true
+      opts+=("$arg")
       ;;
     -S)
       no_compile=true
@@ -191,9 +196,20 @@ if [ "$(uname -s 2>/dev/null)" = "Darwin" ] \
   fi
 fi
 
+if [ "$debug" = true ]; then
+  CFLAGS="-g -O0 -fno-omit-frame-pointer"
+fi
+
 bare_link_opts=()
 bare_cflags=()
 object_link_neo_c_str_args=("${default_neo_c_str_args[@]}")
+for obj_file in "${obj_files[@]}"; do
+  if [ "$(basename "$obj_file")" = "neo-c-str.o" ]; then
+    object_link_neo_c_str_args=()
+    default_neo_c_str_args=()
+    break
+  fi
+done
 if [ "$bare" = true ]; then
   bare_link_opts+=("-nostdlib")
   if [ "$(uname -s 2>/dev/null)" = "Darwin" ]; then
@@ -249,6 +265,10 @@ fi
 strip_output_executable()
 {
   local output="$1"
+
+  if [ "$debug" = true ]; then
+    return
+  fi
 
   if [ -n "$output" ] && [ -f "$output" ] && command -v strip >/dev/null 2>&1; then
     strip "$output" 2>/dev/null || true

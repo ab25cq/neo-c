@@ -108,6 +108,11 @@ typedef char*% string;
     #include <assert.h>
     #include <stdbool.h>
     #include <wchar.h>
+    #include <stdint.h>
+    #if defined(__linux__) || defined(__APPLE__)
+    #include <execinfo.h>
+    #include <dlfcn.h>
+    #endif
 
     #ifndef NULL
     #define NULL ((void*)0)
@@ -196,8 +201,89 @@ uniq _norecord bool neo_frame_is_alive(unsigned long frame_id)
     return false;
 }
 
+uniq void neo_print_native_backtrace_symbol(void* addr)
+{
+#if (defined(__linux__) || defined(__APPLE__)) && !defined(__BAREMETAL__) && !defined(__NEO_MICRO__)
+    Dl_info info;
+    if(dladdr(addr, &info) && info.dli_fname) {
+        char command[2048];
+        char line[2048];
+        FILE* fp;
+#if defined(__APPLE__)
+        snprintf(command, sizeof(command), "atos -o '%s' -l 0x%lx 0x%lx 2>/dev/null",
+            info.dli_fname, (unsigned long)(uintptr_t)info.dli_fbase,
+            (unsigned long)(uintptr_t)addr);
+#else
+        snprintf(command, sizeof(command), "addr2line -f -p -e '%s' 0x%lx 2>/dev/null",
+            info.dli_fname,
+            (unsigned long)((uintptr_t)addr - (uintptr_t)info.dli_fbase));
+#endif
+        fp = popen(command, "r");
+        if(fp) {
+            if(fgets(line, sizeof(line), fp) && strncmp(line, "??", 2) != 0) {
+                printf("%s", line);
+                pclose(fp);
+                return;
+            }
+            pclose(fp);
+        }
+#if defined(__linux__)
+        snprintf(command, sizeof(command), "addr2line -f -p -e '%s' 0x%lx 2>/dev/null",
+            info.dli_fname, (unsigned long)(uintptr_t)addr);
+        fp = popen(command, "r");
+        if(fp) {
+            if(fgets(line, sizeof(line), fp) && strncmp(line, "??", 2) != 0) {
+                printf("%s", line);
+                pclose(fp);
+                return;
+            }
+            pclose(fp);
+        }
+#endif
+        if(info.dli_sname) {
+            printf("%s (%p)\n", info.dli_sname, addr);
+        }
+        else {
+            printf("%s (%p)\n", info.dli_fname, addr);
+        }
+    }
+    else {
+        printf("%p\n", addr);
+    }
+#else
+    printf("%p\n", addr);
+#endif
+}
+
+uniq bool neo_print_native_backtrace()
+{
+#if (defined(__linux__) || defined(__APPLE__)) && !defined(__BAREMETAL__) && !defined(__NEO_MICRO__)
+    void* frames[64];
+    int n = backtrace(frames, 64);
+    int i;
+
+    if(n <= 0) {
+        return false;
+    }
+
+    puts("native backtrace:");
+    for(i=1; i<n; i++) {
+        printf("  #%d ", i-1);
+        neo_print_native_backtrace_symbol(frames[i]);
+    }
+
+    return true;
+#else
+    return false;
+#endif
+}
+
 uniq void stackframe()
 {
+    if(neo_print_native_backtrace()) {
+        return;
+    }
+
     neo_frame *f = neo_current_frame;
     while(f) {
         char* fun_name = f->fun_name;
@@ -217,7 +303,11 @@ uniq void stackframe2(void* mem)
         printf("allocated at %s %d #%d. type is %s.\n", it->sname, it->sline, it->id, it->class_name);
 #endif
     }
-    
+
+    if(neo_print_native_backtrace()) {
+        return;
+    }
+
     neo_frame *f = neo_current_frame;
     while(f) {
         char* fun_name = f->fun_name;

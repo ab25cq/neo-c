@@ -34,94 +34,94 @@ vin: main.o 01init.o 02base.o 03insert_mode.o 04word.o 05undo.o 06file.o 07yank.
 	neo-c -o vin main.o 01init.o 02base.o 03insert_mode.o 04word.o 05undo.o 06file.o 07yank.o 08visual.o 09search.o 10edit.o 11move.o 12command.o 13completion.o 14dot.o 16mark.o 17hvisual.o 18vvisual.o 19rewrite_mode.o 21binary_mode.o -L/opt/local/lib -L/usr/local/lib $(CFLAGS2) $(LIBS) 
 
 main.o: main.nc common.h
-	neo-c -c  main.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  main.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 01init.o: 01init.nc common.h
-	neo-c -c  01init.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  01init.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 02base.o: 02base.nc common.h
-	neo-c -c  02base.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  02base.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 03insert_mode.o: 03insert_mode.nc common.h
-	neo-c -c  03insert_mode.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  03insert_mode.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 04word.o: 04word.nc common.h
-	neo-c -c  04word.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  04word.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 05undo.o: 05undo.nc common.h
-	neo-c -c  05undo.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  05undo.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 06file.o: 06file.nc common.h
-	neo-c -c  06file.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  06file.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 07yank.o: 07yank.nc common.h
-	neo-c -c  07yank.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  07yank.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 08visual.o: 08visual.nc common.h
-	neo-c -c  08visual.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  08visual.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 09search.o: 09search.nc common.h
-	neo-c -c  09search.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  09search.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 10edit.o: 10edit.nc common.h
-	neo-c -c  10edit.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  10edit.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 11move.o: 11move.nc common.h
-	neo-c -c  11move.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  11move.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 12command.o: 12command.nc common.h
-	neo-c -c  12command.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  12command.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 13completion.o: 13completion.nc common.h
-	neo-c -c  13completion.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  13completion.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 14dot.o: 14dot.nc common.h
-	neo-c -c  14dot.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  14dot.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 16mark.o: 16mark.nc common.h
-	neo-c -c  16mark.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  16mark.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 17hvisual.o: 17hvisual.nc common.h
-	neo-c -c  17hvisual.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  17hvisual.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 18vvisual.o: 18vvisual.nc common.h
-	neo-c -c  18vvisual.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  18vvisual.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 19rewrite_mode.o: 19rewrite_mode.nc common.h
-	neo-c -c  19rewrite_mode.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  19rewrite_mode.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 	mkdir -p ~/.vin/backup
 
 21binary_mode.o: 21binary_mode.nc common.h
-	neo-c -c  21binary_mode.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s
+	neo-c -c  21binary_mode.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 
 
 valgrind: main.c.valgrind 01init.c.valgrind 02base.c.valgrind 03insert_mode.c.valgrind 04word.c.valgrind 05undo.c.valgrind 06file.c.valgrind 07yank.c.valgrind 08visual.c.valgrind 09search.c.valgrind 10edit.c.valgrind 11move.c.valgrind 12command.c.valgrind 13completion.c.valgrind 14dot.c.valgrind 16mark.c.valgrind 17hvisual.c.valgrind 18vvisual.c.valgrind 19rewrite_mode.c.valgrind 21binary_mode.c.valgrind
 
 main.c.valgrind: main.nc common.h
-	valgrind neo-c -c  main.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2>main.c.valgrind
+	valgrind neo-c -c  main.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 2>main.c.valgrind
 
 01init.c.valgrind: 01init.nc common.h
-	valgrind neo-c -c  01init.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2>01init.c.valgrind
+	valgrind neo-c -c  01init.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 2>01init.c.valgrind
 
 02base.c.valgrind: 02base.nc common.h
-	valgrind neo-c -c  02base.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2>02base.c.valgrind
+	valgrind neo-c -c  02base.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 2>02base.c.valgrind
 
 03insert_mode.c.valgrind: 03insert_mode.nc common.h
-	valgrind neo-c -c  03insert_mode.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2> 03insert_mode.c.valgrind
+	valgrind neo-c -c  03insert_mode.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 2> 03insert_mode.c.valgrind
 
 04word.c.valgrind: 04word.nc common.h
-	valgrind neo-c -c  04word.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2> 04word.c.valgrind
+	valgrind neo-c -c  04word.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 2> 04word.c.valgrind
 
 05undo.c.valgrind: 05undo.nc common.h
-	valgrind neo-c -c  05undo.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2> 05undo.c.valgrind
+	valgrind neo-c -c  05undo.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 2> 05undo.c.valgrind
 
 06file.c.valgrind: 06file.nc common.h
-	valgrind neo-c -c  06file.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2> 06file.c.valgrind
+	valgrind neo-c -c  06file.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 2> 06file.c.valgrind
 
 07yank.c.valgrind: 07yank.nc common.h
-	valgrind neo-c -c  07yank.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2> 07yank.c.valgrind
+	valgrind neo-c -c  07yank.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 2> 07yank.c.valgrind
 
 08visual.c.valgrind: 08visual.nc common.h
-	valgrind neo-c -c  08visual.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2> 08visual.c.valgrind
+	valgrind neo-c -c  08visual.nc -Isrc $(CFLAGS) -I/usr/local/include -I. 2> 08visual.c.valgrind
 
 09search.c.valgrind: 09search.nc common.h
 	valgrind neo-c -c  09search.nc -Isrc $(CFLAGS) -I/usr/local/include -I. -s 2> 09search.c.valgrind

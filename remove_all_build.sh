@@ -98,6 +98,11 @@ then
     (cd shsh; make clean)
 fi
 
+if [ -e cpm/Makefile ]
+then
+    (cd cpm; make clean)
+fi
+
 if [ -e dbdb/Makefile ]
 then
     (cd dbdb; make clean)

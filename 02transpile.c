@@ -2879,7 +2879,7 @@ static void write_source_file_position_to_source(struct sInfo*  info  )
     void* __right_value2 = (void*)0;
     if(gComeOriginalSourcePosition) {
         if(info->writing_source_file_position) {
-            add_come_code(info,((char*)(__right_value2=xsprintf("# \%s \"\%s\"\n",((char* )(__right_value0=int_to_string(info->sline))),((char* )(__right_value1=string_to_string(info->sname)))))));
+            add_come_code_no_indent(info,((char*)(__right_value2=xsprintf("#line \%s \"\%s\"\n",((char* )(__right_value0=int_to_string(info->sline))),((char* )(__right_value1=string_to_string(info->sname)))))));
             (__right_value0 = come_decrement_ref_count(__right_value0, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 117, 9));
             (__right_value1 = come_decrement_ref_count(__right_value1, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 117, 10));
             (__right_value2 = come_decrement_ref_count(__right_value2, (void*)0, (void*)0, 1, 0, (void*)0, "02transpile.nc", 117, 11));
@@ -4682,6 +4682,10 @@ int come_main(int argc, char** argv)
         ext_name=(char* )come_increment_ref_count(xextname(argv[i]), "02transpile.nc", 497, 427);
         if(charp_operator_equals(argv[i],"-cg")) {
             gComeDebug=(_Bool)1;
+            gComeOriginalSourcePosition=(_Bool)1;
+        }
+        else if(charp_operator_equals(argv[i],"-g")) {
+            gComeOriginalSourcePosition=(_Bool)1;
         }
         else if(charp_operator_equals(argv[i],"-uniq")) {
             gComeUniq=(_Bool)1;
@@ -6037,4 +6041,3 @@ static void list$1CVALUE$ph_finalize(struct list$1CVALUE$ph* self)
     }
             neo_current_frame = fr.prev;
 }
-

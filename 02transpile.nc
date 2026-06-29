@@ -114,7 +114,7 @@ static void write_source_file_position_to_source(sInfo* info=info)
 {
     if(gComeOriginalSourcePosition) {
         if(info.writing_source_file_position) {
-            add_come_code(info, s"# \{info->sline} \"\{info->sname}\"\n");
+            add_come_code_no_indent(info, s"#line \{info->sline} \"\{info->sname}\"\n");
             info.writing_source_file_position = false;
         }
     }
@@ -432,6 +432,10 @@ static void init_classes(sInfo* info)
         
         if(argv[i] === "-cg") {
             gComeDebug = true;
+            gComeOriginalSourcePosition = true;
+        }
+        else if(argv[i] === "-g") {
+            gComeOriginalSourcePosition = true;
         }
         else if(argv[i] === "-uniq") {
             gComeUniq = true; // output uniq function to the source

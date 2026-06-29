@@ -34,7 +34,7 @@ TEST_FAIL_VANISHED := \
 
 TEST_FAIL_SPAN_RANGE :=
 
-.PHONY: all test test-memleak-stacktrace test-micro8 test-micro16 test-micro32 test-micro-ram8k clean
+.PHONY: all test test-native-backtrace test-memleak-stacktrace test-micro8 test-micro16 test-micro32 test-micro-ram8k clean
 
 all: test
 
@@ -111,6 +111,18 @@ test-memleak-stacktrace:
 	grep -q 'leak_from_helper,' memleak_stacktrace.out
 	rm -f memleak_stacktrace memleak_stacktrace.c memleak_stacktrace.nc.i memleak_stacktrace.out
 	@echo "memory leak stacktrace option tests passed"
+
+test-native-backtrace:
+	$(NEOC) $(NFLAGS) -g -S native_backtrace_panic.nc
+	$(HOST_CC) -std=gnu11 -g -O0 -rdynamic native_backtrace_panic.c -o native_backtrace_panic
+	@if ./native_backtrace_panic panic > native_backtrace_panic.out 2>&1; then \
+		echo "native_backtrace_panic should fail but succeeded"; \
+		exit 1; \
+	fi
+	grep -q 'native backtrace:' native_backtrace_panic.out
+	grep -Eq 'native_backtrace_panic.nc:[0-9]+' native_backtrace_panic.out
+	rm -f native_backtrace_panic native_backtrace_panic.c native_backtrace_panic.nc.i native_backtrace_panic.out
+	@echo "native backtrace tests passed"
 
 test-micro32:
 	$(NEOC) $(NFLAGS) -micro32 -S micro32_smoke.nc

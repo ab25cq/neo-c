@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.28
+version 1.0.3.29
 
 neo-c supports freestanding 16-bit and 8-bit microcontroller targets through
 `-micro16` and `-micro8`. The generated C uses a 16-bit pointer/`int` ABI with
@@ -689,13 +689,52 @@ For `vasprintf`, x86 and x86_64 keep a larger temporary stack buffer for self-ho
 
 `vasprintf`は、x86/x86_64ではセルフホストのコード生成向けに大きめの一時スタックバッファを使います。それ以外のアーキテクチャでは、Picoのような小さいbare-metal環境でスタック消費を抑えるため小さいバッファを使います。
 
-To install a vi clone called vin, a string processing interpreter called zed, a console filer called mf, and an original shell called shsh, do the following:
+To install a vi clone called vin, a string processing interpreter called zed,
+a console filer called mf, an original shell called shsh, and the neo-c package
+manager cpm, do the following:
 
-vinというviクローン、zedという文字列処理インタプリタ、mfというコンソールファイラ、shshというオリジナルのシェルをインストールするには以下のようにします。
+vinというviクローン、zedという文字列処理インタプリタ、mfというコンソールファイラ、
+shshというオリジナルのシェル、neo-c用パッケージマネージャーcpmを
+インストールするには以下のようにします。
 
 ```
 sh all_build.sh
 ```
+
+## cpm package manager
+
+`cpm` is a small Cargo-like package manager for neo-c projects. It was ported
+from the `../c-` package manager and uses `Neo.toml` plus `.nc` sources.
+
+```sh
+cpm new hello
+cd hello
+cpm build
+cpm run
+cpm test
+cpm val
+cpm leak
+cpm clean
+```
+
+`cpm new hello` creates `Neo.toml`, `lib/`, `src/main.nc`, and `.gitignore`.
+`lib/` contains project-local copies of `neo-c.h`, `neo-c-str.nc`,
+`neo-c-str.h`, `neo-c-libc.h`, `neo-c-net.h`, and `neo-c-pthread.h`.
+`cpm build` compiles `lib/neo-c-str.nc` into `target/debug/neo-c-str.o` and
+links that project-local object.
+`cpm build` compiles every `.nc` file under `src` to objects under
+`target/debug`, then links `target/debug/<package-name>` with `neo-c`.
+Set `CPM_NEOC=/path/to/neo-c` to use a specific compiler binary. Set
+`CPM_STDLIB_DIR=/path/to/neo-c` if `cpm new` cannot find the standard library
+sources.
+
+`make install` installs only `neo-c`, `ncc`, and `cpm` under `DESTDIR/bin`.
+The neo-c standard library is not installed under `/usr/local/include` or
+`/usr/local/lib`; new `cpm` projects carry their own copies under `lib/`.
+
+`cpm`は`../c-`のパッケージマネージャーをneo-c向けに移植したものです。
+`Neo.toml`と`src/*.nc`を使い、`build`、`run`、`test`、`val`、`leak`、
+`clean`を提供します。
 
 to build fastest binary
 
@@ -714,6 +753,7 @@ See [/home/ab25cq/neo-c/webweb/README.md](/home/ab25cq/neo-c/webweb/README.md) f
 # Histories
 
 ```
+1.0.3.29 Ported the `../c-` package manager as `cpm` for neo-c projects. `cpm` now creates `Neo.toml`/`lib`/`src/main.nc`, copies the neo-c standard library source into each project, builds `lib/neo-c-str.nc` into `target/debug/neo-c-str.o`, builds all `.nc` files under `src` with `neo-c`, supports `new`, `init`, `build`, `run`, `test`, `val`, `leak`, and `clean`, and is included in `all_build.sh`. `make install` now installs only `neo-c`, `ncc`, and `cpm`; standard library headers and objects are no longer installed to `/usr/local/include` or `/usr/local/lib`. Linux/macOS libc builds now use `execinfo` native backtraces on panic, and `neo-c -g` keeps debug info plus `.nc` `#line` mappings for source file and line output.
 1.0.3.28 Added `-memleak-stacktrace` as an optional allocation-call-stack mode while keeping leak detection enabled by default. Reduced `vector` growth to 1.5x and standardized `map` growth to 2x, then documented the `-micro-ram8k` profile and added `minux16`, which runs `vector`/`list`/`map` on an emulated 8KB-SRAM ATmega640.
 1.0.3.27 Added `minux15`, a PIC16F877A target test. neo-c generates freestanding C with `-micro`, SDCC and gputils produce a real PIC Intel HEX image, and the neo-c-written PIC16 emulator verifies `HELLO WORLD` through the emulated `TXREG`. Documented why PIC uses `-micro` instead of `-micro8`: SDCC generic pointers are three bytes because they encode the Harvard address space. Added PIC startup code, target-specific UART glue, banked file-register handling, and an eight-level hardware return stack model.
 1.0.3.26 Added `-micro16` and `-micro8` freestanding target modes. `-micro16` supports a 16-bit pointer/`int` ABI with a 32-bit `long`; `-micro8` uses the same C ABI while reducing the default heap and formatting stack buffers for 8-bit CPUs. Added AVR, MSP430, and Z80 Hello World execution tests in `minux12`, `minux13`, and `minux14`. `minux14` also includes an ncurses 40x24 full-screen MSX-BASIC-style IDE with `LOCATE`, compound statements, line editing, history, and function keys.
@@ -3434,6 +3474,14 @@ main
 ```
 
 stackframe always enabled from version 0.8.7.0.
+
+On Linux and macOS normal libc builds, panic paths use the native
+`execinfo` backtrace first. Build with `-g` to keep debug information and
+emit `#line` mappings, so panic output can show `.nc` source file names and
+line numbers. Without `-g`, or after stripping, the output falls back to
+function names and addresses. `-bare`, `-micro`, and other freestanding
+targets keep the lightweight neo-c stackframe chain and do not depend on
+`execinfo`.
 
 # Template
 
