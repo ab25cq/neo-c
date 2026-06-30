@@ -52,6 +52,16 @@ run_sudo_make() {
     fi
 }
 
+build_cpm_managed_ncc() {
+    if test "$lowmem" = 1
+    then
+        echo "lowmem: build cpm itself, skip cpm-managed ncc verification"
+        run_make cpm/cpm || exit 1
+    else
+        run_make cpm-build-ncc || exit 1
+    fi
+}
+
 bare_generated_self_host_sources() {
     test -f 01main.c && grep '^#define __BAREMETAL__ 1$' 01main.c >/dev/null 2>&1
 }
@@ -74,18 +84,18 @@ touch *.c
 
 if uname -a | grep Android
 then
-    run_make DESTDIR=$HOME CFLAGS_OPT="-D__ANDROID__=1" && run_make DESTDIR=$HOME install
+    run_make DESTDIR=$HOME CFLAGS_OPT="-D__ANDROID__=1" && build_cpm_managed_ncc && run_make DESTDIR=$HOME install
 elif test -f /proc/device-tree/model && cat /proc/device-tree/model | grep "Raspberry Pi"
 then
     if getconf LONG_BIT | grep 32
     then
-        run_make CFLAGS_OPT="-D__LINUX__=1 -D__32BIT_CPU__=1" && run_sudo_make install
+        run_make CFLAGS_OPT="-D__LINUX__=1 -D__32BIT_CPU__=1" && build_cpm_managed_ncc && run_sudo_make install
     else
-        run_make CFLAGS_OPT="-D__LINUX__=1" && run_sudo_make install
+        run_make CFLAGS_OPT="-D__LINUX__=1" && build_cpm_managed_ncc && run_sudo_make install
     fi
 elif uname -a | grep Darwin
 then
-    run_make CFLAGS_OPT="-D__MAC__=1" && run_sudo_make install
+    run_make CFLAGS_OPT="-D__MAC__=1" && build_cpm_managed_ncc && run_sudo_make install
 else
-    run_make CFLAGS_OPT="-D__LINUX__=1" && run_sudo_make install
+    run_make CFLAGS_OPT="-D__LINUX__=1" && build_cpm_managed_ncc && run_sudo_make install
 fi

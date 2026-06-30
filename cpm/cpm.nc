@@ -176,6 +176,48 @@ static void copy_file(const char* src, const char* dst)
     }
 }
 
+static int backup_generated_file(const char* generated, char* backup, size_t backup_size)
+{
+    const char* base;
+    if(!file_exists(generated)) {
+        backup[0] = '\0';
+        return 0;
+    }
+    base = base_name(generated);
+    snprintf(backup, backup_size, "target/debug/.cpm-save-%s", base);
+    if(strlen(backup) >= backup_size - 1) {
+        die("cpm: backup path too long");
+    }
+    unlink(backup);
+    if(rename(generated, backup) != 0) {
+        die_errno(generated);
+    }
+    return 1;
+}
+
+static void restore_generated_file(const char* generated, const char* backup)
+{
+    if(backup[0] == '\0') {
+        return;
+    }
+    unlink(generated);
+    if(rename(backup, generated) != 0) {
+        die_errno(backup);
+    }
+}
+
+static int move_generated_file(const char* generated, const char* dest, const char* backup)
+{
+    unlink(dest);
+    if(rename(generated, dest) != 0) {
+        restore_generated_file(generated, backup);
+        perror(generated);
+        return 1;
+    }
+    restore_generated_file(generated, backup);
+    return 0;
+}
+
 static void join_path(char* out, size_t out_size, const char* dir, const char* name)
 {
     if(dir[0] == '\0') {
@@ -280,6 +322,8 @@ static int find_stdlib_dir(char* out, size_t out_size)
         "..",
         "../..",
         "/usr/local/include",
+        "/usr/local/share/neo-c",
+        "/usr/local/share/neo-c/neo-c",
         NULL
     };
     int i;
@@ -648,6 +692,11 @@ static void generated_c_basename(char* out, size_t out_size, const char* src)
     }
 }
 
+static int is_runtime_source(const char* src)
+{
+    return strcmp(base_name(src), "neo-c-str.nc") == 0;
+}
+
 static void generated_c_path(char* out, size_t out_size, const char* obj_path)
 {
     size_t len;
@@ -679,6 +728,17 @@ static void append_object_paths(char* cmd, size_t cmd_size, struct SourceList* s
         strcat(cmd, " ");
         strcat(cmd, q_obj);
     }
+}
+
+static int source_list_has_runtime(struct SourceList* sources)
+{
+    int i;
+    for(i = 0; i < sources->count; i++) {
+        if(is_runtime_source(sources->path[i])) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 static int cmd_bare_build_with_flags(const char* extra_flags, int optimize,
@@ -867,32 +927,57 @@ static int cmd_build_with_flags(const char* extra_flags, int optimize)
     }
 
     if(file_exists("lib/neo-c-str.nc")) {
+        char runtime_c_path[PATH_MAX_LEN];
+        char runtime_backup_path[PATH_MAX_LEN];
         char q_runtime_src[PATH_MAX_LEN * 2];
         char q_runtime_obj[PATH_MAX_LEN * 2];
         shell_quote(q_runtime_src, sizeof(q_runtime_src), "lib/neo-c-str.nc");
         shell_quote(q_runtime_obj, sizeof(q_runtime_obj), "target/debug/neo-c-str.o");
+        strcpy(runtime_c_path, "target/debug/neo-c-str.c");
+        backup_generated_file("neo-c-str.c", runtime_backup_path, sizeof(runtime_backup_path));
         snprintf(cmd, sizeof(cmd), "%s %s %s %s -c -uniq %s -o %s",
             q_neoc, m.neoc_flags, extra_flags == NULL ? "" : extra_flags,
             optimize ? DEFAULT_SIZE_FLAGS : "", q_runtime_src, q_runtime_obj);
         if(run_cmd(cmd) != 0) {
+            restore_generated_file("neo-c-str.c", runtime_backup_path);
             return 1;
         }
-        unlink("neo-c-str.c");
+        if(move_generated_file("neo-c-str.c", runtime_c_path, runtime_backup_path) != 0) {
+            return 1;
+        }
     }
 
     for(i = 0; i < sources.count; i++) {
         char obj_path_buf[PATH_MAX_LEN];
+        char generated_base[PATH_MAX_LEN];
+        char c_path_buf[PATH_MAX_LEN];
+        char backup_path[PATH_MAX_LEN];
         char q_src[PATH_MAX_LEN * 2];
         char q_obj[PATH_MAX_LEN * 2];
 
         object_path(obj_path_buf, sizeof(obj_path_buf), sources.path[i], &m);
+        generated_c_basename(generated_base, sizeof(generated_base), sources.path[i]);
+        generated_c_path(c_path_buf, sizeof(c_path_buf), obj_path_buf);
         ensure_parent_dir(obj_path_buf);
+        ensure_parent_dir(c_path_buf);
         shell_quote(q_src, sizeof(q_src), sources.path[i]);
         shell_quote(q_obj, sizeof(q_obj), obj_path_buf);
-        snprintf(cmd, sizeof(cmd), "%s %s %s %s -c %s -o %s",
-            q_neoc, m.neoc_flags, extra_flags == NULL ? "" : extra_flags,
-            optimize ? DEFAULT_SIZE_FLAGS : "", q_src, q_obj);
+        backup_generated_file(generated_base, backup_path, sizeof(backup_path));
+        if(is_runtime_source(sources.path[i])) {
+            snprintf(cmd, sizeof(cmd), "%s %s %s %s -c -uniq %s -o %s",
+                q_neoc, m.neoc_flags, extra_flags == NULL ? "" : extra_flags,
+                optimize ? DEFAULT_SIZE_FLAGS : "", q_src, q_obj);
+        }
+        else {
+            snprintf(cmd, sizeof(cmd), "%s %s %s %s -c %s -o %s",
+                q_neoc, m.neoc_flags, extra_flags == NULL ? "" : extra_flags,
+                optimize ? DEFAULT_SIZE_FLAGS : "", q_src, q_obj);
+        }
         if(run_cmd(cmd) != 0) {
+            restore_generated_file(generated_base, backup_path);
+            return 1;
+        }
+        if(move_generated_file(generated_base, c_path_buf, backup_path) != 0) {
             return 1;
         }
     }
@@ -903,7 +988,7 @@ static int cmd_build_with_flags(const char* extra_flags, int optimize)
         q_neoc, m.neoc_flags, extra_flags == NULL ? "" : extra_flags,
         optimize ? DEFAULT_SIZE_FLAGS : "", q_out);
     append_object_paths(cmd, sizeof(cmd), &sources, &m);
-    if(file_exists("target/debug/neo-c-str.o")) {
+    if(file_exists("target/debug/neo-c-str.o") && !source_list_has_runtime(&sources)) {
         char q_lib[PATH_MAX_LEN * 2];
         shell_quote(q_lib, sizeof(q_lib), "target/debug/neo-c-str.o");
         if(strlen(cmd) + strlen(q_lib) + 2 >= sizeof(cmd)) {

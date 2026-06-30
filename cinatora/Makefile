@@ -1,85 +1,32 @@
-#########################################
-# istalled directories
-#########################################
-exec_prefix=${prefix}
-bindir=${exec_prefix}/bin
-datadir=${datarootdir}
-mandir=${datarootdir}/man
-sharedstatedir=${prefix}/cinatora
-sysconfdir=${prefix}/etc/cinatora
-includedir=${prefix}/include/cinatora
-datarootdir=${prefix}/share/cinatora
-docdir=${datarootdir}/doc
-libdir=${exec_prefix}/lib
+CPM ?= cpm
+DESTDIR ?= /usr/local
 
-#########################################
-# environmnet variables
-#########################################
-CC=neo-c
-INSTALL=install
-CFLAGS= -I. -O2
-CFLAGS_DEBUG= -I. -gdwarf-4 -cg
-LIBS=-lpcre
-OS=linux
-DESTDIR=/usr/local/
-SRCS=$(wildcard *.nc)
-SINGLE_SRCS=$(filter-out %.c, $(SRCS))
-OBJS=$(SINGLE_SRCS:.nc=.o)
-DEBUG_OBJS=$(SINGLE_SRCS:.nc=.debug.o)
-TARGET=cinatora
-TARGET_DEBUG=cinatora-debug
+.PHONY: all build install clean uninstall run compile debug
 
-#########################################
-# main
-#########################################
-all: $(TARGET)
+all: build
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+build:
+	$(CPM) build
 
-$(TARGET_DEBUG): $(DEBUG_OBJS)
-	$(CC) $(CFLAGS_DEBUG) $^ -o $@
-
-%.o: %.nc
-	$(CC) $(CFLAGS) -c $< -o $@
-
-%.debug.o: %.nc
-	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
-
-#########################################
-# header
-#########################################
-
-#########################################
-# install
-#########################################
-install:
-	mkdir -p "$(DESTDIR)/bin"
-	$(INSTALL) -m 755 ./cinatora "$(DESTDIR)/bin"
-	mkdir -p "$(DESTDIR)/include"
-	mkdir -p "$(DESTDIR)/lib"
+install: build
+	DESTDIR="$(DESTDIR)" $(CPM) install
 	mkdir -p "$(DESTDIR)/share/doc/cinatora"
-	$(INSTALL) -m 644 README.md "$(DESTDIR)/share/doc/cinatora/README.md"
+	@if [ -f README.md ]; then install -m 644 README.md "$(DESTDIR)/share/doc/cinatora/README.md"; fi
 
-#########################################
-# clean
-#########################################
 clean:
-	rm -fR *.o *.nc.i *.c.error *.c cinatora *.log *.out cinatora-debug
+	$(CPM) clean
+	rm -f *.log *.out
 
-#########################################
-# uninstall
-#########################################
 uninstall:
-	rm -f "$(DESTDIR)"/bin/cinatora
+	rm -f "$(DESTDIR)/bin/cinatora"
 	rm -f "$(DESTDIR)/share/doc/cinatora/README.md"
 
-run: cinatora
+run: build
 	rm -f *.log
-	./cinatora
+	./target/debug/cinatora
 
-compile: cinatora
+compile: build
 
-debug: cinatora-debug
+debug: build
 	rm -f *.log
-	./cinatora-debug
+	./target/debug/cinatora

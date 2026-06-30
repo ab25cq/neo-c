@@ -93,17 +93,17 @@ fi
 
 if [ -e zed/Makefile ]
 then
-    (cd zed; make clean)
+    (cd zed; cpm clean)
 fi
 
 if [ -e mf/Makefile ]
 then
-    (cd mf; make clean)
+    (cd mf; cpm clean)
 fi
 
 if [ -e shsh/Makefile ]
 then
-    (cd shsh; make clean)
+    (cd shsh; cpm clean)
 fi
 
 if [ -e cpm/Makefile ]

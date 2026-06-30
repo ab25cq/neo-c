@@ -24,7 +24,11 @@ test: cpm
 	test -f /tmp/neo-cpm-test/hello/lib/neo-c.h
 	test -f /tmp/neo-cpm-test/hello/lib/neo-c-str.nc
 	cd /tmp/neo-cpm-test/hello && CPM_NEOC="$(NEOC_BIN)" "$(CPM_BIN)" build
+	test -f /tmp/neo-cpm-test/hello/target/debug/hello.c
+	test -f /tmp/neo-cpm-test/hello/target/debug/neo-c-str.c
 	test -f /tmp/neo-cpm-test/hello/target/debug/neo-c-str.o
+	test ! -f /tmp/neo-cpm-test/hello/main.c
+	test ! -f /tmp/neo-cpm-test/hello/neo-c-str.c
 	cd /tmp/neo-cpm-test/hello && ./target/debug/hello > test.out
 	grep -q '^Hello from neo-c cpm$$' /tmp/neo-cpm-test/hello/test.out
 

@@ -607,11 +607,11 @@ make test-neoc-hello
 
 # インストール
 
-sh clean-self-host.sh will automatically install the necessary packages.
+sh fast_build.sh will automatically install the necessary packages.
 
 Supports Linux, MacOS (Darwin), raspberry pi, and baremetal.
 
-sh clean-self-host.shとすると自動的に必要なパッケージがインストールされます。
+sh fast_build.shとすると自動的に必要なパッケージがインストールされます。
 
 LinuxとMacOS(Darwin), raspberry pi, ベアメタルをサポートしています。
 
@@ -626,10 +626,19 @@ Please install sudo and git before the build.
 ``` 
 git clone https://github.com/ab25cq/neo-c
 cd neo-c
-sh clean-self-host.sh
+sh fast_build.sh
 ```
 
-`clean-self-host.sh`, `self-host.sh`, and `fast_build.sh` use parallel build by default.
+`clean-build.sh` and `clean-self-host.sh` have been removed. Use
+`fast_build.sh` for the normal install path, `make clean && sh fast_build.sh`
+when you want to rebuild from a clean tree, or `cpm` for package-style project
+builds.
+
+`self-host.sh` and `fast_build.sh` use parallel build by default.
+`fast_build.sh` also builds `target/debug/ncc` through cpm before install, so
+the cpm-managed compiler path is checked during normal install workflows. With
+`-lowmem`, it builds `cpm` itself but skips the extra cpm-managed `ncc`
+verification to keep memory use down.
 
 If you don't have enough memory, you can use below to install neo-c.
 
@@ -639,10 +648,18 @@ cd neo-c
 sh fast_build.sh -lowmem
 ```
 
+`clean-build.sh` と `clean-self-host.sh` は削除されました。通常の install
+には `fast_build.sh`、clean してからビルドしたい場合は
+`make clean && sh fast_build.sh`、プロジェクト単位のビルドには `cpm` を
+使ってください。
+
 If you pass `-lowmem`, the build scripts enable low-memory mode and disable parallel build.
 With `-lowmem`, neo-c can build even on systems with 512MB of memory.
 
-`clean-self-host.sh` と `self-host.sh` と `fast_build.sh` はデフォルトで並列ビルドします。
+`self-host.sh` と `fast_build.sh` はデフォルトで並列ビルドします。
+`fast_build.sh` は install 前に cpm 経由の `target/debug/ncc` もビルドして、
+cpm 管理のコンパイラ経路も確認します。`-lowmem` の場合はメモリ消費を
+抑えるため、`cpm` 本体だけをビルドし、追加の cpm 経由 `ncc` 検証は省略します。
 
 `-lowmem` を付けると low-memory mode を有効にし、並列ビルドを無効にします。
 `-lowmem` を使うと、512MBのメモリを持つシステムでもneo-cをビルドできます。
@@ -659,7 +676,6 @@ You can also enable it for project builds:
 LOWMEM=1 make -j1 self-host
 sh self-host.sh -lowmem
 sh fast_build.sh -lowmem
-sh clean-self-host.sh -lowmem
 ```
 
 ## libc-free self-host
@@ -671,10 +687,10 @@ make BARE=1 self-host
 make BARE=1 ncc
 ```
 
-You can also run the packaged script after a normal clean self-host build:
+You can also run the packaged script after a normal install build:
 
 ```sh
-sh clean-self-host.sh
+sh fast_build.sh
 sh bare-self-host.sh
 ```
 
@@ -687,10 +703,10 @@ make BARE=1 self-host
 make BARE=1 ncc
 ```
 
-通常のクリーンセルフホスト後に、同梱スクリプトでも実行できます。
+通常の install ビルド後に、同梱スクリプトでも実行できます。
 
 ```sh
-sh clean-self-host.sh
+sh fast_build.sh
 sh bare-self-host.sh
 ```
 
@@ -731,20 +747,48 @@ cpm clean
 `cpm new hello` creates `Neo.toml`, `lib/`, `src/main.nc`, and `.gitignore`.
 `lib/` contains project-local copies of `neo-c.h`, `neo-c-str.nc`,
 `neo-c-str.h`, `neo-c-libc.h`, `neo-c-net.h`, and `neo-c-pthread.h`.
-`cpm build` compiles `lib/neo-c-str.nc` into `target/debug/neo-c-str.o` and
-links that project-local object.
-`cpm build` compiles every `.nc` file under `src` to objects under
-`target/debug`, then links `target/debug/<package-name>` with `neo-c`.
+`cpm build` compiles `lib/neo-c-str.nc` into `target/debug/neo-c-str.c` and
+`target/debug/neo-c-str.o`, then links that project-local object.
+`cpm build` compiles every `.nc` file under `src` to generated C and objects
+under `target/debug`, then links `target/debug/<package-name>` with `neo-c`.
 Legacy source layouts can set `sources = "src/main.nc src/file1.nc"` in `Neo.toml` to
 build an explicit ordered source list. `cpm install` installs the built binary
 to `$DESTDIR/bin`, defaulting to `/usr/local/bin`.
+The top-level neo-c compiler now also has `Neo.toml`; run `make cpm-build-ncc`
+or `CPM_NEOC=./neo-c cpm/cpm build` to build `target/debug/ncc` through cpm.
+The existing Makefile remains the bootstrap, self-host, bare, low-memory, and
+PGO build path.
+
+To build this repository with cpm after a normal bootstrap compiler exists:
+
+```sh
+make cpm-build-ncc
+```
+
+The equivalent direct command is:
+
+```sh
+make -C cpm
+CPM_NEOC=./neo-c cpm/cpm build
+```
+
+The cpm build writes generated C, objects, and the compiler binary under
+`target/debug/`; it does not replace the checked-in self-host C sources in the
+repository root.
+
+The bundled `vin`, `zed`, `mf`, `shsh`, `cinatora`, `webweb`, and `webweb/dbdb`
+tools are cpm projects with local `lib/` standard-library snapshots, so their
+generated C and objects are kept under `target/debug`.
 Set `CPM_NEOC=/path/to/neo-c` to use a specific compiler binary. Set
 `CPM_STDLIB_DIR=/path/to/neo-c` if `cpm new` cannot find the standard library
 sources.
 
-`make install` installs only `neo-c`, `ncc`, and `cpm` under `DESTDIR/bin`.
-The neo-c standard library is not installed under `/usr/local/include` or
-`/usr/local/lib`; new `cpm` projects carry their own copies under `lib/`.
+`make install` installs `neo-c`, `ncc`, and `cpm` under `DESTDIR/bin`, and
+installs the project template standard library sources under
+`DESTDIR/share/neo-c`. Header files are also installed under
+`DESTDIR/include` for existing projects that include them directly. Runtime
+objects and `neo-c-str.nc` are not installed under `/usr/local/lib`; new `cpm`
+projects copy their own snapshots from `share/neo-c` into `lib/`.
 
 `cpm`は`../c-`のパッケージマネージャーをneo-c向けに移植したものです。
 `Neo.toml`と`src/*.nc`を使い、`build`、`run`、`test`、`val`、`leak`、
@@ -779,7 +823,7 @@ target/debug/msxide
 # Histories
 
 ```
-1.0.3.29 Ported the `../c-` package manager as `cpm` for neo-c projects. `cpm` now creates `Neo.toml`/`lib`/`src/main.nc`, copies the neo-c standard library source into each project, builds `lib/neo-c-str.nc` into `target/debug/neo-c-str.o`, builds all `.nc` files under `src` with `neo-c`, supports `new`, `init`, `build`, `run`, `test`, `val`, `leak`, `clean`, and `install`, and is included in `all_build.sh`. `cpm` also supports explicit ordered `sources` lists for legacy multi-file layouts, and `vin` now builds and installs through `cpm` with a project-local `lib/` runtime snapshot instead of its old Makefile path. `make install` now installs only `neo-c`, `ncc`, and `cpm`; standard library headers and objects are no longer installed to `/usr/local/include` or `/usr/local/lib`. Linux/macOS libc builds now use `execinfo` native backtraces on panic, and `neo-c -g` keeps debug info plus `.nc` `#line` mappings for source file and line output. Ported the c- `msxide` MSX/Z80 emulator workbench to neo-c with `cpm` build support, ncurses UI, mock BASIC ROM generation, and self/ROM/BASIC/program/list/command/ASM tests. Added `cpm` `bare`, `cc`, `cflags`, `linker`, `linker_flags`, `linker_script`, and `strip_sections` build settings plus a `small` project that builds a 174-byte Linux x86_64 bare ELF with `cpm build`.
+1.0.3.29 Ported the `../c-` package manager as `cpm` for neo-c projects. `cpm` now creates `Neo.toml`/`lib`/`src/main.nc`, copies the neo-c standard library source into each project, builds `lib/neo-c-str.nc` into `target/debug/neo-c-str.o`, builds all `.nc` files under `src` with `neo-c`, supports `new`, `init`, `build`, `run`, `test`, `val`, `leak`, `clean`, and `install`, and is included in `all_build.sh`. `cpm` also supports explicit ordered `sources` lists for legacy multi-file layouts, preserves existing generated C files while moving new generated C under `target/debug`, and builds `neo-c-str.nc` with `-uniq` when it appears in `sources`. The top-level neo-c compiler now has `Neo.toml` and can build `target/debug/ncc` with `make cpm-build-ncc`; `clean-self-host.sh` was removed; `fast_build.sh` runs that cpm-managed compiler build before install, while `-lowmem` skips only the extra cpm `ncc` verification. The existing Makefile remains the bootstrap/self-host/bare/low-memory/PGO path. `vin`, `zed`, `mf`, `shsh`, `cinatora`, `webweb`, and `webweb/dbdb` now build and install through `cpm` with project-local `lib/` runtime snapshots instead of their old Makefile paths. `webweb` keeps its CGI Makefile while the main server, `dbdb`, and `dbdb/client` place generated C, objects, and binaries under `target/debug`. `make install` installs `neo-c`, `ncc`, and `cpm` under `DESTDIR/bin`, installs project template standard library sources under `DESTDIR/share/neo-c`, and installs headers under `DESTDIR/include` for existing projects; runtime objects and `neo-c-str.nc` are still not installed to `/usr/local/lib`. Linux/macOS libc builds now use `execinfo` native backtraces on panic, and `neo-c -g` keeps debug info plus `.nc` `#line` mappings for source file and line output. Ported the c- `msxide` MSX/Z80 emulator workbench to neo-c with `cpm` build support, ncurses UI, mock BASIC ROM generation, and self/ROM/BASIC/program/list/command/ASM tests. Added `cpm` `bare`, `cc`, `cflags`, `linker`, `linker_flags`, `linker_script`, and `strip_sections` build settings plus a `small` project that builds a 174-byte Linux x86_64 bare ELF with `cpm build`.
 1.0.3.28 Added `-memleak-stacktrace` as an optional allocation-call-stack mode while keeping leak detection enabled by default. Reduced `vector` growth to 1.5x and standardized `map` growth to 2x, then documented the `-micro-ram8k` profile and added `minux16`, which runs `vector`/`list`/`map` on an emulated 8KB-SRAM ATmega640.
 1.0.3.27 Added `minux15`, a PIC16F877A target test. neo-c generates freestanding C with `-micro`, SDCC and gputils produce a real PIC Intel HEX image, and the neo-c-written PIC16 emulator verifies `HELLO WORLD` through the emulated `TXREG`. Documented why PIC uses `-micro` instead of `-micro8`: SDCC generic pointers are three bytes because they encode the Harvard address space. Added PIC startup code, target-specific UART glue, banked file-register handling, and an eight-level hardware return stack model.
 1.0.3.26 Added `-micro16` and `-micro8` freestanding target modes. `-micro16` supports a 16-bit pointer/`int` ABI with a 32-bit `long`; `-micro8` uses the same C ABI while reducing the default heap and formatting stack buffers for 8-bit CPUs. Added AVR, MSP430, and Z80 Hello World execution tests in `minux12`, `minux13`, and `minux14`. `minux14` also includes an ncurses 40x24 full-screen MSX-BASIC-style IDE with `LOCATE`, compound statements, line editing, history, and function keys.
@@ -3908,9 +3952,9 @@ for(var it = server.begin(); !server.end(); it = server.next()) {
 }
 ```
 
-`webweb/main.nc` uses this same style for both HTTP and HTTPS servers.
+`webweb/src/main.nc` uses this same style for both HTTP and HTTPS servers.
 
-`webweb/main.nc` でも HTTP/HTTPS の両方でこの形を使っています。
+`webweb/src/main.nc` でも HTTP/HTTPS の両方でこの形を使っています。
 
 ## neo-c-net.h manual
 

@@ -1,82 +1,20 @@
-#########################################
-# istalled directories
-#########################################
-prefix=/usr/local/
-exec_prefix=${prefix}
-bindir=${exec_prefix}/bin
-datadir=${datarootdir}
-mandir=${datarootdir}/man
-sharedstatedir=${prefix}/mf
-sysconfdir=${prefix}/etc/mf
-includedir=${prefix}/include/mf
-datarootdir=${prefix}/share/mf
-docdir=${datarootdir}/doc
-libdir=${exec_prefix}/lib
+CPM ?= cpm
+DESTDIR ?= /usr/local
 
-#########################################
-# environmnet variables
-#########################################
-CC=neo-c
-INSTALL=install
-CFLAGS=-O2 #-Og -g
-CFLAGS_DEBUG=-Og -g #-gdwarf-4 -cg 
-LIBS=
-OS=linux
-DESTDIR=/usr/local/
-SRCS=$(wildcard *.nc)
-SINGLE_SRCS=$(filter-out %.c, $(SRCS))
-OBJS=$(SINGLE_SRCS:.nc=.o)
-DEBUG_OBJS=$(SINGLE_SRCS:.nc=.debug.o)
-TARGET=mf
-TARGET_DEBUG=mf-debug
+.PHONY: all build install clean run test
 
-#########################################
-# main
-#########################################
-all: $(TARGET)
+all: build
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o mf main.nc -lncursesw -lreadline 
+build:
+	$(CPM) build
 
-$(TARGET_DEBUG): $(DEBUG_OBJS)
-	$(CC) $(CFLAGS_DEBUG) $^ -o $@ -lncursesw -lreadline 
+install: build
+	DESTDIR="$(DESTDIR)" $(CPM) install
 
-%.o: %.nc
-	$(CC) $(CFLAGS) -c $< -o $@
-
-%.debug.o: %.c
-	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
-
-#########################################
-# install
-#########################################
-install:
-	mkdir -p "$(DESTDIR)/bin"
-	$(INSTALL) -m 755 ./mf "$(DESTDIR)/bin"
-	mkdir -p "$(DESTDIR)/include"
-	mkdir -p "$(DESTDIR)/lib"
-	mkdir -p "$(DESTDIR)/share/doc/mf"
-	$(INSTALL) -m 644 README.md "$(DESTDIR)/share/doc/mf/README.md"
-
-#########################################
-# clean
-#########################################
 clean:
-	rm -fR *.error *.o *.c.i *.c.out *.c.c mf *.log *.out mf-debug tmp-common*.txt tmp-common-header*
+	$(CPM) clean
 
-#########################################
-# uninstall
-#########################################
-uninstall:
-	rm -f "$(DESTDIR)"/bin/mf
-	rm -f "$(DESTDIR)/share/doc/mf/README.md"
+run:
+	$(CPM) run
 
-run: mf
-	rm -f *.log
-	./mf
-
-compile: mf
-
-debug: mf-debug
-	rm -f *.log
-	./mf-debug
+test: build

@@ -1,0 +1,12 @@
+[package]
+name = "zed"
+version = "1.0.0"
+
+[build]
+src = "src/main.nc"
+sources = "src/00main.nc src/01int.nc src/02op.nc src/03op2.nc src/04str.nc src/05list.nc src/06regex.nc src/07var.nc src/08if.nc src/09loop.nc src/10print.nc src/11fun.nc src/12fun2.nc src/13fun3.nc src/main.nc"
+out = "target/debug/zed"
+neoc = "neo-c"
+neoc_flags = "-I. -Ilib"
+ldflags = ""
+strip = true

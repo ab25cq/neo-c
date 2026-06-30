@@ -42,8 +42,10 @@ GC_SECTIONS?=1
 ALLOCATOR?=system
 BARE?=0
 NCC_EXTRA_DEPS=neo-c-str.o
+NEO_C_STDLIB_FILES=neo-c.h neo-c-str.nc neo-c-str.h neo-c-libc.h neo-c-net.h neo-c-pthread.h
+NEO_C_HEADER_FILES=neo-c.h neo-c-str.h neo-c-libc.h neo-c-net.h neo-c-pthread.h
 PGO_TRAINING_DIRS?=. code code2 code4 mytest vin mf shsh zed webweb minux2 cinatora
-.PHONY: all self-host install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt pgo-cs-generate pgo-cs-collect pgo-cs-use
+.PHONY: all self-host cpm-build-ncc cpm-run-ncc install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt pgo-cs-generate pgo-cs-collect pgo-cs-use
 ifeq ($(LOWMEM),1)
 CFLAGS_DEFAULT_OPT=
 NCC_FLAGS+=-lowmem
@@ -91,6 +93,15 @@ endif
 # main
 #########################################
 all: ncc
+
+cpm/cpm:
+	$(MAKE) -C cpm
+
+cpm-build-ncc: cpm/cpm
+	CPM_NEOC=./neo-c cpm/cpm build
+
+cpm-run-ncc: cpm-build-ncc
+	target/debug/ncc
 
 #########################################
 # make c source
@@ -443,8 +454,16 @@ ccpp.o: ccpp.c ccpp_body.h
 #########################################
 install:
 	mkdir -p "$(DESTDIR)/bin"
+	mkdir -p "$(DESTDIR)/share/neo-c"
+	mkdir -p "$(DESTDIR)/include"
 	$(INSTALL) -m 755 ./neo-c "$(DESTDIR)/bin"
 	$(INSTALL) -m 755 ./ncc "$(DESTDIR)/bin"
+	@for f in $(NEO_C_STDLIB_FILES); do \
+		$(INSTALL) -m 644 "$$f" "$(DESTDIR)/share/neo-c/$$f"; \
+	done
+	@for f in $(NEO_C_HEADER_FILES); do \
+		$(INSTALL) -m 644 "$$f" "$(DESTDIR)/include/$$f"; \
+	done
 	$(MAKE) -C cpm install DESTDIR="$(DESTDIR)"
 
 #########################################
@@ -452,7 +471,7 @@ install:
 #########################################
 clean:
 	rm -f neo-c-str.o self-host
-	rm -fR ncc *.log *.o *.i *.out a a.c b b.c c c.c *.valgrind aa aaa a.out *.error *.profraw *.fdata ncc.inst ncc.fdata
+	rm -fR target ncc *.log *.o *.i *.out a a.c b b.c c c.c *.valgrind aa aaa a.out *.error *.profraw *.fdata ncc.inst ncc.fdata
 	rm -fR mf/mf.dSYM
 	rm -fR shsh/shsh.dSYM
 	rm -fR webweb/dbdb/dbdb.dSYM
@@ -467,6 +486,13 @@ uninstall:
 	rm -f "$(DESTDIR)"/bin/neo-c
 	rm -f "$(DESTDIR)"/bin/ncc
 	rm -f "$(DESTDIR)"/bin/cpm
+	@for f in $(NEO_C_STDLIB_FILES); do \
+		rm -f "$(DESTDIR)/share/neo-c/$$f"; \
+	done
+	@for f in $(NEO_C_HEADER_FILES); do \
+		rm -f "$(DESTDIR)/include/$$f"; \
+	done
+	rmdir "$(DESTDIR)/share/neo-c" 2>/dev/null || true
 
 test:
 	(cd code && make test)

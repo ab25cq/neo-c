@@ -1,0 +1,9 @@
+[package]
+name = "dbdb-client"
+version = "0.1.0"
+
+[build]
+src = "src/main.nc"
+out = "target/debug/dbdb-client"
+neoc_flags = "-I. -Ilib"
+ldflags = "-lssl"

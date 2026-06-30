@@ -1,0 +1,10 @@
+[package]
+name = "cinatora"
+version = "0.1.0"
+
+[build]
+src = "src/00web.nc"
+sources = "src/00web.nc src/01main.nc"
+out = "target/debug/cinatora"
+neoc_flags = "-I. -Ilib"
+ldflags = ""

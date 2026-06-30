@@ -1,0 +1,9 @@
+[package]
+name = "dbdb"
+version = "0.1.0"
+
+[build]
+src = "src/main.nc"
+out = "target/debug/dbdb"
+neoc_flags = "-I. -Ilib"
+ldflags = "-lssl"

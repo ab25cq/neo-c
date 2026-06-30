@@ -109,7 +109,7 @@ typedef char*% string;
     #include <stdbool.h>
     #include <wchar.h>
     #include <stdint.h>
-    #if defined(__linux__) || defined(__APPLE__)
+    #if defined(__NEO_NATIVE_BACKTRACE__) && (defined(__linux__) || defined(__APPLE__))
     #include <execinfo.h>
     #include <dlfcn.h>
     #endif
@@ -203,7 +203,7 @@ uniq _norecord bool neo_frame_is_alive(unsigned long frame_id)
 
 uniq void neo_print_native_backtrace_symbol(void* addr)
 {
-#if (defined(__linux__) || defined(__APPLE__)) && !defined(__BAREMETAL__) && !defined(__NEO_MICRO__)
+#if defined(__NEO_NATIVE_BACKTRACE__) && (defined(__linux__) || defined(__APPLE__)) && !defined(__BAREMETAL__) && !defined(__NEO_MICRO__)
     Dl_info info;
     if(dladdr(addr, &info) && info.dli_fname) {
         char command[2048];
@@ -257,7 +257,7 @@ uniq void neo_print_native_backtrace_symbol(void* addr)
 
 uniq bool neo_print_native_backtrace()
 {
-#if (defined(__linux__) || defined(__APPLE__)) && !defined(__BAREMETAL__) && !defined(__NEO_MICRO__)
+#if defined(__NEO_NATIVE_BACKTRACE__) && (defined(__linux__) || defined(__APPLE__)) && !defined(__BAREMETAL__) && !defined(__NEO_MICRO__)
     void* frames[64];
     int n = backtrace(frames, 64);
     int i;

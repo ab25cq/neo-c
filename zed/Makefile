@@ -1,86 +1,20 @@
-#########################################
-# istalled directories
-#########################################
-prefix=/usr/local/
-exec_prefix=${prefix}
-bindir=${exec_prefix}/bin
-datadir=${datarootdir}
-mandir=${datarootdir}/man
-sharedstatedir=${prefix}/zed
-sysconfdir=${prefix}/etc/zed
-includedir=${prefix}/include/zed
-datarootdir=${prefix}/share/zed
-docdir=${datarootdir}/doc
-libdir=${exec_prefix}/lib
+CPM ?= cpm
+DESTDIR ?= /usr/local
 
-#########################################
-# environmnet variables
-#########################################
-CC=neo-c
-INSTALL=install
-CFLAGS= -O2 #-g -Og #-O1 -fsanitize=address,undefined -fno-omit-frame-pointer
-CFLAGS_DEBUG= -Og -g #-gdwarf-4 -cg 
-LIBS=
-OS=linux
-DESTDIR=/usr/local/
-SRCS=$(wildcard *.nc)
-SINGLE_SRCS=$(filter-out %.c, $(SRCS))
-OBJS=$(SINGLE_SRCS:.nc=.o)
-DEBUG_OBJS=$(SINGLE_SRCS:.nc=.debug.o)
-TARGET=zed
-TARGET_DEBUG=zed-debug
+.PHONY: all build install clean run test
 
-#########################################
-# main
-#########################################
-all: $(TARGET)
+all: build
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+build:
+	$(CPM) build
 
-$(TARGET_DEBUG): $(DEBUG_OBJS)
-	$(CC) $(CFLAGS_DEBUG) $^ -o $@
+install: build
+	DESTDIR="$(DESTDIR)" $(CPM) install
 
-%.o: %.nc
-	$(CC) $(CFLAGS) -c $< -o $@
-
-%.debug.o: %.nc
-	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
-
-#########################################
-# header
-#########################################
-
-#########################################
-# install
-#########################################
-install:
-	mkdir -p "$(DESTDIR)/bin"
-	$(INSTALL) -m 755 ./zed "$(DESTDIR)/bin"
-	mkdir -p "$(DESTDIR)/include"
-	mkdir -p "$(DESTDIR)/lib"
-	mkdir -p "$(DESTDIR)/share/doc/zed"
-	$(INSTALL) -m 644 README.md "$(DESTDIR)/share/doc/zed/README.md"
-
-#########################################
-# clean
-#########################################
 clean:
-	rm -fR *.o *.c.i *.c.out *.c zed *.log *.out zed-debug tmp-common*.txt
+	$(CPM) clean
 
-#########################################
-# uninstall
-#########################################
-uninstall:
-	rm -f "$(DESTDIR)"/bin/zed
-	rm -f "$(DESTDIR)/share/doc/zed/README.md"
+run:
+	$(CPM) run
 
-run: zed
-	rm -f *.log
-	./zed
-
-compile: zed
-
-debug: zed-debug
-	rm -f *.log
-	./zed-debug
+test: build

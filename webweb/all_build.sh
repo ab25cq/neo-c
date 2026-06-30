@@ -4,7 +4,7 @@ set -eu
 pkill dbdb 2>/dev/null || true
 
 (cd dbdb && make all)
-nohup ./dbdb/dbdb > ./dbdb/dbdb.log 2>&1 &
+nohup ./dbdb/target/debug/dbdb > ./dbdb/dbdb.log 2>&1 &
 
 # Wait briefly for dbdb to accept local connections.
 i=0

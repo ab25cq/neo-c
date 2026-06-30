@@ -1,6 +1,6 @@
 if uname -a | grep Android
 then
-    make DESTDIR=$HOME && make DESTDIR=$HOME && make DESTDIR=$HOME install
+    DESTDIR=$HOME cpm install
 else
-    make && sudo make install
+    cpm build && sudo env DESTDIR=/usr/local cpm install
 fi

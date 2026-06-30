@@ -1,0 +1,11 @@
+[package]
+name = "shsh"
+version = "1.0.0"
+
+[build]
+src = "src/main.nc"
+out = "target/debug/shsh"
+neoc = "neo-c"
+neoc_flags = "-I. -Ilib -I/opt/homebrew/opt/readline/include"
+ldflags = "-L/opt/homebrew/opt/readline/lib -lreadline"
+strip = true

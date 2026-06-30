@@ -106,7 +106,7 @@ It is not just a toy HTTP sample. It behaves like a small general-purpose web se
 
 ```text
 webweb/
-  main.nc          main web server
+  src/main.nc      main web server
   index.html       top page
   sub_page*.html   sample static pages
   images/          sample static assets
@@ -127,7 +127,11 @@ make
 
 This creates `webweb2` and also builds the CGI binaries under `cgi-bin/`.
 
-`webweb2` が作られ、`cgi-bin/` のCGIもビルドされます。
+The server binary is written to `target/debug/webweb2`. Generated C and object
+files are also kept under `target/debug` by `cpm`.
+
+`target/debug/webweb2` が作られ、`cgi-bin/` のCGIもビルドされます。
+生成Cとオブジェクトも `cpm` により `target/debug` 以下に置かれます。
 
 ## Quick start
 
@@ -135,7 +139,7 @@ If you want to try `webweb` like a normal local web server, this is the shortest
 
 ```sh
 make
-./webweb2 -http
+./target/debug/webweb2 -http
 ```
 
 Then open:
@@ -148,7 +152,7 @@ Then open:
 
 ```sh
 make
-./webweb2 -http
+./target/debug/webweb2 -http
 ```
 
 そのあと以下を開けば確認できます。
@@ -170,7 +174,7 @@ make run
 or:
 
 ```sh
-./webweb2 -http
+./target/debug/webweb2 -http
 ```
 
 In HTTP mode, `webweb` serves static files and CGI on port `8080`.
@@ -178,7 +182,7 @@ In HTTP mode, `webweb` serves static files and CGI on port `8080`.
 You can choose another port and document root:
 
 ```sh
-./webweb2 -http -port 18080 -root /path/to/site
+./target/debug/webweb2 -http -port 18080 -root /path/to/site
 ```
 
 `-root` also moves virtual hosts under that root, so `Host: example.test` is served from `/path/to/site/vhosts/example.test/`.
@@ -186,7 +190,7 @@ You can choose another port and document root:
 Access logs are written to stdout by default. Use `-access-log` to append them to a file:
 
 ```sh
-./webweb2 -http -port 18080 -root /path/to/site -access-log /var/log/webweb/access.log
+./target/debug/webweb2 -http -port 18080 -root /path/to/site -access-log /var/log/webweb/access.log
 ```
 
 Access logs use Combined Log Format:
@@ -198,13 +202,13 @@ Access logs use Combined Log Format:
 CGI stderr and server error messages are written to stderr by default. Use `-error-log` to append them to a file:
 
 ```sh
-./webweb2 -http -error-log /var/log/webweb/error.log
+./target/debug/webweb2 -http -error-log /var/log/webweb/error.log
 ```
 
 CGI programs are limited to 10 seconds and 1 MiB of stdout by default. You can change those limits from the command line:
 
 ```sh
-./webweb2 -http -cgi-timeout 5 -cgi-output-limit 2097152
+./target/debug/webweb2 -http -cgi-timeout 5 -cgi-output-limit 2097152
 ```
 
 Use `0` to disable either limit.
@@ -212,7 +216,7 @@ Use `0` to disable either limit.
 Use `-cache-control` to add a static-file cache policy:
 
 ```sh
-./webweb2 -http -cache-control "public, max-age=3600"
+./target/debug/webweb2 -http -cache-control "public, max-age=3600"
 ```
 
 Use `off` to disable a configured cache policy.
@@ -220,7 +224,7 @@ Use `off` to disable a configured cache policy.
 別のポートや document root を使う場合は次のように指定できます。
 
 ```sh
-./webweb2 -http -port 18080 -root /path/to/site
+./target/debug/webweb2 -http -port 18080 -root /path/to/site
 ```
 
 `-root` を指定すると、virtual host もその root 配下の `vhosts/<host>/` を見ます。
@@ -259,7 +263,7 @@ error_page_500 errors/server_error.html
 Equivalent command:
 
 ```sh
-./webweb2 -config webweb.conf
+./target/debug/webweb2 -config webweb.conf
 ```
 
 Supported directives:
@@ -290,7 +294,7 @@ Existing paths are resolved with `realpath` before serving or executing them. If
 Directory listing is disabled by default. If you want directories without `index.html` or `index.htm` to show a generated listing, add `-autoindex`:
 
 ```sh
-./webweb2 -http -port 18080 -root /path/to/site -autoindex
+./target/debug/webweb2 -http -port 18080 -root /path/to/site -autoindex
 ```
 
 ディレクトリ一覧はデフォルトでは無効です。`index.html` や `index.htm` が無いディレクトリを一覧表示したい場合だけ `-autoindex` を付けます。
@@ -300,7 +304,7 @@ Directory listing is disabled by default. If you want directories without `index
 Run the HTTPS server using `cert.pem` and `key.pem`:
 
 ```sh
-./webweb2
+./target/debug/webweb2
 ```
 
 By default, HTTPS mode listens on port `443`.
@@ -310,7 +314,7 @@ By default, HTTPS mode listens on port `443`.
 HTTPS mode accepts the same server options:
 
 ```sh
-./webweb2 -https -port 8443 -root /path/to/site
+./target/debug/webweb2 -https -port 8443 -root /path/to/site
 ```
 
 If you want to regenerate the self-signed certificate:
@@ -479,7 +483,7 @@ If a readable `<status>.html` exists under the active document root, `webweb` us
 You can also set explicit files:
 
 ```sh
-./webweb2 -http -error-page 404 errors/not_found.html -error-page 500 errors/server_error.html
+./target/debug/webweb2 -http -error-page 404 errors/not_found.html -error-page 500 errors/server_error.html
 ```
 
 or in `webweb.conf`:
@@ -497,7 +501,8 @@ document root 配下に読み取り可能な `<status>.html` があれば、そ�
 
 ## Database example
 
-`dbdb/` is a small sample database server used by the web sample.
+`dbdb/` is a small sample database server used by the web sample. It is also a
+cpm project, and its binary is written to `dbdb/target/debug/dbdb`.
 
 Build and run it:
 
@@ -540,10 +545,10 @@ neo-c で一般的なWebサーバーを書きたいとき、`webweb` はかな�
 
 ## Related files
 
-- `main.nc`: main HTTP/HTTPS server
+- `src/main.nc`: main HTTP/HTTPS server
 - `cgi-bin/*.nc`: dynamic CGI handlers
-- `dbdb/main.nc`: database server example
-- `dbdb/client/main.nc`: test client
+- `dbdb/src/main.nc`: database server example
+- `dbdb/client/src/main.nc`: test client
 
 ## Notes
 

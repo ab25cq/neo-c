@@ -1,80 +1,32 @@
-#########################################
-# istalled directories
-#########################################
-prefix=/usr/local/
-exec_prefix=${prefix}
-bindir=${exec_prefix}/bin
-datadir=${datarootdir}
-mandir=${datarootdir}/man
-sharedstatedir=${prefix}/dbdb-client
-sysconfdir=${prefix}/etc/dbdb-client
-includedir=${prefix}/include/dbdb-client
-datarootdir=${prefix}/share/dbdb-client
-docdir=${datarootdir}/doc
-libdir=${exec_prefix}/lib
+CPM ?= cpm
+DESTDIR ?= /usr/local
 
-#########################################
-# environmnet variables
-#########################################
-CC=neo-c
-INSTALL=install
-CFLAGS= -Og -I../../..
-CFLAGS_DEBUG= -gdwarf-4 -cg -I../../..
-LIBS=-lpcre
-OS=linux
-DESTDIR=/usr/local/
-SRCS=$(wildcard *.c)
-SINGLE_SRCS=$(filter-out %.c.c, $(SRCS))
-OBJS=$(SINGLE_SRCS:.c=.o)
-DEBUG_OBJS=$(SINGLE_SRCS:.c=.debug.o)
-TARGET=dbdb-client
-TARGET_DEBUG=dbdb-client-debug
+.PHONY: all build install clean uninstall run compile debug
 
-#########################################
-# main
-#########################################
-all: $(TARGET)
+all: build
 
-$(TARGET): 
-	$(CC) $(CFLAGS) -o dbdb-client main.nc -lssl
+build:
+	$(CPM) build
 
-%.debug.o: %.c
-	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
-
-#########################################
-# header
-#########################################
-
-#########################################
-# install
-#########################################
-install:
-	mkdir -p "$(DESTDIR)/bin"
-	$(INSTALL) -m 755 ./dbdb-client "$(DESTDIR)/bin"
-	mkdir -p "$(DESTDIR)/include"
-	mkdir -p "$(DESTDIR)/lib"
+install: build
+	DESTDIR="$(DESTDIR)" $(CPM) install
 	mkdir -p "$(DESTDIR)/share/doc/dbdb-client"
-	$(INSTALL) -m 644 README.md "$(DESTDIR)/share/doc/dbdb-client/README.md"
+	@if [ -f README.md ]; then install -m 644 README.md "$(DESTDIR)/share/doc/dbdb-client/README.md"; fi
 
-#########################################
-# clean
-#########################################
 clean:
-	rm -fR *.o *.c.i *.c.out *.c dbdb-client *.log *.out dbdb-client-debug
+	$(CPM) clean
+	rm -f *.log *.out
 
-#########################################
-# uninstall
-#########################################
 uninstall:
-	rm -f "$(DESTDIR)"/bin/dbdb-client
+	rm -f "$(DESTDIR)/bin/dbdb-client"
 	rm -f "$(DESTDIR)/share/doc/dbdb-client/README.md"
 
-run: dbdb-client
+run: build
 	rm -f *.log
-	./dbdb-client
+	./target/debug/dbdb-client
 
-compile: dbdb-client
+compile: build
 
-debug: dbdb-client-debug
+debug: build
 	rm -f *.log
-	./dbdb-client-debug
+	./target/debug/dbdb-client

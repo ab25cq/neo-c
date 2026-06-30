@@ -1,0 +1,9 @@
+[package]
+name = "webweb2"
+version = "0.1.0"
+
+[build]
+src = "src/main.nc"
+out = "target/debug/webweb2"
+neoc_flags = "-I. -Ilib"
+ldflags = "-lssl -lz"

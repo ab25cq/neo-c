@@ -44,8 +44,25 @@ ldflags = ""
 strip = true
 ```
 
-`cpm build` compiles every `.nc` file under `src` to an object file under
-`target/debug`, then links them into `target/debug/<package-name>`.
+`cpm build` compiles every `.nc` file under `src` to generated C and object
+files under `target/debug`, then links them into `target/debug/<package-name>`.
+
+The top-level neo-c compiler also has `Neo.toml`. From the repository root,
+build it through cpm with:
+
+```sh
+make cpm-build-ncc
+```
+
+The equivalent direct command is:
+
+```sh
+make -C cpm
+CPM_NEOC=./neo-c cpm/cpm build
+```
+
+This writes generated C, objects, and `target/debug/ncc` under `target/debug`
+without replacing the checked-in self-host C sources in the repository root.
 
 For projects that keep sources outside `src/` or need an exact link set, use
 `sources`:
@@ -59,10 +76,16 @@ out = "target/debug/app"
 
 `sources` is a space- or comma-separated list. When it is present, `cpm build`
 uses only those files and preserves their order.
+If an existing generated C file with the same basename is present in the project
+root, cpm temporarily saves it, moves the new generated C into `target/debug`,
+and restores the original file. This lets legacy self-host trees keep checked-in
+generated C while still using cpm.
 
 The neo-c standard library source files are copied into each project under
 `lib/`. `cpm build` compiles `lib/neo-c-str.nc` into
-`target/debug/neo-c-str.o` and links that project-local object.
+`target/debug/neo-c-str.c` and `target/debug/neo-c-str.o`, then links that
+project-local object. If `neo-c-str.nc` is listed explicitly in `sources`, cpm
+compiles that source with `-uniq` and does not add another runtime object.
 
 `cpm install` builds the package and installs the output to `$DESTDIR/bin`.
 `DESTDIR` defaults to `/usr/local`.
