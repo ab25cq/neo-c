@@ -5,7 +5,7 @@ This has Rerfference Count GC, and includes the generics collection libraries.
 
 リファレンスカウントGCがありコレクションライブラリを備えてます。
 
-version 1.0.3.29
+version 1.0.3.30
 
 neo-c supports freestanding 16-bit and 8-bit microcontroller targets through
 `-micro16` and `-micro8`. The generated C uses a 16-bit pointer/`int` ABI with
@@ -751,6 +751,14 @@ cpm clean
 `target/debug/neo-c-str.o`, then links that project-local object.
 `cpm build` compiles every `.nc` file under `src` to generated C and objects
 under `target/debug`, then links `target/debug/<package-name>` with `neo-c`.
+`cpm build` runs source transpile/compile jobs in parallel by default and keeps
+the final link step serial. Use `CPM_JOBS=1 cpm build` or `[build] jobs = 1`
+for a serial build, or set a larger value such as `CPM_JOBS=4` to choose the
+parallelism explicitly. If generated C basenames would collide, cpm falls back
+to the serial path.
+For low-memory systems, use `CPM_LOWMEM=1 cpm build` or `[build] lowmem = true`.
+This forces serial builds and passes `-lowmem` to neo-c, which is intended for
+512MB-class machines.
 Legacy source layouts can set `sources = "src/main.nc src/file1.nc"` in `Neo.toml` to
 build an explicit ordered source list. `cpm install` installs the built binary
 to `$DESTDIR/bin`, defaulting to `/usr/local/bin`.
@@ -770,6 +778,13 @@ The equivalent direct command is:
 ```sh
 make -C cpm
 CPM_NEOC=./neo-c cpm/cpm build
+```
+
+For low-memory systems, use the cpm lowmem path. It runs serially and passes
+`-lowmem` only to the compile/transpile steps:
+
+```sh
+CPM_LOWMEM=1 make cpm-build-ncc
 ```
 
 The cpm build writes generated C, objects, and the compiler binary under
@@ -823,6 +838,7 @@ target/debug/msxide
 # Histories
 
 ```
+1.0.3.30 Added cpm parallel transpile/compile builds with `CPM_JOBS` or `[build] jobs`, plus cpm low-memory mode with `CPM_LOWMEM=1` or `[build] lowmem = true`. Low-memory cpm builds force serial jobs and pass `-lowmem` only to neo-c compile/transpile steps, leaving the final link step clean; this keeps cpm usable on 512MB-class systems. Documented `CPM_LOWMEM=1 make cpm-build-ncc` for building the top-level compiler through cpm in low-memory mode.
 1.0.3.29 Ported the `../c-` package manager as `cpm` for neo-c projects. `cpm` now creates `Neo.toml`/`lib`/`src/main.nc`, copies the neo-c standard library source into each project, builds `lib/neo-c-str.nc` into `target/debug/neo-c-str.o`, builds all `.nc` files under `src` with `neo-c`, supports `new`, `init`, `build`, `run`, `test`, `val`, `leak`, `clean`, and `install`, and is included in `all_build.sh`. `cpm` also supports explicit ordered `sources` lists for legacy multi-file layouts, preserves existing generated C files while moving new generated C under `target/debug`, and builds `neo-c-str.nc` with `-uniq` when it appears in `sources`. The top-level neo-c compiler now has `Neo.toml` and can build `target/debug/ncc` with `make cpm-build-ncc`; `clean-self-host.sh` was removed; `fast_build.sh` runs that cpm-managed compiler build before install, while `-lowmem` skips only the extra cpm `ncc` verification. The existing Makefile remains the bootstrap/self-host/bare/low-memory/PGO path. `vin`, `zed`, `mf`, `shsh`, `cinatora`, `webweb`, and `webweb/dbdb` now build and install through `cpm` with project-local `lib/` runtime snapshots instead of their old Makefile paths. `webweb` keeps its CGI Makefile while the main server, `dbdb`, and `dbdb/client` place generated C, objects, and binaries under `target/debug`. `make install` installs `neo-c`, `ncc`, and `cpm` under `DESTDIR/bin`, installs project template standard library sources under `DESTDIR/share/neo-c`, and installs headers under `DESTDIR/include` for existing projects; runtime objects and `neo-c-str.nc` are still not installed to `/usr/local/lib`. Linux/macOS libc builds now use `execinfo` native backtraces on panic, and `neo-c -g` keeps debug info plus `.nc` `#line` mappings for source file and line output. Ported the c- `msxide` MSX/Z80 emulator workbench to neo-c with `cpm` build support, ncurses UI, mock BASIC ROM generation, and self/ROM/BASIC/program/list/command/ASM tests. Added `cpm` `bare`, `cc`, `cflags`, `linker`, `linker_flags`, `linker_script`, and `strip_sections` build settings plus a `small` project that builds a 174-byte Linux x86_64 bare ELF with `cpm build`.
 1.0.3.28 Added `-memleak-stacktrace` as an optional allocation-call-stack mode while keeping leak detection enabled by default. Reduced `vector` growth to 1.5x and standardized `map` growth to 2x, then documented the `-micro-ram8k` profile and added `minux16`, which runs `vector`/`list`/`map` on an emulated 8KB-SRAM ATmega640.
 1.0.3.27 Added `minux15`, a PIC16F877A target test. neo-c generates freestanding C with `-micro`, SDCC and gputils produce a real PIC Intel HEX image, and the neo-c-written PIC16 emulator verifies `HELLO WORLD` through the emulated `TXREG`. Documented why PIC uses `-micro` instead of `-micro8`: SDCC generic pointers are three bytes because they encode the Harvard address space. Added PIC startup code, target-specific UART glue, banked file-register handling, and an eight-level hardware return stack model.

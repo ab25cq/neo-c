@@ -1,6 +1,6 @@
 [package]
 name = "ncc"
-version = "1.0.3.29"
+version = "1.0.3.30"
 
 [build]
 src = "01main.nc"

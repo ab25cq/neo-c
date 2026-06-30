@@ -41,11 +41,38 @@ out = "target/debug/hello"
 neoc = "neo-c"
 neoc_flags = "-I. -Ilib"
 ldflags = ""
+jobs = 0
+lowmem = false
 strip = true
 ```
 
 `cpm build` compiles every `.nc` file under `src` to generated C and object
 files under `target/debug`, then links them into `target/debug/<package-name>`.
+Transpile/compile jobs run in parallel by default, using the number of online
+CPUs. The final link step stays serial. Set `[build] jobs = 1` or
+`CPM_JOBS=1` to force serial builds, or set a larger value to choose the
+parallelism explicitly:
+
+```sh
+CPM_JOBS=4 cpm build
+```
+
+If two source files would emit the same generated C basename, cpm falls back to
+the serial build path to avoid output-file collisions.
+
+For low-memory systems such as 512MB machines, use lowmem mode. It disables
+parallel jobs and passes `-lowmem` to neo-c:
+
+```sh
+CPM_LOWMEM=1 cpm build
+```
+
+You can also make it project-local:
+
+```toml
+[build]
+lowmem = true
+```
 
 The top-level neo-c compiler also has `Neo.toml`. From the repository root,
 build it through cpm with:

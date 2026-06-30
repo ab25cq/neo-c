@@ -6,12 +6,14 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #define PATH_MAX_LEN 1024
 #define VALUE_MAX_LEN 512
 #define SOURCES_MAX_LEN 4096
 #define MAX_SOURCES 256
+#define CMD_MAX_LEN (PATH_MAX_LEN * 16)
 
 #ifndef CPM_DEFAULT_STDLIB_DIR
 #define CPM_DEFAULT_STDLIB_DIR ""
@@ -39,6 +41,8 @@ struct Manifest {
     char linker_flags[VALUE_MAX_LEN];
     char linker_script[PATH_MAX_LEN];
     char ldflags[VALUE_MAX_LEN];
+    int jobs;
+    int lowmem;
     int bare;
     int strip;
     int strip_sections;
@@ -47,6 +51,13 @@ struct Manifest {
 struct SourceList {
     char path[MAX_SOURCES][PATH_MAX_LEN];
     int count;
+};
+
+struct BuildJob {
+    char cmd[CMD_MAX_LEN];
+    char generated_base[PATH_MAX_LEN];
+    char c_path[PATH_MAX_LEN];
+    char backup_path[PATH_MAX_LEN];
 };
 
 static int ensure_parent_dir(const char* path);
@@ -432,12 +443,155 @@ static int run_cmd(const char* cmd)
 {
     int rc;
     puts(cmd);
+    fflush(stdout);
     rc = system(cmd);
     if(rc != 0) {
         fprintf(stderr, "cpm: command failed: %s\n", cmd);
         return 1;
     }
     return 0;
+}
+
+static int parse_positive_int(const char* s)
+{
+    char* end = NULL;
+    long value;
+    if(s == NULL || s[0] == '\0') {
+        return 0;
+    }
+    value = strtol(s, &end, 10);
+    if(end == s || value <= 0 || value > 1024) {
+        return 0;
+    }
+    return (int)value;
+}
+
+static int parse_bool_value(const char* s)
+{
+    if(s == NULL) {
+        return 0;
+    }
+    return strcmp(s, "true") == 0 || strcmp(s, "1") == 0 ||
+        strcmp(s, "yes") == 0 || strcmp(s, "on") == 0;
+}
+
+static int lowmem_enabled(const struct Manifest* m)
+{
+    const char* env_lowmem = getenv("CPM_LOWMEM");
+    if(env_lowmem != NULL && env_lowmem[0] != '\0' && parse_bool_value(env_lowmem)) {
+        return 1;
+    }
+    return m->lowmem;
+}
+
+static void build_extra_flags(char* out, size_t out_size, const char* extra_flags,
+    const struct Manifest* m)
+{
+    const char* base = extra_flags == NULL ? "" : extra_flags;
+    if(lowmem_enabled(m)) {
+        snprintf(out, out_size, "%s -lowmem", base);
+    }
+    else {
+        snprintf(out, out_size, "%s", base);
+    }
+    if(strlen(out) >= out_size - 1) {
+        die("cpm: command too long");
+    }
+}
+
+static int detect_default_jobs(void)
+{
+    long n = 1;
+#ifdef _SC_NPROCESSORS_ONLN
+    n = sysconf(_SC_NPROCESSORS_ONLN);
+#endif
+    if(n < 1) {
+        n = 1;
+    }
+    if(n > MAX_SOURCES) {
+        n = MAX_SOURCES;
+    }
+    return (int)n;
+}
+
+static int effective_jobs(const struct Manifest* m)
+{
+    int jobs = 0;
+    const char* env_jobs = getenv("CPM_JOBS");
+    if(lowmem_enabled(m)) {
+        return 1;
+    }
+    if(env_jobs != NULL && env_jobs[0] != '\0') {
+        jobs = parse_positive_int(env_jobs);
+    }
+    if(jobs <= 0 && m->jobs > 0) {
+        jobs = m->jobs;
+    }
+    if(jobs <= 0) {
+        jobs = detect_default_jobs();
+    }
+    if(jobs < 1) {
+        jobs = 1;
+    }
+    if(jobs > MAX_SOURCES) {
+        jobs = MAX_SOURCES;
+    }
+    return jobs;
+}
+
+static int run_parallel_jobs(struct BuildJob* jobs, int count, int max_jobs)
+{
+    int next = 0;
+    int running = 0;
+    int failed = 0;
+
+    if(count <= 0) {
+        return 0;
+    }
+    if(max_jobs <= 1) {
+        int i;
+        for(i = 0; i < count; i++) {
+            if(run_cmd(jobs[i].cmd) != 0) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    printf("cpm: running %d build jobs with -j%d\n", count, max_jobs);
+    fflush(stdout);
+    while(next < count || running > 0) {
+        while(next < count && running < max_jobs && !failed) {
+            pid_t pid = fork();
+            if(pid < 0) {
+                perror("fork");
+                failed = 1;
+                break;
+            }
+            if(pid == 0) {
+                _exit(run_cmd(jobs[next].cmd) == 0 ? 0 : 1);
+            }
+            next++;
+            running++;
+        }
+        if(running > 0) {
+            int status = 0;
+            pid_t pid = wait(&status);
+            if(pid < 0) {
+                if(errno == EINTR) {
+                    continue;
+                }
+                perror("wait");
+                failed = 1;
+                break;
+            }
+            running--;
+            if(!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+                failed = 1;
+            }
+        }
+    }
+    return failed ? 1 : 0;
 }
 
 static void unquote_value(char* dst, size_t dst_size, const char* src)
@@ -557,10 +711,20 @@ static void read_manifest(struct Manifest* m)
             else if(strcmp(section, "build") == 0 && strcmp(key, "ldflags") == 0) {
                 unquote_value(m->ldflags, sizeof(m->ldflags), value);
             }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "jobs") == 0) {
+                char unquoted[VALUE_MAX_LEN];
+                unquote_value(unquoted, sizeof(unquoted), value);
+                m->jobs = parse_positive_int(unquoted);
+            }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "lowmem") == 0) {
+                char unquoted[VALUE_MAX_LEN];
+                unquote_value(unquoted, sizeof(unquoted), value);
+                m->lowmem = parse_bool_value(unquoted);
+            }
             else if(strcmp(section, "build") == 0 && strcmp(key, "bare") == 0) {
                 char unquoted[VALUE_MAX_LEN];
                 unquote_value(unquoted, sizeof(unquoted), value);
-                m->bare = strcmp(unquoted, "true") == 0 || strcmp(unquoted, "1") == 0;
+                m->bare = parse_bool_value(unquoted);
             }
             else if(strcmp(section, "build") == 0 && strcmp(key, "strip") == 0) {
                 char unquoted[VALUE_MAX_LEN];
@@ -570,7 +734,7 @@ static void read_manifest(struct Manifest* m)
             else if(strcmp(section, "build") == 0 && strcmp(key, "strip_sections") == 0) {
                 char unquoted[VALUE_MAX_LEN];
                 unquote_value(unquoted, sizeof(unquoted), value);
-                m->strip_sections = strcmp(unquoted, "true") == 0 || strcmp(unquoted, "1") == 0;
+                m->strip_sections = parse_bool_value(unquoted);
             }
         }
     }
@@ -741,6 +905,292 @@ static int source_list_has_runtime(struct SourceList* sources)
     return 0;
 }
 
+static int source_list_has_duplicate_generated_names(struct SourceList* sources, int include_lib_runtime)
+{
+    char names[MAX_SOURCES + 1][PATH_MAX_LEN];
+    int count = 0;
+    int i;
+
+    if(include_lib_runtime) {
+        strcpy(names[count++], "neo-c-str.c");
+    }
+    for(i = 0; i < sources->count; i++) {
+        char generated_base[PATH_MAX_LEN];
+        int j;
+        generated_c_basename(generated_base, sizeof(generated_base), sources->path[i]);
+        for(j = 0; j < count; j++) {
+            if(strcmp(names[j], generated_base) == 0) {
+                return 1;
+            }
+        }
+        strcpy(names[count++], generated_base);
+    }
+    return 0;
+}
+
+static void restore_build_jobs(struct BuildJob* jobs, int count)
+{
+    int i;
+    for(i = 0; i < count; i++) {
+        restore_generated_file(jobs[i].generated_base, jobs[i].backup_path);
+    }
+}
+
+static int move_build_jobs(struct BuildJob* jobs, int count)
+{
+    int i;
+    for(i = 0; i < count; i++) {
+        if(move_generated_file(jobs[i].generated_base, jobs[i].c_path, jobs[i].backup_path) != 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static int link_normal_output(const char* extra_flags, int optimize,
+    const struct Manifest* m, struct SourceList* sources, const char* q_neoc)
+{
+    char q_out[PATH_MAX_LEN * 2];
+    char cmd[CMD_MAX_LEN];
+    shell_quote(q_out, sizeof(q_out), m->out);
+    ensure_parent_dir(m->out);
+    snprintf(cmd, sizeof(cmd), "%s %s %s %s -o %s",
+        q_neoc, m->neoc_flags, extra_flags == NULL ? "" : extra_flags,
+        optimize ? DEFAULT_SIZE_FLAGS : "", q_out);
+    append_object_paths(cmd, sizeof(cmd), sources, m);
+    if(file_exists("target/debug/neo-c-str.o") && !source_list_has_runtime(sources)) {
+        char q_lib[PATH_MAX_LEN * 2];
+        shell_quote(q_lib, sizeof(q_lib), "target/debug/neo-c-str.o");
+        if(strlen(cmd) + strlen(q_lib) + 2 >= sizeof(cmd)) {
+            die("cpm: command too long");
+        }
+        strcat(cmd, " ");
+        strcat(cmd, q_lib);
+    }
+    if(m->ldflags[0] != '\0') {
+        if(strlen(cmd) + strlen(m->ldflags) + 2 >= sizeof(cmd)) {
+            die("cpm: command too long");
+        }
+        strcat(cmd, " ");
+        strcat(cmd, m->ldflags);
+    }
+    if(run_cmd(cmd) != 0) {
+        return 1;
+    }
+    if(m->strip && optimize) {
+        char strip_cmd[PATH_MAX_LEN * 3];
+        snprintf(strip_cmd, sizeof(strip_cmd), "strip -s%s %s",
+            m->strip_sections ? " --strip-section-headers" : "", q_out);
+        if(run_cmd(strip_cmd) != 0) {
+            return 1;
+        }
+    }
+    printf("built %s\n", m->out);
+    return 0;
+}
+
+static int link_bare_output(int optimize, const struct Manifest* m,
+    struct SourceList* sources, const char* q_out)
+{
+    char q_linker[PATH_MAX_LEN * 2];
+    char cmd[CMD_MAX_LEN];
+    shell_quote(q_linker, sizeof(q_linker), m->linker);
+    snprintf(cmd, sizeof(cmd), "%s %s", q_linker, m->linker_flags);
+    if(m->linker_script[0] != '\0') {
+        char q_script[PATH_MAX_LEN * 2];
+        shell_quote(q_script, sizeof(q_script), m->linker_script);
+        if(strlen(cmd) + strlen(q_script) + 5 >= sizeof(cmd)) {
+            die("cpm: command too long");
+        }
+        strcat(cmd, " -T ");
+        strcat(cmd, q_script);
+    }
+    if(strlen(cmd) + strlen(q_out) + 5 >= sizeof(cmd)) {
+        die("cpm: command too long");
+    }
+    strcat(cmd, " -o ");
+    strcat(cmd, q_out);
+    append_object_paths(cmd, sizeof(cmd), sources, m);
+    if(m->ldflags[0] != '\0') {
+        if(strlen(cmd) + strlen(m->ldflags) + 2 >= sizeof(cmd)) {
+            die("cpm: command too long");
+        }
+        strcat(cmd, " ");
+        strcat(cmd, m->ldflags);
+    }
+    if(run_cmd(cmd) != 0) {
+        return 1;
+    }
+    if(m->strip && optimize) {
+        char strip_cmd[PATH_MAX_LEN * 3];
+        snprintf(strip_cmd, sizeof(strip_cmd), "strip -s%s %s",
+            m->strip_sections ? " --strip-section-headers" : "", q_out);
+        if(run_cmd(strip_cmd) != 0) {
+            return 1;
+        }
+    }
+    printf("built %s\n", m->out);
+    return 0;
+}
+
+static int cmd_build_parallel_with_flags(const char* extra_flags, int optimize,
+    const char* link_extra_flags, struct Manifest* m, struct SourceList* sources,
+    const char* q_neoc)
+{
+    int include_lib_runtime = file_exists("lib/neo-c-str.nc");
+    int max_jobs = effective_jobs(m);
+    int job_count = 0;
+    int i;
+    struct BuildJob* jobs;
+
+    if(max_jobs <= 1) {
+        return -1;
+    }
+    if(source_list_has_duplicate_generated_names(sources, include_lib_runtime)) {
+        puts("cpm: duplicate generated C basenames found; using serial build");
+        return -1;
+    }
+
+    jobs = calloc((size_t)(sources->count + 1), sizeof(struct BuildJob));
+    if(jobs == NULL) {
+        die_errno("calloc");
+    }
+
+    if(include_lib_runtime) {
+        char q_runtime_src[PATH_MAX_LEN * 2];
+        char q_runtime_obj[PATH_MAX_LEN * 2];
+        shell_quote(q_runtime_src, sizeof(q_runtime_src), "lib/neo-c-str.nc");
+        shell_quote(q_runtime_obj, sizeof(q_runtime_obj), "target/debug/neo-c-str.o");
+        strcpy(jobs[job_count].generated_base, "neo-c-str.c");
+        strcpy(jobs[job_count].c_path, "target/debug/neo-c-str.c");
+        backup_generated_file(jobs[job_count].generated_base,
+            jobs[job_count].backup_path, sizeof(jobs[job_count].backup_path));
+        snprintf(jobs[job_count].cmd, sizeof(jobs[job_count].cmd),
+            "%s %s %s %s -c -uniq %s -o %s",
+            q_neoc, m->neoc_flags, extra_flags == NULL ? "" : extra_flags,
+            optimize ? DEFAULT_SIZE_FLAGS : "", q_runtime_src, q_runtime_obj);
+        job_count++;
+    }
+
+    for(i = 0; i < sources->count; i++) {
+        char obj_path_buf[PATH_MAX_LEN];
+        char q_src[PATH_MAX_LEN * 2];
+        char q_obj[PATH_MAX_LEN * 2];
+
+        object_path(obj_path_buf, sizeof(obj_path_buf), sources->path[i], m);
+        generated_c_basename(jobs[job_count].generated_base,
+            sizeof(jobs[job_count].generated_base), sources->path[i]);
+        generated_c_path(jobs[job_count].c_path, sizeof(jobs[job_count].c_path),
+            obj_path_buf);
+        ensure_parent_dir(obj_path_buf);
+        ensure_parent_dir(jobs[job_count].c_path);
+        shell_quote(q_src, sizeof(q_src), sources->path[i]);
+        shell_quote(q_obj, sizeof(q_obj), obj_path_buf);
+        backup_generated_file(jobs[job_count].generated_base,
+            jobs[job_count].backup_path, sizeof(jobs[job_count].backup_path));
+        if(is_runtime_source(sources->path[i])) {
+            snprintf(jobs[job_count].cmd, sizeof(jobs[job_count].cmd),
+                "%s %s %s %s -c -uniq %s -o %s",
+                q_neoc, m->neoc_flags, extra_flags == NULL ? "" : extra_flags,
+                optimize ? DEFAULT_SIZE_FLAGS : "", q_src, q_obj);
+        }
+        else {
+            snprintf(jobs[job_count].cmd, sizeof(jobs[job_count].cmd),
+                "%s %s %s %s -c %s -o %s",
+                q_neoc, m->neoc_flags, extra_flags == NULL ? "" : extra_flags,
+                optimize ? DEFAULT_SIZE_FLAGS : "", q_src, q_obj);
+        }
+        job_count++;
+    }
+
+    if(run_parallel_jobs(jobs, job_count, max_jobs) != 0) {
+        restore_build_jobs(jobs, job_count);
+        free(jobs);
+        return 1;
+    }
+    if(move_build_jobs(jobs, job_count) != 0) {
+        free(jobs);
+        return 1;
+    }
+    free(jobs);
+    return link_normal_output(link_extra_flags, optimize, m, sources, q_neoc);
+}
+
+static int cmd_bare_build_parallel_with_flags(const char* extra_flags, int optimize,
+    struct Manifest* m, struct SourceList* sources, const char* q_out)
+{
+    int max_jobs = effective_jobs(m);
+    int i;
+    struct BuildJob* transpile_jobs;
+    struct BuildJob* compile_jobs;
+    char q_neoc[PATH_MAX_LEN * 2];
+    char q_cc[PATH_MAX_LEN * 2];
+
+    if(max_jobs <= 1) {
+        return -1;
+    }
+    if(source_list_has_duplicate_generated_names(sources, 0)) {
+        puts("cpm: duplicate generated C basenames found; using serial bare build");
+        return -1;
+    }
+
+    transpile_jobs = calloc((size_t)sources->count, sizeof(struct BuildJob));
+    compile_jobs = calloc((size_t)sources->count, sizeof(struct BuildJob));
+    if(transpile_jobs == NULL || compile_jobs == NULL) {
+        die_errno("calloc");
+    }
+    shell_quote(q_neoc, sizeof(q_neoc), m->neoc);
+    shell_quote(q_cc, sizeof(q_cc), m->cc);
+
+    for(i = 0; i < sources->count; i++) {
+        char obj_path_buf[PATH_MAX_LEN];
+        char q_src[PATH_MAX_LEN * 2];
+        char q_c_path[PATH_MAX_LEN * 2];
+        char q_obj[PATH_MAX_LEN * 2];
+
+        object_path(obj_path_buf, sizeof(obj_path_buf), sources->path[i], m);
+        generated_c_basename(transpile_jobs[i].generated_base,
+            sizeof(transpile_jobs[i].generated_base), sources->path[i]);
+        generated_c_path(transpile_jobs[i].c_path, sizeof(transpile_jobs[i].c_path),
+            obj_path_buf);
+        strcpy(compile_jobs[i].generated_base, transpile_jobs[i].generated_base);
+        strcpy(compile_jobs[i].c_path, transpile_jobs[i].c_path);
+        ensure_parent_dir(obj_path_buf);
+        ensure_parent_dir(transpile_jobs[i].c_path);
+        shell_quote(q_src, sizeof(q_src), sources->path[i]);
+        shell_quote(q_c_path, sizeof(q_c_path), transpile_jobs[i].c_path);
+        shell_quote(q_obj, sizeof(q_obj), obj_path_buf);
+        backup_generated_file(transpile_jobs[i].generated_base,
+            transpile_jobs[i].backup_path, sizeof(transpile_jobs[i].backup_path));
+        snprintf(transpile_jobs[i].cmd, sizeof(transpile_jobs[i].cmd),
+            "%s %s %s -bare -S %s",
+            q_neoc, m->neoc_flags, extra_flags == NULL ? "" : extra_flags, q_src);
+        snprintf(compile_jobs[i].cmd, sizeof(compile_jobs[i].cmd),
+            "%s %s -c %s -o %s",
+            q_cc, m->cflags, q_c_path, q_obj);
+    }
+
+    if(run_parallel_jobs(transpile_jobs, sources->count, max_jobs) != 0) {
+        restore_build_jobs(transpile_jobs, sources->count);
+        free(transpile_jobs);
+        free(compile_jobs);
+        return 1;
+    }
+    if(move_build_jobs(transpile_jobs, sources->count) != 0) {
+        free(transpile_jobs);
+        free(compile_jobs);
+        return 1;
+    }
+    if(run_parallel_jobs(compile_jobs, sources->count, max_jobs) != 0) {
+        free(transpile_jobs);
+        free(compile_jobs);
+        return 1;
+    }
+    free(transpile_jobs);
+    free(compile_jobs);
+    return link_bare_output(optimize, m, sources, q_out);
+}
+
 static int cmd_bare_build_with_flags(const char* extra_flags, int optimize,
     struct Manifest* m, struct SourceList* sources, const char* q_out)
 {
@@ -841,6 +1291,8 @@ static void write_manifest(const char* name)
         "neoc = \"neo-c\"\n"
         "neoc_flags = \"-I. -Ilib\"\n"
         "ldflags = \"\"\n"
+        "jobs = 0\n"
+        "lowmem = false\n"
         "strip = true\n",
         name, name);
     write_file("Neo.toml", text);
@@ -913,17 +1365,32 @@ static int cmd_build_with_flags(const char* extra_flags, int optimize)
     char q_neoc[PATH_MAX_LEN * 2];
     char q_out[PATH_MAX_LEN * 2];
     char cmd[PATH_MAX_LEN * 16];
+    char neoc_extra_flags[VALUE_MAX_LEN * 2];
     int i;
 
     read_manifest(&m);
+    build_extra_flags(neoc_extra_flags, sizeof(neoc_extra_flags), extra_flags, &m);
     mkdir_p("target/debug");
     collect_manifest_sources(&sources, &m);
     shell_quote(q_neoc, sizeof(q_neoc), m.neoc);
 
     if(m.bare) {
+        int parallel_rc;
         shell_quote(q_out, sizeof(q_out), m.out);
         ensure_parent_dir(m.out);
-        return cmd_bare_build_with_flags(extra_flags, optimize, &m, &sources, q_out);
+        parallel_rc = cmd_bare_build_parallel_with_flags(neoc_extra_flags, optimize, &m, &sources, q_out);
+        if(parallel_rc >= 0) {
+            return parallel_rc;
+        }
+        return cmd_bare_build_with_flags(neoc_extra_flags, optimize, &m, &sources, q_out);
+    }
+
+    {
+        int parallel_rc = cmd_build_parallel_with_flags(neoc_extra_flags, optimize,
+            extra_flags, &m, &sources, q_neoc);
+        if(parallel_rc >= 0) {
+            return parallel_rc;
+        }
     }
 
     if(file_exists("lib/neo-c-str.nc")) {
@@ -936,7 +1403,7 @@ static int cmd_build_with_flags(const char* extra_flags, int optimize)
         strcpy(runtime_c_path, "target/debug/neo-c-str.c");
         backup_generated_file("neo-c-str.c", runtime_backup_path, sizeof(runtime_backup_path));
         snprintf(cmd, sizeof(cmd), "%s %s %s %s -c -uniq %s -o %s",
-            q_neoc, m.neoc_flags, extra_flags == NULL ? "" : extra_flags,
+            q_neoc, m.neoc_flags, neoc_extra_flags,
             optimize ? DEFAULT_SIZE_FLAGS : "", q_runtime_src, q_runtime_obj);
         if(run_cmd(cmd) != 0) {
             restore_generated_file("neo-c-str.c", runtime_backup_path);
@@ -965,12 +1432,12 @@ static int cmd_build_with_flags(const char* extra_flags, int optimize)
         backup_generated_file(generated_base, backup_path, sizeof(backup_path));
         if(is_runtime_source(sources.path[i])) {
             snprintf(cmd, sizeof(cmd), "%s %s %s %s -c -uniq %s -o %s",
-                q_neoc, m.neoc_flags, extra_flags == NULL ? "" : extra_flags,
+                q_neoc, m.neoc_flags, neoc_extra_flags,
                 optimize ? DEFAULT_SIZE_FLAGS : "", q_src, q_obj);
         }
         else {
             snprintf(cmd, sizeof(cmd), "%s %s %s %s -c %s -o %s",
-                q_neoc, m.neoc_flags, extra_flags == NULL ? "" : extra_flags,
+                q_neoc, m.neoc_flags, neoc_extra_flags,
                 optimize ? DEFAULT_SIZE_FLAGS : "", q_src, q_obj);
         }
         if(run_cmd(cmd) != 0) {
