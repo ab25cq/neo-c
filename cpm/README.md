@@ -47,9 +47,25 @@ strip = true
 `cpm build` compiles every `.nc` file under `src` to an object file under
 `target/debug`, then links them into `target/debug/<package-name>`.
 
+For projects that keep sources outside `src/` or need an exact link set, use
+`sources`:
+
+```toml
+[build]
+src = "src/main.nc"
+sources = "src/main.nc src/file1.nc src/file2.nc"
+out = "target/debug/app"
+```
+
+`sources` is a space- or comma-separated list. When it is present, `cpm build`
+uses only those files and preserves their order.
+
 The neo-c standard library source files are copied into each project under
 `lib/`. `cpm build` compiles `lib/neo-c-str.nc` into
 `target/debug/neo-c-str.o` and links that project-local object.
+
+`cpm install` builds the package and installs the output to `$DESTDIR/bin`.
+`DESTDIR` defaults to `/usr/local`.
 
 Set `CPM_NEOC=/path/to/neo-c` to override the compiler at runtime. Set
 `CPM_STDLIB_DIR=/path/to/neo-c` if `cpm new` cannot find the standard library

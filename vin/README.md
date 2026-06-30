@@ -13,9 +13,8 @@ version 1.0.5
 
 * INSTALL
 
-./configure --with-optimize
-make
-sudo make install
+cpm build
+sudo env DESTDIR=/usr/local cpm install
 
 or
 

@@ -41,9 +41,9 @@ then
     (cd minux15; make clean)
 fi
 
-if [ -e vin/Makefile ]
+if [ -e vin/Neo.toml ]
 then
-    (cd vin; make clean)
+    (cd vin; cpm clean)
 fi
 
 (cd codb; make clean)

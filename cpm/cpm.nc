@@ -10,6 +10,7 @@
 
 #define PATH_MAX_LEN 1024
 #define VALUE_MAX_LEN 512
+#define SOURCES_MAX_LEN 4096
 #define MAX_SOURCES 256
 
 #ifndef CPM_DEFAULT_STDLIB_DIR
@@ -28,6 +29,7 @@ struct Manifest {
     char name[VALUE_MAX_LEN];
     char version[VALUE_MAX_LEN];
     char src[PATH_MAX_LEN];
+    char sources[SOURCES_MAX_LEN];
     char out[PATH_MAX_LEN];
     char neoc[VALUE_MAX_LEN];
     char neoc_flags[VALUE_MAX_LEN];
@@ -440,7 +442,7 @@ static void manifest_finish(struct Manifest* m)
 static void read_manifest(struct Manifest* m)
 {
     FILE* fp;
-    char line[1024];
+    char line[4096];
     char section[VALUE_MAX_LEN] = "";
 
     manifest_defaults(m);
@@ -480,6 +482,9 @@ static void read_manifest(struct Manifest* m)
             }
             else if(strcmp(section, "build") == 0 && strcmp(key, "src") == 0) {
                 unquote_value(m->src, sizeof(m->src), value);
+            }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "sources") == 0) {
+                unquote_value(m->sources, sizeof(m->sources), value);
             }
             else if(strcmp(section, "build") == 0 && strcmp(key, "out") == 0) {
                 unquote_value(m->out, sizeof(m->out), value);
@@ -575,6 +580,29 @@ static void collect_sources(struct SourceList* sources, const char* main_src)
     memset(sources, 0, sizeof(*sources));
     source_list_add(sources, main_src);
     collect_sources_dir(sources, "src");
+}
+
+static void collect_manifest_sources(struct SourceList* sources, const struct Manifest* m)
+{
+    char buf[SOURCES_MAX_LEN];
+    char* tok;
+
+    if(m->sources[0] == '\0') {
+        collect_sources(sources, m->src);
+        return;
+    }
+
+    memset(sources, 0, sizeof(*sources));
+    strncpy(buf, m->sources, sizeof(buf) - 1);
+    buf[sizeof(buf) - 1] = '\0';
+    tok = strtok(buf, " \t,");
+    while(tok != NULL) {
+        source_list_add(sources, tok);
+        tok = strtok(NULL, " \t,");
+    }
+    if(sources->count == 0) {
+        die("cpm: sources is empty");
+    }
 }
 
 static void object_path(char* out, size_t out_size, const char* src, const struct Manifest* m)
@@ -829,7 +857,7 @@ static int cmd_build_with_flags(const char* extra_flags, int optimize)
 
     read_manifest(&m);
     mkdir_p("target/debug");
-    collect_sources(&sources, m.src);
+    collect_manifest_sources(&sources, &m);
     shell_quote(q_neoc, sizeof(q_neoc), m.neoc);
 
     if(m.bare) {
@@ -843,12 +871,13 @@ static int cmd_build_with_flags(const char* extra_flags, int optimize)
         char q_runtime_obj[PATH_MAX_LEN * 2];
         shell_quote(q_runtime_src, sizeof(q_runtime_src), "lib/neo-c-str.nc");
         shell_quote(q_runtime_obj, sizeof(q_runtime_obj), "target/debug/neo-c-str.o");
-        snprintf(cmd, sizeof(cmd), "%s %s %s %s -c %s -o %s",
+        snprintf(cmd, sizeof(cmd), "%s %s %s %s -c -uniq %s -o %s",
             q_neoc, m.neoc_flags, extra_flags == NULL ? "" : extra_flags,
             optimize ? DEFAULT_SIZE_FLAGS : "", q_runtime_src, q_runtime_obj);
         if(run_cmd(cmd) != 0) {
             return 1;
         }
+        unlink("neo-c-str.c");
     }
 
     for(i = 0; i < sources.count; i++) {
@@ -987,9 +1016,39 @@ static int cmd_clean(void)
     return run_cmd("rm -rf target");
 }
 
+static int cmd_install(void)
+{
+    struct Manifest m;
+    const char* destdir;
+    char bindir[PATH_MAX_LEN];
+    char q_out[PATH_MAX_LEN * 2];
+    char q_bindir[PATH_MAX_LEN * 2];
+    char cmd[PATH_MAX_LEN * 4];
+
+    read_manifest(&m);
+    if(!file_exists(m.out)) {
+        if(cmd_build() != 0) {
+            return 1;
+        }
+    }
+    destdir = getenv("DESTDIR");
+    if(destdir == NULL || destdir[0] == '\0') {
+        destdir = "/usr/local";
+    }
+    snprintf(bindir, sizeof(bindir), "%s/bin", destdir);
+    if(strlen(bindir) >= sizeof(bindir) - 1) {
+        die("cpm: install path too long");
+    }
+    mkdir_p(bindir);
+    shell_quote(q_out, sizeof(q_out), m.out);
+    shell_quote(q_bindir, sizeof(q_bindir), bindir);
+    snprintf(cmd, sizeof(cmd), "install -m 755 %s %s/%s", q_out, q_bindir, m.name);
+    return run_cmd(cmd);
+}
+
 static void usage(void)
 {
-    fputs("usage: cpm <new|init|build|run|test|val|leak|clean> [args]\n", stderr);
+    fputs("usage: cpm <new|init|build|run|test|val|leak|clean|install> [args]\n", stderr);
 }
 
 int main(int argc, char** argv)
@@ -1025,6 +1084,9 @@ int main(int argc, char** argv)
     }
     if(strcmp(argv[1], "clean") == 0) {
         return cmd_clean();
+    }
+    if(strcmp(argv[1], "install") == 0) {
+        return cmd_install();
     }
     usage();
     return 2;

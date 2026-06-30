@@ -1,15 +1,12 @@
 if uname -a | grep raspberry
 then
-    make DESTDIR=$HOME && make DESTDIR=$HOME install
+    DESTDIR=$HOME cpm install
 elif uname -a | grep Android
 then
-    make DESTDIR=$HOME && make DESTDIR=$HOME install
+    DESTDIR=$HOME cpm install
 elif uname -a | grep Darwin
 then
-    make && sudo make install
-    #make -j$(($(sysctl -n hw.logicalcpu)/2)) && sudo make install
+    cpm build && sudo env DESTDIR=/usr/local cpm install
 else
-    make && sudo make install
-    #make -j$(($(nproc)/2)) && sudo make install
+    cpm build && sudo env DESTDIR=/usr/local cpm install
 fi
-
