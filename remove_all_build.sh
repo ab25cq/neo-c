@@ -52,6 +52,14 @@ if [ -e webweb/Makefile ]
 then
     (cd webweb; sh clean_build.sh)
 fi
+if [ -e msxide/Makefile ]
+then
+    (cd msxide; make clean)
+fi
+if [ -e small/Makefile ]
+then
+    (cd small; make clean)
+fi
 
 (cd pico; rm -rf build)
 (cd minux; rm -rf build)

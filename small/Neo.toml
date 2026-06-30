@@ -1,0 +1,18 @@
+[package]
+name = "small"
+version = "1.0.0"
+
+[build]
+src = "src/main.nc"
+out = "target/debug/small"
+neoc = "neo-c"
+neoc_flags = ""
+bare = true
+cc = "clang"
+cflags = "-target x86_64-linux-gnu -Oz -ffreestanding -fno-asynchronous-unwind-tables -fno-ident -fno-stack-protector -fno-unwind-tables -nostdlib"
+linker = "ld"
+linker_flags = "-nostdlib -static -n --build-id=none"
+linker_script = "small.ld"
+ldflags = ""
+strip = true
+strip_sections = true

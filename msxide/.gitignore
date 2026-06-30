@@ -1,0 +1,8 @@
+target/
+lib/
+main.c
+neo-c-str.c
+src/main.c
+src/main.nc.i
+roms/*
+!roms/.gitkeep

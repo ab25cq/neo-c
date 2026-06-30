@@ -1,0 +1,11 @@
+[package]
+name = "msxide"
+version = "0.1.0"
+
+[build]
+src = "src/main.nc"
+out = "target/debug/msxide"
+neoc = "neo-c"
+neoc_flags = "-I. -Ilib -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600"
+ldflags = "-lncursesw -ltinfo"
+strip = true

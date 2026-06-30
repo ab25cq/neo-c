@@ -31,14 +31,23 @@ struct Manifest {
     char out[PATH_MAX_LEN];
     char neoc[VALUE_MAX_LEN];
     char neoc_flags[VALUE_MAX_LEN];
+    char cc[VALUE_MAX_LEN];
+    char cflags[VALUE_MAX_LEN];
+    char linker[VALUE_MAX_LEN];
+    char linker_flags[VALUE_MAX_LEN];
+    char linker_script[PATH_MAX_LEN];
     char ldflags[VALUE_MAX_LEN];
+    int bare;
     int strip;
+    int strip_sections;
 };
 
 struct SourceList {
     char path[MAX_SOURCES][PATH_MAX_LEN];
     int count;
 };
+
+static int ensure_parent_dir(const char* path);
 
 static void die(const char* msg)
 {
@@ -409,6 +418,10 @@ static void manifest_defaults(struct Manifest* m)
     strcpy(m->src, "src/main.nc");
     strcpy(m->neoc, "neo-c");
     strcpy(m->neoc_flags, DEFAULT_NEOC_FLAGS);
+    strcpy(m->cc, "clang");
+    strcpy(m->cflags, "-Oz -ffreestanding -fno-asynchronous-unwind-tables -fno-ident -fno-stack-protector -fno-unwind-tables -nostdlib");
+    strcpy(m->linker, "ld");
+    strcpy(m->linker_flags, "-nostdlib -static -n --build-id=none");
     m->strip = 1;
 }
 
@@ -477,13 +490,38 @@ static void read_manifest(struct Manifest* m)
             else if(strcmp(section, "build") == 0 && strcmp(key, "neoc_flags") == 0) {
                 unquote_value(m->neoc_flags, sizeof(m->neoc_flags), value);
             }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "cc") == 0) {
+                unquote_value(m->cc, sizeof(m->cc), value);
+            }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "cflags") == 0) {
+                unquote_value(m->cflags, sizeof(m->cflags), value);
+            }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "linker") == 0) {
+                unquote_value(m->linker, sizeof(m->linker), value);
+            }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "linker_flags") == 0) {
+                unquote_value(m->linker_flags, sizeof(m->linker_flags), value);
+            }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "linker_script") == 0) {
+                unquote_value(m->linker_script, sizeof(m->linker_script), value);
+            }
             else if(strcmp(section, "build") == 0 && strcmp(key, "ldflags") == 0) {
                 unquote_value(m->ldflags, sizeof(m->ldflags), value);
+            }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "bare") == 0) {
+                char unquoted[VALUE_MAX_LEN];
+                unquote_value(unquoted, sizeof(unquoted), value);
+                m->bare = strcmp(unquoted, "true") == 0 || strcmp(unquoted, "1") == 0;
             }
             else if(strcmp(section, "build") == 0 && strcmp(key, "strip") == 0) {
                 char unquoted[VALUE_MAX_LEN];
                 unquote_value(unquoted, sizeof(unquoted), value);
                 m->strip = strcmp(unquoted, "false") != 0 && strcmp(unquoted, "0") != 0;
+            }
+            else if(strcmp(section, "build") == 0 && strcmp(key, "strip_sections") == 0) {
+                char unquoted[VALUE_MAX_LEN];
+                unquote_value(unquoted, sizeof(unquoted), value);
+                m->strip_sections = strcmp(unquoted, "true") == 0 || strcmp(unquoted, "1") == 0;
             }
         }
     }
@@ -563,6 +601,41 @@ static void object_path(char* out, size_t out_size, const char* src, const struc
     }
 }
 
+static void generated_c_basename(char* out, size_t out_size, const char* src)
+{
+    const char* base = base_name(src);
+    size_t len = strlen(base);
+    if(len + 1 >= out_size) {
+        die("cpm: generated C path too long");
+    }
+    strncpy(out, base, out_size - 1);
+    out[out_size - 1] = '\0';
+    len = strlen(out);
+    if(len >= 3 && strcmp(out + len - 3, ".nc") == 0) {
+        out[len - 2] = 'c';
+        out[len - 1] = '\0';
+    }
+    else if(len + 3 < out_size) {
+        strcat(out, ".c");
+    }
+}
+
+static void generated_c_path(char* out, size_t out_size, const char* obj_path)
+{
+    size_t len;
+    snprintf(out, out_size, "%s", obj_path);
+    len = strlen(out);
+    if(len >= 2 && strcmp(out + len - 2, ".o") == 0) {
+        out[len - 1] = 'c';
+    }
+    else if(len + 3 < out_size) {
+        strcat(out, ".c");
+    }
+    if(strlen(out) >= out_size - 1) {
+        die("cpm: generated C path too long");
+    }
+}
+
 static void append_object_paths(char* cmd, size_t cmd_size, struct SourceList* sources,
     const struct Manifest* m)
 {
@@ -578,6 +651,92 @@ static void append_object_paths(char* cmd, size_t cmd_size, struct SourceList* s
         strcat(cmd, " ");
         strcat(cmd, q_obj);
     }
+}
+
+static int cmd_bare_build_with_flags(const char* extra_flags, int optimize,
+    struct Manifest* m, struct SourceList* sources, const char* q_out)
+{
+    char q_neoc[PATH_MAX_LEN * 2];
+    char q_cc[PATH_MAX_LEN * 2];
+    char q_linker[PATH_MAX_LEN * 2];
+    char cmd[PATH_MAX_LEN * 16];
+    int i;
+
+    shell_quote(q_neoc, sizeof(q_neoc), m->neoc);
+    shell_quote(q_cc, sizeof(q_cc), m->cc);
+    shell_quote(q_linker, sizeof(q_linker), m->linker);
+
+    for(i = 0; i < sources->count; i++) {
+        char obj_path_buf[PATH_MAX_LEN];
+        char generated_base[PATH_MAX_LEN];
+        char c_path_buf[PATH_MAX_LEN];
+        char q_src[PATH_MAX_LEN * 2];
+        char q_generated_base[PATH_MAX_LEN * 2];
+        char q_c_path[PATH_MAX_LEN * 2];
+        char q_obj[PATH_MAX_LEN * 2];
+
+        object_path(obj_path_buf, sizeof(obj_path_buf), sources->path[i], m);
+        generated_c_basename(generated_base, sizeof(generated_base), sources->path[i]);
+        generated_c_path(c_path_buf, sizeof(c_path_buf), obj_path_buf);
+        ensure_parent_dir(obj_path_buf);
+        ensure_parent_dir(c_path_buf);
+        shell_quote(q_src, sizeof(q_src), sources->path[i]);
+        shell_quote(q_generated_base, sizeof(q_generated_base), generated_base);
+        shell_quote(q_c_path, sizeof(q_c_path), c_path_buf);
+        shell_quote(q_obj, sizeof(q_obj), obj_path_buf);
+
+        snprintf(cmd, sizeof(cmd), "%s %s %s -bare -S %s",
+            q_neoc, m->neoc_flags, extra_flags == NULL ? "" : extra_flags, q_src);
+        if(run_cmd(cmd) != 0) {
+            return 1;
+        }
+        snprintf(cmd, sizeof(cmd), "mv %s %s", q_generated_base, q_c_path);
+        if(run_cmd(cmd) != 0) {
+            return 1;
+        }
+        snprintf(cmd, sizeof(cmd), "%s %s -c %s -o %s",
+            q_cc, m->cflags, q_c_path, q_obj);
+        if(run_cmd(cmd) != 0) {
+            return 1;
+        }
+    }
+
+    snprintf(cmd, sizeof(cmd), "%s %s", q_linker, m->linker_flags);
+    if(m->linker_script[0] != '\0') {
+        char q_script[PATH_MAX_LEN * 2];
+        shell_quote(q_script, sizeof(q_script), m->linker_script);
+        if(strlen(cmd) + strlen(q_script) + 5 >= sizeof(cmd)) {
+            die("cpm: command too long");
+        }
+        strcat(cmd, " -T ");
+        strcat(cmd, q_script);
+    }
+    if(strlen(cmd) + strlen(q_out) + 5 >= sizeof(cmd)) {
+        die("cpm: command too long");
+    }
+    strcat(cmd, " -o ");
+    strcat(cmd, q_out);
+    append_object_paths(cmd, sizeof(cmd), sources, m);
+    if(m->ldflags[0] != '\0') {
+        if(strlen(cmd) + strlen(m->ldflags) + 2 >= sizeof(cmd)) {
+            die("cpm: command too long");
+        }
+        strcat(cmd, " ");
+        strcat(cmd, m->ldflags);
+    }
+    if(run_cmd(cmd) != 0) {
+        return 1;
+    }
+    if(m->strip && optimize) {
+        char strip_cmd[PATH_MAX_LEN * 3];
+        snprintf(strip_cmd, sizeof(strip_cmd), "strip -s%s %s",
+            m->strip_sections ? " --strip-section-headers" : "", q_out);
+        if(run_cmd(strip_cmd) != 0) {
+            return 1;
+        }
+    }
+    printf("built %s\n", m->out);
+    return 0;
 }
 
 static void write_manifest(const char* name)
@@ -673,6 +832,12 @@ static int cmd_build_with_flags(const char* extra_flags, int optimize)
     collect_sources(&sources, m.src);
     shell_quote(q_neoc, sizeof(q_neoc), m.neoc);
 
+    if(m.bare) {
+        shell_quote(q_out, sizeof(q_out), m.out);
+        ensure_parent_dir(m.out);
+        return cmd_bare_build_with_flags(extra_flags, optimize, &m, &sources, q_out);
+    }
+
     if(file_exists("lib/neo-c-str.nc")) {
         char q_runtime_src[PATH_MAX_LEN * 2];
         char q_runtime_obj[PATH_MAX_LEN * 2];
@@ -730,7 +895,8 @@ static int cmd_build_with_flags(const char* extra_flags, int optimize)
     }
     if(m.strip && optimize) {
         char strip_cmd[PATH_MAX_LEN * 3];
-        snprintf(strip_cmd, sizeof(strip_cmd), "strip -s %s", q_out);
+        snprintf(strip_cmd, sizeof(strip_cmd), "strip -s%s %s",
+            m.strip_sections ? " --strip-section-headers" : "", q_out);
         if(run_cmd(strip_cmd) != 0) {
             return 1;
         }

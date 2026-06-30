@@ -55,3 +55,26 @@ Set `CPM_NEOC=/path/to/neo-c` to override the compiler at runtime. Set
 `CPM_STDLIB_DIR=/path/to/neo-c` if `cpm new` cannot find the standard library
 sources. `cpm val` uses Valgrind. `cpm leak` builds with sanitizer flags and
 falls back to Valgrind if the sanitizer path fails.
+
+For libc-free tiny Linux binaries, `Neo.toml` can select a bare build path:
+
+```toml
+[build]
+src = "src/main.nc"
+out = "target/debug/small"
+neoc = "neo-c"
+neoc_flags = ""
+bare = true
+cc = "clang"
+cflags = "-target x86_64-linux-gnu -Oz -ffreestanding -fno-asynchronous-unwind-tables -fno-ident -fno-stack-protector -fno-unwind-tables -nostdlib"
+linker = "ld"
+linker_flags = "-nostdlib -static -n --build-id=none"
+linker_script = "small.ld"
+ldflags = ""
+strip = true
+strip_sections = true
+```
+
+With `bare = true`, `cpm build` runs `neo-c -bare -S`, compiles the generated C
+with `cc`/`cflags`, links with `linker`, and uses `strip --strip-section-headers`
+when `strip_sections = true`.
