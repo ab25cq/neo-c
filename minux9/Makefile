@@ -37,8 +37,8 @@ NEOC_RV_FS_BIN ?= neo-c
 NEOC_RV_FS_HEADERS ?= neo-c.h neo-c-libc.h
 NEOC_HELLO_SRC ?= neoc_hello.nc
 NEOC_HELLO_SCRIPT ?= neoc_hello.sh
-NEOC_PARENT_NC := $(sort $(wildcard ../[0-9][0-9]*.nc))
-NEOC_RV_C := $(patsubst ../%.nc,$(NEOC_RV_BUILD_DIR)/%.c,$(NEOC_PARENT_NC))
+NEOC_PARENT_NC := $(sort $(wildcard ../src/[0-9][0-9]*.nc))
+NEOC_RV_C := $(patsubst ../src/%.nc,$(NEOC_RV_BUILD_DIR)/%.c,$(NEOC_PARENT_NC))
 NEOC_RV_O := $(patsubst %.c,%.o,$(NEOC_RV_C))
 NEOC_RV_CFLAGS := -std=gnu11 -D__MINUX__ -D__BAREMETAL__ $(CFLAGS) -ffreestanding -fno-stack-protector -fno-builtin -nostdlib -mcmodel=medany -static -nostartfiles -I. -I..
 QEMU ?= qemu-system-riscv64
@@ -171,14 +171,14 @@ $(RISCV_EMU_TARGET): riscv-emu-src/riscv-emu.c
 $(NEOC_RV_BUILD_DIR):
 	mkdir -p $@
 
-$(NEOC_RV_BUILD_DIR)/%.c: ../%.nc ../neo-c.h ../neo-c-libc.h ../common.h | $(NEOC_RV_BUILD_DIR)
-	cd $(NEOC_RV_BUILD_DIR) && $(NEOC_NCC) -I../../../.. -bare -c ../../../../$*.nc
+$(NEOC_RV_BUILD_DIR)/%.c: ../src/%.nc ../neo-c.h ../neo-c-libc.h ../common.h | $(NEOC_RV_BUILD_DIR)
+	cd $(NEOC_RV_BUILD_DIR) && $(NEOC_NCC) -I../../../.. -bare -c ../../../../src/$*.nc
 
 $(NEOC_RV_BUILD_DIR)/%.o: $(NEOC_RV_BUILD_DIR)/%.c
 	$(CCPREFIX)gcc $(NEOC_RV_CFLAGS) -c -o $@ $<
 
-$(NEOC_RV_BUILD_DIR)/ccpp.c: ../ccpp.nc ../ccpp_body.h | $(NEOC_RV_BUILD_DIR)
-	cd $(NEOC_RV_BUILD_DIR) && $(NEOC_NCC) -I../../../.. -c ../../../../ccpp.nc
+$(NEOC_RV_BUILD_DIR)/ccpp.c: ../src/ccpp.nc ../ccpp_body.h | $(NEOC_RV_BUILD_DIR)
+	cd $(NEOC_RV_BUILD_DIR) && $(NEOC_NCC) -I../../../.. -c ../../../../src/ccpp.nc
 
 $(NEOC_RV_BUILD_DIR)/ccpp.o: $(NEOC_RV_BUILD_DIR)/ccpp.c ../ccpp_body.h
 	$(CCPREFIX)gcc $(NEOC_RV_CFLAGS) -DCCPP_BARE -I.. -c -o $@ $<
