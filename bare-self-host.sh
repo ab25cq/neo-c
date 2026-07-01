@@ -54,7 +54,7 @@ run_sudo_make() {
 
 if test -x ./ncc
 then
-    touch *.nc
+    touch src/*.nc
     
     if uname -a | grep Android
     then
@@ -73,7 +73,7 @@ then
         run_sudo_make install
     fi
 else 
-    touch *.nc
+    touch src/*.nc
     
     if uname -a | grep Android
     then

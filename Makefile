@@ -44,7 +44,7 @@ BARE?=0
 NCC_EXTRA_DEPS=neo-c-str.o
 NEO_C_STDLIB_FILES=neo-c.h neo-c-str.nc neo-c-str.h neo-c-libc.h neo-c-net.h neo-c-pthread.h
 NEO_C_HEADER_FILES=neo-c.h neo-c-str.h neo-c-libc.h neo-c-net.h neo-c-pthread.h
-PGO_TRAINING_DIRS?=. code code2 code4 mytest vin mf shsh zed webweb minux2 cinatora
+PGO_TRAINING_DIRS?=src . code code2 code4 mytest vin mf shsh zed webweb minux2 cinatora
 .PHONY: all self-host cpm-build-ncc cpm-run-ncc install clean distclean uninstall test pgo pgo-generate pgo-collect pgo-use pgo-bolt pgo-cs-generate pgo-cs-collect pgo-cs-use
 ifeq ($(LOWMEM),1)
 CFLAGS_DEFAULT_OPT=
@@ -106,176 +106,288 @@ cpm-run-ncc: cpm-build-ncc
 #########################################
 # make c source
 #########################################
-SELF_HOST_C_SOURCES=01main.c 02transpile.c 03output_code.c 04heap.c 05parse.c 06type.c 07function.c 08call.c 09pre_op.c 10str.c 11number.c 12var.c 13gvar.c 14if.c 15while.c 16for.c 17do_while.c 18switch.c 19struct.c 20union.c 21enum.c 22typedef.c 23field.c 24method.c 25obj.c 26eq.c 27impl.c 28interface.c 29module.c 30op.c 31type2.c 32function2.c 33output_code2.c 34heap2.c 35call2.c 36str2.c 37var2.c 38struct2.c 39method2.c 40obj2.c 41module2.c 42op2.c 43function3.c 44function4.c 45function5.c 46function6.c 47function7.c 48function8.c 49call3.c 50call4.c 51str3.c 52obj3.c 53obj4.c ccpp.c neo-c-str.c
+SELF_HOST_C_SOURCES=c-src/01main.c c-src/02transpile.c c-src/03output_code.c c-src/04heap.c c-src/05parse.c c-src/06type.c c-src/07function.c c-src/08call.c c-src/09pre_op.c c-src/10str.c c-src/11number.c c-src/12var.c c-src/13gvar.c c-src/14if.c c-src/15while.c c-src/16for.c c-src/17do_while.c c-src/18switch.c c-src/19struct.c c-src/20union.c c-src/21enum.c c-src/22typedef.c c-src/23field.c c-src/24method.c c-src/25obj.c c-src/26eq.c c-src/27impl.c c-src/28interface.c c-src/29module.c c-src/30op.c c-src/31type2.c c-src/32function2.c c-src/33output_code2.c c-src/34heap2.c c-src/35call2.c c-src/36str2.c c-src/37var2.c c-src/38struct2.c c-src/39method2.c c-src/40obj2.c c-src/41module2.c c-src/42op2.c c-src/43function3.c c-src/44function4.c c-src/45function5.c c-src/46function6.c c-src/47function7.c c-src/48function8.c c-src/49call3.c c-src/50call4.c c-src/51str3.c c-src/52obj3.c c-src/53obj4.c c-src/ccpp.c c-src/neo-c-str.c
 
 
 self-host: $(SELF_HOST_C_SOURCES)
 
-neo-c-str.c: neo-c-str.nc
-	./ncc $(NCC_FLAGS) -c -uniq neo-c-str.nc
+ifneq ($(filter self-host,$(MAKECMDGOALS)),)
+c-src/neo-c-str.c: src/neo-c-str.nc
+	./ncc $(NCC_FLAGS) -c -uniq src/neo-c-str.nc
+	@mkdir -p c-src
+	@mv -f neo-c-str.c c-src/neo-c-str.c
 
-01main.c: 01main.nc
-	./ncc $(NCC_FLAGS) -c 01main.nc 
+c-src/01main.c: src/01main.nc
+	./ncc $(NCC_FLAGS) -c src/01main.nc
+	@mkdir -p c-src
+	@mv -f 01main.c c-src/01main.c
 
-02transpile.c: 02transpile.nc
-	./ncc $(NCC_FLAGS) -c 02transpile.nc 
+c-src/02transpile.c: src/02transpile.nc
+	./ncc $(NCC_FLAGS) -c src/02transpile.nc
+	@mkdir -p c-src
+	@mv -f 02transpile.c c-src/02transpile.c
 
-03output_code.c: 03output_code.nc
-	./ncc $(NCC_FLAGS) -c 03output_code.nc
+c-src/03output_code.c: src/03output_code.nc
+	./ncc $(NCC_FLAGS) -c src/03output_code.nc
+	@mkdir -p c-src
+	@mv -f 03output_code.c c-src/03output_code.c
 
-04heap.c: 04heap.nc
-	./ncc $(NCC_FLAGS) -c 04heap.nc
+c-src/04heap.c: src/04heap.nc
+	./ncc $(NCC_FLAGS) -c src/04heap.nc
+	@mkdir -p c-src
+	@mv -f 04heap.c c-src/04heap.c
 
-05parse.c: 05parse.nc
-	./ncc $(NCC_FLAGS) -c 05parse.nc
+c-src/05parse.c: src/05parse.nc
+	./ncc $(NCC_FLAGS) -c src/05parse.nc
+	@mkdir -p c-src
+	@mv -f 05parse.c c-src/05parse.c
 
-06type.c: 06type.nc
-	./ncc $(NCC_FLAGS) -c 06type.nc
+c-src/06type.c: src/06type.nc
+	./ncc $(NCC_FLAGS) -c src/06type.nc
+	@mkdir -p c-src
+	@mv -f 06type.c c-src/06type.c
 
-07function.c: 07function.nc
-	./ncc $(NCC_FLAGS) -c 07function.nc
+c-src/07function.c: src/07function.nc
+	./ncc $(NCC_FLAGS) -c src/07function.nc
+	@mkdir -p c-src
+	@mv -f 07function.c c-src/07function.c
 
-08call.c: 08call.nc
-	./ncc $(NCC_FLAGS) -c 08call.nc
+c-src/08call.c: src/08call.nc
+	./ncc $(NCC_FLAGS) -c src/08call.nc
+	@mkdir -p c-src
+	@mv -f 08call.c c-src/08call.c
 
-09pre_op.c: 09pre_op.nc
-	./ncc $(NCC_FLAGS) -c 09pre_op.nc
+c-src/09pre_op.c: src/09pre_op.nc
+	./ncc $(NCC_FLAGS) -c src/09pre_op.nc
+	@mkdir -p c-src
+	@mv -f 09pre_op.c c-src/09pre_op.c
 
-10str.c: 10str.nc
-	./ncc $(NCC_FLAGS) -c 10str.nc
+c-src/10str.c: src/10str.nc
+	./ncc $(NCC_FLAGS) -c src/10str.nc
+	@mkdir -p c-src
+	@mv -f 10str.c c-src/10str.c
 
-11number.c: 11number.nc
-	./ncc $(NCC_FLAGS) -c 11number.nc
+c-src/11number.c: src/11number.nc
+	./ncc $(NCC_FLAGS) -c src/11number.nc
+	@mkdir -p c-src
+	@mv -f 11number.c c-src/11number.c
 
-12var.c: 12var.nc
-	./ncc $(NCC_FLAGS) -c 12var.nc
+c-src/12var.c: src/12var.nc
+	./ncc $(NCC_FLAGS) -c src/12var.nc
+	@mkdir -p c-src
+	@mv -f 12var.c c-src/12var.c
 
-13gvar.c: 13gvar.nc
-	./ncc $(NCC_FLAGS) -c 13gvar.nc
+c-src/13gvar.c: src/13gvar.nc
+	./ncc $(NCC_FLAGS) -c src/13gvar.nc
+	@mkdir -p c-src
+	@mv -f 13gvar.c c-src/13gvar.c
 
-14if.c: 14if.nc
-	./ncc $(NCC_FLAGS) -c 14if.nc
+c-src/14if.c: src/14if.nc
+	./ncc $(NCC_FLAGS) -c src/14if.nc
+	@mkdir -p c-src
+	@mv -f 14if.c c-src/14if.c
 
-15while.c: 15while.nc
-	./ncc $(NCC_FLAGS) -c 15while.nc
+c-src/15while.c: src/15while.nc
+	./ncc $(NCC_FLAGS) -c src/15while.nc
+	@mkdir -p c-src
+	@mv -f 15while.c c-src/15while.c
 
-16for.c: 16for.nc
-	./ncc $(NCC_FLAGS) -c 16for.nc
+c-src/16for.c: src/16for.nc
+	./ncc $(NCC_FLAGS) -c src/16for.nc
+	@mkdir -p c-src
+	@mv -f 16for.c c-src/16for.c
 
-17do_while.c: 17do_while.nc
-	./ncc $(NCC_FLAGS) -c 17do_while.nc
+c-src/17do_while.c: src/17do_while.nc
+	./ncc $(NCC_FLAGS) -c src/17do_while.nc
+	@mkdir -p c-src
+	@mv -f 17do_while.c c-src/17do_while.c
 
-18switch.c: 18switch.nc
-	./ncc $(NCC_FLAGS) -c 18switch.nc
+c-src/18switch.c: src/18switch.nc
+	./ncc $(NCC_FLAGS) -c src/18switch.nc
+	@mkdir -p c-src
+	@mv -f 18switch.c c-src/18switch.c
 
-19struct.c: 19struct.nc
-	./ncc $(NCC_FLAGS) -c 19struct.nc
+c-src/19struct.c: src/19struct.nc
+	./ncc $(NCC_FLAGS) -c src/19struct.nc
+	@mkdir -p c-src
+	@mv -f 19struct.c c-src/19struct.c
 
-20union.c: 20union.nc
-	./ncc $(NCC_FLAGS) -c 20union.nc
+c-src/20union.c: src/20union.nc
+	./ncc $(NCC_FLAGS) -c src/20union.nc
+	@mkdir -p c-src
+	@mv -f 20union.c c-src/20union.c
 
-21enum.c: 21enum.nc
-	./ncc $(NCC_FLAGS) -c 21enum.nc
+c-src/21enum.c: src/21enum.nc
+	./ncc $(NCC_FLAGS) -c src/21enum.nc
+	@mkdir -p c-src
+	@mv -f 21enum.c c-src/21enum.c
 
-22typedef.c: 22typedef.nc
-	./ncc $(NCC_FLAGS) -c 22typedef.nc 
+c-src/22typedef.c: src/22typedef.nc
+	./ncc $(NCC_FLAGS) -c src/22typedef.nc
+	@mkdir -p c-src
+	@mv -f 22typedef.c c-src/22typedef.c
 
-23field.c: 23field.nc
-	./ncc $(NCC_FLAGS) -c 23field.nc
+c-src/23field.c: src/23field.nc
+	./ncc $(NCC_FLAGS) -c src/23field.nc
+	@mkdir -p c-src
+	@mv -f 23field.c c-src/23field.c
 
-24method.c: 24method.nc
-	./ncc $(NCC_FLAGS) -c 24method.nc
+c-src/24method.c: src/24method.nc
+	./ncc $(NCC_FLAGS) -c src/24method.nc
+	@mkdir -p c-src
+	@mv -f 24method.c c-src/24method.c
 
-25obj.c: 25obj.nc
-	./ncc $(NCC_FLAGS) -c 25obj.nc
+c-src/25obj.c: src/25obj.nc
+	./ncc $(NCC_FLAGS) -c src/25obj.nc
+	@mkdir -p c-src
+	@mv -f 25obj.c c-src/25obj.c
 
-26eq.c: 26eq.nc
-	./ncc $(NCC_FLAGS) -c 26eq.nc
+c-src/26eq.c: src/26eq.nc
+	./ncc $(NCC_FLAGS) -c src/26eq.nc
+	@mkdir -p c-src
+	@mv -f 26eq.c c-src/26eq.c
 
-27impl.c: 27impl.nc
-	./ncc $(NCC_FLAGS) -c 27impl.nc
+c-src/27impl.c: src/27impl.nc
+	./ncc $(NCC_FLAGS) -c src/27impl.nc
+	@mkdir -p c-src
+	@mv -f 27impl.c c-src/27impl.c
 
-28interface.c: 28interface.nc
-	./ncc $(NCC_FLAGS) -c 28interface.nc
+c-src/28interface.c: src/28interface.nc
+	./ncc $(NCC_FLAGS) -c src/28interface.nc
+	@mkdir -p c-src
+	@mv -f 28interface.c c-src/28interface.c
 
-29module.c: 29module.nc
-	./ncc $(NCC_FLAGS) -c 29module.nc
+c-src/29module.c: src/29module.nc
+	./ncc $(NCC_FLAGS) -c src/29module.nc
+	@mkdir -p c-src
+	@mv -f 29module.c c-src/29module.c
 
-30op.c: 30op.nc
-	./ncc $(NCC_FLAGS) -c 30op.nc
+c-src/30op.c: src/30op.nc
+	./ncc $(NCC_FLAGS) -c src/30op.nc
+	@mkdir -p c-src
+	@mv -f 30op.c c-src/30op.c
 
-31type2.c: 31type2.nc
-	./ncc $(NCC_FLAGS) -c 31type2.nc
+c-src/31type2.c: src/31type2.nc
+	./ncc $(NCC_FLAGS) -c src/31type2.nc
+	@mkdir -p c-src
+	@mv -f 31type2.c c-src/31type2.c
 
-32function2.c: 32function2.nc
-	./ncc $(NCC_FLAGS) -c 32function2.nc
+c-src/32function2.c: src/32function2.nc
+	./ncc $(NCC_FLAGS) -c src/32function2.nc
+	@mkdir -p c-src
+	@mv -f 32function2.c c-src/32function2.c
 
-33output_code2.c: 33output_code2.nc
-	./ncc $(NCC_FLAGS) -c 33output_code2.nc
+c-src/33output_code2.c: src/33output_code2.nc
+	./ncc $(NCC_FLAGS) -c src/33output_code2.nc
+	@mkdir -p c-src
+	@mv -f 33output_code2.c c-src/33output_code2.c
 
-34heap2.c: 34heap2.nc
-	./ncc $(NCC_FLAGS) -c 34heap2.nc
+c-src/34heap2.c: src/34heap2.nc
+	./ncc $(NCC_FLAGS) -c src/34heap2.nc
+	@mkdir -p c-src
+	@mv -f 34heap2.c c-src/34heap2.c
 
-35call2.c: 35call2.nc
-	./ncc $(NCC_FLAGS) -c 35call2.nc
+c-src/35call2.c: src/35call2.nc
+	./ncc $(NCC_FLAGS) -c src/35call2.nc
+	@mkdir -p c-src
+	@mv -f 35call2.c c-src/35call2.c
 
-36str2.c: 36str2.nc
-	./ncc $(NCC_FLAGS) -c 36str2.nc
+c-src/36str2.c: src/36str2.nc
+	./ncc $(NCC_FLAGS) -c src/36str2.nc
+	@mkdir -p c-src
+	@mv -f 36str2.c c-src/36str2.c
 
-37var2.c: 37var2.nc
-	./ncc $(NCC_FLAGS) -c 37var2.nc
+c-src/37var2.c: src/37var2.nc
+	./ncc $(NCC_FLAGS) -c src/37var2.nc
+	@mkdir -p c-src
+	@mv -f 37var2.c c-src/37var2.c
 
-38struct2.c: 38struct2.nc
-	./ncc $(NCC_FLAGS) -c 38struct2.nc
+c-src/38struct2.c: src/38struct2.nc
+	./ncc $(NCC_FLAGS) -c src/38struct2.nc
+	@mkdir -p c-src
+	@mv -f 38struct2.c c-src/38struct2.c
 
-39method2.c: 39method2.nc
-	./ncc $(NCC_FLAGS) -c 39method2.nc
+c-src/39method2.c: src/39method2.nc
+	./ncc $(NCC_FLAGS) -c src/39method2.nc
+	@mkdir -p c-src
+	@mv -f 39method2.c c-src/39method2.c
 
-40obj2.c: 40obj2.nc
-	./ncc $(NCC_FLAGS) -c 40obj2.nc
+c-src/40obj2.c: src/40obj2.nc
+	./ncc $(NCC_FLAGS) -c src/40obj2.nc
+	@mkdir -p c-src
+	@mv -f 40obj2.c c-src/40obj2.c
 
-41module2.c: 41module2.nc
-	./ncc $(NCC_FLAGS) -c 41module2.nc
+c-src/41module2.c: src/41module2.nc
+	./ncc $(NCC_FLAGS) -c src/41module2.nc
+	@mkdir -p c-src
+	@mv -f 41module2.c c-src/41module2.c
 
-42op2.c: 42op2.nc
-	./ncc $(NCC_FLAGS) -c 42op2.nc
+c-src/42op2.c: src/42op2.nc
+	./ncc $(NCC_FLAGS) -c src/42op2.nc
+	@mkdir -p c-src
+	@mv -f 42op2.c c-src/42op2.c
 
-43function3.c: 43function3.nc
-	./ncc $(NCC_FLAGS) -c 43function3.nc
+c-src/43function3.c: src/43function3.nc
+	./ncc $(NCC_FLAGS) -c src/43function3.nc
+	@mkdir -p c-src
+	@mv -f 43function3.c c-src/43function3.c
 
-44function4.c: 44function4.nc
-	./ncc $(NCC_FLAGS) -c 44function4.nc
+c-src/44function4.c: src/44function4.nc
+	./ncc $(NCC_FLAGS) -c src/44function4.nc
+	@mkdir -p c-src
+	@mv -f 44function4.c c-src/44function4.c
 
-45function5.c: 45function5.nc
-	./ncc $(NCC_FLAGS) -c 45function5.nc
+c-src/45function5.c: src/45function5.nc
+	./ncc $(NCC_FLAGS) -c src/45function5.nc
+	@mkdir -p c-src
+	@mv -f 45function5.c c-src/45function5.c
 
-46function6.c: 46function6.nc
-	./ncc $(NCC_FLAGS) -c 46function6.nc
+c-src/46function6.c: src/46function6.nc
+	./ncc $(NCC_FLAGS) -c src/46function6.nc
+	@mkdir -p c-src
+	@mv -f 46function6.c c-src/46function6.c
 
-47function7.c: 47function7.nc
-	./ncc $(NCC_FLAGS) -c 47function7.nc
+c-src/47function7.c: src/47function7.nc
+	./ncc $(NCC_FLAGS) -c src/47function7.nc
+	@mkdir -p c-src
+	@mv -f 47function7.c c-src/47function7.c
 
-48function8.c: 48function8.nc
-	./ncc $(NCC_FLAGS) -c 48function8.nc
+c-src/48function8.c: src/48function8.nc
+	./ncc $(NCC_FLAGS) -c src/48function8.nc
+	@mkdir -p c-src
+	@mv -f 48function8.c c-src/48function8.c
 
-49call3.c: 49call3.nc
-	./ncc $(NCC_FLAGS) -c 49call3.nc
+c-src/49call3.c: src/49call3.nc
+	./ncc $(NCC_FLAGS) -c src/49call3.nc
+	@mkdir -p c-src
+	@mv -f 49call3.c c-src/49call3.c
 
-50call4.c: 50call4.nc
-	./ncc $(NCC_FLAGS) -c 50call4.nc
+c-src/50call4.c: src/50call4.nc
+	./ncc $(NCC_FLAGS) -c src/50call4.nc
+	@mkdir -p c-src
+	@mv -f 50call4.c c-src/50call4.c
 
-51str3.c: 51str3.nc
-	./ncc $(NCC_FLAGS) -c 51str3.nc
+c-src/51str3.c: src/51str3.nc
+	./ncc $(NCC_FLAGS) -c src/51str3.nc
+	@mkdir -p c-src
+	@mv -f 51str3.c c-src/51str3.c
 
-52obj3.c: 52obj3.nc
-	./ncc $(NCC_FLAGS) -c 52obj3.nc
+c-src/52obj3.c: src/52obj3.nc
+	./ncc $(NCC_FLAGS) -c src/52obj3.nc
+	@mkdir -p c-src
+	@mv -f 52obj3.c c-src/52obj3.c
 
-53obj4.c: 53obj4.nc
-	./ncc $(NCC_FLAGS) -c 53obj4.nc
+c-src/53obj4.c: src/53obj4.nc
+	./ncc $(NCC_FLAGS) -c src/53obj4.nc
+	@mkdir -p c-src
+	@mv -f 53obj4.c c-src/53obj4.c
 
-ccpp.c: ccpp.nc ccpp_body.h
-	./ncc $(filter-out -bare,$(NCC_FLAGS)) -c ccpp.nc
+c-src/ccpp.c: src/ccpp.nc ccpp_body.h
+	./ncc $(filter-out -bare,$(NCC_FLAGS)) -c src/ccpp.nc
+	@mkdir -p c-src
+	@mv -f ccpp.c c-src/ccpp.c
 
+endif
 
 #########################################
 # compile c source
@@ -284,170 +396,170 @@ ncc: 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07functi
 	$(CC) -o ncc $(LINK_GC_SECTIONS) 01main.o 02transpile.o 03output_code.o 04heap.o 05parse.o 06type.o 07function.o 08call.o 09pre_op.o 10str.o 11number.o 12var.o 13gvar.o 14if.o 15while.o 16for.o 17do_while.o 18switch.o 19struct.o 20union.o 21enum.o 22typedef.o 23field.o 24method.o 25obj.o 26eq.o 27impl.o 28interface.o 29module.o 30op.o 31type2.o 32function2.o 33output_code2.o 34heap2.o 35call2.o 36str2.o 37var2.o 38struct2.o 39method2.o 40obj2.o 41module2.o 42op2.o 43function3.o 44function4.o 45function5.o 46function6.o 47function7.o 48function8.o 49call3.o 50call4.o 51str3.o 52obj3.o 53obj4.o ccpp.o  $(CFLAGS) $(LDFLAGS)
 	@if command -v $(STRIP) >/dev/null 2>&1; then $(STRIP) ncc || true; fi
 
-neo-c-str.o: neo-c-str.c neo-c-str.h
-	$(CC) -o neo-c-str.o -c neo-c-str.c $(CFLAGS) -fno-lto $(LINK_GC_SECTIONS) 2>&1 | grep error || true
+neo-c-str.o: c-src/neo-c-str.c neo-c-str.h
+	$(CC) -o neo-c-str.o -c c-src/neo-c-str.c $(CFLAGS) -fno-lto $(LINK_GC_SECTIONS) 2>&1 | grep error || true
 
-01main.o: 01main.c
-	$(CC) -o 01main.o -c 01main.c $(CFLAGS) 2>&1 | grep error || true
+01main.o: c-src/01main.c
+	$(CC) -o 01main.o -c c-src/01main.c $(CFLAGS) 2>&1 | grep error || true
 
-02transpile.o: 02transpile.c
-	$(CC) -o 02transpile.o -c 02transpile.c $(CFLAGS) 2>&1 | grep error || true
+02transpile.o: c-src/02transpile.c
+	$(CC) -o 02transpile.o -c c-src/02transpile.c $(CFLAGS) 2>&1 | grep error || true
 
-03output_code.o: 03output_code.c
-	$(CC) -o 03output_code.o -c 03output_code.c $(CFLAGS) 2>&1 | grep error || true
+03output_code.o: c-src/03output_code.c
+	$(CC) -o 03output_code.o -c c-src/03output_code.c $(CFLAGS) 2>&1 | grep error || true
 
-04heap.o: 04heap.c
-	$(CC) -o 04heap.o -c 04heap.c $(CFLAGS) 2>&1 | grep error || true
+04heap.o: c-src/04heap.c
+	$(CC) -o 04heap.o -c c-src/04heap.c $(CFLAGS) 2>&1 | grep error || true
 
-05parse.o: 05parse.c
-	$(CC) -o 05parse.o -c 05parse.c $(CFLAGS) 2>&1 | grep error || true
+05parse.o: c-src/05parse.c
+	$(CC) -o 05parse.o -c c-src/05parse.c $(CFLAGS) 2>&1 | grep error || true
 
-06type.o: 06type.c
-	$(CC) -o 06type.o -c 06type.c $(CFLAGS) 2>&1 | grep error || true
+06type.o: c-src/06type.c
+	$(CC) -o 06type.o -c c-src/06type.c $(CFLAGS) 2>&1 | grep error || true
 
-07function.o: 07function.c
-	$(CC) -o 07function.o -c 07function.c $(CFLAGS) 2>&1 | grep error || true
+07function.o: c-src/07function.c
+	$(CC) -o 07function.o -c c-src/07function.c $(CFLAGS) 2>&1 | grep error || true
 
-08call.o: 08call.c
-	$(CC) -o 08call.o -c 08call.c $(CFLAGS) 2>&1 | grep error || true
+08call.o: c-src/08call.c
+	$(CC) -o 08call.o -c c-src/08call.c $(CFLAGS) 2>&1 | grep error || true
 
-09pre_op.o: 09pre_op.c
-	$(CC) -o 09pre_op.o -c 09pre_op.c $(CFLAGS) 2>&1 | grep error || true
+09pre_op.o: c-src/09pre_op.c
+	$(CC) -o 09pre_op.o -c c-src/09pre_op.c $(CFLAGS) 2>&1 | grep error || true
 
-10str.o: 10str.c
-	$(CC) -o 10str.o -c 10str.c $(CFLAGS) 2>&1 | grep error || true
+10str.o: c-src/10str.c
+	$(CC) -o 10str.o -c c-src/10str.c $(CFLAGS) 2>&1 | grep error || true
 
-11number.o: 11number.c
-	$(CC) -o 11number.o -c 11number.c $(CFLAGS) 2>&1 | grep error || true
+11number.o: c-src/11number.c
+	$(CC) -o 11number.o -c c-src/11number.c $(CFLAGS) 2>&1 | grep error || true
 
-12var.o: 12var.c
-	$(CC) -o 12var.o -c 12var.c $(CFLAGS) 2>&1 | grep error || true
+12var.o: c-src/12var.c
+	$(CC) -o 12var.o -c c-src/12var.c $(CFLAGS) 2>&1 | grep error || true
 
-13gvar.o: 13gvar.c
-	$(CC) -o 13gvar.o -c 13gvar.c $(CFLAGS) 2>&1 | grep error || true
+13gvar.o: c-src/13gvar.c
+	$(CC) -o 13gvar.o -c c-src/13gvar.c $(CFLAGS) 2>&1 | grep error || true
 
-14if.o: 14if.c
-	$(CC) -o 14if.o -c 14if.c $(CFLAGS) 2>&1 | grep error || true
+14if.o: c-src/14if.c
+	$(CC) -o 14if.o -c c-src/14if.c $(CFLAGS) 2>&1 | grep error || true
 
-15while.o: 15while.c
-	$(CC) -o 15while.o -c 15while.c $(CFLAGS) 2>&1 | grep error || true
+15while.o: c-src/15while.c
+	$(CC) -o 15while.o -c c-src/15while.c $(CFLAGS) 2>&1 | grep error || true
 
-16for.o: 16for.c
-	$(CC) -o 16for.o -c 16for.c $(CFLAGS) 2>&1 | grep error || true
+16for.o: c-src/16for.c
+	$(CC) -o 16for.o -c c-src/16for.c $(CFLAGS) 2>&1 | grep error || true
 
-17do_while.o: 17do_while.c
-	$(CC) -o 17do_while.o -c 17do_while.c $(CFLAGS) 2>&1 | grep error || true
+17do_while.o: c-src/17do_while.c
+	$(CC) -o 17do_while.o -c c-src/17do_while.c $(CFLAGS) 2>&1 | grep error || true
 
-18switch.o: 18switch.c
-	$(CC) -o 18switch.o -c 18switch.c $(CFLAGS) 2>&1 | grep error || true
+18switch.o: c-src/18switch.c
+	$(CC) -o 18switch.o -c c-src/18switch.c $(CFLAGS) 2>&1 | grep error || true
 
-19struct.o: 19struct.c
-	$(CC) -o 19struct.o -c 19struct.c $(CFLAGS) 2>&1 | grep error || true
+19struct.o: c-src/19struct.c
+	$(CC) -o 19struct.o -c c-src/19struct.c $(CFLAGS) 2>&1 | grep error || true
 
-20union.o: 20union.c
-	$(CC) -o 20union.o -c 20union.c $(CFLAGS) 2>&1 | grep error || true
+20union.o: c-src/20union.c
+	$(CC) -o 20union.o -c c-src/20union.c $(CFLAGS) 2>&1 | grep error || true
 
-21enum.o: 21enum.c
-	$(CC) -o 21enum.o -c 21enum.c $(CFLAGS) 2>&1 | grep error || true
+21enum.o: c-src/21enum.c
+	$(CC) -o 21enum.o -c c-src/21enum.c $(CFLAGS) 2>&1 | grep error || true
 
-22typedef.o: 22typedef.c
-	$(CC) -o 22typedef.o -c 22typedef.c $(CFLAGS) 2>&1 | grep error || true
+22typedef.o: c-src/22typedef.c
+	$(CC) -o 22typedef.o -c c-src/22typedef.c $(CFLAGS) 2>&1 | grep error || true
 
-23field.o: 23field.c
-	$(CC) -o 23field.o -c 23field.c $(CFLAGS) 2>&1 | grep error || true
+23field.o: c-src/23field.c
+	$(CC) -o 23field.o -c c-src/23field.c $(CFLAGS) 2>&1 | grep error || true
 
-24method.o: 24method.c
-	$(CC) -o 24method.o -c 24method.c $(CFLAGS) 2>&1 | grep error || true
+24method.o: c-src/24method.c
+	$(CC) -o 24method.o -c c-src/24method.c $(CFLAGS) 2>&1 | grep error || true
 
-25obj.o: 25obj.c
-	$(CC) -o 25obj.o -c 25obj.c $(CFLAGS) 2>&1 | grep error || true
+25obj.o: c-src/25obj.c
+	$(CC) -o 25obj.o -c c-src/25obj.c $(CFLAGS) 2>&1 | grep error || true
 
-26eq.o: 26eq.c
-	$(CC) -o 26eq.o -c 26eq.c $(CFLAGS) 2>&1 | grep error || true
+26eq.o: c-src/26eq.c
+	$(CC) -o 26eq.o -c c-src/26eq.c $(CFLAGS) 2>&1 | grep error || true
 
-27impl.o: 27impl.c
-	$(CC) -o 27impl.o -c 27impl.c $(CFLAGS) 2>&1 | grep error || true
+27impl.o: c-src/27impl.c
+	$(CC) -o 27impl.o -c c-src/27impl.c $(CFLAGS) 2>&1 | grep error || true
 
-28interface.o: 28interface.c
-	$(CC) -o 28interface.o -c 28interface.c $(CFLAGS) 2>&1 | grep error || true
+28interface.o: c-src/28interface.c
+	$(CC) -o 28interface.o -c c-src/28interface.c $(CFLAGS) 2>&1 | grep error || true
 
-29module.o: 29module.c
-	$(CC) -o 29module.o -c 29module.c $(CFLAGS) 2>&1 | grep error || true
+29module.o: c-src/29module.c
+	$(CC) -o 29module.o -c c-src/29module.c $(CFLAGS) 2>&1 | grep error || true
 
-30op.o: 30op.c
-	$(CC) -o 30op.o -c 30op.c $(CFLAGS) 2>&1 | grep error || true
+30op.o: c-src/30op.c
+	$(CC) -o 30op.o -c c-src/30op.c $(CFLAGS) 2>&1 | grep error || true
 
-31type2.o: 31type2.c
-	$(CC) -o 31type2.o -c 31type2.c $(CFLAGS) 2>&1 | grep error || true
+31type2.o: c-src/31type2.c
+	$(CC) -o 31type2.o -c c-src/31type2.c $(CFLAGS) 2>&1 | grep error || true
 
-32function2.o: 32function2.c
-	$(CC) -o 32function2.o -c 32function2.c $(CFLAGS) 2>&1 | grep error || true
+32function2.o: c-src/32function2.c
+	$(CC) -o 32function2.o -c c-src/32function2.c $(CFLAGS) 2>&1 | grep error || true
 
-33output_code2.o: 33output_code2.c
-	$(CC) -o 33output_code2.o -c 33output_code2.c $(CFLAGS) 2>&1 | grep error || true
+33output_code2.o: c-src/33output_code2.c
+	$(CC) -o 33output_code2.o -c c-src/33output_code2.c $(CFLAGS) 2>&1 | grep error || true
 
-34heap2.o: 34heap2.c
-	$(CC) -o 34heap2.o -c 34heap2.c $(CFLAGS) 2>&1 | grep error || true
+34heap2.o: c-src/34heap2.c
+	$(CC) -o 34heap2.o -c c-src/34heap2.c $(CFLAGS) 2>&1 | grep error || true
 
-35call2.o: 35call2.c
-	$(CC) -o 35call2.o -c 35call2.c $(CFLAGS) 2>&1 | grep error || true
+35call2.o: c-src/35call2.c
+	$(CC) -o 35call2.o -c c-src/35call2.c $(CFLAGS) 2>&1 | grep error || true
 
-36str2.o: 36str2.c
-	$(CC) -o 36str2.o -c 36str2.c $(CFLAGS) 2>&1 | grep error || true
+36str2.o: c-src/36str2.c
+	$(CC) -o 36str2.o -c c-src/36str2.c $(CFLAGS) 2>&1 | grep error || true
 
-37var2.o: 37var2.c
-	$(CC) -o 37var2.o -c 37var2.c $(CFLAGS) 2>&1 | grep error || true
+37var2.o: c-src/37var2.c
+	$(CC) -o 37var2.o -c c-src/37var2.c $(CFLAGS) 2>&1 | grep error || true
 
-38struct2.o: 38struct2.c
-	$(CC) -o 38struct2.o -c 38struct2.c $(CFLAGS) 2>&1 | grep error || true
+38struct2.o: c-src/38struct2.c
+	$(CC) -o 38struct2.o -c c-src/38struct2.c $(CFLAGS) 2>&1 | grep error || true
 
-39method2.o: 39method2.c
-	$(CC) -o 39method2.o -c 39method2.c $(CFLAGS) 2>&1 | grep error || true
+39method2.o: c-src/39method2.c
+	$(CC) -o 39method2.o -c c-src/39method2.c $(CFLAGS) 2>&1 | grep error || true
 
-40obj2.o: 40obj2.c
-	$(CC) -o 40obj2.o -c 40obj2.c $(CFLAGS) 2>&1 | grep error || true
+40obj2.o: c-src/40obj2.c
+	$(CC) -o 40obj2.o -c c-src/40obj2.c $(CFLAGS) 2>&1 | grep error || true
 
-41module2.o: 41module2.c
-	$(CC) -o 41module2.o -c 41module2.c $(CFLAGS) 2>&1 | grep error || true
+41module2.o: c-src/41module2.c
+	$(CC) -o 41module2.o -c c-src/41module2.c $(CFLAGS) 2>&1 | grep error || true
 
-42op2.o: 42op2.c
-	$(CC) -o 42op2.o -c 42op2.c $(CFLAGS) 2>&1 | grep error || true
+42op2.o: c-src/42op2.c
+	$(CC) -o 42op2.o -c c-src/42op2.c $(CFLAGS) 2>&1 | grep error || true
 
-43function3.o: 43function3.c
-	$(CC) -o 43function3.o -c 43function3.c $(CFLAGS) 2>&1 | grep error || true
+43function3.o: c-src/43function3.c
+	$(CC) -o 43function3.o -c c-src/43function3.c $(CFLAGS) 2>&1 | grep error || true
 
-44function4.o: 44function4.c
-	$(CC) -o 44function4.o -c 44function4.c $(CFLAGS) 2>&1 | grep error || true
+44function4.o: c-src/44function4.c
+	$(CC) -o 44function4.o -c c-src/44function4.c $(CFLAGS) 2>&1 | grep error || true
 
-45function5.o: 45function5.c
-	$(CC) -o 45function5.o -c 45function5.c $(CFLAGS) 2>&1 | grep error || true
+45function5.o: c-src/45function5.c
+	$(CC) -o 45function5.o -c c-src/45function5.c $(CFLAGS) 2>&1 | grep error || true
 
-46function6.o: 46function6.c
-	$(CC) -o 46function6.o -c 46function6.c $(CFLAGS) 2>&1 | grep error || true
+46function6.o: c-src/46function6.c
+	$(CC) -o 46function6.o -c c-src/46function6.c $(CFLAGS) 2>&1 | grep error || true
 
-47function7.o: 47function7.c
-	$(CC) -o 47function7.o -c 47function7.c $(CFLAGS) 2>&1 | grep error || true
+47function7.o: c-src/47function7.c
+	$(CC) -o 47function7.o -c c-src/47function7.c $(CFLAGS) 2>&1 | grep error || true
 
-48function8.o: 48function8.c
-	$(CC) -o 48function8.o -c 48function8.c $(CFLAGS) 2>&1 | grep error || true
+48function8.o: c-src/48function8.c
+	$(CC) -o 48function8.o -c c-src/48function8.c $(CFLAGS) 2>&1 | grep error || true
 
-49call3.o: 49call3.c
-	$(CC) -o 49call3.o -c 49call3.c $(CFLAGS) 2>&1 | grep error || true
+49call3.o: c-src/49call3.c
+	$(CC) -o 49call3.o -c c-src/49call3.c $(CFLAGS) 2>&1 | grep error || true
 
-50call4.o: 50call4.c
-	$(CC) -o 50call4.o -c 50call4.c $(CFLAGS) 2>&1 | grep error || true
+50call4.o: c-src/50call4.c
+	$(CC) -o 50call4.o -c c-src/50call4.c $(CFLAGS) 2>&1 | grep error || true
 
-51str3.o: 51str3.c
-	$(CC) -o 51str3.o -c 51str3.c $(CFLAGS) 2>&1 | grep error || true
+51str3.o: c-src/51str3.c
+	$(CC) -o 51str3.o -c c-src/51str3.c $(CFLAGS) 2>&1 | grep error || true
 
-52obj3.o: 52obj3.c
-	$(CC) -o 52obj3.o -c 52obj3.c $(CFLAGS) 2>&1 | grep error || true
+52obj3.o: c-src/52obj3.c
+	$(CC) -o 52obj3.o -c c-src/52obj3.c $(CFLAGS) 2>&1 | grep error || true
 
-53obj4.o: 53obj4.c
-	$(CC) -o 53obj4.o -c 53obj4.c $(CFLAGS) 2>&1 | grep error || true
+53obj4.o: c-src/53obj4.c
+	$(CC) -o 53obj4.o -c c-src/53obj4.c $(CFLAGS) 2>&1 | grep error || true
 
-ccpp.o: ccpp.c ccpp_body.h
-	$(CC) -o ccpp.o -c ccpp.c $(CFLAGS) $(CCPP_CFLAGS)
+ccpp.o: c-src/ccpp.c ccpp_body.h
+	$(CC) -o ccpp.o -c c-src/ccpp.c $(CFLAGS) $(CCPP_CFLAGS)
 
 #########################################
 # install
@@ -459,7 +571,11 @@ install:
 	$(INSTALL) -m 755 ./neo-c "$(DESTDIR)/bin"
 	$(INSTALL) -m 755 ./ncc "$(DESTDIR)/bin"
 	@for f in $(NEO_C_STDLIB_FILES); do \
-		$(INSTALL) -m 644 "$$f" "$(DESTDIR)/share/neo-c/$$f"; \
+		if [ -f "$$f" ]; then \
+			$(INSTALL) -m 644 "$$f" "$(DESTDIR)/share/neo-c/$$f"; \
+		elif [ -f "src/$$f" ]; then \
+			$(INSTALL) -m 644 "src/$$f" "$(DESTDIR)/share/neo-c/$$f"; \
+		fi; \
 	done
 	@for f in $(NEO_C_HEADER_FILES); do \
 		$(INSTALL) -m 644 "$$f" "$(DESTDIR)/include/$$f"; \
@@ -534,7 +650,7 @@ BOLT_FLAGS=-reorder-blocks=ext-tsp -reorder-functions=hfsort -split-functions -s
 pgo-bolt:
 	@if [ ! -f ./ncc ]; then echo "ERROR: ncc not found. Run 'make pgo-use' first."; exit 1; fi
 	llvm-bolt ncc -instrument -o ncc.inst
-	for f in *.nc; do ./ncc.inst $(NCC_FLAGS) -c $$f 2>/dev/null || true; done
+	for f in src/*.nc *.nc; do test -f $$f && ./ncc.inst $(NCC_FLAGS) -c $$f 2>/dev/null || true; done
 	merge-fdata *.fdata > ncc.fdata
 	llvm-bolt ncc -o ncc -data=ncc.fdata $(BOLT_FLAGS)
 	rm -f *.fdata ncc.inst

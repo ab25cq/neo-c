@@ -43,7 +43,7 @@ neoc_flags = "-I. -Ilib"
 ldflags = ""
 jobs = 0
 lowmem = false
-strip = true
+strip = false
 ```
 
 `cpm build` compiles every `.nc` file under `src` to generated C and object
@@ -59,6 +59,8 @@ CPM_JOBS=4 cpm build
 
 If two source files would emit the same generated C basename, cpm falls back to
 the serial build path to avoid output-file collisions.
+`strip` defaults to `false`; set `strip = true` only when you want cpm to strip
+the final binary after linking.
 
 For low-memory systems such as 512MB machines, use lowmem mode. It disables
 parallel jobs and passes `-lowmem` to neo-c:

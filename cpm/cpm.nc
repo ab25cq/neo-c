@@ -61,6 +61,7 @@ struct BuildJob {
 };
 
 static int ensure_parent_dir(const char* path);
+static int is_runtime_source(const char* src);
 
 static void die(const char* msg)
 {
@@ -380,6 +381,14 @@ static void copy_if_exists(const char* src_dir, const char* name)
     char dst[PATH_MAX_LEN];
     join_path(src, sizeof(src), src_dir, name);
     if(!file_exists(src)) {
+        char src_name[PATH_MAX_LEN];
+        snprintf(src_name, sizeof(src_name), "src/%s", name);
+        if(strlen(src_name) >= sizeof(src_name) - 1) {
+            die("cpm: path too long");
+        }
+        join_path(src, sizeof(src), src_dir, src_name);
+    }
+    if(!file_exists(src)) {
         return;
     }
     join_path(dst, sizeof(dst), "lib", name);
@@ -622,7 +631,7 @@ static void manifest_defaults(struct Manifest* m)
     strcpy(m->cflags, "-Oz -ffreestanding -fno-asynchronous-unwind-tables -fno-ident -fno-stack-protector -fno-unwind-tables -nostdlib");
     strcpy(m->linker, "ld");
     strcpy(m->linker_flags, "-nostdlib -static -n --build-id=none");
-    m->strip = 1;
+    m->strip = 0;
 }
 
 static void manifest_finish(struct Manifest* m)
@@ -817,6 +826,10 @@ static void object_path(char* out, size_t out_size, const char* src, const struc
 {
     size_t i;
     size_t n;
+    if(is_runtime_source(src)) {
+        snprintf(out, out_size, "target/debug/neo-c-str.o");
+        return;
+    }
     if(strcmp(src, m->src) == 0) {
         snprintf(out, out_size, "target/debug/%s.o", m->name);
         return;
@@ -1293,7 +1306,7 @@ static void write_manifest(const char* name)
         "ldflags = \"\"\n"
         "jobs = 0\n"
         "lowmem = false\n"
-        "strip = true\n",
+        "strip = false\n",
         name, name);
     write_file("Neo.toml", text);
 }
